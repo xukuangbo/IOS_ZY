@@ -9,21 +9,27 @@
 #import "ZYFaqiLiveViewController.h"
 #import <RACEXTScope.h>
 #import <Masonry.h>
-//#import "ZYZCLiveController.h"
 #import <QPLive/QPLive.h>
-#import "ZYLiveViewController.h"
+//#import "ZYZCLiveController.h"
+//#import "ZYLiveViewController.h"
+#import "ZYDoLiveVC.h"
 #import "ZYCustomIconView.h"
 #import <ReactiveCocoa.h>
 #import "JudgeAuthorityTool.h"
 #import "ZYZCAccountTool.h"
+#import "UIView+ZYLayer.h"
+#import "MBProgressHUD+MJ.h"
 
-@interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 /** 封面 */
 @property (nonatomic, strong) ZYCustomIconView *faceImg;
 /** 修改封面 */
 @property (nonatomic, strong) UIButton *changeFaceImg;
 /** 标题 */
 @property (nonatomic, strong) UITextField *titleTextfield;
+
+/** 上传图片的url */
+@property (nonatomic, copy) NSString *uploadImgString;
 
 /** 开始直播 */
 @property (nonatomic, strong) UIButton *startLiveBtn;
@@ -52,7 +58,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    //配置背景
     [self configUI];
     //请求头像
     [self requestPersonData];
@@ -71,20 +77,25 @@
         make.edges.equalTo(self.view);
     }];
     _bgImageView.userInteractionEnabled = YES;
+    _bgImageView.image = [UIImage imageNamed:@"faqi_Live_Bg"];
+    
     
     //封面
     _faceImg = [ZYCustomIconView new];
+    _faceImg.clipsToBounds = YES;
     [_bgImageView addSubview:_faceImg];
     [_faceImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
         make.centerY.mas_equalTo(_bgImageView.mas_centerY);
         //        make.centerX.mas_equalTo(self.view.mas_centerX);
         make.left.mas_equalTo(25);
-        make.size.mas_equalTo(CGSizeMake(100, 100));
+        make.size.mas_equalTo(CGSizeMake(130, 130));
         
     }];
+    _faceImg.layerCornerRadius = 5;
     ZYZCAccountModel *account = [ZYZCAccountTool account];
     [_faceImg sd_setImageWithURL:[NSURL URLWithString:account.headimgurl] placeholderImage:nil options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
+    [_faceImg addTarget:self action:@selector(changeFaceImgAction)];
     
     //修改封面
     _changeFaceImg = [UIButton new];
@@ -93,47 +104,60 @@
         make.centerX.mas_equalTo(_faceImg.mas_centerX);
         make.top.mas_equalTo(_faceImg.mas_bottom).offset(KEDGE_DISTANCE);
         make.height.mas_equalTo(20);
+        make.width.mas_equalTo(_faceImg.mas_width);
     }];
     [_changeFaceImg setTitle:@"修改封面" forState:UIControlStateNormal];
     [_changeFaceImg setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
-    [_changeFaceImg addTarget:self action:@selector(changeFaceImgAction) forControlEvents:UIControlEventTouchUpInside];
     
-
-    //标题,暂时用个label,后面用textfield,待定
+    //标题,暂时用个label,后面用textfield
     _titleTextfield = [UITextField new];
     [_bgImageView addSubview:_titleTextfield];
     [_titleTextfield mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(_faceImg.mas_right).offset(KEDGE_DISTANCE);
         make.centerY.mas_equalTo(_faceImg.mas_centerY);
-        make.height.mas_equalTo(20);
-        make.right.mas_equalTo(_bgImageView.mas_right);
+        make.height.mas_equalTo(25);
+        make.right.mas_equalTo(_bgImageView.mas_right).offset(-KEDGE_DISTANCE);
     }];
-    _titleTextfield.placeholder = @"请输入标题";
+    _titleTextfield.backgroundColor = [UIColor clearColor];
+    _titleTextfield.layerCornerRadius = 5;
+    _titleTextfield.delegate = self;
+    // 创建一个富文本对象
+    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
+    // 设置富文本对象的颜色
+    attributes[NSForegroundColorAttributeName] = [UIColor ZYZC_TextGrayColor];
+    // 设置UITextField的占位文字
+    _titleTextfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入标题" attributes:attributes];
+    
     
     //开始直播
     _startLiveBtn = [UIButton new];
     [_bgImageView addSubview:_startLiveBtn];
     [_startLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(_bgImageView.mas_centerX);
-        make.top.mas_equalTo(_titleTextfield.mas_bottom).offset(20);
+        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-50);
         make.height.mas_equalTo(50);
         make.left.mas_equalTo(30);
         make.right.mas_equalTo(-30);
     }];
+    _startLiveBtn.multipleTouchEnabled = NO;
+    _startLiveBtn.backgroundColor = [UIColor whiteColor];
+    _startLiveBtn.layerBorderColor = [UIColor ZYZC_TextGrayColor];
+    _startLiveBtn.layerBorderWidth = 1;
     _startLiveBtn.layer.cornerRadius = 24;
     _startLiveBtn.layer.masksToBounds = YES;
     [_startLiveBtn setTitle:@"开启直播" forState:UIControlStateNormal];
+    [_startLiveBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
     [_startLiveBtn addTarget:self action:@selector(startLive) forControlEvents:UIControlEventTouchUpInside];
     
     //退出按钮
     _exitButton = [UIButton new];
     [_bgImageView addSubview:_exitButton];
     [_exitButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(10);
-        make.right.mas_equalTo(_bgImageView.mas_right).offset(-10);
+        make.top.mas_equalTo(KStatus_Height + KEDGE_DISTANCE);
+        make.right.mas_equalTo(_bgImageView.mas_right).offset(-KStatus_Height);
         make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
-    [_exitButton setImage:[UIImage imageNamed:@"live-quit"] forState:UIControlStateNormal];
+    [_exitButton setImage:[UIImage imageNamed:@"live-start-quite"] forState:UIControlStateNormal];
     [_exitButton addTarget:self action:@selector(exitAction) forControlEvents:UIControlEventTouchUpInside];
 }
 
@@ -150,7 +174,7 @@
 {
     _imagePicker = [[UIImagePickerController alloc] init];
     _imagePicker.delegate = self;
-    _imagePicker.allowsEditing = YES;
+    //    _imagePicker.allowsEditing = YES;
     
     WEAKSELF
     //创建UIAlertController控制器
@@ -193,35 +217,89 @@
 
 - (void)startLive
 {
+    //先上传图片,再请求趣拍创建直播,成功后再请求我们的服务器创建直播
+    WEAKSELF
+    [_faceImg uploadImageToOSS:_faceImg.image andResult:^(BOOL result, NSString *imgUrl) {
+        if (result == YES) {//成功
+            
+            weakSelf.uploadImgString = imgUrl;
+            //请求直播
+            [weakSelf requestLive];
+            
+        }else{
+            //展示出上传失败
+            [MBProgressHUD showMessage:@"上传图片失败" toView:weakSelf.view];
+            //延时1秒后删掉
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
+            });
+        }
+    }];
+    
+}
+
+//请求直播
+- (void)requestLive
+{
     QPLiveRequest *request = [[QPLiveRequest alloc] init];
-    @weakify(self);
+    WEAKSELF
     [request requestCreateLiveWithDomain:@"http://zhongyoulive.s.qupai.me" success:^(NSString *pushUrl, NSString *pullUrl) {
-        @strongify(self);
-        self.pushUrl = pushUrl;
-        self.pullUrl = pullUrl;
+        
+        weakSelf.pushUrl = pushUrl;
+        weakSelf.pullUrl = pullUrl;
         NSLog(@"create live success");
         NSLog(@"pushUrl : %@", pushUrl);
         NSLog(@"pullUrl : %@", pullUrl);
         
-        ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] init];
-        liveVC.pushUrl = pushUrl;
-        liveVC.pullUrl = pullUrl;
+        //请求我们的服务器创建直播
+        [weakSelf createLiveDataWithPushUrl:pushUrl pullUrl:pullUrl];
         
-        
-        liveVC.conversationType = ConversationType_CHATROOM;
-        liveVC.targetId = @"32";
-//        liveVC.contentURL = videoUrl;
-//        liveVC.isScreenVertical = _isScreenVertical;
-//         *liveVC = [[ZYZCLiveController alloc] init];
-//        liveVC.pushUrl = pushUrl;
-//        liveVC.pullUrl = pullUrl;
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.navigationController pushViewController:liveVC animated:YES];
-        });
     } failure:^(NSError *error) {
+        
         NSLog(@"create live failed %@", error);
+        
     }];
+}
+
+#pragma mark ---创建服务器直播
+- (void)createLiveDataWithPushUrl:(NSString *)pushUrl pullUrl:(NSString *)pullUrl
+{
+    
+    WEAKSELF
+    NSString *url = Post_Create_Live;
+    NSString *chatRoomId = [NSString stringWithFormat:@"chatRoomeId%@",[ZYZCAccountTool getUserId]];
+    NSDictionary *parameters = @{
+                                 @"img" : weakSelf.uploadImgString,
+                                 @"title" : weakSelf.titleTextfield.text,
+                                 @"pullUrl" : pullUrl,
+                                 @"chatRoomId" : chatRoomId
+                                 };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            
+            ZYDoLiveVC *liveVC = [[ZYDoLiveVC alloc] init];
+            liveVC.pushUrl = pushUrl;
+            liveVC.conversationType = ConversationType_CHATROOM;
+            //            liveVC.targetId = @"32";
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                [weakSelf presentViewController:liveVC animated:NO completion:nil];
+                
+                //                [weakSelf dismissViewControllerAnimated:NO completion:nil];
+            });
+            
+        }else{
+            
+        }
+    } andFailBlock:^(id failResult) {
+        
+    }];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
 }
 #pragma mark ---exit
 - (void)exitAction
@@ -235,5 +313,15 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0)
 {
     self.faceImg.image = image;
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark ---UITextfieldDelegete
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField endEditing:YES];
+    
+    return YES;
 }
 @end

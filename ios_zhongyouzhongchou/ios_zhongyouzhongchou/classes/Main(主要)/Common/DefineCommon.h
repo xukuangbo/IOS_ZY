@@ -72,6 +72,7 @@
 #define KTABBAR_HEIGHT 49
 //导航栏高度
 #define KNAV_HEIGHT 64
+#define KStatus_Height 20
 //状态栏＋导航栏高度
 #define KNAV_STATUS_HEIGHT 64
 //展示16:10图片的高度
