@@ -1,0 +1,184 @@
+/* 
+  Localizable.strings
+  ios_zhongyouzhongchou
+
+  Created by liuliang on 16/5/3.
+  Copyright © 2016年 liuliang. All rights reserved.
+*/
+
+
+/**
+ *  支持规则
+ */
+"support_one_yuan" = "如果众筹失败，所获得旅费将全额退返给支持者。";
+
+"supoort_any_yuan" = "如果众筹失败，所获得旅费将全额退返给支持者。";
+
+"support_return"   = "如果众筹失败，所获得旅费将全额退返给支持者。";
+
+"support_together" = "选择你期望的旅伴人数，如果有人想和你一起旅行，需要先支持你对应比例的旅费，你可以从报名者中选择合拍的旅伴一起旅行。被选中的旅伴需要按实际花费承担自己的旅行费用。没有被你选中的报名者，他们支持你的旅费会全额退返。如果众筹失败，所有报名者支持的旅费都会全额退返。";
+
+//浏览用户版
+"skim_support_one_yuan" = "可以多次支持，每支持1次，发起人会获得5元旅费。如果众筹失败，你支持的旅费会全额退返给你。";
+
+"skim_supoort_any_yuan" = "可多次支持，每支持1元，发起人会获得1元旅费。如果众筹失败，你支持的旅费会全额退返给你。";
+
+"skim_support_return"   = "支持旅费将获得发起人为你精心准备的独特回报。如果众筹失败，你支持的旅费会全额退返给你。";
+
+"skim_support_together" = "如果你对这次旅游行程感兴趣，你可以报名和发起人一起旅行。你需要先支持发起人设定的旅费，并按实际花费承担自己的旅行费用。如果你没有被发起人选择一起旅行，你支持的旅费会全额退返给你。如果众筹失败，所有报名者支持的旅费都会全额退返。";
+
+
+/**
+ *  Defaults
+ */
+
+"default_location"="杭州";
+
+/**
+ *  myZC_noneData
+ */
+"none_my_publish_01"  = "目前没有你发起的行程";
+"none_my_publish_02"  = "赶快发起一个吧~";
+"none_my_join_01"     = "目前没有你参与的行程";
+"none_my_join_02"     = "赶快参与一个吧~";
+"none_my_recommend_01"= "目前没有你推荐的行程";
+"none_my_recommend_02"= "赶快推荐一个吧~";
+
+/**
+ *  没有更多数据
+ */
+
+"none_data"           ="没有更多数据了";
+
+
+/**
+ * Error
+ */
+
+"fail_login_weixin"="登录失败，取消登陆";
+"error_no_dest"="请添加旅行目的地";
+"error_no_productEndTime"="请添加众筹截止时间";
+"error_no_travelTime"="请添加旅行时间";
+"error_no_travel_theme"="请添加旅行主题名";
+"error_no_travel_image"="请添加目的地主题封面";
+"error_no_spell_buy_price"="请添加预筹旅费金额";
+"error_no_travelDesc"="请添加众筹目的描述";
+"error_no_travelSchedule"="请添加行程安排";
+"error_no_togetherTravel_money_rate"="请添加一起游支持金额百分比";
+"error_no_return1"="请完善回报众筹内容";
+"error_no_return2"="请完善回报众筹2内容";
+
+"error_no_startTime"="请选择出发时间";
+"error_no_endTime"  ="请选择返回时间";
+"error_no_startChoose_time"="时间有冲突！请重新选择出发时间";
+"error_no_endChoose_time"="时间有冲突！请重新选择返回时间";
+"error_noChoose_endProductTime"="时间有冲突！请重新选择";
+"error_no_chooseTime"="该日期不可选!";
+"error_choose_after_StartTime"="不可选,时间大于旅行开始时间";
+
+"error_no_spot"="没有找到匹配的目的地";
+
+/**
+ *  想去目的地
+ */
+"wantGo_success" = "标记想去成功";
+"wantGo" = "想去";
+"isWantGo" = "已关注";
+/**
+ *  评论结果
+ */
+"comment_fail"="网络错误,评论失败";
+"comment_success" ="评论成功";
+
+/**
+ *  收藏
+ */
+"collection_success"="已添加推荐";
+"collection_fail"="已取消推荐";
+
+"add_spot_success"="标记想去成功";
+"add_spot_fail"="标记失败";
+
+"del_spot_success"="成功取关目的地";
+"del_spot_fail"="取关失败";
+
+/**
+ *  个人中心界面
+ */
+"login_action" = "请登录后操作";
+/**
+ *  收货地址
+ */
+"place_name" = "请输入姓名";
+"place_phone" = "请输入电话号码";
+"place_place" = "请输入地区";
+"place_detail_place" = "请输入地址";
+
+/**
+ *  攻略首页标签标题
+ */
+"tactic_video_title" = "视频攻略";
+"tactic_video_detailTitle" = "3分钟了解旅行目的地核心信息";
+"tactic_country_title" = "热门国家";
+"country_detail_title" = "中国人出境游去的最多的地方";
+"tactic_dest_title" = "热门目的地";
+
+/**
+ *  婚姻状况
+ */
+"maritalStatus_0"="单身";
+"maritalStatus_1"="恋爱中";
+"maritalStatus_2"="已婚";
+
+/**
+ *  评价
+ */
+"loss_first_star"="星级评价未完成";
+"loss_second_star"="\"旅行安排\"未评价";
+"loss_third_star"="\"时间观念\"未评价";
+"loss_content"="文字描述未填写";
+
+
+//"hasFZC_Error_name" = "已发过众筹的亲姓名不能为空哦";
+//"hasFZC_Error_Sex" = "已发过众筹的亲性别不能为空哦";
+//"hasFZC_Error_Birth" = "已发过众筹的亲生日不能为空哦";
+//"hasFZC_Error_GanqingZhuangKuang" = "已发过众筹的亲感情不能为空哦";
+//"hasFZC_Error_Height" = "已发过众筹的亲身高不能为空哦";
+//"hasFZC_Error_Weight" = "已发过众筹的亲体重不能为空哦";
+//"hasFZC_Error_Company" = "已发过众筹的亲公司不能为空哦";
+//"hasFZC_Error_Title" = "已发过众筹的亲职业不能为空哦";
+//"hasFZC_Error_School" = "已发过众筹的亲学校不能为空哦";
+//"hasFZC_Error_Department" = "已发过众筹的亲专业不能为空哦";
+//"hasFZC_Error_Place" = "已发过众筹的亲地址不能为空哦";
+//"hasFZC_Error_Email" = "已发过众筹的亲邮箱不能为空哦";
+//"hasFZC_Error_QQ" = "已发过众筹的亲QQ不能为空哦";
+//"hasFZC_Error_Tag" = "已发过众筹的亲标签不能为空哦";
+"hasFZC_Error_FZC" = "需填写所有必填项才可发众筹";
+
+"hasSet_Error_icon" = "个人信息设置头像不能为空哦";
+"hasSet_Error_name" = "个人信息设置姓名不能为空哦";
+"hasSet_Error_Sex" = "个人信息设置性别不能为空哦";
+"hasSet_Error_Title" = "个人信息设置职业不能为空哦";
+
+
+
+/**
+ *  支持的项目已截止
+ */
+"not_support_width_product_end_time" = "项目众筹已截止,不可支持";
+
+
+/**
+ *  网络断开连接
+ */
+"no_netwrk"       = "似乎与网络断开了连接";
+
+"no_service"      = "似乎与服务器断开了连接";
+
+"unusual_service" = "服务器异常,请求失败";
+
+"unkonwn_error"   = "网络错误，请求失败";
+
+
+
+
