@@ -328,7 +328,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self registerNotification];
     self.defaultHistoryMessageCountOfChatRoom = 10;
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
-    
 }
 
 - (void)getIntoLive:(NSString *)liveUrlString
@@ -352,6 +351,40 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - event
+-(void)showInputBar:(id)sender{
+    self.inputBar.hidden = NO;
+    [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];
+}
+
+/**
+ *  发送鲜花
+ *
+ *  @param sender sender description
+ */
+-(void)flowerButtonPressed:(UIButton *)sender{
+    sender.selected = !sender.selected;
+    if (sender.selected) {
+        [self.player stop];
+    } else {
+        [self.player play];
+    }
+    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
+    giftMessage.type = @"0";
+    [self sendMessage:giftMessage pushContent:@""];
+}
+
+/**
+ *  发送掌声
+ *
+ *  @param sender
+ */
+-(void)clapButtonPressed:(id)sender{
+    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
+    giftMessage.type = @"1";
+    [self sendMessage:giftMessage pushContent:@""];
+    [self praiseHeart];
+}
+
 - (void)praiseHeart{
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(_clapBtn.frame.origin.x , _clapBtn.frame.origin.y - 49, 35, 35);
@@ -548,36 +581,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                                        atScrollPosition:UICollectionViewScrollPositionTop
                                                                animated:NO];
     }
-}
-
-
--(void)showInputBar:(id)sender{
-    self.inputBar.hidden = NO;
-    [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];
-}
-
-/**
- *  发送鲜花
- *
- *  @param sender sender description
- */
--(void)flowerButtonPressed:(id)sender{
-    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
-    giftMessage.type = @"0";
-    [self sendMessage:giftMessage pushContent:@""];
-    
-}
-
-/**
- *  发送掌声
- *
- *  @param sender <#sender description#>
- */
--(void)clapButtonPressed:(id)sender{
-    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
-    giftMessage.type = @"1";
-    [self sendMessage:giftMessage pushContent:@""];
-    [self praiseHeart];
 }
 
 - (void)onAnimationComplete:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{
