@@ -39,4 +39,6 @@
 @property (nonatomic, copy) NSString *spaceName;
 /**拉流地址 */
 @property (nonatomic, copy) NSString *pullUrl;
+/** 直播列表 */
+@property (nonatomic, copy) NSString *chatRoomId;
 @end

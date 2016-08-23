@@ -393,6 +393,8 @@
 		395B5A991D2699AB0084264C /* UploadVoucherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B5A981D2699AB0084264C /* UploadVoucherVC.m */; };
 		395B5A9C1D27AC660084264C /* CustomImagemapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B5A9B1D27AC660084264C /* CustomImagemapView.m */; };
 		395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B88DA1D323C40001FF5DB /* AboutUsVC.m */; };
+		3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */; };
+		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
 		39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */; };
 		39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D061D58762E00CB9EE3 /* TacticMainCountryCell.m */; };
 		39809D141D58762E00CB9EE3 /* TacticMainHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D0B1D58762E00CB9EE3 /* TacticMainHeadCell.m */; };
@@ -1199,6 +1201,10 @@
 		395B5A9B1D27AC660084264C /* CustomImagemapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImagemapView.m; sourceTree = "<group>"; };
 		395B88D91D323C40001FF5DB /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
 		395B88DA1D323C40001FF5DB /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
+		3967ADB21D6C29BD008A7F81 /* ZYDoLiveVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDoLiveVC.h; sourceTree = "<group>"; };
+		3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDoLiveVC.m; sourceTree = "<group>"; };
+		3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionView.h; sourceTree = "<group>"; };
+		3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionView.m; sourceTree = "<group>"; };
 		39809D021D58762E00CB9EE3 /* TacticBaseCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticBaseCustomView.h; sourceTree = "<group>"; };
 		39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticBaseCustomView.m; sourceTree = "<group>"; };
 		39809D051D58762E00CB9EE3 /* TacticMainCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMainCountryCell.h; sourceTree = "<group>"; };
@@ -3149,6 +3155,8 @@
 				392AB2551D669C26003FEDB7 /* ZYLiveViewController.m */,
 				392AB2561D669C26003FEDB7 /* ZYZCLiveController.h */,
 				392AB2571D669C26003FEDB7 /* ZYZCLiveController.m */,
+				3967ADB21D6C29BD008A7F81 /* ZYDoLiveVC.h */,
+				3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3156,6 +3164,7 @@
 		392AB2581D669C26003FEDB7 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				3967ADB51D6C2AFD008A7F81 /* LiveFunctionView(功能键) */,
 				392AB2591D669C26003FEDB7 /* EmojiView */,
 				392AB25E1D669C26003FEDB7 /* InputBar */,
 				392AB2631D669C26003FEDB7 /* RCDLiveAttributedLabel.h */,
@@ -3485,6 +3494,15 @@
 				395B5A9B1D27AC660084264C /* CustomImagemapView.m */,
 			);
 			path = Upload;
+			sourceTree = "<group>";
+		};
+		3967ADB51D6C2AFD008A7F81 /* LiveFunctionView(功能键) */ = {
+			isa = PBXGroup;
+			children = (
+				3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */,
+				3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */,
+			);
+			path = "LiveFunctionView(功能键)";
 			sourceTree = "<group>";
 		};
 		39809CFF1D58762E00CB9EE3 /* advertise(广告) */ = {
@@ -4081,6 +4099,7 @@
 				04A99D1D1CC07E1800C6F5F0 /* WXApiManager.m in Sources */,
 				2C3777F81D07EEA4004FDA9D /* ZCMainViewController.m in Sources */,
 				04B99A711CFFC12200E3C33A /* TacticCountryHeadView.m in Sources */,
+				3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */,
 				2C8B19801D0CF7EC0063097B /* XMNPhotoPickerController.m in Sources */,
 				39911AC91D504174007DF44B /* UIColor+ZYZCColors.m in Sources */,
 				2CA172061D0122030033A91A /* PersonHeadView.m in Sources */,
@@ -4278,6 +4297,7 @@
 				2CE617751D657DD100962163 /* HUPhotoHelper.m in Sources */,
 				2CF6832A1D2383D300447349 /* ComplainViewController.m in Sources */,
 				04A99CEE1CBF851500C6F5F0 /* UIView+CustomFrame.m in Sources */,
+				3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */,
 				2CF305101D3DC716008296EC /* JudgeAuthorityTool.m in Sources */,
 				0432ADB01D096B89005D789E /* STPickerDate.m in Sources */,
 				395B5A991D2699AB0084264C /* UploadVoucherVC.m in Sources */,
