@@ -21,7 +21,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 #import "ZYZCEditYoujiController.h"
-#import "ZYZCLiveStartController.h"
+//#import "ZYZCLiveStartController.h"
+#import "ZYFaqiLiveViewController.h"
 #import "ZYShortVideoController.h"
 
 #import "ZFWeiboButton.h"
@@ -218,7 +219,8 @@
 #pragma mark --- 直播
 -(void)enterLive
 {
-    ZYZCLiveStartController *liveController=[[ZYZCLiveStartController alloc]init];
+//    ZYZCLiveStartController *liveController=[[ZYZCLiveStartController alloc]init];
+    ZYFaqiLiveViewController *liveController=[[ZYFaqiLiveViewController alloc]init];
     liveController.hidesBottomBarWhenPushed=YES;
     [self.selectedViewController pushViewController:liveController animated:YES];
 }

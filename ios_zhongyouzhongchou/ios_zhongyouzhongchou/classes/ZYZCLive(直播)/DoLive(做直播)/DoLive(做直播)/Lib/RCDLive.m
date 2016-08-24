@@ -15,7 +15,7 @@
 #import <RongIMLib/RongIMLib.h>
 
 //如果您的APP中只使用融云的底层通讯库 IMLib ，请把IsUseRongCloudIMKit 设置成 0，如果使用 IMKit 请设置成 1
-//#define IsUseRongCloudIMKit 1
+#define IsUseRongCloudIMKit 1
 
 NSString *const RCDLiveKitDispatchMessageNotification = @"RCDLiveKitDispatchMessageNotification";
 NSString *const RCDLiveKitDispatchTypingMessageNotification = @"RCDLiveKitDispatchTypingMessageNotification";

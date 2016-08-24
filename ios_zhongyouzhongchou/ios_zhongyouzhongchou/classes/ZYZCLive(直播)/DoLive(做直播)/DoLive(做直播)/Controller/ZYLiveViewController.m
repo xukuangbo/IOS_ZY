@@ -450,11 +450,25 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)dealloc {
     [self quitConversationViewAndClear];
 }
-
+#pragma mark - 退出
 #pragma mark ---点击返回的时候消耗播放器和退出聊天室
 
 - (void)leftBarButtonItemPressed:(id)sender {
+    
+    [self destroySession];
+    
+    [_timer invalidate];
+    _timer = nil;
     [self quitConversationViewAndClear];
+}
+
+#pragma mark --- 关闭直播
+- (void)destroySession{
+    
+    [_liveSession disconnectServer];
+    [_liveSession stopPreview];
+    [_liveSession.previewView removeFromSuperview];
+    _liveSession = nil;
 }
 
 // 清理环境（退出讨论组、移除监听等）
@@ -470,7 +484,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                                 [[NSNotificationCenter defaultCenter] removeObserver:self];
                                                 [[RCIMClient sharedRCIMClient]disconnect];
                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                    [self.navigationController popViewControllerAnimated:YES];
+//                                                    [self.navigationController popViewControllerAnimated:YES];
+                                                    [self dismissViewControllerAnimated:YES completion:nil];
                                                 });
                                                 
                                             } error:^(RCErrorCode status) {
