@@ -66,7 +66,7 @@
     
     //图片负载框
     _imgView = [[UIView alloc]initWithFrame:CGRectMake(_textView.left, _textView.bottom+5, _textView.width, _imgView_width)];
-    _imgView.backgroundColor=[UIColor orangeColor];
+//    _imgView.backgroundColor=[UIColor orangeColor];
     [self addSubview:_imgView];
     
     //添加按钮
@@ -79,6 +79,39 @@
     _beforeNumber=0;
     _maxImgNumber=3;
     _imgModelArr=[NSMutableArray array];
+}
+
+-(void)getDataManagerImgUrl
+{
+    MoreFZCDataManager *manager= [MoreFZCDataManager sharedMoreFZCDataManager];
+    //筹旅费图片
+    if([self.contentBelong isEqualToString:RAISEMONEY_CONTENTBELONG])
+    {
+        self.imageUrlStr=manager.raiseMoney_imgUrlStr;
+    }
+    //回报1图片
+    else if ([self.contentBelong isEqualToString:RETURN_01_CONTENTBELONG])
+    {
+        self.imageUrlStr=manager.return_imgUrlStr;
+    }
+    //回报2文字描述
+    else if ([self.contentBelong isEqualToString:RETURN_02_CONTENTBELONG])
+    {
+        self.imageUrlStr=manager.return_imgUrlStr01;
+    }
+    //一起游文字描述
+    else if ([self.contentBelong isEqualToString:TOGTHER_CONTENTBELONG])
+    {
+        self.imageUrlStr=manager.return_togtherImgUrlStr;
+    }
+    //行程文字描述
+    for (int i=0; i<manager.travelDetailDays.count; i++) {
+        if ([self.contentBelong isEqualToString:TRAVEL_CONTENTBELONG(i+1)]) {
+            MoreFZCTravelOneDayDetailMdel *model=manager.travelDetailDays[i];
+            self.imageUrlStr=model.imgUrlStr;
+            break;
+        }
+    }
 }
 
 #pragma mark --- 已存在图片
@@ -354,6 +387,12 @@
 {
     _hiddenPlaceHolder=hiddenPlaceHolder;
     self.placeHolderLab.hidden=hiddenPlaceHolder;
+}
+
+-(void)setContentBelong:(NSString *)contentBelong
+{
+    [super setContentBelong:contentBelong];
+    [self getDataManagerImgUrl];
 }
 
 @end

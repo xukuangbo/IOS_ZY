@@ -59,6 +59,11 @@
     if (_detailProductType!=SkimDetailProduct) {
         [self getHttpData];
     }
+    
+    if (_detailProductType==SkimDetailProduct) {
+        self.productDest=_oneModel.product.productDest;
+    }
+
 }
 
 #pragma mark --- 返回控制器
@@ -91,7 +96,6 @@
      [self.view addSubview:_table];
     _table.height=(_detailProductType==SkimDetailProduct||_detailProductType==DraftDetailProduct)?KSCREEN_H-KEDGE_DISTANCE:KSCREEN_H-KTABBAR_HEIGHT;
     _table.detailProductType=_detailProductType;
-//    _table.productDest=_oneModel.product.productDest;
     _table.productId  =_productId;
     _table.oneModel   =_oneModel;
     

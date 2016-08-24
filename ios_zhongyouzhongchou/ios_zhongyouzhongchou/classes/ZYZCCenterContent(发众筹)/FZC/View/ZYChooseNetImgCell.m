@@ -36,7 +36,7 @@
 -(void)setImageModel:(ZYImageModel *)imageModel
 {
     _imageModel=imageModel;
-     [_imgView sd_setImageWithURL:[NSURL URLWithString:imageModel.imgMin]  placeholderImage:[UIImage imageNamed:@"icon_placeholder"] options:SDWebImageRetryFailed | SDWebImageLowPriority];
+    [_imgView sd_setImageWithURL:[NSURL URLWithString:imageModel.imgMin]  placeholderImage:[UIImage imageNamed:@"image_placeholder"] options:SDWebImageRetryFailed | SDWebImageLowPriority];
     _imgView.hiddenMark=imageModel.markHidden;
 }
 

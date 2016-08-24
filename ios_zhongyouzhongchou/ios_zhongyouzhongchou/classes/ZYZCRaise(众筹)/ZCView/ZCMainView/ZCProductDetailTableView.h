@@ -29,7 +29,7 @@
 
 @property (nonatomic, copy  ) NSString      *productDest;  //旅行目的地
 
-@property (nonatomic, strong) NSArray  *viewSpots;    //目的地数组
+@property (nonatomic, strong) NSArray       *viewSpots;    //目的地数组
 
 @property (nonatomic, strong) NSMutableArray  *spotVideos;   //目的地视屏数组
 
