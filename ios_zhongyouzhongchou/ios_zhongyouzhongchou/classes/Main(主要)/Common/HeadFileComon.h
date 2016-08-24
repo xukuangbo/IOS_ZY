@@ -39,4 +39,9 @@
 #import "ZYZCAccountTool.h"
 
 
+#import <QPSDKCore/QPSDKCore.h>
+
+#include "QPPrefixHead.h"
+
+
 #endif /* HeadFileComon_h */

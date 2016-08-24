@@ -103,7 +103,6 @@
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
 		2C0101B71D5DC4C700D6470D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */; };
 		2C0101B91D5DC4E100D6470D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B81D5DC4E100D6470D /* libstdc++.tbd */; };
-		2C0101BB1D5DC72F00D6470D /* QPLive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101BA1D5DC72F00D6470D /* QPLive.framework */; };
 		2C0101CC1D5DF48E00D6470D /* ZFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0101C71D5DF48E00D6470D /* ZFButton.m */; };
 		2C0101CD1D5DF48E00D6470D /* ZFIssueWeiboView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0101C91D5DF48E00D6470D /* ZFIssueWeiboView.m */; };
 		2C0101CE1D5DF48E00D6470D /* ZFWeiboButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0101CB1D5DF48E00D6470D /* ZFWeiboButton.m */; };
@@ -303,6 +302,57 @@
 		2CD2092A1D6D3E27005EB62E /* ZCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD208FB1D6D3E27005EB62E /* ZCMainViewController.m */; };
 		2CD2092B1D6D3E27005EB62E /* ZCProductDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD208FD1D6D3E27005EB62E /* ZCProductDetailController.m */; };
 		2CD2092C1D6D3E27005EB62E /* ZCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD208FF1D6D3E27005EB62E /* ZCWebViewController.m */; };
+		2CD209321D6D4B32005EB62E /* QPSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD209311D6D4B32005EB62E /* QPSDKCore.framework */; };
+		2CD209341D6D4B98005EB62E /* QPPhotoMovie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD209331D6D4B98005EB62E /* QPPhotoMovie.framework */; };
+		2CD209A01D6D4BA6005EB62E /* audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CD209371D6D4BA6005EB62E /* audio.mp3 */; };
+		2CD209A11D6D4BA6005EB62E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD209381D6D4BA6005EB62E /* icon.png */; };
+		2CD209A21D6D4BA6005EB62E /* QPBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2093B1D6D4BA6005EB62E /* QPBundle.m */; };
+		2CD209A31D6D4BA6005EB62E /* QPImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2093D1D6D4BA6005EB62E /* QPImage.m */; };
+		2CD209A41D6D4BA6005EB62E /* QPLocalization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2093F1D6D4BA6005EB62E /* QPLocalization.m */; };
+		2CD209A51D6D4BA6005EB62E /* QPString.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209411D6D4BA6005EB62E /* QPString.m */; };
+		2CD209A61D6D4BA6005EB62E /* QPCutBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209441D6D4BA6005EB62E /* QPCutBarView.m */; };
+		2CD209A71D6D4BA6005EB62E /* QPCutCenterProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209461D6D4BA6005EB62E /* QPCutCenterProgressView.m */; };
+		2CD209A81D6D4BA6005EB62E /* QPCutInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209481D6D4BA6005EB62E /* QPCutInfo.m */; };
+		2CD209A91D6D4BA6005EB62E /* QPCutThumbnailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2094A1D6D4BA6005EB62E /* QPCutThumbnailCell.m */; };
+		2CD209AA1D6D4BA6005EB62E /* QPCutView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2094C1D6D4BA6005EB62E /* QPCutView.m */; };
+		2CD209AB1D6D4BA6005EB62E /* QPCutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2094E1D6D4BA6005EB62E /* QPCutViewController.m */; };
+		2CD209AC1D6D4BA6005EB62E /* QPEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209511D6D4BA6005EB62E /* QPEffect.m */; };
+		2CD209AD1D6D4BA6005EB62E /* QPEffectFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209531D6D4BA6005EB62E /* QPEffectFilter.m */; };
+		2CD209AE1D6D4BA6005EB62E /* QPEffectLoadMoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209551D6D4BA6005EB62E /* QPEffectLoadMoreCell.m */; };
+		2CD209AF1D6D4BA6005EB62E /* QPEffectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209571D6D4BA6005EB62E /* QPEffectManager.m */; };
+		2CD209B01D6D4BA6005EB62E /* QPEffectMusic.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209591D6D4BA6005EB62E /* QPEffectMusic.m */; };
+		2CD209B11D6D4BA6005EB62E /* QPEffectTabView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2095B1D6D4BA6005EB62E /* QPEffectTabView.m */; };
+		2CD209B21D6D4BA6005EB62E /* QPEffectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2095D1D6D4BA6005EB62E /* QPEffectView.m */; };
+		2CD209B31D6D4BA6005EB62E /* QPEffectViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2095F1D6D4BA6005EB62E /* QPEffectViewCell.m */; };
+		2CD209B41D6D4BA6005EB62E /* QPEffectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209611D6D4BA6005EB62E /* QPEffectViewController.m */; };
+		2CD209B51D6D4BA6005EB62E /* QPDeviceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209641D6D4BA6005EB62E /* QPDeviceManager.m */; };
+		2CD209B61D6D4BA6005EB62E /* QPEventManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209661D6D4BA6005EB62E /* QPEventManager.m */; };
+		2CD209B71D6D4BA6005EB62E /* QPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209681D6D4BA6005EB62E /* QPReachability.m */; };
+		2CD209B81D6D4BA6005EB62E /* QPLibrarayItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2096B1D6D4BA6005EB62E /* QPLibrarayItem.m */; };
+		2CD209B91D6D4BA6005EB62E /* QPPickerLibraray.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2096D1D6D4BA6005EB62E /* QPPickerLibraray.m */; };
+		2CD209BA1D6D4BA6005EB62E /* QPPickerPreviewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2096F1D6D4BA6005EB62E /* QPPickerPreviewCell.m */; };
+		2CD209BB1D6D4BA6005EB62E /* QPPickerPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209711D6D4BA6005EB62E /* QPPickerPreviewView.m */; };
+		2CD209BC1D6D4BA6005EB62E /* QPPickerPreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209731D6D4BA6005EB62E /* QPPickerPreviewViewController.m */; };
+		2CD209BD1D6D4BA6005EB62E /* NSData+QPMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209761D6D4BA6005EB62E /* NSData+QPMD5.m */; };
+		2CD209BE1D6D4BA6005EB62E /* QPProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209791D6D4BA6005EB62E /* QPProgressHUD.m */; };
+		2CD209BF1D6D4BA6005EB62E /* QupaiSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2097F1D6D4BA6005EB62E /* QupaiSDK.m */; };
+		2CD209C01D6D4BA6005EB62E /* QPCountDownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209821D6D4BA6005EB62E /* QPCountDownView.m */; };
+		2CD209C11D6D4BA6005EB62E /* QPFocusView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209841D6D4BA6005EB62E /* QPFocusView.m */; };
+		2CD209C21D6D4BA6005EB62E /* QPGuideFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209861D6D4BA6005EB62E /* QPGuideFactory.m */; };
+		2CD209C31D6D4BA6005EB62E /* QPLightProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209881D6D4BA6005EB62E /* QPLightProgress.m */; };
+		2CD209C41D6D4BA6005EB62E /* QPPointProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2098A1D6D4BA6005EB62E /* QPPointProgress.m */; };
+		2CD209C51D6D4BA6005EB62E /* QPRecordGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2098C1D6D4BA6005EB62E /* QPRecordGuideView.m */; };
+		2CD209C61D6D4BA6005EB62E /* QPRecordTipGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2098E1D6D4BA6005EB62E /* QPRecordTipGuideView.m */; };
+		2CD209C71D6D4BA6005EB62E /* QPRecordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209901D6D4BA6005EB62E /* QPRecordView.m */; };
+		2CD209C81D6D4BA6005EB62E /* QPRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209921D6D4BA6005EB62E /* QPRecordViewController.m */; };
+		2CD209C91D6D4BA6005EB62E /* QPBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209951D6D4BA6005EB62E /* QPBaseViewController.m */; };
+		2CD209CA1D6D4BA6005EB62E /* QPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209971D6D4BA6005EB62E /* QPNavigationController.m */; };
+		2CD209CB1D6D4BA6005EB62E /* QPSave.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209991D6D4BA6005EB62E /* QPSave.m */; };
+		2CD209CC1D6D4BA6005EB62E /* QPSDKConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2099B1D6D4BA6005EB62E /* QPSDKConfig.m */; };
+		2CD209CD1D6D4BA6005EB62E /* QPVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2099D1D6D4BA6005EB62E /* QPVideo.m */; };
+		2CD209CE1D6D4BA6005EB62E /* QPVideoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2099F1D6D4BA6005EB62E /* QPVideoPoint.m */; };
+		2CD209D01D6D4BFD005EB62E /* QPSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CD209CF1D6D4BFD005EB62E /* QPSDK.bundle */; };
+		2CD209D31D6D4E98005EB62E /* ZYShortVideoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD209D21D6D4E98005EB62E /* ZYShortVideoController.m */; };
 		2CD802841CF6DA3000823C9F /* LanguageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD802831CF6DA3000823C9F /* LanguageTool.m */; };
 		2CDC49F71CFD32FC00E7893C /* ZYZCConversationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC49F61CFD32FC00E7893C /* ZYZCConversationController.m */; };
 		2CDC49FA1CFD3B5900E7893C /* ZYZCRCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC49F91CFD3B5900E7893C /* ZYZCRCManager.m */; };
@@ -637,7 +687,6 @@
 		2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B81D5DC4E100D6470D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
-		2C0101BA1D5DC72F00D6470D /* QPLive.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPLive.framework; sourceTree = "<group>"; };
 		2C0101C61D5DF48E00D6470D /* ZFButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFButton.h; sourceTree = "<group>"; };
 		2C0101C71D5DF48E00D6470D /* ZFButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFButton.m; sourceTree = "<group>"; };
 		2C0101C81D5DF48E00D6470D /* ZFIssueWeiboView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFIssueWeiboView.h; sourceTree = "<group>"; };
@@ -1034,6 +1083,107 @@
 		2CD208FD1D6D3E27005EB62E /* ZCProductDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCProductDetailController.m; sourceTree = "<group>"; };
 		2CD208FE1D6D3E27005EB62E /* ZCWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCWebViewController.h; sourceTree = "<group>"; };
 		2CD208FF1D6D3E27005EB62E /* ZCWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCWebViewController.m; sourceTree = "<group>"; };
+		2CD209311D6D4B32005EB62E /* QPSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPSDKCore.framework; sourceTree = "<group>"; };
+		2CD209331D6D4B98005EB62E /* QPPhotoMovie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPPhotoMovie.framework; sourceTree = "<group>"; };
+		2CD209371D6D4BA6005EB62E /* audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio.mp3; sourceTree = "<group>"; };
+		2CD209381D6D4BA6005EB62E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		2CD2093A1D6D4BA6005EB62E /* QPBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPBundle.h; sourceTree = "<group>"; };
+		2CD2093B1D6D4BA6005EB62E /* QPBundle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPBundle.m; sourceTree = "<group>"; };
+		2CD2093C1D6D4BA6005EB62E /* QPImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPImage.h; sourceTree = "<group>"; };
+		2CD2093D1D6D4BA6005EB62E /* QPImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPImage.m; sourceTree = "<group>"; };
+		2CD2093E1D6D4BA6005EB62E /* QPLocalization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPLocalization.h; sourceTree = "<group>"; };
+		2CD2093F1D6D4BA6005EB62E /* QPLocalization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPLocalization.m; sourceTree = "<group>"; };
+		2CD209401D6D4BA6005EB62E /* QPString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPString.h; sourceTree = "<group>"; };
+		2CD209411D6D4BA6005EB62E /* QPString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPString.m; sourceTree = "<group>"; };
+		2CD209431D6D4BA6005EB62E /* QPCutBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPCutBarView.h; sourceTree = "<group>"; };
+		2CD209441D6D4BA6005EB62E /* QPCutBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCutBarView.m; sourceTree = "<group>"; };
+		2CD209451D6D4BA6005EB62E /* QPCutCenterProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPCutCenterProgressView.h; sourceTree = "<group>"; };
+		2CD209461D6D4BA6005EB62E /* QPCutCenterProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCutCenterProgressView.m; sourceTree = "<group>"; };
+		2CD209471D6D4BA6005EB62E /* QPCutInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPCutInfo.h; sourceTree = "<group>"; };
+		2CD209481D6D4BA6005EB62E /* QPCutInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCutInfo.m; sourceTree = "<group>"; };
+		2CD209491D6D4BA6005EB62E /* QPCutThumbnailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPCutThumbnailCell.h; sourceTree = "<group>"; };
+		2CD2094A1D6D4BA6005EB62E /* QPCutThumbnailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCutThumbnailCell.m; sourceTree = "<group>"; };
+		2CD2094B1D6D4BA6005EB62E /* QPCutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPCutView.h; sourceTree = "<group>"; };
+		2CD2094C1D6D4BA6005EB62E /* QPCutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCutView.m; sourceTree = "<group>"; };
+		2CD2094D1D6D4BA6005EB62E /* QPCutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPCutViewController.h; sourceTree = "<group>"; };
+		2CD2094E1D6D4BA6005EB62E /* QPCutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCutViewController.m; sourceTree = "<group>"; };
+		2CD209501D6D4BA6005EB62E /* QPEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffect.h; sourceTree = "<group>"; };
+		2CD209511D6D4BA6005EB62E /* QPEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffect.m; sourceTree = "<group>"; };
+		2CD209521D6D4BA6005EB62E /* QPEffectFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffectFilter.h; sourceTree = "<group>"; };
+		2CD209531D6D4BA6005EB62E /* QPEffectFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffectFilter.m; sourceTree = "<group>"; };
+		2CD209541D6D4BA6005EB62E /* QPEffectLoadMoreCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffectLoadMoreCell.h; sourceTree = "<group>"; };
+		2CD209551D6D4BA6005EB62E /* QPEffectLoadMoreCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffectLoadMoreCell.m; sourceTree = "<group>"; };
+		2CD209561D6D4BA6005EB62E /* QPEffectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffectManager.h; sourceTree = "<group>"; };
+		2CD209571D6D4BA6005EB62E /* QPEffectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffectManager.m; sourceTree = "<group>"; };
+		2CD209581D6D4BA6005EB62E /* QPEffectMusic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffectMusic.h; sourceTree = "<group>"; };
+		2CD209591D6D4BA6005EB62E /* QPEffectMusic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffectMusic.m; sourceTree = "<group>"; };
+		2CD2095A1D6D4BA6005EB62E /* QPEffectTabView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffectTabView.h; sourceTree = "<group>"; };
+		2CD2095B1D6D4BA6005EB62E /* QPEffectTabView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffectTabView.m; sourceTree = "<group>"; };
+		2CD2095C1D6D4BA6005EB62E /* QPEffectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffectView.h; sourceTree = "<group>"; };
+		2CD2095D1D6D4BA6005EB62E /* QPEffectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffectView.m; sourceTree = "<group>"; };
+		2CD2095E1D6D4BA6005EB62E /* QPEffectViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffectViewCell.h; sourceTree = "<group>"; };
+		2CD2095F1D6D4BA6005EB62E /* QPEffectViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffectViewCell.m; sourceTree = "<group>"; };
+		2CD209601D6D4BA6005EB62E /* QPEffectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEffectViewController.h; sourceTree = "<group>"; };
+		2CD209611D6D4BA6005EB62E /* QPEffectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEffectViewController.m; sourceTree = "<group>"; };
+		2CD209631D6D4BA6005EB62E /* QPDeviceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPDeviceManager.h; sourceTree = "<group>"; };
+		2CD209641D6D4BA6005EB62E /* QPDeviceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPDeviceManager.m; sourceTree = "<group>"; };
+		2CD209651D6D4BA6005EB62E /* QPEventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPEventManager.h; sourceTree = "<group>"; };
+		2CD209661D6D4BA6005EB62E /* QPEventManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPEventManager.m; sourceTree = "<group>"; };
+		2CD209671D6D4BA6005EB62E /* QPReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPReachability.h; sourceTree = "<group>"; };
+		2CD209681D6D4BA6005EB62E /* QPReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPReachability.m; sourceTree = "<group>"; };
+		2CD2096A1D6D4BA6005EB62E /* QPLibrarayItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPLibrarayItem.h; sourceTree = "<group>"; };
+		2CD2096B1D6D4BA6005EB62E /* QPLibrarayItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPLibrarayItem.m; sourceTree = "<group>"; };
+		2CD2096C1D6D4BA6005EB62E /* QPPickerLibraray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPPickerLibraray.h; sourceTree = "<group>"; };
+		2CD2096D1D6D4BA6005EB62E /* QPPickerLibraray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPPickerLibraray.m; sourceTree = "<group>"; };
+		2CD2096E1D6D4BA6005EB62E /* QPPickerPreviewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPPickerPreviewCell.h; sourceTree = "<group>"; };
+		2CD2096F1D6D4BA6005EB62E /* QPPickerPreviewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPPickerPreviewCell.m; sourceTree = "<group>"; };
+		2CD209701D6D4BA6005EB62E /* QPPickerPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPPickerPreviewView.h; sourceTree = "<group>"; };
+		2CD209711D6D4BA6005EB62E /* QPPickerPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPPickerPreviewView.m; sourceTree = "<group>"; };
+		2CD209721D6D4BA6005EB62E /* QPPickerPreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPPickerPreviewViewController.h; sourceTree = "<group>"; };
+		2CD209731D6D4BA6005EB62E /* QPPickerPreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPPickerPreviewViewController.m; sourceTree = "<group>"; };
+		2CD209751D6D4BA6005EB62E /* NSData+QPMD5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+QPMD5.h"; sourceTree = "<group>"; };
+		2CD209761D6D4BA6005EB62E /* NSData+QPMD5.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+QPMD5.m"; sourceTree = "<group>"; };
+		2CD209781D6D4BA6005EB62E /* QPProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPProgressHUD.h; sourceTree = "<group>"; };
+		2CD209791D6D4BA6005EB62E /* QPProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPProgressHUD.m; sourceTree = "<group>"; };
+		2CD2097A1D6D4BA6005EB62E /* QPPrefixHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPPrefixHead.h; sourceTree = "<group>"; };
+		2CD2097B1D6D4BA6005EB62E /* QPSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPSDK.h; sourceTree = "<group>"; };
+		2CD2097C1D6D4BA6005EB62E /* QupaiSDK-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QupaiSDK-Prefix.pch"; sourceTree = "<group>"; };
+		2CD2097D1D6D4BA6005EB62E /* QupaiSDK-Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "QupaiSDK-Private.h"; sourceTree = "<group>"; };
+		2CD2097E1D6D4BA6005EB62E /* QupaiSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QupaiSDK.h; sourceTree = "<group>"; };
+		2CD2097F1D6D4BA6005EB62E /* QupaiSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QupaiSDK.m; sourceTree = "<group>"; };
+		2CD209811D6D4BA6005EB62E /* QPCountDownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPCountDownView.h; sourceTree = "<group>"; };
+		2CD209821D6D4BA6005EB62E /* QPCountDownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPCountDownView.m; sourceTree = "<group>"; };
+		2CD209831D6D4BA6005EB62E /* QPFocusView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPFocusView.h; sourceTree = "<group>"; };
+		2CD209841D6D4BA6005EB62E /* QPFocusView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPFocusView.m; sourceTree = "<group>"; };
+		2CD209851D6D4BA6005EB62E /* QPGuideFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGuideFactory.h; sourceTree = "<group>"; };
+		2CD209861D6D4BA6005EB62E /* QPGuideFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGuideFactory.m; sourceTree = "<group>"; };
+		2CD209871D6D4BA6005EB62E /* QPLightProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPLightProgress.h; sourceTree = "<group>"; };
+		2CD209881D6D4BA6005EB62E /* QPLightProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPLightProgress.m; sourceTree = "<group>"; };
+		2CD209891D6D4BA6005EB62E /* QPPointProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPPointProgress.h; sourceTree = "<group>"; };
+		2CD2098A1D6D4BA6005EB62E /* QPPointProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPPointProgress.m; sourceTree = "<group>"; };
+		2CD2098B1D6D4BA6005EB62E /* QPRecordGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRecordGuideView.h; sourceTree = "<group>"; };
+		2CD2098C1D6D4BA6005EB62E /* QPRecordGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRecordGuideView.m; sourceTree = "<group>"; };
+		2CD2098D1D6D4BA6005EB62E /* QPRecordTipGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRecordTipGuideView.h; sourceTree = "<group>"; };
+		2CD2098E1D6D4BA6005EB62E /* QPRecordTipGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRecordTipGuideView.m; sourceTree = "<group>"; };
+		2CD2098F1D6D4BA6005EB62E /* QPRecordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRecordView.h; sourceTree = "<group>"; };
+		2CD209901D6D4BA6005EB62E /* QPRecordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRecordView.m; sourceTree = "<group>"; };
+		2CD209911D6D4BA6005EB62E /* QPRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRecordViewController.h; sourceTree = "<group>"; };
+		2CD209921D6D4BA6005EB62E /* QPRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRecordViewController.m; sourceTree = "<group>"; };
+		2CD209941D6D4BA6005EB62E /* QPBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPBaseViewController.h; sourceTree = "<group>"; };
+		2CD209951D6D4BA6005EB62E /* QPBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPBaseViewController.m; sourceTree = "<group>"; };
+		2CD209961D6D4BA6005EB62E /* QPNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPNavigationController.h; sourceTree = "<group>"; };
+		2CD209971D6D4BA6005EB62E /* QPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPNavigationController.m; sourceTree = "<group>"; };
+		2CD209981D6D4BA6005EB62E /* QPSave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPSave.h; sourceTree = "<group>"; };
+		2CD209991D6D4BA6005EB62E /* QPSave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPSave.m; sourceTree = "<group>"; };
+		2CD2099A1D6D4BA6005EB62E /* QPSDKConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPSDKConfig.h; sourceTree = "<group>"; };
+		2CD2099B1D6D4BA6005EB62E /* QPSDKConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPSDKConfig.m; sourceTree = "<group>"; };
+		2CD2099C1D6D4BA6005EB62E /* QPVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPVideo.h; sourceTree = "<group>"; };
+		2CD2099D1D6D4BA6005EB62E /* QPVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPVideo.m; sourceTree = "<group>"; };
+		2CD2099E1D6D4BA6005EB62E /* QPVideoPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPVideoPoint.h; sourceTree = "<group>"; };
+		2CD2099F1D6D4BA6005EB62E /* QPVideoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPVideoPoint.m; sourceTree = "<group>"; };
+		2CD209CF1D6D4BFD005EB62E /* QPSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = QPSDK.bundle; sourceTree = "<group>"; };
+		2CD209D11D6D4E98005EB62E /* ZYShortVideoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYShortVideoController.h; sourceTree = "<group>"; };
+		2CD209D21D6D4E98005EB62E /* ZYShortVideoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYShortVideoController.m; sourceTree = "<group>"; };
 		2CD802821CF6DA3000823C9F /* LanguageTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageTool.h; sourceTree = "<group>"; };
 		2CD802831CF6DA3000823C9F /* LanguageTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageTool.m; sourceTree = "<group>"; };
 		2CDC49F51CFD32FC00E7893C /* ZYZCConversationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCConversationController.h; sourceTree = "<group>"; };
@@ -1315,15 +1465,16 @@
 				395B5A781D1FC4460084264C /* Security.framework in Frameworks */,
 				395B5A761D1FC43D0084264C /* UIKit.framework in Frameworks */,
 				395B5A741D1FC4350084264C /* Foundation.framework in Frameworks */,
-				2C0101BB1D5DC72F00D6470D /* QPLive.framework in Frameworks */,
 				04A99CFE1CBF89E600C6F5F0 /* SystemConfiguration.framework in Frameworks */,
 				04A99D061CBF8A4100C6F5F0 /* CoreTelephony.framework in Frameworks */,
 				395B5A701D1FC4110084264C /* CoreFoundation.framework in Frameworks */,
+				2CD209341D6D4B98005EB62E /* QPPhotoMovie.framework in Frameworks */,
 				395B5A6E1D1FC4020084264C /* CFNetwork.framework in Frameworks */,
 				2C8B19921D0D70FB0063097B /* Photos.framework in Frameworks */,
 				04A99D041CBF8A1F00C6F5F0 /* libc++.tbd in Frameworks */,
 				04A99D021CBF8A1000C6F5F0 /* libsqlite3.0.tbd in Frameworks */,
 				04A99D001CBF89F600C6F5F0 /* libz.tbd in Frameworks */,
+				2CD209321D6D4B32005EB62E /* QPSDKCore.framework in Frameworks */,
 				395B5A6C1D1FC3910084264C /* jpush-ios-2.1.8.a in Frameworks */,
 				773C9B15B394065770448BFF /* libPods.a in Frameworks */,
 				04A99CFA1CBF897A00C6F5F0 /* libWeChatSDK.a in Frameworks */,
@@ -1652,7 +1803,6 @@
 			children = (
 				0503BFEE1D659CF700546C16 /* IJKMediaFramework */,
 				2CE617441D657DD100962163 /* HUPhotoBrowser */,
-				2CEBE5551D63352C00E423C7 /* QPShortVideoSDK */,
 				2C0101C51D5DF48E00D6470D /* ZYAnimotionBttons */,
 				2C0101AF1D5DC36100D6470D /* QuPaiSDK */,
 				2CC5FD691D5990EE0001AC95 /* WZLBadge */,
@@ -2017,7 +2167,10 @@
 		2C0101AF1D5DC36100D6470D /* QuPaiSDK */ = {
 			isa = PBXGroup;
 			children = (
-				2C0101BA1D5DC72F00D6470D /* QPLive.framework */,
+				2CD209CF1D6D4BFD005EB62E /* QPSDK.bundle */,
+				2CD209351D6D4BA6005EB62E /* QPSDK */,
+				2CD209331D6D4B98005EB62E /* QPPhotoMovie.framework */,
+				2CD209311D6D4B32005EB62E /* QPSDKCore.framework */,
 			);
 			path = QuPaiSDK;
 			sourceTree = "<group>";
@@ -2390,6 +2543,8 @@
 		2C1ECC8E1D630BAB00B91E7B /* ZYShortVideo(短视频) */ = {
 			isa = PBXGroup;
 			children = (
+				2CD209D11D6D4E98005EB62E /* ZYShortVideoController.h */,
+				2CD209D21D6D4E98005EB62E /* ZYShortVideoController.m */,
 			);
 			path = "ZYShortVideo(短视频)";
 			sourceTree = "<group>";
@@ -2919,6 +3074,189 @@
 			path = ZCViewController;
 			sourceTree = "<group>";
 		};
+		2CD209351D6D4BA6005EB62E /* QPSDK */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209361D6D4BA6005EB62E /* Athena */,
+				2CD209391D6D4BA6005EB62E /* Base */,
+				2CD209421D6D4BA6005EB62E /* Cut */,
+				2CD2094F1D6D4BA6005EB62E /* Effect */,
+				2CD209621D6D4BA6005EB62E /* Event */,
+				2CD209691D6D4BA6005EB62E /* Import */,
+				2CD209741D6D4BA6005EB62E /* Lib */,
+				2CD2097A1D6D4BA6005EB62E /* QPPrefixHead.h */,
+				2CD2097B1D6D4BA6005EB62E /* QPSDK.h */,
+				2CD2097C1D6D4BA6005EB62E /* QupaiSDK-Prefix.pch */,
+				2CD2097D1D6D4BA6005EB62E /* QupaiSDK-Private.h */,
+				2CD2097E1D6D4BA6005EB62E /* QupaiSDK.h */,
+				2CD2097F1D6D4BA6005EB62E /* QupaiSDK.m */,
+				2CD209801D6D4BA6005EB62E /* Record */,
+				2CD209931D6D4BA6005EB62E /* Root */,
+			);
+			path = QPSDK;
+			sourceTree = "<group>";
+		};
+		2CD209361D6D4BA6005EB62E /* Athena */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209371D6D4BA6005EB62E /* audio.mp3 */,
+				2CD209381D6D4BA6005EB62E /* icon.png */,
+			);
+			path = Athena;
+			sourceTree = "<group>";
+		};
+		2CD209391D6D4BA6005EB62E /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				2CD2093A1D6D4BA6005EB62E /* QPBundle.h */,
+				2CD2093B1D6D4BA6005EB62E /* QPBundle.m */,
+				2CD2093C1D6D4BA6005EB62E /* QPImage.h */,
+				2CD2093D1D6D4BA6005EB62E /* QPImage.m */,
+				2CD2093E1D6D4BA6005EB62E /* QPLocalization.h */,
+				2CD2093F1D6D4BA6005EB62E /* QPLocalization.m */,
+				2CD209401D6D4BA6005EB62E /* QPString.h */,
+				2CD209411D6D4BA6005EB62E /* QPString.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		2CD209421D6D4BA6005EB62E /* Cut */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209431D6D4BA6005EB62E /* QPCutBarView.h */,
+				2CD209441D6D4BA6005EB62E /* QPCutBarView.m */,
+				2CD209451D6D4BA6005EB62E /* QPCutCenterProgressView.h */,
+				2CD209461D6D4BA6005EB62E /* QPCutCenterProgressView.m */,
+				2CD209471D6D4BA6005EB62E /* QPCutInfo.h */,
+				2CD209481D6D4BA6005EB62E /* QPCutInfo.m */,
+				2CD209491D6D4BA6005EB62E /* QPCutThumbnailCell.h */,
+				2CD2094A1D6D4BA6005EB62E /* QPCutThumbnailCell.m */,
+				2CD2094B1D6D4BA6005EB62E /* QPCutView.h */,
+				2CD2094C1D6D4BA6005EB62E /* QPCutView.m */,
+				2CD2094D1D6D4BA6005EB62E /* QPCutViewController.h */,
+				2CD2094E1D6D4BA6005EB62E /* QPCutViewController.m */,
+			);
+			path = Cut;
+			sourceTree = "<group>";
+		};
+		2CD2094F1D6D4BA6005EB62E /* Effect */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209501D6D4BA6005EB62E /* QPEffect.h */,
+				2CD209511D6D4BA6005EB62E /* QPEffect.m */,
+				2CD209521D6D4BA6005EB62E /* QPEffectFilter.h */,
+				2CD209531D6D4BA6005EB62E /* QPEffectFilter.m */,
+				2CD209541D6D4BA6005EB62E /* QPEffectLoadMoreCell.h */,
+				2CD209551D6D4BA6005EB62E /* QPEffectLoadMoreCell.m */,
+				2CD209561D6D4BA6005EB62E /* QPEffectManager.h */,
+				2CD209571D6D4BA6005EB62E /* QPEffectManager.m */,
+				2CD209581D6D4BA6005EB62E /* QPEffectMusic.h */,
+				2CD209591D6D4BA6005EB62E /* QPEffectMusic.m */,
+				2CD2095A1D6D4BA6005EB62E /* QPEffectTabView.h */,
+				2CD2095B1D6D4BA6005EB62E /* QPEffectTabView.m */,
+				2CD2095C1D6D4BA6005EB62E /* QPEffectView.h */,
+				2CD2095D1D6D4BA6005EB62E /* QPEffectView.m */,
+				2CD2095E1D6D4BA6005EB62E /* QPEffectViewCell.h */,
+				2CD2095F1D6D4BA6005EB62E /* QPEffectViewCell.m */,
+				2CD209601D6D4BA6005EB62E /* QPEffectViewController.h */,
+				2CD209611D6D4BA6005EB62E /* QPEffectViewController.m */,
+			);
+			path = Effect;
+			sourceTree = "<group>";
+		};
+		2CD209621D6D4BA6005EB62E /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209631D6D4BA6005EB62E /* QPDeviceManager.h */,
+				2CD209641D6D4BA6005EB62E /* QPDeviceManager.m */,
+				2CD209651D6D4BA6005EB62E /* QPEventManager.h */,
+				2CD209661D6D4BA6005EB62E /* QPEventManager.m */,
+				2CD209671D6D4BA6005EB62E /* QPReachability.h */,
+				2CD209681D6D4BA6005EB62E /* QPReachability.m */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		2CD209691D6D4BA6005EB62E /* Import */ = {
+			isa = PBXGroup;
+			children = (
+				2CD2096A1D6D4BA6005EB62E /* QPLibrarayItem.h */,
+				2CD2096B1D6D4BA6005EB62E /* QPLibrarayItem.m */,
+				2CD2096C1D6D4BA6005EB62E /* QPPickerLibraray.h */,
+				2CD2096D1D6D4BA6005EB62E /* QPPickerLibraray.m */,
+				2CD2096E1D6D4BA6005EB62E /* QPPickerPreviewCell.h */,
+				2CD2096F1D6D4BA6005EB62E /* QPPickerPreviewCell.m */,
+				2CD209701D6D4BA6005EB62E /* QPPickerPreviewView.h */,
+				2CD209711D6D4BA6005EB62E /* QPPickerPreviewView.m */,
+				2CD209721D6D4BA6005EB62E /* QPPickerPreviewViewController.h */,
+				2CD209731D6D4BA6005EB62E /* QPPickerPreviewViewController.m */,
+			);
+			path = Import;
+			sourceTree = "<group>";
+		};
+		2CD209741D6D4BA6005EB62E /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209751D6D4BA6005EB62E /* NSData+QPMD5.h */,
+				2CD209761D6D4BA6005EB62E /* NSData+QPMD5.m */,
+				2CD209771D6D4BA6005EB62E /* QPProgressHUD */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		2CD209771D6D4BA6005EB62E /* QPProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209781D6D4BA6005EB62E /* QPProgressHUD.h */,
+				2CD209791D6D4BA6005EB62E /* QPProgressHUD.m */,
+			);
+			path = QPProgressHUD;
+			sourceTree = "<group>";
+		};
+		2CD209801D6D4BA6005EB62E /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209811D6D4BA6005EB62E /* QPCountDownView.h */,
+				2CD209821D6D4BA6005EB62E /* QPCountDownView.m */,
+				2CD209831D6D4BA6005EB62E /* QPFocusView.h */,
+				2CD209841D6D4BA6005EB62E /* QPFocusView.m */,
+				2CD209851D6D4BA6005EB62E /* QPGuideFactory.h */,
+				2CD209861D6D4BA6005EB62E /* QPGuideFactory.m */,
+				2CD209871D6D4BA6005EB62E /* QPLightProgress.h */,
+				2CD209881D6D4BA6005EB62E /* QPLightProgress.m */,
+				2CD209891D6D4BA6005EB62E /* QPPointProgress.h */,
+				2CD2098A1D6D4BA6005EB62E /* QPPointProgress.m */,
+				2CD2098B1D6D4BA6005EB62E /* QPRecordGuideView.h */,
+				2CD2098C1D6D4BA6005EB62E /* QPRecordGuideView.m */,
+				2CD2098D1D6D4BA6005EB62E /* QPRecordTipGuideView.h */,
+				2CD2098E1D6D4BA6005EB62E /* QPRecordTipGuideView.m */,
+				2CD2098F1D6D4BA6005EB62E /* QPRecordView.h */,
+				2CD209901D6D4BA6005EB62E /* QPRecordView.m */,
+				2CD209911D6D4BA6005EB62E /* QPRecordViewController.h */,
+				2CD209921D6D4BA6005EB62E /* QPRecordViewController.m */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		2CD209931D6D4BA6005EB62E /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				2CD209941D6D4BA6005EB62E /* QPBaseViewController.h */,
+				2CD209951D6D4BA6005EB62E /* QPBaseViewController.m */,
+				2CD209961D6D4BA6005EB62E /* QPNavigationController.h */,
+				2CD209971D6D4BA6005EB62E /* QPNavigationController.m */,
+				2CD209981D6D4BA6005EB62E /* QPSave.h */,
+				2CD209991D6D4BA6005EB62E /* QPSave.m */,
+				2CD2099A1D6D4BA6005EB62E /* QPSDKConfig.h */,
+				2CD2099B1D6D4BA6005EB62E /* QPSDKConfig.m */,
+				2CD2099C1D6D4BA6005EB62E /* QPVideo.h */,
+				2CD2099D1D6D4BA6005EB62E /* QPVideo.m */,
+				2CD2099E1D6D4BA6005EB62E /* QPVideoPoint.h */,
+				2CD2099F1D6D4BA6005EB62E /* QPVideoPoint.m */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		2CD802811CF6DA2000823C9F /* Chinese */ = {
 			isa = PBXGroup;
 			children = (
@@ -3002,13 +3340,6 @@
 				2CE617681D657DD100962163 /* UIImageView+HUWebImage.m */,
 			);
 			path = HUWebImageDownloader;
-			sourceTree = "<group>";
-		};
-		2CEBE5551D63352C00E423C7 /* QPShortVideoSDK */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = QPShortVideoSDK;
 			sourceTree = "<group>";
 		};
 		2CEEC18B1CFEC04B00A2DCA8 /* ZYZCPersonal(他人空间) */ = {
@@ -3954,13 +4285,14 @@
 				2C901DCB1C89788C004B844B /* LaunchScreen.storyboard in Resources */,
 				2CE617771D657DD100962163 /* pick_checked@3x.png in Resources */,
 				2C8B196E1D0CF7EC0063097B /* JGProgressHUD Resources.bundle in Resources */,
+				2CD209D01D6D4BFD005EB62E /* QPSDK.bundle in Resources */,
 				2CD209191D6D3E27005EB62E /* ZCInfoView.xib in Resources */,
 				2CE617721D657DD100962163 /* HUImagePickerCell.xib in Resources */,
 				2C8B197A1D0CF7EC0063097B /* Info.plist in Resources */,
 				2C901DC61C89788C004B844B /* Main.storyboard in Resources */,
 				2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */,
+				2CD209A11D6D4BA6005EB62E /* icon.png in Resources */,
 				2C8B198D1D0CF7EC0063097B /* XMNPhotoPicker.xib in Resources */,
-				2CAF7BBB1CE0390D00CB0885 /* ZCInfoView.xib in Resources */,
 				3967ADBA1D6D3941008A7F81 /* RoleList.plist in Resources */,
 				2C8B19851D0CF7EC0063097B /* PhotoPickerKit.xcassets in Resources */,
 				04A99CFB1CBF897A00C6F5F0 /* read_me.txt in Resources */,
@@ -3974,6 +4306,7 @@
 				39F7D1A81D45BD60001DEAF4 /* Assets.xcassets in Resources */,
 				2C8B19871D0CF7EC0063097B /* XMNAlbumCell.xib in Resources */,
 				04518B4B1CE419F0001921D0 /* MineSetUpVC.storyboard in Resources */,
+				2CD209A01D6D4BA6005EB62E /* audio.mp3 in Resources */,
 				2C8B198B1D0CF7EC0063097B /* XMNBottomBar.xib in Resources */,
 				392AB29A1D669C26003FEDB7 /* ZYLiveHeadView.xib in Resources */,
 				0432ADA11D0966F9005D789E /* area.plist in Resources */,
@@ -4052,6 +4385,7 @@
 			files = (
 				2CD209101D6D3E27005EB62E /* ZCDetailIntroSecondCell.m in Sources */,
 				2C1B61051D6D3CF900E3C25B /* RMCalendarLogic.m in Sources */,
+				2CD209AB1D6D4BA6005EB62E /* QPCutViewController.m in Sources */,
 				0406513E1CC76B4F003FD539 /* TacticThreeMapView.m in Sources */,
 				2CC5FD791D5990EE0001AC95 /* UITabBarItem+WZLBadge.m in Sources */,
 				393A5E3F1D30E1ED00E165C5 /* AboutJianyiVC.m in Sources */,
@@ -4062,6 +4396,7 @@
 				392AB2AD1D669CE6003FEDB7 /* ZYLiveListCell.m in Sources */,
 				2C1B60D11D6D3CF900E3C25B /* MoreFZCDataManager.m in Sources */,
 				04C087AE1D044F0A00203D40 /* MineWantGoModel.m in Sources */,
+				2CD209C81D6D4BA6005EB62E /* QPRecordViewController.m in Sources */,
 				040651351CC71A99003FD539 /* TacticModel.m in Sources */,
 				2C1B60DF1D6D3CF900E3C25B /* MoreFZCBaseTableView.m in Sources */,
 				392AB2941D669C26003FEDB7 /* RCDLive.m in Sources */,
@@ -4081,13 +4416,18 @@
 				2C1B60FF1D6D3CF900E3C25B /* ZYCustomSegmentView.m in Sources */,
 				2CD2091E1D6D3E27005EB62E /* ZCSupportAnyYuanView.m in Sources */,
 				2C1B61001D6D3CF900E3C25B /* CalendarViewController.m in Sources */,
+				2CD209CA1D6D4BA6005EB62E /* QPNavigationController.m in Sources */,
 				2C3777FC1D07F355004FDA9D /* ZYZCBaseTableView.m in Sources */,
 				04A99D201CC07E1800C6F5F0 /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m in Sources */,
 				2CD209161D6D3E27005EB62E /* ZCDetailTableHeadView.m in Sources */,
 				392AB2891D669C26003FEDB7 /* ZYZCLiveController.m in Sources */,
+				2CD209C11D6D4BA6005EB62E /* QPFocusView.m in Sources */,
+				2CD209BA1D6D4BA6005EB62E /* QPPickerPreviewCell.m in Sources */,
 				2C1B60ED1D6D3CF900E3C25B /* ReturnFourthCell.m in Sources */,
+				2CD209BD1D6D4BA6005EB62E /* NSData+QPMD5.m in Sources */,
 				2C1B60F91D6D3CF900E3C25B /* WordView.m in Sources */,
 				04A99D1D1CC07E1800C6F5F0 /* WXApiManager.m in Sources */,
+				2CD209B61D6D4BA6005EB62E /* QPEventManager.m in Sources */,
 				04B99A711CFFC12200E3C33A /* TacticCountryHeadView.m in Sources */,
 				2C1B60F21D6D3CF900E3C25B /* TravelFirstCell.m in Sources */,
 				2CD209041D6D3E27005EB62E /* ZCFilterModel.m in Sources */,
@@ -4112,6 +4452,7 @@
 				39E52FE11D50825F00D0ED83 /* ViewModelClass.m in Sources */,
 				2C44698C1D1671C8000639EB /* ZYZCEditProductView.m in Sources */,
 				0432ADAF1D096B89005D789E /* NSCalendar+ST.m in Sources */,
+				2CD209CB1D6D4BA6005EB62E /* QPSave.m in Sources */,
 				392AB2861D669C26003FEDB7 /* RCDLiveTextMessageCell.m in Sources */,
 				2CD2091A1D6D3E27005EB62E /* ZCMainTableView.m in Sources */,
 				39809D251D588EE000CB9EE3 /* TacticMainVideoCustomView.m in Sources */,
@@ -4122,7 +4463,9 @@
 				2C8B19771D0CF7EC0063097B /* JGProgressHUDPieIndicatorView.m in Sources */,
 				2C7E3B4E1D06C92100F51C61 /* MineOneItemCell.m in Sources */,
 				3987D55F1D46FE5300556E41 /* TacticGoXXTravelCell.m in Sources */,
+				2CD209B01D6D4BA6005EB62E /* QPEffectMusic.m in Sources */,
 				2CD2090A1D6D3E27005EB62E /* ZCCommentCell.m in Sources */,
+				2CD209A21D6D4BA6005EB62E /* QPBundle.m in Sources */,
 				2CE6176D1D657DD100962163 /* HUAlbum.m in Sources */,
 				2CD209221D6D3E27005EB62E /* ZCSupportTogetherView.m in Sources */,
 				2CE617781D657DD100962163 /* HUToast.m in Sources */,
@@ -4135,6 +4478,8 @@
 				0469C5731D0E472900A34A03 /* MineTravelTagButton.m in Sources */,
 				39911ACB1D504174007DF44B /* UIView+ViewController.m in Sources */,
 				392AB28B1D669C26003FEDB7 /* RCDLiveEmojiPageControl.m in Sources */,
+				2CD209C31D6D4BA6005EB62E /* QPLightProgress.m in Sources */,
+				2CD209C01D6D4BA6005EB62E /* QPCountDownView.m in Sources */,
 				2C1B60CD1D6D3CF900E3C25B /* ChooseSiteImgController.m in Sources */,
 				2CD2090E1D6D3E27005EB62E /* ZCDetailFirstCell.m in Sources */,
 				2C90F6F21D532323001ABB44 /* MsgListTableView.m in Sources */,
@@ -4145,10 +4490,13 @@
 				040651301CC635A9003FD539 /* TacticTableView.m in Sources */,
 				2C1B60F01D6D3CF900E3C25B /* AddDetailView.m in Sources */,
 				39F2AA181D3F9BA100023CC4 /* ZYZoomImageVIew.m in Sources */,
+				2CD209BE1D6D4BA6005EB62E /* QPProgressHUD.m in Sources */,
 				392AB2991D669C26003FEDB7 /* ZYLiveHeadView.m in Sources */,
 				2C1B60DC1D6D3CF900E3C25B /* GoalPeoplePickerView.m in Sources */,
 				2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */,
 				2C1B61081D6D3CF900E3C25B /* RMCalendarMonthHeaderView.m in Sources */,
+				2CD209B71D6D4BA6005EB62E /* QPReachability.m in Sources */,
+				2CD209A71D6D4BA6005EB62E /* QPCutCenterProgressView.m in Sources */,
 				2C1B60E01D6D3CF900E3C25B /* MoreFZCBaseTableViewCell.m in Sources */,
 				2CAD97B01D1D3CF4000E4ED8 /* CommentUserViewController.m in Sources */,
 				3985EC3A1D5C1C86007C43D1 /* WalletMingXiModel.m in Sources */,
@@ -4167,6 +4515,7 @@
 				040651241CC62FC7003FD539 /* TAPageControl.m in Sources */,
 				0406512D1CC6356C003FD539 /* TacticMainViewController.m in Sources */,
 				2C1B61061D6D3CF900E3C25B /* RMCalendarModel.m in Sources */,
+				2CD209A61D6D4BA6005EB62E /* QPCutBarView.m in Sources */,
 				04F6854F1CF57CD900E1A98E /* MinePersonSetUpModel.m in Sources */,
 				2C7FC2AF1D229706000FDFDE /* CommentPersonListController.m in Sources */,
 				399E94261D38E20C006E1B68 /* NetWorkManager.m in Sources */,
@@ -4174,6 +4523,7 @@
 				393C29381D45A0EA00B64551 /* AboutTousuVC.m in Sources */,
 				3910CE701D35D6F4004D7578 /* TacticMoreJieshaoVC.m in Sources */,
 				2C1B60D91D6D3CF900E3C25B /* FZCContentEntryView.m in Sources */,
+				2CD209A41D6D4BA6005EB62E /* QPLocalization.m in Sources */,
 				39911ACC1D504174007DF44B /* UIView+ZYZCLineView.m in Sources */,
 				2C90F6F81D533579001ABB44 /* ZYZCMsgDetailViewController.m in Sources */,
 				2C8B19741D0CF7EC0063097B /* JGProgressHUDImageIndicatorView.m in Sources */,
@@ -4206,6 +4556,7 @@
 				2C8B19721D0CF7EC0063097B /* JGProgressHUDFadeAnimation.m in Sources */,
 				2CD209231D6D3E27005EB62E /* ZCTotalPeopleView.m in Sources */,
 				040651211CC62FC7003FD539 /* TAAbstractDotView.m in Sources */,
+				2CD209A91D6D4BA6005EB62E /* QPCutThumbnailCell.m in Sources */,
 				2CD209081D6D3E27005EB62E /* AddCommentView.m in Sources */,
 				0432ADA61D0966F9005D789E /* STPickerView.m in Sources */,
 				0490D1531CC92BF40064844C /* TacticSingleTipsModel.m in Sources */,
@@ -4217,9 +4568,11 @@
 				2C0101CD1D5DF48E00D6470D /* ZFIssueWeiboView.m in Sources */,
 				2C1B60F61D6D3CF900E3C25B /* RecordSoundObj.m in Sources */,
 				2C1B60DA1D6D3CF900E3C25B /* FZCSingleTitleView.m in Sources */,
+				2CD209AF1D6D4BA6005EB62E /* QPEffectManager.m in Sources */,
 				2CD209291D6D3E27005EB62E /* ZCCommentViewController.m in Sources */,
 				39911ADC1D5044A8007DF44B /* ZYZCHTTPTool.m in Sources */,
 				2C1B61071D6D3CF900E3C25B /* RMCalendarCollectionViewLayout.m in Sources */,
+				2CD209C71D6D4BA6005EB62E /* QPRecordView.m in Sources */,
 				2CD209261D6D3E27005EB62E /* ZYZCCusomMovieImage.m in Sources */,
 				392AB28D1D669C26003FEDB7 /* RCDLiveInputView.m in Sources */,
 				39809D141D58762E00CB9EE3 /* TacticMainHeadCell.m in Sources */,
@@ -4236,6 +4589,7 @@
 				39911AB01D5038B2007DF44B /* TacticSingleFoodVC.m in Sources */,
 				2C8B197E1D0CF7EC0063097B /* UIViewController+XMNPhotoHUD.m in Sources */,
 				0490D1501CC92B350064844C /* TacticSingleFoodModel.m in Sources */,
+				2CD209C91D6D4BA6005EB62E /* QPBaseViewController.m in Sources */,
 				2C3777FF1D07F36F004FDA9D /* ZYZCBaseTableViewCell.m in Sources */,
 				2C8B19831D0CF7EC0063097B /* XMNAlbumModel.m in Sources */,
 				0432ADA41D0966F9005D789E /* STUI.m in Sources */,
@@ -4253,6 +4607,7 @@
 				2CD209241D6D3E27005EB62E /* ZCWSMView.m in Sources */,
 				04F836461CD72C3300140980 /* SDRotationLoopProgressView.m in Sources */,
 				0432ADA21D0966F9005D789E /* STPickerArea.m in Sources */,
+				2CD209B81D6D4BA6005EB62E /* QPLibrarayItem.m in Sources */,
 				04A99D271CC0924E00C6F5F0 /* ZYZCAccountModel.m in Sources */,
 				392AB28F1D669C26003FEDB7 /* RCDLiveCollectionViewHeader.m in Sources */,
 				2C1B60F81D6D3CF900E3C25B /* WordEditViewController.m in Sources */,
@@ -4265,8 +4620,10 @@
 				2CD2090C1D6D3E27005EB62E /* ZCDetailBottomView.m in Sources */,
 				3941CD6B1D41FCB7009224BC /* ComplainTypeController.m in Sources */,
 				04F836431CD72C3300140980 /* SDLoopProgressView.m in Sources */,
+				2CD209B91D6D4BA6005EB62E /* QPPickerLibraray.m in Sources */,
 				392AB2B01D669CE6003FEDB7 /* ZYZCLiveStartController.m in Sources */,
 				048DDE9C1CC229F600136C7A /* MBProgressHUD+MJ.m in Sources */,
+				2CD209C51D6D4BA6005EB62E /* QPRecordGuideView.m in Sources */,
 				04F836411CD72C3300140980 /* SDBallProgressView.m in Sources */,
 				04518B4C1CE419F0001921D0 /* MineSetUpViewController.m in Sources */,
 				395B5A951D24D6AD0084264C /* LoginJudgeController.m in Sources */,
@@ -4275,6 +4632,7 @@
 				392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */,
 				2C8B197D1D0CF7EC0063097B /* UIView+Animations.m in Sources */,
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
+				2CD209AC1D6D4BA6005EB62E /* QPEffect.m in Sources */,
 				2C1B60D51D6D3CF900E3C25B /* FZCReturnCellModel.m in Sources */,
 				04A99C951CBF848D00C6F5F0 /* UINavigationBar+Background.m in Sources */,
 				2C8B19881D0CF7EC0063097B /* XMNAssetCell.m in Sources */,
@@ -4282,14 +4640,17 @@
 				2C857E141D3CC3B500EE3530 /* FinishBaseInfoController.m in Sources */,
 				39911ADF1D5044A8007DF44B /* ZYZCTool+getLocalTime.m in Sources */,
 				2C1B60EE1D6D3CF900E3C25B /* ReturnSecondCell.m in Sources */,
+				2CD209AD1D6D4BA6005EB62E /* QPEffectFilter.m in Sources */,
 				392AB28A1D669C26003FEDB7 /* RCDLiveEmojiBoardView.m in Sources */,
 				2C1B60EB1D6D3CF900E3C25B /* ReturnCellBaseBGView.m in Sources */,
 				2C1B61021D6D3CF900E3C25B /* FZCBaseViewController.m in Sources */,
 				040651261CC62FC7003FD539 /* SDCycleScrollView.m in Sources */,
 				0432ADB11D096B89005D789E /* STPickerSingle.m in Sources */,
 				040651271CC62FC7003FD539 /* UIView+SDExtension.m in Sources */,
+				2CD209A81D6D4BA6005EB62E /* QPCutInfo.m in Sources */,
 				2CD2092B1D6D3E27005EB62E /* ZCProductDetailController.m in Sources */,
 				399E942A1D3A2226006E1B68 /* OpenSetTool.m in Sources */,
+				2CD209C21D6D4BA6005EB62E /* QPGuideFactory.m in Sources */,
 				2C1B60E61D6D3CF900E3C25B /* NecessaryView.m in Sources */,
 				2CD209201D6D3E27005EB62E /* ZCSupportOneYuanView.m in Sources */,
 				39E52FDD1D50815A00D0ED83 /* TacticMainVC.m in Sources */,
@@ -4302,6 +4663,7 @@
 				2CD2091F1D6D3E27005EB62E /* ZCSupportBaseView.m in Sources */,
 				2CF305101D3DC716008296EC /* JudgeAuthorityTool.m in Sources */,
 				0432ADB01D096B89005D789E /* STPickerDate.m in Sources */,
+				2CD209CD1D6D4BA6005EB62E /* QPVideo.m in Sources */,
 				395B5A991D2699AB0084264C /* UploadVoucherVC.m in Sources */,
 				04F685491CF57C9F00E1A98E /* MinePersonSetUpController.m in Sources */,
 				392AB2971D669C26003FEDB7 /* RCDLiveMessageCellNotificationModel.m in Sources */,
@@ -4309,9 +4671,12 @@
 				2CD209071D6D3E27005EB62E /* ZYZCViewSpotModel.m in Sources */,
 				2CD209271D6D3E27005EB62E /* ZYZCCustomVoiceView.m in Sources */,
 				395B5A8D1D24C4440084264C /* VersionModel.m in Sources */,
+				2CD209AE1D6D4BA6005EB62E /* QPEffectLoadMoreCell.m in Sources */,
 				04C087AB1D044B9600203D40 /* MineWantGoVC.m in Sources */,
 				392AB2AF1D669CE6003FEDB7 /* ZYLiveListViewModel.m in Sources */,
+				2CD209BB1D6D4BA6005EB62E /* QPPickerPreviewView.m in Sources */,
 				2C90F6F51D532349001ABB44 /* MsgListTableViewCell.m in Sources */,
+				2CD209C61D6D4BA6005EB62E /* QPRecordTipGuideView.m in Sources */,
 				2C3FAA211D54793000F2B187 /* MsgDetailModel.m in Sources */,
 				2C7E3B541D06CC4C00F51C61 /* MineOneItemModel.m in Sources */,
 				2C90F6E41D530E73001ABB44 /* ZYZCMessageListViewController.m in Sources */,
@@ -4321,6 +4686,7 @@
 				2CD2092A1D6D3E27005EB62E /* ZCMainViewController.m in Sources */,
 				2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */,
 				04FCCAAF1CDC45AD00540B28 /* TacticMoreCollectionViewCell.m in Sources */,
+				2CD209A51D6D4BA6005EB62E /* QPString.m in Sources */,
 				2CD209021D6D3E27005EB62E /* ZCCommentModel.m in Sources */,
 				39809D1F1D5888F400CB9EE3 /* TacticMainCityCustomView.m in Sources */,
 				2C7FC2B21D22A007000FDFDE /* CommentListTableView.m in Sources */,
@@ -4333,13 +4699,16 @@
 				04A99C961CBF848D00C6F5F0 /* ZYZCBaseViewController.m in Sources */,
 				2C8B198A1D0CF7EC0063097B /* XMNBottomBar.m in Sources */,
 				395B5A921D24D2FC0084264C /* LoginJudgeTool.m in Sources */,
+				2CD209BC1D6D4BA6005EB62E /* QPPickerPreviewViewController.m in Sources */,
 				2C90F6FB1D534819001ABB44 /* ZYDetailMsgScrollView.m in Sources */,
 				2CE617701D657DD100962163 /* HUAlbumsViewController.m in Sources */,
 				2C1B610A1D6D3CF900E3C25B /* WeekDayView.m in Sources */,
 				041CFC831D13F3D200871093 /* TacticMoreVideoVC.m in Sources */,
+				2CD209B51D6D4BA6005EB62E /* QPDeviceManager.m in Sources */,
 				2C1B60D21D6D3CF900E3C25B /* MoreFZCViewController.m in Sources */,
 				04B99A6E1CFFBAA600E3C33A /* TacticCityHeadView.m in Sources */,
 				2C1C079A1D1AAB2700203FF4 /* ChoosePartnerViewController.m in Sources */,
+				2CD209C41D6D4BA6005EB62E /* QPPointProgress.m in Sources */,
 				04C087B21D052AF500203D40 /* MyUserFollowedVC.m in Sources */,
 				2C1B60FB1D6D3CF900E3C25B /* ZYDescImage.m in Sources */,
 				2C1B60E11D6D3CF900E3C25B /* MoreFZCGoalTableView.m in Sources */,
@@ -4347,6 +4716,7 @@
 				394D53721D62D76B00E7F595 /* ZYFaqiLiveViewController.m in Sources */,
 				2CE6176E1D657DD100962163 /* HUAlbumCell.m in Sources */,
 				2C8B19701D0CF7EC0063097B /* JGProgressHUDAnimation.m in Sources */,
+				2CD209A31D6D4BA6005EB62E /* QPImage.m in Sources */,
 				2C1B60D61D6D3CF900E3C25B /* MoreFZCTravelOneDayDetailMdel.m in Sources */,
 				2C1B60E21D6D3CF900E3C25B /* MoreFZCRaiseMoneyTableView.m in Sources */,
 				04F6854C1CF57C9F00E1A98E /* MinePersonSetUpScrollView.m in Sources */,
@@ -4356,6 +4726,7 @@
 				394D537B1D62F45500E7F595 /* UIView+ZYLayer.m in Sources */,
 				2C1B60D71D6D3CF900E3C25B /* ZYDescImgModel.m in Sources */,
 				040651221CC62FC7003FD539 /* TAAnimatedDotView.m in Sources */,
+				2CD209CE1D6D4BA6005EB62E /* QPVideoPoint.m in Sources */,
 				04A99D211CC07E1800C6F5F0 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				2CE617791D657DD100962163 /* HUWebImageDownloader.m in Sources */,
 				2CE6177B1D657DD100962163 /* UIImage+HUExtension.m in Sources */,
@@ -4376,6 +4747,7 @@
 				3926350D1D5D7C29006A90BE /* MineWalletModel.m in Sources */,
 				39911ADE1D5044A8007DF44B /* ZYZCTool.m in Sources */,
 				04C087B51D05493900203D40 /* MyUserFollowedModel.m in Sources */,
+				2CD209B11D6D4BA6005EB62E /* QPEffectTabView.m in Sources */,
 				2C3777EC1D07BC51004FDA9D /* MyProductViewController.m in Sources */,
 				04A99D1E1CC07E1800C6F5F0 /* WXApiRequestHandler.m in Sources */,
 				040651381CC728E9003FD539 /* TacticTableViewCell.m in Sources */,
@@ -4389,7 +4761,9 @@
 				040651231CC62FC7003FD539 /* TADotView.m in Sources */,
 				39809D151D58762E00CB9EE3 /* TactciMainVideoCell.m in Sources */,
 				2CC5FD7A1D5990EE0001AC95 /* CAAnimation+WAnimation.m in Sources */,
+				2CD209AA1D6D4BA6005EB62E /* QPCutView.m in Sources */,
 				2CD2091C1D6D3E27005EB62E /* ZCNoneDataView.m in Sources */,
+				2CD209CC1D6D4BA6005EB62E /* QPSDKConfig.m in Sources */,
 				04F836441CD72C3300140980 /* SDPieLoopProgressView.m in Sources */,
 				2C8B19781D0CF7EC0063097B /* JGProgressHUDRingIndicatorView.m in Sources */,
 				2C8B19861D0CF7EC0063097B /* XMNAlbumCell.m in Sources */,
@@ -4398,8 +4772,10 @@
 				2CE617741D657DD100962163 /* HUImagePickerViewController.m in Sources */,
 				2C1B60E91D6D3CF900E3C25B /* RaiseMoneyFirstModel.m in Sources */,
 				2C8B196F1D0CF7EC0063097B /* JGProgressHUD.m in Sources */,
+				2CD209B21D6D4BA6005EB62E /* QPEffectView.m in Sources */,
 				2CD209251D6D3E27005EB62E /* ZYVoicePlayer.m in Sources */,
 				0469C56F1D0E44CF00A34A03 /* MineTravelTagVC.m in Sources */,
+				2CD209BF1D6D4BA6005EB62E /* QupaiSDK.m in Sources */,
 				392AB2AC1D669CE6003FEDB7 /* ZYLiveListModel.m in Sources */,
 				2C1C079E1D1AC26200203FF4 /* PartnerTableCell.m in Sources */,
 				39809D221D588ABF00CB9EE3 /* TacticMainCountryCustomView.m in Sources */,
@@ -4414,13 +4790,16 @@
 				2C1ECC8D1D62B08C00B91E7B /* YJTextView.m in Sources */,
 				392AB28E1D669C26003FEDB7 /* RCDLiveAttributedLabel.m in Sources */,
 				39809D1C1D5884B700CB9EE3 /* TacticMainImageView.m in Sources */,
+				2CD209B41D6D4BA6005EB62E /* QPEffectViewController.m in Sources */,
 				395B5A9C1D27AC660084264C /* CustomImagemapView.m in Sources */,
+				2CD209D31D6D4E98005EB62E /* ZYShortVideoController.m in Sources */,
 				2CD209281D6D3E27005EB62E /* TogetherSupportController.m in Sources */,
 				395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */,
 				2C1B60EA1D6D3CF900E3C25B /* RaiseMoneySecondCellView.m in Sources */,
 				395B5A8E1D24C4440084264C /* VersionTool.m in Sources */,
 				2CD209111D6D3E27005EB62E /* ZCDetailIntroThirdCell.m in Sources */,
 				2C1B60F31D6D3CF900E3C25B /* TravelSecondCell.m in Sources */,
+				2CD209B31D6D4BA6005EB62E /* QPEffectViewCell.m in Sources */,
 				2C1B60E31D6D3CF900E3C25B /* MoreFZCReturnTableView.m in Sources */,
 				2C1B60CC1D6D3CF900E3C25B /* ChooseSceneImgController.m in Sources */,
 				2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */,
@@ -4584,8 +4963,6 @@
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/QuPaiSDK",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/ZYShortVideo(短视频)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/QPPhotoMovieSDK",
-					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/QPShortVideoSDK",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/IJKMediaFramework",
 				);
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/ios_zhongyouzhongchou/ZYZCPch.pch";
@@ -4607,7 +4984,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/lame",
-					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/lame",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/WeChatSDK1.6.2",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/JPush",
 				);
@@ -4702,8 +5078,6 @@
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/QuPaiSDK",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/ZYShortVideo(短视频)",
 					"$(PROJECT_DIR)",
-					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/QPPhotoMovieSDK",
-					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/QPShortVideoSDK",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/IJKMediaFramework",
 				);
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/ios_zhongyouzhongchou/ZYZCPch.pch";
@@ -4725,7 +5099,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/lame",
-					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/lame",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/WeChatSDK1.6.2",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/JPush",
 				);
