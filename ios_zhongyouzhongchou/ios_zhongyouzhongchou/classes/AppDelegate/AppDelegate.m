@@ -25,10 +25,14 @@
 #import "ZYZCMessageListViewController.h"
 #import "ChatUserInfoModel.h"
 #import "MBProgressHUD+MJ.h"
-#import  <QPLive/QPLive.h>
+#import  <QPSDKCore/QPSDKCore.h>
 
 #define  kQPAppKey     @"20a9a463ed1796c"
 #define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
+
+#import <QPSDKCore/QPAuth.h>
+#define kQP_SV_AppKey       @"208655bf2304e73"
+#define kQP_SV_AppSecret    @"7f4b75599fe742149861f8a63689d093"
 
 @interface AppDelegate ()<WXApiManagerDelegate>
 

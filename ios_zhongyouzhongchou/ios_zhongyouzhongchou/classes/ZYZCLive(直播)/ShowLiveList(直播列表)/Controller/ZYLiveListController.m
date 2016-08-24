@@ -157,6 +157,7 @@ static NSString *ID = @"ZYLiveListCell";
 {
     ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:self.listArray[indexPath.row]];
     watchLiveVC.hidesBottomBarWhenPushed = YES;
+    watchLiveVC.conversationType = ConversationType_CHATROOM;
     [self.navigationController pushViewController:watchLiveVC animated:YES];
 }
 

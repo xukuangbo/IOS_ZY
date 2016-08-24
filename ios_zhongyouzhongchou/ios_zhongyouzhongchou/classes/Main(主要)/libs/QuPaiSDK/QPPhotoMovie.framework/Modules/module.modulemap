@@ -1,0 +1,6 @@
+framework module QPPhotoMovie {
+  umbrella header "QPPhotoMovie.h"
+
+  export *
+  module * { export * }
+}
