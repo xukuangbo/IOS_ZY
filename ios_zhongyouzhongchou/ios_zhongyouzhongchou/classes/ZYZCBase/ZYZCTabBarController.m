@@ -30,6 +30,7 @@
 
 #import "QupaiSDK.h"
 #import "QPEffectMusic.h"
+#import <RongIMKit/RongIMKit.h>
 
 @interface ZYZCTabBarController ()<UIAlertViewDelegate,RCIMReceiveMessageDelegate,ZFIssueWeiboViewDelegate,QupaiSDKDelegate>
 {
