@@ -163,7 +163,7 @@ static id _instace;
     self.raiseMoney_voiceUrl=detailModel.detailProductModel.productVoice;
     self.raiseMoney_movieUrl=detailModel.detailProductModel.productVideo;
     self.raiseMoney_movieImg=detailModel.detailProductModel.productVideoImg;
-    
+    self.raiseMoney_imgUrlStr=detailModel.detailProductModel.descImgs;
     if (detailModel.detailProductModel.schedule.count) {
         NSArray *detailDays=detailModel.detailProductModel.schedule;
         for (NSString *jsonStr in detailDays) {
@@ -188,6 +188,7 @@ static id _instace;
                 self.return_voiceUrl=reportModel.spellVoice;
                 self.return_movieUrl=reportModel.spellVideo;
                 self.return_movieImg=reportModel.spellVideoImg;
+                self.return_imgUrlStr=reportModel.descImgs;
             }
             else if ([reportModel.style isEqual:@4])
             {
@@ -197,6 +198,11 @@ static id _instace;
                 NSInteger rate=[self.raiseMoney_totalMoney floatValue]>0?[self.return_togetherRateMoney floatValue]/[self.raiseMoney_totalMoney floatValue]*100:0;
                 self.return_togetherMoneyPercent=[NSString stringWithFormat:@"%ld",rate];
                 self.goal_numberPeople=[NSString stringWithFormat:@"%ld",[reportModel.sumPeople integerValue]+1];
+                self.return_togtherWordDes=reportModel.desc;
+                self.return_togtherVoice=reportModel.spellVoice;
+                self.return_togtherVideo=reportModel.spellVideo;
+                self.return_togtherVideoImg=reportModel.spellVideoImg;
+                self.return_togtherImgUrlStr=reportModel.descImgs;
             }
         }
     }

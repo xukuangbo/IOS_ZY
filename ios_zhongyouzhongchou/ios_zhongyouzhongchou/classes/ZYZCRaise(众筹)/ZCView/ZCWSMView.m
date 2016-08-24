@@ -95,6 +95,7 @@
     }
     else
     {
+        _voiceView.height=1;
         _voiceView.hidden=YES;
     }
     
@@ -112,7 +113,7 @@
     }
     
     _imgsView.top=_textLab.bottom+hasWord*KEDGE_DISTANCE;
-    
+    DDLog(@"_imgsView.top:%.2f",_imgsView.top);
     if (imgUrlStr.length) {
         CGFloat imgsHeight=0.0;
         _imgsView.hidden=NO;

@@ -35,6 +35,7 @@
     detailProductModel.productVoice=dataManager.raiseMoney_voiceUrl;
     detailProductModel.productVideo=dataManager.raiseMoney_movieUrl;
     detailProductModel.productVideoImg=dataManager.raiseMoney_movieImg;
+    detailProductModel.descImgs=dataManager.raiseMoney_imgUrlStr;
     detailProductModel.spell_buy_price=[NSString stringWithFormat:@"%.2f",[dataManager.raiseMoney_totalMoney floatValue]*100.0];
     
     NSMutableArray *reportArr=[NSMutableArray array];
@@ -58,6 +59,7 @@
         reportModel03.spellVideo = dataManager.return_movieUrl;
         reportModel03.spellVoice = dataManager.return_voiceUrl;
         reportModel03.spellVideoImg=dataManager.return_movieImg;
+        reportModel03.descImgs=dataManager.return_imgUrlStr;
         reportModel03.price =[NSNumber numberWithFloat:[dataManager.return_returnPeopleMoney floatValue]*100.0] ;
         reportModel03.style = @3;
         reportModel03.sumPeople = (NSNumber *)dataManager.return_returnPeopleNumber;
@@ -71,6 +73,12 @@
     reportModel04.sumPeople = [NSNumber numberWithInt:[dataManager.goal_numberPeople intValue]-1];
     reportModel04.sumPrice = 0;
     reportModel04.price=[NSNumber numberWithFloat:([dataManager.return_togetherRateMoney floatValue ]*100.0)];
+    reportModel04.desc = dataManager.return_togtherWordDes;
+    reportModel04.spellVideo = dataManager.return_togtherVoice;
+    reportModel04.spellVoice = dataManager.return_togtherVideo;
+    reportModel04.spellVideoImg=dataManager.return_togtherVideoImg;
+    reportModel04.descImgs=dataManager.return_togtherImgUrlStr;
+
     [reportArr addObject:reportModel04];
     
     if (dataManager.return_returnPeopleMoney01) {
@@ -79,6 +87,7 @@
         reportModel05.spellVideo = dataManager.return_movieUrl01;
         reportModel05.spellVoice = dataManager.return_voiceUrl01;
         reportModel05.spellVideoImg=dataManager.return_movieImg01;
+        reportModel05.descImgs=dataManager.return_imgUrlStr01;
         reportModel05.people =(NSNumber *)dataManager.return_returnPeopleNumber01;
         reportModel05.price =[NSNumber numberWithFloat:[dataManager.return_returnPeopleMoney01 floatValue]*100.0] ;
         reportModel05.style = @5;

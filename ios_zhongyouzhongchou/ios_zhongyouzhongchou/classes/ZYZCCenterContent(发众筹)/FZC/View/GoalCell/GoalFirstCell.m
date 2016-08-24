@@ -5,6 +5,10 @@
 //  Created by liuliang on 16/3/18.
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
+/**
+ *  最多目的地数（包括出发地）
+ */
+#define MAX_NUM_DEST 8
 
 #import "GoalFirstCell.h"
 #import "MoreFZCChooseSceneController.h"
@@ -89,14 +93,14 @@
     [_addBtn setImage:[UIImage imageNamed:@"btn_and"] forState:UIControlStateNormal];
     [_addBtn addTarget:self action:@selector(addScene) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_addBtn];
-    _addBtn.hidden=YES;
+    _addBtn.enabled=NO;
     
     MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
-    if (manager.goal_goals.count>2) {
-        if (manager.goal_goals.count>=5) {
-            _addBtn.hidden=YES;
+    if (manager.goal_goals.count>=2) {
+        _addBtn.enabled=YES;
+        if (manager.goal_goals.count>=MAX_NUM_DEST) {
+            _addBtn.enabled=NO;
         }
-        _addBtn.hidden=NO;
         for (NSInteger i=2; i<manager.goal_goals.count; i++) {
             [self addSceneByTitle:manager.goal_goals[i]];
         }
@@ -222,7 +226,7 @@
             else if (manager.goal_goals.count>=2){
                 [manager.goal_goals replaceObjectAtIndex:1 withObject:scene];
             }
-            weakSelf.addBtn.hidden=NO;
+            weakSelf.addBtn.enabled=YES;
             [weakSelf changeFirstDestButton];
         };
     }
@@ -242,8 +246,8 @@
         MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
         manager.goal_goals=weakSelf.sceneTitleArr;//单例纪录目的地
         [weakSelf addSceneByTitle:scene];
-        if (weakSelf.sceneTitleArr.count>=5) {
-            weakSelf.addBtn.hidden=YES;
+        if (weakSelf.sceneTitleArr.count>=MAX_NUM_DEST) {
+            weakSelf.addBtn.enabled=NO;
         }
     };
     chooseScenceVC.mySceneArr=_sceneTitleArr;
@@ -331,8 +335,8 @@
         }
     }
     
-    if (_sceneTitleArr.count<5) {
-        _addBtn.hidden=NO;
+    if (_sceneTitleArr.count<MAX_NUM_DEST) {
+        _addBtn.enabled=YES;
     }
 }
 
