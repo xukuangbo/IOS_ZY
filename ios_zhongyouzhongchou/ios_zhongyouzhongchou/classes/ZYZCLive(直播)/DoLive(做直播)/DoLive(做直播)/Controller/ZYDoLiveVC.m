@@ -76,13 +76,11 @@
 {
     [super viewDidLoad];
     
-    
+    [self qpLiveInit];
     //初始化UI
     [self initializedSubViews];
     
     [self rcinit];
-    
-    [self qpLiveInit];
 }
 
 //- (void)viewDidLoad {

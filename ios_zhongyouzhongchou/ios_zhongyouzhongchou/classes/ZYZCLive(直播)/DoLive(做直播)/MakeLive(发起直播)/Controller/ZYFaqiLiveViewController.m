@@ -12,7 +12,8 @@
 #import <QPLive/QPLive.h>
 //#import "ZYZCLiveController.h"
 //#import "ZYLiveViewController.h"
-#import "ZYDoLiveVC.h"
+//#import "ZYDoLiveVC.h"
+#import "ZYDoLiveViewController.h"
 #import "ZYCustomIconView.h"
 #import <ReactiveCocoa.h>
 #import "JudgeAuthorityTool.h"
@@ -77,7 +78,7 @@
         make.edges.equalTo(self.view);
     }];
     _bgImageView.userInteractionEnabled = YES;
-    _bgImageView.image = [UIImage imageNamed:@"faqi_Live_Bg"];
+    _bgImageView.image = [UIImage imageNamed:@"create_bg_live"];
     
     
     //封面
@@ -277,8 +278,11 @@
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             
-            ZYDoLiveVC *liveVC = [[ZYDoLiveVC alloc] init];
-            liveVC.pushUrl = pushUrl;
+//            ZYDoLiveVC *liveVC = [[ZYDoLiveVC alloc] init];
+//            ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] init];
+            ZYDoLiveViewController *liveVC = [[ZYDoLiveViewController alloc] init];
+
+//            liveVC.pushUrl = pushUrl;
             liveVC.conversationType = ConversationType_CHATROOM;
             //            liveVC.targetId = @"32";
             
