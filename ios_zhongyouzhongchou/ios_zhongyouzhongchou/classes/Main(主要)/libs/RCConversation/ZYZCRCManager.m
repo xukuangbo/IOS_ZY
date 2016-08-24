@@ -16,7 +16,7 @@
 #import "MBProgressHUD+MJ.h"
 static ZYZCRCManager *_RCManager;
 
-@interface ZYZCRCManager()<UIAlertViewDelegate>
+@interface ZYZCRCManager()<UIAlertViewDelegate, RCIMUserInfoDataSource>
 
 @end
 

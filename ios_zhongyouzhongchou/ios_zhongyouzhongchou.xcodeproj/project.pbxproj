@@ -100,6 +100,7 @@
 		0503B5751D65955A00546C16 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0503B5741D65955A00546C16 /* QuartzCore.framework */; };
 		0503BFF01D659CF700546C16 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0503BFEF1D659CF700546C16 /* IJKMediaFramework.framework */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
+		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
 		2C0101B71D5DC4C700D6470D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */; };
 		2C0101B91D5DC4E100D6470D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B81D5DC4E100D6470D /* libstdc++.tbd */; };
@@ -401,7 +402,6 @@
 		392AB28F1D669C26003FEDB7 /* RCDLiveCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2661D669C26003FEDB7 /* RCDLiveCollectionViewHeader.m */; };
 		392AB2901D669C26003FEDB7 /* RCDLiveContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2681D669C26003FEDB7 /* RCDLiveContentView.m */; };
 		392AB2911D669C26003FEDB7 /* RCDLiveTipLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB26A1D669C26003FEDB7 /* RCDLiveTipLabel.m */; };
-		392AB2941D669C26003FEDB7 /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2711D669C26003FEDB7 /* RCDLive.m */; };
 		392AB2951D669C26003FEDB7 /* RCDLiveKitUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2731D669C26003FEDB7 /* RCDLiveKitUtility.m */; };
 		392AB2961D669C26003FEDB7 /* RCDLiveGiftMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2761D669C26003FEDB7 /* RCDLiveGiftMessage.m */; };
 		392AB2971D669C26003FEDB7 /* RCDLiveMessageCellNotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2781D669C26003FEDB7 /* RCDLiveMessageCellNotificationModel.m */; };
@@ -684,6 +684,8 @@
 		0503BFEF1D659CF700546C16 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveViewController.h; sourceTree = "<group>"; };
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
+		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
+		056046C41D6DBDD5006906FD /* RCDLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLive.m; sourceTree = "<group>"; };
 		2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B81D5DC4E100D6470D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -1278,8 +1280,6 @@
 		392AB2681D669C26003FEDB7 /* RCDLiveContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLiveContentView.m; sourceTree = "<group>"; };
 		392AB2691D669C26003FEDB7 /* RCDLiveTipLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLiveTipLabel.h; sourceTree = "<group>"; };
 		392AB26A1D669C26003FEDB7 /* RCDLiveTipLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLiveTipLabel.m; sourceTree = "<group>"; };
-		392AB2701D669C26003FEDB7 /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
-		392AB2711D669C26003FEDB7 /* RCDLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLive.m; sourceTree = "<group>"; };
 		392AB2721D669C26003FEDB7 /* RCDLiveKitUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLiveKitUtility.h; sourceTree = "<group>"; };
 		392AB2731D669C26003FEDB7 /* RCDLiveKitUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLiveKitUtility.m; sourceTree = "<group>"; };
 		392AB2751D669C26003FEDB7 /* RCDLiveGiftMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLiveGiftMessage.h; sourceTree = "<group>"; };
@@ -3516,8 +3516,8 @@
 		392AB26F1D669C26003FEDB7 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				392AB2701D669C26003FEDB7 /* RCDLive.h */,
-				392AB2711D669C26003FEDB7 /* RCDLive.m */,
+				056046C31D6DBDD5006906FD /* RCDLive.h */,
+				056046C41D6DBDD5006906FD /* RCDLive.m */,
 				392AB2721D669C26003FEDB7 /* RCDLiveKitUtility.h */,
 				392AB2731D669C26003FEDB7 /* RCDLiveKitUtility.m */,
 			);
@@ -4399,7 +4399,6 @@
 				2CD209C81D6D4BA6005EB62E /* QPRecordViewController.m in Sources */,
 				040651351CC71A99003FD539 /* TacticModel.m in Sources */,
 				2C1B60DF1D6D3CF900E3C25B /* MoreFZCBaseTableView.m in Sources */,
-				392AB2941D669C26003FEDB7 /* RCDLive.m in Sources */,
 				39911ABE1D5038E2007DF44B /* TacticGeneralVC.m in Sources */,
 				392AB2981D669C26003FEDB7 /* RCDLiveMessageModel.m in Sources */,
 				2CC5FD781D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m in Sources */,
@@ -4757,6 +4756,7 @@
 				2C1B60DB1D6D3CF900E3C25B /* GoalFirstCell.m in Sources */,
 				2C1B60D81D6D3CF900E3C25B /* ZYImageModel.m in Sources */,
 				3926350E1D5D7C29006A90BE /* MineWalletTableViewCell.m in Sources */,
+				056046C51D6DBDD5006906FD /* RCDLive.m in Sources */,
 				2C1B60D41D6D3CF900E3C25B /* SelectImageViewController.m in Sources */,
 				040651231CC62FC7003FD539 /* TADotView.m in Sources */,
 				39809D151D58762E00CB9EE3 /* TactciMainVideoCell.m in Sources */,

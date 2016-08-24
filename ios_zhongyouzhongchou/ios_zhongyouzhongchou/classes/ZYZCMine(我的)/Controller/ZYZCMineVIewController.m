@@ -18,6 +18,8 @@
 #import "ZYZCRCManager.h"
 #import "UITabBarItem+WZLBadge.h"
 #import "UIBarButtonItem+WZLBadge.h"
+#import <RongIMKit/RongIMKit.h>
+
 @interface ZYZCMineVIewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) PersonHeadView *personHeadView;
 @property (nonatomic, strong) UITableView    *table;

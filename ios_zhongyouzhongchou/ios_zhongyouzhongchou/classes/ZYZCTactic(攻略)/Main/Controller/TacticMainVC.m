@@ -20,6 +20,7 @@
 #import "TacticMainCityCell.h"
 #import "ZYZCRCManager.h"
 #import "MBProgressHUD+MJ.h"
+#import <RongIMKit/RongIMKit.h>
 
 
 //用于删除的头文件
