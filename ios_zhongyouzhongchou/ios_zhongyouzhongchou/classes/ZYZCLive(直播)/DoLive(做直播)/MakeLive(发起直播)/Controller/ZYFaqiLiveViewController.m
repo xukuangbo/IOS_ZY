@@ -11,9 +11,8 @@
 #import <Masonry.h>
 #import <QPLive/QPLive.h>
 //#import "ZYZCLiveController.h"
-//#import "ZYLiveViewController.h"
+#import "ZYLiveViewController.h"
 //#import "ZYDoLiveVC.h"
-#import "ZYDoLiveViewController.h"
 #import "ZYCustomIconView.h"
 #import <ReactiveCocoa.h>
 #import "JudgeAuthorityTool.h"
@@ -279,10 +278,8 @@
         if (isSuccess) {
             
 //            ZYDoLiveVC *liveVC = [[ZYDoLiveVC alloc] init];
-//            ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] init];
-            ZYDoLiveViewController *liveVC = [[ZYDoLiveViewController alloc] init];
-
-//            liveVC.pushUrl = pushUrl;
+            ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] init];
+            liveVC.pushUrl = pushUrl;
             liveVC.conversationType = ConversationType_CHATROOM;
             //            liveVC.targetId = @"32";
             

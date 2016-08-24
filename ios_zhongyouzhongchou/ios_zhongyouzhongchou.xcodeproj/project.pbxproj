@@ -396,7 +396,6 @@
 		3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */; };
 		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
 		3967ADBA1D6D3941008A7F81 /* RoleList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3967ADB91D6D3941008A7F81 /* RoleList.plist */; };
-		3967ADBD1D6D3A5B008A7F81 /* ZYDoLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADBC1D6D3A5B008A7F81 /* ZYDoLiveViewController.m */; };
 		39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */; };
 		39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D061D58762E00CB9EE3 /* TacticMainCountryCell.m */; };
 		39809D141D58762E00CB9EE3 /* TacticMainHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D0B1D58762E00CB9EE3 /* TacticMainHeadCell.m */; };
@@ -1208,8 +1207,6 @@
 		3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionView.h; sourceTree = "<group>"; };
 		3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionView.m; sourceTree = "<group>"; };
 		3967ADB91D6D3941008A7F81 /* RoleList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RoleList.plist; sourceTree = "<group>"; };
-		3967ADBB1D6D3A5B008A7F81 /* ZYDoLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDoLiveViewController.h; sourceTree = "<group>"; };
-		3967ADBC1D6D3A5B008A7F81 /* ZYDoLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDoLiveViewController.m; sourceTree = "<group>"; };
 		39809D021D58762E00CB9EE3 /* TacticBaseCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticBaseCustomView.h; sourceTree = "<group>"; };
 		39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticBaseCustomView.m; sourceTree = "<group>"; };
 		39809D051D58762E00CB9EE3 /* TacticMainCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMainCountryCell.h; sourceTree = "<group>"; };
@@ -3163,8 +3160,6 @@
 				392AB2571D669C26003FEDB7 /* ZYZCLiveController.m */,
 				3967ADB21D6C29BD008A7F81 /* ZYDoLiveVC.h */,
 				3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */,
-				3967ADBB1D6D3A5B008A7F81 /* ZYDoLiveViewController.h */,
-				3967ADBC1D6D3A5B008A7F81 /* ZYDoLiveViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4259,7 +4254,6 @@
 				04F836461CD72C3300140980 /* SDRotationLoopProgressView.m in Sources */,
 				0432ADA21D0966F9005D789E /* STPickerArea.m in Sources */,
 				04A99D271CC0924E00C6F5F0 /* ZYZCAccountModel.m in Sources */,
-				3967ADBD1D6D3A5B008A7F81 /* ZYDoLiveViewController.m in Sources */,
 				04A99CA91CBF848D00C6F5F0 /* MoreFZCReturnTableView.m in Sources */,
 				04A99CA61CBF848D00C6F5F0 /* MoreFZCBaseTableViewCell.m in Sources */,
 				392AB28F1D669C26003FEDB7 /* RCDLiveCollectionViewHeader.m in Sources */,
