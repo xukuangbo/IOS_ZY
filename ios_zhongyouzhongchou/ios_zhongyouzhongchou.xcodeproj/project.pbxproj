@@ -4983,7 +4983,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ios_zhongyouzhongchou/lame",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/WeChatSDK1.6.2",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/JPush",
 				);
@@ -5098,7 +5097,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/ios_zhongyouzhongchou/lame",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/WeChatSDK1.6.2",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/JPush",
 				);

@@ -22,11 +22,15 @@
 
 #import "ZYZCEditYoujiController.h"
 #import "ZYZCLiveStartController.h"
+#import "ZYShortVideoController.h"
 
 #import "ZFWeiboButton.h"
 #import "ZFIssueWeiboView.h"
 
-@interface ZYZCTabBarController ()<UIAlertViewDelegate,RCIMReceiveMessageDelegate,ZFIssueWeiboViewDelegate>
+#import "QupaiSDK.h"
+#import "QPEffectMusic.h"
+
+@interface ZYZCTabBarController ()<UIAlertViewDelegate,RCIMReceiveMessageDelegate,ZFIssueWeiboViewDelegate,QupaiSDKDelegate>
 {
     FXBlurView *blurView;
     UIView *bgView;
@@ -135,7 +139,7 @@
 #pragma mark --- 创建半框
 -(void)clickBtn:(UIButton *)button
 {
-    NSArray *titles=@[@"众筹",@"游记",@"直播"];
+    NSArray *titles=@[@"众筹",@"短视频",@"直播"];
     NSArray *images=@[@"btn_fzc_pre",@"btn_xyj_pre",@"btn_view_pre"];
     ZFIssueWeiboView *view = [[ZFIssueWeiboView alloc]initWithTitles:titles andImages:images];
     view.frame = CGRectMake(0, 0, KSCREEN_W, KSCREEN_H);
@@ -154,9 +158,9 @@
             //发众筹
             [self enterFZC];
             break;
-            //游记
+            //短视频
         case 1001:
-            [self enterYouji];
+            [self enterShortVideo];
             break;
             //直播
         case 1002:
@@ -166,6 +170,41 @@
         default:
             break;
     }
+}
+
+#pragma mark --- 短视频
+-(void)enterShortVideo
+{
+    [QupaiSDK shared].minDurtaion = 2.0;
+    [QupaiSDK shared].maxDuration = 15.0;
+    UIViewController *controller = [[QupaiSDK shared] createRecordViewController];
+    [QupaiSDK shared].delegte = self;
+    UINavigationController *navCrl = [[UINavigationController alloc] initWithRootViewController:controller];
+    [self presentViewController:navCrl animated:YES completion:nil];
+}
+
+#pragma mark --- 实现短视频代理方法
+- (void)qupaiSDK:(id<QupaiSDKDelegate>)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath{
+    NSLog(@"Qupai SDK compelete %@",videoPath);
+    [self dismissViewControllerAnimated:YES completion:nil];
+    if (videoPath) {
+        UISaveVideoAtPathToSavedPhotosAlbum(videoPath, nil, nil, nil);
+    }
+    if (thumbnailPath) {
+        UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
+    }
+}
+- (NSArray *)qupaiSDKMusics:(id<QupaiSDKDelegate>)sdk
+{
+    NSMutableArray *array = [NSMutableArray array];
+    QPEffectMusic *effect = [[QPEffectMusic alloc] init];
+    effect.name = @"audio";
+    effect.eid = 1;
+    effect.musicName = [[NSBundle mainBundle] pathForResource:@"audio" ofType:@"mp3"];
+    effect.icon = [[NSBundle mainBundle] pathForResource:@"icon" ofType:@"png"];
+    [array addObject:effect];
+    
+    return array;
 }
 
 #pragma mark --- 进入游记
