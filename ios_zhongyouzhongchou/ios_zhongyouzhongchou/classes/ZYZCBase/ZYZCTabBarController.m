@@ -60,7 +60,7 @@
     [self.tabBar addSubview:moreBtn];
     
     _rcIM = [RCIM sharedRCIM];
-    _rcIM.receiveMessageDelegate=self;
+//    _rcIM.receiveMessageDelegate=self;
 }
 
 #pragma mark --- 收到消息的回调
