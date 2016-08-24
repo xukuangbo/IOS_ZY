@@ -11,7 +11,7 @@
 #import <RongIMLib/RongIMLib.h>
 #import "MBProgressHUD.h"
 #import <Masonry.h>
-#import <QPLive/QPLive.h>
+#import <QPSDKCore/QPSDKCore.h>
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
 #import "LiveFunctionView.h"
@@ -76,13 +76,11 @@
 {
     [super viewDidLoad];
     
-    
+    [self qpLiveInit];
     //初始化UI
     [self initializedSubViews];
     
     [self rcinit];
-    
-    [self qpLiveInit];
 }
 
 //- (void)viewDidLoad {

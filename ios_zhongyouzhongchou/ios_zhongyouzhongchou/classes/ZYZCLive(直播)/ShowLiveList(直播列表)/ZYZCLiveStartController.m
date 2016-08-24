@@ -8,7 +8,7 @@
 
 #import "ZYZCLiveStartController.h"
 #import "ZYZCLiveController.h"
-#import <QPLive/QPLive.h>
+#import <QPSDKCore/QPSDKCore.h>
 #import "MBProgressHUD+MJ.h"
 //正式
 #define kQPDomain @"http://zhongyoulive.s.qupai.me"

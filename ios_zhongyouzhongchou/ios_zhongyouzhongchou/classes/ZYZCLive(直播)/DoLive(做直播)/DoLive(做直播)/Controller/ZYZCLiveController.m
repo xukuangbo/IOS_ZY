@@ -7,7 +7,7 @@
 //
 
 #import "ZYZCLiveController.h"
-#import <QPLive/QPLive.h>
+#import  <QPSDKCore/QPSDKCore.h>
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
 @interface ZYZCLiveController () <QPLiveSessionDelegate,UIAlertViewDelegate>

@@ -8,7 +8,7 @@
 
 #import "ZYLivePreview.h"
 #import "UIView+ZYLayer.h"
-#import <QPLive/QPLive.h>
+#import <QPSDKCore/QPSDKCore.h>
 #import <RACEXTScope.h>
 #import "ZYLiveHeadView.h"
 #import <CoreTelephony/CTCallCenter.h>
