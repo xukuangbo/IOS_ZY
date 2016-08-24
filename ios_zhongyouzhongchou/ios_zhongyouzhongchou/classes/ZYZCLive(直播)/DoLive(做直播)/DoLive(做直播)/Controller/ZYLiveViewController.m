@@ -358,6 +358,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)openVideoSuccess:(QPLiveSession *)session {
     DDLog(@"摄像头打开成功");
 }
+#pragma mark --- 收集日志
+- (void)liveSession:(QPLiveSession *)session logInfo:(NSDictionary *)info
+{
+    
+}
 
 #pragma mark --- 音频初始化失败
 - (void)liveSession:(QPLiveSession *)session openAudioError:(NSError *)error {
