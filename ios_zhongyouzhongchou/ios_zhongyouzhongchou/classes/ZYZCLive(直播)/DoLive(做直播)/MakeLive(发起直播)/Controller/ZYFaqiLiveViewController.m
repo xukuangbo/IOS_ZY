@@ -267,7 +267,7 @@
     
     WEAKSELF
     NSString *url = Post_Create_Live;
-    NSString *chatRoomId = [NSString stringWithFormat:@"chatRoomeId%@",[ZYZCAccountTool getUserId]];
+    NSString *chatRoomId = [NSString stringWithFormat:@"chatRoomId%@",[ZYZCAccountTool getUserId]];
     NSDictionary *parameters = @{
                                  @"img" : weakSelf.uploadImgString,
                                  @"title" : weakSelf.titleTextfield.text,
@@ -279,6 +279,7 @@
             
 //            ZYDoLiveVC *liveVC = [[ZYDoLiveVC alloc] init];
             ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] init];
+            liveVC.targetId = chatRoomId;
             liveVC.pushUrl = pushUrl;
             liveVC.conversationType = ConversationType_CHATROOM;
             //            liveVC.targetId = @"32";

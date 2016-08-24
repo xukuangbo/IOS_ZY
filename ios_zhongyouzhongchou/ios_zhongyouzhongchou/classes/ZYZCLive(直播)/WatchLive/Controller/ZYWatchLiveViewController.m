@@ -33,8 +33,8 @@
 #define KTextPullUrl "http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"
 @interface ZYWatchLiveViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
-UICollectionViewDelegateFlowLayout, RCDLiveMessageCellDelegate, UIGestureRecognizerDelegate,
-UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate>
+UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate,
+UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate>
 @property (nonatomic, strong) ZYLiveListModel *liveModel;
 @property (atomic, strong) NSURL *url;
 @property (atomic, retain) id <IJKMediaPlayback> player;
@@ -54,7 +54,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 /**
  *  是否正在加载消息
  */
-@property(nonatomic) BOOL isLoading;
+@property(nonatomic, assign) BOOL isLoading;
 
 /**
  *  会话名称
@@ -78,7 +78,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 /**
  *  播放器view
  */
-@property (weak, nonatomic) UIView *PlayerView;
+@property (strong, nonatomic) UIView *PlayerView;
 
 /**
  *  底部显示未读消息view
@@ -141,6 +141,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self = [super init];
     if (self) {
         self.liveModel = liveModel;
+        _targetId = liveModel.chatRoomId;
         //        self.liveModel.pullURL = @KTextPullUrl;
     }
     return self;
@@ -149,13 +150,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupData];
-    [self setupConstraints];
     //初始化UI
     [self setupView];
     [self getIntoLive:self.liveModel.pullUrl];
 
 //    [self initChatroomMemberInfo];
-    
+    [self enterInfoLiveRoom];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
     
     [self setBackItem];
@@ -168,7 +168,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if (![self.player isPlaying]) {
         [self.player prepareToPlay];
     }
-    [self.view addGestureRecognizer:_resetBottomTapGesture];
     [self.conversationMessageCollectionView reloadData];
 }
 
@@ -179,7 +178,32 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:1]];
 }
 
+- (void)enterInfoLiveRoom
+{
+    WEAKSELF
+    if (ConversationType_CHATROOM == self.conversationType) {
+        [[RCIMClient sharedRCIMClient]
+         joinExistChatRoom:self.liveModel.chatRoomId
+         messageCount:self.defaultHistoryMessageCountOfChatRoom
+         success:^{
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
+                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[RCDLive sharedRCDLive].currentUserInfo.name];
+                 [weakSelf sendMessage:joinChatroomMessage pushContent:nil];
+             });
+         }
+         error:^(RCErrorCode status) {
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 if (status == KICKED_FROM_CHATROOM) {
+//                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomRejected", @"RongCloudKit", nil)];
+                 } else {
+//                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomFailed", @"RongCloudKit", nil)];
+                 }
+             });
+         }];
+    }
 
+}
 #pragma mark - setup
 - (void)setupView
 {
@@ -200,11 +224,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         _conversationViewFrame.origin.y = 0;
         _conversationViewFrame.size.height = self.contentView.bounds.size.height - 50;
         _conversationViewFrame.size.width = 240;
-        self.conversationMessageCollectionView =
-        [[UICollectionView alloc] initWithFrame:_conversationViewFrame
-                           collectionViewLayout:customFlowLayout];
-        [self.conversationMessageCollectionView
-         setBackgroundColor:[UIColor clearColor]];
+        self.conversationMessageCollectionView = [[UICollectionView alloc] initWithFrame:_conversationViewFrame collectionViewLayout:customFlowLayout];
+        [self.conversationMessageCollectionView setBackgroundColor:[UIColor clearColor]];
         self.conversationMessageCollectionView.showsHorizontalScrollIndicator = NO;
         self.conversationMessageCollectionView.alwaysBounceVertical = YES;
         self.conversationMessageCollectionView.dataSource = self;
@@ -213,19 +234,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
     //输入区
     if(self.inputBar == nil){
-        float inputBarOriginY = self.conversationMessageCollectionView.bounds.size.height +30;
-        float inputBarOriginX = self.conversationMessageCollectionView.frame.origin.x;
-        float inputBarSizeWidth = self.contentView.frame.size.width;
-        float inputBarSizeHeight = MinHeight_InputView;
-        self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight)
-                                              inViewConroller:self];
+        CGFloat inputBarOriginY = self.conversationMessageCollectionView.bounds.size.height +30;
+        CGFloat inputBarOriginX = self.conversationMessageCollectionView.frame.origin.x;
+        CGFloat inputBarSizeWidth = self.contentView.frame.size.width;
+        CGFloat inputBarSizeHeight = MinHeight_InputView;
+        self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight) inViewConroller:nil];
         self.inputBar.delegate = self;
         self.inputBar.backgroundColor = [UIColor clearColor];
         self.inputBar.hidden = YES;
         [self.contentView addSubview:self.inputBar];
     }
-    self.collectionViewHeader = [[RCDLiveCollectionViewHeader alloc]
-                                 initWithFrame:CGRectMake(0, -50, self.view.bounds.size.width, 40)];
+    self.collectionViewHeader = [[RCDLiveCollectionViewHeader alloc] initWithFrame:CGRectMake(0, -50, self.view.bounds.size.width, 40)];
     _collectionViewHeader.tag = 1999;
     [self.conversationMessageCollectionView addSubview:_collectionViewHeader];
     [self registerClass:[RCDLiveTextMessageCell class]forCellWithReuseIdentifier:rctextCellIndentifier];
@@ -236,17 +255,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                              initWithTarget:self
                              action:@selector(tap4ResetDefaultBottomBarStatus:)];
     [_resetBottomTapGesture setDelegate:self];
-//    _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _backBtn.frame = CGRectMake(10, 35, 72, 25);
-//    UIImageView *backImg = [[UIImageView alloc]
-//                            initWithImage:[UIImage imageNamed:@"back.png"]];
-//    backImg.frame = CGRectMake(0, 0, 25, 25);
-//    [_backBtn addSubview:backImg];
-//    [_backBtn addTarget:self
-//                 action:@selector(leftBarButtonItemPressed:)
-//       forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_backBtn];
-    
+    [self.view addGestureRecognizer:_resetBottomTapGesture];
+
     _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
     _feedBackBtn.frame = CGRectMake(10, self.view.frame.size.height - 45, 35, 35);
     UIImageView *clapImg = [[UIImageView alloc]
@@ -271,8 +281,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     _clapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
-    UIImageView *clapImg3 = [[UIImageView alloc]
-                             initWithImage:[UIImage imageNamed:@"heartIcon"]];
+    UIImageView *clapImg3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"heartIcon"]];
     clapImg3.frame = CGRectMake(0,0, 35, 35);
     [_clapBtn addSubview:clapImg3];
     [_clapBtn addTarget:self
@@ -323,8 +332,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     self.conversationDataRepository = [[NSMutableArray alloc] init];
     self.userList = [[NSMutableArray alloc] init];
-    self.conversationMessageCollectionView = nil;
-    self.targetId = nil;
     [self registerNotification];
     self.defaultHistoryMessageCountOfChatRoom = 10;
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
@@ -362,12 +369,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  *  @param sender sender description
  */
 -(void)flowerButtonPressed:(UIButton *)sender{
-    sender.selected = !sender.selected;
-    if (sender.selected) {
-        [self.player stop];
-    } else {
-        [self.player play];
-    }
+//    sender.selected = !sender.selected;
+//    if (sender.selected) {
+//        [_player stop];
+//    } else {
+//        [_player play];
+//    }
     RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
     giftMessage.type = @"0";
     [self sendMessage:giftMessage pushContent:@""];
@@ -414,7 +421,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 /**
  *  未读消息View
  *
- *  @return <#return value description#>
+ *  @return
  */
 - (UIView *)unreadButtonView {
     if (!_unreadButtonView) {
@@ -1048,6 +1055,18 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     [self.player pause];
     [self removeMovieNotificationObservers];
+//    if (self.conversationType == ConversationType_CHATROOM) {
+//        [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
+//                                            success:^{
+//                                                self.conversationMessageCollectionView.dataSource = nil;
+//                                                self.conversationMessageCollectionView.delegate = nil;
+//                                                [[NSNotificationCenter defaultCenter] removeObserver:self];
+//                                                [[RCIMClient sharedRCIMClient]disconnect];
+//                                                
+//                                            } error:^(RCErrorCode status) {
+//                                                
+//                                            }];
+//    }
 }
 
 /**
