@@ -123,7 +123,7 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {
-        [[RCIM sharedRCIM]disconnect];
+//        [[RCIM sharedRCIM]disconnect];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }

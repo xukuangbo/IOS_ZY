@@ -185,6 +185,37 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
      object:nil];
 }
 
+
+#pragma mark - APP进入前后台的动作
+- (void)appResignActive{
+    [self destroySession];
+    
+    // 监听电话
+    _callCenter = [[CTCallCenter alloc] init];
+    _isCTCallStateDisconnected = NO;
+    _callCenter.callEventHandler = ^(CTCall* call) {
+        if ([call.callState isEqualToString:CTCallStateDisconnected])
+        {
+            _isCTCallStateDisconnected = YES;
+        }
+        else if([call.callState isEqualToString:CTCallStateConnected])
+            
+        {
+            _callCenter = nil;
+        }
+    };
+    
+}
+
+- (void)appBecomeActive{
+    
+    if (_isCTCallStateDisconnected) {
+        sleep(2);
+    }
+    
+    [self getLive];
+}
+
 #pragma mark ---注册cell
 - (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
     [self.conversationMessageCollectionView registerClass:cellClass
@@ -341,6 +372,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark --- 网速较慢时的代理方法
 - (void)liveSessionNetworkSlow:(QPLiveSession *)session{
     DDLog(@"网络太差");
+    
+    //这时候就提醒退出直播
 }
 
 #pragma mark --- 推流连接成功
