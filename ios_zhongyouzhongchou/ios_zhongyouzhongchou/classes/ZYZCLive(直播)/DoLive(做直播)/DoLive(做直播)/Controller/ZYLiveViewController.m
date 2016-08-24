@@ -482,14 +482,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                                 self.conversationMessageCollectionView.dataSource = nil;
                                                 self.conversationMessageCollectionView.delegate = nil;
                                                 [[NSNotificationCenter defaultCenter] removeObserver:self];
-                                                [[RCIMClient sharedRCIMClient]disconnect];
+//                                                [[RCIMClient sharedRCIMClient]disconnect];
                                                 dispatch_async(dispatch_get_main_queue(), ^{
 //                                                    [self.navigationController popViewControllerAnimated:YES];
                                                     [self dismissViewControllerAnimated:YES completion:nil];
                                                 });
                                                 
                                             } error:^(RCErrorCode status) {
-                                                
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    //                                                    [self.navigationController popViewControllerAnimated:YES];
+                                                    [self dismissViewControllerAnimated:YES completion:nil];
+                                                });
                                             }];
     }
 }
