@@ -16,6 +16,8 @@
 @property (nonatomic, copy  ) NSString *faceImg;
 @property (nonatomic, copy  ) NSString *desc;
 
+@property (nonatomic, copy  ) NSString *imgUrlStr;
+
 -(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr;
 
 @end

@@ -48,9 +48,24 @@ typedef void (^__nullable DeleteOneImage)();
  */
 + (nonnull instancetype)showFromImageView:(nullable UIImageView *)imageView withImages:(nullable NSArray *)images atIndex:(NSInteger)index dismiss:(DismissBlock)block;
 
+
+//查看或删除单个本地图片
 + (nonnull instancetype)showFromImageView:(nullable UIImageView *)imageView withImages:(nullable NSArray *)images atIndex:(NSInteger)index deleteImg:(DeleteOneImage )block;
 
+//查看或删除单个网络图片
+
 + (nonnull instancetype)showFromImageView:(nullable UIImageView *)imageView withURLStrings:(nullable NSArray *)URLStrings placeholderImage:(nullable UIImage *)image atIndex:(NSInteger)index  deleteImg:(DeleteOneImage)block;
+
+/**
+ *  Description      查看图片
+ *
+ *  @param imageView 点击的本地图片
+ *  @param imgURL    图片地址（网络图片或本地图片）
+ *  @param image     占位图片
+ *  @param index     点击的图片在所有要展示图片中的位置
+ *
+ */
++ (nonnull instancetype)showFromImageView:(nullable UIImageView *)imageView withImgURLs:(nullable NSArray *)imgURLs placeholderImage:(nullable UIImage *)image atIndex:(NSInteger)index dismiss:(DismissBlock)block;
 
 @property (nonatomic, strong, nullable) UIImage *placeholderImage;
 

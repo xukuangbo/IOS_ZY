@@ -36,6 +36,8 @@
 
 @property (nonatomic, strong) UIView *topBgView;
 
+@property (nonatomic, assign) BOOL   isHidden;
+
 @end
 
 @implementation QPEffectView
@@ -101,6 +103,7 @@
     
     self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
     self.activityIndicator.frame = CGRectMake(CGRectGetWidth(self.viewTop.frame) - 9 - kActivityIndicatorWeight, 0, kActivityIndicatorWeight, kViewTopHeight - 7);
+    self.activityIndicator.color=[UIColor whiteColor];
     self.activityIndicator.hidesWhenStopped = YES;
     [self.viewTop addSubview:self.activityIndicator];
     self.activityIndicator.hidden = YES;
@@ -357,7 +360,7 @@
         
         self.containView.transform=CGAffineTransformTranslate(self.containView.transform, -(ScreenHeight-ScreenWidth/2-kCBottomViewHeight/2),( ScreenWidth-kCBottomViewHeight)/2);
         
-        self.viewMix.transform=CGAffineTransformTranslate(self.viewMix.transform, -(ScreenHeight-ScreenWidth)/2,ScreenWidth/2-(kCBottomViewHeight+10)-kViewCenterViewMixHeight/2);
+        self.viewMix.transform=CGAffineTransformTranslate(self.viewMix.transform, -((ScreenHeight-ScreenWidth)/2+(ScreenWidth/2-kCBottomViewHeight)/2),ScreenWidth/2-(kCBottomViewHeight+10)-kViewCenterViewMixHeight/2);
         
         self.viewTop.transform=CGAffineTransformTranslate(self.viewTop.transform,(ScreenWidth-kViewTopHeight)/2,-(ScreenWidth-kViewTopHeight)/2);
         

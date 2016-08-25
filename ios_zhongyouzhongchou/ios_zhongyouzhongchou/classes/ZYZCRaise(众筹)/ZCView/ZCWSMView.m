@@ -8,6 +8,7 @@
 
 #import "ZCWSMView.h"
 #import "ZYDescImage.h"
+#import "HUPhotoBrowser.h"
 @interface ZCWSMView ()
 
 @property (nonatomic, strong)ZYZCCusomMovieImage *movieView;
@@ -55,7 +56,7 @@
 //    _textLab.backgroundColor=[UIColor orangeColor];
     [self addSubview:_textLab];
     
-    _imgsView=[[UIImageView alloc]initWithFrame:CGRectMake(0, _textLab.bottom+KEDGE_DISTANCE, self.width, 1)];
+    _imgsView=[[UIView alloc]initWithFrame:CGRectMake(0, _textLab.bottom+KEDGE_DISTANCE, self.width, 1)];
     [self addSubview:_imgsView];
     
     self.height=1;
@@ -63,6 +64,7 @@
 
 -(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr
 {
+    _imgUrlStr =imgUrlStr;
     BOOL hasMovie=NO,hasVoice=NO,hasWord=NO,hasImg=YES;
     _movieView.top=0;
     if (videoImgUrl.length) {
@@ -113,7 +115,7 @@
     }
     
     _imgsView.top=_textLab.bottom+hasWord*KEDGE_DISTANCE;
-    DDLog(@"_imgsView.top:%.2f",_imgsView.top);
+//    DDLog(@"_imgsView.top:%.2f",_imgsView.top);
     if (imgUrlStr.length) {
         CGFloat imgsHeight=0.0;
         _imgsView.hidden=NO;
@@ -130,6 +132,7 @@
             ZYDescImage *img=[[ZYDescImage alloc]initWithFrame:CGRectMake(0, (self.width/8*5+KEDGE_DISTANCE)*i, self.width, self.width/8*5)];
             img.layer.cornerRadius=KCORNERRADIUS;
             img.layer.masksToBounds=YES;
+            img.tag=i;
             [_imgsView addSubview:img];
             
             ZYDescImgModel *imgModel=[[ZYDescImgModel alloc]init];
@@ -137,6 +140,7 @@
             img.imgModel=imgModel;
             
             imgsHeight=img.bottom;
+            [img addTarget:self action:@selector(skimBigImage:)];
         }
         _imgsView.height=imgsHeight;
     }
@@ -146,6 +150,13 @@
     }
     
      self.height=_imgsView.bottom;
+}
+
+-(void)skimBigImage:(UITapGestureRecognizer *)tap
+{
+    NSArray *imgUrls=[_imgUrlStr componentsSeparatedByString:@","];
+    ZYDescImage *img=(ZYDescImage *)tap.view;
+    [HUPhotoBrowser showFromImageView:img withImgURLs:imgUrls placeholderImage:[UIImage imageNamed:@"image_placeholder"] atIndex:img.tag dismiss:nil];
 }
 
 @end

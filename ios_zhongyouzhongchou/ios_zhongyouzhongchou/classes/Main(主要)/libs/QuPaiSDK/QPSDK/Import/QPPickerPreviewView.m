@@ -41,7 +41,7 @@
     [self addSubview:self.viewTop];
     
     self.buttonClose = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.buttonClose setImage:[QPImage imageNamed:@"record_ico_close.png"] forState:(UIControlStateNormal)];
+    [self.buttonClose setImage:[QPImage imageNamed:@"record_ico_back_1_1.png"] forState:(UIControlStateNormal)];
     self.buttonClose.frame = CGRectMake(0, 0, 60, kTopViewHeight);
     [self.buttonClose addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.viewTop addSubview:self.buttonClose];

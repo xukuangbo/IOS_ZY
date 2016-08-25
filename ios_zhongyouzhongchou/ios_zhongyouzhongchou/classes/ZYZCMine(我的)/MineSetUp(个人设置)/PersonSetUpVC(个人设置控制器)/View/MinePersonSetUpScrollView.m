@@ -588,6 +588,7 @@
         }
 //        NSLog(@"%@",Regist_UpdateUserInfo);
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Regist_UpdateUserInfo andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            DDLog(@"%@",result);
             [MBProgressHUD showSuccess:@"保存成功"];
             [MBProgressHUD setAnimationDelay:2];
             [self.viewController.navigationController popViewControllerAnimated:YES];
@@ -595,11 +596,12 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:@"userInfoChange" object:nil];
             
             //名字有改动时重新获取融云的token
-            if(parameter[@"realName"])
+            if(parameter[@"realName"]||parameter[@"faceImg"])
             {
                 //获取融云token
                 ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
-                accountModel.nickname=parameter[@"realName"];
+                accountModel.realName=parameter[@"realName"];
+                accountModel.faceImg =parameter[@"faceImg"];
                 [ZYZCAccountTool saveAccount:accountModel];
                 ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
                 RCManager.hasLogin=NO;

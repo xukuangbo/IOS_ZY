@@ -276,46 +276,32 @@
                                 };
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool postHttpDataWithEncrypt:NO andURL:REGISTERWEICHAT andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
-//         DDLog(@"%@",result);
+         DDLog(@"%@",result);
         if (isSuccess) {
-            ZYZCAccountModel *accountModel=weakAccount;
+            ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"]];
             accountModel.openid=result[@"data"][@"openid"];
             accountModel.userId=result[@"data"][@"userId"];
             accountModel.openidapp=result[@"data"][@"openidapp"];
-            accountModel.scr=result[@"data"][@"scr"];
-            //获取个人信息
-            [ZYZCHTTPTool getHttpDataByURL:GET_USERINFO_BYOPENID(accountModel.userId) withSuccessGetBlock:^(id result, BOOL isSuccess)
-            {
-                [MBProgressHUD hideHUDForView:self.view];
-                 DDLog(@"----%@",result);
-                if (isSuccess) {
-                    accountModel.nickname=result[@"data"][@"realName"]?result[@"data"][@"realName"]:result[@"data"][@"userName"];
-                    //保存个人信息到本地
-                    [ZYZCAccountTool saveAccount:accountModel];
-                    
-                    //注册成功,获取融云token
-                    ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
-                    RCManager.hasLogin=NO;
-                    [RCManager getRCloudToken];
-                    
-                    //注册JPush别名,两个都为nil表示不调用回调，即不去验证是否注册成功
-                    //            [JPUSHService setAlias:accountModel.openid callbackSelector:nil object:nil];
-                    [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",accountModel.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-                        //                NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags , iAlias);
-                    }];
-                    
-                    //这里应该修改根控制器
-                    [LoginJudgeTool rootJudgeLogin];
-                }
-                else
-                {
-                    [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-                }
+            
+            if (!accountModel.realName&&accountModel.userName) {
+                accountModel.realName=accountModel.userName;
             }
-            andFailBlock:^(id failResult) {
-                [MBProgressHUD hideHUDForView:self.view];
-                [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+            
+            //保存个人信息到本地
+            [ZYZCAccountTool saveAccount:accountModel];
+            
+            //注册成功,获取融云token
+            ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
+            RCManager.hasLogin=NO;
+            [RCManager getRCloudToken];
+            
+            //注册JPush别名,两个都为nil表示不调用回调，即不去验证是否注册成功
+            //            [JPUSHService setAlias:accountModel.openid callbackSelector:nil object:nil];
+            [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",accountModel.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                //                NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags , iAlias);
             }];
+            //这里应该修改根控制器
+            [LoginJudgeTool rootJudgeLogin];
         }
         else
         {
