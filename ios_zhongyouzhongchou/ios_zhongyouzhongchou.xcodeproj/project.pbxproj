@@ -479,6 +479,8 @@
 		399E94261D38E20C006E1B68 /* NetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94241D38E20C006E1B68 /* NetWorkManager.m */; };
 		399E942A1D3A2226006E1B68 /* OpenSetTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94291D3A2226006E1B68 /* OpenSetTool.m */; };
 		399E94331D3C6E8F006E1B68 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94321D3C6E8F006E1B68 /* TTTAttributedLabel.m */; };
+		39AABC891D6EC81700D25B16 /* DoLiveHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */; };
+		39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */; };
 		39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */; };
 		39E4EC5A1D2FB9B200305F73 /* AboutZhongyouVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC591D2FB9B200305F73 /* AboutZhongyouVC.m */; };
 		39E52FDD1D50815A00D0ED83 /* TacticMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E52FDC1D50815A00D0ED83 /* TacticMainVC.m */; };
@@ -1427,6 +1429,10 @@
 		399E94291D3A2226006E1B68 /* OpenSetTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenSetTool.m; sourceTree = "<group>"; };
 		399E94311D3C6E8F006E1B68 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		399E94321D3C6E8F006E1B68 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		39AABC871D6EC81700D25B16 /* DoLiveHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoLiveHeadView.h; sourceTree = "<group>"; };
+		39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoLiveHeadView.m; sourceTree = "<group>"; };
+		39AABC8B1D6EC9D500D25B16 /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
+		39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
 		39E4EC531D2F9C1800305F73 /* TacticMoreCitiesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreCitiesModel.h; sourceTree = "<group>"; };
 		39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreCitiesModel.m; sourceTree = "<group>"; };
 		39E4EC581D2FB9B200305F73 /* AboutZhongyouVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutZhongyouVC.h; sourceTree = "<group>"; };
@@ -1801,6 +1807,7 @@
 		04A99BCE1CBF848C00C6F5F0 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				39AABC8A1D6EC9D400D25B16 /* MZTimerLabel */,
 				0503BFEE1D659CF700546C16 /* IJKMediaFramework */,
 				2CE617441D657DD100962163 /* HUPhotoBrowser */,
 				2C0101C51D5DF48E00D6470D /* ZYAnimotionBttons */,
@@ -3476,6 +3483,7 @@
 		392AB2581D669C26003FEDB7 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				39AABC861D6EC7FA00D25B16 /* DoLiveHeadView */,
 				3967ADB51D6C2AFD008A7F81 /* LiveFunctionView(功能键) */,
 				392AB2591D669C26003FEDB7 /* EmojiView */,
 				392AB25E1D669C26003FEDB7 /* InputBar */,
@@ -4013,6 +4021,24 @@
 				399E94321D3C6E8F006E1B68 /* TTTAttributedLabel.m */,
 			);
 			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
+		39AABC861D6EC7FA00D25B16 /* DoLiveHeadView */ = {
+			isa = PBXGroup;
+			children = (
+				39AABC871D6EC81700D25B16 /* DoLiveHeadView.h */,
+				39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */,
+			);
+			path = DoLiveHeadView;
+			sourceTree = "<group>";
+		};
+		39AABC8A1D6EC9D400D25B16 /* MZTimerLabel */ = {
+			isa = PBXGroup;
+			children = (
+				39AABC8B1D6EC9D500D25B16 /* MZTimerLabel.h */,
+				39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */,
+			);
+			path = MZTimerLabel;
 			sourceTree = "<group>";
 		};
 		39E4EC491D2E554500305F73 /* WalletMingXi(筹钱明细) */ = {
@@ -4568,6 +4594,7 @@
 				2C1B60F61D6D3CF900E3C25B /* RecordSoundObj.m in Sources */,
 				2C1B60DA1D6D3CF900E3C25B /* FZCSingleTitleView.m in Sources */,
 				2CD209AF1D6D4BA6005EB62E /* QPEffectManager.m in Sources */,
+				39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */,
 				2CD209291D6D3E27005EB62E /* ZCCommentViewController.m in Sources */,
 				39911ADC1D5044A8007DF44B /* ZYZCHTTPTool.m in Sources */,
 				2C1B61071D6D3CF900E3C25B /* RMCalendarCollectionViewLayout.m in Sources */,
@@ -4607,6 +4634,7 @@
 				04F836461CD72C3300140980 /* SDRotationLoopProgressView.m in Sources */,
 				0432ADA21D0966F9005D789E /* STPickerArea.m in Sources */,
 				2CD209B81D6D4BA6005EB62E /* QPLibrarayItem.m in Sources */,
+				39AABC891D6EC81700D25B16 /* DoLiveHeadView.m in Sources */,
 				04A99D271CC0924E00C6F5F0 /* ZYZCAccountModel.m in Sources */,
 				392AB28F1D669C26003FEDB7 /* RCDLiveCollectionViewHeader.m in Sources */,
 				2C1B60F81D6D3CF900E3C25B /* WordEditViewController.m in Sources */,
@@ -4955,8 +4983,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: BOQUAN ZHU (R6NLGC59MH)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: BOQUAN ZHU (R6NLGC59MH)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5056,7 +5084,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sosona.zhongyouzhongchou;
 				PRODUCT_NAME = "众游";
-				PROVISIONING_PROFILE = "c0926461-de77-4d80-b891-48655835be8d";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}\"/**";
 			};
@@ -5170,7 +5198,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sosona.zhongyouzhongchou;
 				PRODUCT_NAME = "众游";
-				PROVISIONING_PROFILE = "c0926461-de77-4d80-b891-48655835be8d";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 				USER_HEADER_SEARCH_PATHS = "\"${SRCROOT}\"/**";
 			};

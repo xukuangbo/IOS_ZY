@@ -28,6 +28,7 @@
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
 #import "LiveFunctionView.h"
+#import "DoLiveHeadView.h"
 
 //#import "KSYLivePlaying.h"
 //#import "UCLOUDLivePlaying.h"
@@ -59,61 +60,59 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 
 #pragma mark - 聊天需要的属性
 
-#pragma mark ---返回按钮
+//返回按钮
 @property (nonatomic, strong) UIButton *backBtn;
 
-#pragma mark ---分享按钮
+//分享按钮
 @property(nonatomic,strong)UIButton *shareBtn;
 
-#pragma mark ---评论按钮
+//评论按钮
 @property(nonatomic,strong)UIButton *feedBackBtn;
 
-#pragma mark ---主播功能端按钮
+//主播功能端按钮
 @property(nonatomic,strong)UIButton *moreBtn;
-
+//主播功能端view
 @property (nonatomic, strong) LiveFunctionView *liveFunctionView;
 
-#pragma mark ---私信按钮
+//私信按钮
 @property (nonatomic, strong) UIButton *massageBtn;
 
-#pragma mark ---点击空白区域事件
+//点击空白区域事件
 @property(nonatomic, strong) UITapGestureRecognizer *resetBottomTapGesture;
 
-
+//刷新的view
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
 
-#pragma mark ---存储长按返回的消息的model
+//存储长按返回的消息的model
 @property(nonatomic, strong) RCDLiveMessageModel *longPressSelectedModel;
 
-#pragma mark ---是否需要滚动到底部
+//是否需要滚动到底部
 @property(nonatomic, assign) BOOL isNeedScrollToButtom;
 
-#pragma mark ---是否正在加载消息
+//是否正在加载消息
 @property(nonatomic) BOOL isLoading;
 
-#pragma mark ---会话名称
+//会话名称
 @property(nonatomic,copy) NSString *navigationTitle;
 
-#pragma mark ---金山视频播放器manager
+//金山视频播放器manager
 //@property(nonatomic, strong) KSYLivePlaying *livePlayingManager;
 
-#pragma mark ---直播互动文字显示
+//直播互动文字显示
 @property(nonatomic,strong) UIView *titleView ;
 
-#pragma mark ---播放器view
+//播放器view
 @property(nonatomic,strong) UIView *liveView;
 
-#pragma mark ---底部显示未读消息view
+//底部显示未读消息view
 @property (nonatomic, strong) UIView *unreadButtonView;
+//未读消息
 @property(nonatomic, strong) UILabel *unReadNewMessageLabel;
-
-#pragma mark ---滚动条不在底部的时候，接收到消息不滚动到底部，记录未读消息数
+//滚动条不在底部的时候，接收到消息不滚动到底部，记录未读消息数
 @property (nonatomic, assign) NSInteger unreadNewMsgCount;
-
-#pragma mark ---当前融云连接状态
+//当前融云连接状态
 @property (nonatomic, assign) RCConnectionStatus currentConnectionStatus;
-
-#pragma mark ---鲜花按钮
+//鲜花按钮
 @property(nonatomic,strong)UIButton *flowerBtn;
 
 
@@ -139,11 +138,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark - 方法实现
 @implementation ZYLiveViewController
 
-
+#pragma mark - setup方法
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self rcinit];
+        [self initRC];
         self.conversationType = ConversationType_CHATROOM;
     }
     return self;
@@ -153,13 +152,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        [self rcinit];
+        [self initRC];
         self.conversationType = ConversationType_CHATROOM;
     }
     return self;
 }
 
-- (void)rcinit {
+- (void)initRC{
     self.conversationDataRepository = [[NSMutableArray alloc] init];
     self.userList = [[NSMutableArray alloc] init];
     self.conversationMessageCollectionView = nil;
@@ -168,6 +167,127 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.defaultHistoryMessageCountOfChatRoom = 10;
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
     
+}
+
+
+#pragma mark - viewAppear方法
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.view addGestureRecognizer:_resetBottomTapGesture];
+    [self.conversationMessageCollectionView reloadData];
+    
+    
+    [self.navigationController.navigationBar setHidden:YES];
+    
+    [self.tabBarController.tabBar setHidden:YES];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationTitle = self.navigationItem.title;
+}
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter]
+     removeObserver:self
+     name:@"kRCPlayVoiceFinishNotification"
+     object:nil];
+    
+    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
+    [self.conversationMessageCollectionView
+     addGestureRecognizer:_resetBottomTapGesture];
+    
+    
+    [self.navigationController.navigationBar setHidden:NO];
+    
+    [self.tabBarController.tabBar setHidden:NO];
+    
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    //    self.userList = delegate.userList;
+    
+    //进行直播
+    [self getLive];
+    
+//    [self setupNstimer];
+    
+    [self setUpUserList];
+    //初始化UI
+    [self setUpSubViews];
+    
+    [self setUpChatroomMemberInfo];
+    
+    [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
+    __weak ZYLiveViewController *weakSelf = self;
+    
+    //聊天室类型进入时需要调用加入聊天室接口，退出时需要调用退出聊天室接口
+    if (ConversationType_CHATROOM == self.conversationType) {
+        [[RCIMClient sharedRCIMClient]
+         joinChatRoom:self.targetId
+         messageCount:-1
+         success:^{
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 //                 [self initializedLiveSubViews];
+                 //                 [self.livePlayingManager startPlaying];
+//                 RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
+//                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[RCDLive sharedRCDLive].currentUserInfo.name];
+//                 [self sendMessage:joinChatroomMessage pushContent:nil];
+             });
+         }
+         error:^(RCErrorCode status) {
+             DDLog(@"%zd",status);
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 
+                 if (status == KICKED_FROM_CHATROOM) {
+                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomRejected", @"RongCloudKit", nil)];
+                 } else {
+                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomFailed", @"RongCloudKit", nil)];
+                 }
+             });
+         }];
+    }
+    
+}
+
+#pragma mark ---回收的时候需要消耗播放器和退出聊天室
+
+- (void)dealloc {
+    [self quitConversationViewAndClear];
+}
+
+#pragma mark ---创建假房间成员
+- (void)setUpUserList
+{
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"RoleList" ofType:@"plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    _userList = [[NSMutableArray alloc]init];
+    RCUserInfo *user = [self parseUserInfoFormDic:[data objectForKey:@"User1"]];
+    [_userList  addObject:user];
+    RCUserInfo *user2 = [self parseUserInfoFormDic:[data objectForKey:@"User2"]];
+    [_userList  addObject:user2];
+    RCUserInfo *user3 = [self parseUserInfoFormDic:[data objectForKey:@"User3"]];
+    [_userList  addObject:user3];
+    RCUserInfo *user4 = [self parseUserInfoFormDic:[data objectForKey:@"User4"]];
+    [_userList  addObject:user4];
+    RCUserInfo *user5 = [self parseUserInfoFormDic:[data objectForKey:@"User5"]];
+    [_userList  addObject:user5];
+    RCUserInfo *user6 = [self parseUserInfoFormDic:[data objectForKey:@"User6"]];
+    [_userList  addObject:user6];
+    RCUserInfo *user7 = [self parseUserInfoFormDic:[data objectForKey:@"User7"]];
+    [_userList  addObject:user7];
+}
+
+-(RCUserInfo *)parseUserInfoFormDic:(NSDictionary *)dic{
+    RCUserInfo *user = [[RCUserInfo alloc]init];
+    user.userId = [dic objectForKey: @"id" ];
+    user.name = [dic objectForKey: @"name" ];
+    user.portraitUri = [dic objectForKey: @"icon" ];
+    return user;
 }
 
 #pragma mark ---注册监听Notification
@@ -222,86 +342,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                forCellWithReuseIdentifier:identifier];
 }
 
-#pragma mark ---创建假房间成员
-- (void)configUserList
-{
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"RoleList" ofType:@"plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-    _userList = [[NSMutableArray alloc]init];
-    RCUserInfo *user = [self parseUserInfoFormDic:[data objectForKey:@"User1"]];
-    [_userList  addObject:user];
-    RCUserInfo *user2 = [self parseUserInfoFormDic:[data objectForKey:@"User2"]];
-    [_userList  addObject:user2];
-    RCUserInfo *user3 = [self parseUserInfoFormDic:[data objectForKey:@"User3"]];
-    [_userList  addObject:user3];
-    RCUserInfo *user4 = [self parseUserInfoFormDic:[data objectForKey:@"User4"]];
-    [_userList  addObject:user4];
-    RCUserInfo *user5 = [self parseUserInfoFormDic:[data objectForKey:@"User5"]];
-    [_userList  addObject:user5];
-    RCUserInfo *user6 = [self parseUserInfoFormDic:[data objectForKey:@"User6"]];
-    [_userList  addObject:user6];
-    RCUserInfo *user7 = [self parseUserInfoFormDic:[data objectForKey:@"User7"]];
-    [_userList  addObject:user7];
-}
-
--(RCUserInfo *)parseUserInfoFormDic:(NSDictionary *)dic{
-    RCUserInfo *user = [[RCUserInfo alloc]init];
-    user.userId = [dic objectForKey: @"id" ];
-    user.name = [dic objectForKey: @"name" ];
-    user.portraitUri = [dic objectForKey: @"icon" ];
-    return user;
-}
-
-#pragma mark ---页面加载
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    //    self.userList = delegate.userList;
-    
-    //进行直播
-    [self getLive];
-    
-    [self configUserList];
-    //初始化UI
-    [self initializedSubViews];
-    
-    [self initChatroomMemberInfo];
-    
-    [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
-    __weak ZYLiveViewController *weakSelf = self;
-    
-    //聊天室类型进入时需要调用加入聊天室接口，退出时需要调用退出聊天室接口
-    if (ConversationType_CHATROOM == self.conversationType) {
-        [[RCIMClient sharedRCIMClient]
-         joinChatRoom:self.targetId
-         messageCount:10
-         success:^{
-             dispatch_async(dispatch_get_main_queue(), ^{
-//                 self.livePlayingManager = [[KSYLivePlaying alloc] initPlaying:self.contentURL];
-                 //                 self.livePlayingManager = [[LELivePlaying alloc] initPlaying:@"201604183000000z4"];
-                 //                 self.livePlayingManager = [[QINIULivePlaying alloc] initPlaying:@"rtmp://live.hkstv.hk.lxdns.com/live/hks"];
-                 //                 self.livePlayingManager = [[QCLOUDLivePlaying alloc] initPlaying:@"http://2527.vod.myqcloud.com/2527_117134a2343111e5b8f5bdca6cb9f38c.f20.mp4"];
-//                 [self initializedLiveSubViews];
-//                 [self.livePlayingManager startPlaying];
-                 RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
-                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[RCDLive sharedRCDLive].currentUserInfo.name];
-                 [self sendMessage:joinChatroomMessage pushContent:nil];
-             });
-         }
-         error:^(RCErrorCode status) {
-             DDLog(@"%zd",status);
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 
-                 if (status == KICKED_FROM_CHATROOM) {
-                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomRejected", @"RongCloudKit", nil)];
-                 } else {
-                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomFailed", @"RongCloudKit", nil)];
-                 }
-             });
-         }];
-    }
-    
-}
 #pragma mark - 直播
 -(void)getLive
 {
@@ -374,6 +414,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     DDLog(@"网络太差");
     
     //这时候就提醒退出直播
+    
 }
 
 #pragma mark --- 推流连接成功
@@ -441,48 +482,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.view addGestureRecognizer:_resetBottomTapGesture];
-    [self.conversationMessageCollectionView reloadData];
-    
-    
-    [self.navigationController.navigationBar setHidden:YES];
-    
-    [self.tabBarController.tabBar setHidden:YES];
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    self.navigationTitle = self.navigationItem.title;
-}
 
-#pragma mark ---移除监听
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter]
-     removeObserver:self
-     name:@"kRCPlayVoiceFinishNotification"
-     object:nil];
-    
-    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
-    [self.conversationMessageCollectionView
-     addGestureRecognizer:_resetBottomTapGesture];
-    
-    
-    [self.navigationController.navigationBar setHidden:NO];
-    
-    [self.tabBarController.tabBar setHidden:NO];
-    
-}
-
-#pragma mark ---回收的时候需要消耗播放器和退出聊天室
-
-- (void)dealloc {
-    [self quitConversationViewAndClear];
-}
 #pragma mark - 退出
 #pragma mark ---点击返回的时候消耗播放器和退出聊天室
 
@@ -530,41 +532,48 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
 }
 
-- (void)initChatroomMemberInfo{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(45, 30, 85, 35)];
-    view.backgroundColor = [UIColor whiteColor];
-    view.layer.cornerRadius = 35/2;
-    [self.view addSubview:view];
-    view.alpha = 0.5;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 34, 34)];
-    imageView.image = [UIImage imageNamed:@"head"];
-    imageView.layer.cornerRadius = 34/2;
-    imageView.layer.masksToBounds = YES;
-    [view addSubview:imageView];
-    UILabel *chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
-    chatroomlabel.numberOfLines = 2;
-    chatroomlabel.font = [UIFont systemFontOfSize:12.f];
-    chatroomlabel.text = [NSString stringWithFormat:@"小海豚\n2890人"];
-    [view addSubview:chatroomlabel];
+- (void)setUpChatroomMemberInfo{
     
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.minimumInteritemSpacing = 16;
-    layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    CGFloat memberHeadListViewY = view.frame.origin.x + view.frame.size.width;
-    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
-    [self.view addSubview:self.portraitsCollectionView];
-    self.portraitsCollectionView.delegate = self;
-    self.portraitsCollectionView.dataSource = self;
-    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
-    
-    
-    [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    DoLiveHeadView *headView = [DoLiveHeadView new];
+    [self.view addSubview:headView];
+    [headView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(KEDGE_DISTANCE);
+        make.top.mas_equalTo(KStatus_Height);
+        make.size.mas_equalTo(CGSizeMake(110, DoLiveHeadViewHeight));
+    }];
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(45, 30, 85, 35)];
+//    view.backgroundColor = [UIColor whiteColor];
+//    view.layer.cornerRadius = 35/2;
+//    [self.view addSubview:view];
+//    view.alpha = 0.5;
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 34, 34)];
+//    imageView.image = [UIImage imageNamed:@"head"];
+//    imageView.layer.cornerRadius = 34/2;
+//    imageView.layer.masksToBounds = YES;
+//    [view addSubview:imageView];
+//    UILabel *chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
+//    chatroomlabel.numberOfLines = 2;
+//    chatroomlabel.font = [UIFont systemFontOfSize:12.f];
+//    chatroomlabel.text = [NSString stringWithFormat:@"小海豚\n2890人"];
+//    [view addSubview:chatroomlabel];
+//    
+//    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+//    layout.minimumInteritemSpacing = 16;
+//    layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
+//    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    CGFloat memberHeadListViewY = view.frame.origin.x + view.frame.size.width;
+//    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
+//    [self.view addSubview:self.portraitsCollectionView];
+//    self.portraitsCollectionView.delegate = self;
+//    self.portraitsCollectionView.dataSource = self;
+//    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
+//    
+//    
+//    [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
 
 #pragma mark ---初始化页面控件
-
-- (void)initializedSubViews {
+- (void)setUpSubViews {
     //聊天区
     if(self.contentView == nil){
         CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
@@ -621,7 +630,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [_resetBottomTapGesture setDelegate:self];
     
     //评论
-    CGFloat buttonWH = 35;
+    CGFloat buttonWH = 40;
     _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.view addSubview:_feedBackBtn];
     [_feedBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -1078,17 +1087,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]){
         model.messageId = -1;
     }
-    if ([self appendMessageModel:model]) {
+    if ([self appendMessageModel:model]) {//判断消息数组中有无这个消息,没有就添加
         NSIndexPath *indexPath =
         [NSIndexPath indexPathForItem:self.conversationDataRepository.count - 1
-                            inSection:0];
+                            inSection:0];//拿到最后一个index
         if ([self.conversationMessageCollectionView numberOfItemsInSection:0] !=
             self.conversationDataRepository.count - 1) {
-            return;
+            return;//如果总个数 != 模型数组的个数-1
         }
         [self.conversationMessageCollectionView
-         insertItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
-        if ([self isAtTheBottomOfTableView] || self.isNeedScrollToButtom) {
+         insertItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];//插入这个消息
+        if ([self isAtTheBottomOfTableView] || self.isNeedScrollToButtom) {//判断去底部
             [self scrollToBottomAnimated:YES];
             self.isNeedScrollToButtom=NO;
         }
@@ -1177,7 +1186,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     theTimer = nil;
 }
 
-
+#pragma mark - 发送消息
 /*!
  发送消息(除图片消息外的所有消息)
  
