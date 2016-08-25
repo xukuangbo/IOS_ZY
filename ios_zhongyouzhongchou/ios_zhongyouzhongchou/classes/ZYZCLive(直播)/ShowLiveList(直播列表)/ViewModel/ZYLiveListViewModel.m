@@ -26,8 +26,6 @@
                              };
     
     __weak typeof(&*self) weakSelf = self;
-    [MBProgressHUD showMessage:@"正在加载..."];
-    
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             

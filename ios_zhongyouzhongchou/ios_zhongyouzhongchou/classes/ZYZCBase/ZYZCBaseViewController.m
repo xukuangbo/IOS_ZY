@@ -7,6 +7,8 @@
 //
 
 #import "ZYZCBaseViewController.h"
+#import "UIImage+plus.h"
+
 @interface ZYZCBaseViewController ()
 
 @end
@@ -42,6 +44,22 @@
     return [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:imgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:action];
 }
 
+- (void)setClearNavigationBar:(BOOL)isClear {
+    if (isClear) {
+//        [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+//                                                      forBarMetrics:UIBarMetricsDefault];
+//        [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+        self.navigationController.navigationBar.hidden = YES;
+//        self.navigationController.navigationBar.clipsToBounds = YES;
+    } else {
+        //复原
+//        [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+        self.navigationController.navigationBar.hidden = NO;
+//        [self.navigationController.navigationBar setShadowImage:[UIImage imageWithColor:[UIColor ZYZC_MainColor]]];
+//        self.navigationController.navigationBar.clipsToBounds = NO;
+    }
+}
+#pragma mark - event 事件处理
 -(void)pressBack
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -51,6 +69,7 @@
 {
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
+
 
 
 - (void)didReceiveMemoryWarning {

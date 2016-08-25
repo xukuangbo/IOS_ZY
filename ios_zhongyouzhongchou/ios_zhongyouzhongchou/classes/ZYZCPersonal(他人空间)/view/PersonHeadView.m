@@ -333,7 +333,7 @@
 #pragma mark --- 留言
 -(void)chat
 {
-    
+
     _RCManager=[ZYZCRCManager defaultManager];
     [_RCManager connectTarget:[NSString stringWithFormat:@"%@",_userModel.userId] andTitle:_userModel.realName?_userModel.realName:_userModel.userName  andSuperViewController:self.viewController];
 }

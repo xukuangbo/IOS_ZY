@@ -25,12 +25,11 @@
 #import "MBProgressHUD.h"
 #import "AppDelegate.h"
 #import "RCDLivePortraitViewCell.h"
-
+#import "ZYZCRCManager.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
 
-#define KTextPullUrl "http://live.hkstv.hk.lxdns.com/live/hks/playlist.m3u8"
 @interface ZYWatchLiveViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate,
@@ -38,42 +37,37 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) ZYLiveListModel *liveModel;
 @property (atomic, strong) NSURL *url;
 @property (atomic, retain) id <IJKMediaPlayback> player;
-
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
 
 /**
  *  存储长按返回的消息的model
  */
 @property(nonatomic, strong) RCDLiveMessageModel *longPressSelectedModel;
-
 /**
  *  是否需要滚动到底部
  */
 @property(nonatomic, assign) BOOL isNeedScrollToButtom;
-
 /**
  *  是否正在加载消息
  */
 @property(nonatomic, assign) BOOL isLoading;
-
 /**
  *  会话名称
  */
 @property(nonatomic,copy) NSString *navigationTitle;
-
 /**
  *  点击空白区域事件
  */
 @property(nonatomic, strong) UITapGestureRecognizer *resetBottomTapGesture;
-
-/**
- *  视频播放器view
- */
-
 /**
  *  直播互动文字显示
  */
 @property(nonatomic,strong) UIView *titleView ;
+
+/**
+ *  关闭直播按钮
+ */
+@property(nonatomic,strong) UIButton *closeLiveButton ;
 
 /**
  *  播放器view
@@ -85,40 +79,40 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
  */
 @property (nonatomic, strong) UIView *unreadButtonView;
 @property(nonatomic, strong) UILabel *unReadNewMessageLabel;
-
 /**
  *  滚动条不在底部的时候，接收到消息不滚动到底部，记录未读消息数
  */
 @property (nonatomic, assign) NSInteger unreadNewMsgCount;
-
 /**
  *  当前融云连接状态
  */
 @property (nonatomic, assign) RCConnectionStatus currentConnectionStatus;
-
-/**
- *  返回按钮
- */
-//@property (nonatomic, strong) UIButton *backBtn;
-
 /**
  *  鲜花按钮
  */
 @property(nonatomic,strong)UIButton *flowerBtn;
-
 /**
  *  评论按钮
  */
 @property(nonatomic,strong)UIButton *feedBackBtn;
-
 /**
  *  掌声按钮
  */
 @property(nonatomic,strong)UIButton *clapBtn;
+/**
+ *  分享按钮
+ */
+@property(nonatomic,strong)UIButton *shareBtn;
+
+@property (nonatomic, strong) ZYZCRCManager *RCManager;
+#pragma mark ---私信按钮
+@property (nonatomic, strong) UIButton *massageBtn;
 
 @property(nonatomic,strong)UICollectionView *portraitsCollectionView;
-
 @property(nonatomic,strong)NSMutableArray *userList;
+
+// 判断是不是进入私聊界面
+@property (nonatomic, assign) BOOL isMessage;
 
 @end
 /**
@@ -142,7 +136,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if (self) {
         self.liveModel = liveModel;
         _targetId = liveModel.chatRoomId;
-        //        self.liveModel.pullURL = @KTextPullUrl;
     }
     return self;
 }
@@ -153,19 +146,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //初始化UI
     [self setupView];
     [self getIntoLive:self.liveModel.pullUrl];
-
+    [self setupConstraints];
 //    [self initChatroomMemberInfo];
     [self enterInfoLiveRoom];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
-    
-    [self setBackItem];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:0]];
 }
 
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    if (![self.player isPlaying]) {
+    [self setClearNavigationBar:YES];
+    if (![self.player isPlaying] && !self.isMessage) {
         [self.player prepareToPlay];
     }
     [self.conversationMessageCollectionView reloadData];
@@ -174,8 +165,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self setClearNavigationBar:NO];
     [self.player stop];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:1]];
 }
 
 - (void)enterInfoLiveRoom
@@ -184,11 +175,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if (ConversationType_CHATROOM == self.conversationType) {
         [[RCIMClient sharedRCIMClient]
          joinExistChatRoom:self.liveModel.chatRoomId
-         messageCount:self.defaultHistoryMessageCountOfChatRoom
+         messageCount:-1
          success:^{
              dispatch_async(dispatch_get_main_queue(), ^{
                  RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
-                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[RCDLive sharedRCDLive].currentUserInfo.name];
+                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[ZYZCAccountTool account].nickname];
                  [weakSelf sendMessage:joinChatroomMessage pushContent:nil];
              });
          }
@@ -214,6 +205,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         self.contentView = [[UIView alloc]initWithFrame:contentViewFrame];
         [self.view addSubview:self.contentView];
     }
+    // 关闭直播
+    UIButton *closeLiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [closeLiveButton addTarget:self action:@selector(closeLiveButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [closeLiveButton setBackgroundImage:[UIImage imageNamed:@"live-quit"] forState:UIControlStateNormal];
+    [self.view addSubview:closeLiveButton];
+    self.closeLiveButton = closeLiveButton;
+    
     //聊天消息区
     if (nil == self.conversationMessageCollectionView) {
         UICollectionViewFlowLayout *customFlowLayout = [[UICollectionViewFlowLayout alloc] init];
@@ -258,36 +256,39 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.view addGestureRecognizer:_resetBottomTapGesture];
 
     _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    _feedBackBtn.frame = CGRectMake(10, self.view.frame.size.height - 45, 35, 35);
-    UIImageView *clapImg = [[UIImageView alloc]
-                            initWithImage:[UIImage imageNamed:@"feedback"]];
-    clapImg.frame = CGRectMake(0,0, 35, 35);
-    [_feedBackBtn addSubview:clapImg];
+    [_feedBackBtn setBackgroundImage:[UIImage imageNamed:@"live-talk"] forState:UIControlStateNormal];
     [_feedBackBtn addTarget:self
                      action:@selector(showInputBar:)
            forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_feedBackBtn];
     
     _flowerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _flowerBtn.frame = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height - 45, 35, 35);
-    UIImageView *clapImg2 = [[UIImageView alloc]
-                             initWithImage:[UIImage imageNamed:@"giftIcon"]];
-    clapImg2.frame = CGRectMake(0,0, 35, 35);
-    [_flowerBtn addSubview:clapImg2];
-    [_flowerBtn addTarget:self
-                   action:@selector(flowerButtonPressed:)
-         forControlEvents:UIControlEventTouchUpInside];
+    [_flowerBtn setBackgroundImage:[UIImage imageNamed:@"giftIcon"] forState:UIControlStateNormal];
+    [_flowerBtn addTarget:self action:@selector(flowerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_flowerBtn];
     
-    _clapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
-    UIImageView *clapImg3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"heartIcon"]];
-    clapImg3.frame = CGRectMake(0,0, 35, 35);
-    [_clapBtn addSubview:clapImg3];
-    [_clapBtn addTarget:self
-                 action:@selector(clapButtonPressed:)
-       forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_clapBtn];
+    _shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [_shareBtn setImage:[UIImage imageNamed:@"live-share"] forState:UIControlStateNormal];
+    [_shareBtn addTarget:self action:@selector(shareBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_shareBtn];
+
+    
+//    _clapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
+//    UIImageView *clapImg3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"heartIcon"]];
+//    clapImg3.frame = CGRectMake(0,0, 35, 35);
+//    [_clapBtn addSubview:clapImg3];
+//    [_clapBtn addTarget:self
+//                 action:@selector(clapButtonPressed:)
+//       forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:_clapBtn];
+    
+    // //私信按钮端
+    _massageBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+       [_massageBtn setImage:[UIImage imageNamed:@"live-massage"] forState:UIControlStateNormal];
+    [_massageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+//    _massageBtn.frame = CGRectMake(KSCREEN_W - 40 * 4 - 15 - 30, KSCREEN_H - 55, 40, 40);
+    [self.view addSubview:_massageBtn];
 }
 
 - (void)initChatroomMemberInfo{
@@ -317,15 +318,46 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.portraitsCollectionView.delegate = self;
     self.portraitsCollectionView.dataSource = self;
     self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
-    
-    
     [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
 }
 
 
 - (void)setupConstraints
 {
-
+    [self.feedBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(15);
+        make.bottom.equalTo(self.view).offset(-15);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+    }];
+    
+    [self.closeLiveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.view).offset(-15);
+        make.bottom.equalTo(self.view).offset(-15);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+    }];
+    
+    [self.flowerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.closeLiveButton).offset(-50);
+        make.bottom.equalTo(self.view).offset(-15);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+    }];
+    
+    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.flowerBtn).offset(-50);
+        make.bottom.equalTo(self.view).offset(-15);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+    }];
+    
+    [self.massageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.shareBtn).offset(-50);
+        make.bottom.equalTo(self.view).offset(-15);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+    }];
 }
 
 - (void)setupData
@@ -341,7 +373,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     self.url = [NSURL URLWithString:liveUrlString];
     _player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:nil];
-    
     UIView *playerView = [self.player view];
     
     UIView *displayView = [[UIView alloc] init];
@@ -358,6 +389,23 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - event
+- (void)closeLiveButtonAction:(UIButton *)sender
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)shareBtnAction:(UIButton *)sender
+{
+    
+}
+
+- (void)messageBtnAction:(UIButton *)sender
+{
+    self.isMessage = YES;
+    self.RCManager = [ZYZCRCManager defaultManager];
+    [self.RCManager connectTarget:[NSString stringWithFormat:@"%@",self.liveModel.userId] andTitle:self.liveModel.realName andSuperViewController:self];
+}
+
 -(void)showInputBar:(id)sender{
     self.inputBar.hidden = NO;
     [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];

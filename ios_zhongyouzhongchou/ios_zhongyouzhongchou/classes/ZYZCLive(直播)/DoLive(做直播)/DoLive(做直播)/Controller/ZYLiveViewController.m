@@ -28,6 +28,7 @@
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
 #import "LiveFunctionView.h"
+#import "DoLiveHeadView.h"
 
 //#import "KSYLivePlaying.h"
 //#import "UCLOUDLivePlaying.h"
@@ -46,8 +47,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 #pragma mark - 直播需要的属性
 /** 直播任务流 */
 @property (nonatomic, strong )  QPLiveSession  *liveSession;
-/** 直播时长计时器 */
-@property (nonatomic, strong )  NSTimer        *timer;
 /** 电话中心 */
 @property (nonatomic, strong )  CTCallCenter   *callCenter;
 /** 美颜按钮 */
@@ -59,65 +58,65 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 
 #pragma mark - 聊天需要的属性
 
-#pragma mark ---返回按钮
+@property (nonatomic, strong) DoLiveHeadView *headView;
+
+//返回按钮
 @property (nonatomic, strong) UIButton *backBtn;
 
-#pragma mark ---分享按钮
+//分享按钮
 @property(nonatomic,strong)UIButton *shareBtn;
 
-#pragma mark ---评论按钮
+//评论按钮
 @property(nonatomic,strong)UIButton *feedBackBtn;
 
-#pragma mark ---主播功能端按钮
+//主播功能端按钮
 @property(nonatomic,strong)UIButton *moreBtn;
-
+//主播功能端view
 @property (nonatomic, strong) LiveFunctionView *liveFunctionView;
 
-#pragma mark ---私信按钮
+//私信按钮
 @property (nonatomic, strong) UIButton *massageBtn;
 
-#pragma mark ---点击空白区域事件
+//点击空白区域事件
 @property(nonatomic, strong) UITapGestureRecognizer *resetBottomTapGesture;
 
-
+//刷新的view
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
 
-#pragma mark ---存储长按返回的消息的model
+//存储长按返回的消息的model
 @property(nonatomic, strong) RCDLiveMessageModel *longPressSelectedModel;
 
-#pragma mark ---是否需要滚动到底部
+//是否需要滚动到底部
 @property(nonatomic, assign) BOOL isNeedScrollToButtom;
 
-#pragma mark ---是否正在加载消息
+//是否正在加载消息
 @property(nonatomic) BOOL isLoading;
 
-#pragma mark ---会话名称
+//会话名称
 @property(nonatomic,copy) NSString *navigationTitle;
 
-#pragma mark ---金山视频播放器manager
+//金山视频播放器manager
 //@property(nonatomic, strong) KSYLivePlaying *livePlayingManager;
 
-#pragma mark ---直播互动文字显示
+//直播互动文字显示
 @property(nonatomic,strong) UIView *titleView ;
 
-#pragma mark ---播放器view
+//播放器view
 @property(nonatomic,strong) UIView *liveView;
 
-#pragma mark ---底部显示未读消息view
+//底部显示未读消息view
 @property (nonatomic, strong) UIView *unreadButtonView;
+//未读消息
 @property(nonatomic, strong) UILabel *unReadNewMessageLabel;
-
-#pragma mark ---滚动条不在底部的时候，接收到消息不滚动到底部，记录未读消息数
+//滚动条不在底部的时候，接收到消息不滚动到底部，记录未读消息数
 @property (nonatomic, assign) NSInteger unreadNewMsgCount;
-
-#pragma mark ---当前融云连接状态
+//当前融云连接状态
 @property (nonatomic, assign) RCConnectionStatus currentConnectionStatus;
-
-#pragma mark ---鲜花按钮
+//鲜花按钮
 @property(nonatomic,strong)UIButton *flowerBtn;
 
 
-#pragma mark ---掌声按钮
+//掌声按钮
 @property(nonatomic,strong)UIButton *clapBtn;
 
 @property(nonatomic,strong)UICollectionView *portraitsCollectionView;
@@ -127,183 +126,129 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 
 @end
 
-#pragma mark ---文本cell标示
+//文本cell标示
 static NSString *const rctextCellIndentifier = @"rctextCellIndentifier";
 
-#pragma mark ---小灰条提示cell标示
+//小灰条提示cell标示
 static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCellIndentifier";
 
-#pragma mark ---礼物cell标示
+//礼物cell标示
 static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageCellIndentifier";
 
 #pragma mark - 方法实现
 @implementation ZYLiveViewController
 
+/**
+ 进直播之前,需要:
+    1.设置currenUserInfo
+    2.初始化界面
+    3.加入聊天室
+    4.加入直播
+    5.注册通知
+ */
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
+#pragma mark - 系统视图的方法
+- (instancetype)init
+{
+    self = [super init];
     if (self) {
-        [self rcinit];
-        self.conversationType = ConversationType_CHATROOM;
+        
     }
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self rcinit];
-        self.conversationType = ConversationType_CHATROOM;
-    }
-    return self;
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.view addGestureRecognizer:_resetBottomTapGesture];
+    
+    [self.conversationMessageCollectionView reloadData];
+    
+    [self.navigationController.navigationBar setHidden:YES];
+    
+    [self.tabBarController.tabBar setHidden:YES];
 }
 
-- (void)rcinit {
-    self.conversationDataRepository = [[NSMutableArray alloc] init];
-    self.userList = [[NSMutableArray alloc] init];
-    self.conversationMessageCollectionView = nil;
-//    self.targetId = @"001";
-    [self registerNotification];
-    self.defaultHistoryMessageCountOfChatRoom = 10;
-    [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
-    
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    self.navigationTitle = self.navigationItem.title;
 }
 
-#pragma mark ---注册监听Notification
 
-- (void)registerNotification {
-    //注册接收消息
-    
-    [ZYNSNotificationCenter addObserver:self selector:@selector(appResignActive) name:UIApplicationWillResignActiveNotification object:nil];
-    [ZYNSNotificationCenter addObserver:self selector:@selector(appBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter]
-     addObserver:self
-     selector:@selector(didReceiveMessageNotification:)
-     name:RCDLiveKitDispatchMessageNotification
+     removeObserver:self
+     name:@"kRCPlayVoiceFinishNotification"
      object:nil];
-}
-
-
-#pragma mark - APP进入前后台的动作
-- (void)appResignActive{
-    [self destroySession];
     
-    // 监听电话
-    _callCenter = [[CTCallCenter alloc] init];
-    _isCTCallStateDisconnected = NO;
-    _callCenter.callEventHandler = ^(CTCall* call) {
-        if ([call.callState isEqualToString:CTCallStateDisconnected])
-        {
-            _isCTCallStateDisconnected = YES;
-        }
-        else if([call.callState isEqualToString:CTCallStateConnected])
-            
-        {
-            _callCenter = nil;
-        }
-    };
+    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
+    [self.conversationMessageCollectionView
+     addGestureRecognizer:_resetBottomTapGesture];
+    
+    
+    [self.navigationController.navigationBar setHidden:NO];
+    
+    [self.tabBarController.tabBar setHidden:NO];
     
 }
 
-- (void)appBecomeActive{
-    
-    if (_isCTCallStateDisconnected) {
-        sleep(2);
-    }
-    
-    [self getLive];
-}
 
-#pragma mark ---注册cell
-- (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
-    [self.conversationMessageCollectionView registerClass:cellClass
-                               forCellWithReuseIdentifier:identifier];
-}
-
-#pragma mark ---创建假房间成员
-- (void)configUserList
-{
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"RoleList" ofType:@"plist"];
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-    _userList = [[NSMutableArray alloc]init];
-    RCUserInfo *user = [self parseUserInfoFormDic:[data objectForKey:@"User1"]];
-    [_userList  addObject:user];
-    RCUserInfo *user2 = [self parseUserInfoFormDic:[data objectForKey:@"User2"]];
-    [_userList  addObject:user2];
-    RCUserInfo *user3 = [self parseUserInfoFormDic:[data objectForKey:@"User3"]];
-    [_userList  addObject:user3];
-    RCUserInfo *user4 = [self parseUserInfoFormDic:[data objectForKey:@"User4"]];
-    [_userList  addObject:user4];
-    RCUserInfo *user5 = [self parseUserInfoFormDic:[data objectForKey:@"User5"]];
-    [_userList  addObject:user5];
-    RCUserInfo *user6 = [self parseUserInfoFormDic:[data objectForKey:@"User6"]];
-    [_userList  addObject:user6];
-    RCUserInfo *user7 = [self parseUserInfoFormDic:[data objectForKey:@"User7"]];
-    [_userList  addObject:user7];
-}
-
--(RCUserInfo *)parseUserInfoFormDic:(NSDictionary *)dic{
-    RCUserInfo *user = [[RCUserInfo alloc]init];
-    user.userId = [dic objectForKey: @"id" ];
-    user.name = [dic objectForKey: @"name" ];
-    user.portraitUri = [dic objectForKey: @"icon" ];
-    return user;
-}
-
-#pragma mark ---页面加载
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    self.userList = delegate.userList;
     
-    //进行直播
-    [self getLive];
+    //设置主播userInfo
+    [self setUpCurrentUserInfo];
     
-    [self configUserList];
+    //设置并进入直播
+    [self setUpLive];
+    
+    //设置聊天室成员
+    [self setUpUserList];
+    
     //初始化UI
-    [self initializedSubViews];
+    [self setUpSubViews];
     
-    [self initChatroomMemberInfo];
+    //设置头像信息
+    [self setUpChatroomMemberInfo];
     
-    [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
-    __weak ZYLiveViewController *weakSelf = self;
-    
-    //聊天室类型进入时需要调用加入聊天室接口，退出时需要调用退出聊天室接口
-    if (ConversationType_CHATROOM == self.conversationType) {
-        [[RCIMClient sharedRCIMClient]
-         joinChatRoom:self.targetId
-         messageCount:10
-         success:^{
-             dispatch_async(dispatch_get_main_queue(), ^{
-//                 self.livePlayingManager = [[KSYLivePlaying alloc] initPlaying:self.contentURL];
-                 //                 self.livePlayingManager = [[LELivePlaying alloc] initPlaying:@"201604183000000z4"];
-                 //                 self.livePlayingManager = [[QINIULivePlaying alloc] initPlaying:@"rtmp://live.hkstv.hk.lxdns.com/live/hks"];
-                 //                 self.livePlayingManager = [[QCLOUDLivePlaying alloc] initPlaying:@"http://2527.vod.myqcloud.com/2527_117134a2343111e5b8f5bdca6cb9f38c.f20.mp4"];
-//                 [self initializedLiveSubViews];
-//                 [self.livePlayingManager startPlaying];
-                 RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
-                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[RCDLive sharedRCDLive].currentUserInfo.name];
-                 [self sendMessage:joinChatroomMessage pushContent:nil];
-             });
-         }
-         error:^(RCErrorCode status) {
-             DDLog(@"%zd",status);
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 
-                 if (status == KICKED_FROM_CHATROOM) {
-                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomRejected", @"RongCloudKit", nil)];
-                 } else {
-                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomFailed", @"RongCloudKit", nil)];
-                 }
-             });
-         }];
-    }
+    //进入聊天室
+    [self enterChatRoom];
     
 }
-#pragma mark - 直播
--(void)getLive
+
+- (void)dealloc {
+    [self quitConversationViewAndClear];
+}
+
+#pragma mark - setup方法
+#pragma mark ---设置主播UserInfo
+- (void)setUpCurrentUserInfo
+{
+    
+    ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
+    
+    RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:[accountModel.userId stringValue]  name:accountModel.realName portrait:accountModel.headimgurl];
+    //设置userinfo
+    [[RCDLive sharedRCDLive] setCurrentUserInfo:userInfo];
+}
+#pragma mark ---初始化融云的一些数组信息等
+- (void)setUpRC{
+    
+    self.conversationDataRepository = [[NSMutableArray alloc] init];
+    
+    self.conversationMessageCollectionView = nil;
+    
+    self.defaultHistoryMessageCountOfChatRoom = -1;
+    
+    [[RCIMClient sharedRCIMClient] setRCConnectionStatusChangeDelegate:self];
+    
+}
+
+#pragma mark ---直播
+-(void)setUpLive
 {
     DDLog(@"kPushUrl:%@",_pushUrl);
     QPLConfiguration *configuration = [[QPLConfiguration alloc] init];
@@ -353,6 +298,340 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         [self.view insertSubview:[_liveSession previewView] atIndex:0];
     });
 }
+
+#pragma mark ---创建假房间成员
+- (void)setUpUserList
+{
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"RoleList" ofType:@"plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    _userList = [[NSMutableArray alloc]init];
+    RCUserInfo *user = [self parseUserInfoFormDic:[data objectForKey:@"User1"]];
+    [_userList  addObject:user];
+    RCUserInfo *user2 = [self parseUserInfoFormDic:[data objectForKey:@"User2"]];
+    [_userList  addObject:user2];
+    RCUserInfo *user3 = [self parseUserInfoFormDic:[data objectForKey:@"User3"]];
+    [_userList  addObject:user3];
+    RCUserInfo *user4 = [self parseUserInfoFormDic:[data objectForKey:@"User4"]];
+    [_userList  addObject:user4];
+    RCUserInfo *user5 = [self parseUserInfoFormDic:[data objectForKey:@"User5"]];
+    [_userList  addObject:user5];
+    RCUserInfo *user6 = [self parseUserInfoFormDic:[data objectForKey:@"User6"]];
+    [_userList  addObject:user6];
+    RCUserInfo *user7 = [self parseUserInfoFormDic:[data objectForKey:@"User7"]];
+    [_userList  addObject:user7];
+}
+
+-(RCUserInfo *)parseUserInfoFormDic:(NSDictionary *)dic{
+    RCUserInfo *user = [[RCUserInfo alloc]init];
+    user.userId = [dic objectForKey: @"id" ];
+    user.name = [dic objectForKey: @"name" ];
+    user.portraitUri = [dic objectForKey: @"icon" ];
+    return user;
+}
+
+#pragma mark ---初始化页面控件
+- (void)setUpSubViews {
+    
+    //左上角头像
+    _headView = [DoLiveHeadView new];
+    [self.view addSubview:_headView];
+    [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(KEDGE_DISTANCE);
+        make.top.mas_equalTo(KStatus_Height);
+        make.size.mas_equalTo(CGSizeMake(110, DoLiveHeadViewHeight));
+    }];
+    
+    //注册头像的cell
+    [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
+    
+    //聊天区
+    if(self.contentView == nil){
+        CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
+        self.contentView.backgroundColor = RCDLive_RGBCOLOR(235, 235, 235);
+        self.contentView = [[UIView alloc]initWithFrame:contentViewFrame];
+        //        self.contentView.backgroundColor = [UIColor redColor];
+        [self.view addSubview:self.contentView];
+    }
+    //聊天消息区
+    if (nil == self.conversationMessageCollectionView) {
+        UICollectionViewFlowLayout *customFlowLayout = [[UICollectionViewFlowLayout alloc] init];
+        customFlowLayout.minimumLineSpacing = 0;
+        customFlowLayout.sectionInset = UIEdgeInsetsMake(10.0f, 0.0f,5.0f, 0.0f);
+        customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;//方向
+        CGRect _conversationViewFrame = self.contentView.bounds;
+        _conversationViewFrame.origin.y = 0;//y为0
+        _conversationViewFrame.size.height = self.contentView.bounds.size.height - 50;//消息高度为内容view-50
+        _conversationViewFrame.size.width = 240;//宽度240
+        self.conversationMessageCollectionView =
+        [[UICollectionView alloc] initWithFrame:_conversationViewFrame
+                           collectionViewLayout:customFlowLayout];
+        [self.conversationMessageCollectionView
+         setBackgroundColor:[UIColor clearColor]];//背景色透明
+        self.conversationMessageCollectionView.showsHorizontalScrollIndicator = NO;//展示水平条
+        self.conversationMessageCollectionView.alwaysBounceVertical = YES;//垂直可弹
+        self.conversationMessageCollectionView.dataSource = self;
+        self.conversationMessageCollectionView.delegate = self;
+        [self.contentView addSubview:self.conversationMessageCollectionView];
+    }
+    //输入区
+    if(self.inputBar == nil){
+        float inputBarOriginY = self.conversationMessageCollectionView.bounds.size.height +30;
+        float inputBarOriginX = self.conversationMessageCollectionView.frame.origin.x;
+        float inputBarSizeWidth = self.contentView.frame.size.width;
+        float inputBarSizeHeight = MinHeight_InputView;//高度50
+        self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight)
+                                              inViewConroller:self];
+        self.inputBar.delegate = self;
+        self.inputBar.backgroundColor = [UIColor redColor];
+        self.inputBar.hidden = YES;
+        [self.contentView addSubview:self.inputBar];
+    }
+    self.collectionViewHeader = [[RCDLiveCollectionViewHeader alloc]
+                                 initWithFrame:CGRectMake(0, -50, self.view.bounds.size.width, 40)];
+    _collectionViewHeader.tag = 1999;
+    [self.conversationMessageCollectionView addSubview:_collectionViewHeader];//刷新view添加到聊天信息
+    [self registerClass:[RCDLiveTextMessageCell class]forCellWithReuseIdentifier:rctextCellIndentifier];//注册文字id
+    [self registerClass:[RCDLiveTipMessageCell class]forCellWithReuseIdentifier:RCDLiveTipMessageCellIndentifier];//注册提示id
+    [self registerClass:[RCDLiveGiftMessageCell class]forCellWithReuseIdentifier:RCDLiveGiftMessageCellIndentifier];//注册礼物id
+    [self changeModel:YES];//暂时不知道功能
+    _resetBottomTapGesture =[[UITapGestureRecognizer alloc]
+                             initWithTarget:self
+                             action:@selector(tap4ResetDefaultBottomBarStatus:)];//点击空白
+    [_resetBottomTapGesture setDelegate:self];
+    
+    //评论
+    CGFloat buttonWH = 40;
+    _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_feedBackBtn];
+    [_feedBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(KEDGE_DISTANCE);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-10);
+        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
+    }];
+    [_feedBackBtn setImage:[UIImage imageNamed:@"live-talk"] forState:UIControlStateNormal];
+    [_feedBackBtn addTarget:self action:@selector(showInputBar:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //返回
+    _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];//返回按钮
+    _backBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_backBtn];
+    [_backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(self.view.mas_right).offset(-KEDGE_DISTANCE);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-KEDGE_DISTANCE);
+        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
+    }];
+    [_backBtn setImage:[UIImage imageNamed:@"live-quit"] forState:UIControlStateNormal];
+    [_backBtn addTarget:self action:@selector(leftBarButtonItemPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //主播功能端
+    _moreBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_moreBtn];
+    [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(_backBtn.mas_left).offset(-KEDGE_DISTANCE);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-KEDGE_DISTANCE);
+        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
+    }];
+    [_moreBtn setImage:[UIImage imageNamed:@"live-more"] forState:UIControlStateNormal];
+    [_moreBtn addTarget:self action:@selector(moreBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //主播功能段的view
+    _liveFunctionView  = [[LiveFunctionView alloc] initWithSession:_liveSession];
+    [self.view addSubview:_liveFunctionView];
+    [_liveFunctionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(_moreBtn.mas_top);
+        make.centerX.mas_equalTo(_moreBtn.mas_centerX);
+        make.size.mas_equalTo(CGSizeMake(120, 150));
+    }];
+    _liveFunctionView.hidden = YES;
+    
+    //分享按钮端
+    _shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_shareBtn];
+    [_shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(_moreBtn.mas_left).offset(-KEDGE_DISTANCE);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-KEDGE_DISTANCE);
+        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
+    }];
+    [_shareBtn setImage:[UIImage imageNamed:@"live-share"] forState:UIControlStateNormal];
+    [_shareBtn addTarget:self action:@selector(shareBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //私信按钮端
+    _massageBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.view addSubview:_massageBtn];
+    [_massageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.mas_equalTo(_shareBtn.mas_left).offset(-KEDGE_DISTANCE);
+        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-KEDGE_DISTANCE);
+        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
+    }];
+    [_massageBtn setImage:[UIImage imageNamed:@"live-massage"] forState:UIControlStateNormal];
+    [_massageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    //    _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];//返回按钮
+    //    _backBtn.frame = CGRectMake(10, 35, 72, 25);
+    //    UIImageView *backImg = [[UIImageView alloc]
+    //                            initWithImage:[UIImage imageNamed:@"back.png"]];
+    //    backImg.frame = CGRectMake(0, 0, 25, 25);
+    //    [_backBtn addSubview:backImg];//返回按钮
+    //    [_backBtn addTarget:self
+    //                 action:@selector(leftBarButtonItemPressed:)
+    //       forControlEvents:UIControlEventTouchUpInside];
+    //    [self.view addSubview:_backBtn];
+    //
+    //    _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    _feedBackBtn.frame = CGRectMake(10, self.view.frame.size.height - 45, 35, 35);//评论按钮
+    //    UIImageView *clapImg = [[UIImageView alloc]
+    //                            initWithImage:[UIImage imageNamed:@"feedback"]];
+    //    clapImg.frame = CGRectMake(0,0, 35, 35);
+    //    [_feedBackBtn addSubview:clapImg];
+    //    [_feedBackBtn addTarget:self
+    //                     action:@selector(showInputBar:)
+    //           forControlEvents:UIControlEventTouchUpInside];
+    //    [self.view addSubview:_feedBackBtn];
+    //
+    //    _flowerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    _flowerBtn.frame = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height - 45, 35, 35);
+    //    UIImageView *clapImg2 = [[UIImageView alloc]
+    //                             initWithImage:[UIImage imageNamed:@"giftIcon"]];
+    //    clapImg2.frame = CGRectMake(0,0, 35, 35);
+    //    [_flowerBtn addSubview:clapImg2];
+    //    [_flowerBtn addTarget:self
+    //                   action:@selector(flowerButtonPressed:)
+    //         forControlEvents:UIControlEventTouchUpInside];
+    //    [self.view addSubview:_flowerBtn];
+    //
+    //    _clapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    //    _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
+    //    UIImageView *clapImg3 = [[UIImageView alloc]
+    //                             initWithImage:[UIImage imageNamed:@"heartIcon"]];
+    //    clapImg3.frame = CGRectMake(0,0, 35, 35);
+    //    [_clapBtn addSubview:clapImg3];
+    //    [_clapBtn addTarget:self
+    //                 action:@selector(clapButtonPressed:)
+    //       forControlEvents:UIControlEventTouchUpInside];
+    //    [self.view addSubview:_clapBtn];
+}
+
+#pragma mark ---注册cell
+- (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
+    [self.conversationMessageCollectionView registerClass:cellClass
+                               forCellWithReuseIdentifier:identifier];
+}
+
+- (void)setUpChatroomMemberInfo{
+    
+    //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(45, 30, 85, 35)];
+    //    view.backgroundColor = [UIColor whiteColor];
+    //    view.layer.cornerRadius = 35/2;
+    //    [self.view addSubview:view];
+    //    view.alpha = 0.5;
+    //    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 34, 34)];
+    //    imageView.image = [UIImage imageNamed:@"head"];
+    //    imageView.layer.cornerRadius = 34/2;
+    //    imageView.layer.masksToBounds = YES;
+    //    [view addSubview:imageView];
+    //    UILabel *chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
+    //    chatroomlabel.numberOfLines = 2;
+    //    chatroomlabel.font = [UIFont systemFontOfSize:12.f];
+    //    chatroomlabel.text = [NSString stringWithFormat:@"小海豚\n2890人"];
+    //    [view addSubview:chatroomlabel];
+    //
+    //    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    //    layout.minimumInteritemSpacing = 16;
+    //    layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
+    //    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+    //    CGFloat memberHeadListViewY = view.frame.origin.x + view.frame.size.width;
+    //    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
+    //    [self.view addSubview:self.portraitsCollectionView];
+    //    self.portraitsCollectionView.delegate = self;
+    //    self.portraitsCollectionView.dataSource = self;
+    //    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
+    //
+    //
+    //    [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+}
+
+#pragma mark ---进入聊天室
+- (void)enterChatRoom
+{
+    __weak ZYLiveViewController *weakSelf = self;
+    
+    //聊天室类型进入时需要调用加入聊天室接口，退出时需要调用退出聊天室接口
+    if (ConversationType_CHATROOM == self.conversationType) {
+        [[RCIMClient sharedRCIMClient]
+         joinChatRoom:self.targetId
+         messageCount:-1
+         success:^{
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 //                 [self initializedLiveSubViews];
+                 //                 [self.livePlayingManager startPlaying];
+                 //                 RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
+                 //                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[RCDLive sharedRCDLive].currentUserInfo.name];
+                 //                 [self sendMessage:joinChatroomMessage pushContent:nil];
+             });
+         }
+         error:^(RCErrorCode status) {
+             DDLog(@"%zd",status);
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 
+                 if (status == KICKED_FROM_CHATROOM) {
+                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomRejected", @"RongCloudKit", nil)];
+                 } else {
+                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomFailed", @"RongCloudKit", nil)];
+                 }
+             });
+         }];
+    }
+}
+
+#pragma mark ---注册监听Notification
+
+- (void)registerNotification {
+    //注册接收消息
+    
+    [ZYNSNotificationCenter addObserver:self selector:@selector(appResignActive) name:UIApplicationWillResignActiveNotification object:nil];
+    [ZYNSNotificationCenter addObserver:self selector:@selector(appBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter]
+     addObserver:self
+     selector:@selector(didReceiveMessageNotification:)
+     name:RCDLiveKitDispatchMessageNotification
+     object:nil];
+}
+
+
+#pragma mark - APP进入前后台的动作
+- (void)appResignActive{
+    //销毁直播任务
+    [self destroySession];
+    
+    //停止计时
+    [_headView stopTimer];
+    // 监听电话
+    _callCenter = [[CTCallCenter alloc] init];
+    _isCTCallStateDisconnected = NO;
+    _callCenter.callEventHandler = ^(CTCall* call) {
+        if ([call.callState isEqualToString:CTCallStateDisconnected])
+        {
+            _isCTCallStateDisconnected = YES;
+        }
+        else if([call.callState isEqualToString:CTCallStateConnected])
+            
+        {
+            _callCenter = nil;
+        }
+    };
+    
+}
+
+- (void)appBecomeActive{
+    
+    if (_isCTCallStateDisconnected) {
+        sleep(2);
+    }
+    
+    [self setUpLive];
+}
+
 #pragma mark ---主播功能段点击事件
 - (void)moreBtnAction:(UIButton *)sender
 {
@@ -374,6 +653,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     DDLog(@"网络太差");
     
     //这时候就提醒退出直播
+    
 }
 
 #pragma mark --- 推流连接成功
@@ -441,48 +721,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    [self.view addGestureRecognizer:_resetBottomTapGesture];
-    [self.conversationMessageCollectionView reloadData];
-    
-    
-    [self.navigationController.navigationBar setHidden:YES];
-    
-    [self.tabBarController.tabBar setHidden:YES];
-}
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    self.navigationTitle = self.navigationItem.title;
-}
 
-#pragma mark ---移除监听
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter]
-     removeObserver:self
-     name:@"kRCPlayVoiceFinishNotification"
-     object:nil];
-    
-    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
-    [self.conversationMessageCollectionView
-     addGestureRecognizer:_resetBottomTapGesture];
-    
-    
-    [self.navigationController.navigationBar setHidden:NO];
-    
-    [self.tabBarController.tabBar setHidden:NO];
-    
-}
-
-#pragma mark ---回收的时候需要消耗播放器和退出聊天室
-
-- (void)dealloc {
-    [self quitConversationViewAndClear];
-}
 #pragma mark - 退出
 #pragma mark ---点击返回的时候消耗播放器和退出聊天室
 
@@ -490,8 +731,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     [self destroySession];
     
-    [_timer invalidate];
-    _timer = nil;
+    [_headView stopTimer];
+    
     [self quitConversationViewAndClear];
 }
 
@@ -507,230 +748,29 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 清理环境（退出讨论组、移除监听等）
 - (void)quitConversationViewAndClear {
     if (self.conversationType == ConversationType_CHATROOM) {
-//        if (self.livePlayingManager) {
-//            [self.livePlayingManager destroyPlaying];
-//        }
+        
+        WEAKSELF
         [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
                                             success:^{
-                                                self.conversationMessageCollectionView.dataSource = nil;
-                                                self.conversationMessageCollectionView.delegate = nil;
-                                                [[NSNotificationCenter defaultCenter] removeObserver:self];
+                                                weakSelf.conversationMessageCollectionView.dataSource = nil;
+                                                weakSelf.conversationMessageCollectionView.delegate = nil;
+                                                [[NSNotificationCenter defaultCenter] removeObserver:weakSelf];
 //                                                [[RCIMClient sharedRCIMClient]disconnect];
                                                 dispatch_async(dispatch_get_main_queue(), ^{
-//                                                    [self.navigationController popViewControllerAnimated:YES];
-                                                    [self dismissViewControllerAnimated:YES completion:nil];
+                                                    
+                                                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
                                                 });
                                                 
                                             } error:^(RCErrorCode status) {
                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                    //                                                    [self.navigationController popViewControllerAnimated:YES];
-                                                    [self dismissViewControllerAnimated:YES completion:nil];
+                                                    
+                                                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
                                                 });
                                             }];
     }
 }
 
-- (void)initChatroomMemberInfo{
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(45, 30, 85, 35)];
-    view.backgroundColor = [UIColor whiteColor];
-    view.layer.cornerRadius = 35/2;
-    [self.view addSubview:view];
-    view.alpha = 0.5;
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 34, 34)];
-    imageView.image = [UIImage imageNamed:@"head"];
-    imageView.layer.cornerRadius = 34/2;
-    imageView.layer.masksToBounds = YES;
-    [view addSubview:imageView];
-    UILabel *chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
-    chatroomlabel.numberOfLines = 2;
-    chatroomlabel.font = [UIFont systemFontOfSize:12.f];
-    chatroomlabel.text = [NSString stringWithFormat:@"小海豚\n2890人"];
-    [view addSubview:chatroomlabel];
-    
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.minimumInteritemSpacing = 16;
-    layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    CGFloat memberHeadListViewY = view.frame.origin.x + view.frame.size.width;
-    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
-    [self.view addSubview:self.portraitsCollectionView];
-    self.portraitsCollectionView.delegate = self;
-    self.portraitsCollectionView.dataSource = self;
-    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
-    
-    
-    [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
-}
 
-#pragma mark ---初始化页面控件
-
-- (void)initializedSubViews {
-    //聊天区
-    if(self.contentView == nil){
-        CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
-        self.contentView.backgroundColor = RCDLive_RGBCOLOR(235, 235, 235);
-        self.contentView = [[UIView alloc]initWithFrame:contentViewFrame];
-//        self.contentView.backgroundColor = [UIColor redColor];
-        [self.view addSubview:self.contentView];
-    }
-    //聊天消息区
-    if (nil == self.conversationMessageCollectionView) {
-        UICollectionViewFlowLayout *customFlowLayout = [[UICollectionViewFlowLayout alloc] init];
-        customFlowLayout.minimumLineSpacing = 0;
-        customFlowLayout.sectionInset = UIEdgeInsetsMake(10.0f, 0.0f,5.0f, 0.0f);
-        customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;//方向
-        CGRect _conversationViewFrame = self.contentView.bounds;
-        _conversationViewFrame.origin.y = 0;//y为0
-        _conversationViewFrame.size.height = self.contentView.bounds.size.height - 50;//消息高度为内容view-50
-        _conversationViewFrame.size.width = 240;//宽度240
-        self.conversationMessageCollectionView =
-        [[UICollectionView alloc] initWithFrame:_conversationViewFrame
-                           collectionViewLayout:customFlowLayout];
-        [self.conversationMessageCollectionView
-         setBackgroundColor:[UIColor clearColor]];//背景色透明
-        self.conversationMessageCollectionView.showsHorizontalScrollIndicator = NO;//展示水平条
-        self.conversationMessageCollectionView.alwaysBounceVertical = YES;//垂直可弹
-        self.conversationMessageCollectionView.dataSource = self;
-        self.conversationMessageCollectionView.delegate = self;
-        [self.contentView addSubview:self.conversationMessageCollectionView];
-    }
-    //输入区
-    if(self.inputBar == nil){
-        float inputBarOriginY = self.conversationMessageCollectionView.bounds.size.height +30;
-        float inputBarOriginX = self.conversationMessageCollectionView.frame.origin.x;
-        float inputBarSizeWidth = self.contentView.frame.size.width;
-        float inputBarSizeHeight = MinHeight_InputView;//高度50
-        self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight)
-                                              inViewConroller:self];
-        self.inputBar.delegate = self;
-        self.inputBar.backgroundColor = [UIColor redColor];
-        self.inputBar.hidden = YES;
-        [self.contentView addSubview:self.inputBar];
-    }
-    self.collectionViewHeader = [[RCDLiveCollectionViewHeader alloc]
-                                 initWithFrame:CGRectMake(0, -50, self.view.bounds.size.width, 40)];
-    _collectionViewHeader.tag = 1999;
-    [self.conversationMessageCollectionView addSubview:_collectionViewHeader];//刷新view添加到聊天信息
-    [self registerClass:[RCDLiveTextMessageCell class]forCellWithReuseIdentifier:rctextCellIndentifier];//注册文字id
-    [self registerClass:[RCDLiveTipMessageCell class]forCellWithReuseIdentifier:RCDLiveTipMessageCellIndentifier];//注册提示id
-    [self registerClass:[RCDLiveGiftMessageCell class]forCellWithReuseIdentifier:RCDLiveGiftMessageCellIndentifier];//注册礼物id
-    [self changeModel:YES];//暂时不知道功能
-    _resetBottomTapGesture =[[UITapGestureRecognizer alloc]
-                             initWithTarget:self
-                             action:@selector(tap4ResetDefaultBottomBarStatus:)];//点击空白
-    [_resetBottomTapGesture setDelegate:self];
-    
-    //评论
-    CGFloat buttonWH = 35;
-    _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:_feedBackBtn];
-    [_feedBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(KEDGE_DISTANCE);
-        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-10);
-        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
-    }];
-    [_feedBackBtn setImage:[UIImage imageNamed:@"live-talk"] forState:UIControlStateNormal];
-    [_feedBackBtn addTarget:self action:@selector(showInputBar:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //返回
-    _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];//返回按钮
-    _backBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:_backBtn];
-    [_backBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(self.view.mas_right).offset(-KEDGE_DISTANCE);
-        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-KEDGE_DISTANCE);
-        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
-    }];
-    [_backBtn setImage:[UIImage imageNamed:@"live-quit"] forState:UIControlStateNormal];
-    [_backBtn addTarget:self action:@selector(leftBarButtonItemPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    //主播功能端
-    _moreBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:_moreBtn];
-    [_moreBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(_backBtn.mas_left).offset(-KEDGE_DISTANCE);
-        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-KEDGE_DISTANCE);
-        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
-    }];
-    [_moreBtn setImage:[UIImage imageNamed:@"live-more"] forState:UIControlStateNormal];
-    [_moreBtn addTarget:self action:@selector(moreBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //主播功能段的view
-    _liveFunctionView  = [[LiveFunctionView alloc] initWithSession:_liveSession];
-    [self.view addSubview:_liveFunctionView];
-    [_liveFunctionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(_moreBtn.mas_top);
-        make.centerX.mas_equalTo(_moreBtn.mas_centerX);
-        make.size.mas_equalTo(CGSizeMake(120, 150));
-    }];
-    _liveFunctionView.hidden = YES;
-    
-    //分享按钮端
-    _shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:_shareBtn];
-    [_shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(_moreBtn.mas_left).offset(-KEDGE_DISTANCE);
-        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-KEDGE_DISTANCE);
-        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
-    }];
-    [_shareBtn setImage:[UIImage imageNamed:@"live-share"] forState:UIControlStateNormal];
-    [_shareBtn addTarget:self action:@selector(shareBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //私信按钮端
-    _massageBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.view addSubview:_massageBtn];
-    [_massageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.mas_equalTo(_shareBtn.mas_left).offset(-KEDGE_DISTANCE);
-        make.bottom.mas_equalTo(self.view.mas_bottom).offset(-KEDGE_DISTANCE);
-        make.size.mas_equalTo(CGSizeMake(buttonWH, buttonWH));
-    }];
-    [_massageBtn setImage:[UIImage imageNamed:@"live-massage"] forState:UIControlStateNormal];
-    [_massageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];//返回按钮
-//    _backBtn.frame = CGRectMake(10, 35, 72, 25);
-//    UIImageView *backImg = [[UIImageView alloc]
-//                            initWithImage:[UIImage imageNamed:@"back.png"]];
-//    backImg.frame = CGRectMake(0, 0, 25, 25);
-//    [_backBtn addSubview:backImg];//返回按钮
-//    [_backBtn addTarget:self
-//                 action:@selector(leftBarButtonItemPressed:)
-//       forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_backBtn];
-//    
-//    _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _feedBackBtn.frame = CGRectMake(10, self.view.frame.size.height - 45, 35, 35);//评论按钮
-//    UIImageView *clapImg = [[UIImageView alloc]
-//                            initWithImage:[UIImage imageNamed:@"feedback"]];
-//    clapImg.frame = CGRectMake(0,0, 35, 35);
-//    [_feedBackBtn addSubview:clapImg];
-//    [_feedBackBtn addTarget:self
-//                     action:@selector(showInputBar:)
-//           forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_feedBackBtn];
-//    
-//    _flowerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _flowerBtn.frame = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height - 45, 35, 35);
-//    UIImageView *clapImg2 = [[UIImageView alloc]
-//                             initWithImage:[UIImage imageNamed:@"giftIcon"]];
-//    clapImg2.frame = CGRectMake(0,0, 35, 35);
-//    [_flowerBtn addSubview:clapImg2];
-//    [_flowerBtn addTarget:self
-//                   action:@selector(flowerButtonPressed:)
-//         forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_flowerBtn];
-//    
-//    _clapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
-//    UIImageView *clapImg3 = [[UIImageView alloc]
-//                             initWithImage:[UIImage imageNamed:@"heartIcon"]];
-//    clapImg3.frame = CGRectMake(0,0, 35, 35);
-//    [_clapBtn addSubview:clapImg3];
-//    [_clapBtn addTarget:self
-//                 action:@selector(clapButtonPressed:)
-//       forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_clapBtn];
-}
 
 -(void)showInputBar:(id)sender{
     self.inputBar.hidden = NO;
@@ -1078,17 +1118,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]){
         model.messageId = -1;
     }
-    if ([self appendMessageModel:model]) {
+    if ([self appendMessageModel:model]) {//判断消息数组中有无这个消息,没有就添加
         NSIndexPath *indexPath =
         [NSIndexPath indexPathForItem:self.conversationDataRepository.count - 1
-                            inSection:0];
+                            inSection:0];//拿到最后一个index
         if ([self.conversationMessageCollectionView numberOfItemsInSection:0] !=
             self.conversationDataRepository.count - 1) {
-            return;
+            return;//如果总个数 != 模型数组的个数-1
         }
         [self.conversationMessageCollectionView
-         insertItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
-        if ([self isAtTheBottomOfTableView] || self.isNeedScrollToButtom) {
+         insertItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];//插入这个消息
+        if ([self isAtTheBottomOfTableView] || self.isNeedScrollToButtom) {//判断去底部
             [self scrollToBottomAnimated:YES];
             self.isNeedScrollToButtom=NO;
         }
@@ -1177,7 +1217,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     theTimer = nil;
 }
 
-
+#pragma mark - 发送消息
 /*!
  发送消息(除图片消息外的所有消息)
  

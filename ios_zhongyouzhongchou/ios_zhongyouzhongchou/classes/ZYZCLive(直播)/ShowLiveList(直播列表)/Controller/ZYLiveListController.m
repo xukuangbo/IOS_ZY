@@ -37,6 +37,12 @@ static NSString *ID = @"ZYLiveListCell";
     [self getLiveListData];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self getLiveListData];
+}
+
 - (void)rightBtnAction
 {
     [self.navigationController pushViewController:[[ZYFaqiLiveViewController alloc] init] animated:YES];
@@ -45,7 +51,6 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - setup
 - (void)setupView
 {
-    
     UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
     [button setTitle:@"做主播" forState:UIControlStateNormal];
     [button addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
@@ -57,7 +62,6 @@ static NSString *ID = @"ZYLiveListCell";
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
-    
 }
 
 #pragma mark - network
@@ -79,8 +83,6 @@ static NSString *ID = @"ZYLiveListCell";
             }else{
                 weakSelf.listArray = nil;
                 [weakSelf.tableView reloadData];
-                
-                
             }
         }else{//上啦加载更多
             if (tempArray.count > 0) {
