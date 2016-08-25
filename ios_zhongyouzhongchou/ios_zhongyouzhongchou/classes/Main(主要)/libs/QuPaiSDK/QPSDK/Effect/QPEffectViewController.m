@@ -195,17 +195,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
                                              selector:@selector(_applicationDidEnterBackground:) name:UIApplicationWillResignActiveNotification
                                                object:[UIApplication sharedApplication]];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moreMusicUpdateNotification:) name:QPMoreMusicUpdateNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
-
-#pragma mark --- 横竖屏切换
-- (void) orientChange:(NSNotification *)notify
-{
-    self.qpEffectView.videoDirection=[UIDevice currentDevice].orientation;
-}
-
-
 
 #pragma mark - Motion
 
@@ -320,7 +310,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     if ([keyPath isEqualToString:@"selectTab"]) {
         if (_selectTab == QPEffectTabFilter) {
             [self.qpEffectView.buttonFilter setTitleColor:[QupaiSDK shared].tintColor forState:UIControlStateNormal];
-            [self.qpEffectView.buttonMusic setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [self.qpEffectView.buttonMusic setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             
             self.qpEffectView.viewTab.fromX = 5;
             self.qpEffectView.viewTab.toX = 60;
@@ -328,7 +318,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         }else{
             self.qpEffectView.buttonFilter.selected = NO;
             
-            [self.qpEffectView.buttonFilter setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [self.qpEffectView.buttonFilter setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [self.qpEffectView.buttonMusic setTitleColor:[QupaiSDK shared].tintColor forState:UIControlStateNormal];
             
             //CGSize size =[QPString sizeWithFontSize:_buttonMusic.titleLabel.font.pointSize text:_buttonMusic.titleLabel.text];
@@ -384,6 +374,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     QPEffectViewCell *cell = (QPEffectViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"QPEffectViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     cell.nameLabel.text = effect.name;
+    cell.nameLabel.textColor=[UIColor whiteColor];
     cell.iconImageView.image = [QPImage imageNamed:effect.icon];
     cell.contentView.frame = cell.bounds;
     if (self.video.filterID == effect.eid) {

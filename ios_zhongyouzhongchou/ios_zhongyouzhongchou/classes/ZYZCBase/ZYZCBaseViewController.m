@@ -65,6 +65,11 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+
 
 
 - (void)didReceiveMemoryWarning {
