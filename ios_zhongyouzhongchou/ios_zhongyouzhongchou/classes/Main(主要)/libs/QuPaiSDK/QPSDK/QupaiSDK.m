@@ -42,7 +42,7 @@ static QupaiSDK *_qupaiSDK = nil;
         _enableImport = YES;
         _enableVideoEffect = YES;
         _enableWatermark = NO;
-        _tintColor = RGBToColor(2,212,225,1);
+        _tintColor = RGBToColor(46,243,199,1);
         _cameraPosition = QupaiSDKCameraPositionBack;
         _qupaiSDK = self;
         return self;
@@ -169,7 +169,7 @@ static QupaiSDK *_qupaiSDK = nil;
     _enableMoreMusic   = enableMoreMusic;
     _enableImport      = enableImport;
     _enableVideoEffect = YES;
-    _tintColor         = RGBToColor(0,204,170,1);
+    _tintColor         = RGBToColor(46,243,199,1);
     return [self createRecordViewController];
 }
 
@@ -191,7 +191,7 @@ static QupaiSDK *_qupaiSDK = nil;
     _enableMoreMusic   = enableMoreMusic;
     _enableImport      = enableImport;
     _enableVideoEffect  = videoEffect;
-    _tintColor         = RGBToColor(0,204,170,1);
+    _tintColor         = RGBToColor(46,243,199,1);
     return [self createRecordViewController];
 }
 

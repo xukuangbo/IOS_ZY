@@ -34,6 +34,8 @@
 
 @property (nonatomic, strong) UIView *containView;
 
+@property (nonatomic, strong) UIView *topBgView;
+
 @end
 
 @implementation QPEffectView
@@ -68,14 +70,19 @@
 // top
 - (void)setupTopSubViews {
     
+    self.topBgView = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, ScreenWidth, kViewTopHeight))];
+    self.topBgView.backgroundColor = [UIColor blackColor];
+    self.topBgView.alpha=VIEW_ALPHA;
+    [self addSubview:self.topBgView];
+    
     self.viewTop = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, ScreenWidth, kViewTopHeight))];
-    self.viewTop.backgroundColor = [UIColor whiteColor];
+    self.viewTop.backgroundColor = [UIColor clearColor];
     [self addSubview:self.viewTop];
     
     UILabel *label = [[UILabel alloc] initWithFrame:self.viewTop.bounds];
     label.text = @"编辑视频";
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor blackColor];
+    label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:17.f];
     [self.viewTop addSubview:label];
     self.topLab=label;
@@ -151,7 +158,7 @@
     
     
     self.containView =[[UIView alloc]initWithFrame:(CGRectMake(0, ScreenHeight-kCBottomViewHeight, ScreenWidth, kCBottomViewHeight))];
-    self.containView.backgroundColor=[UIColor whiteColor];
+    self.containView.backgroundColor=[UIColor blackColor];
     self.containView.alpha=VIEW_ALPHA;
     [self addSubview:self.containView];
     
@@ -170,21 +177,21 @@
 - (void)setupBottomTabViews {
     
     self.viewTab = [[QPEffectTabView alloc] initWithFrame:(CGRectMake(0, 0, CGRectGetWidth(self.viewEffect.frame), kViewBottomViewtapHeight))];
-    self.viewTab.backgroundColor = [UIColor whiteColor];
-    self.viewTab.alpha=VIEW_ALPHA;
+    self.viewTab.backgroundColor = [UIColor clearColor];
+//    self.viewTab.alpha=VIEW_ALPHA;
     [self.viewEffect addSubview:self.viewTab];
     
     self.buttonFilter = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonFilter.frame = CGRectMake(0, 0, 80, kViewBottomViewtapHeight);
     [self.buttonFilter setTitle:@"滤镜" forState:(UIControlStateNormal)];
     self.buttonFilter.titleLabel.font = [UIFont systemFontOfSize:15.f];
-    [self.buttonFilter setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    [self.buttonFilter setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     [self.buttonFilter addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.viewEffect addSubview:self.buttonFilter];
     
     self.buttonMusic = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonMusic.frame = CGRectMake(CGRectGetWidth(self.viewTab.frame) - 8 - 100, 0, 100, kViewBottomViewtapHeight);
-    [self.buttonMusic setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    [self.buttonMusic setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
     self.buttonMusic.titleLabel.font = [UIFont systemFontOfSize:15.f];
     [self.buttonMusic setTitle:@"音乐" forState:(UIControlStateNormal)];
     self.buttonMusic.titleEdgeInsets = UIEdgeInsetsMake(10, 10, 0, 0);
@@ -304,52 +311,35 @@
         self.containView.transform = transform;
         self.viewMix.transform     = transform;
         self.viewTop.transform     = transform;
+        self.topBgView.transform   = transform;
 
         self.viewBottom.transform=CGAffineTransformTranslate(self.viewBottom.transform, ScreenHeight/2-ScreenWidth/2, -(ScreenHeight/2-ScreenWidth/2));
         
         self.containView.transform=CGAffineTransformTranslate(self.containView.transform, ScreenHeight/2-ScreenWidth/2, -(ScreenHeight/2-ScreenWidth/2));
         
          self.viewTop.transform=CGAffineTransformTranslate(self.viewTop.transform, ScreenHeight/2-ScreenWidth/2, -(ScreenHeight/2-ScreenWidth/2));
+        
+        self.topBgView.transform=CGAffineTransformTranslate(self.topBgView.transform, ScreenHeight/2-ScreenWidth/2, -(ScreenHeight/2-ScreenWidth/2));
 
-        CGRect frame=self.viewBottom.frame;
-        frame.size.height=kCBottomViewHeight;
-        self.viewBottom.frame=frame;
+        self.viewBottom.height=kCBottomViewHeight;
         
-        CGRect frame02=self.collectionView.frame;
-        frame02.size.width=ScreenWidth;
-        self.collectionView.frame=frame02;
+        self.collectionView.width=ScreenWidth;
         
-        CGRect frame03=self.BgView.frame;
-        frame03.size.width=ScreenWidth;
-        self.BgView.frame=frame03;
+        self.BgView.width=ScreenWidth;
         
-        CGRect frame04=self.viewEffect.frame;
-        frame04.size.width=ScreenWidth;
-        self.viewEffect.frame=frame04;
+        self.viewEffect.width=ScreenWidth;
         
-        CGRect frame05=self.viewTab.frame;
-        frame05.size.width=ScreenWidth;
-        self.viewTab.frame=frame05;
+        self.viewTab.width=ScreenWidth;
         
-        CGRect frame06=self.buttonMusic.frame;
-        frame06.origin.x= CGRectGetWidth(self.viewTab.frame) - 8 - 100;
-        self.buttonMusic.frame=frame06;
+        self.buttonMusic.left=CGRectGetWidth(self.viewTab.frame) - 8 - 100;
         
-        CGRect frame07=self.containView.frame;
-        frame07.size.height=kCBottomViewHeight;
-        self.containView.frame=frame07;
+        self.containView.height=kCBottomViewHeight;
         
-        CGRect frame08=self.viewTop.frame;
-        frame08.size.height=kViewTopHeight;
-        self.viewTop.frame=frame08;
+        self.viewTop.height=kViewTopHeight;
         
-        CGRect frame09=self.topLab.frame;
-        frame09.size.width=ScreenWidth;
-        self.topLab.frame=frame09;
+        self.topLab.width=ScreenWidth;
         
-        CGRect frame10=self.buttonFinish.frame;
-        frame10.origin.x= ScreenWidth - kButtonViewTopWeight;
-        self.buttonFinish.frame=frame10;
+        self.buttonFinish.left=ScreenWidth - kButtonViewTopWeight;
 
         
     }
@@ -361,6 +351,7 @@
         self.containView.transform= transform;
         self.viewMix.transform    = transform;
         self.viewTop.transform    = transform;
+        self.topBgView.transform  = transform;
 
         self.viewBottom.transform=CGAffineTransformTranslate(self.viewBottom.transform, -(ScreenHeight-ScreenWidth/2-kCBottomViewHeight/2),( ScreenWidth-kCBottomViewHeight)/2);
         
@@ -369,49 +360,30 @@
         self.viewMix.transform=CGAffineTransformTranslate(self.viewMix.transform, -(ScreenHeight-ScreenWidth)/2,ScreenWidth/2-(kCBottomViewHeight+10)-kViewCenterViewMixHeight/2);
         
         self.viewTop.transform=CGAffineTransformTranslate(self.viewTop.transform,(ScreenWidth-kViewTopHeight)/2,-(ScreenWidth-kViewTopHeight)/2);
+        
+        self.topBgView.transform=CGAffineTransformTranslate(self.topBgView.transform,(ScreenWidth-kViewTopHeight)/2,-(ScreenWidth-kViewTopHeight)/2);
+        
+        self.viewBottom.height=ScreenHeight;
+        
+        self.collectionView.width=ScreenHeight;
+        
+        self.BgView.width=ScreenHeight;
+        
+        self.viewEffect.width=ScreenHeight;
+        
+        self.viewTab.width=ScreenHeight;
+        
+        self.buttonMusic.left=CGRectGetWidth(self.viewTab.frame) - 8 - 100;
+        
+        self.containView.height=ScreenHeight;
+        
+        self.viewTop.height=ScreenHeight;
 
-//
-        CGRect frame01=self.viewBottom.frame;
-        frame01.size.height=ScreenHeight;
-        self.viewBottom.frame=frame01;
+        self.topLab.width=ScreenHeight;
         
-        CGRect frame02=self.collectionView.frame;
-        frame02.size.width=ScreenHeight;
-        self.collectionView.frame=frame02;
+        self.buttonFinish.left=ScreenHeight - kButtonViewTopWeight;
         
-        CGRect frame03=self.BgView.frame;
-        frame03.size.width=ScreenHeight;
-        self.BgView.frame=frame03;
-        
-        CGRect frame04=self.viewEffect.frame;
-        frame04.size.width=ScreenHeight;
-        self.viewEffect.frame=frame04;
-        
-        CGRect frame05=self.viewTab.frame;
-        frame05.size.width=ScreenHeight;
-        self.viewTab.frame=frame05;
-        
-        CGRect frame06=self.buttonMusic.frame;
-        frame06.origin.x= CGRectGetWidth(self.viewTab.frame) - 8 - 100;
-        self.buttonMusic.frame=frame06;
-        
-        CGRect frame07=self.containView.frame;
-        frame07.size.height=ScreenHeight;
-        self.containView.frame=frame07;
-        
-        CGRect frame08=self.viewTop.frame;
-        frame08.size.height=ScreenHeight;
-        self.viewTop.frame=frame08;
-        
-        CGRect frame09=self.topLab.frame;
-        frame09.size.width=ScreenHeight;
-        self.topLab.frame=frame09;
-        
-        CGRect frame10=self.buttonFinish.frame;
-        frame10.origin.x= ScreenHeight - kButtonViewTopWeight;
-        self.buttonFinish.frame=frame10;
-
-
+        self.topBgView.height=ScreenHeight;
     }
     else if (deviceAngle== 180 )
     {
