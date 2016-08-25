@@ -185,6 +185,37 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
      object:nil];
 }
 
+
+#pragma mark - APP进入前后台的动作
+- (void)appResignActive{
+    [self destroySession];
+    
+    // 监听电话
+    _callCenter = [[CTCallCenter alloc] init];
+    _isCTCallStateDisconnected = NO;
+    _callCenter.callEventHandler = ^(CTCall* call) {
+        if ([call.callState isEqualToString:CTCallStateDisconnected])
+        {
+            _isCTCallStateDisconnected = YES;
+        }
+        else if([call.callState isEqualToString:CTCallStateConnected])
+            
+        {
+            _callCenter = nil;
+        }
+    };
+    
+}
+
+- (void)appBecomeActive{
+    
+    if (_isCTCallStateDisconnected) {
+        sleep(2);
+    }
+    
+    [self getLive];
+}
+
 #pragma mark ---注册cell
 - (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
     [self.conversationMessageCollectionView registerClass:cellClass
@@ -341,6 +372,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark --- 网速较慢时的代理方法
 - (void)liveSessionNetworkSlow:(QPLiveSession *)session{
     DDLog(@"网络太差");
+    
+    //这时候就提醒退出直播
 }
 
 #pragma mark --- 推流连接成功
@@ -357,6 +390,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark --- 摄像头打开成功
 - (void)openVideoSuccess:(QPLiveSession *)session {
     DDLog(@"摄像头打开成功");
+}
+#pragma mark --- 收集日志
+- (void)liveSession:(QPLiveSession *)session logInfo:(NSDictionary *)info
+{
+    
 }
 
 #pragma mark --- 音频初始化失败
@@ -445,11 +483,25 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)dealloc {
     [self quitConversationViewAndClear];
 }
-
+#pragma mark - 退出
 #pragma mark ---点击返回的时候消耗播放器和退出聊天室
 
 - (void)leftBarButtonItemPressed:(id)sender {
+    
+    [self destroySession];
+    
+    [_timer invalidate];
+    _timer = nil;
     [self quitConversationViewAndClear];
+}
+
+#pragma mark --- 关闭直播
+- (void)destroySession{
+    
+    [_liveSession disconnectServer];
+    [_liveSession stopPreview];
+    [_liveSession.previewView removeFromSuperview];
+    _liveSession = nil;
 }
 
 // 清理环境（退出讨论组、移除监听等）
@@ -463,13 +515,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                                 self.conversationMessageCollectionView.dataSource = nil;
                                                 self.conversationMessageCollectionView.delegate = nil;
                                                 [[NSNotificationCenter defaultCenter] removeObserver:self];
-                                                [[RCIMClient sharedRCIMClient]disconnect];
+//                                                [[RCIMClient sharedRCIMClient]disconnect];
                                                 dispatch_async(dispatch_get_main_queue(), ^{
-                                                    [self.navigationController popViewControllerAnimated:YES];
+//                                                    [self.navigationController popViewControllerAnimated:YES];
+                                                    [self dismissViewControllerAnimated:YES completion:nil];
                                                 });
                                                 
                                             } error:^(RCErrorCode status) {
-                                                
+                                                dispatch_async(dispatch_get_main_queue(), ^{
+                                                    //                                                    [self.navigationController popViewControllerAnimated:YES];
+                                                    [self dismissViewControllerAnimated:YES completion:nil];
+                                                });
                                             }];
     }
 }

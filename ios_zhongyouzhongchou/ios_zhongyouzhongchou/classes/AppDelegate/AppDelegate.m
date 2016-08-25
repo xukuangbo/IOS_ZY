@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "ZYZCTabBarController.h"
 #import "ZYZCOSSManager.h"
-#import <RongIMKit/RongIMKit.h>
+//#import <RongIMKit/RongIMKit.h>
 #import "WXApi.h"
 #import "WXApiManager.h"
 #import "ZYZCDataBase.h"
@@ -19,8 +19,9 @@
 #import "VersionTool.h"
 #import "LoginJudgeTool.h"
 #import "OpenSetTool.h"
-
+#import "RCDLive.h"
 #import "Reachability.h"
+#import "RCDLiveGiftMessage.h"
 
 #import "ZYZCMessageListViewController.h"
 #import "ChatUserInfoModel.h"
@@ -149,7 +150,11 @@
 #pragma mark --- 初始化融云
 -(void)initRCloudWithLaunchOptions:(NSDictionary *)launchOptions
 {
-    [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY];
+//    [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY];
+    [[RCDLive sharedRCDLive] initRongCloud:RC_APPKEY];
+    //注册自定义消息
+    [[RCDLive sharedRCDLive] registerRongCloudMessageType:[RCDLiveGiftMessage class]];
+    
     ZYZCRCManager *rcManager=[ZYZCRCManager defaultManager];
     
     //获取消息推送
@@ -157,7 +162,7 @@
     ChatUserInfoModel *infoModel=[[ChatUserInfoModel alloc]mj_setKeyValues:remoteNotificationUserInfo[@"rc"]];
     //判断是否是聊天消息推送
     if (infoModel.fId) {
-        [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY];
+//        [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY];
         [rcManager loginRongCloudSuccess:^{
             dispatch_async(dispatch_get_main_queue(), ^
                            {

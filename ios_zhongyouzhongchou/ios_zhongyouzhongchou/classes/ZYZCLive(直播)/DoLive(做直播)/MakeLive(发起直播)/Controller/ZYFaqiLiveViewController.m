@@ -54,6 +54,14 @@
 @end
 
 @implementation ZYFaqiLiveViewController
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     
@@ -62,6 +70,13 @@
     [self configUI];
     //请求头像
     [self requestPersonData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBar.hidden = NO;
 }
 #pragma mark -
 #pragma mark ---设置创建UI
@@ -154,7 +169,7 @@
     [_bgImageView addSubview:_exitButton];
     [_exitButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(KStatus_Height + KEDGE_DISTANCE);
-        make.right.mas_equalTo(_bgImageView.mas_right).offset(-KStatus_Height);
+        make.right.mas_equalTo(_bgImageView.mas_right).offset(-KEDGE_DISTANCE);
         make.size.mas_equalTo(CGSizeMake(30, 30));
     }];
     [_exitButton setImage:[UIImage imageNamed:@"live-start-quite"] forState:UIControlStateNormal];
@@ -287,6 +302,7 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 
                 [weakSelf presentViewController:liveVC animated:NO completion:nil];
+//                [weakSelf.navigationController pushViewController:liveVC animated:nil];
                 
                 //                [weakSelf dismissViewControllerAnimated:NO completion:nil];
             });
@@ -309,7 +325,8 @@
     //退出控制器
     _imagePicker = nil;
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+//    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark ---PickerDelegete
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0)
