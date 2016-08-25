@@ -19,16 +19,18 @@
     
     _imageViewFrame.layer.masksToBounds = YES;
     _imageViewFrame.layer.cornerRadius = ICON_WIDTH;
+    _imageViewFrame.backgroundColor = RGB(46, 243, 199);
     
     _iconImageView.layer.masksToBounds = YES;
     _iconImageView.layer.cornerRadius = ICON_WIDTH;
+    
 }
 
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : RGB(159, 159, 159);
-    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : [UIColor blackColor];
+//    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : RGB(159, 159, 159);
+    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : [UIColor whiteColor];
     
     if ([_nameLabel.text isEqualToString:@"原片"]) {
         _imageViewFrame.hidden = YES;

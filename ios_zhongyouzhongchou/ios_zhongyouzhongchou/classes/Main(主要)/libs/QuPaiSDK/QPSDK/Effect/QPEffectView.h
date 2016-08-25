@@ -58,8 +58,7 @@
 
 @property (nonatomic, weak) id<QPEffectViewDelegate> delegate;
 
-@property (nonatomic, assign) NSInteger  videoDirection;
-
+//屏幕转动的角度
 @property (nonatomic, assign) NSInteger deviceAngle;
 
 @end
