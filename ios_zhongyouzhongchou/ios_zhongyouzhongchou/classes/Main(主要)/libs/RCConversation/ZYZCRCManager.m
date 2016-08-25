@@ -50,8 +50,8 @@ static ZYZCRCManager *_RCManager;
 {
     ZYZCAccountModel *model = [ZYZCAccountTool account];
     if (model.userId) {
-        NSString *utf8Str=[model.nickname stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *url=GET_CHAT_TOKEN(model.userId,utf8Str,model.headimgurl);
+        NSString *utf8Str=[model.realName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *url=GET_CHAT_TOKEN(model.userId,utf8Str,model.faceImg);
 //      NSString *url=GET_CHAT_TOKEN02(model.userId,utf8Str,model.headimgurl);
 
 //        NSLog(@"获取token的url：%@",url);

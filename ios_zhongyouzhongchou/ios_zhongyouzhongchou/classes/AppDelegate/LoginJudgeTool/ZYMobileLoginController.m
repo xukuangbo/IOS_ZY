@@ -16,6 +16,7 @@
 #import "ZYMobileLoginController.h"
 #import "FinishBaseInfoController.h"
 #import "ZYZCRCManager.h"
+#import "JPUSHService.h"
 @interface ZYMobileLoginController ()<UITextFieldDelegate,UIAlertViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView  *scroll;
@@ -285,9 +286,6 @@
             {
                 //如果已有用户信息，则保存用户信息到本地
                 ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"][@"user"] ];
-                if (!accountModel.nickname) {
-                    accountModel.nickname=accountModel.realName?accountModel.realName:accountModel.userName;
-                }
                 [ZYZCAccountTool saveAccount:accountModel];
                 //回到首页
                 __weak typeof (&*self)weakSelf=self;
@@ -298,6 +296,11 @@
                     ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
                     RCManager.hasLogin=NO;
                     [RCManager getRCloudToken];
+                    
+                    //注册JPush别名,两个都为nil表示不调用回调，即不去验证是否注册成功
+                    [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",accountModel.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                        DDLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags , iAlias);
+                    }];
 
                 }];
             }

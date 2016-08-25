@@ -106,7 +106,6 @@
     NSArray *skinImageArray = [NSArray arrayWithArray:makeupIcos];
     [self.skinBgImage setImage:[UIImage animatedImageWithImages:skinImageArray duration:2]];
     [self addSubview:self.skinBgImage];
-
 }
 
 
@@ -114,13 +113,12 @@
     
     // viewProgress
     self.viewProgress = [[UIView alloc] initWithFrame:(CGRectMake(CGRectGetMinX(self.viewTop.frame), CGRectGetMaxY(self.viewTop.frame), CGRectGetWidth(self.viewTop.frame), kViewProgressHeight))];
-    self.viewProgress.backgroundColor = RGBToColor(0,0,0, 0.1);
+    self.viewProgress.backgroundColor = RGBToColor(0,0,0, VIEW_ALPHA);
     [self addSubview:self.viewProgress];
     
     self.pointProgress = [[QPPointProgress alloc] initWithFrame:self.viewProgress.frame];
     [self addSubview:self.pointProgress];
 }
-
 
 - (void)setupCenterViews {
     
