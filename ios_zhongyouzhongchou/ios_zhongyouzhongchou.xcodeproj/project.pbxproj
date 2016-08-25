@@ -101,6 +101,9 @@
 		0503BFF01D659CF700546C16 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0503BFEF1D659CF700546C16 /* IJKMediaFramework.framework */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
+		056046CD1D6EBECD006906FD /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C81D6EBECD006906FD /* UIImage+ImageEffects.m */; };
+		056046CE1D6EBECD006906FD /* UIImage+plus.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046CA1D6EBECD006906FD /* UIImage+plus.m */; };
+		056046CF1D6EBECD006906FD /* UITextView+Extras.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046CC1D6EBECD006906FD /* UITextView+Extras.m */; };
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
 		2C0101B71D5DC4C700D6470D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */; };
 		2C0101B91D5DC4E100D6470D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B81D5DC4E100D6470D /* libstdc++.tbd */; };
@@ -686,6 +689,12 @@
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
 		056046C41D6DBDD5006906FD /* RCDLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLive.m; sourceTree = "<group>"; };
+		056046C71D6EBECD006906FD /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		056046C81D6EBECD006906FD /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		056046C91D6EBECD006906FD /* UIImage+plus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+plus.h"; sourceTree = "<group>"; };
+		056046CA1D6EBECD006906FD /* UIImage+plus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+plus.m"; sourceTree = "<group>"; };
+		056046CB1D6EBECD006906FD /* UITextView+Extras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Extras.h"; sourceTree = "<group>"; };
+		056046CC1D6EBECD006906FD /* UITextView+Extras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Extras.m"; sourceTree = "<group>"; };
 		2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B81D5DC4E100D6470D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -2162,6 +2171,19 @@
 			children = (
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		056046C61D6EBECD006906FD /* UIImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				056046C71D6EBECD006906FD /* UIImage+ImageEffects.h */,
+				056046C81D6EBECD006906FD /* UIImage+ImageEffects.m */,
+				056046C91D6EBECD006906FD /* UIImage+plus.h */,
+				056046CA1D6EBECD006906FD /* UIImage+plus.m */,
+				056046CB1D6EBECD006906FD /* UITextView+Extras.h */,
+				056046CC1D6EBECD006906FD /* UITextView+Extras.m */,
+			);
+			path = UIImageEffects;
 			sourceTree = "<group>";
 		};
 		2C0101AF1D5DC36100D6470D /* QuPaiSDK */ = {
@@ -4115,6 +4137,7 @@
 		39F2AA101D3F135B00023CC4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				056046C61D6EBECD006906FD /* UIImageEffects */,
 				39911AE21D5045FF007DF44B /* DefineCommon.h */,
 				39911AE01D5045D8007DF44B /* HttpCommon.h */,
 				39911AE31D50460F007DF44B /* HeadFileComon.h */,
@@ -4584,6 +4607,7 @@
 				39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */,
 				39911ABD1D5038E2007DF44B /* TacticGeneralModel.m in Sources */,
 				2CD209091D6D3E27005EB62E /* HotCommentCell.m in Sources */,
+				056046CE1D6EBECD006906FD /* UIImage+plus.m in Sources */,
 				2C8B19731D0CF7EC0063097B /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				39911AB01D5038B2007DF44B /* TacticSingleFoodVC.m in Sources */,
 				2C8B197E1D0CF7EC0063097B /* UIViewController+XMNPhotoHUD.m in Sources */,
@@ -4739,6 +4763,7 @@
 				2C8B19751D0CF7EC0063097B /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
 				2C1B60F41D6D3CF900E3C25B /* DrawCircleView.m in Sources */,
 				2C8B197F1D0CF7EC0063097B /* XMNPhotoCollectionController.m in Sources */,
+				056046CD1D6EBECD006906FD /* UIImage+ImageEffects.m in Sources */,
 				393A5E3C1D30DB8D00E165C5 /* AboutXieyiVC.m in Sources */,
 				2C1B61091D6D3CF900E3C25B /* RMCollectionCell.m in Sources */,
 				2C8B198C1D0CF7EC0063097B /* XMNPhotoPicker.m in Sources */,
@@ -4774,6 +4799,7 @@
 				2C8B196F1D0CF7EC0063097B /* JGProgressHUD.m in Sources */,
 				2CD209B21D6D4BA6005EB62E /* QPEffectView.m in Sources */,
 				2CD209251D6D3E27005EB62E /* ZYVoicePlayer.m in Sources */,
+				056046CF1D6EBECD006906FD /* UITextView+Extras.m in Sources */,
 				0469C56F1D0E44CF00A34A03 /* MineTravelTagVC.m in Sources */,
 				2CD209BF1D6D4BA6005EB62E /* QupaiSDK.m in Sources */,
 				392AB2AC1D669CE6003FEDB7 /* ZYLiveListModel.m in Sources */,

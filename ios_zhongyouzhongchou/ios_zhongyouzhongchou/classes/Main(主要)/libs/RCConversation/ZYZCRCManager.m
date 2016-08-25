@@ -144,6 +144,7 @@ static ZYZCRCManager *_RCManager;
 //    }
 //    else
     {
+        
         //根据userId获取用户信息
         NSString *url=GET_USERINFO_BYOPENID(userId);
         [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)

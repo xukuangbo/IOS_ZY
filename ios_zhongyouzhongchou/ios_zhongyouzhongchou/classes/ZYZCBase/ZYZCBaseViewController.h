@@ -22,5 +22,6 @@
 -(void)pressBack;
 
 -(void)customNavWithLeftBtnImgName:(NSString *)leftName andRightImgName:(NSString *)rightName  andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction;
-
+// 隐藏navigationBar
+- (void)setClearNavigationBar:(BOOL)isClear;
 @end
