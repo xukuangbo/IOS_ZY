@@ -396,7 +396,6 @@
 		392AB2861D669C26003FEDB7 /* RCDLiveTextMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB24E1D669C26003FEDB7 /* RCDLiveTextMessageCell.m */; };
 		392AB2871D669C26003FEDB7 /* RCDLiveTipMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2501D669C26003FEDB7 /* RCDLiveTipMessageCell.m */; };
 		392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2551D669C26003FEDB7 /* ZYLiveViewController.m */; };
-		392AB2891D669C26003FEDB7 /* ZYZCLiveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2571D669C26003FEDB7 /* ZYZCLiveController.m */; };
 		392AB28A1D669C26003FEDB7 /* RCDLiveEmojiBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB25B1D669C26003FEDB7 /* RCDLiveEmojiBoardView.m */; };
 		392AB28B1D669C26003FEDB7 /* RCDLiveEmojiPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB25D1D669C26003FEDB7 /* RCDLiveEmojiPageControl.m */; };
 		392AB28C1D669C26003FEDB7 /* RCDLiveInputBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2601D669C26003FEDB7 /* RCDLiveInputBar.m */; };
@@ -1270,8 +1269,6 @@
 		392AB2521D669C26003FEDB7 /* RCDLiveKitCommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLiveKitCommonDefine.h; sourceTree = "<group>"; };
 		392AB2541D669C26003FEDB7 /* ZYLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveViewController.h; sourceTree = "<group>"; };
 		392AB2551D669C26003FEDB7 /* ZYLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveViewController.m; sourceTree = "<group>"; };
-		392AB2561D669C26003FEDB7 /* ZYZCLiveController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCLiveController.h; sourceTree = "<group>"; };
-		392AB2571D669C26003FEDB7 /* ZYZCLiveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCLiveController.m; sourceTree = "<group>"; };
 		392AB25A1D669C26003FEDB7 /* RCDLiveEmojiBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLiveEmojiBoardView.h; sourceTree = "<group>"; };
 		392AB25B1D669C26003FEDB7 /* RCDLiveEmojiBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLiveEmojiBoardView.m; sourceTree = "<group>"; };
 		392AB25C1D669C26003FEDB7 /* RCDLiveEmojiPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLiveEmojiPageControl.h; sourceTree = "<group>"; };
@@ -3486,8 +3483,6 @@
 			children = (
 				392AB2541D669C26003FEDB7 /* ZYLiveViewController.h */,
 				392AB2551D669C26003FEDB7 /* ZYLiveViewController.m */,
-				392AB2561D669C26003FEDB7 /* ZYZCLiveController.h */,
-				392AB2571D669C26003FEDB7 /* ZYZCLiveController.m */,
 				3967ADB21D6C29BD008A7F81 /* ZYDoLiveVC.h */,
 				3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */,
 			);
@@ -4454,7 +4449,6 @@
 				2C3777FC1D07F355004FDA9D /* ZYZCBaseTableView.m in Sources */,
 				04A99D201CC07E1800C6F5F0 /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m in Sources */,
 				2CD209161D6D3E27005EB62E /* ZCDetailTableHeadView.m in Sources */,
-				392AB2891D669C26003FEDB7 /* ZYZCLiveController.m in Sources */,
 				2CD209C11D6D4BA6005EB62E /* QPFocusView.m in Sources */,
 				2CD209BA1D6D4BA6005EB62E /* QPPickerPreviewCell.m in Sources */,
 				2C1B60ED1D6D3CF900E3C25B /* ReturnFourthCell.m in Sources */,

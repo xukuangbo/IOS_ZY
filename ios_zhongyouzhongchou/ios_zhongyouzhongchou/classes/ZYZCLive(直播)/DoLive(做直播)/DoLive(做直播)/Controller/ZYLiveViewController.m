@@ -1282,14 +1282,27 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  // notification
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
     __block RCMessage *rcMessage = notification.object;
+    
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
-    RCTextMessage *message = (RCTextMessage *)model.content;
-    DDLog(@"%@",message.content);
+    NSString *content;
+    RCTextMessage *textMessage = (RCTextMessage *)model.content;
+    if ([textMessage respondsToSelector:@selector(content)]) {
+        content = textMessage.content;
+    } else {
+        RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
+        if ([textMessage respondsToSelector:@selector(message)]) {
+            content = textMessage.message;
+        } else {
+            RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
+            content = textMessage.type;
+            
+        }
+    }
     //判断信息类型
-    if ([message.content isEqualToString:ZY_Live_Clap]) {//1.点赞
+    if ([content isEqualToString:@"1"]) {//1.点赞
         [self praiseHeart];
         return ;
-    }else if ([message.content isEqualToString:ZY_Live_Join]){//2.加入房间
+    }else if ([content isEqualToString:ZY_Live_Join]){//2.加入房间
         
     }
     
