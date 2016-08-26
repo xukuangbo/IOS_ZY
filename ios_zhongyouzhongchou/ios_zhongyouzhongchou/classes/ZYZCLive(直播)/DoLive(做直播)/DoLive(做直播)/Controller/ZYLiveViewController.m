@@ -1285,6 +1285,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
     RCTextMessage *message = (RCTextMessage *)model.content;
     DDLog(@"%@",message.content);
+    //判断信息类型
+    if ([message.content isEqualToString:ZY_Live_Clap]) {//1.点赞
+        [self praiseHeart];
+        return ;
+    }else if ([message.content isEqualToString:ZY_Live_Join]){//2.加入房间
+        
+    }
+    
+    
     NSDictionary *leftDic = notification.userInfo;
     if (leftDic && [leftDic[@"left"] isEqual:@(0)]) {
         self.isNeedScrollToButtom = YES;
@@ -1311,6 +1320,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 #pragma mark ---定义展示的UICollectionViewCell的个数
 - (void)tap4ResetDefaultBottomBarStatus:
@@ -1420,7 +1431,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)praiseHeart{
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(_clapBtn.frame.origin.x , _clapBtn.frame.origin.y - 49, 35, 35);
+    imageView.frame = CGRectMake(self.backBtn.origin.x , self.backBtn.frame.origin.y - 49, 35, 35);
     imageView.image = [UIImage imageNamed:@"heart"];
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
