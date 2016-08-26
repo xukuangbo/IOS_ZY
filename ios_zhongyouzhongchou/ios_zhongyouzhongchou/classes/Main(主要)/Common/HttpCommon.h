@@ -246,6 +246,9 @@
 //获取拉黑名单列表的个人数据
 #define Get_LaHei_List_Info(userIds) [NSString stringWithFormat:@"%@u/getUserBaseInfo.action?userIds=%@",BASE_URL,userIds]
 
+//传入用户id,获取用户列表
+#define Get_UserInfo_List(userIds) [NSString stringWithFormat:@"%@u/getUserBaseInfo.action?userIds=%@",BASE_URL,userIds]
+
 //未读消息数
 #define Post_UnRead_Msg  [NSString stringWithFormat:@"%@systemMsg/unReadTotles.action",BASE_URL]
 

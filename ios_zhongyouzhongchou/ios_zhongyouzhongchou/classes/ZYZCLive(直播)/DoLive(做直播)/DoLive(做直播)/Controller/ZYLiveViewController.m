@@ -148,18 +148,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  */
 
 #pragma mark - 系统视图的方法
-- (instancetype)init
-{
+- (instancetype)init{
     self = [super init];
     if (self) {
-        
+        [self setUpRC];
     }
     return self;
 }
 
-
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self.view addGestureRecognizer:_resetBottomTapGesture];
     
     [self.conversationMessageCollectionView reloadData];
@@ -173,7 +172,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [super viewDidAppear:animated];
     self.navigationTitle = self.navigationItem.title;
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
@@ -194,10 +192,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
 }
 
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //监听通知
+    [self registerNotification];
     
     //设置主播userInfo
     [self setUpCurrentUserInfo];
@@ -225,8 +224,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 #pragma mark - setup方法
 #pragma mark ---设置主播UserInfo
-- (void)setUpCurrentUserInfo
-{
+- (void)setUpCurrentUserInfo{
     
     ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
     
@@ -248,8 +246,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark ---直播
--(void)setUpLive
-{
+-(void)setUpLive{
     DDLog(@"kPushUrl:%@",_pushUrl);
     QPLConfiguration *configuration = [[QPLConfiguration alloc] init];
     //推流地址
@@ -300,8 +297,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark ---创建假房间成员
-- (void)setUpUserList
-{
+- (void)setUpUserList{
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"RoleList" ofType:@"plist"];
     NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
     _userList = [[NSMutableArray alloc]init];
@@ -339,6 +335,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         make.left.mas_equalTo(KEDGE_DISTANCE);
         make.top.mas_equalTo(KStatus_Height);
         make.size.mas_equalTo(CGSizeMake(110, DoLiveHeadViewHeight));
+    }];
+    //头像
+    RCUserInfo *userInfo = [RCDLive sharedRCDLive].currentUserInfo;
+    [_headView.iconView sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
+    //人数
+    [[RCIMClient sharedRCIMClient] getChatRoomInfo:self.targetId count:20 order:RC_ChatRoom_Member_Desc success:^(RCChatRoomInfo *chatRoomInfo) {
+        
+    } error:^(RCErrorCode status) {
+        
     }];
     
     //注册头像的cell
@@ -382,7 +387,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight)
                                               inViewConroller:self];
         self.inputBar.delegate = self;
-        self.inputBar.backgroundColor = [UIColor redColor];
+        self.inputBar.backgroundColor = [UIColor clearColor];
         self.inputBar.hidden = YES;
         [self.contentView addSubview:self.inputBar];
     }
@@ -511,12 +516,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //    [self.view addSubview:_clapBtn];
 }
 
-#pragma mark ---注册cell
 - (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
     [self.conversationMessageCollectionView registerClass:cellClass
                                forCellWithReuseIdentifier:identifier];
 }
 
+#pragma mark ---成员信息
 - (void)setUpChatroomMemberInfo{
     
     //    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(45, 30, 85, 35)];
@@ -551,8 +556,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark ---进入聊天室
-- (void)enterChatRoom
-{
+- (void)enterChatRoom{
     __weak ZYLiveViewController *weakSelf = self;
     
     //聊天室类型进入时需要调用加入聊天室接口，退出时需要调用退出聊天室接口
@@ -584,7 +588,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark ---注册监听Notification
-
 - (void)registerNotification {
     //注册接收消息
     
@@ -597,7 +600,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
      name:RCDLiveKitDispatchMessageNotification
      object:nil];
 }
-
 
 #pragma mark - APP进入前后台的动作
 - (void)appResignActive{
@@ -672,8 +674,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     DDLog(@"摄像头打开成功");
 }
 #pragma mark --- 收集日志
-- (void)liveSession:(QPLiveSession *)session logInfo:(NSDictionary *)info
-{
+- (void)liveSession:(QPLiveSession *)session logInfo:(NSDictionary *)info{
     
 }
 
@@ -702,8 +703,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     DDLog(@"码率发生变化");
 }
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
         //重新连接
         [_liveSession connectServer];
@@ -720,8 +720,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
-
-
 
 
 #pragma mark - 退出
@@ -769,8 +767,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                             }];
     }
 }
-
-
 
 -(void)showInputBar:(id)sender{
     self.inputBar.hidden = NO;
@@ -1015,7 +1011,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         RCUserInfo *user = self.userList[indexPath.row];
         NSString *str = user.portraitUri;
         cell.portaitView.image = [UIImage imageNamed:str];
-        cell.contentView.backgroundColor = [UIColor redColor];
+//        cell.contentView.backgroundColor = [UIColor redColor];
         return cell;
     }
     //NSLog(@"path row is %d", indexPath.row);
@@ -1031,7 +1027,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         
     }
     
-    cell.contentView.backgroundColor = [UIColor redColor];
+//    cell.contentView.backgroundColor = [UIColor redColor];
     return cell;
 }
 
@@ -1266,7 +1262,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                  }];
 }
 
-#pragma mark ---接收到消息的回调
+#pragma mark - 接收到消息的回调
  // notification
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
     __block RCMessage *rcMessage = notification.object;
@@ -1292,7 +1288,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         });
     }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -1405,7 +1400,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.currentConnectionStatus = status;
 }
 
-
 - (void)praiseHeart{
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(_clapBtn.frame.origin.x , _clapBtn.frame.origin.y - 49, 35, 35);
@@ -1431,7 +1425,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [UIView setAnimationDelegate:self];
     [UIView commitAnimations];
 }
-
 
 - (void)praiseGift{
     UIImageView *imageView = [[UIImageView alloc] init];
@@ -1459,14 +1452,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [UIView commitAnimations];
 }
 
-
 - (void)onAnimationComplete:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context{
     
     UIImageView *imageView = (__bridge UIImageView *)(context);
     [imageView removeFromSuperview];
 }
-
-
-
 
 @end

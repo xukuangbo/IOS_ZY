@@ -33,16 +33,12 @@
 
 /** 开始直播 */
 @property (nonatomic, strong) UIButton *startLiveBtn;
-
+/** 退出 */
 @property (nonatomic, strong) UIButton *exitButton;
-/**
- *  背景
- */
+/** 背景 */
 @property (nonatomic, strong) UIImageView *bgImageView;
-
+/** 图片选择器 */
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-
-
 /** 推流url */
 @property(nonatomic, copy) NSString* pushUrl;
 /** 拉流url */
@@ -107,9 +103,10 @@
         make.size.mas_equalTo(CGSizeMake(130, 130));
         
     }];
+    
     _faceImg.layerCornerRadius = 5;
     ZYZCAccountModel *account = [ZYZCAccountTool account];
-    [_faceImg sd_setImageWithURL:[NSURL URLWithString:account.headimgurl] placeholderImage:nil options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
+    [_faceImg sd_setImageWithURL:[NSURL URLWithString:account.faceImg] placeholderImage:nil options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
     [_faceImg addTarget:self action:@selector(changeFaceImgAction)];
     
     //修改封面
