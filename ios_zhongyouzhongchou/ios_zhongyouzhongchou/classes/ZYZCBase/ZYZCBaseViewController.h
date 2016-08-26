@@ -24,4 +24,6 @@
 -(void)customNavWithLeftBtnImgName:(NSString *)leftName andRightImgName:(NSString *)rightName  andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction;
 // 隐藏navigationBar
 - (void)setClearNavigationBar:(BOOL)isClear;
+// 提示框方法
+- (void)showHintWithText:(NSString *)text;
 @end

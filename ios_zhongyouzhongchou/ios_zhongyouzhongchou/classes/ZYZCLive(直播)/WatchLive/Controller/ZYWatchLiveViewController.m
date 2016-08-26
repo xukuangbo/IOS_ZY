@@ -26,6 +26,8 @@
 #import "AppDelegate.h"
 #import "RCDLivePortraitViewCell.h"
 #import "ZYZCRCManager.h"
+#import "MBProgressHUD+MJ.h"
+
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -147,7 +149,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self setupView];
     [self getIntoLive:self.liveModel.pullUrl];
     [self setupConstraints];
-//    [self initChatroomMemberInfo];
+    [self initChatroomMemberInfo];
     [self enterInfoLiveRoom];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
 }
@@ -179,21 +181,26 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          success:^{
              dispatch_async(dispatch_get_main_queue(), ^{
                  RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
-                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[ZYZCAccountTool account].nickname];
+                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@进入直播间",[ZYZCAccountTool account].realName];
                  [weakSelf sendMessage:joinChatroomMessage pushContent:nil];
              });
-         }
-         error:^(RCErrorCode status) {
+         }error:^(RCErrorCode status) {
              dispatch_async(dispatch_get_main_queue(), ^{
                  if (status == KICKED_FROM_CHATROOM) {
-//                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomRejected", @"RongCloudKit", nil)];
-                 } else {
-//                     [weakSelf loadErrorAlert:NSLocalizedStringFromTable(@"JoinChatRoomFailed", @"RongCloudKit", nil)];
+                     [weakSelf showHintWithText:@"进入直播间失败"];
+                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                         [weakSelf closeLiveButtonAction:nil];
+                     });
+                     
                  }
              });
          }];
     }
-
+    [[RCIMClient sharedRCIMClient] getChatRoomInfo:self.targetId count:20 order:RC_ChatRoom_Member_Desc success:^(RCChatRoomInfo *chatRoomInfo) {
+        [weakSelf getUserInfoUserIdArray:chatRoomInfo.memberInfoArray];
+    } error:^(RCErrorCode status) {
+        
+    }];
 }
 #pragma mark - setup
 - (void)setupView
@@ -368,6 +375,32 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.defaultHistoryMessageCountOfChatRoom = 10;
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
 }
+
+// 获取userList信息
+- (void)getUserInfoUserIdArray:(NSArray *)userIdArray
+{
+    WEAKSELF
+    dispatch_group_t group = dispatch_group_create();
+    
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        for (int i = 0; i < userIdArray.count; i++) {
+            RCChatRoomMemberInfo *chatroomInfo = userIdArray[i];
+            dispatch_group_enter(group);
+            [[RCIMClient sharedRCIMClient] getUserInfo:chatroomInfo.userId success:^(RCUserInfo *userInfo) {
+                [weakSelf.userList addObject:userInfo];
+                dispatch_group_leave(group);
+            } error:^(RCErrorCode status) {
+                dispatch_group_leave(group);
+            }];
+        }
+
+    });
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.portraitsCollectionView reloadData];
+    });
+
+   }
 
 - (void)getIntoLive:(NSString *)liveUrlString
 {
@@ -1040,23 +1073,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 #pragma mark - Install Notifiacation
 - (void)installMovieNotificationObservers {
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(loadStateDidChange:)
-                                                 name:IJKMPMoviePlayerLoadStateDidChangeNotification
-                                               object:_player];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackFinish:)
-                                                 name:IJKMPMoviePlayerPlaybackDidFinishNotification
-                                               object:_player];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(mediaIsPreparedToPlayDidChange:)
-                                                 name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
-                                               object:_player];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(moviePlayBackStateDidChange:)
-                                                 name:IJKMPMoviePlayerPlaybackStateDidChangeNotification
-                                               object:_player];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadStateDidChange:) name:IJKMPMoviePlayerLoadStateDidChangeNotification object:_player];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackFinish:) name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_player];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaIsPreparedToPlayDidChange:) name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification object:_player];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackStateDidChange:) name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:_player];
 }
 
 /**
@@ -1083,19 +1103,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 - (void)removeMovieNotificationObservers {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:IJKMPMoviePlayerLoadStateDidChangeNotification
-                                                  object:_player];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:IJKMPMoviePlayerPlaybackDidFinishNotification
-                                                  object:_player];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification
-                                                  object:_player];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:IJKMPMoviePlayerPlaybackStateDidChangeNotification
-                                                  object:_player];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IJKMPMoviePlayerLoadStateDidChangeNotification object:_player];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_player];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification object:_player];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:_player];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - dealloc
@@ -1103,18 +1115,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     [self.player pause];
     [self removeMovieNotificationObservers];
-//    if (self.conversationType == ConversationType_CHATROOM) {
-//        [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
-//                                            success:^{
-//                                                self.conversationMessageCollectionView.dataSource = nil;
-//                                                self.conversationMessageCollectionView.delegate = nil;
-//                                                [[NSNotificationCenter defaultCenter] removeObserver:self];
-//                                                [[RCIMClient sharedRCIMClient]disconnect];
-//                                                
-//                                            } error:^(RCErrorCode status) {
-//                                                
-//                                            }];
-//    }
+    [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
+                                        success:^{
+                                            NSLog(@"ddddd");
+                                        } error:^(RCErrorCode status) {
+                                            NSLog(@"eeeeee");
+                                        }];
 }
 
 /**
