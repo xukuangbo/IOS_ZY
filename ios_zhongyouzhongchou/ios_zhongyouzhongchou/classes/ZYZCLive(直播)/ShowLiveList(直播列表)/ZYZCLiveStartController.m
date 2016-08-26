@@ -7,7 +7,7 @@
 //
 
 #import "ZYZCLiveStartController.h"
-#import "ZYZCLiveController.h"
+//#import "ZYZCLiveController.h"
 #import <QPSDKCore/QPSDKCore.h>
 #import "MBProgressHUD+MJ.h"
 //正式
@@ -50,11 +50,11 @@
         NSLog(@"pushUrl : %@", pushUrl);
         NSLog(@"pullUrl : %@", pullUrl);
         //进入直播
-        ZYZCLiveController *liveController=[[ZYZCLiveController alloc]init];
-        liveController.pushUrl=pushUrl;
-        liveController.pullUrl=pullUrl;
-        [weakSelf createLiveData:pullUrl];
-        [weakSelf presentViewController:liveController animated:YES completion:nil];
+//        ZYZCLiveController *liveController=[[ZYZCLiveController alloc]init];
+//        liveController.pushUrl=pushUrl;
+//        liveController.pullUrl=pullUrl;
+//        [weakSelf createLiveData:pullUrl];
+//        [weakSelf presentViewController:liveController animated:YES completion:nil];
         
     } failure:^(NSError *error) {
         NSLog(@"create live failed %@", error);
