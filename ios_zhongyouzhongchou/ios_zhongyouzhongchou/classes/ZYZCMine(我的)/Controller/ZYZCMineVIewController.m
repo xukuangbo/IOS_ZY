@@ -39,7 +39,7 @@
     [self configUI];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getUserInfoData) name:@"userInfoChange" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUnReadChatMsgCount:) name:RCKitDispatchMessageNotification object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUnReadChatMsgCount:) name:RCKitDispatchMessageNotification object:nil];
 }
 
 #pragma mark --- 收到消息的回调
