@@ -428,7 +428,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                              initWithTarget:self
                              action:@selector(tap4ResetDefaultBottomBarStatus:)];//点击空白
     [_resetBottomTapGesture setDelegate:self];
-    
+
     //评论
     CGFloat buttonWH = 40;
     _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -800,7 +800,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 #pragma mark ---发送掌声
 
--(void)clapButtonPressed:(id)sender{
+-(void)clapButtonPressed{
     RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
     giftMessage.type = @"1";
     [self sendMessage:giftMessage pushContent:@""];
@@ -1300,7 +1300,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
     //判断信息类型
     if ([content isEqualToString:@"1"]) {//1.点赞
-        [self praiseHeart];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self praiseHeart];
+        });
         return ;
     }else if ([content isEqualToString:ZY_Live_Join]){//2.加入房间
         
@@ -1345,6 +1347,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         //        [self.conversationMessageCollectionView setFrame:collectionViewRect];
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
+        [self clapButtonPressed];
     }
 }
 
