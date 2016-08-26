@@ -12,12 +12,7 @@
 #import "MZTimerLabel.h"
 @interface DoLiveHeadView ()<MZTimerLabelDelegate>
 
-/** 头像 */
-@property (nonatomic, strong) UIImageView *iconView;
-/** 计时label */
-@property (nonatomic, strong) MZTimerLabel *timeLabel;
-/** 人数显示 */
-@property (nonatomic, strong) UILabel *numberPeopleLabel;
+
 @end
 @implementation DoLiveHeadView
 

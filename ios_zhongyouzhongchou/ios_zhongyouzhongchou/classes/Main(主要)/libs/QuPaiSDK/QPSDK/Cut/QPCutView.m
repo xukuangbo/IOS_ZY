@@ -43,7 +43,7 @@
     [self addSubview:self.viewTop];
     
     self.buttonBack = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.buttonBack setImage:[QPImage imageNamed:@"record_ico_back.png"] forState:(UIControlStateNormal)];
+    [self.buttonBack setImage:[QPImage imageNamed:@"record_ico_back_1_1.png"] forState:(UIControlStateNormal)];
     self.buttonBack.frame = CGRectMake(4, 6, 58, kTopViewHeight - 6 - 5);
     [self.buttonBack addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.viewTop addSubview:self.buttonBack];
@@ -56,7 +56,7 @@
     
     self.buttonNext = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonNext.frame = CGRectMake(CGRectGetWidth(self.viewTop.frame) - 4 - 80, 16, 80, kTopViewHeight - 16 - 15);
-    [self.buttonNext setImage:[QPImage imageNamed:@"record_ico_next.png"] forState:(UIControlStateNormal)];
+    [self.buttonNext setImage:[QPImage imageNamed:@"input_ico_check.png"] forState:(UIControlStateNormal)];
     [self.buttonNext addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.viewTop addSubview:self.buttonNext];
     

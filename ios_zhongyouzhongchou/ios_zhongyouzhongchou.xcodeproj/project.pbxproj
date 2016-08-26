@@ -409,9 +409,6 @@
 		392AB2961D669C26003FEDB7 /* RCDLiveGiftMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2761D669C26003FEDB7 /* RCDLiveGiftMessage.m */; };
 		392AB2971D669C26003FEDB7 /* RCDLiveMessageCellNotificationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2781D669C26003FEDB7 /* RCDLiveMessageCellNotificationModel.m */; };
 		392AB2981D669C26003FEDB7 /* RCDLiveMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB27A1D669C26003FEDB7 /* RCDLiveMessageModel.m */; };
-		392AB2991D669C26003FEDB7 /* ZYLiveHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB27D1D669C26003FEDB7 /* ZYLiveHeadView.m */; };
-		392AB29A1D669C26003FEDB7 /* ZYLiveHeadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 392AB27E1D669C26003FEDB7 /* ZYLiveHeadView.xib */; };
-		392AB29B1D669C26003FEDB7 /* ZYLivePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2801D669C26003FEDB7 /* ZYLivePreview.m */; };
 		392AB2AB1D669CE6003FEDB7 /* ZYLiveListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB29E1D669CE6003FEDB7 /* ZYLiveListController.m */; };
 		392AB2AC1D669CE6003FEDB7 /* ZYLiveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2A11D669CE6003FEDB7 /* ZYLiveListModel.m */; };
 		392AB2AD1D669CE6003FEDB7 /* ZYLiveListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2A41D669CE6003FEDB7 /* ZYLiveListCell.m */; };
@@ -1299,11 +1296,6 @@
 		392AB2781D669C26003FEDB7 /* RCDLiveMessageCellNotificationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLiveMessageCellNotificationModel.m; sourceTree = "<group>"; };
 		392AB2791D669C26003FEDB7 /* RCDLiveMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLiveMessageModel.h; sourceTree = "<group>"; };
 		392AB27A1D669C26003FEDB7 /* RCDLiveMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLiveMessageModel.m; sourceTree = "<group>"; };
-		392AB27C1D669C26003FEDB7 /* ZYLiveHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveHeadView.h; sourceTree = "<group>"; };
-		392AB27D1D669C26003FEDB7 /* ZYLiveHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveHeadView.m; sourceTree = "<group>"; };
-		392AB27E1D669C26003FEDB7 /* ZYLiveHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZYLiveHeadView.xib; sourceTree = "<group>"; };
-		392AB27F1D669C26003FEDB7 /* ZYLivePreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLivePreview.h; sourceTree = "<group>"; };
-		392AB2801D669C26003FEDB7 /* ZYLivePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLivePreview.m; sourceTree = "<group>"; };
 		392AB29D1D669CE6003FEDB7 /* ZYLiveListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveListController.h; sourceTree = "<group>"; };
 		392AB29E1D669CE6003FEDB7 /* ZYLiveListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveListController.m; sourceTree = "<group>"; };
 		392AB2A01D669CE6003FEDB7 /* ZYLiveListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveListModel.h; sourceTree = "<group>"; };
@@ -3570,11 +3562,6 @@
 		392AB27B1D669C26003FEDB7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				392AB27C1D669C26003FEDB7 /* ZYLiveHeadView.h */,
-				392AB27D1D669C26003FEDB7 /* ZYLiveHeadView.m */,
-				392AB27E1D669C26003FEDB7 /* ZYLiveHeadView.xib */,
-				392AB27F1D669C26003FEDB7 /* ZYLivePreview.h */,
-				392AB2801D669C26003FEDB7 /* ZYLivePreview.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4357,7 +4344,6 @@
 				04518B4B1CE419F0001921D0 /* MineSetUpVC.storyboard in Resources */,
 				2CD209A01D6D4BA6005EB62E /* audio.mp3 in Resources */,
 				2C8B198B1D0CF7EC0063097B /* XMNBottomBar.xib in Resources */,
-				392AB29A1D669C26003FEDB7 /* ZYLiveHeadView.xib in Resources */,
 				0432ADA11D0966F9005D789E /* area.plist in Resources */,
 				2C8288311CD87F7A004873B6 /* Localizable.strings in Resources */,
 			);
@@ -4492,7 +4478,6 @@
 				2C8B197C1D0CF7EC0063097B /* PromptController.m in Sources */,
 				2CD209031D6D3E27005EB62E /* ZCDetailModel.m in Sources */,
 				2CE6177C1D657DD100962163 /* UIImageView+HUWebImage.m in Sources */,
-				392AB29B1D669C26003FEDB7 /* ZYLivePreview.m in Sources */,
 				2CD209001D6D3E27005EB62E /* StylesUserModel.m in Sources */,
 				04F685521CF58B1B00E1A98E /* MinePersonAddressModel.m in Sources */,
 				04C087A71D040F3A00203D40 /* TacticIndexImgModel.m in Sources */,
@@ -4539,7 +4524,6 @@
 				2C1B60F01D6D3CF900E3C25B /* AddDetailView.m in Sources */,
 				39F2AA181D3F9BA100023CC4 /* ZYZoomImageVIew.m in Sources */,
 				2CD209BE1D6D4BA6005EB62E /* QPProgressHUD.m in Sources */,
-				392AB2991D669C26003FEDB7 /* ZYLiveHeadView.m in Sources */,
 				2C1B60DC1D6D3CF900E3C25B /* GoalPeoplePickerView.m in Sources */,
 				2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */,
 				2C1B61081D6D3CF900E3C25B /* RMCalendarMonthHeaderView.m in Sources */,

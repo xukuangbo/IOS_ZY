@@ -73,6 +73,12 @@
  */
 @property (nonatomic, copy  ) NSString *mobilePhone;
 
+@property (nonatomic, copy  ) NSString *faceImg;
+@property (nonatomic, copy  ) NSString *faceImg64;
+@property (nonatomic, copy  ) NSString *faceImg132;
+@property (nonatomic, copy  ) NSString *faceImg640;
+
+
 /**
  *  用户MD5密匙 (在用户微信注册或手机登录的时候会反馈给app，这时app需要更新本地的用户scret）
  */

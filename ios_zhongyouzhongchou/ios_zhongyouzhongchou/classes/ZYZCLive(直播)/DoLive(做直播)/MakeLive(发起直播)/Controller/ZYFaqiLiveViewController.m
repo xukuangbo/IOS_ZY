@@ -33,16 +33,12 @@
 
 /** 开始直播 */
 @property (nonatomic, strong) UIButton *startLiveBtn;
-
+/** 退出 */
 @property (nonatomic, strong) UIButton *exitButton;
-/**
- *  背景
- */
+/** 背景 */
 @property (nonatomic, strong) UIImageView *bgImageView;
-
+/** 图片选择器 */
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
-
-
 /** 推流url */
 @property(nonatomic, copy) NSString* pushUrl;
 /** 拉流url */

@@ -257,7 +257,6 @@
          if (isSuccess) {
              //保存基本信息到本地
              ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
-             accountModel.nickname=_nickTextField.text;
              accountModel.headimgurl=imgUrl;
              [ZYZCAccountTool saveAccount:accountModel];
              

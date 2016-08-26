@@ -31,6 +31,7 @@
 @property (nonatomic, copy) DismissBlock   dismissDlock;
 @property (nonatomic, copy) DeleteOneImage deleteBlock;
 @property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) UIButton *saveBtn;
 
 @end
 
@@ -67,6 +68,24 @@
     browser.dismissDlock = block;
     
     return browser;
+}
+
++ (nonnull instancetype)showFromImageView:(nullable UIImageView *)imageView withImgURLs:(nullable NSArray *)imgURLs placeholderImage:(nullable UIImage *)image atIndex:(NSInteger)index  dismiss:(DismissBlock)block
+{
+     HUPhotoBrowser *browser = [[HUPhotoBrowser alloc] initWithFrame:kScreenRect];
+    browser.saveBtn.hidden=YES;
+    browser.imageView = imageView;
+    browser.URLStrings = imgURLs;
+    browser.imagesCount = imgURLs.count;
+    [browser resetCountLabWithIndex:index+1];
+    [browser configureBrowser];
+    [browser animateImageViewAtIndex:index];
+    browser.placeholderImage = image;
+    browser.dismissDlock = block;
+    
+    
+    return browser;
+
 }
 
 + (instancetype)showFromImageView:(UIImageView *)imageView withImages:(NSArray *)images atIndex:(NSInteger)index deleteImg:(DeleteOneImage)block {
@@ -145,23 +164,31 @@
         [wself dismiss];
     };
     if (self.URLStrings) {
-        NSURL *url = [NSURL URLWithString:self.URLStrings[indexPath.row]];
-        if (indexPath.row != _index) {
-            [cell.imageView hu_setImageWithURL:url placeholderImage:_placeholderImage];
+        NSString *urlStr=self.URLStrings[indexPath.row];
+        if (![urlStr hasPrefix:@"http://"]) {
+            //本地图片地址
+            cell.imageView.image=[UIImage imageWithContentsOfFile:urlStr];
         }
-        else {
-            UIImage *placeHolder = _tmpImageView.image;
-            [cell.imageView hu_setImageWithURL:url placeholderImage:placeHolder completed:^(UIImage *image, NSError *error, NSURL *imageUrl) {
-                if (!_imageDidLoaded) {
-                     _imageDidLoaded = YES;
-                    if (_animationCompleted) {
-                        self.collectionView.hidden = NO;
-                        [_tmpImageView removeFromSuperview];
-                        _animationCompleted = NO;
+        else{
+            //网络图片地址
+            NSURL *url = [NSURL URLWithString:urlStr];
+            if (indexPath.row != _index) {
+                [cell.imageView hu_setImageWithURL:url placeholderImage:_placeholderImage];
+            }
+            else {
+                UIImage *placeHolder = _tmpImageView.image;
+                [cell.imageView hu_setImageWithURL:url placeholderImage:placeHolder completed:^(UIImage *image, NSError *error, NSURL *imageUrl) {
+                    if (!_imageDidLoaded) {
+                         _imageDidLoaded = YES;
+                        if (_animationCompleted) {
+                            self.collectionView.hidden = NO;
+                            [_tmpImageView removeFromSuperview];
+                            _animationCompleted = NO;
+                        }
+                       
                     }
-                   
-                }
-            }];
+                }];
+            }
         }
     }
     else if (self.images) {
@@ -255,6 +282,8 @@
 //    [saveBtn addTarget:self action:@selector(saveImae) forControlEvents:UIControlEventTouchUpInside];
      [saveBtn addTarget:self action:@selector(deleteImage) forControlEvents:UIControlEventTouchUpInside];
     [_toolBar addSubview:saveBtn];
+    _saveBtn=saveBtn;
+
     
 }
 
