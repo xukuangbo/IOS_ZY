@@ -457,7 +457,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     QPEffectMusic *effectMusic = (QPEffectMusic *)[_effectManager effectByID:self.video.musicID type:QPEffectTypeMusic];
     
     QPMediaPack *pack = [[QPMediaPack alloc] init];
-    pack.rotateArray = [self.video AllPointsRotate]; 
+//    pack.rotateArray = [self.video AllPointsRotate]; 
     pack.videoPathArray = [self.video fullPathsForFilePathArray];
     pack.musicPath = effectMusic.musicName;
     pack.mixVolume = self.video.mixVolume;
@@ -502,7 +502,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     QPEffectMusic *effectMusic = (QPEffectMusic *)[_effectManager effectByID:self.video.musicID type:QPEffectTypeMusic];
     
     QPMediaPack *pack = [[QPMediaPack alloc] init];
-    pack.rotateArray = [self.video AllPointsRotate];
+//    pack.rotateArray = [self.video AllPointsRotate];
     pack.videoPathArray = [self.video fullPathsForFilePathArray];
     pack.musicPath = effectMusic.musicName;
     pack.mixVolume = self.video.mixVolume;

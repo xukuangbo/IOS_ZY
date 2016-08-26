@@ -166,4 +166,7 @@
 //appStore下载路径
 #define APP_STORE_URL           @"http://itunes.apple.com/cn/app/id1128709311?mt=8"
 
+#define ZY_Live_Clap @"ZYSendMessageClapStatus"
+#define ZY_Live_Join @"ZYSendMessageJoinRoomStatus"
+
 #endif /* DefineCommon_h */
