@@ -30,7 +30,7 @@
 
 - (void)setUpSubviews
 {
-    self.backgroundColor = [UIColor yellowColor];
+    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     //圆角半径
     CGFloat layRadius = DoLiveHeadViewHeight * 0.5;
     //间隙
@@ -46,18 +46,22 @@
     _iconView = [UIImageView new];
     [self addSubview:_iconView];
     _iconView.layerCornerRadius = iconViewHeight * 0.5;
-    _iconView.backgroundColor = [UIColor redColor];
+//    _iconView.backgroundColor = [UIColor redColor];
     
     _timeLabel = [MZTimerLabel new];
     _timeLabel.delegate = self;
     [self addSubview:_timeLabel];
-    _timeLabel.backgroundColor = [UIColor redColor];
+//    _timeLabel.backgroundColor = [UIColor redColor];
     _timeLabel.timeLabel.font = [UIFont systemFontOfSize:13];
+    _timeLabel.timeLabel.textColor = [UIColor whiteColor];
     _timeLabel.timeLabel.textAlignment = NSTextAlignmentCenter;
     
     _numberPeopleLabel = [UILabel new];
     [self addSubview:_numberPeopleLabel];
-    _numberPeopleLabel.backgroundColor = [UIColor redColor];
+    _numberPeopleLabel.font = [UIFont systemFontOfSize:14];
+    _numberPeopleLabel.textColor = [UIColor whiteColor];
+    _numberPeopleLabel.textAlignment = NSTextAlignmentCenter;
+//    _numberPeopleLabel.backgroundColor = [UIColor redColor];
     
     
     //添加约束

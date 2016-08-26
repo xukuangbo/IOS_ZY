@@ -207,8 +207,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //设置聊天室成员
     [self setUpUserList];
     
-    //初始化UI
-    [self setUpSubViews];
+    //设置顶部views
+    [self setUpTopViews];
+    
+    //设置底部views
+    [self setUpBottomViews];
     
     //设置头像信息
     [self setUpChatroomMemberInfo];
@@ -228,7 +231,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
     
-    RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:[accountModel.userId stringValue]  name:accountModel.realName portrait:accountModel.headimgurl];
+    NSString *faceImgStrng = accountModel.faceImg64.length > 0?accountModel.faceImg64 : accountModel.faceImg132;
+    RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:[accountModel.userId stringValue]  name:accountModel.realName portrait:faceImgStrng];
     //设置userinfo
     [[RCDLive sharedRCDLive] setCurrentUserInfo:userInfo];
 }
@@ -326,8 +330,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark ---初始化页面控件
-- (void)setUpSubViews {
-    
+- (void)setUpTopViews
+{
     //左上角头像
     _headView = [DoLiveHeadView new];
     [self.view addSubview:_headView];
@@ -336,25 +340,46 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         make.top.mas_equalTo(KStatus_Height);
         make.size.mas_equalTo(CGSizeMake(110, DoLiveHeadViewHeight));
     }];
-    //头像
+    //左上角头像赋值
     RCUserInfo *userInfo = [RCDLive sharedRCDLive].currentUserInfo;
     [_headView.iconView sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
-    //人数
-    [[RCIMClient sharedRCIMClient] getChatRoomInfo:self.targetId count:20 order:RC_ChatRoom_Member_Desc success:^(RCChatRoomInfo *chatRoomInfo) {
-        
-    } error:^(RCErrorCode status) {
-        
+    //左上角人数
+    _headView.numberPeopleLabel.text = @"1人";
+    
+    
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.minimumInteritemSpacing = 16;
+    layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
+    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//    CGFloat memberHeadListViewY = view.frame.origin.x + view.frame.size.width;
+    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+    [self.view addSubview:self.portraitsCollectionView];
+    
+    //添加约束
+    [_portraitsCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_headView.mas_right).offset(KEDGE_DISTANCE);
+        make.top.equalTo(_headView);
+        make.right.equalTo(self.view.mas_right);
+        make.height.mas_equalTo(35);
     }];
+    
+    self.portraitsCollectionView.delegate = self;
+    self.portraitsCollectionView.dataSource = self;
+    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
     
     //注册头像的cell
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
+}
+
+- (void)setUpBottomViews
+{
     
     //聊天区
     if(self.contentView == nil){
         CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
         self.contentView.backgroundColor = RCDLive_RGBCOLOR(235, 235, 235);
         self.contentView = [[UIView alloc]initWithFrame:contentViewFrame];
-        //        self.contentView.backgroundColor = [UIColor redColor];
+        
         [self.view addSubview:self.contentView];
     }
     //聊天消息区
@@ -514,6 +539,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //                 action:@selector(clapButtonPressed:)
     //       forControlEvents:UIControlEventTouchUpInside];
     //    [self.view addSubview:_clapBtn];
+
 }
 
 - (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
@@ -540,16 +566,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //    chatroomlabel.text = [NSString stringWithFormat:@"小海豚\n2890人"];
     //    [view addSubview:chatroomlabel];
     //
-    //    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    //    layout.minimumInteritemSpacing = 16;
-    //    layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
-    //    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    //    CGFloat memberHeadListViewY = view.frame.origin.x + view.frame.size.width;
-    //    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
-    //    [self.view addSubview:self.portraitsCollectionView];
-    //    self.portraitsCollectionView.delegate = self;
-    //    self.portraitsCollectionView.dataSource = self;
-    //    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
     //
     //
     //    [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
@@ -1267,6 +1283,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
     __block RCMessage *rcMessage = notification.object;
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
+    RCTextMessage *message = (RCTextMessage *)model.content;
+    DDLog(@"%@",message.content);
     NSDictionary *leftDic = notification.userInfo;
     if (leftDic && [leftDic[@"left"] isEqual:@(0)]) {
         self.isNeedScrollToButtom = YES;

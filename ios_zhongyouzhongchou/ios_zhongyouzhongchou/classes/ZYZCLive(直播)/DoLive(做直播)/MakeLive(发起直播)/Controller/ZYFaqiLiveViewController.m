@@ -106,7 +106,9 @@
     
     _faceImg.layerCornerRadius = 5;
     ZYZCAccountModel *account = [ZYZCAccountTool account];
-    [_faceImg sd_setImageWithURL:[NSURL URLWithString:account.faceImg] placeholderImage:nil options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
+    //取头像
+    NSString *faceImgStrng = account.faceImg64.length > 0?account.faceImg64 : account.faceImg132;
+    [_faceImg sd_setImageWithURL:[NSURL URLWithString:faceImgStrng] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
     [_faceImg addTarget:self action:@selector(changeFaceImgAction)];
     
     //修改封面
