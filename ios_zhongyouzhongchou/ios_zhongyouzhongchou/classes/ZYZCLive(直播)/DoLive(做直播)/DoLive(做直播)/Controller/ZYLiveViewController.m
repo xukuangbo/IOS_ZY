@@ -1285,18 +1285,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
     NSString *content;
-    RCTextMessage *textMessage = (RCTextMessage *)model.content;
-    if ([textMessage respondsToSelector:@selector(content)]) {
+    if ([model.content isMemberOfClass:[RCTextMessage class]]) {
+        RCTextMessage *textMessage = (RCTextMessage *)model.content;
         content = textMessage.content;
-    } else {
+    } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
-        if ([textMessage respondsToSelector:@selector(message)]) {
-            content = textMessage.message;
-        } else {
-            RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
-            content = textMessage.type;
-            
-        }
+        content = textMessage.message;
+    } else if ([model.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
+        RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
+        content = textMessage.type;
     }
     //判断信息类型
     if ([content isEqualToString:@"1"]) {//1.点赞
@@ -1307,7 +1304,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }else if ([content isEqualToString:ZY_Live_Join]){//2.加入房间
         
     }
-    
     
     NSDictionary *leftDic = notification.userInfo;
     if (leftDic && [leftDic[@"left"] isEqual:@(0)]) {

@@ -808,17 +808,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     __block RCMessage *rcMessage = notification.object;
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
     NSString *content;
-    RCTextMessage *textMessage = (RCTextMessage *)model.content;
-    if ([textMessage respondsToSelector:@selector(content)]) {
+    if ([model.content isMemberOfClass:[RCTextMessage class]]) {
+        RCTextMessage *textMessage = (RCTextMessage *)model.content;
         content = textMessage.content;
-    } else {
+    } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
-        if ([textMessage respondsToSelector:@selector(message)]) {
-            content = textMessage.message;
-        } else {
-            RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
-            content = textMessage.type;
-        }
+        content = textMessage.message;
+    } else if ([model.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
+        RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
+        content = textMessage.type;
     }
     NSDictionary *leftDic = notification.userInfo;
     if (leftDic && [leftDic[@"left"] isEqual:@(0)]) {
