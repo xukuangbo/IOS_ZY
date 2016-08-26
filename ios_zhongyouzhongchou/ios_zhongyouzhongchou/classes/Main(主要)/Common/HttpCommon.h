@@ -12,9 +12,9 @@
 
 #pragma mark --- 基础网络接口
 //正式
-//#define BASE_URL @"http://www.sosona.com:8080/"
+#define BASE_URL @"http://www.sosona.com:8080/"
 //测试
-#define BASE_URL @"http://121.40.225.119:8080/"
+//#define BASE_URL @"http://121.40.225.119:8080/"
 //华子
 //#define BASE_URL @"http://192.168.1.83:8080/"
 

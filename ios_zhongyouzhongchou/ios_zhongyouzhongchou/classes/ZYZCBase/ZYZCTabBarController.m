@@ -62,23 +62,7 @@
     
     _rcIM = [RCIM sharedRCIM];
     _rcIM.receiveMessageDelegate=self;
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getUnReadChatMsgCount:) name:RCKitDispatchMessageNotification object:nil];
-
 }
-
-#pragma mark --- 收到消息的回调
-
-//-(void)getUnReadChatMsgCount:(NSNotification *)notify
-//{
-//    dispatch_async(dispatch_get_main_queue(), ^
-//                   {
-//                       UITabBarItem *item=[self.tabBar.items lastObject];
-//                       item.badgeCenterOffset=CGPointMake(0, 5);
-//                       [item showBadgeWithStyle:WBadgeStyleRedDot value:0 animationType:WBadgeAnimTypeNone];
-//                   });
-//}
-
 
 #pragma mark --- 收到消息的回调
 -(void)onRCIMReceiveMessage:(RCMessage *)message left:(int)left
