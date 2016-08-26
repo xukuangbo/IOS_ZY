@@ -815,6 +815,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
         if ([textMessage respondsToSelector:@selector(message)]) {
             content = textMessage.message;
+        } else {
+            RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
+            content = textMessage.type;
         }
     }
     NSDictionary *leftDic = notification.userInfo;
@@ -994,7 +997,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)messageContent;
         localizedMessage = @"送了一个钻戒";
         if(notification && [notification.type isEqualToString:@"1"]){
-            localizedMessage = @"为主播点了赞";
+            localizedMessage = ZY_Live_Clap;
         }
         
         NSString *name;
