@@ -103,9 +103,10 @@
         make.size.mas_equalTo(CGSizeMake(130, 130));
         
     }];
+    
     _faceImg.layerCornerRadius = 5;
     ZYZCAccountModel *account = [ZYZCAccountTool account];
-    [_faceImg sd_setImageWithURL:[NSURL URLWithString:account.headimgurl] placeholderImage:nil options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
+    [_faceImg sd_setImageWithURL:[NSURL URLWithString:account.faceImg] placeholderImage:nil options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
     [_faceImg addTarget:self action:@selector(changeFaceImgAction)];
     
     //修改封面
