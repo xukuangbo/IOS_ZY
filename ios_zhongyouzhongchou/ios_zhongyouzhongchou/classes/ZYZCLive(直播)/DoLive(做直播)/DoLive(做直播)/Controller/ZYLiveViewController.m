@@ -151,13 +151,14 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (instancetype)init{
     self = [super init];
     if (self) {
-        
+        [self setUpRC];
     }
     return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
     [self.view addGestureRecognizer:_resetBottomTapGesture];
     
     [self.conversationMessageCollectionView reloadData];
@@ -193,6 +194,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //监听通知
+    [self registerNotification];
     
     //设置主播userInfo
     [self setUpCurrentUserInfo];
@@ -383,7 +387,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight)
                                               inViewConroller:self];
         self.inputBar.delegate = self;
-        self.inputBar.backgroundColor = [UIColor redColor];
+        self.inputBar.backgroundColor = [UIColor clearColor];
         self.inputBar.hidden = YES;
         [self.contentView addSubview:self.inputBar];
     }
@@ -1007,7 +1011,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         RCUserInfo *user = self.userList[indexPath.row];
         NSString *str = user.portraitUri;
         cell.portaitView.image = [UIImage imageNamed:str];
-        cell.contentView.backgroundColor = [UIColor redColor];
+//        cell.contentView.backgroundColor = [UIColor redColor];
         return cell;
     }
     //NSLog(@"path row is %d", indexPath.row);
@@ -1023,7 +1027,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         
     }
     
-    cell.contentView.backgroundColor = [UIColor redColor];
+//    cell.contentView.backgroundColor = [UIColor redColor];
     return cell;
 }
 
@@ -1258,7 +1262,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                  }];
 }
 
-#pragma mark ---接收到消息的回调
+#pragma mark - 接收到消息的回调
  // notification
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
     __block RCMessage *rcMessage = notification.object;
