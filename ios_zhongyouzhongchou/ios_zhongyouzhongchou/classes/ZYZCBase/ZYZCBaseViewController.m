@@ -7,9 +7,9 @@
 //
 
 #import "ZYZCBaseViewController.h"
-#import "UIImage+plus.h"
-
+#import "MBProgressHUD.h"
 @interface ZYZCBaseViewController ()
+@property (strong, nonatomic) MBProgressHUD *hud;
 
 @end
 
@@ -59,6 +59,22 @@
 //        self.navigationController.navigationBar.clipsToBounds = NO;
     }
 }
+
+- (void)showHintWithText:(NSString *)text {
+    MBProgressHUD *hub = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    hub.mode = MBProgressHUDModeText;
+    //    hub.labelText = text;
+    hub.detailsLabelText = text;
+    hub.detailsLabelFont = [UIFont systemFontOfSize:14.0];
+    hub.removeFromSuperViewOnHide = YES;
+    [hub show:YES];
+    [hub hide:YES afterDelay:2];
+    if (self.hud) {
+        [self.hud hide:YES];
+    }
+}
+
 #pragma mark - event 事件处理
 -(void)pressBack
 {
