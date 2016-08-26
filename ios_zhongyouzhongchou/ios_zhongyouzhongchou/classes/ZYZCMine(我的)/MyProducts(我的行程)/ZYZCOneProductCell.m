@@ -530,11 +530,11 @@
 #pragma mark  --- 进入众筹金额明细页
 -(void)enterDetailMoney
 {
-    if(_productType==MyPublishProduct||_oneModel.mySelf)
-    {
+//    if(_productType==MyPublishProduct||_oneModel.mySelf)
+//    {
         WalletMingXiVC *mxVC = [[WalletMingXiVC alloc] initWIthProductId:_oneModel.product.productId];
         [self.viewController.navigationController pushViewController:mxVC animated:YES];
-    }
+//    }
 }
 
 #pragma mark --- 创建lab
