@@ -480,6 +480,7 @@
 		399E94331D3C6E8F006E1B68 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94321D3C6E8F006E1B68 /* TTTAttributedLabel.m */; };
 		39AABC891D6EC81700D25B16 /* DoLiveHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */; };
 		39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */; };
+		39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */; };
 		39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */; };
 		39E4EC5A1D2FB9B200305F73 /* AboutZhongyouVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC591D2FB9B200305F73 /* AboutZhongyouVC.m */; };
 		39E52FDD1D50815A00D0ED83 /* TacticMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E52FDC1D50815A00D0ED83 /* TacticMainVC.m */; };
@@ -1431,6 +1432,8 @@
 		39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoLiveHeadView.m; sourceTree = "<group>"; };
 		39AABC8B1D6EC9D500D25B16 /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
 		39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
+		39AABC8E1D716FF600D25B16 /* LiveFunctionViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionViewButton.h; sourceTree = "<group>"; };
+		39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionViewButton.m; sourceTree = "<group>"; };
 		39E4EC531D2F9C1800305F73 /* TacticMoreCitiesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreCitiesModel.h; sourceTree = "<group>"; };
 		39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreCitiesModel.m; sourceTree = "<group>"; };
 		39E4EC581D2FB9B200305F73 /* AboutZhongyouVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutZhongyouVC.h; sourceTree = "<group>"; };
@@ -3825,6 +3828,8 @@
 			children = (
 				3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */,
 				3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */,
+				39AABC8E1D716FF600D25B16 /* LiveFunctionViewButton.h */,
+				39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */,
 			);
 			path = "LiveFunctionView(功能键)";
 			sourceTree = "<group>";
@@ -4632,6 +4637,7 @@
 				2C8B197B1D0CF7EC0063097B /* MediaUtils.m in Sources */,
 				2CD2090B1D6D3E27005EB62E /* ZCDetailArrangeFirstCell.m in Sources */,
 				2CDC49FD1CFD960A00E7893C /* ChatListViewController.m in Sources */,
+				39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */,
 				2CD209241D6D3E27005EB62E /* ZCWSMView.m in Sources */,
 				04F836461CD72C3300140980 /* SDRotationLoopProgressView.m in Sources */,
 				0432ADA21D0966F9005D789E /* STPickerArea.m in Sources */,
