@@ -514,15 +514,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
 }
 
-- (void)dismissViewController
-{
-    [self showHintWithText:@"创建直播室失败"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self dismissViewControllerAnimated:YES completion:nil];
-    });
-
-}
-
 #pragma mark ---成员信息
 - (void)setUpChatroomMemberInfo{
     self.userList = [NSMutableArray array];
@@ -696,6 +687,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)dismissViewController
 {
+    [self showHintWithText:@"创建直播室失败"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
     
 }
 
