@@ -284,8 +284,11 @@
     createLiveModel.title = self.titleTextfield.text;
     createLiveModel.img = self.uploadImgString;
     createLiveModel.chatRoomId = chatRoomId;
-
     ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] initLiveModel:createLiveModel];
+
+    liveVC.targetId = chatRoomId;
+    liveVC.pushUrl = pushUrl;
+    liveVC.conversationType = ConversationType_CHATROOM;
     dispatch_async(dispatch_get_main_queue(), ^{
         [self presentViewController:liveVC animated:NO completion:nil];
     });
