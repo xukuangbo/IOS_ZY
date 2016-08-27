@@ -259,10 +259,11 @@
 //请求直播
 - (void)requestLive
 {
-    if(self.titleTextfield.text.length <= 0){
-        [self showHintWithText:@"请填写标题"];
-        return ;
-    }
+//    //必须填写标题
+//    if(self.titleTextfield.text.length <= 0){
+//        [self showHintWithText:@"请填写标题"];
+//        return ;
+//    }
     
     QPLiveRequest *request = [[QPLiveRequest alloc] init];
     WEAKSELF
