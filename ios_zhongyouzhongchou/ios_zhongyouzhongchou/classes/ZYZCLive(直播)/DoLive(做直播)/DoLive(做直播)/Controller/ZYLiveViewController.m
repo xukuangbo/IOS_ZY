@@ -760,6 +760,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     giftMessage.type = @"1";
     [self sendMessage:giftMessage pushContent:@""];
     [self praiseHeart];
+    [self.portraitsCollectionView reloadData];
 }
 #pragma mark ---未读消息View
 
@@ -1039,11 +1040,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }else if ([messageContent isMemberOfClass:[RCTextMessage class]]){
         RCTextMessage *notification = (RCTextMessage *)messageContent;
         localizedMessage = [RCDLiveKitUtility formatMessage:notification];
-        NSString *name;
-        if (messageContent.senderUserInfo) {
-            name = messageContent.senderUserInfo.name;
-        }
-        localizedMessage = [NSString stringWithFormat:@"%@ %@",name,localizedMessage];
+        
+        localizedMessage = [NSString stringWithFormat:@"%@ %@",[ZYZCAccountTool account].realName,localizedMessage];
     }else if ([messageContent isMemberOfClass:[RCDLiveGiftMessage class]]){
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)messageContent;
         localizedMessage = @"送了一个钻戒";
@@ -1051,11 +1049,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
             localizedMessage = @"为主播点了赞";
         }
         
-        NSString *name;
-        if (messageContent.senderUserInfo) {
-            name = messageContent.senderUserInfo.name;
-        }
-        localizedMessage = [NSString stringWithFormat:@"%@ %@",name,localizedMessage];
+        localizedMessage = [NSString stringWithFormat:@"%@ %@",[ZYZCAccountTool account].realName,localizedMessage];
     }
     CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:localizedMessage];
     __height = __height + __labelSize.height;

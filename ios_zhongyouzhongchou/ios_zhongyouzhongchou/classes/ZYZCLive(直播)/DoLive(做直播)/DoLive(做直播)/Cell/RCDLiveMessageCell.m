@@ -107,7 +107,7 @@
         
         model.userInfo = model.content.senderUserInfo;
 //        [self.portraitImageView setImageURL:[NSURL URLWithString:model.content.senderUserInfo.portraitUri]];
-        [self.nicknameLabel setText:[NSString stringWithFormat:@"%@:" ,model.content.senderUserInfo.name]];
+        [self.nicknameLabel setText:[NSString stringWithFormat:@"%@:" ,[ZYZCAccountTool account].realName]];
     }
     [self setCellAutoLayout];
 }
