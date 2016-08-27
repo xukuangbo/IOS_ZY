@@ -164,7 +164,7 @@
     NSDictionary *remoteNotificationUserInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     ChatUserInfoModel *infoModel=[[ChatUserInfoModel alloc]mj_setKeyValues:remoteNotificationUserInfo[@"rc"]];
     //判断是否是聊天消息推送
-    if (infoModel.fId) {
+    if ([infoModel.cType isEqualToString:@"PR"]&&infoModel.fId) {
 //        [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY];
         [rcManager loginRongCloudSuccess:^{
             dispatch_async(dispatch_get_main_queue(), ^
@@ -172,6 +172,10 @@
                                ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
                                ZYZCRCManager *rcManager=[ZYZCRCManager defaultManager];
                                [rcManager getMyConversationListWithSupperController:mainTab.selectedViewController];
+                               
+                               UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到融云消息1" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                               [alert show];
+
                            });
         } orFail:nil];
 
@@ -261,15 +265,6 @@
     //注册自定义消息，这个东西可以选择或者不选择
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
-    
-//    //获取消息推送
-//    NSDictionary *remoteNotificationUserInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
-//    if (remoteNotificationUserInfo[@"_j_msgid"]) {
-//        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到极光消息1" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        [alert show];
-//    }
-//
-    
 }
 
 #pragma mark - 打开微信，回调微信
@@ -476,16 +471,21 @@ fetchCompletionHandler:
 //    self.getPushMsg=YES; 
     
 //
-    //如果是私信通知
-    ChatUserInfoModel *infoModel=[[ChatUserInfoModel alloc]mj_setKeyValues:userInfo[@"rc"]];
-    if (infoModel.fId) {
-        self.getChatMsg=YES;
-    }
-    
-    if (userInfo[@"_j_msgid"]) {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到极光消息2" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-    }
+//    //如果是私信通知
+//    ChatUserInfoModel *infoModel=[[ChatUserInfoModel alloc]mj_setKeyValues:userInfo[@"rc"]];
+//    if (infoModel.fId) {
+////        self.getChatMsg=YES;
+//        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到融云消息2" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [alert show];
+//        
+//
+//    }
+//    
+//    //极光推送消息
+//    if (userInfo[@"_j_msgid"]) {
+//        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到极光消息2" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [alert show];
+//    }
 }
 
 #pragma mark ---这个是本地通知的接收
@@ -496,13 +496,11 @@ didReceiveLocalNotification:(UILocalNotification *)notification {
     
     //如果是私信通知，进入私信列表页
     ChatUserInfoModel *infoModel=[[ChatUserInfoModel alloc]mj_setKeyValues:notification.userInfo[@"rc"]];
-    if (infoModel.fId&&!self.enterChatList) {
+    if ([infoModel.cType isEqualToString:@"PR"]&&infoModel.fId&&!self.enterChatList) {
         ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
         ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
         [RCManager getMyConversationListWithSupperController:mainTab.selectedViewController];
     }
-//    [JPUSHService showLocalNotificationAtFront:notification identifierKey:nil];
-    
 }
 
 // log NSSet with UTF8
