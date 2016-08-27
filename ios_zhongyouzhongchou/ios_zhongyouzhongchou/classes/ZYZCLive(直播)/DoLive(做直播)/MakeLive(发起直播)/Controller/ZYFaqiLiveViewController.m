@@ -19,7 +19,7 @@
 #import "ZYZCAccountTool.h"
 #import "UIView+ZYLayer.h"
 #import "MBProgressHUD+MJ.h"
-
+#import "ZYLiveListModel.h"
 @interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 /** 封面 */
 @property (nonatomic, strong) ZYCustomIconView *faceImg;
@@ -278,40 +278,47 @@
 #pragma mark ---创建服务器直播
 - (void)createLiveDataWithPushUrl:(NSString *)pushUrl pullUrl:(NSString *)pullUrl
 {
-    
-    WEAKSELF
-    NSString *url = Post_Create_Live;
     NSString *chatRoomId = [NSString stringWithFormat:@"chatRoomId%@",[ZYZCAccountTool getUserId]];
-    NSDictionary *parameters = @{
-                                 @"img" : weakSelf.uploadImgString,
-                                 @"title" : weakSelf.titleTextfield.text,
-                                 @"pullUrl" : pullUrl,
-                                 @"chatRoomId" : chatRoomId
-                                 };
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        if (isSuccess) {
-            
-//            ZYDoLiveVC *liveVC = [[ZYDoLiveVC alloc] init];
-            ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] init];
-            liveVC.targetId = chatRoomId;
-            liveVC.pushUrl = pushUrl;
-            liveVC.conversationType = ConversationType_CHATROOM;
-            //            liveVC.targetId = @"32";
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [weakSelf presentViewController:liveVC animated:NO completion:nil];
-//                [weakSelf.navigationController pushViewController:liveVC animated:nil];
-                
-                //                [weakSelf dismissViewControllerAnimated:NO completion:nil];
-            });
-            
-        }else{
-            
-        }
-    } andFailBlock:^(id failResult) {
-        
-    }];
+    ZYLiveListModel *createLiveModel = [[ZYLiveListModel alloc] init];
+    createLiveModel.pullUrl = pullUrl;
+    createLiveModel.title = self.titleTextfield.text;
+    createLiveModel.img = self.uploadImgString;
+    createLiveModel.chatRoomId = chatRoomId;
+
+    ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] initLiveModel:createLiveModel];
+    [self presentViewController:liveVC animated:NO completion:nil];
+
+//    WEAKSELF
+//    NSString *url = Post_Create_Live;
+//    NSDictionary *parameters = @{
+//                                 @"img" : weakSelf.uploadImgString,
+//                                 @"title" : weakSelf.titleTextfield.text,
+//                                 @"pullUrl" : pullUrl,
+//                                 @"chatRoomId" : chatRoomId
+//                                 };
+//    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        if (isSuccess) {
+//            
+////            ZYDoLiveVC *liveVC = [[ZYDoLiveVC alloc] init];
+//            ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] init];
+//            liveVC.targetId = chatRoomId;
+//            liveVC.pushUrl = pushUrl;
+//            liveVC.conversationType = ConversationType_CHATROOM;
+//            //            liveVC.targetId = @"32";
+//            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                
+////                [weakSelf.navigationController pushViewController:liveVC animated:nil];
+//                
+//                //                [weakSelf dismissViewControllerAnimated:NO completion:nil];
+//            });
+//            
+//        }else{
+//            
+//        }
+//    } andFailBlock:^(id failResult) {
+//        
+//    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

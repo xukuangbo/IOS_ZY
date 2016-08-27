@@ -29,13 +29,7 @@
 #import <CoreTelephony/CTCall.h>
 #import "LiveFunctionView.h"
 #import "DoLiveHeadView.h"
-
-//#import "KSYLivePlaying.h"
-//#import "UCLOUDLivePlaying.h"
-//#import "LELivePlaying.h"
-//#import "QINIULivePlaying.h"
-//#import "QCLOUDLivePlaying.h"
-
+#import "ZYLiveListModel.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -95,15 +89,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 //会话名称
 @property(nonatomic,copy) NSString *navigationTitle;
 
-//金山视频播放器manager
-//@property(nonatomic, strong) KSYLivePlaying *livePlayingManager;
-
-//直播互动文字显示
-@property(nonatomic,strong) UIView *titleView ;
-
-//播放器view
-@property(nonatomic,strong) UIView *liveView;
-
 //底部显示未读消息view
 @property (nonatomic, strong) UIView *unreadButtonView;
 //未读消息
@@ -122,7 +107,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 @property(nonatomic,strong)UICollectionView *portraitsCollectionView;
 
 @property(nonatomic,strong)NSMutableArray *userList;
-
+// 创建直播model
+@property (nonatomic, strong) ZYLiveListModel *createLiveModel;
 
 @end
 
@@ -148,10 +134,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  */
 
 #pragma mark - 系统视图的方法
-- (instancetype)init{
+- (instancetype)initLiveModel:(ZYLiveListModel *)createLiveModel{
     self = [super init];
     if (self) {
         [self setUpRC];
+        self.createLiveModel = createLiveModel;
     }
     return self;
 }
@@ -226,7 +213,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - setup方法
-#pragma mark ---设置主播UserInfo
+// 设置主播UserInfo
 - (void)setUpCurrentUserInfo{
     
     ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
@@ -236,6 +223,30 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //设置userinfo
     [[RCDLive sharedRCDLive] setCurrentUserInfo:userInfo];
 }
+
+#pragma mark - network 网络请求
+- (void)createLiveSession
+{
+    WEAKSELF
+    NSString *url = Post_Create_Live;
+    NSDictionary *parameters = @{
+                                 @"img" : self.createLiveModel.img,
+                                 @"title" : self.createLiveModel.title,
+                                 @"pullUrl" : self.createLiveModel.pullUrl,
+                                 @"chatRoomId" : self.createLiveModel.chatRoomId
+                                 };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            
+        }else{
+            [weakSelf dismissViewController];
+        }
+    } andFailBlock:^(id failResult) {
+        [weakSelf dismissViewController];
+    }];
+
+}
+
 #pragma mark ---初始化融云的一些数组信息等
 - (void)setUpRC{
     
@@ -496,55 +507,43 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }];
     [_massageBtn setImage:[UIImage imageNamed:@"live-massage"] forState:UIControlStateNormal];
     [_massageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    //    _backBtn = [UIButton buttonWithType:UIButtonTypeCustom];//返回按钮
-    //    _backBtn.frame = CGRectMake(10, 35, 72, 25);
-    //    UIImageView *backImg = [[UIImageView alloc]
-    //                            initWithImage:[UIImage imageNamed:@"back.png"]];
-    //    backImg.frame = CGRectMake(0, 0, 25, 25);
-    //    [_backBtn addSubview:backImg];//返回按钮
-    //    [_backBtn addTarget:self
-    //                 action:@selector(leftBarButtonItemPressed:)
-    //       forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:_backBtn];
-    //
-    //    _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    _feedBackBtn.frame = CGRectMake(10, self.view.frame.size.height - 45, 35, 35);//评论按钮
-    //    UIImageView *clapImg = [[UIImageView alloc]
-    //                            initWithImage:[UIImage imageNamed:@"feedback"]];
-    //    clapImg.frame = CGRectMake(0,0, 35, 35);
-    //    [_feedBackBtn addSubview:clapImg];
-    //    [_feedBackBtn addTarget:self
-    //                     action:@selector(showInputBar:)
-    //           forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:_feedBackBtn];
-    //
-    //    _flowerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    _flowerBtn.frame = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height - 45, 35, 35);
-    //    UIImageView *clapImg2 = [[UIImageView alloc]
-    //                             initWithImage:[UIImage imageNamed:@"giftIcon"]];
-    //    clapImg2.frame = CGRectMake(0,0, 35, 35);
-    //    [_flowerBtn addSubview:clapImg2];
-    //    [_flowerBtn addTarget:self
-    //                   action:@selector(flowerButtonPressed:)
-    //         forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:_flowerBtn];
-    //
-    //    _clapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    //    _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
-    //    UIImageView *clapImg3 = [[UIImageView alloc]
-    //                             initWithImage:[UIImage imageNamed:@"heartIcon"]];
-    //    clapImg3.frame = CGRectMake(0,0, 35, 35);
-    //    [_clapBtn addSubview:clapImg3];
-    //    [_clapBtn addTarget:self
-    //                 action:@selector(clapButtonPressed:)
-    //       forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:_clapBtn];
 
 }
 
 - (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier {
     [self.conversationMessageCollectionView registerClass:cellClass
                                forCellWithReuseIdentifier:identifier];
+}
+
+#pragma mark - event 点击事件
+- (void)messageBtnAction:(UIButton *)sender
+{
+    
+}
+
+- (void)shareBtnAction:(UIButton *)sender
+{
+    
+}
+
+-(void)showInputBar:(id)sender{
+    self.inputBar.hidden = NO;
+    [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];
+}
+// 主播功能段点击事件
+- (void)moreBtnAction:(UIButton *)sender
+{
+    _liveFunctionView.hidden = !_liveFunctionView.hidden;
+    
+}
+
+- (void)dismissViewController
+{
+    [self showHintWithText:@"创建直播室失败"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
+
 }
 
 #pragma mark ---成员信息
@@ -581,13 +580,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          joinChatRoom:self.targetId
          messageCount:-1
          success:^{
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 //                 [self initializedLiveSubViews];
-                 //                 [self.livePlayingManager startPlaying];
-                 //                 RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
-                 //                 joinChatroomMessage.message = [NSString stringWithFormat: @"%@加入了聊天室",[RCDLive sharedRCDLive].currentUserInfo.name];
-                 //                 [self sendMessage:joinChatroomMessage pushContent:nil];
-             });
+             
          }
          error:^(RCErrorCode status) {
              DDLog(@"%zd",status);
@@ -650,15 +643,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self setUpLive];
 }
 
-#pragma mark ---主播功能段点击事件
-- (void)moreBtnAction:(UIButton *)sender
-{
-    _liveFunctionView.hidden = !_liveFunctionView.hidden;
-    
-}
-
 #pragma mark - 直播代理方法
-#pragma mark --- 直播出错的代理方法
+// 直播出错的代理方法
 - (void)liveSession:(QPLiveSession *)session error:(NSError *)error{
     DDLog(@"直播出错");
     NSString *msg = [NSString stringWithFormat:@"%zd %@",error.code, error.localizedDescription];
@@ -666,52 +652,56 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [alertView show];
 }
 
-#pragma mark --- 网速较慢时的代理方法
+// 网速较慢时的代理方法
 - (void)liveSessionNetworkSlow:(QPLiveSession *)session{
     DDLog(@"网络太差");
-    
     //这时候就提醒退出直播
     
 }
 
-#pragma mark --- 推流连接成功
+// 推流连接成功
 - (void)liveSessionConnectSuccess:(QPLiveSession *)session {
-    
+    [self createLiveSession];
     NSLog(@"connect success!");
 }
 
-#pragma mark --- 麦克风打开成功
+// 麦克风打开成功
 - (void)openAudioSuccess:(QPLiveSession *)session {
     DDLog(@"麦克风打开成功");
 }
 
-#pragma mark --- 摄像头打开成功
+// 摄像头打开成功
 - (void)openVideoSuccess:(QPLiveSession *)session {
     DDLog(@"摄像头打开成功");
 }
-#pragma mark --- 收集日志
+// 收集日志
 - (void)liveSession:(QPLiveSession *)session logInfo:(NSDictionary *)info{
     
 }
 
-#pragma mark --- 音频初始化失败
+// 音频初始化失败
 - (void)liveSession:(QPLiveSession *)session openAudioError:(NSError *)error {
+    
     DDLog(@"音频初始化失败");
+    [self dismissViewController];
 }
 
-#pragma mark --- 视频初始化失败
+// 视频初始化失败
 - (void)liveSession:(QPLiveSession *)session openVideoError:(NSError *)error {
     DDLog(@"视频初始化失败");
+    [self dismissViewController];
 }
 
-#pragma mark --- 音频编码器初始化失败
+// 音频编码器初始化失败
 - (void)liveSession:(QPLiveSession *)session encodeAudioError:(NSError *)error {
     DDLog(@"音频编码器初始化失败");
+    [self dismissViewController];
 }
 
-#pragma mark --- 视频编码器初始化失败
+// 视频编码器初始化失败
 - (void)liveSession:(QPLiveSession *)session encodeVideoError:(NSError *)error {
     DDLog(@"视频编码器初始化失败");
+    [self dismissViewController];
 }
 
 #pragma mark --- 码率变化
@@ -750,6 +740,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self quitConversationViewAndClear];
 }
 
+- (void)dismissViewController
+{
+    
+}
+
 #pragma mark --- 关闭直播
 - (void)destroySession{
     
@@ -782,11 +777,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                                 });
                                             }];
     }
-}
-
--(void)showInputBar:(id)sender{
-    self.inputBar.hidden = NO;
-    [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];
 }
 
 #pragma mark ---发送鲜花
@@ -886,19 +876,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
 }
 
-#pragma mark ---初始化视频直播
-- (void)initializedLiveSubViews {
-//    _liveView = self.livePlayingManager.currentLiveView;
-    _liveView.frame = self.view.frame;
-    [self.view addSubview:_liveView];
-    [self.view sendSubviewToBack:_liveView];
-    
-}
-
 #pragma mark ---全屏和半屏模式切换
 - (void)changeModel:(BOOL)isFullScreen {
 //    self.livePlayingManager.currentLiveView.frame = self.view.frame;//播放器view为全屏view
-    _titleView.hidden = YES;//标题隐藏
     
     self.conversationMessageCollectionView.backgroundColor = [UIColor clearColor];//聊天信息背景色透明
     CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
@@ -906,7 +886,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     _feedBackBtn.frame = CGRectMake(10, self.view.frame.size.height - 45, 35, 35);
     _flowerBtn.frame = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height - 45, 35, 35);
     _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
-    [self.view sendSubviewToBack:_liveView];
     
     float inputBarOriginY = self.conversationMessageCollectionView.bounds.size.height + 30;
     float inputBarOriginX = self.conversationMessageCollectionView.frame.origin.x;
