@@ -194,9 +194,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //设置主播userInfo
     [self setUpCurrentUserInfo];
     
-    //设置并进入直播
-    [self setUpLive];
-    
     //设置头像信息
     [self setUpChatroomMemberInfo];
     
@@ -242,7 +239,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                  };
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
-            
+            //设置并进入直播
+            [weakSelf setUpLive];
         }else{
             [weakSelf dismissViewController];
         }
@@ -260,7 +258,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.conversationMessageCollectionView = nil;
     
     self.defaultHistoryMessageCountOfChatRoom = -1;
-    
+    self.conversationType = ConversationType_CHATROOM;
     [[RCIMClient sharedRCIMClient] setRCConnectionStatusChangeDelegate:self];
     
 }

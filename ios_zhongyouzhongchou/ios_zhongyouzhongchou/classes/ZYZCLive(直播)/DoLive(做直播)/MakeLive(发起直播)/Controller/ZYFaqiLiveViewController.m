@@ -286,7 +286,9 @@
     createLiveModel.chatRoomId = chatRoomId;
 
     ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] initLiveModel:createLiveModel];
-    [self presentViewController:liveVC animated:NO completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self presentViewController:liveVC animated:NO completion:nil];
+    });
 
 //    WEAKSELF
 //    NSString *url = Post_Create_Live;
