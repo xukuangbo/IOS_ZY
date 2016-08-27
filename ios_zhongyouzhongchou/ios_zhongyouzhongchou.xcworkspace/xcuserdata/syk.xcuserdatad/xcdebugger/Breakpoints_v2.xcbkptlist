@@ -9,93 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/WatchLive/Controller/ZYWatchLiveViewController.m"
-            timestampString = "493868125.773386"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/CustomViews/DoLiveHeadView/DoLiveHeadView.m"
+            timestampString = "493954648.759176"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "947"
-            endingLineNumber = "947"
-            landmarkName = "-sizeForItem:atIndexPath:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/MyWallet(&#x94b1;&#x5305;)/WalletMingXi(&#x7b79;&#x94b1;&#x660e;&#x7ec6;)/Model/WalletMingxiViewModel.m"
-            timestampString = "493890794.24889"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
-            landmarkName = "-footRefreshDataWithProductID:pageNo:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/MyWallet(&#x94b1;&#x5305;)/WalletMingXi(&#x7b79;&#x94b1;&#x660e;&#x7ec6;)/Model/WalletMingxiViewModel.m"
-            timestampString = "493892500.490524"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "-headRefreshDataWithProductID:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/MyWallet(&#x94b1;&#x5305;)/WalletMingXi(&#x7b79;&#x94b1;&#x660e;&#x7ec6;)/Model/WalletMingxiViewModel.m"
-            timestampString = "493892540.330059"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "39"
-            endingLineNumber = "39"
-            landmarkName = "-headRefreshDataWithProductID:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/MyWallet(&#x94b1;&#x5305;)/WalletMingXi(&#x7b79;&#x94b1;&#x660e;&#x7ec6;)/Model/WalletMingxiViewModel.m"
-            timestampString = "493892564.305332"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "109"
-            endingLineNumber = "109"
-            landmarkName = "-fetchHeadValueSuccessWithDic:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/MyWallet(&#x94b1;&#x5305;)/WalletMingXi(&#x7b79;&#x94b1;&#x660e;&#x7ec6;)/Model/WalletMingxiViewModel.m"
-            timestampString = "493892808.884787"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "-fetchValueSuccessWithDic:"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "-timerLabel:finshedCountDownTimerWithTime:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
