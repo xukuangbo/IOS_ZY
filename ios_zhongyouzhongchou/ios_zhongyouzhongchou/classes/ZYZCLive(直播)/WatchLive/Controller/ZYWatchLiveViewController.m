@@ -27,6 +27,7 @@
 #import "RCDLivePortraitViewCell.h"
 #import "ZYZCRCManager.h"
 #import "MBProgressHUD+MJ.h"
+#import "ChatBlackListModel.h"
 
 //输入框的高度
 #define MinHeight_InputView 50.0f
@@ -105,6 +106,10 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
  *  分享按钮
  */
 @property(nonatomic,strong)UIButton *shareBtn;
+/**
+ *  显示人数按钮
+ */
+@property(nonatomic,strong)UILabel *chatroomlabel;
 
 @property (nonatomic, strong) ZYZCRCManager *RCManager;
 #pragma mark ---私信按钮
@@ -182,6 +187,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              dispatch_async(dispatch_get_main_queue(), ^{
                  RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
                  joinChatroomMessage.message = [NSString stringWithFormat: @"%@进入直播间",[ZYZCAccountTool account].realName];
+                   joinChatroomMessage.extra = @"进入直播";
                  [weakSelf sendMessage:joinChatroomMessage pushContent:nil];
              });
          }error:^(RCErrorCode status) {
@@ -197,7 +203,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          }];
     }
     [[RCIMClient sharedRCIMClient] getChatRoomInfo:self.targetId count:20 order:RC_ChatRoom_Member_Desc success:^(RCChatRoomInfo *chatRoomInfo) {
-        [weakSelf getUserInfoUserIdArray:chatRoomInfo.memberInfoArray];
+        [weakSelf getUserIdString:chatRoomInfo.memberInfoArray];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.chatroomlabel.text = [NSString stringWithFormat:@"直播\n%d人", chatRoomInfo.totalMemberCount];
+        });
     } error:^(RCErrorCode status) {
         
     }];
@@ -309,11 +318,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     imageView.layer.cornerRadius = 34/2;
     imageView.layer.masksToBounds = YES;
     [view addSubview:imageView];
-    UILabel *chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
-    chatroomlabel.numberOfLines = 2;
-    chatroomlabel.font = [UIFont systemFontOfSize:12.f];
-    chatroomlabel.text = [NSString stringWithFormat:@"小海豚\n2890人"];
-    [view addSubview:chatroomlabel];
+    self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
+    self.chatroomlabel.numberOfLines = 2;
+    self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
+//    self.chatroomlabel.text = [NSString stringWithFormat:@"直播\n2890人"];
+    [view addSubview:self.chatroomlabel];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 16;
@@ -321,11 +330,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     CGFloat memberHeadListViewY = view.frame.origin.x + view.frame.size.width;
     self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
-    [self.view addSubview:self.portraitsCollectionView];
     self.portraitsCollectionView.delegate = self;
     self.portraitsCollectionView.dataSource = self;
     self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
     [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
+    [self.view addSubview:self.portraitsCollectionView];
 }
 
 
@@ -376,31 +385,65 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
 }
 
-// 获取userList信息
-- (void)getUserInfoUserIdArray:(NSArray *)userIdArray
+#pragma mark - getData
+- (void)clapNetwork
+{
+    NSDictionary *parameters= @{
+                                @"spaceName":self.liveModel.spaceName,
+                                @"streamName":self.liveModel.streamName,
+                                };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Clap_Live andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSLog(@"resultresult");
+    } andFailBlock:^(id failResult) {
+        
+    }];
+//    [ZYZCHTTPTool getHttpDataByURL:Post_Clap_Live withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//    } andFailBlock:^(id failResult) {
+//        [MBProgressHUD showError:@"请求数据失败"];
+//    }];
+}
+- (void)getUserIdString:(NSArray *)userIdArray
+{
+    NSMutableString *userIdString = [NSMutableString string];
+    for (int i = 0; i < userIdArray.count; i++) {
+        RCChatRoomMemberInfo *chatroomInfo = userIdArray[i];
+        if (i == 0) {
+            [userIdString appendString:chatroomInfo.userId];
+        } else {
+            [userIdString appendString:[NSString stringWithFormat:@",%@", chatroomInfo.userId]];
+        }
+    }
+    [self Get_UserInfo_List:userIdString];
+}
+//获取userList信息
+- (void)Get_UserInfo_List:(NSString *)userIdString
 {
     WEAKSELF
-    dispatch_group_t group = dispatch_group_create();
-    
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        for (int i = 0; i < userIdArray.count; i++) {
-            RCChatRoomMemberInfo *chatroomInfo = userIdArray[i];
-            dispatch_group_enter(group);
-            [[RCIMClient sharedRCIMClient] getUserInfo:chatroomInfo.userId success:^(RCUserInfo *userInfo) {
-                [weakSelf.userList addObject:userInfo];
-                dispatch_group_leave(group);
-            } error:^(RCErrorCode status) {
-                dispatch_group_leave(group);
-            }];
-        }
-
-    });
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.portraitsCollectionView reloadData];
-    });
-
-   }
+    NSString *url = Get_LaHei_List_Info(userIdString);
+    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        weakSelf.userList = [ChatBlackListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        [weakSelf.portraitsCollectionView reloadData];
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD showError:@"请求数据失败"];
+    }];
+//    dispatch_group_t group = dispatch_group_create();
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        for (int i = 0; i < userIdArray.count; i++) {
+//            RCChatRoomMemberInfo *chatroomInfo = userIdArray[i];
+//            dispatch_group_enter(group);
+//            [[RCIMClient sharedRCIMClient] getUserInfo:chatroomInfo.userId success:^(RCUserInfo *userInfo) {
+//                [weakSelf.userList addObject:userInfo];
+//                dispatch_group_leave(group);
+//            } error:^(RCErrorCode status) {
+//                dispatch_group_leave(group);
+//            }];
+//        }
+//        dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.portraitsCollectionView reloadData];
+//        });
+//    });
+}
 
 - (void)getIntoLive:(NSString *)liveUrlString
 {
@@ -411,7 +454,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     UIView *displayView = [[UIView alloc] init];
     displayView.frame = self.view.frame;
     self.PlayerView = displayView;
-    self.PlayerView.backgroundColor = [UIColor whiteColor];
+    self.PlayerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.PlayerView];
     [self.view sendSubviewToBack:self.PlayerView];
     
@@ -466,16 +509,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  *
  *  @param sender
  */
--(void)clapButtonPressed:(id)sender{
+-(void)clapButtonPressed{
     RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
     giftMessage.type = @"1";
     [self sendMessage:giftMessage pushContent:@""];
     [self praiseHeart];
+    [self clapNetwork];
 }
 
 - (void)praiseHeart{
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(_clapBtn.frame.origin.x , _clapBtn.frame.origin.y - 49, 35, 35);
+    imageView.frame = CGRectMake(_closeLiveButton.frame.origin.x , _closeLiveButton.frame.origin.y - 49, 35, 35);
     imageView.image = [UIImage imageNamed:@"heart"];
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
@@ -763,6 +807,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
     __block RCMessage *rcMessage = notification.object;
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
+    NSString *content;
+    if ([model.content isMemberOfClass:[RCTextMessage class]]) {
+        RCTextMessage *textMessage = (RCTextMessage *)model.content;
+        content = textMessage.content;
+    } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
+        RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
+        content = textMessage.message;
+    } else if ([model.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
+        RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
+        content = textMessage.type;
+    }
     NSDictionary *leftDic = notification.userInfo;
     if (leftDic && [leftDic[@"left"] isEqual:@(0)]) {
         self.isNeedScrollToButtom = YES;
@@ -864,9 +919,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([collectionView isEqual:self.portraitsCollectionView]) {
         RCDLivePortraitViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"portraitcell" forIndexPath:indexPath];
-        RCUserInfo *user = self.userList[indexPath.row];
-        NSString *str = user.portraitUri;
-        cell.portaitView.image = [UIImage imageNamed:str];
+        ChatBlackListModel *user = self.userList[indexPath.row];
+        NSString *str = user.faceImg;
+        [cell.portaitView sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
         return cell;
     }
     //NSLog(@"path row is %d", indexPath.row);
@@ -940,7 +995,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)messageContent;
         localizedMessage = @"送了一个钻戒";
         if(notification && [notification.type isEqualToString:@"1"]){
-            localizedMessage = @"为主播点了赞";
+            localizedMessage = ZY_Live_Clap;
         }
         
         NSString *name;
@@ -1203,8 +1258,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         //        CGRect collectionViewRect = self.conversationMessageCollectionView.frame;
         //        collectionViewRect.size.height = self.contentView.bounds.size.height - 0;
         //        [self.conversationMessageCollectionView setFrame:collectionViewRect];
+        
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
+        
+        [self clapButtonPressed];
     }
 }
 

@@ -44,6 +44,7 @@
         
         //请求数据
         self.mingxiViewModel = [WalletMingxiViewModel viewModel];
+        
         __weak typeof(&*self) weakSelf = self;
     
         [self.mingxiViewModel headRefreshDataWithProductID:productId];
@@ -62,7 +63,6 @@
                 }else{
                     //说明没有更多数据
                     [MBProgressHUD showError:@"没有更多数据了哦"];
-                    
                 }
             }else{//上啦加载更多
                 if (tempArray.count > 0) {

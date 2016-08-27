@@ -428,7 +428,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                              initWithTarget:self
                              action:@selector(tap4ResetDefaultBottomBarStatus:)];//点击空白
     [_resetBottomTapGesture setDelegate:self];
-    
+
     //评论
     CGFloat buttonWH = 40;
     _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -800,7 +800,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 #pragma mark ---发送掌声
 
--(void)clapButtonPressed:(id)sender{
+-(void)clapButtonPressed{
     RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
     giftMessage.type = @"1";
     [self sendMessage:giftMessage pushContent:@""];
@@ -1282,9 +1282,29 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  // notification
 - (void)didReceiveMessageNotification:(NSNotification *)notification {
     __block RCMessage *rcMessage = notification.object;
+    
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
-    RCTextMessage *message = (RCTextMessage *)model.content;
-    DDLog(@"%@",message.content);
+    NSString *content;
+    if ([model.content isMemberOfClass:[RCTextMessage class]]) {
+        RCTextMessage *textMessage = (RCTextMessage *)model.content;
+        content = textMessage.content;
+    } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
+        RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
+        content = textMessage.message;
+    } else if ([model.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
+        RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
+        content = textMessage.type;
+    }
+    //判断信息类型
+    if ([content isEqualToString:@"1"]) {//1.点赞
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self praiseHeart];
+        });
+        return ;
+    }else if ([content isEqualToString:ZY_Live_Join]){//2.加入房间
+        
+    }
+    
     NSDictionary *leftDic = notification.userInfo;
     if (leftDic && [leftDic[@"left"] isEqual:@(0)]) {
         self.isNeedScrollToButtom = YES;
@@ -1312,6 +1332,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     // Dispose of any resources that can be recreated.
 }
 
+
+
 #pragma mark ---定义展示的UICollectionViewCell的个数
 - (void)tap4ResetDefaultBottomBarStatus:
 (UIGestureRecognizer *)gestureRecognizer {
@@ -1321,6 +1343,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         //        [self.conversationMessageCollectionView setFrame:collectionViewRect];
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
+        [self clapButtonPressed];
     }
 }
 
@@ -1420,7 +1443,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)praiseHeart{
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(_clapBtn.frame.origin.x , _clapBtn.frame.origin.y - 49, 35, 35);
+    imageView.frame = CGRectMake(self.backBtn.origin.x , self.backBtn.frame.origin.y - 49, 35, 35);
     imageView.image = [UIImage imageNamed:@"heart"];
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
