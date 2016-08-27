@@ -180,6 +180,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //设置底部views
     [self setUpBottomViews];
     
+    //配置直播
     [self setUpLive];
     
     //进入聊天室
@@ -222,7 +223,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 }
 
-#pragma mark ---初始化融云的一些数组信息等
+//初始化融云的一些数组信息等
 - (void)setUpRC{
     
     self.conversationDataRepository = [[NSMutableArray alloc] init];
@@ -235,7 +236,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
 }
 
-#pragma mark ---直播
+//直播
 -(void)setUpLive{
     DDLog(@"kPushUrl:%@",_pushUrl);
     QPLConfiguration *configuration = [[QPLConfiguration alloc] init];
@@ -281,12 +282,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [_liveSession connectServer];
     
     
+    _liveFunctionView.liveSession = _liveSession;
+    
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.view insertSubview:[_liveSession previewView] atIndex:0];
     });
 }
 
-#pragma mark ---初始化页面控件
+//初始化页面控件
 - (void)setUpTopViews
 {
     //左上角头像
@@ -484,12 +488,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
 }
 
-#pragma mark ---成员信息
+//成员信息
 - (void)setUpChatroomMemberInfo{
     self.userList = [NSMutableArray array];
 }
 
-#pragma mark ---进入聊天室
+//进入聊天室
 - (void)enterChatRoom{
     __weak ZYLiveViewController *weakSelf = self;
     
@@ -531,11 +535,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 #pragma mark - APP进入前后台的动作
 - (void)appResignActive{
+    
     //销毁直播任务
     [self destroySession];
     
     //停止计时
     [_headView stopTimer];
+    
     // 监听电话
     _callCenter = [[CTCallCenter alloc] init];
     _isCTCallStateDisconnected = NO;
@@ -1292,7 +1298,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         //        [self.conversationMessageCollectionView setFrame:collectionViewRect];
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
-        [self clapButtonPressed];
+        self.liveFunctionView.hidden = YES;
+//        [self clapButtonPressed];
     }
 }
 
