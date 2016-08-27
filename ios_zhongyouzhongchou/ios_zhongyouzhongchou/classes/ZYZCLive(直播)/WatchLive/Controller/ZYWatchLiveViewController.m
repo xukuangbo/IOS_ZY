@@ -1226,6 +1226,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         return;
     }
     messageContent.senderUserInfo = [RCDLive sharedRCDLive].currentUserInfo;
+    messageContent.senderUserInfo.name = [ZYZCAccountTool account].realName;
     if (messageContent == nil) {
         return;
     }

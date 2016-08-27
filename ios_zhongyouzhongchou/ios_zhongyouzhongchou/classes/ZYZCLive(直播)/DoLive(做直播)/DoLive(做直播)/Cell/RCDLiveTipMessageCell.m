@@ -32,8 +32,15 @@
 
 - (void)setDataModel:(RCDLiveMessageModel *)model {
     [super setDataModel:model];
-
     RCMessageContent *content = model.content;
+    RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)content;
+    NSString *localizedMessage = @"送了一个钻戒";
+    if ([content isMemberOfClass:[RCDLiveGiftMessage class]]) {
+        if(notification && [notification.type isEqualToString:@"1"]){
+            localizedMessage = @"为直播点了赞";
+            return;
+        }
+    }
     if ([content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *notification = (RCInformationNotificationMessage *)content;
         NSString *localizedMessage = [RCDLiveKitUtility formatMessage:notification];
@@ -44,7 +51,7 @@
         NSString *localizedMessage = [RCDLiveKitUtility formatMessage:notification];
         NSString *name;
         if (content.senderUserInfo) {
-            name = [NSString stringWithFormat:@"%@:",[ZYZCAccountTool account].realName];
+            name = [NSString stringWithFormat:@"%@:",content.senderUserInfo.name];
         }
         NSString *str =[NSString stringWithFormat:@"%@ %@",name,localizedMessage];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str];
@@ -54,15 +61,19 @@
         self.tipMessageLabel.attributedText = attributedString.copy;
     }else if ([content isMemberOfClass:[RCDLiveGiftMessage class]]){
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)content;
+        NSString *name;
+        if (content.senderUserInfo) {
+            name = [ZYZCAccountTool account].realName;
+        }
         NSString *localizedMessage = @"送了一个钻戒";
         if(notification && [notification.type isEqualToString:@"1"]){
-          localizedMessage = @"为直播点了赞";
+          localizedMessage = @"为主播点了赞";
         }
         
-        NSString *str =[NSString stringWithFormat:@"%@ %@", [ZYZCAccountTool account].realName,localizedMessage];
+        NSString *str =[NSString stringWithFormat:@"%@ %@",name,localizedMessage];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str];
         
-        [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:[ZYZCAccountTool account].realName]];
+        [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:name]];
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0xf719ff)) range:[str rangeOfString:localizedMessage]];
         self.tipMessageLabel.attributedText = attributedString.copy;
     }
