@@ -515,9 +515,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 //    } else {
 //        [_player play];
 //    }
-    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
-    giftMessage.type = @"0";
-    [self sendMessage:giftMessage pushContent:@""];
+//    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
+//    giftMessage.type = @"0";
+//    [self sendMessage:giftMessage pushContent:@""];
 }
 
 /**
