@@ -15,7 +15,7 @@
 #import "RCDLiveMessageBaseCell.h"
 #import "RCDLiveMessageModel.h"
 #import "RCDLiveInputBar.h"
-
+@class ZYLiveListModel;
 ///输入栏扩展输入的唯一标示
 #define PLUGIN_BOARD_ITEM_ALBUM_TAG    1001
 #define PLUGIN_BOARD_ITEM_CAMERA_TAG   1002
@@ -29,10 +29,8 @@
  */
 @interface ZYLiveViewController : ZYZCBaseViewController
 <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate, UIScrollViewDelegate>
-
+- (instancetype)initLiveModel:(ZYLiveListModel *)createLiveModel;
 #pragma mark - 会话属性
-
-
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
 

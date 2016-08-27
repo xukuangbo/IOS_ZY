@@ -44,7 +44,7 @@
         NSString *localizedMessage = [RCDLiveKitUtility formatMessage:notification];
         NSString *name;
         if (content.senderUserInfo) {
-            name = [NSString stringWithFormat:@"%@:",content.senderUserInfo.name];
+            name = [NSString stringWithFormat:@"%@:",[ZYZCAccountTool account].realName];
         }
         NSString *str =[NSString stringWithFormat:@"%@ %@",name,localizedMessage];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str];
@@ -54,19 +54,15 @@
         self.tipMessageLabel.attributedText = attributedString.copy;
     }else if ([content isMemberOfClass:[RCDLiveGiftMessage class]]){
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)content;
-        NSString *name;
-        if (content.senderUserInfo) {
-            name = content.senderUserInfo.name;
-        }
         NSString *localizedMessage = @"送了一个钻戒";
         if(notification && [notification.type isEqualToString:@"1"]){
           localizedMessage = @"为主播点了赞";
         }
         
-        NSString *str =[NSString stringWithFormat:@"%@ %@",name,localizedMessage];
+        NSString *str =[NSString stringWithFormat:@"%@ %@", [ZYZCAccountTool account].realName,localizedMessage];
         NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str];
         
-        [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:name]];
+        [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:[ZYZCAccountTool account].realName]];
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0xf719ff)) range:[str rangeOfString:localizedMessage]];
         self.tipMessageLabel.attributedText = attributedString.copy;
     }
