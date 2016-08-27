@@ -56,7 +56,7 @@
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)content;
         NSString *localizedMessage = @"送了一个钻戒";
         if(notification && [notification.type isEqualToString:@"1"]){
-          localizedMessage = @"为主播点了赞";
+          localizedMessage = @"为直播点了赞";
         }
         
         NSString *str =[NSString stringWithFormat:@"%@ %@", [ZYZCAccountTool account].realName,localizedMessage];

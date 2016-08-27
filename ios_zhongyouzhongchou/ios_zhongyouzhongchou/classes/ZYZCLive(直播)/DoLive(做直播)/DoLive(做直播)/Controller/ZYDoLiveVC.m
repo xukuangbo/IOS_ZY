@@ -318,6 +318,16 @@
     
 }
 
+- (void)messageBtnAction:(UIButton *)sender
+{
+    
+}
+
+- (void)shareBtnAction:(UIButton *)sender
+{
+    
+}
+
 
 -(void)showInputBar:(id)sender{
     self.inputBar.hidden = NO;
