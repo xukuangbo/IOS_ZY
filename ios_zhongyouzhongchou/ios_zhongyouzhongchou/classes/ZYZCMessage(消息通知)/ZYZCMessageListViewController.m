@@ -56,7 +56,7 @@
 #pragma mark --- 获取数据
 -(void)getHttpData
 {
-    DDLog(@"%@",Post_List_Msg);
+//    DDLog(@"%@",Post_List_Msg);
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_List_Msg andParameters:@{@"userId":[ZYZCAccountTool getUserId],
                         @"pageNo":[NSNumber numberWithInt:_pageNo]}

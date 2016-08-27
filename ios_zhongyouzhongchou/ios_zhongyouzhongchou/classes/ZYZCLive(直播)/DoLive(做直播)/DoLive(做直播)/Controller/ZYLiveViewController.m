@@ -302,11 +302,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         make.size.mas_equalTo(CGSizeMake(110, DoLiveHeadViewHeight));
     }];
     //左上角头像赋值
-    RCUserInfo *userInfo = [RCDLive sharedRCDLive].currentUserInfo;
-    [_headView.iconView sd_setImageWithURL:[NSURL URLWithString:userInfo.portraitUri] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
+//    RCUserInfo *userInfo = [RCDLive sharedRCDLive].currentUserInfo;
+    NSString *faceImg = [ZYZCAccountTool account].faceImg64.length > 0? [ZYZCAccountTool account].faceImg64 : [ZYZCAccountTool account].faceImg132;
+    [_headView.iconView sd_setImageWithURL:[NSURL URLWithString:faceImg] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
     //左上角人数
-    _headView.numberPeopleLabel.text = @"1人";
-    
+    _headView.numberPeopleLabel.text = @"0人";
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 16;

@@ -114,7 +114,7 @@
     _faceImg.layerCornerRadius = 5;
     ZYZCAccountModel *account = [ZYZCAccountTool account];
     //取头像
-    NSString *faceImgStrng = account.faceImg64.length > 0?account.faceImg64 : account.faceImg132;
+    NSString *faceImgStrng = account.faceImg64.length > 0?account.faceImg : account.faceImg640;
     [_faceImg sd_setImageWithURL:[NSURL URLWithString:faceImgStrng] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
     [_faceImg addTarget:self action:@selector(changeFaceImgAction)];
     
@@ -259,10 +259,11 @@
 //请求直播
 - (void)requestLive
 {
-    if(self.titleTextfield.text.length <= 0){
-        [self showHintWithText:@"请填写标题"];
-        return ;
-    }
+//    //必须填写标题
+//    if(self.titleTextfield.text.length <= 0){
+//        [self showHintWithText:@"请填写标题"];
+//        return ;
+//    }
     
     QPLiveRequest *request = [[QPLiveRequest alloc] init];
     WEAKSELF
