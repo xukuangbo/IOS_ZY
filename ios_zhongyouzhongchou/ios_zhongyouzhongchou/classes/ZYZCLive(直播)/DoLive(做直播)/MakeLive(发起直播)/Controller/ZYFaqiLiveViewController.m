@@ -74,6 +74,13 @@
     
     self.navigationController.navigationBar.hidden = NO;
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = YES;
+}
 #pragma mark -
 #pragma mark ---设置创建UI
 - (void)configUI
