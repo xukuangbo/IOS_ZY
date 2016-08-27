@@ -57,7 +57,7 @@
     CGSize __textSize = [RCDLiveGiftMessageCell getMessageCellSize:self.messageLabel.text  withWidth:self.baseContentView.bounds.size.width];
     
     if (self.model.content.senderUserInfo) {
-        CGSize __nameSize = [RCDLiveKitUtility getContentSize:[ZYZCAccountTool account].realName withFrontSize:16 withWidth:self.baseContentView.bounds.size.width];
+        CGSize __nameSize = [RCDLiveKitUtility getContentSize:self.model.content.senderUserInfo.name withFrontSize:16 withWidth:self.baseContentView.bounds.size.width];
         __nameSize.width = __nameSize.width + 5;
         if (__nameSize.width > __textSize.width) {
             __textSize.width = __nameSize.width;

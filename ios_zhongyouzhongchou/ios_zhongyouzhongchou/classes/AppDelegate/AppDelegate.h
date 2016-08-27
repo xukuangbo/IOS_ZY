@@ -18,16 +18,6 @@
 @property (nonatomic, strong) NSString *out_trade_no;
 
 /**
- *  是否获取到推送消息
- */
-@property (nonatomic, assign) BOOL     getPushMsg;
-
-/**
- *  是否获取到聊天推送消息
- */
-@property (nonatomic, assign) BOOL     getChatMsg;
-
-/**
  *  是否已处于聊天列表
  */
 @property (nonatomic, assign) BOOL     enterChatList;
