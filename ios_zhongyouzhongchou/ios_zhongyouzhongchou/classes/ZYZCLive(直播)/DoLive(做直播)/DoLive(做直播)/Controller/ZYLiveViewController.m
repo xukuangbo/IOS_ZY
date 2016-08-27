@@ -629,7 +629,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self dismissViewController];
 }
 
-#pragma mark --- 码率变化
+//码率变化
 - (void)liveSession:(QPLiveSession *)session bitrateStatusChange:(QP_LIVE_BITRATE_STATUS)bitrateStatus {
     DDLog(@"码率发生变化");
 }
@@ -642,7 +642,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 
-#pragma mark ---加入聊天室失败的提示
+//加入聊天室失败的提示
 - (void)loadErrorAlert:(NSString *)title {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:nil preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action) {
@@ -654,7 +654,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 
 #pragma mark - 退出
-#pragma mark ---点击返回的时候消耗播放器和退出聊天室
+//点击返回的时候消耗播放器和退出聊天室
 
 - (void)leftBarButtonItemPressed:(id)sender {
     [_headView stopTimer];
@@ -1249,7 +1249,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
             // 数据排重
             for (ChatBlackListModel* dataModel in dataArray) {
                 for (ChatBlackListModel*userListModel in weakSelf.userList) {
-                    if (dataModel.userId == userListModel.userId) {
+                    NSString *listModelString = [userListModel.userId stringValue];
+                    NSString *dataModelString = [dataModel.userId stringValue];
+                    if ([dataModelString isEqual:listModelString]) {
                         [shouldDeleteArray addObject:userListModel];
                     }
                 }

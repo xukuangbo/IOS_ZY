@@ -19,6 +19,7 @@
 //#define BASE_URL @"http://192.168.1.83:8080/"
 //海外服务器
 //#define BASE_URL @"http://47.88.148.201:8080/"
+//#define BASE_URL @"http://192.168.1.59:8086/"
 
 #define HTTPURL(APPEND_URL) [NSString stringWithFormat:@"%@%@.action?",BASE_URL,APPEND_URL]
 

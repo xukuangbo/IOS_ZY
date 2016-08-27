@@ -132,10 +132,10 @@
     
     //进一步操作的提示文字
 //    _msgDetailModel.topMsg=@"我得到的点点滴滴";
-    if (_msgDetailModel.topMsg.length>0) {
+    if (_msgDetailModel.stepoption.length>0&&![_msgDetailModel.stepoption isEqualToString:@"null"]) {
         _alertLab=[self createLabWithFrame:CGRectMake(_titleLab.left, MAX(_icon.bottom+10, _subTitleLab.bottom+10), KSCREEN_W-_icon.right-50, 20) andFont:[UIFont systemFontOfSize:13] andTitleColor:[UIColor ZYZC_TextGrayColor]];
         [_topView addSubview:_alertLab];
-        _alertLab.text=_msgDetailModel.topMsg;
+        _alertLab.text=_msgDetailModel.stepoption;
         
         UIImageView *alertImg=[[UIImageView alloc]initWithFrame:CGRectMake(KSCREEN_W-30, _alertLab.top, 11.25, 20)];
         alertImg.image=[UIImage imageNamed:@"btn_rightin"];
@@ -150,14 +150,13 @@
     
     
     //详细信息
-    _msgScroll=[[ZYDetailMsgScrollView alloc]initWithFrame:CGRectMake(0, _topView.bottom, self.view.width, KSCREEN_H-_topView.bottom) andDetailMsg:_msgDetailModel andMsgStyle:_msgListModel.msgStyle];
+    _msgScroll=[[ZYDetailMsgScrollView alloc]initWithFrame:CGRectMake(0, _topView.bottom, self.view.width, KSCREEN_H-_topView.bottom) andDetailMsg:_msgDetailModel];
     [self.view addSubview:_msgScroll];
 }
 
+#pragma mark --- 进入项目
 -(void)enterProduct
 {
-    DDLog(@"进入项目");
-    _msgListModel.msgStyle=3;
     //我发布，我参与
     if (_msgListModel.msgStyle==1||_msgListModel.msgStyle==2) {
         MyProductViewController *myTravelVC=[[MyProductViewController alloc]init];
