@@ -481,6 +481,7 @@
 		39AABC891D6EC81700D25B16 /* DoLiveHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */; };
 		39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */; };
 		39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */; };
+		39AABC971D717B3E00D25B16 /* LiveDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC961D717B3E00D25B16 /* LiveDetailHeadView.m */; };
 		39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */; };
 		39E4EC5A1D2FB9B200305F73 /* AboutZhongyouVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC591D2FB9B200305F73 /* AboutZhongyouVC.m */; };
 		39E52FDD1D50815A00D0ED83 /* TacticMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E52FDC1D50815A00D0ED83 /* TacticMainVC.m */; };
@@ -1434,6 +1435,8 @@
 		39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MZTimerLabel.m; sourceTree = "<group>"; };
 		39AABC8E1D716FF600D25B16 /* LiveFunctionViewButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionViewButton.h; sourceTree = "<group>"; };
 		39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionViewButton.m; sourceTree = "<group>"; };
+		39AABC951D717B3E00D25B16 /* LiveDetailHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveDetailHeadView.h; sourceTree = "<group>"; };
+		39AABC961D717B3E00D25B16 /* LiveDetailHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveDetailHeadView.m; sourceTree = "<group>"; };
 		39E4EC531D2F9C1800305F73 /* TacticMoreCitiesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreCitiesModel.h; sourceTree = "<group>"; };
 		39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreCitiesModel.m; sourceTree = "<group>"; };
 		39E4EC581D2FB9B200305F73 /* AboutZhongyouVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutZhongyouVC.h; sourceTree = "<group>"; };
@@ -3495,6 +3498,7 @@
 		392AB2581D669C26003FEDB7 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				39AABC941D717B2A00D25B16 /* LiveDetailHeadView */,
 				39AABC861D6EC7FA00D25B16 /* DoLiveHeadView */,
 				3967ADB51D6C2AFD008A7F81 /* LiveFunctionView(功能键) */,
 				392AB2591D669C26003FEDB7 /* EmojiView */,
@@ -4050,6 +4054,15 @@
 			path = MZTimerLabel;
 			sourceTree = "<group>";
 		};
+		39AABC941D717B2A00D25B16 /* LiveDetailHeadView */ = {
+			isa = PBXGroup;
+			children = (
+				39AABC951D717B3E00D25B16 /* LiveDetailHeadView.h */,
+				39AABC961D717B3E00D25B16 /* LiveDetailHeadView.m */,
+			);
+			path = LiveDetailHeadView;
+			sourceTree = "<group>";
+		};
 		39E4EC491D2E554500305F73 /* WalletMingXi(筹钱明细) */ = {
 			isa = PBXGroup;
 			children = (
@@ -4435,6 +4448,7 @@
 				040651351CC71A99003FD539 /* TacticModel.m in Sources */,
 				2C1B60DF1D6D3CF900E3C25B /* MoreFZCBaseTableView.m in Sources */,
 				39911ABE1D5038E2007DF44B /* TacticGeneralVC.m in Sources */,
+				39AABC971D717B3E00D25B16 /* LiveDetailHeadView.m in Sources */,
 				392AB2981D669C26003FEDB7 /* RCDLiveMessageModel.m in Sources */,
 				2CC5FD781D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				2C0A20CC1D585DF100E6CE40 /* ChatUserInfoModel.m in Sources */,

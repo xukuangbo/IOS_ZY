@@ -38,8 +38,8 @@ UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate,
 UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate>
 @property (nonatomic, strong) ZYLiveListModel *liveModel;
-@property (atomic, strong) NSURL *url;
-@property (atomic, retain) id <IJKMediaPlayback> player;
+@property (nonatomic, strong) NSURL *url;
+@property (nonatomic, strong) id <IJKMediaPlayback> player;
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
 
 /**
@@ -177,7 +177,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     [super viewWillDisappear:animated];
     [self setClearNavigationBar:NO];
-    [self.player stop];
 }
 
 - (void)enterInfoLiveRoom
@@ -327,6 +326,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.chatroomlabel.numberOfLines = 2;
     self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
     [livePersonNumberView addSubview:self.chatroomlabel];
+    
+    UIButton *attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [attentionButton addTarget:self action:@selector(clickAttentionButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+//    attentionButton.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 16;
@@ -483,6 +486,19 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark - event
 - (void)closeLiveButtonAction:(UIButton *)sender
 {
+//    [self.player stop];
+    [self removeMovieNotificationObservers];
+    if (![self.player isPlaying]) {
+        [self.player play];
+    }else{
+        [self.player pause];
+    }
+    [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
+                                        success:^{
+                                            NSLog(@"ddddd");
+                                        } error:^(RCErrorCode status) {
+                                            NSLog(@"eeeeee");
+                                        }];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -834,6 +850,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     } else if ([model.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
         RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
         content = textMessage.type;
+        if ([content isEqualToString:@"1"]) {//1.点赞
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self praiseHeart];
+            });
+        }
+        return;
     }
     NSDictionary *leftDic = notification.userInfo;
     if (leftDic && [leftDic[@"left"] isEqual:@(0)]) {
@@ -1177,18 +1199,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - dealloc
-- (void)dealloc
-{
-    [self.player pause];
-    [self removeMovieNotificationObservers];
-    [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
-                                        success:^{
-                                            NSLog(@"ddddd");
-                                        } error:^(RCErrorCode status) {
-                                            NSLog(@"eeeeee");
-                                        }];
-}
+//#pragma mark - dealloc
+//- (void)dealloc
+//{
+//    [self removeMovieNotificationObservers];
+//}
 
 /**
  *  关闭提示框
