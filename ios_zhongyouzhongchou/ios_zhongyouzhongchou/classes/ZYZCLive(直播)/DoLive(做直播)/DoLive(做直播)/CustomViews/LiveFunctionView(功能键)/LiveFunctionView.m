@@ -10,19 +10,20 @@
 #import "LiveFunctionView.h"
 #import  <QPSDKCore/QPSDKCore.h>
 #import <Masonry.h>
+#import "LiveFunctionViewButton.h"
 @interface LiveFunctionView ()
 /**
  *  相机翻转
  */
-@property (nonatomic, strong) UIButton *cameraDirectionBtn;
+@property (nonatomic, strong) LiveFunctionViewButton *cameraDirectionBtn;
 /**
  *  美颜
  */
-@property (nonatomic, strong) UIButton *skimBtn;
+@property (nonatomic, strong) LiveFunctionViewButton *skimBtn;
 /**
  *  闪光灯
  */
-@property (nonatomic, strong) UIButton *flashBtn;
+@property (nonatomic, strong) LiveFunctionViewButton *flashBtn;
 
 
 /*!
@@ -44,28 +45,6 @@
     return self;
 }
 
-//- (instancetype)init
-//{
-//    self = [super init];
-//    if (self) {
-//        [self configUI];
-//    }
-//    return self;
-//}
-//- (instancetype)initWithSuperFrame:(CGRect)superFrame
-//{
-//    //计算出在self.view中的frame
-//    CGRect frame = CGRectZero;
-//    frame.size = CGSizeMake(150, 300);
-//    frame.origin.x = (superFrame.origin.x + superFrame.size.width * 0.5) - frame.size.width * 0.5;
-//    frame.origin.y = superFrame.origin.y - superFrame.size.height;
-//    
-//    self = [super initWithFrame:frame];
-//    if (self) {
-//        [self configUI];
-//    }
-//    return  self;
-//}
 
 - (void)configUI
 {
@@ -78,14 +57,14 @@
     bgImageView.image = KPULLIMG(@"Popup-background", 14, 0, 14, 0);
     
     //翻转功能
-    _cameraDirectionBtn = [UIButton new];
+    _cameraDirectionBtn = [LiveFunctionViewButton new];
     [self addSubview:_cameraDirectionBtn];
     
-    _skimBtn = [UIButton new];
+    _skimBtn = [[LiveFunctionViewButton alloc] init];
     [self addSubview:_skimBtn];
     
     
-    _flashBtn = [UIButton new];
+    _flashBtn = [LiveFunctionViewButton new];
     [self addSubview:_flashBtn];
     
     [_cameraDirectionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -121,7 +100,7 @@
     [_flashBtn addTarget:self action:@selector(flashBtnAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)addForSuperView:(UIButton *)button Image:(NSString *)imageString labelText:(NSString *)textString
+- (void)addForSuperView:(LiveFunctionViewButton *)button Image:(NSString *)imageString labelText:(NSString *)textString
 {
     UIImageView *imageView = [UIImageView new];
     [button addSubview:imageView];
@@ -130,6 +109,7 @@
         make.width.equalTo(imageView.mas_height);
     }];
     imageView.image = [UIImage imageNamed:imageString];
+    button.iconView = imageView;
     
     UILabel *label = [UILabel new];
     label.textAlignment = NSTextAlignmentCenter;
@@ -139,13 +119,15 @@
         make.left.equalTo(imageView.mas_right);
     }];
     label.text = textString;
+    button.textLabel = label;
 }
 #pragma mark - 点击动作
 #pragma mark ---翻转
-- (void)cameraDirectionBtnAction:(UIButton *)button
+- (void)cameraDirectionBtnAction:(LiveFunctionViewButton *)button
 {
     //点击了翻转
-    button.selected = !button.isSelected;
+    button.selected = !button.selected;
+    
     _liveSession.devicePosition = button.isSelected ? AVCaptureDevicePositionBack : AVCaptureDevicePositionFront;
     _currentPosition = _liveSession.devicePosition;
     
@@ -154,14 +136,19 @@
     }
 }
 #pragma mark ---美颜
-- (void)skimBtnAction:(UIButton *)button
+- (void)skimBtnAction:(LiveFunctionViewButton *)button
 {
-    button.selected = !button.isSelected;
+    button.selected = !button.selected;
+    if (button.selected == YES) {
+        button.iconView.image = [UIImage imageNamed:@"live-beauty-face-off"];
+    }else{
+        button.iconView.image = [UIImage imageNamed:@"live-beauty-face-on"];
+    }
     [_liveSession setEnableSkin:button.isSelected];
     
 }
 #pragma mark ---闪光
-- (void)flashBtnAction:(UIButton *)button
+- (void)flashBtnAction:(LiveFunctionViewButton *)button
 {
     //如果前置的话,点击没有效果
     if (_currentPosition != AVCaptureDevicePositionBack) {
@@ -169,7 +156,13 @@
     }
     
     //后置的话
-    button.selected = !button.isSelected;
+    button.selected = !button.selected;
+    if (button.selected == YES) {
+        button.iconView.image = [UIImage imageNamed:@"live-flash-off"];
+    }else{
+        button.iconView.image = [UIImage imageNamed:@"live-flash-on"];
+    }
+    
     _liveSession.torchMode = button.isSelected ? AVCaptureTorchModeOn : AVCaptureTorchModeOff;
     
 }

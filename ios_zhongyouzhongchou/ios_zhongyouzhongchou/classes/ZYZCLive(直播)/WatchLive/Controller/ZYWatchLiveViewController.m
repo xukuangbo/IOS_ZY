@@ -493,9 +493,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)messageBtnAction:(UIButton *)sender
 {
-    self.isMessage = YES;
-    self.RCManager = [ZYZCRCManager defaultManager];
-    [self.RCManager connectTarget:[NSString stringWithFormat:@"%@",self.liveModel.userId] andTitle:self.liveModel.realName andSuperViewController:self];
+//    self.isMessage = YES;
+//    self.RCManager = [ZYZCxRCManager defaultManager];
+//    [self.RCManager connectTarget:[NSString stringWithFormat:@"%@",self.liveModel.userId] andTitle:self.liveModel.realName andSuperViewController:self];
 }
 
 -(void)showInputBar:(id)sender{
@@ -515,9 +515,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 //    } else {
 //        [_player play];
 //    }
-    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
-    giftMessage.type = @"0";
-    [self sendMessage:giftMessage pushContent:@""];
+//    RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
+//    giftMessage.type = @"0";
+//    [self sendMessage:giftMessage pushContent:@""];
 }
 
 /**
@@ -946,7 +946,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.conversationDataRepository objectAtIndex:indexPath.row];
     RCMessageContent *messageContent = model.content;
     RCDLiveMessageBaseCell *cell = nil;
-    if ([messageContent isMemberOfClass:[RCInformationNotificationMessage class]] || [messageContent isMemberOfClass:[RCTextMessage class]] || [messageContent isMemberOfClass:[RCDLiveGiftMessage class]]){
+    if ([messageContent isMemberOfClass:[RCInformationNotificationMessage class]] || [messageContent isMemberOfClass:[RCTextMessage class]]){
         RCDLiveTipMessageCell *__cell = [collectionView dequeueReusableCellWithReuseIdentifier:RCDLiveTipMessageCellIndentifier forIndexPath:indexPath];
         __cell.isFullScreenMode = YES;
         [__cell setDataModel:model];
@@ -1013,7 +1013,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         
         localizedMessage = [NSString stringWithFormat:@"%@ %@",[ZYZCAccountTool account].realName,localizedMessage];
     }
-    CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:[NSString stringWithFormat:@"%@ 为主播点了赞", [ZYZCAccountTool account].realName]];
+    CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:[NSString stringWithFormat:@"%@ 为直播点了赞", [ZYZCAccountTool account].realName]];
     __height = __height + __labelSize.height;
     
     return CGSizeMake(__width, __height);
@@ -1042,6 +1042,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  */
 - (void)appendAndDisplayMessage:(RCMessage *)rcMessage {
     if (!rcMessage) {
+        return;
+    }
+    if ([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
         return;
     }
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
@@ -1223,6 +1226,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         return;
     }
     messageContent.senderUserInfo = [RCDLive sharedRCDLive].currentUserInfo;
+    messageContent.senderUserInfo.name = [ZYZCAccountTool account].realName;
     if (messageContent == nil) {
         return;
     }

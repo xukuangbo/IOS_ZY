@@ -51,11 +51,10 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - setup
 - (void)setupView
 {
-    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-    [button setTitle:@"做主播" forState:UIControlStateNormal];
-    [button addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
-    
+//    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+//    [button setTitle:@"做主播" forState:UIControlStateNormal];
+//    [button addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.view.backgroundColor = [UIColor ZYZC_MainColor];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

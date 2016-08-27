@@ -104,7 +104,7 @@
     [_bgImageView addSubview:_faceImg];
     [_faceImg mas_makeConstraints:^(MASConstraintMaker *make) {
         
-        make.centerY.mas_equalTo(_bgImageView.mas_centerY);
+        make.centerY.mas_equalTo(_bgImageView.mas_centerY).offset(-50);
         //        make.centerX.mas_equalTo(self.view.mas_centerX);
         make.left.mas_equalTo(25);
         make.size.mas_equalTo(CGSizeMake(130, 130));
@@ -128,7 +128,7 @@
         make.width.mas_equalTo(_faceImg.mas_width);
     }];
     [_changeFaceImg setTitle:@"修改封面" forState:UIControlStateNormal];
-    [_changeFaceImg setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    [_changeFaceImg setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     //标题,暂时用个label,后面用textfield
     _titleTextfield = [UITextField new];
@@ -142,12 +142,9 @@
     _titleTextfield.backgroundColor = [UIColor clearColor];
     _titleTextfield.layerCornerRadius = 5;
     _titleTextfield.delegate = self;
-    // 创建一个富文本对象
-    NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
-    // 设置富文本对象的颜色
-    attributes[NSForegroundColorAttributeName] = [UIColor ZYZC_TextGrayColor];
-    // 设置UITextField的占位文字
-    _titleTextfield.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"请输入标题" attributes:attributes];
+    _titleTextfield.placeholder = @"请输入标题";
+    _titleTextfield.textColor = [UIColor whiteColor];
+    [_titleTextfield setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     
     
     //开始直播
@@ -161,13 +158,13 @@
         make.right.mas_equalTo(-30);
     }];
     _startLiveBtn.multipleTouchEnabled = NO;
-    _startLiveBtn.backgroundColor = [UIColor whiteColor];
+    _startLiveBtn.backgroundColor = [UIColor ZYZC_MainColor];
     _startLiveBtn.layerBorderColor = [UIColor ZYZC_TextGrayColor];
     _startLiveBtn.layerBorderWidth = 1;
     _startLiveBtn.layer.cornerRadius = 24;
     _startLiveBtn.layer.masksToBounds = YES;
     [_startLiveBtn setTitle:@"开启直播" forState:UIControlStateNormal];
-    [_startLiveBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
+    [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_startLiveBtn addTarget:self action:@selector(startLive) forControlEvents:UIControlEventTouchUpInside];
     
     //退出按钮
@@ -262,6 +259,11 @@
 //请求直播
 - (void)requestLive
 {
+    if(self.titleTextfield.text.length <= 0){
+        [self showHintWithText:@"请填写标题"];
+        return ;
+    }
+    
     QPLiveRequest *request = [[QPLiveRequest alloc] init];
     WEAKSELF
     [request requestCreateLiveWithDomain:@"http://zhongyoulive.s.qupai.me" success:^(NSString *pushUrl, NSString *pullUrl) {
@@ -285,6 +287,7 @@
 #pragma mark ---创建服务器直播
 - (void)createLiveDataWithPushUrl:(NSString *)pushUrl pullUrl:(NSString *)pullUrl
 {
+    
     NSString *chatRoomId = [NSString stringWithFormat:@"chatRoomId%@",[ZYZCAccountTool getUserId]];
     ZYLiveListModel *createLiveModel = [[ZYLiveListModel alloc] init];
     createLiveModel.pullUrl = pullUrl;
@@ -300,37 +303,6 @@
         [self presentViewController:liveVC animated:NO completion:nil];
     });
 
-//    WEAKSELF
-//    NSString *url = Post_Create_Live;
-//    NSDictionary *parameters = @{
-//                                 @"img" : weakSelf.uploadImgString,
-//                                 @"title" : weakSelf.titleTextfield.text,
-//                                 @"pullUrl" : pullUrl,
-//                                 @"chatRoomId" : chatRoomId
-//                                 };
-//    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-//        if (isSuccess) {
-//            
-////            ZYDoLiveVC *liveVC = [[ZYDoLiveVC alloc] init];
-//            ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] init];
-//            liveVC.targetId = chatRoomId;
-//            liveVC.pushUrl = pushUrl;
-//            liveVC.conversationType = ConversationType_CHATROOM;
-//            //            liveVC.targetId = @"32";
-//            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                
-////                [weakSelf.navigationController pushViewController:liveVC animated:nil];
-//                
-//                //                [weakSelf dismissViewControllerAnimated:NO completion:nil];
-//            });
-//            
-//        }else{
-//            
-//        }
-//    } andFailBlock:^(id failResult) {
-//        
-//    }];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

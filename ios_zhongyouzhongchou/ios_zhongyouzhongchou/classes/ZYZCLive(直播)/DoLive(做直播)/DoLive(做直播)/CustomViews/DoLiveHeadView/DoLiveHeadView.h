@@ -17,8 +17,8 @@
 @property (nonatomic, strong) MZTimerLabel *timeLabel;
 /** 人数显示 */
 @property (nonatomic, strong) UILabel *numberPeopleLabel;
-
-@property (nonatomic, assign) NSString *stopTime;
+/** 停止时候的时间 */
+@property (nonatomic, assign) NSTimeInterval countTime;
 /**
  *  计时开始
  */
