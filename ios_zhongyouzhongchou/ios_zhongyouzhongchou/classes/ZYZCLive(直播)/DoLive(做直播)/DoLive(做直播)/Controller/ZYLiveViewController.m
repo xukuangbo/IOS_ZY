@@ -162,29 +162,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.navigationTitle = self.navigationItem.title;
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter]
-     removeObserver:self
-     name:@"kRCPlayVoiceFinishNotification"
-     object:nil];
-    
-    
-    [_headView stopTimer];
-
-    
-    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
-    [self.conversationMessageCollectionView
-     addGestureRecognizer:_resetBottomTapGesture];
-    
-    
-    [self.navigationController.navigationBar setHidden:NO];
-    
-    [self.tabBarController.tabBar setHidden:NO];
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -203,15 +180,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //设置底部views
     [self setUpBottomViews];
     
-    
+    [self setUpLive];
     
     //进入聊天室
     [self enterChatRoom];
     
-}
-
-- (void)dealloc {
-    [self quitConversationViewAndClear];
 }
 
 #pragma mark - setup方法
@@ -239,8 +212,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                  };
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
-            //设置并进入直播
-            [weakSelf setUpLive];
+            
         }else{
             [weakSelf dismissViewController];
         }
@@ -679,8 +651,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark ---点击返回的时候消耗播放器和退出聊天室
 
 - (void)leftBarButtonItemPressed:(id)sender {
-    
+    [_headView stopTimer];
+    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
+    [self.conversationMessageCollectionView
+     addGestureRecognizer:_resetBottomTapGesture];
+    [self.navigationController.navigationBar setHidden:NO];
+    [self.tabBarController.tabBar setHidden:NO];
+    [self destroySession];
     [self quitConversationViewAndClear];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dismissViewController
@@ -698,32 +677,19 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [_liveSession disconnectServer];
     [_liveSession stopPreview];
     [_liveSession.previewView removeFromSuperview];
-//    _liveSession = nil;
+    _liveSession = nil;
 }
 
 // 清理环境（退出讨论组、移除监听等）
 - (void)quitConversationViewAndClear {
-    
-    [self destroySession];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     if (self.conversationType == ConversationType_CHATROOM) {
-        
-        WEAKSELF
         [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
                                             success:^{
-//                                                weakSelf.conversationMessageCollectionView.dataSource = nil;
-//                                                weakSelf.conversationMessageCollectionView.delegate = nil;
-                                                [[NSNotificationCenter defaultCenter] removeObserver:weakSelf];
-                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                    
-                                                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                                                });
+
                                                 
                                             } error:^(RCErrorCode status) {
-                                                dispatch_async(dispatch_get_main_queue(), ^{
-                                                    
-                                                    [weakSelf dismissViewControllerAnimated:YES completion:nil];
-                                                });
+                                               
                                             }];
     }
 }
