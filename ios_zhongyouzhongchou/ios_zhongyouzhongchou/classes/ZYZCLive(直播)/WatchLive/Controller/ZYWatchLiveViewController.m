@@ -1013,7 +1013,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         
         localizedMessage = [NSString stringWithFormat:@"%@ %@",[ZYZCAccountTool account].realName,localizedMessage];
     }
-    CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:localizedMessage];
+    CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:[NSString stringWithFormat:@"%@ 为主播点了赞", [ZYZCAccountTool account].realName]];
     __height = __height + __labelSize.height;
     
     return CGSizeMake(__width, __height);
