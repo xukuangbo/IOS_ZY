@@ -49,6 +49,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MsgListModel *msgListModel=self.dataArr[indexPath.row];
+    msgListModel.readstatus=YES;
+    [self reloadData];
     //如果存在productId参数，说明消息与项目有关
     if (msgListModel.productId&&[msgListModel.productId integerValue]>0) {
         ZYZCMsgDetailViewController *msgDetailController=[[ZYZCMsgDetailViewController alloc]init];

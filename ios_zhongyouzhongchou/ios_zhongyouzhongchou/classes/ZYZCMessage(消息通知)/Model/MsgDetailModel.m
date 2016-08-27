@@ -10,4 +10,14 @@
 
 @implementation MsgDetailModel
 
++ (NSDictionary *)mj_objectClassInArray{
+    
+    return @{@"steps":@"MsgStepModel"};
+    
+}
+
+@end
+
+@implementation MsgStepModel
+
 @end
