@@ -493,9 +493,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)messageBtnAction:(UIButton *)sender
 {
-    self.isMessage = YES;
-    self.RCManager = [ZYZCRCManager defaultManager];
-    [self.RCManager connectTarget:[NSString stringWithFormat:@"%@",self.liveModel.userId] andTitle:self.liveModel.realName andSuperViewController:self];
+//    self.isMessage = YES;
+//    self.RCManager = [ZYZCxRCManager defaultManager];
+//    [self.RCManager connectTarget:[NSString stringWithFormat:@"%@",self.liveModel.userId] andTitle:self.liveModel.realName andSuperViewController:self];
 }
 
 -(void)showInputBar:(id)sender{
