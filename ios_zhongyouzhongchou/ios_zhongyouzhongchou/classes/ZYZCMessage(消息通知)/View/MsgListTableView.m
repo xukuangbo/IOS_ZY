@@ -49,6 +49,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MsgListModel *msgListModel=self.dataArr[indexPath.row];
+    //如果存在productId参数，说明消息与项目有关
     if (msgListModel.productId&&[msgListModel.productId integerValue]>0) {
         ZYZCMsgDetailViewController *msgDetailController=[[ZYZCMsgDetailViewController alloc]init];
         msgDetailController.msgListModel=msgListModel;
@@ -56,10 +57,12 @@
     }
     else
     {
+        //msgStyle为99，进入appstore更新app
         if (msgListModel.msgStyle==99) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_STORE_URL]];
         }
         else
+        //系统通知
         {
             
         }

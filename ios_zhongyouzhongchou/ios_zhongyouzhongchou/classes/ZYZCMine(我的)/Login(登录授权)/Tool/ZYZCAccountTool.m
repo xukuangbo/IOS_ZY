@@ -124,9 +124,12 @@
     
 }
 
-#pragma mark ---  获取用户未读消息数
+#pragma mark ---  获取用户未读系统消息数
 + (void)getUserUnReadMsgCount:(UnReadMsgBlock)unReadMsgBlock
 {
+    if (![ZYZCAccountTool getUserId]) {
+        return;
+    }
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_UnRead_Msg andParameters:@{@"userId":[ZYZCAccountTool getUserId]} andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          DDLog(@"%@",result);

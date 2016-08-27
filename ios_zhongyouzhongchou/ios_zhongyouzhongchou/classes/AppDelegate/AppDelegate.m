@@ -31,6 +31,9 @@
 #define  kQPAppKey     @"20a9a463ed1796c"
 #define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
 
+#define JPushAppKey    @"0d84e54275eeab85eac5baf6"
+#define JPushChabbel   @"Publish channel"
+
 @interface AppDelegate ()<WXApiManagerDelegate>
 
 @property (nonatomic, strong)ZYZCRCManager *RCManager;
@@ -249,14 +252,23 @@
                                               categories:nil];
     }
     //如不需要使用IDFA，advertisingIdentifier 可为nil
-    [JPUSHService setupWithOption:launchOptions appKey:@"0d84e54275eeab85eac5baf6"
-                          channel:@"Publish channel"
+    [JPUSHService setupWithOption:launchOptions
+                           appKey:JPushAppKey
+                          channel:JPushChabbel
                  apsForProduction:YES
             advertisingIdentifier:nil];
     
     //注册自定义消息，这个东西可以选择或者不选择
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
+    
+//    //获取消息推送
+//    NSDictionary *remoteNotificationUserInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+//    if (remoteNotificationUserInfo[@"_j_msgid"]) {
+//        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到极光消息1" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//        [alert show];
+//    }
+//
     
 }
 
@@ -468,6 +480,11 @@ fetchCompletionHandler:
     ChatUserInfoModel *infoModel=[[ChatUserInfoModel alloc]mj_setKeyValues:userInfo[@"rc"]];
     if (infoModel.fId) {
         self.getChatMsg=YES;
+    }
+    
+    if (userInfo[@"_j_msgid"]) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到极光消息2" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
     }
 }
 
