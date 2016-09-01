@@ -119,9 +119,9 @@ static ZYZCRCManager *_RCManager;
         DDLog(@"Login successfully with userId: %@.", userId);
         
     } error:^(RCConnectErrorCode status) {
-//        NSLog(@"login error status: %ld.", (long)status);
+        DDLog(@"login error status: %ld.", (long)status);
     } tokenIncorrect:^{
-//        NSLog(@"token 无效 ，请确保生成token 使用的appkey 和初始化时的appkey 一致");
+        DDLog(@"token 无效 ，请确保生成token 使用的appkey 和初始化时的appkey 一致");
     }];
 }
 

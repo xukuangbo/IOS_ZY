@@ -181,6 +181,8 @@
 		2C1C079B1D1AAB2700203FF4 /* MyPartnerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C07991D1AAB2700203FF4 /* MyPartnerViewController.m */; };
 		2C1C079E1D1AC26200203FF4 /* PartnerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C079D1D1AC26200203FF4 /* PartnerTableCell.m */; };
 		2C1C07A11D1AC2C100203FF4 /* PartnerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C07A01D1AC2C100203FF4 /* PartnerTableView.m */; };
+		2C1D775A1D72987F0076EA51 /* ZYZCTabVideosVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1D77591D72987F0076EA51 /* ZYZCTabVideosVC.m */; };
+		2C1D775C1D72C93E0076EA51 /* QPPhotoMovie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C1D775B1D72C93E0076EA51 /* QPPhotoMovie.framework */; };
 		2C1ECC8A1D62B04400B91E7B /* ZYZCEditYoujiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC891D62B04400B91E7B /* ZYZCEditYoujiController.m */; };
 		2C1ECC8D1D62B08C00B91E7B /* YJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */; };
 		2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */; };
@@ -307,7 +309,6 @@
 		2CD2092B1D6D3E27005EB62E /* ZCProductDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD208FD1D6D3E27005EB62E /* ZCProductDetailController.m */; };
 		2CD2092C1D6D3E27005EB62E /* ZCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD208FF1D6D3E27005EB62E /* ZCWebViewController.m */; };
 		2CD209321D6D4B32005EB62E /* QPSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD209311D6D4B32005EB62E /* QPSDKCore.framework */; };
-		2CD209341D6D4B98005EB62E /* QPPhotoMovie.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD209331D6D4B98005EB62E /* QPPhotoMovie.framework */; };
 		2CD209A01D6D4BA6005EB62E /* audio.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CD209371D6D4BA6005EB62E /* audio.mp3 */; };
 		2CD209A11D6D4BA6005EB62E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CD209381D6D4BA6005EB62E /* icon.png */; };
 		2CD209A21D6D4BA6005EB62E /* QPBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD2093B1D6D4BA6005EB62E /* QPBundle.m */; };
@@ -846,6 +847,9 @@
 		2C1C079D1D1AC26200203FF4 /* PartnerTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartnerTableCell.m; sourceTree = "<group>"; };
 		2C1C079F1D1AC2C100203FF4 /* PartnerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PartnerTableView.h; sourceTree = "<group>"; };
 		2C1C07A01D1AC2C100203FF4 /* PartnerTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PartnerTableView.m; sourceTree = "<group>"; };
+		2C1D77581D72987F0076EA51 /* ZYZCTabVideosVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCTabVideosVC.h; sourceTree = "<group>"; };
+		2C1D77591D72987F0076EA51 /* ZYZCTabVideosVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCTabVideosVC.m; sourceTree = "<group>"; };
+		2C1D775B1D72C93E0076EA51 /* QPPhotoMovie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPPhotoMovie.framework; sourceTree = "<group>"; };
 		2C1ECC881D62B04400B91E7B /* ZYZCEditYoujiController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCEditYoujiController.h; sourceTree = "<group>"; };
 		2C1ECC891D62B04400B91E7B /* ZYZCEditYoujiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCEditYoujiController.m; sourceTree = "<group>"; };
 		2C1ECC8B1D62B08C00B91E7B /* YJTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJTextView.h; sourceTree = "<group>"; };
@@ -1095,7 +1099,6 @@
 		2CD208FE1D6D3E27005EB62E /* ZCWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCWebViewController.h; sourceTree = "<group>"; };
 		2CD208FF1D6D3E27005EB62E /* ZCWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCWebViewController.m; sourceTree = "<group>"; };
 		2CD209311D6D4B32005EB62E /* QPSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPSDKCore.framework; sourceTree = "<group>"; };
-		2CD209331D6D4B98005EB62E /* QPPhotoMovie.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPPhotoMovie.framework; sourceTree = "<group>"; };
 		2CD209371D6D4BA6005EB62E /* audio.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audio.mp3; sourceTree = "<group>"; };
 		2CD209381D6D4BA6005EB62E /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		2CD2093A1D6D4BA6005EB62E /* QPBundle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPBundle.h; sourceTree = "<group>"; };
@@ -1478,7 +1481,7 @@
 				04A99CFE1CBF89E600C6F5F0 /* SystemConfiguration.framework in Frameworks */,
 				04A99D061CBF8A4100C6F5F0 /* CoreTelephony.framework in Frameworks */,
 				395B5A701D1FC4110084264C /* CoreFoundation.framework in Frameworks */,
-				2CD209341D6D4B98005EB62E /* QPPhotoMovie.framework in Frameworks */,
+				2C1D775C1D72C93E0076EA51 /* QPPhotoMovie.framework in Frameworks */,
 				395B5A6E1D1FC4020084264C /* CFNetwork.framework in Frameworks */,
 				2C8B19921D0D70FB0063097B /* Photos.framework in Frameworks */,
 				04A99D041CBF8A1F00C6F5F0 /* libc++.tbd in Frameworks */,
@@ -2191,9 +2194,9 @@
 		2C0101AF1D5DC36100D6470D /* QuPaiSDK */ = {
 			isa = PBXGroup;
 			children = (
+				2C1D775B1D72C93E0076EA51 /* QPPhotoMovie.framework */,
 				2CD209CF1D6D4BFD005EB62E /* QPSDK.bundle */,
 				2CD209351D6D4BA6005EB62E /* QPSDK */,
-				2CD209331D6D4B98005EB62E /* QPPhotoMovie.framework */,
 				2CD209311D6D4B32005EB62E /* QPSDKCore.framework */,
 			);
 			path = QuPaiSDK;
@@ -2539,6 +2542,15 @@
 			path = viewController;
 			sourceTree = "<group>";
 		};
+		2C1D77571D72987F0076EA51 /* ZYZCVideos(视频) */ = {
+			isa = PBXGroup;
+			children = (
+				2C1D77581D72987F0076EA51 /* ZYZCTabVideosVC.h */,
+				2C1D77591D72987F0076EA51 /* ZYZCTabVideosVC.m */,
+			);
+			path = "ZYZCVideos(视频)";
+			sourceTree = "<group>";
+		};
 		2C1ECC851D62B02A00B91E7B /* controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -2791,6 +2803,7 @@
 			isa = PBXGroup;
 			children = (
 				04A99BCC1CBF848C00C6F5F0 /* classes */,
+				2C1D77571D72987F0076EA51 /* ZYZCVideos(视频) */,
 				2C901DC11C89788C004B844B /* ViewController.h */,
 				2C901DC21C89788C004B844B /* ViewController.m */,
 				2C901DC41C89788C004B844B /* Main.storyboard */,
@@ -4679,6 +4692,7 @@
 				04D9A4A81D06B9FC00753392 /* MineSaveContactInfoVC.m in Sources */,
 				040651251CC62FC7003FD539 /* SDCollectionViewCell.m in Sources */,
 				392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */,
+				2C1D775A1D72987F0076EA51 /* ZYZCTabVideosVC.m in Sources */,
 				2C8B197D1D0CF7EC0063097B /* UIView+Animations.m in Sources */,
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
 				2CD209AC1D6D4BA6005EB62E /* QPEffect.m in Sources */,
@@ -5009,7 +5023,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/QuPaiSDK",
@@ -5038,6 +5052,36 @@
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/WeChatSDK1.6.2",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/JPush",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AliyunOSSiOS\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/FXBlurView\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJExtension\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/ReactiveCocoa\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/RongCloudIMKit\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -5122,7 +5166,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5152,6 +5196,36 @@
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/WeChatSDK1.6.2",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/JPush",
 				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/AliyunOSSiOS\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/FMDB\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/FXBlurView\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MBProgressHUD\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJExtension\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/MJRefresh\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Masonry\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/Reachability\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/ReactiveCocoa\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/RongCloudIMKit\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/Public/SDWebImage\"",
+				);
+				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

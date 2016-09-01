@@ -8,7 +8,7 @@
 //
 
 #import "LiveFunctionView.h"
-#import  <QPSDKCore/QPSDKCore.h>
+#import  "QPSDKCore/QPSDKCore.h"
 #import <Masonry.h>
 #import "LiveFunctionViewButton.h"
 @interface LiveFunctionView ()

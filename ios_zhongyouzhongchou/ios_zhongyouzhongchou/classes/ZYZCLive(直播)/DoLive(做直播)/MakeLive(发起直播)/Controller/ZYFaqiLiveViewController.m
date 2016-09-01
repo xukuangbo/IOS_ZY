@@ -9,7 +9,7 @@
 #import "ZYFaqiLiveViewController.h"
 #import <RACEXTScope.h>
 #import <Masonry.h>
-#import <QPSDKCore/QPSDKCore.h>
+#import "QPSDKCore/QPSDKCore.h"
 //#import "ZYZCLiveController.h"
 #import "ZYLiveViewController.h"
 //#import "ZYDoLiveVC.h"

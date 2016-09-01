@@ -39,7 +39,7 @@
 #import "ZYZCAccountTool.h"
 
 
-#import <QPSDKCore/QPSDKCore.h>
+#import "QPSDKCore/QPSDKCore.h"
 
 #include "QPPrefixHead.h"
 

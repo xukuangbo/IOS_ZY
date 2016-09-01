@@ -8,7 +8,7 @@
 
 #import "ZYWatchLiveViewController.h"
 #import "ZYLiveListModel.h"
-#import <IJKMediaFramework/IJKMediaFramework.h>
+#import "IJKMediaFramework/IJKMediaFramework.h"
 #import "RCDLiveMessageCell.h"
 #import "RCDLiveTextMessageCell.h"
 #import "RCDLiveGiftMessageCell.h"

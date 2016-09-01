@@ -14,7 +14,7 @@
 #import "QPEffectManager.h"
 #import "QPEffectTabView.h"
 #import "QPEventManager.h"
-#import <QPSDKCore/QPAuth-Private.h>
+#import "QPSDKCore/QPAuth-Private.h"
 
 #import "QPEffectView.h"
 #import <CoreMotion/CoreMotion.h>
