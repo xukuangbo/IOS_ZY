@@ -19,5 +19,6 @@ typedef NS_ENUM(NSInteger, DetailMsgType)
 
 @property (nonatomic, assign) DetailMsgType detailMsgType;
 
-- (instancetype)initWithFrame:(CGRect)frame andDetailMsg:(MsgDetailModel *)msgDetailModel andMsgStyle:(DetailMsgType )msgStyle;
+- (instancetype)initWithFrame:(CGRect)frame andDetailMsg:(MsgDetailModel *)msgDetailModel ;
+
 @end

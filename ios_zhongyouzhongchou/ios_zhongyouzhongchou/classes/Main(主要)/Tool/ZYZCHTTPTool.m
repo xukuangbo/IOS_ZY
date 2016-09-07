@@ -121,11 +121,11 @@
 {
 //    signature =Md5( timestamp+fix+ nonceStr+fix+ scret+fix+datatime)
     
-//    if (![ZYZCAccountTool getUserScret]) {
-//        [ZYZCAccountTool deleteAccount];
-//        [LoginJudgeTool judgeLogin];
-//        return nil;
-//    }
+    if (![ZYZCAccountTool getUserScret]) {
+        [ZYZCAccountTool deleteAccount];
+        [LoginJudgeTool judgeLogin];
+        return nil;
+    }
     
     NSMutableDictionary *strDic=[NSMutableDictionary dictionary];
     //时间戳

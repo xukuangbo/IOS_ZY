@@ -11,7 +11,7 @@
 #import <RongIMLib/RongIMLib.h>
 #import "MBProgressHUD.h"
 #import <Masonry.h>
-#import <QPSDKCore/QPSDKCore.h>
+#import "QPSDKCore/QPSDKCore.h"
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
 #import "LiveFunctionView.h"

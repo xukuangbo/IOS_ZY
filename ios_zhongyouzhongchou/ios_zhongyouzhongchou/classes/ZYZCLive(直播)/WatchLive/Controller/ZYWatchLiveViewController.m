@@ -8,7 +8,7 @@
 
 #import "ZYWatchLiveViewController.h"
 #import "ZYLiveListModel.h"
-#import <IJKMediaFramework/IJKMediaFramework.h>
+#import "IJKMediaFramework/IJKMediaFramework.h"
 #import "RCDLiveMessageCell.h"
 #import "RCDLiveTextMessageCell.h"
 #import "RCDLiveGiftMessageCell.h"
@@ -311,7 +311,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 - (void)initChatroomMemberInfo{
-    UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(45, 30, 85, 35)];
+    UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(15, 30, 85, 35)];
     livePersonNumberView.backgroundColor = [UIColor whiteColor];
     livePersonNumberView.layer.cornerRadius = 35/2;
     livePersonNumberView.alpha = 0.5;
@@ -327,9 +327,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
     [livePersonNumberView addSubview:self.chatroomlabel];
     
-    UIButton *attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [attentionButton addTarget:self action:@selector(clickAttentionButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-//    attentionButton.frame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+//    UIButton *attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [attentionButton addTarget:self action:@selector(clickAttentionButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 16;
@@ -486,12 +485,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark - event
 - (void)closeLiveButtonAction:(UIButton *)sender
 {
-//    [self.player stop];
     [self removeMovieNotificationObservers];
-    if (![self.player isPlaying]) {
-        [self.player play];
-    }else{
+    if ([self.player isPlaying]) {
         [self.player pause];
+        [self.player stop];
     }
     [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
                                         success:^{

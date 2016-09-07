@@ -24,7 +24,7 @@
 #import "AppDelegate.h"
 #import "RCDLivePortraitViewCell.h"
 #import <Masonry.h>
-#import <QPSDKCore/QPLive.h>
+#import "QPSDKCore/QPLive.h"
 #import <CoreTelephony/CTCallCenter.h>
 #import <CoreTelephony/CTCall.h>
 #import "LiveFunctionView.h"
