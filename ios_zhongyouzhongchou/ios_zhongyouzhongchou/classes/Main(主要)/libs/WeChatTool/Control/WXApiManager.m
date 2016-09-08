@@ -43,11 +43,11 @@
 - (void)onResp:(BaseResp *)resp {
     
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
-        if (_delegate
-            && [_delegate respondsToSelector:@selector(managerDidRecvMessageResponse:)]) {
-            SendMessageToWXResp *messageResp = (SendMessageToWXResp *)resp;
-            [_delegate managerDidRecvMessageResponse:messageResp];
-        }
+//        if (_delegate
+//            && [_delegate respondsToSelector:@selector(managerDidRecvMessageResponse:)]) {
+//            SendMessageToWXResp *messageResp = (SendMessageToWXResp *)resp;
+//            [_delegate managerDidRecvMessageResponse:messageResp];
+//        }
     } else if ([resp isKindOfClass:[SendAuthResp class]]) {
         if (_delegate
             && [_delegate respondsToSelector:@selector(managerDidRecvAuthResponse:)]) {
