@@ -16,6 +16,10 @@
 #import "MBProgressHUD+MJ.h"
 #import "ZYZCAccountModel.h"
 #import "NetWorkManager.h"
+#import "LoginJudgeTool.h"
+#import "MoreFZCViewController.h"
+#import "MinePersonSetUpController.h"
+#import "MineTravelTagVC.h"
 @interface ZCMainViewController ()<WXApiManagerDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
 @property (nonatomic, strong) UISegmentedControl *segmentedView;
@@ -50,12 +54,10 @@
 -(void)setNavBar
 {
     //nav左右两边按钮创建
-    [self customNavWithLeftBtnImgName:nil
-                      andRightImgName:@"nav_r"
-                        andLeftAction:nil
+    [self customNavWithLeftBtnImgName:@"nav_r"
+                      andRightImgName:@"addLive"
+                        andLeftAction:@selector(clickLeftNavBtn)
                        andRightAction:@selector(clickRightNavBtn)];
-    
-    
     
     //添加搜索框
     CGFloat searchBar_width=KSCREEN_W-100;
@@ -130,6 +132,12 @@
 #pragma mark --- 点击右侧导航栏按钮
 -(void)clickRightNavBtn
 {
+    [self enterFZC];
+}
+
+#pragma mark --- 点击左侧导航栏按钮
+-(void)clickLeftNavBtn
+{
     if (self.searchBar.isFirstResponder) {
         [self.searchBar resignFirstResponder];
     }
@@ -145,9 +153,9 @@
     }
     
     if (!_fitersView) {
-        _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(KSCREEN_W-5-125,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*3)];
+        _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(5,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*3)];
         _fitersView.hidden=YES;
-        UIImage * image = [UIImage imageNamed:@"bg_sx"] ;
+        UIImage * image = [UIImage imageNamed:@"bg_sxleft"] ;
         image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(15, 0, 15, 0) resizingMode:UIImageResizingModeStretch];
         _fitersView.image=image;
         _fitersView.userInteractionEnabled=YES;
@@ -382,6 +390,86 @@
     [_table setContentOffset:CGPointMake(0, -64) animated:YES];
     
 }
+
+#pragma mark --- 发众筹
+-(void)enterFZC
+{
+    //判断是否登录
+    BOOL hasLogin=[LoginJudgeTool judgeLogin];
+    if (!hasLogin) {
+        return;
+    }
+    //判断是否完善个人信息
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:CHECK_USERINFO  andParameters:@{@"userId":[ZYZCAccountTool getUserId]} andSuccessGetBlock:^(id result, BOOL isSuccess)
+     {
+         [MBProgressHUD hideHUDForView:self.view];
+         if (isSuccess) {
+             if (![result[@"data"][@"info"] boolValue]) {
+                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"个人信息未完善,无法发送众筹,是否完善" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+                 alert.tag=1;
+                 [alert show];
+                 //                self.selectedIndex=4;
+             }
+             else if([result[@"data"][@"info"] boolValue]&&![result[@"data"][@"tag"] boolValue])
+             {
+                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"旅行标签未完善,无法发送众筹,是否完善" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+                 alert.tag=2;
+                 [alert show];
+                 //  [MBProgressHUD showError:@"旅行标签未完善,请完善!"];
+                 //  self.selectedIndex=4;
+             }
+             else if ([result[@"data"][@"info"] boolValue]&&[result[@"data"][@"tag"] boolValue])
+             {
+                 //发起众筹
+                 MoreFZCViewController *fzcVC=[[MoreFZCViewController alloc]init];
+                 fzcVC.hidesBottomBarWhenPushed=YES;
+                 [self.navigationController pushViewController:fzcVC animated:YES];
+             }
+         }
+         else
+         {
+             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+         }
+         
+     } andFailBlock:^(id failResult) {
+         [MBProgressHUD hideHUDForView:self.view];
+         [NetWorkManager showMBWithFailResult:failResult];
+     }];
+}
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==1&&buttonIndex==1) {
+        [self enterMyInfoSet];
+    }
+    else if (alertView.tag==2&&buttonIndex==1)
+    {
+        [self enterTravelTag];
+    }
+    
+}
+
+
+#pragma mark --- 进入个人信息设置
+-(void)enterMyInfoSet
+{
+    BOOL hasLogin=[LoginJudgeTool judgeLogin];
+    if (!hasLogin) {
+        return;
+    }
+    MinePersonSetUpController *mineInfoSetVietrroller=[[MinePersonSetUpController alloc] init];
+    mineInfoSetVietrroller.wantFZC = YES;
+    mineInfoSetVietrroller.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:mineInfoSetVietrroller animated:YES];
+}
+
+#pragma mark --- 进入个人旅行标签
+-(void)enterTravelTag
+{
+    [self.navigationController pushViewController:[[MineTravelTagVC alloc] init] animated:YES];
+}
+
+
 
 -(void)viewWillDisappear:(BOOL)animated
 {

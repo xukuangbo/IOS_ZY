@@ -63,7 +63,7 @@
     CGFloat centerBtnWidth=55;
     UIButton *moreBtn= [UIButton buttonWithType:UIButtonTypeCustom];
     moreBtn.frame=CGRectMake(KSCREEN_W/2-centerBtnWidth/2,self.tabBar.height-centerBtnWidth-5, centerBtnWidth, centerBtnWidth);
-    [moreBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [moreBtn addTarget:self action:@selector(clickCenterItem:) forControlEvents:UIControlEventTouchUpInside];
     [moreBtn setBackgroundImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
     [self.tabBar addSubview:moreBtn];
     
@@ -83,10 +83,9 @@
                    });
 }
 
+#pragma mark --- 收到消息后的声音提醒
 -(BOOL) onRCIMCustomAlertSound:(RCMessage *)message
 {
-    DDLog(@"++++%d",_rcIM.disableMessageAlertSound);
-    
     NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
     BOOL openSound=YES;
     BOOL openShake=YES;
@@ -109,7 +108,7 @@
 }
 
 
-
+#pragma mark --- 创建items
 -(void)getCustomItems
 {
     
@@ -122,6 +121,7 @@
     self.tabBar.tintColor = [UIColor ZYZC_MainColor];
 }
 
+#pragma mark --- 创建空item
 -(void)insertSpaceItem
 {
     UIViewController *spaceVC=[[UIViewController alloc]init];
@@ -146,8 +146,8 @@
     [super viewDidAppear:animated];
 }
 
-#pragma mark --- 创建半框
--(void)clickBtn:(UIButton *)button
+#pragma mark --- 点击中间item
+-(void)clickCenterItem:(UIButton *)button
 {
 //    NSArray *titles=@[@"众筹",@"短视频",@"直播"];
 //    NSArray *images=@[@"btn_fzc_pre",@"btn_xyj_pre",@"btn_view_pre"];
