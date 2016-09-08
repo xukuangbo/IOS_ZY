@@ -32,19 +32,32 @@
             thumbImage=[thumbImage stringByReplacingCharactersInRange:NSMakeRange(thumbImage.length-2, 2) withString:@"/132"];
             DDLog(@"thumbImage:%@",thumbImage);
         }
-        UIImageView *iconImg=[[UIImageView alloc]init];
-        [iconImg sd_setImageWithURL:[NSURL URLWithString:thumbImage] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-//            [message setThumbData:[self compressImage:image]];
-            [message setThumbImage:[self compressImage:image]];
-            WXWebpageObject *webpageObject=[WXWebpageObject object];
-            webpageObject.webpageUrl=webUrl;
-            message.mediaObject=webpageObject;
-            SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
-            req.bText=NO;
-            req.message=message;
-            req.scene=zoneScene?WXSceneTimeline:WXSceneSession;
-            [WXApi sendReq:req];
-        }];
+        
+        NSData *imgData=[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbImage]];
+        UIImage *image=[UIImage imageWithData:imgData];
+        [message setThumbImage:[self compressImage:image]];
+        WXWebpageObject *webpageObject=[WXWebpageObject object];
+        webpageObject.webpageUrl=webUrl;
+        message.mediaObject=webpageObject;
+        SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
+        req.bText=NO;
+        req.message=message;
+        req.scene=zoneScene?WXSceneTimeline:WXSceneSession;
+        [WXApi sendReq:req];
+
+//        UIImageView *iconImg=[[UIImageView alloc]init];
+//        [iconImg sd_setImageWithURL:[NSURL URLWithString:thumbImage] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+////            [message setThumbData:[self compressImage:image]];
+//            [message setThumbImage:[self compressImage:image]];
+//            WXWebpageObject *webpageObject=[WXWebpageObject object];
+//            webpageObject.webpageUrl=webUrl;
+//            message.mediaObject=webpageObject;
+//            SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
+//            req.bText=NO;
+//            req.message=message;
+//            req.scene=zoneScene?WXSceneTimeline:WXSceneSession;
+//            [WXApi sendReq:req];
+//        }];
     }
 }
 
