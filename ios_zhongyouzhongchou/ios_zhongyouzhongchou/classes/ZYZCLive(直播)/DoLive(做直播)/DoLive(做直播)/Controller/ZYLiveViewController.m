@@ -1253,6 +1253,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                     NSString *dataModelString = [dataModel.userId stringValue];
                     if ([dataModelString isEqual:listModelString]) {
                         [shouldDeleteArray addObject:userListModel];
+                        
                     }
                 }
             }
