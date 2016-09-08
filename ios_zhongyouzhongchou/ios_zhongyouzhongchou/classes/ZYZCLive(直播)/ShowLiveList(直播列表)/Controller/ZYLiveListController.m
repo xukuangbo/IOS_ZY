@@ -45,16 +45,18 @@ static NSString *ID = @"ZYLiveListCell";
 
 - (void)rightBtnAction
 {
-    [self.navigationController pushViewController:[[ZYFaqiLiveViewController alloc] init] animated:YES];
+    ZYFaqiLiveViewController *liveController=[[ZYFaqiLiveViewController alloc]init];
+    liveController.hidesBottomBarWhenPushed=YES;
+    [self.navigationController pushViewController:liveController animated:YES];
 }
 
 #pragma mark - setup
 - (void)setupView
 {
-//    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-//    [button setTitle:@"做主播" forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
+    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    [button setImage:[UIImage imageNamed:@"addLive"] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.view.backgroundColor = [UIColor ZYZC_MainColor];
     _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

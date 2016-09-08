@@ -21,10 +21,12 @@
 #import "MBProgressHUD+MJ.h"
 #import "ZYLiveListModel.h"
 @interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
+/** 模糊效果 */
+@property (nonatomic, strong) UIVisualEffectView *backView;
 /** 封面 */
 @property (nonatomic, strong) ZYCustomIconView *faceImg;
-/** 修改封面 */
-@property (nonatomic, strong) UIButton *changeFaceImg;
+/** 封面占位文字 */
+@property (nonatomic, strong) UILabel *faceTextLabel;
 /** 标题 */
 @property (nonatomic, strong) UITextField *titleTextfield;
 
@@ -62,8 +64,13 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    //监听通知
+    [self addNoti];
+    
     //配置背景
     [self configUI];
+    
     //请求头像
     [self requestPersonData];
 }
@@ -97,75 +104,14 @@
     _bgImageView.userInteractionEnabled = YES;
     _bgImageView.image = [UIImage imageNamed:@"create_bg_live"];
     
-    
-    //封面
-    _faceImg = [ZYCustomIconView new];
-    _faceImg.clipsToBounds = YES;
-    [_bgImageView addSubview:_faceImg];
-    [_faceImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.centerY.mas_equalTo(_bgImageView.mas_centerY).offset(-50);
-        //        make.centerX.mas_equalTo(self.view.mas_centerX);
-        make.left.mas_equalTo(25);
-        make.size.mas_equalTo(CGSizeMake(130, 130));
-        
+    //添加模糊效果
+    UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+    _backView = [[UIVisualEffectView alloc] initWithEffect:blur];
+    [_bgImageView addSubview:_backView];
+    [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_bgImageView);
     }];
-    
-    _faceImg.layerCornerRadius = 5;
-    ZYZCAccountModel *account = [ZYZCAccountTool account];
-    //取头像
-    NSString *faceImgStrng = account.faceImg64.length > 0?account.faceImg : account.faceImg640;
-    [_faceImg sd_setImageWithURL:[NSURL URLWithString:faceImgStrng] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
-    [_faceImg addTarget:self action:@selector(changeFaceImgAction)];
-    
-    //修改封面
-    _changeFaceImg = [UIButton new];
-    [_bgImageView addSubview:_changeFaceImg];
-    [_changeFaceImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(_faceImg.mas_centerX);
-        make.top.mas_equalTo(_faceImg.mas_bottom).offset(KEDGE_DISTANCE);
-        make.height.mas_equalTo(20);
-        make.width.mas_equalTo(_faceImg.mas_width);
-    }];
-    [_changeFaceImg setTitle:@"修改封面" forState:UIControlStateNormal];
-    [_changeFaceImg setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
-    //标题,暂时用个label,后面用textfield
-    _titleTextfield = [UITextField new];
-    [_bgImageView addSubview:_titleTextfield];
-    [_titleTextfield mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(_faceImg.mas_right).offset(KEDGE_DISTANCE);
-        make.centerY.mas_equalTo(_faceImg.mas_centerY);
-        make.height.mas_equalTo(25);
-        make.right.mas_equalTo(_bgImageView.mas_right).offset(-KEDGE_DISTANCE);
-    }];
-    _titleTextfield.backgroundColor = [UIColor clearColor];
-    _titleTextfield.layerCornerRadius = 5;
-    _titleTextfield.delegate = self;
-    _titleTextfield.placeholder = @"请输入标题";
-    _titleTextfield.textColor = [UIColor whiteColor];
-    [_titleTextfield setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
-    
-    
-    //开始直播
-    _startLiveBtn = [UIButton new];
-    [_bgImageView addSubview:_startLiveBtn];
-    [_startLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.mas_equalTo(_bgImageView.mas_centerX);
-        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-50);
-        make.height.mas_equalTo(50);
-        make.left.mas_equalTo(30);
-        make.right.mas_equalTo(-30);
-    }];
-    _startLiveBtn.multipleTouchEnabled = NO;
-    _startLiveBtn.backgroundColor = [UIColor ZYZC_MainColor];
-    _startLiveBtn.layerBorderColor = [UIColor ZYZC_TextGrayColor];
-    _startLiveBtn.layerBorderWidth = 1;
-    _startLiveBtn.layer.cornerRadius = 24;
-    _startLiveBtn.layer.masksToBounds = YES;
-    [_startLiveBtn setTitle:@"开启直播" forState:UIControlStateNormal];
-    [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_startLiveBtn addTarget:self action:@selector(startLive) forControlEvents:UIControlEventTouchUpInside];
+    _backView.alpha = 0.6;
     
     //退出按钮
     _exitButton = [UIButton new];
@@ -177,6 +123,85 @@
     }];
     [_exitButton setImage:[UIImage imageNamed:@"live-start-quite"] forState:UIControlStateNormal];
     [_exitButton addTarget:self action:@selector(exitAction) forControlEvents:UIControlEventTouchUpInside];
+
+    //封面
+    _faceImg = [ZYCustomIconView new];
+//    _faceImg.backgroundColor = [UIColor redColor];
+    _faceImg.clipsToBounds = YES;
+    [_bgImageView addSubview:_faceImg];
+    [_faceImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(_exitButton).offset(30);
+        make.left.equalTo(_bgImageView).offset(10);
+        make.right.equalTo(_bgImageView).offset(-10);
+        make.height.mas_equalTo(_faceImg.mas_width).multipliedBy(9 / 20.0);
+    }];
+    
+    _faceImg.layerCornerRadius = 5;
+    
+    //封面的一个背景色
+    UIView *faceColorBg = [UIView new];
+    [_faceImg addSubview:faceColorBg];
+    [faceColorBg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_faceImg);
+    }];
+    faceColorBg.alpha = 0.2;
+    faceColorBg.backgroundColor = [UIColor whiteColor];
+    
+    //封面的文字
+    _faceTextLabel = [UILabel new];
+    _faceTextLabel.font = [UIFont systemFontOfSize:18];
+    [_faceImg addSubview:_faceTextLabel];
+    [_faceTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(_faceImg);
+        make.height.mas_equalTo(20);
+    }];
+    _faceTextLabel.textColor = [UIColor whiteColor];
+    _faceTextLabel.text = @"点击上传封面";
+    
+    
+    
+//    //标题,暂时用个label,后面用textfield
+    _titleTextfield = [UITextField new];
+    [_bgImageView addSubview:_titleTextfield];
+    [_titleTextfield mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_faceImg.mas_bottom).offset(10);
+        make.left.equalTo(_bgImageView).offset(10);
+        make.right.equalTo(_bgImageView).offset(-10);
+        make.height.mas_equalTo(16);
+        
+    }];
+    _titleTextfield.backgroundColor = [UIColor clearColor];
+//    _titleTextfield.layerCornerRadius = 5;
+    _titleTextfield.delegate = self;
+    _titleTextfield.placeholder = @"请输入标题";
+    _titleTextfield.tintColor = [UIColor whiteColor];
+    _titleTextfield.textColor = [UIColor whiteColor];
+    [_titleTextfield becomeFirstResponder];
+    [_titleTextfield setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    
+    
+    //开始直播
+    _startLiveBtn = [UIButton new];
+    [_bgImageView addSubview:_startLiveBtn];
+    CGFloat startLiveBtnH = 46;
+    [_startLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(_titleTextfield.mas_bottom).offset(10);
+        make.left.mas_equalTo(30);
+        make.right.mas_equalTo(-30);
+        make.height.mas_equalTo(startLiveBtnH);
+        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-100);
+    }];
+    _startLiveBtn.multipleTouchEnabled = NO;
+    _startLiveBtn.backgroundColor = [UIColor ZYZC_MainColor];
+    _startLiveBtn.layerBorderColor = [UIColor ZYZC_TextGrayColor];
+    _startLiveBtn.layerBorderWidth = 1;
+    _startLiveBtn.layer.cornerRadius = startLiveBtnH * 0.5;
+    _startLiveBtn.layer.masksToBounds = YES;
+    [_startLiveBtn setTitle:@"开启直播" forState:UIControlStateNormal];
+    [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_startLiveBtn addTarget:self action:@selector(startLive) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 
@@ -186,6 +211,18 @@
 {
     
 }
+
+
+#pragma mark - 监听通知
+- (void)addNoti{
+    //监听键盘的出现
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    //收起
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
+    //监听键盘高度改变
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+}
+
 #pragma mark -
 #pragma mark ---changeImg点击动作
 - (void)changeFaceImgAction
@@ -333,5 +370,37 @@
     [textField endEditing:YES];
     
     return YES;
+}
+#pragma mark - 键盘高度改变通知
+#pragma mark --- 键盘出现和收起方法
+-(void)keyboardWillShow:(NSNotification *)notify
+{
+    NSDictionary *dic = notify.userInfo;
+    NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
+    CGFloat height=value.CGRectValue.size.height;
+    
+    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height-10);
+    }];
+}
+
+-(void)keyboardWillHidden:(NSNotification *)notify
+{
+    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-100);
+    }];
+}
+
+#pragma mark --- 键盘高度改变
+-(void)keyboardWillChangeFrame:(NSNotification *)notify
+{
+    NSDictionary *dic = notify.userInfo;
+    NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
+    CGFloat height=value.CGRectValue.size.height;
+    
+    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height - 10);
+    }];
+    
 }
 @end
