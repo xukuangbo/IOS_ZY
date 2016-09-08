@@ -52,13 +52,21 @@
     self.selectedIndex=1;
     [self getCustomItems];
     [self insertSpaceItem];
+    
+    //去掉TabBar上部的横线
+    [[UITabBar appearance] setShadowImage:[[UIImage alloc]init]];
+    [[UITabBar appearance] setBackgroundImage:[[UIImage alloc]init]];
+    
     UIView *coverView= [[UIView alloc]initWithFrame:CGRectMake(KSCREEN_W/2-40, 0, 80, self.tabBar.height)];
     [self.tabBar addSubview:coverView];
+    
+    CGFloat centerBtnWidth=55;
     UIButton *moreBtn= [UIButton buttonWithType:UIButtonTypeCustom];
-    moreBtn.frame=CGRectMake(KSCREEN_W/2-22.5,(self.tabBar.frame.size.height-45)/2, 45, 45);
+    moreBtn.frame=CGRectMake(KSCREEN_W/2-centerBtnWidth/2,self.tabBar.height-centerBtnWidth-5, centerBtnWidth, centerBtnWidth);
     [moreBtn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
-    [moreBtn setBackgroundImage:[UIImage imageNamed:@"tab_thr_fb"] forState:UIControlStateNormal];
+    [moreBtn setBackgroundImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
     [self.tabBar addSubview:moreBtn];
+    
     
     _rcIM = [RCIM sharedRCIM];
     _rcIM.receiveMessageDelegate=self;
@@ -141,14 +149,16 @@
 #pragma mark --- 创建半框
 -(void)clickBtn:(UIButton *)button
 {
-    NSArray *titles=@[@"众筹",@"短视频",@"直播"];
-    NSArray *images=@[@"btn_fzc_pre",@"btn_xyj_pre",@"btn_view_pre"];
-    ZFIssueWeiboView *view = [[ZFIssueWeiboView alloc]initWithTitles:titles andImages:images];
-    view.frame = CGRectMake(0, 0, KSCREEN_W, KSCREEN_H);
-    view.delegate = self;
-    [self.view addSubview:view];
+//    NSArray *titles=@[@"众筹",@"短视频",@"直播"];
+//    NSArray *images=@[@"btn_fzc_pre",@"btn_xyj_pre",@"btn_view_pre"];
+//    ZFIssueWeiboView *view = [[ZFIssueWeiboView alloc]initWithTitles:titles andImages:images];
+//    view.frame = CGRectMake(0, 0, KSCREEN_W, KSCREEN_H);
+//    view.delegate = self;
+//    [self.view addSubview:view];
+//    
+//    return;
     
-    return;
+    [self enterShortVideo];
 }
 
 #pragma mark --- 动画效果结束的回调
