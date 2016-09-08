@@ -54,20 +54,33 @@
     _table.backgroundColor=[UIColor ZYZC_BgGrayColor];
     _table.separatorStyle=UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_table];
-    
+    WEAKSELF
+    MJRefreshNormalHeader *normarlHeader=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        weakSelf.pageNo = 1;
+        [weakSelf getProductsData];
+
+    }];
+    normarlHeader.lastUpdatedTimeLabel.hidden=YES;
+    _table.mj_header=normarlHeader;
     
     MJRefreshAutoNormalFooter *normalFooter=[MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        _pageNo++;
-        [self getProductsData];
+        weakSelf.pageNo++;
+        [weakSelf getProductsData];
     }];
+    
     [normalFooter setTitle:@"" forState:MJRefreshStateIdle];
     _table.mj_footer=normalFooter;
     
     //添加头视图
     _headView=[[PersonHeadView alloc]initWithType:NO];
     [self.view addSubview:_headView];
-    
-    __weak typeof (&*self )weakSelf=self;
+//    [_headView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(self.view);
+//        make.left.equalTo(self.view);
+//        make.right.equalTo(self.view);
+//        make.height.mas_equalTo(HEAD_VIEW_HEIGHT);
+//
+//    }];
     _headView.changeProduct=^(PersonProductType productType)
     {
         weakSelf.productType=productType;
@@ -142,33 +155,28 @@
                 {
                     [_productArr addObject:oneModel];
                 }
-            }
-            else
-            {
+            } else {
                 _pageNo--;
             }
-            
             if (!_productArr.count) {
                 _noneProductView.hidden=NO;
-            }
-            else
-            {
+            } else {
                 _noneProductView.hidden=YES;
             }
-            
-             [_table reloadData];
-        }
-        else
-        {
+            [_table reloadData];
+        } else {
            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")]; 
         }
         //停止上拉刷新
         [_table.mj_footer endRefreshing];
+        [_table.mj_header endRefreshing];
+
         
     } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:self.view];
         //停止上拉刷新
         [_table.mj_footer endRefreshing];
+        [_table.mj_header endRefreshing];
         
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
@@ -246,26 +254,30 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offsetY=scrollView.contentOffset.y;
-//    NSLog(@"%.2f  ",offsetY);
-    if (offsetY>=-(HEAD_VIEW_HEIGHT)&&offsetY<=-154) {
-        _headView.top=-(offsetY+HEAD_VIEW_HEIGHT);
+    CGFloat headViewHeight = HEAD_VIEW_HEIGHT;
+//    NSLog(@"offsetYoffsetY%.2f  ",offsetY);
+    if (offsetY<=-154) {
+        if (offsetY < - headViewHeight) {
+            _headView.top=0;
+        } else {
+            _headView.top=-(offsetY + HEAD_VIEW_HEIGHT);
+        }
         _headView.tableOffSetY=offsetY;
+    } else {
+        _headView.top=-(-154 + HEAD_VIEW_HEIGHT);
+        _headView.tableOffSetY=-154;
     }
     
-    if (offsetY>-224) {
+    if (offsetY > -224) {
         NSString *name=_userModel.realName?_userModel.realName:_userModel.userName;
         self.title=name.length>8?[name substringToIndex:8]:name;
-    }
-    else
-    {
+    } else {
         self.title=nil;
     }
     
-    if (offsetY<=-(HEAD_VIEW_HEIGHT)+KEDGE_DISTANCE) {
-        _table.bounces=NO;
-    }
-    else
-    {
+    if (offsetY<=-(HEAD_VIEW_HEIGHT) + KEDGE_DISTANCE) {
+//        _table.bounces=NO;
+    } else {
         _table.bounces=YES;
     }
 }
@@ -277,9 +289,7 @@
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
-    self.navigationController.navigationBar.titleTextAttributes=
-    @{NSForegroundColorAttributeName:[UIColor whiteColor],
-      NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
+    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
 }
 
 - (void)didReceiveMemoryWarning {
