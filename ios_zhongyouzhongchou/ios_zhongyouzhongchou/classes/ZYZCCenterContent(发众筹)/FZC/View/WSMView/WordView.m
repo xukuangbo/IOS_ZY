@@ -118,16 +118,18 @@
 
 -(void)setImageUrlStr:(NSString *)imageUrlStr
 {
-    _imgModelArr=[NSMutableArray array];
-    NSArray *urlArr=[imageUrlStr componentsSeparatedByString:@","];
-    for (NSInteger i=0; i<urlArr.count; i++) {
-         ZYDescImgModel *imageModel=[[ZYDescImgModel alloc]init];
-        imageModel.isLocalImage=NO;
-        imageModel.minUrl=urlArr[i];
-        imageModel.maxUrl=urlArr[i];
-        [_imgModelArr addObject:imageModel];
+    if(imageUrlStr.length>0){
+        _imgModelArr=[NSMutableArray array];
+        NSArray *urlArr=[imageUrlStr componentsSeparatedByString:@","];
+        for (NSInteger i=0; i<urlArr.count; i++) {
+            ZYDescImgModel *imageModel=[[ZYDescImgModel alloc]init];
+            imageModel.isLocalImage=NO;
+            imageModel.minUrl=urlArr[i];
+            imageModel.maxUrl=urlArr[i];
+            [_imgModelArr addObject:imageModel];
+        }
+        [self addImagesInView:_imgModelArr];
     }
-    [self addImagesInView:_imgModelArr];
 }
 
 #pragma mark --- 添加图片
@@ -206,6 +208,13 @@
 #pragma mark --- 添加图片到文字下方
 -(void)addImagesInView:(NSArray *)imageModelArr
 {
+    NSArray *views=[_imgView subviews];
+    for (NSInteger i=views.count-1;i>=0;i--) {
+        if ([views[i] isKindOfClass:[ZYDescImage class]]) {
+            [views[i] removeFromSuperview];
+        }
+    }
+
     CGFloat edg=KEDGE_DISTANCE;
     for (NSInteger i=0; i<imageModelArr.count; i++) {
         ZYDescImage *imgView=[[ZYDescImage alloc]initWithFrame:CGRectMake((_beforeNumber+i)*(_imgView_width+edg), 0, _imgView_width, _imgView_width)];
