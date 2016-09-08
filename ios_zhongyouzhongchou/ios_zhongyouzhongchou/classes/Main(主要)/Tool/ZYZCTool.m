@@ -191,9 +191,9 @@
     if (exist) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             BOOL successRemove=[manager removeItemAtPath:filePath error:nil];
-            if (successRemove) {
-                [ZYZCTool getZCDraftFiles];
-            }
+//            if (successRemove) {
+//                [ZYZCTool getZCDraftFiles];
+//            }
         });
     }
 }
@@ -218,17 +218,17 @@
     }
 }
 
-+ (void) getZCDraftFiles
-{
-    NSString *zcDraftPath=[NSString stringWithFormat:@"%@/%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0],KMY_ZHONGCHOU_FILE];
-    
-    NSFileManager *manager=[NSFileManager defaultManager];
-    BOOL exist=[manager fileExistsAtPath:zcDraftPath];
-    if (exist) {
-        NSArray *fileArr=[manager subpathsAtPath:zcDraftPath];
-        DDLog(@"fileArr:%@",fileArr);
-    }
-}
+//+ (void) getZCDraftFiles
+//{
+//    NSString *zcDraftPath=[NSString stringWithFormat:@"%@/%@",[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0],KMY_ZHONGCHOU_FILE];
+//    
+//    NSFileManager *manager=[NSFileManager defaultManager];
+//    BOOL exist=[manager fileExistsAtPath:zcDraftPath];
+//    if (exist) {
+//        NSArray *fileArr=[manager subpathsAtPath:zcDraftPath];
+//        DDLog(@"fileArr:%@",fileArr);
+//    }
+//}
 
 #pragma mark - 计算生日的月，日
 /**

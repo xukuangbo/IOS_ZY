@@ -149,6 +149,7 @@
     [self.view addSubview:view];
     
     return;
+//    [self enterFZC];
 }
 
 #pragma mark --- 动画效果结束的回调

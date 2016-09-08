@@ -26,7 +26,7 @@
 #import "ZYZCMessageListViewController.h"
 #import "ChatUserInfoModel.h"
 #import "MBProgressHUD+MJ.h"
-#import  <QPSDKCore/QPSDKCore.h>
+#import  "QPSDKCore/QPSDKCore.h"
 
 #define  kQPAppKey     @"20a9a463ed1796c"
 #define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
@@ -266,13 +266,12 @@
     
     //获取消息推送
     NSDictionary *remoteNotificationUserInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+    //判断是否是极光推送消息
         if (remoteNotificationUserInfo[@"_j_msgid"]) {
              ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
             ZYZCMessageListViewController *msgController=[[ZYZCMessageListViewController alloc]init];
             msgController.hidesBottomBarWhenPushed=YES;
             [mainTab.selectedViewController pushViewController:msgController animated:YES];
-//            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到极光消息1" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//            [alert show];
         }
 }
 

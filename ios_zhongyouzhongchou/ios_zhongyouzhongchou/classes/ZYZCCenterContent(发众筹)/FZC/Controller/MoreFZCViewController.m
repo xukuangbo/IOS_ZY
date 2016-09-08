@@ -403,7 +403,7 @@
 //上传数据到oss
 -(void)uploadDataToOSS
 {
-    [ZYZCTool getZCDraftFiles];
+//    [ZYZCTool getZCDraftFiles];
     //已上传数据到oss，
     if (_hasUpload) {
         [self publishMyZhongchou];

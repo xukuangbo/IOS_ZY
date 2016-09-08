@@ -17,7 +17,7 @@
 #import "QupaiSDK.h"
 #import "QPGuideFactory.h"
 #import "QPEventManager.h"
-#import <QPSDKCore/QPCutVideo.h>
+#import "QPSDKCore/QPCutVideo.h"
 
 
 #import "QPCutView.h"

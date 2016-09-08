@@ -81,7 +81,7 @@
  */
 + (void)cleanZCDraftFile;
 
-+ (void) getZCDraftFiles;
+//+ (void) getZCDraftFiles;
 
 /**
  *  根据生日计算星座
