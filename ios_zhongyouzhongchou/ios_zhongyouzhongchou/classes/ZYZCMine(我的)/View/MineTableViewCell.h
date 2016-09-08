@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MineOneItemCell.h"
-#define CELL_NUMBER          8
+#define CELL_NUMBER          9
 #define MINE_CELL_HEIGHT     ONE_ITEM_CELL_HEIGHT*CELL_NUMBER+5
 @interface MineTableViewCell : UITableViewCell
 @property (nonatomic, assign) NSInteger myBadgeValue;

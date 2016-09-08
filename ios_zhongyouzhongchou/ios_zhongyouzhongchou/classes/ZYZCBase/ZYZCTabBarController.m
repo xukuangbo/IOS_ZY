@@ -32,13 +32,10 @@
 #import "QPEffectMusic.h"
 #import <RongIMKit/RongIMKit.h>
 
-@interface ZYZCTabBarController ()<UIAlertViewDelegate,RCIMReceiveMessageDelegate,ZFIssueWeiboViewDelegate,QupaiSDKDelegate>
-{
-    FXBlurView *blurView;
-    UIView *bgView;
-}
-@property (nonatomic, strong) UIView   *bottomView;
-@property (nonatomic, strong)RCIM            *rcIM;
+@interface ZYZCTabBarController ()<UIAlertViewDelegate,RCIMReceiveMessageDelegate,ZFIssueWeiboViewDelegate,QupaiSDKDelegate,UITabBarDelegate>
+@property (nonatomic, strong) UIView          *bottomView;
+@property (nonatomic, strong) RCIM            *rcIM;
+@property (nonatomic, strong) UITabBarItem    *preItem;
 
 @end
 
@@ -140,6 +137,18 @@
         [item showBadgeWithStyle:WBadgeStyleRedDot value:0 animationType:WBadgeAnimTypeNone];
     }
 }
+
+#pragma mark --- tabbar代理方法
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if ([_preItem isEqual:item]) {
+        DDLog(@"selectedIndex%ld可刷新啦",self.selectedIndex);
+        //需要刷新界面可监听该通知
+        [[NSNotificationCenter  defaultCenter] postNotificationName:@"controllerRefresh" object:nil];
+    }
+    _preItem=item;
+}
+
 
 -(void)viewDidAppear:(BOOL)animated
 {

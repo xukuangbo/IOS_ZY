@@ -112,6 +112,8 @@
 		2C0101CE1D5DF48E00D6470D /* ZFWeiboButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0101CB1D5DF48E00D6470D /* ZFWeiboButton.m */; };
 		2C0A20C91D585D7700E6CE40 /* ChatUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A20C81D585D7700E6CE40 /* ChatUserModel.m */; };
 		2C0A20CC1D585DF100E6CE40 /* ChatUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A20CB1D585DF100E6CE40 /* ChatUserInfoModel.m */; };
+		2C179FEF1D8191F400BBAC53 /* ZYPublishFootprintController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C179FEE1D8191F400BBAC53 /* ZYPublishFootprintController.m */; };
+		2C179FF21D8198CB00BBAC53 /* ZYFootprintController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C179FF11D8198CB00BBAC53 /* ZYFootprintController.m */; };
 		2C1A99FF1D1BC26E00B62B39 /* ParterStatusBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A99FE1D1BC26E00B62B39 /* ParterStatusBtn.m */; };
 		2C1B60CC1D6D3CF900E3C25B /* ChooseSceneImgController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B603E1D6D3CF900E3C25B /* ChooseSceneImgController.m */; };
 		2C1B60CD1D6D3CF900E3C25B /* ChooseSiteImgController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B60401D6D3CF900E3C25B /* ChooseSiteImgController.m */; };
@@ -708,6 +710,10 @@
 		2C0A20C81D585D7700E6CE40 /* ChatUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUserModel.m; sourceTree = "<group>"; };
 		2C0A20CA1D585DF100E6CE40 /* ChatUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUserInfoModel.h; sourceTree = "<group>"; };
 		2C0A20CB1D585DF100E6CE40 /* ChatUserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUserInfoModel.m; sourceTree = "<group>"; };
+		2C179FED1D8191F400BBAC53 /* ZYPublishFootprintController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYPublishFootprintController.h; sourceTree = "<group>"; };
+		2C179FEE1D8191F400BBAC53 /* ZYPublishFootprintController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYPublishFootprintController.m; sourceTree = "<group>"; };
+		2C179FF01D8198CB00BBAC53 /* ZYFootprintController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFootprintController.h; sourceTree = "<group>"; };
+		2C179FF11D8198CB00BBAC53 /* ZYFootprintController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintController.m; sourceTree = "<group>"; };
 		2C1A99FD1D1BC26E00B62B39 /* ParterStatusBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParterStatusBtn.h; sourceTree = "<group>"; };
 		2C1A99FE1D1BC26E00B62B39 /* ParterStatusBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParterStatusBtn.m; sourceTree = "<group>"; };
 		2C1B603D1D6D3CF900E3C25B /* ChooseSceneImgController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseSceneImgController.h; sourceTree = "<group>"; };
@@ -1791,6 +1797,7 @@
 				2CD208A31D6D3E26005EB62E /* ZYZCRaise(众筹) */,
 				04A99C591CBF848D00C6F5F0 /* ZYZCMine(我的) */,
 				04A99C871CBF848D00C6F5F0 /* ZYZCTactic(攻略) */,
+				2C179FEC1D8191F400BBAC53 /* ZYZCFootprint(足迹) */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -2220,6 +2227,17 @@
 				2C0101CB1D5DF48E00D6470D /* ZFWeiboButton.m */,
 			);
 			path = ZYAnimotionBttons;
+			sourceTree = "<group>";
+		};
+		2C179FEC1D8191F400BBAC53 /* ZYZCFootprint(足迹) */ = {
+			isa = PBXGroup;
+			children = (
+				2C179FF01D8198CB00BBAC53 /* ZYFootprintController.h */,
+				2C179FF11D8198CB00BBAC53 /* ZYFootprintController.m */,
+				2C179FED1D8191F400BBAC53 /* ZYPublishFootprintController.h */,
+				2C179FEE1D8191F400BBAC53 /* ZYPublishFootprintController.m */,
+			);
+			path = "ZYZCFootprint(足迹)";
 			sourceTree = "<group>";
 		};
 		2C1B603A1D6D3CF900E3C25B /* ZYZCCenterContent(发众筹) */ = {
@@ -4525,6 +4543,7 @@
 				39911ACB1D504174007DF44B /* UIView+ViewController.m in Sources */,
 				392AB28B1D669C26003FEDB7 /* RCDLiveEmojiPageControl.m in Sources */,
 				2CD209C31D6D4BA6005EB62E /* QPLightProgress.m in Sources */,
+				2C179FF21D8198CB00BBAC53 /* ZYFootprintController.m in Sources */,
 				2CD209C01D6D4BA6005EB62E /* QPCountDownView.m in Sources */,
 				2C1B60CD1D6D3CF900E3C25B /* ChooseSiteImgController.m in Sources */,
 				2CD2090E1D6D3E27005EB62E /* ZCDetailFirstCell.m in Sources */,
@@ -4608,6 +4627,7 @@
 				393C29321D43820200B64551 /* EntryPlaceholderView.m in Sources */,
 				04F836451CD72C3300140980 /* SDPieProgressView.m in Sources */,
 				399E94251D38E20C006E1B68 /* NetFailView.m in Sources */,
+				2C179FEF1D8191F400BBAC53 /* ZYPublishFootprintController.m in Sources */,
 				2CE074C31CCF7ECC006D312D /* ZYZCTabBarController.m in Sources */,
 				392AB2831D669C26003FEDB7 /* RCDLiveMessageBaseCell.m in Sources */,
 				2C0101CD1D5DF48E00D6470D /* ZFIssueWeiboView.m in Sources */,

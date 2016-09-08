@@ -18,6 +18,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "MineWalletVc.h"
 #import "MineTravelTagVC.h"
+#import "ZYFootprintController.h"
 @interface MineTableViewCell ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIImageView *iconImg;
 @property (nonatomic, strong) UILabel     *textLab;
@@ -38,8 +39,9 @@
         self.contentView.backgroundColor=[UIColor ZYZC_BgGrayColor];
         self.selectionStyle=UITableViewCellSelectionStyleNone;
         _dataArr=[NSMutableArray array];
-        NSArray *iconNames=@[@"tag",@"icon_wallet",@"icon_message",@"icon_trip",@"icon_reture",@"draft",@"icon_destination",@"icon_man"];
-        NSArray *titles=@[@"我的旅行标签",@"我的钱包",@"私信",@"我的行程",@"我的回报",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人"];
+        NSArray *iconNames=@[@"tag",@"icon_wallet",@"icon_message",@"icon_trip",@"icon_reture",@"draft",@"icon_destination",@"icon_man",@"icon_man"];
+        NSArray *titles=@[@"我的旅行标签",@"我的钱包",@"私信",@"我的行程",@"我的回报",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人",@"足迹👣"];
+
         for (int i=0; i<CELL_NUMBER; i++) {
             MineOneItemModel *itemModel=[[MineOneItemModel alloc]init];
             itemModel.iconImg=iconNames[i];
@@ -157,6 +159,13 @@
         //我关注的旅行达人
         MyUserFollowedVC *myUserFollowedVC = [[MyUserFollowedVC alloc] init];
         [self.viewController.navigationController pushViewController:myUserFollowedVC animated:YES];
+    }
+    else if(indexPath.row==8)
+    {
+        //足迹
+        ZYFootprintController *footprintController = [[ZYFootprintController alloc] init];
+        footprintController.hidesBottomBarWhenPushed=YES;
+        [self.viewController.navigationController pushViewController:footprintController animated:YES];
     }
 }
 
