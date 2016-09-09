@@ -22,7 +22,6 @@
     UIView *_bottomBar;//底部容器
     ZCDetailCustomButton *_iconImageView;//头像
     UILabel *_nameLabel;//名字
-    UIImageView *_sexImgView;//性别
     UILabel *_titleLabel;//标题
     UILabel *_numberLabel;//人数
     
@@ -73,18 +72,19 @@
     //直播状态
     _liveStatusLabel = [UILabel new];
     [_bgView addSubview:_liveStatusLabel];
+    CGFloat liveStatusLabelH = 20;
     [_liveStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_bgView).offset(10);
         make.right.equalTo(_bgView).offset(-10);
-        make.height.mas_equalTo(20);
+        make.height.mas_equalTo(liveStatusLabelH);
+        make.width.mas_equalTo(60);
     }];
     _liveStatusLabel.layerBorderWidth = 1;
     _liveStatusLabel.font = [UIFont systemFontOfSize:15];
     _liveStatusLabel.textColor = [UIColor whiteColor];
-    _liveStatusLabel.layerCornerRadius = 5;
+    _liveStatusLabel.layerCornerRadius = liveStatusLabelH * 0.5;
     _liveStatusLabel.layerBorderColor = [UIColor whiteColor];
-    _liveStatusLabel.textAlignment = NSTextAlignmentRight;
-    
+    _liveStatusLabel.textAlignment = NSTextAlignmentCenter;
     
     //底部容器
     _bottomBar = [UIView new];
@@ -109,19 +109,13 @@
     //名字
     _nameLabel = [UILabel new];
     [_bottomBar addSubview:_nameLabel];
-    _nameLabel.backgroundColor = [UIColor yellowColor];
+//    _nameLabel.backgroundColor = [UIColor redColor];
     _nameLabel.font = [UIFont systemFontOfSize:17];
     _nameLabel.textColor = [UIColor ZYZC_TextBlackColor];
-    
-    //性别
-    _sexImgView = [UIImageView new];
-    [_bottomBar addSubview:_sexImgView];
-    _sexImgView.backgroundColor = [UIColor redColor];
-    _sexImgView.image = [UIImage imageNamed:@"btn_sex_fem"];
     //人数
     _numberLabel = [UILabel new];
     [_bottomBar addSubview:_numberLabel];
-    _numberLabel.backgroundColor = [UIColor yellowColor];
+//    _numberLabel.backgroundColor = [UIColor yellowColor];
     _numberLabel.font = [UIFont systemFontOfSize:15];
     _numberLabel.textColor = [UIColor ZYZC_MainColor];
     
@@ -129,30 +123,17 @@
         make.top.mas_equalTo(_iconImageView.mas_top);
         make.left.mas_equalTo(_iconImageView.mas_right).offset(10);
         make.height.mas_equalTo(20);
-//        make.right.equalTo(_sexImgView.mas_left);
+        
+        make.right.equalTo(_numberLabel.mas_left).offset(-10);
         
     }];
-    
-    [_sexImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.size.mas_equalTo(CGSizeMake(20, 20));
-        make.left.equalTo(_nameLabel.mas_right);
-        make.top.mas_equalTo(_iconImageView.mas_top);
-//        make.right.equalTo(_numberLabel.mas_left).offset(-10);
-    }];
-    
-    //高优先级
-    [_nameLabel setContentCompressionResistancePriority:UILayoutPriorityRequired
-                                                 forAxis:UILayoutConstraintAxisHorizontal];
-//    [_numberLabel setContentCompressionResistancePriority:UILayoutPriorityFittingSizeLevel
-//                                                  forAxis:UILayoutConstraintAxisHorizontal];
-    [_sexImgView setContentCompressionResistancePriority:UILayoutPriorityRequired
-                                                forAxis:UILayoutConstraintAxisHorizontal];
-//
+    [_numberLabel setContentCompressionResistancePriority:UILayoutPriorityRequired
+                                             forAxis:UILayoutConstraintAxisHorizontal];
     [_numberLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(_iconImageView.mas_top);
         make.right.mas_equalTo(_bottomBar.mas_right).offset(-10);
         make.height.mas_equalTo(20);
-        make.left.equalTo(_sexImgView.mas_right).offset(10);
+        make.left.equalTo(_nameLabel.mas_right).offset(10);
         
     }];
     
