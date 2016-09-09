@@ -38,7 +38,7 @@
 {
     self.limitLab.frame=CGRectMake(0, _wsmView.bottom+KEDGE_DISTANCE, 80, 20);
     self.hasSupportLab.frame=CGRectMake(self.limitLab.right+30, self.limitLab.top, 80, 20) ;
-    self.morePeopleBtn.frame=CGRectMake(self.width-50, self.hasSupportLab.top, 50, 20) ;
+    self.morePeopleBtn.frame=CGRectMake(self.width-80, self.hasSupportLab.top, 80, 30) ;
     self.otherViews.height=self.hasSupportLab.bottom;
     self.height=self.otherViews.bottom+KEDGE_DISTANCE;
     
