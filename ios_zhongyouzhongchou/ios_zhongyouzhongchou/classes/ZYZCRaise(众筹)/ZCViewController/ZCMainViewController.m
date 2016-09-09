@@ -34,6 +34,7 @@
 @property (nonatomic, assign) int                sex;
 
 @property (nonatomic, strong) UISearchBar        *searchBar;//搜索栏
+@property (nonatomic, strong) UIButton           *navLeftBtn;//发众筹按钮
 @property (nonatomic, strong) UIButton           *navRightBtn;//发众筹按钮
 @property (nonatomic, assign) BOOL               getSearch; //是否是搜索数据
 
@@ -55,15 +56,27 @@
 -(void)setNavBar
 {
     //nav左右两边按钮创建
-    [self customNavWithLeftBtnImgName:@"nav_r"
-                      andRightImgName:nil
-                        andLeftAction:@selector(clickLeftNavBtn)
-                       andRightAction:nil];
+//    [self customNavWithLeftBtnImgName:@"nav_r"
+//                      andRightImgName:nil
+//                        andLeftAction:@selector(clickLeftNavBtn)
+//                       andRightAction:nil];
+    
+    UIButton *navLeftBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    navLeftBtn.frame=CGRectMake(0, 4, 60, 30);
+    //    navRightBtn.backgroundColor=[UIColor orangeColor];
+    [navLeftBtn setTitle:@"筛选" forState:UIControlStateNormal];
+    navLeftBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+    //    navRightBtn.titleLabel.textAlignment=NSTextAlignmentRight;
+    [navLeftBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [navLeftBtn addTarget:self action:@selector(clickLeftNavBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:navLeftBtn];
+    _navLeftBtn=navLeftBtn;
+
     
     UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
 //    navRightBtn.backgroundColor=[UIColor orangeColor];
-    [navRightBtn setTitle:@"发众筹" forState:UIControlStateNormal];
+    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
     navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
 //    navRightBtn.titleLabel.textAlignment=NSTextAlignmentRight;
     [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -491,6 +504,7 @@
     _fitersView.hidden=YES;
     _searchBar.hidden=YES;
     _navRightBtn.hidden=YES;
+    _navLeftBtn.hidden=YES;
     if (self.searchBar.isFirstResponder) {
         [self.searchBar resignFirstResponder];
     }
@@ -503,6 +517,7 @@
     _titleView.hidden   = YES ;
     _searchBar.hidden   = NO  ;
     _navRightBtn.hidden = NO  ;
+    _navLeftBtn.hidden  = NO  ;
     [_table reloadData];
 }
 

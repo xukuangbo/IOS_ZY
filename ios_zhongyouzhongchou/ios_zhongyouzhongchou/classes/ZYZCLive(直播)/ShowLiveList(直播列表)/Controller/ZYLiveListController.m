@@ -22,6 +22,9 @@
 @property (nonatomic, assign) NSInteger pageNo;
 /** 无数据占位图 */
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
+
+@property (nonatomic, strong) UIButton           *navRightBtn;
+
 @end
 static NSString *ID = @"ZYLiveListCell";
 
@@ -42,10 +45,17 @@ static NSString *ID = @"ZYLiveListCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    _navRightBtn.hidden=NO;
     [super viewWillAppear:animated];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self getLiveListData];
     });
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _navRightBtn.hidden=YES;
 }
 
 - (void)rightBtnAction
@@ -58,7 +68,19 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - setup
 - (void)setupView
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addLive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBtnAction)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addLive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBtnAction)];
+    
+    UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
+    //    navRightBtn.backgroundColor=[UIColor orangeColor];
+    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
+    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+    //    navRightBtn.titleLabel.textAlignment=NSTextAlignmentRight;
+    [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [navRightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:navRightBtn];
+    _navRightBtn=navRightBtn;
+
 //    
 //    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
 //    [button setImage:[UIImage imageNamed:@"addLive"] forState:UIControlStateNormal];
