@@ -312,9 +312,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)initChatroomMemberInfo{
     UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(15, 30, 85, 35)];
-    livePersonNumberView.backgroundColor = [UIColor whiteColor];
+    livePersonNumberView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     livePersonNumberView.layer.cornerRadius = 35/2;
-    livePersonNumberView.alpha = 0.5;
+//    livePersonNumberView.alpha = 0.5;
     [self.view addSubview:livePersonNumberView];
     self.livePersonNumberView = livePersonNumberView;
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 34, 34)];
@@ -324,6 +324,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [livePersonNumberView addSubview:imageView];
     self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
     self.chatroomlabel.numberOfLines = 2;
+//    self.chatroomlabel.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
     [livePersonNumberView addSubview:self.chatroomlabel];
     

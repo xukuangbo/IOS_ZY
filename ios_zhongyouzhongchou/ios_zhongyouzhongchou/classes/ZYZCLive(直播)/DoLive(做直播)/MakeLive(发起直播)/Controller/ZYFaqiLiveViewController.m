@@ -22,7 +22,7 @@
 #import "ZYLiveListModel.h"
 #import "SelectImageViewController.h"
 #import "ZYZCWebViewController.h"
-@interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate, UIAlertViewDelegate>
+@interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate, UIAlertViewDelegate, ZYLiveViewControllerDelegate>
 /** 模糊效果 */
 @property (nonatomic, strong) UIVisualEffectView *backView;
 /** 封面 */
@@ -200,7 +200,7 @@
     _startLiveBtn.layer.masksToBounds = YES;
     [_startLiveBtn setTitle:@"开启直播" forState:UIControlStateNormal];
     [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_startLiveBtn addTarget:self action:@selector(clickStartLiveButtonAction) forControlEvents:UIControlEventTouchUpInside];
+    [_startLiveBtn addTarget:self action:@selector(startLive) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -346,7 +346,7 @@
     createLiveModel.img = self.uploadImgString;
     createLiveModel.chatRoomId = chatRoomId;
     ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] initLiveModel:createLiveModel];
-
+    liveVC.delegate = self;
     liveVC.targetId = chatRoomId;
     liveVC.pushUrl = pushUrl;
     liveVC.conversationType = ConversationType_CHATROOM;
@@ -405,6 +405,12 @@
         [defaults setBool:YES forKey:CREATE_LIVE_AGREEMENT];
         [defaults synchronize];
     }
+}
+
+#pragma mark - ZYLiveViewControllerDelegate
+- (void)backHomePage
+{
+    [self exitAction];
 }
 #pragma mark - 键盘高度改变通知
 #pragma mark --- 键盘出现

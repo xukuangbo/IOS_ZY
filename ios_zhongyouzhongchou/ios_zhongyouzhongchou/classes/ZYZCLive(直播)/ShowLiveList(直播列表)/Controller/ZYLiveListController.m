@@ -34,13 +34,15 @@ static NSString *ID = @"ZYLiveListCell";
     
     _viewModel = [[ZYLiveListViewModel alloc] init];
     //请求网络数据
-    [self getLiveListData];
+//    [self getLiveListData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getLiveListData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getLiveListData];
+    });
 }
 
 - (void)rightBtnAction
