@@ -20,6 +20,7 @@
 #import "UIView+ZYLayer.h"
 #import "MBProgressHUD+MJ.h"
 #import "ZYLiveListModel.h"
+#import "SelectImageViewController.h"
 @interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
 /** 模糊效果 */
 @property (nonatomic, strong) UIVisualEffectView *backView;
@@ -136,7 +137,6 @@
         make.right.equalTo(_bgImageView).offset(-10);
         make.height.mas_equalTo(_faceImg.mas_width).multipliedBy(9 / 20.0);
     }];
-    
     _faceImg.layerCornerRadius = 5;
     
     //封面的一个背景色
@@ -229,7 +229,7 @@
 {
     _imagePicker = [[UIImagePickerController alloc] init];
     _imagePicker.delegate = self;
-    //    _imagePicker.allowsEditing = YES;
+    _imagePicker.allowsEditing = NO;
     
     WEAKSELF
     //创建UIAlertController控制器
@@ -347,7 +347,7 @@
 {
     [self.view endEditing:YES];
 }
-#pragma mark ---exit
+
 - (void)exitAction
 {
     //退出控制器
@@ -356,15 +356,40 @@
 //    [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
-#pragma mark ---PickerDelegete
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0)
-{
-    self.faceImg.image = image;
-    
-    [picker dismissViewControllerAnimated:YES completion:nil];
+#pragma mark - PickerDelegete
+//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0)
+//{
+//    
+//    
+//    self.faceImg.image = image;
+//    
+//    [picker dismissViewControllerAnimated:YES completion:nil];
+//}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(NSString*)kUTTypeImage])
+    {
+        __weak typeof (&*self)weakSelf=self;
+        [picker dismissViewControllerAnimated:YES completion:^{
+            SelectImageViewController *selectImgVC=[[SelectImageViewController alloc]initWithImage:[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]] WHScale:(20 / 9.0)];
+            selectImgVC.imageBlock=^(UIImage *img)
+            {
+//                [ZYZCTool removeExistfile:ThemeImagePath];
+                weakSelf.faceImg.image=[ZYZCTool compressImage:img scale:0.1];
+//                // 将图片保存为png格式到documents中
+//                NSString *filePath=ThemeImagePath;
+//                [UIImagePNGRepresentation(img)
+//                 writeToFile:filePath atomically:YES];
+//                //将图片路径保存到单例中
+//                MoreFZCDataManager  *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
+//                manager.goal_travelThemeImgUrl=ThemeImagePath;
+            };
+            [weakSelf.navigationController pushViewController:selectImgVC animated:YES];
+        }];
+    }
 }
 
-#pragma mark ---UITextfieldDelegete
+#pragma mark - UITextfieldDelegete
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField endEditing:YES];
@@ -372,7 +397,7 @@
     return YES;
 }
 #pragma mark - 键盘高度改变通知
-#pragma mark --- 键盘出现和收起方法
+#pragma mark --- 键盘出现
 -(void)keyboardWillShow:(NSNotification *)notify
 {
     NSDictionary *dic = notify.userInfo;
@@ -383,7 +408,7 @@
         make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height-10);
     }];
 }
-
+#pragma mark - 键盘收起方法
 -(void)keyboardWillHidden:(NSNotification *)notify
 {
     [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {

@@ -10,7 +10,7 @@
 #import "UINavigationBar+Background.h"
 #import "FXBlurView.h"
 
-#define selectImagescrollViewH (KSCREEN_W / 16.0 * 10)
+//#define selectImagescrollViewH (KSCREEN_W / 16.0 * 10)
 #define selectImageTabbarH 88
 
 @interface SelectImageViewController ()<UIScrollViewDelegate>
@@ -22,13 +22,13 @@
 
 @implementation SelectImageViewController
 #pragma mark - 系统方法
-- (instancetype)initWithImage:(UIImage *)image
+- (instancetype)initWithImage:(UIImage *)image WHScale:(CGFloat)WHScale
 {
     self = [super init];
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
         self.automaticallyAdjustsScrollViewInsets = NO;
-        
+        self.WHScale = WHScale;
         [self setBackItem];
         self.title = @"编辑封面图片";
         _selectImage = image;
@@ -60,7 +60,7 @@
 {
     //1.0先创建中间的透明图
     UIScrollView *scrollView = [[UIScrollView alloc] init];
-    scrollView.size = CGSizeMake(KSCREEN_W,selectImagescrollViewH);
+    scrollView.size = CGSizeMake(KSCREEN_W,KSCREEN_W / self.WHScale);
     scrollView.center = self.view.center;
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.delegate = self;
@@ -79,12 +79,12 @@
     CGFloat imageViewH;
     CGFloat imageViewW;
     UIImageView *imageView = [[UIImageView alloc] init];
-    if (_selectImage.size.width > _selectImage.size.height * 16.0 / 10) {
+    if (_selectImage.size.width > _selectImage.size.height * self.WHScale) {
         //倍数
-        _scale = _selectImage.size.height / selectImagescrollViewH;
+        _scale = _selectImage.size.height / (KSCREEN_W / self.WHScale);
         _isVertical = NO;
         //高度
-        imageViewH = selectImagescrollViewH;
+        imageViewH = (KSCREEN_W / self.WHScale);
         //宽度
         imageViewW = _selectImage.size.width / _scale;
         
@@ -107,7 +107,7 @@
     }
     
     imageView.image=_selectImage;
-//    imageView.backgroundColor = [UIColor redColor];
+    //    imageView.backgroundColor = [UIColor redColor];
     imageView.contentMode=UIViewContentModeScaleAspectFit;
     [scrollView addSubview:imageView];
     imageView.userInteractionEnabled = YES;
@@ -170,7 +170,7 @@
     UIView *tabbarView = [[UIView alloc] initWithFrame:CGRectMake(0, KSCREEN_H-KTABBAR_HEIGHT, KSCREEN_W,KTABBAR_HEIGHT)];
     tabbarView.backgroundColor = [UIColor blackColor];
     [self.view addSubview:tabbarView];
-
+    
     
     //3.0创建底部阴影图
     CGFloat bottomBlurViewY = self.scrollView.bottom;
@@ -198,10 +198,6 @@
     
 }
 
-
-
-
-
 /**
  *  确定按钮的点击事件
  */
@@ -213,31 +209,31 @@
     
     //考虑到手势放大后的宽度会变，所以先用一个临时的值来存取这个宽度
     
-//    NSLog(@"%@",NSStringFromCGPoint(self.scrollView.contentOffset));
+    //    NSLog(@"%@",NSStringFromCGPoint(self.scrollView.contentOffset));
     
     UIImageView *newImgview = [[UIImageView alloc] initWithImage:srcimg];
     
-//    NSInteger scale = [ZYZCTool deviceVersion];
+    //    NSInteger scale = [ZYZCTool deviceVersion];
     CGRect rect;
     if (_isVertical == YES) {
         rect.origin.x = 0;
         rect.origin.y = (self.scrollView.contentOffset.y ) * _scale;
         rect.size.width = _selectImage.size.width;
-        rect.size.height = _selectImage.size.width * 9 / 16.0;
+        rect.size.height = _selectImage.size.width / self.WHScale;
     }else{
         rect.origin.x = (self.scrollView.contentOffset.x) * _scale;
         rect.origin.y = 0;
-        rect.size.width = _selectImage.size.height / 9 * 16;
+        rect.size.width = _selectImage.size.height * self.WHScale;
         rect.size.height = _selectImage.size.height;
     }
-//    rect.origin.x = (self.scrollView.contentOffset.x) * (srcimg.size.width / KSCREEN_W);
-//    rect.origin.y = (self.scrollView.contentOffset.y ) * (srcimg.size.height / KSCREEN_H);
-//    rect.size.width = _selectImage.size.width;
-//    rect.size.height = _selectImage.size.width * 9 / 16.0;
-//    rect.size.width = self.scrollView.bounds.size.width * (srcimg.size.width / KSCREEN_W);
-//    rect.size.height = self.scrollView.bounds.size.height * (srcimg.size.height / KSCREEN_H);//要裁剪的图片区域，按照原图的像素大小来，超过原图大小的边自动适配
+    //    rect.origin.x = (self.scrollView.contentOffset.x) * (srcimg.size.width / KSCREEN_W);
+    //    rect.origin.y = (self.scrollView.contentOffset.y ) * (srcimg.size.height / KSCREEN_H);
+    //    rect.size.width = _selectImage.size.width;
+    //    rect.size.height = _selectImage.size.width * 9 / 16.0;
+    //    rect.size.width = self.scrollView.bounds.size.width * (srcimg.size.width / KSCREEN_W);
+    //    rect.size.height = self.scrollView.bounds.size.height * (srcimg.size.height / KSCREEN_H);//要裁剪的图片区域，按照原图的像素大小来，超过原图大小的边自动适配
     
-//    NSLog(@"%@-----%f",NSStringFromCGRect(rect),zoomScale);
+    //    NSLog(@"%@-----%f",NSStringFromCGRect(rect),zoomScale);
     
     CGImageRef cgimg = CGImageCreateWithImageInRect(_selectImage.CGImage, rect);
     newImgview.image = [UIImage imageWithCGImage:cgimg];

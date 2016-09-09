@@ -117,7 +117,7 @@
     }
     
     if (walletMingXiModel.style == 1) {
-        _styleLabel.text = [NSString stringWithFormat:@"支持%d元",(int)walletMingXiModel.buyPrice];
+        _styleLabel.text = [NSString stringWithFormat:@"支持%.0f元",(int)walletMingXiModel.buyPrice / 100.0];
     }else if(walletMingXiModel.style == 2){
         _styleLabel.text = @"支持任意金额";
     }else if(walletMingXiModel.style == 3){

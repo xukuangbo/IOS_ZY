@@ -13,7 +13,8 @@ typedef void(^ImageBlock)(UIImage *);
 @interface SelectImageViewController : ZYZCBaseViewController
 
 
-- (instancetype)initWithImage:(UIImage *)image;
+- (instancetype)initWithImage:(UIImage *)image WHScale:(CGFloat)WHScale;
 @property (nonatomic, copy)  ImageBlock imageBlock; 
 @property (nonatomic, strong)  UIImage *selectImage;
+@property (nonatomic, assign) CGFloat WHScale;
 @end
