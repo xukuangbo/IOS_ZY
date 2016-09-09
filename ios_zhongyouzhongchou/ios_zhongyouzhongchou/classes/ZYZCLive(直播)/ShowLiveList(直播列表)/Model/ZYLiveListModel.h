@@ -41,4 +41,6 @@
 @property (nonatomic, copy) NSString *pullUrl;
 /** 直播列表 */
 @property (nonatomic, copy) NSString *chatRoomId;
+/** 性别 */
+@property (nonatomic, copy) NSString *sex;
 @end
