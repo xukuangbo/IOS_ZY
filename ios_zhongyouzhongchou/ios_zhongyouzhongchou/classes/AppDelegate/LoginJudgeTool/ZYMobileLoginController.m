@@ -272,7 +272,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool getHttpDataByURL:LOGIN_BY_MOBILE(_textField.text, _codeText.text) withSuccessGetBlock:^(id result, BOOL isSuccess)
     {
-//        NSLog(@"%@",result);
+//        DDLog(@"%@",result);
         [MBProgressHUD hideHUDForView:self.view];
         if (isSuccess) {
             //如果没有用户信息，填写用户信息

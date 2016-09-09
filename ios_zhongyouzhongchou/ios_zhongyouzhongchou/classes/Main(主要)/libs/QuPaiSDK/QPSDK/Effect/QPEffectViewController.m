@@ -235,9 +235,9 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
              _deviceAngle = 270;
          }
          
-         if (oldAngle != _deviceAngle) {
-             self.qpEffectView.deviceAngle=_deviceAngle;
-        }
+//         if (oldAngle != _deviceAngle) {
+//             self.qpEffectView.deviceAngle=_deviceAngle;
+//        }
     }];
 }
 

@@ -195,7 +195,7 @@
     [ZYZCHTTPTool getHttpDataByURL:urlStr withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
-        DDLog(@"productDetail:%@",result);
+//        DDLog(@"productDetail:%@",result);
         if (isSuccess) {
             
             _detailModel=[[ZCDetailModel alloc]mj_setKeyValues:result];

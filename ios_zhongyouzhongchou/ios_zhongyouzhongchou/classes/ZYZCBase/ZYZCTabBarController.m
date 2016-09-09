@@ -57,11 +57,23 @@
     UIView *coverView= [[UIView alloc]initWithFrame:CGRectMake(KSCREEN_W/2-40, 0, 80, self.tabBar.height)];
     [self.tabBar addSubview:coverView];
     
-    CGFloat centerBtnWidth=55;
+    CGFloat width=46;
+    CGFloat lineImgWidth=(KSCREEN_W-width)/2;
+    
+    UIImageView *img01=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, lineImgWidth, 0.5)];
+    img01.image=KPULLIMG(@"tab-line", 0, 3, 0, 3);
+    [self.tabBar addSubview:img01];
+    
+    UIImageView *img02=[[UIImageView alloc]initWithFrame:CGRectMake(KSCREEN_W-lineImgWidth, 0, lineImgWidth, 0.5)];
+    img02.image=KPULLIMG(@"tab-line", 0, 3, 0, 3);
+    [self.tabBar addSubview:img02];
+
+    
+    CGFloat centerBtnWidth=60;
     UIButton *moreBtn= [UIButton buttonWithType:UIButtonTypeCustom];
-    moreBtn.frame=CGRectMake(KSCREEN_W/2-centerBtnWidth/2,self.tabBar.height-centerBtnWidth-5, centerBtnWidth, centerBtnWidth);
+    moreBtn.frame=CGRectMake(KSCREEN_W/2-centerBtnWidth/2,self.tabBar.height-centerBtnWidth, centerBtnWidth, centerBtnWidth);
     [moreBtn addTarget:self action:@selector(clickCenterItem:) forControlEvents:UIControlEventTouchUpInside];
-    [moreBtn setBackgroundImage:[UIImage imageNamed:@"camera"] forState:UIControlStateNormal];
+    [moreBtn setBackgroundImage:[UIImage imageNamed:@"tab_camera"] forState:UIControlStateNormal];
     [self.tabBar addSubview:moreBtn];
     
     

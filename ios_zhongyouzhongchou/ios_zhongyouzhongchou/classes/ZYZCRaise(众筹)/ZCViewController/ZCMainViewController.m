@@ -34,6 +34,7 @@
 @property (nonatomic, assign) int                sex;
 
 @property (nonatomic, strong) UISearchBar        *searchBar;//搜索栏
+@property (nonatomic, strong) UIButton           *navRightBtn;//发众筹按钮
 @property (nonatomic, assign) BOOL               getSearch; //是否是搜索数据
 
 @end
@@ -55,12 +56,23 @@
 {
     //nav左右两边按钮创建
     [self customNavWithLeftBtnImgName:@"nav_r"
-                      andRightImgName:@"addLive"
+                      andRightImgName:nil
                         andLeftAction:@selector(clickLeftNavBtn)
-                       andRightAction:@selector(clickRightNavBtn)];
+                       andRightAction:nil];
+    
+    UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
+//    navRightBtn.backgroundColor=[UIColor orangeColor];
+    [navRightBtn setTitle:@"发众筹" forState:UIControlStateNormal];
+    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+//    navRightBtn.titleLabel.textAlignment=NSTextAlignmentRight;
+    [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [navRightBtn addTarget:self action:@selector(clickRightNavBtn) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:navRightBtn];
+    _navRightBtn=navRightBtn;
     
     //添加搜索框
-    CGFloat searchBar_width=KSCREEN_W-100;
+    CGFloat searchBar_width=KSCREEN_W-120;
     _searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake((KSCREEN_W-searchBar_width)/2, 4, searchBar_width, 30)];
     _searchBar.delegate=self;
 //    _searchBar.alpha=0.5;
@@ -478,6 +490,7 @@
     _titleView.hidden=YES;
     _fitersView.hidden=YES;
     _searchBar.hidden=YES;
+    _navRightBtn.hidden=YES;
     if (self.searchBar.isFirstResponder) {
         [self.searchBar resignFirstResponder];
     }
@@ -487,8 +500,9 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
-    _titleView.hidden = YES ;
-    _searchBar.hidden=NO;
+    _titleView.hidden   = YES ;
+    _searchBar.hidden   = NO  ;
+    _navRightBtn.hidden = NO  ;
     [_table reloadData];
 }
 
