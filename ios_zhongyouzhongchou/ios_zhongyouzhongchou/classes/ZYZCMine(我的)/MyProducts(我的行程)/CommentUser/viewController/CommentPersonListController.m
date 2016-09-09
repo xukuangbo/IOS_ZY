@@ -47,7 +47,7 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool getHttpDataByURL:httpUrl01 withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [NetWorkManager hideFailViewForView:self.view];
-//        NSLog(@"一起游：%@",result);
+        DDLog(@"一起游：%@",result);
         if (isSuccess) {
             TogetherUersModel *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
               weakSelf.table.myTogetherList=togetherUersModel.users;
@@ -84,7 +84,7 @@
 //    NSLog(@"%@",httpUrl02);
     [ZYZCHTTPTool getHttpDataByURL:httpUrl02 withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"回报：%@",result);
+        DDLog(@"回报：%@",result);
         if (isSuccess) {
             TogetherUersModel *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
             _table.myReturnList=togetherUersModel.users;

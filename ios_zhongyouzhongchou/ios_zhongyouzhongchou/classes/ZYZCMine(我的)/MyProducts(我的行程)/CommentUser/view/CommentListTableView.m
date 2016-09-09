@@ -39,6 +39,10 @@
         if (_myTogetherList.count) {
             return _myTogetherList.count*2-1;
         }
+        else if (_myReturnList.count)
+        {
+            return _myReturnList.count*2-1;
+        }
         return 0;
     }
     else
@@ -56,6 +60,21 @@
                 partnerCell.partnerModel=_myTogetherList[indexPath.row/2];
                 partnerCell.productId=_productId;
                 partnerCell.commentType=CommentToghterPartner;
+                return partnerCell;
+            }
+            else
+            {
+                ZYZCBaseTableViewCell *normalCell=(ZYZCBaseTableViewCell *)[ZYZCBaseTableViewCell createNormalCell];
+                return normalCell;
+            }
+        }
+        else if (_myReturnList.count)
+        {
+            if (indexPath.row%2==0) {
+                PartnerTableCell *partnerCell=(PartnerTableCell *)[PartnerTableCell customTableView:tableView cellWithIdentifier:@"returnCell" andCellClass:[PartnerTableCell class]];
+                partnerCell.partnerModel=_myReturnList[indexPath.row/2];
+                partnerCell.productId=_productId;
+                partnerCell.commentType=CommentReturnPerson;
                 return partnerCell;
             }
             else
@@ -99,6 +118,17 @@
                 return KEDGE_DISTANCE;
             }
         }
+        else if (_myReturnList.count)
+        {
+            if (indexPath.row%2==0) {
+                return PARTYNER_CELL_HEIGHT;
+            }
+            else
+            {
+                return KEDGE_DISTANCE;
+            }
+        }
+
         else
         {
             return 0.0;
@@ -123,6 +153,15 @@
             UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, KSCREEN_W, 40)];
             UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, KSCREEN_W-KEDGE_DISTANCE, 40)];
             lab.text=@"一起游";
+            lab.font=[UIFont systemFontOfSize:17];
+            lab.textColor=[UIColor ZYZC_TextBlackColor];
+            [view addSubview:lab];
+            return  view;
+        }
+        else if (_myReturnList.count) {
+            UIView *view=[[UIView alloc]initWithFrame:CGRectMake(0, 0, KSCREEN_W, 40)];
+            UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, KSCREEN_W-KEDGE_DISTANCE, 40)];
+            lab.text=@"回报";
             lab.font=[UIFont systemFontOfSize:17];
             lab.textColor=[UIColor ZYZC_TextBlackColor];
             [view addSubview:lab];
