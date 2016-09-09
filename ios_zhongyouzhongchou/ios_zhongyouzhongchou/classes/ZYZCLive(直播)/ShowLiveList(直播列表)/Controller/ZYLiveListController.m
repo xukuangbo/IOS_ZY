@@ -150,7 +150,7 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80 +  KSCREEN_W - 20 + 10;
+    return 80 +  KSCREEN_W / 16.0 * 9 - 20 + 10;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

@@ -9,7 +9,6 @@
 #define BTN_FIRST_TAG 1000
 
 #import "ChooseSceneImgController.h"
-#import "SelectImageViewController.h"
 #import "ZYChooseNetImgTable.h"
 #import "MBProgressHUD+MJ.h"
 #import "NetWorkManager.h"
