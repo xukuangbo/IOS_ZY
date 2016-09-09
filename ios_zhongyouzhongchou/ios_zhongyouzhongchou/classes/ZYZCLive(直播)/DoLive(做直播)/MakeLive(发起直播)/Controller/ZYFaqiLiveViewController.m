@@ -138,6 +138,7 @@
         make.height.mas_equalTo(_faceImg.mas_width).multipliedBy(9 / 20.0);
     }];
     _faceImg.layerCornerRadius = 5;
+    [_faceImg addTarget:self action:@selector(changeFaceImgAction)];
     
     //封面的一个背景色
     UIView *faceColorBg = [UIView new];
@@ -159,9 +160,7 @@
     _faceTextLabel.textColor = [UIColor whiteColor];
     _faceTextLabel.text = @"点击上传封面";
     
-    
-    
-//    //标题,暂时用个label,后面用textfield
+    //标题,暂时用个label,后面用textfield
     _titleTextfield = [UITextField new];
     [_bgImageView addSubview:_titleTextfield];
     [_titleTextfield mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -309,11 +308,11 @@
 //请求直播
 - (void)requestLive
 {
-//    //必须填写标题
-//    if(self.titleTextfield.text.length <= 0){
-//        [self showHintWithText:@"请填写标题"];
-//        return ;
-//    }
+    //必须有封面
+    if(self.faceImg.image == nil){
+        [self showHintWithText:@"请选择封面图片"];
+        return ;
+    }
     
     QPLiveRequest *request = [[QPLiveRequest alloc] init];
     WEAKSELF
@@ -370,15 +369,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 #pragma mark - PickerDelegete
-//- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(nullable NSDictionary<NSString *,id> *)editingInfo NS_DEPRECATED_IOS(2_0, 3_0)
-//{
-//    
-//    
-//    self.faceImg.image = image;
-//    
-//    [picker dismissViewControllerAnimated:YES completion:nil];
-//}
-
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(NSString*)kUTTypeImage])
     {
@@ -387,15 +377,7 @@
             SelectImageViewController *selectImgVC=[[SelectImageViewController alloc]initWithImage:[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]] WHScale:(20 / 9.0)];
             selectImgVC.imageBlock=^(UIImage *img)
             {
-//                [ZYZCTool removeExistfile:ThemeImagePath];
                 weakSelf.faceImg.image=[ZYZCTool compressImage:img scale:0.1];
-//                // 将图片保存为png格式到documents中
-//                NSString *filePath=ThemeImagePath;
-//                [UIImagePNGRepresentation(img)
-//                 writeToFile:filePath atomically:YES];
-//                //将图片路径保存到单例中
-//                MoreFZCDataManager  *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
-//                manager.goal_travelThemeImgUrl=ThemeImagePath;
             };
             [weakSelf.navigationController pushViewController:selectImgVC animated:YES];
         }];
@@ -429,6 +411,9 @@
     NSDictionary *dic = notify.userInfo;
     NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
     CGFloat height=value.CGRectValue.size.height;
+    if (height < 100) {
+        height = 100;
+    }
     
     [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height-10);
@@ -448,6 +433,9 @@
     NSDictionary *dic = notify.userInfo;
     NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
     CGFloat height=value.CGRectValue.size.height;
+    if (height < 100) {
+        height = 100;
+    }
     
     [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height - 10);
