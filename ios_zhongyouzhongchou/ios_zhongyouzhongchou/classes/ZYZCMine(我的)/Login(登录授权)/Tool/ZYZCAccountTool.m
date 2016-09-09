@@ -11,6 +11,14 @@
 #import "ZYZCAccountModel.h"
 #import "MediaUtils.h"
 #import "ZYZCRCManager.h"
+
+#import "ZYZCRCManager.h"
+#import "JPUSHService.h"
+#import  <QPSDKCore/QPSDKCore.h>
+
+#define  kQPAppKey     @"20a9a463ed1796c"
+#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
+
 @implementation ZYZCAccountTool
 /**
  *  存储账号信息
@@ -21,6 +29,25 @@
 {
     // 自定义对象的存储必须用NSKeyedArchiver，不再有什么writeToFile方法
     [NSKeyedArchiver archiveRootObject:account toFile:HWAccountPath];
+    
+    if (account.userId) {
+        //注册趣拍
+        [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
+            DDLog(@"access token : %@", accessToken);
+        } failure:^(NSError *error) {
+            DDLog(@"failed : %@", error.description);
+        }];
+    
+        //注册成功,获取融云token
+        ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
+        RCManager.hasLogin=NO;
+        [RCManager getRCloudToken];
+        
+        //注册JPush别名,两个都为nil表示不调用回调，即不去验证是否注册成功
+        [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",account.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+            //NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags , iAlias);
+        }];
+    }
 }
 
 #pragma mark --- 取我的userId

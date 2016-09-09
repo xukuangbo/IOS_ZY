@@ -14,8 +14,6 @@
 #import "FinishBaseInfoController.h"
 #import "FXBlurView.h"
 #import "ZYCustomIconView.h"
-#import "ZYZCRCManager.h"
-#import "JPUSHService.h"
 @interface FinishBaseInfoController ()<UITextFieldDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) ZYCustomIconView *faceImgView;
 @property (nonatomic, strong) UIImageView      *infoView;
@@ -264,17 +262,6 @@
              __weak typeof (&*self)weakSelf=self;
              
              [self dismissViewControllerAnimated:NO completion:^{
-                 
-                 //获取融云token
-                 ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
-                 RCManager.hasLogin=NO;
-                 [RCManager getRCloudToken];
-                 
-                 //注册JPush别名,两个都为nil表示不调用回调，即不去验证是否注册成功
-                 [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",accountModel.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-                     DDLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags , iAlias);
-                 }];
-                 
                  //更换根控制器
                  [weakSelf getRootViewController];
                  

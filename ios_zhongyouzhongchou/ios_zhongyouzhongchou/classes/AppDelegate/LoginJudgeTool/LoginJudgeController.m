@@ -10,8 +10,6 @@
 #import "WXApiManager.h"
 #import "ZYZCTabBarController.h"
 #import "ZYZCAccountTool.h"
-#import "ZYZCRCManager.h"
-#import "JPUSHService.h"
 #import "WXApi.h"
 #import "TTTAttributedLabel.h"
 #import <CoreLocation/CoreLocation.h>
@@ -290,16 +288,6 @@
             //保存个人信息到本地
             [ZYZCAccountTool saveAccount:accountModel];
             
-            //注册成功,获取融云token
-            ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
-            RCManager.hasLogin=NO;
-            [RCManager getRCloudToken];
-            
-            //注册JPush别名,两个都为nil表示不调用回调，即不去验证是否注册成功
-            //            [JPUSHService setAlias:accountModel.openid callbackSelector:nil object:nil];
-            [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",accountModel.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-                //                NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags , iAlias);
-            }];
             //这里应该修改根控制器
             [LoginJudgeTool rootJudgeLogin];
         }
