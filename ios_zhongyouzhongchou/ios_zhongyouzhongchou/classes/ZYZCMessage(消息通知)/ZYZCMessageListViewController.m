@@ -16,6 +16,7 @@
 @property (nonatomic, assign) int pageNo;
 @property (nonatomic, strong) MsgListTableView *table;
 @property (nonatomic, strong) NSMutableArray   *listArr;
+@property (nonatomic, strong) UIView           *noneDataView;
 @end
 
 @implementation ZYZCMessageListViewController
@@ -51,7 +52,25 @@
         weakSelf.pageNo++;
         [weakSelf getHttpData];
     };
+    
+    [self createNoneDataView];
 }
+
+#pragma mark --- 创建空界面
+-(void)createNoneDataView
+{
+    _noneDataView=[[UIView alloc]initWithFrame:self.view.bounds];
+    _noneDataView.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:_noneDataView];
+    UILabel *lab=[[UILabel alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 64+40, _noneDataView.width-2*KEDGE_DISTANCE, 20)];
+    lab.text=@"暂时没有任何数据～";
+    lab.textColor=[UIColor ZYZC_TextBlackColor];
+    lab.font=[UIFont systemFontOfSize:15];
+    lab.textAlignment=NSTextAlignmentCenter;
+    [_noneDataView addSubview:lab];
+    _noneDataView.hidden=YES;
+}
+
 
 #pragma mark --- 获取数据
 -(void)getHttpData
@@ -84,6 +103,15 @@
         }
         
         _table.dataArr = _listArr;
+        
+        if (!_listArr.count) {
+            _noneDataView.hidden=NO;
+        }
+        else
+        {
+            _noneDataView.hidden=YES;
+        }
+        
         [_table reloadData];
     }
     andFailBlock:^(id failResult)

@@ -26,7 +26,9 @@
 
 #define kCBottomViewHeight    120
 
-@interface QPEffectView()
+#define kSaveVideoAlertTag    100
+
+@interface QPEffectView()<UIAlertViewDelegate>
 
 @property (nonatomic, strong) UILabel *topLab;
 
@@ -274,7 +276,11 @@
     }
     
     if ([sender isEqual:self.buttonFinish] && _delegate && [_delegate respondsToSelector:@selector(onClickButtonFinishAction:)]) {
-        [_delegate onClickButtonFinishAction:sender];
+        
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"是否保存到手机相册?" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+        alert.tag=kSaveVideoAlertTag;
+        [alert show];
+        
     }
     
     if ([sender isEqual:self.buttonPlayOrPause] && _delegate && [_delegate respondsToSelector:@selector(onCLickButtonPlayOrPauseAction:)]) {
@@ -299,6 +305,21 @@
     }
 }
 
+#pragma mark --- alertView代理方法
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==kSaveVideoAlertTag) {
+        if (buttonIndex==0) {
+             [_delegate onClickButtonFinishAction:self.buttonFinish];
+        }
+        else if (buttonIndex==1)
+        {
+            [self.viewController dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+}
+
+#pragma mark --- 屏幕方向切换
 -(void)setDeviceAngle:(NSInteger)deviceAngle
 {
     

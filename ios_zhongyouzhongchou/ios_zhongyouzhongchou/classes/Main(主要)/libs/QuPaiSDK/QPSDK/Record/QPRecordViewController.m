@@ -587,15 +587,15 @@ extern BOOL QPAuthRequestSended;
              [_focusView refreshPosition];
          }
          
-         [UIView animateWithDuration:0.3 animations:^{
-             CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI/180.0 * _deviceAngle);
-             self.qpRecordView.buttonClose.transform = transform;
-             self.qpRecordView.buttonPosition.transform = transform;
-             self.qpRecordView.buttonSkin.transform = transform;
-             self.qpRecordView.buttonTime.transform = transform;
-             self.qpRecordView.buttonLibrary.transform = transform;
-             self.qpRecordView.buttonFinish.transform = transform;
-         }];
+//         [UIView animateWithDuration:0.3 animations:^{
+//             CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI/180.0 * _deviceAngle);
+//             self.qpRecordView.buttonClose.transform = transform;
+//             self.qpRecordView.buttonPosition.transform = transform;
+//             self.qpRecordView.buttonSkin.transform = transform;
+//             self.qpRecordView.buttonTime.transform = transform;
+//             self.qpRecordView.buttonLibrary.transform = transform;
+//             self.qpRecordView.buttonFinish.transform = transform;
+//         }];
      }];
 }
 

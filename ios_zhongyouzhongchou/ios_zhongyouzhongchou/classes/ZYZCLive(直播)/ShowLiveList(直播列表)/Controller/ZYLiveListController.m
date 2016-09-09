@@ -15,10 +15,16 @@
 #import "ZYWatchLiveViewController.h"
 #import "ZYLiveViewController.h"
 #import "ZYFaqiLiveViewController.h"
+#import "EntryPlaceholderView.h"
 @interface ZYLiveListController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *listArray;
 @property (nonatomic, assign) NSInteger pageNo;
+/** 无数据占位图 */
+@property (nonatomic, strong) EntryPlaceholderView *entryView;
+
+@property (nonatomic, strong) UIButton           *navRightBtn;
+
 @end
 static NSString *ID = @"ZYLiveListCell";
 
@@ -39,10 +45,17 @@ static NSString *ID = @"ZYLiveListCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    _navRightBtn.hidden=NO;
     [super viewWillAppear:animated];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self getLiveListData];
     });
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _navRightBtn.hidden=YES;
 }
 
 - (void)rightBtnAction
@@ -55,7 +68,19 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - setup
 - (void)setupView
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addLive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBtnAction)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addLive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBtnAction)];
+    
+    UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
+    //    navRightBtn.backgroundColor=[UIColor orangeColor];
+    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
+    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+    //    navRightBtn.titleLabel.textAlignment=NSTextAlignmentRight;
+    [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [navRightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationController.navigationBar addSubview:navRightBtn];
+    _navRightBtn=navRightBtn;
+
 //    
 //    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
 //    [button setImage:[UIImage imageNamed:@"addLive"] forState:UIControlStateNormal];
@@ -67,6 +92,10 @@ static NSString *ID = @"ZYLiveListCell";
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
+    
+    self.entryView = [EntryPlaceholderView viewWithSuperView:self.tableView type:EntryTypeLiveList];
+//    self.entryView.userInteractionEnabled = NO;
+    self.entryView.hidden = YES;
 }
 
 #pragma mark - network
@@ -81,17 +110,21 @@ static NSString *ID = @"ZYLiveListCell";
         if (weakSelf.viewModel.refreshType == RefreshTypeHead) {//下拉刷新
             
             if (tempArray.count > 0) {
+                
+                weakSelf.entryView.hidden = YES;
                 weakSelf.listArray = tempArray;
                 weakSelf.pageNo = 2;
                 [weakSelf.tableView reloadData];
                 
             }else{
+                weakSelf.entryView.hidden = NO;
                 weakSelf.listArray = nil;
                 [weakSelf.tableView reloadData];
             }
         }else{//上啦加载更多
             if (tempArray.count > 0) {
                 
+                weakSelf.entryView.hidden = YES;
                 [weakSelf.listArray addObjectsFromArray:tempArray];
                 
                 [weakSelf.tableView reloadData];
@@ -123,6 +156,8 @@ static NSString *ID = @"ZYLiveListCell";
     
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //移除占位view
+//        weakSelf.entryView.hidden = YES;
         [weakSelf.viewModel headRefreshData];
     }];
 }

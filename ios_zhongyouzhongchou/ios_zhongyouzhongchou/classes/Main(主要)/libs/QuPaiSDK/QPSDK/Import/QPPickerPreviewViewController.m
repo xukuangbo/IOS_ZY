@@ -178,7 +178,7 @@
     QPPickerPreviewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"QPPickerPreviewCell" forIndexPath:indexPath];
     QPLibrarayItem *item = _array[indexPath.row];
     
-    NSInteger duration = (int)ceil(item.duration);
+    NSInteger duration = (int)(item.duration);
     cell.labelDuration.text = [NSString stringWithFormat:@"%02zd:%02zd",(int)duration/60, duration%60];
     cell.imageViewIcon.image = item.image;
     cell.imageViewFlag.image = [self imageForVideoSubtype:item.type];

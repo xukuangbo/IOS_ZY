@@ -123,6 +123,7 @@ static QupaiSDK *_qupaiSDK = nil;
     QPVideo *video = nil;
     BOOL videoIsDraft = NO;
     BOOL videoNeedToEffectView = NO;
+    
     if (QPSave.shared.draftVideoPackName) {
         video = [[QPVideo alloc] initWithPack:[QPVideo videoFullPathForVideoPackName:QPSave.shared.draftVideoPackName]];
         videoIsDraft = YES;
@@ -139,6 +140,7 @@ static QupaiSDK *_qupaiSDK = nil;
     // 上传应用信息
 //    [self uploadAppInfo];
     [self uploadUsageInfo];
+    
     [[QPEventManager shared] event:QPEventStart];
     
     return controller;
