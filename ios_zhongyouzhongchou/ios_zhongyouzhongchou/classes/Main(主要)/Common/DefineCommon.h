@@ -139,7 +139,8 @@
 #define KOPEN_SOUND_ALERT            @"openSoundAlert"
 //是否开启震动提醒
 #define KOPEN_SHAKE_ALERT            @"openShakeAlert"
-
+//是否同意创建直播协议
+#define CREATE_LIVE_AGREEMENT        @"createLiveAgreement"
 
 //图片拉伸
 #define KPULLIMG(IMGNAME,TOP,LEFT,BOTTOM,RIGHT) [[UIImage imageNamed:IMGNAME]resizableImageWithCapInsets:UIEdgeInsetsMake(TOP, LEFT, BOTTOM, RIGHT) resizingMode:UIImageResizingModeStretch]

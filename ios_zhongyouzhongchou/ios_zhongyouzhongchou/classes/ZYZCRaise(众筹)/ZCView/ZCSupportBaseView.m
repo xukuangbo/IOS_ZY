@@ -122,7 +122,7 @@
     
     //更多按钮
     _morePeopleBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    _morePeopleBtn.frame=CGRectMake(self.width-80, _hasSupportLab.top, 80, 40) ;
+    _morePeopleBtn.frame=CGRectMake(self.width-80, _hasSupportLab.top, 80, 30) ;
     [_morePeopleBtn addTarget:self action:@selector(morePeople) forControlEvents:UIControlEventTouchUpInside];
     _morePeopleBtn.hidden=YES;
     [_otherViews addSubview:_morePeopleBtn];
