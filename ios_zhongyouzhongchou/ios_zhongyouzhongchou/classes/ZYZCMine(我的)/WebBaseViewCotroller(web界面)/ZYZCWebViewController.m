@@ -49,7 +49,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupConstraints];
-    
+    [self setBackItem];
+
     // load data
     [self loadUrlRequest];
 }
