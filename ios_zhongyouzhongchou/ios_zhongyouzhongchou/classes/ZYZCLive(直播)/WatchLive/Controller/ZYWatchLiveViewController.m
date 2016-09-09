@@ -446,7 +446,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
             // 数据排重
             for (ChatBlackListModel* dataModel in dataArray) {
                 for (ChatBlackListModel*userListModel in weakSelf.userList) {
-                    if (dataModel.userId == userListModel.userId) {
+                    if ([[NSString stringWithFormat:@"%@", dataModel.userId] isEqualToString:[NSString stringWithFormat:@"%@", userListModel.userId]]) {
                         [shouldDeleteArray addObject:userListModel];
                     }
                 }
