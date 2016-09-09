@@ -36,6 +36,7 @@
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:publishBtn];
 }
 
+#pragma mark ---  发布足迹👣
 -(void)publishMyFootprint
 {
     

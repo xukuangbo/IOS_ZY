@@ -15,8 +15,7 @@
 
 #import "ZYMobileLoginController.h"
 #import "FinishBaseInfoController.h"
-#import "ZYZCRCManager.h"
-#import "JPUSHService.h"
+
 @interface ZYMobileLoginController ()<UITextFieldDelegate,UIAlertViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView  *scroll;
@@ -290,18 +289,7 @@
                 //回到首页
                 __weak typeof (&*self)weakSelf=self;
                 [self dismissViewControllerAnimated:NO completion:^{
-                    
                     [weakSelf getRootViewController];
-                    //获取融云token
-                    ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
-                    RCManager.hasLogin=NO;
-                    [RCManager getRCloudToken];
-                    
-                    //注册JPush别名,两个都为nil表示不调用回调，即不去验证是否注册成功
-                    [JPUSHService setTags:nil alias:[NSString stringWithFormat:@"%@",accountModel.userId] fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
-                        DDLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, iTags , iAlias);
-                    }];
-
                 }];
             }
         }

@@ -602,10 +602,8 @@
                 ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
                 accountModel.realName=parameter[@"realName"];
                 accountModel.faceImg =parameter[@"faceImg"];
+                
                 [ZYZCAccountTool saveAccount:accountModel];
-                ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
-                RCManager.hasLogin=NO;
-                [RCManager getRCloudToken];
             }
             
         } andFailBlock:^(id failResult) {
