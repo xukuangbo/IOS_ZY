@@ -13,7 +13,8 @@ typedef enum : NSUInteger {
     EntryTypeHuibao,
     EntryTypeSixin,
     EntryTypeXiangquDest,
-    EntryTypeGuanzhuDaren
+    EntryTypeGuanzhuDaren,
+    EntryTypeLiveList
 } EntryType;
 
 @interface EntryPlaceholderView : UIView

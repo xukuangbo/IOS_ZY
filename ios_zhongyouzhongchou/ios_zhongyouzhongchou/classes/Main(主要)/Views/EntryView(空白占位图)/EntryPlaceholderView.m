@@ -33,6 +33,9 @@
     }else if (entryType == EntryTypeGuanzhuDaren) {
         image = [UIImage imageNamed:@"guanzhudaren_zwt"];
         title = @"关注旅行达人可以获取他们的动态信息\n快去关注吧";
+    }else if (entryType == EntryTypeLiveList) {
+//        image = [UIImage imageNamed:@"guanzhudaren_zwt"];
+        title = @"暂时没有人直播哦~";
     }
     
     
@@ -51,11 +54,17 @@
     [view addSubview:imageView];
     
 //    NSLog(@"%@",NSStringFromCGRect(imageView.frame));
+    
     //创建标题
     CGFloat titleLabelX = KEDGE_DISTANCE;
     CGFloat titleLabelY = imageView.bottom + KEDGE_DISTANCE * 3;
     CGFloat titleLabelW = KSCREEN_W - titleLabelX * 2;
     CGFloat titleLabelH = 0;
+    
+    //如果没有图片就让label上移
+    if (image == nil) {
+        titleLabelY = superView.frame.size.height * 0.2;
+    }
     //计算文字高度
     CGSize titleSize = [ZYZCTool calculateStrByLineSpace:10 andString:title andFont:titleFont andMaxWidth:titleLabelW];
     titleLabelH = titleSize.height;
