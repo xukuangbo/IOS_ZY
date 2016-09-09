@@ -8,16 +8,99 @@
 
 #import "ZYZCWebViewController.h"
 
-@interface ZYZCWebViewController ()
-
+@interface ZYZCWebViewController () <UIWebViewDelegate, UIScrollViewDelegate>
+{
+    UIWebView *_adWebView;
+    
+    NSString *_urlString;
+    
+}
 @end
 
 @implementation ZYZCWebViewController
 
+- (instancetype)initWithUrlString:(NSString *)urlString
+{
+    self = [super init];
+    if (self) {
+        _urlString = urlString;
+    }
+    
+    return self;
+}
+
+- (void)loadView {
+    [super loadView];
+    
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    webView.dataDetectorTypes = UIDataDetectorTypePhoneNumber;
+    webView.scalesPageToFit = YES;
+    webView.mediaPlaybackRequiresUserAction = NO;
+    webView.delegate = self;
+    webView.allowsInlineMediaPlayback = YES;
+    webView.scrollView.delegate = self;
+    webView.scrollView.showsHorizontalScrollIndicator = NO;
+    webView.scrollView.showsVerticalScrollIndicator = NO;
+    
+    [self.view addSubview:webView];
+    _adWebView = webView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [self setupConstraints];
+    
+    // load data
+    [self loadUrlRequest];
 }
+
+- (void)setupConstraints
+{
+    [_adWebView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+}
+
+- (void)loadUrlRequest
+{
+    if (_urlString) {
+        NSURL *url = [[NSURL alloc] initWithString:_urlString];
+        NSURLRequest *urlRequest = [[NSURLRequest alloc] initWithURL:url];
+        [_adWebView loadRequest:urlRequest];
+    }
+}
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    _adWebView.frame = self.view.bounds;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+//#pragma mark - UIWebviewDelegate
+//
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    
+    //    NSLog(@"请求");
+    return YES;
+}
+//
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    //
+    //    NSLog(@"开始");
+}
+
+//
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+  
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

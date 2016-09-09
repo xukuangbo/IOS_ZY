@@ -21,6 +21,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "ZYLiveListModel.h"
 #import "SelectImageViewController.h"
+#import "ZYZCWebViewController.h"
 @interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate, UIAlertViewDelegate>
 /** 模糊效果 */
 @property (nonatomic, strong) UIVisualEffectView *backView;
@@ -273,7 +274,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
    
     // 判断是否同意直播协议
-    if ([userDefaults boolForKey:CREATE_LIVE_AGREEMENT]) {
+    if (![userDefaults boolForKey:CREATE_LIVE_AGREEMENT]) {
         [self startLive];
     } else {
         UIAlertView *liveAgreementAlertview = [[UIAlertView alloc] initWithTitle:nil message:@"点击确认同意众游直播协议" delegate:self cancelButtonTitle:@"查看协议" otherButtonTitles:@"确定", nil];
@@ -396,7 +397,8 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-       
+        ZYZCWebViewController *webVC = [[ZYZCWebViewController alloc] initWithUrlString:@"https://www.baidu.com"];
+        [self.navigationController pushViewController:webVC animated:YES];
     } else {
         [self startLive];
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];

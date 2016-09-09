@@ -9,5 +9,8 @@
 #import "ZYZCBaseViewController.h"
 
 @interface ZYZCWebViewController : ZYZCBaseViewController
+- (instancetype)initWithUrlString:(NSString *)urlString;
 
+//// 添加返回事件
+//- (void)setWillBackBlock:(void (^)(void))willBackBlock;
 @end
