@@ -15,10 +15,13 @@
 #import "ZYWatchLiveViewController.h"
 #import "ZYLiveViewController.h"
 #import "ZYFaqiLiveViewController.h"
+#import "EntryPlaceholderView.h"
 @interface ZYLiveListController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *listArray;
 @property (nonatomic, assign) NSInteger pageNo;
+/** 无数据占位图 */
+@property (nonatomic, strong) EntryPlaceholderView *entryView;
 @end
 static NSString *ID = @"ZYLiveListCell";
 
@@ -34,13 +37,15 @@ static NSString *ID = @"ZYLiveListCell";
     
     _viewModel = [[ZYLiveListViewModel alloc] init];
     //请求网络数据
-    [self getLiveListData];
+//    [self getLiveListData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self getLiveListData];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self getLiveListData];
+    });
 }
 
 - (void)rightBtnAction
@@ -65,6 +70,10 @@ static NSString *ID = @"ZYLiveListCell";
     _tableView.dataSource = self;
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
+    
+    self.entryView = [EntryPlaceholderView viewWithSuperView:self.tableView type:EntryTypeLiveList];
+//    self.entryView.userInteractionEnabled = NO;
+    self.entryView.hidden = YES;
 }
 
 #pragma mark - network
@@ -79,17 +88,21 @@ static NSString *ID = @"ZYLiveListCell";
         if (weakSelf.viewModel.refreshType == RefreshTypeHead) {//下拉刷新
             
             if (tempArray.count > 0) {
+                
+                weakSelf.entryView.hidden = YES;
                 weakSelf.listArray = tempArray;
                 weakSelf.pageNo = 2;
                 [weakSelf.tableView reloadData];
                 
             }else{
+                weakSelf.entryView.hidden = NO;
                 weakSelf.listArray = nil;
                 [weakSelf.tableView reloadData];
             }
         }else{//上啦加载更多
             if (tempArray.count > 0) {
                 
+                weakSelf.entryView.hidden = YES;
                 [weakSelf.listArray addObjectsFromArray:tempArray];
                 
                 [weakSelf.tableView reloadData];
@@ -121,6 +134,8 @@ static NSString *ID = @"ZYLiveListCell";
     
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //移除占位view
+//        weakSelf.entryView.hidden = YES;
         [weakSelf.viewModel headRefreshData];
     }];
 }

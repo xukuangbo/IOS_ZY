@@ -72,17 +72,19 @@
     //直播状态
     _liveStatusLabel = [UILabel new];
     [_bgView addSubview:_liveStatusLabel];
+    CGFloat liveStatusLabelH = 20;
     [_liveStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_bgView).offset(10);
         make.right.equalTo(_bgView).offset(-10);
-        make.height.mas_equalTo(20);
+        make.height.mas_equalTo(liveStatusLabelH);
+        make.width.mas_equalTo(60);
     }];
     _liveStatusLabel.layerBorderWidth = 1;
     _liveStatusLabel.font = [UIFont systemFontOfSize:15];
     _liveStatusLabel.textColor = [UIColor whiteColor];
-    _liveStatusLabel.layerCornerRadius = 5;
+    _liveStatusLabel.layerCornerRadius = liveStatusLabelH * 0.5;
     _liveStatusLabel.layerBorderColor = [UIColor whiteColor];
-    _liveStatusLabel.textAlignment = NSTextAlignmentRight;
+    _liveStatusLabel.textAlignment = NSTextAlignmentCenter;
     
     //底部容器
     _bottomBar = [UIView new];

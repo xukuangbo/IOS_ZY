@@ -23,7 +23,6 @@
     self.navigationController.navigationBar.titleTextAttributes=
   @{NSForegroundColorAttributeName:[UIColor whiteColor],
     NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
-    
 }
 
 -(void)setBackItem

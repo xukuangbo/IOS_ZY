@@ -21,7 +21,8 @@
 #import "MBProgressHUD+MJ.h"
 #import "ZYLiveListModel.h"
 #import "SelectImageViewController.h"
-@interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
+#import "ZYZCWebViewController.h"
+@interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate, UIAlertViewDelegate, ZYLiveViewControllerDelegate>
 /** 模糊效果 */
 @property (nonatomic, strong) UIVisualEffectView *backView;
 /** 封面 */
@@ -268,6 +269,19 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)clickStartLiveButtonAction
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+   
+    // 判断是否同意直播协议
+    if (![userDefaults boolForKey:CREATE_LIVE_AGREEMENT]) {
+        [self startLive];
+    } else {
+        UIAlertView *liveAgreementAlertview = [[UIAlertView alloc] initWithTitle:nil message:@"点击确认同意众游直播协议" delegate:self cancelButtonTitle:@"查看协议" otherButtonTitles:@"确定", nil];
+        [liveAgreementAlertview show];
+    }
+}
+    
 
 - (void)startLive
 {
@@ -332,7 +346,7 @@
     createLiveModel.img = self.uploadImgString;
     createLiveModel.chatRoomId = chatRoomId;
     ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] initLiveModel:createLiveModel];
-
+    liveVC.delegate = self;
     liveVC.targetId = chatRoomId;
     liveVC.pushUrl = pushUrl;
     liveVC.conversationType = ConversationType_CHATROOM;
@@ -377,6 +391,26 @@
     [textField endEditing:YES];
     
     return YES;
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        ZYZCWebViewController *webVC = [[ZYZCWebViewController alloc] initWithUrlString:@"https://www.baidu.com"];
+        [self.navigationController pushViewController:webVC animated:YES];
+    } else {
+        [self startLive];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:YES forKey:CREATE_LIVE_AGREEMENT];
+        [defaults synchronize];
+    }
+}
+
+#pragma mark - ZYLiveViewControllerDelegate
+- (void)backHomePage
+{
+    [self exitAction];
 }
 #pragma mark - 键盘高度改变通知
 #pragma mark --- 键盘出现
