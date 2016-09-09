@@ -65,7 +65,7 @@
     [_bgView addSubview:_viewImg];
     [_viewImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(_bgView).offset(0);
-        make.width.mas_equalTo(_viewImg.mas_height);
+        make.height.mas_equalTo(_viewImg.mas_width).multipliedBy(9 / 20.0);
     }];
     _viewImg.image = [UIImage imageNamed:@"image_placeholder"];
     
