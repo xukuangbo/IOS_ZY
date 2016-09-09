@@ -24,6 +24,12 @@
 #define PLUGIN_BOARD_ITEM_VOIP_TAG     1004
 #endif
 
+@protocol ZYLiveViewControllerDelegate <NSObject>
+
+- (void)backHomePage;
+
+@end
+
 /*!
  聊天界面类
  */
@@ -33,6 +39,7 @@
 #pragma mark - 会话属性
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
+@property (nonatomic, weak)id<ZYLiveViewControllerDelegate>delegate;
 
 /*!
  当前会话的会话类型

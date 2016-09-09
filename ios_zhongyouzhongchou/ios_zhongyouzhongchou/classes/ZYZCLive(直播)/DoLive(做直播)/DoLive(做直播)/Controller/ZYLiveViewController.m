@@ -31,6 +31,7 @@
 #import "DoLiveHeadView.h"
 #import "ZYLiveListModel.h"
 #import "ChatBlackListModel.h"
+#import "ZYZCTabBarController.h"
 
 //输入框的高度
 #define MinHeight_InputView 50.0f
@@ -477,6 +478,25 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
 }
 
+//点击返回的时候消耗播放器和退出聊天室
+- (void)leftBarButtonItemPressed:(UIButton *)sender {
+    WEAKSELF
+    [_headView stopTimer];
+    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
+    [self.conversationMessageCollectionView
+     addGestureRecognizer:_resetBottomTapGesture];
+    [self.navigationController.navigationBar setHidden:NO];
+    [self.tabBarController.tabBar setHidden:NO];
+    [self destroySession];
+    [self quitConversationViewAndClear];
+    [self dismissViewControllerAnimated:NO completion:^{
+        if ([weakSelf.delegate respondsToSelector:@selector(backHomePage)]) {
+            [weakSelf.delegate backHomePage];
+        }
+    }];
+    
+}
+
 -(void)showInputBar:(id)sender{
     self.inputBar.hidden = NO;
     [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];
@@ -650,22 +670,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }];
     [alertController addAction:cancelAction];
     [self presentViewController:alertController animated:YES completion:nil];
-}
-
-
-#pragma mark - 退出
-//点击返回的时候消耗播放器和退出聊天室
-
-- (void)leftBarButtonItemPressed:(id)sender {
-    [_headView stopTimer];
-    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
-    [self.conversationMessageCollectionView
-     addGestureRecognizer:_resetBottomTapGesture];
-    [self.navigationController.navigationBar setHidden:NO];
-    [self.tabBarController.tabBar setHidden:NO];
-    [self destroySession];
-    [self quitConversationViewAndClear];
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)dismissViewController

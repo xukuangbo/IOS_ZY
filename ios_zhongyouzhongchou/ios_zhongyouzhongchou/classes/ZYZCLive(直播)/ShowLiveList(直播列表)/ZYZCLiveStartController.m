@@ -43,7 +43,6 @@
 #pragma mark --- 进入直播
 -(void)enterLive
 {
-    WEAKSELF
     QPLiveRequest *request = [[QPLiveRequest alloc] init];
     [request requestCreateLiveWithDomain:kQPDomain success:^(NSString *pushUrl, NSString *pullUrl) {
         NSLog(@"create live success");
