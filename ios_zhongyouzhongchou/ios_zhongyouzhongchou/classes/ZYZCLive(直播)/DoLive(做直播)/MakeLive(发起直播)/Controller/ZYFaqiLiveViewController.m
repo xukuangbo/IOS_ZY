@@ -21,7 +21,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "ZYLiveListModel.h"
 #import "SelectImageViewController.h"
-@interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate>
+@interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate, UIAlertViewDelegate>
 /** 模糊效果 */
 @property (nonatomic, strong) UIVisualEffectView *backView;
 /** 封面 */
@@ -200,7 +200,7 @@
     _startLiveBtn.layer.masksToBounds = YES;
     [_startLiveBtn setTitle:@"开启直播" forState:UIControlStateNormal];
     [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_startLiveBtn addTarget:self action:@selector(startLive) forControlEvents:UIControlEventTouchUpInside];
+    [_startLiveBtn addTarget:self action:@selector(clickStartLiveButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -269,6 +269,19 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+- (void)clickStartLiveButtonAction
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+   
+    // 判断是否同意直播协议
+    if ([userDefaults boolForKey:CREATE_LIVE_AGREEMENT]) {
+        [self startLive];
+    } else {
+        UIAlertView *liveAgreementAlertview = [[UIAlertView alloc] initWithTitle:nil message:@"点击确认同意众游直播协议" delegate:self cancelButtonTitle:@"查看协议" otherButtonTitles:@"确定", nil];
+        [liveAgreementAlertview show];
+    }
+}
+    
 
 - (void)startLive
 {
@@ -395,6 +408,19 @@
     [textField endEditing:YES];
     
     return YES;
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+       
+    } else {
+        [self startLive];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setBool:YES forKey:CREATE_LIVE_AGREEMENT];
+        [defaults synchronize];
+    }
 }
 #pragma mark - 键盘高度改变通知
 #pragma mark --- 键盘出现

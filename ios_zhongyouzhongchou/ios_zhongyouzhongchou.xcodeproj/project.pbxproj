@@ -99,6 +99,7 @@
 		0503B5731D65954900546C16 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0503B5721D65954900546C16 /* OpenGLES.framework */; };
 		0503B5751D65955A00546C16 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0503B5741D65955A00546C16 /* QuartzCore.framework */; };
 		0503BFF01D659CF700546C16 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0503BFEF1D659CF700546C16 /* IJKMediaFramework.framework */; };
+		05130FE91D828CA9001023B1 /* ZYZCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
 		056046CD1D6EBECD006906FD /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C81D6EBECD006906FD /* UIImage+ImageEffects.m */; };
@@ -687,6 +688,8 @@
 		0503B5721D65954900546C16 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		0503B5741D65955A00546C16 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0503BFEF1D659CF700546C16 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
+		05130FE71D828CA9001023B1 /* ZYZCWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCWebViewController.h; sourceTree = "<group>"; };
+		05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCWebViewController.m; sourceTree = "<group>"; };
 		05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveViewController.h; sourceTree = "<group>"; };
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
@@ -1856,6 +1859,7 @@
 		04A99C591CBF848D00C6F5F0 /* ZYZCMine(我的) */ = {
 			isa = PBXGroup;
 			children = (
+				05130FE61D828C93001023B1 /* WebBaseViewCotroller(web界面) */,
 				2C7960691D0A740F0026C9F6 /* MyReturnProduct(我的回报／草稿) */,
 				2C3777E91D07BBE0004FDA9D /* MyProducts(我的行程) */,
 				04D9A4AD1D084D9600753392 /* TravelTagsVC(旅行标签) */,
@@ -2147,6 +2151,15 @@
 				0503BFEF1D659CF700546C16 /* IJKMediaFramework.framework */,
 			);
 			path = IJKMediaFramework;
+			sourceTree = "<group>";
+		};
+		05130FE61D828C93001023B1 /* WebBaseViewCotroller(web界面) */ = {
+			isa = PBXGroup;
+			children = (
+				05130FE71D828CA9001023B1 /* ZYZCWebViewController.h */,
+				05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */,
+			);
+			path = "WebBaseViewCotroller(web界面)";
 			sourceTree = "<group>";
 		};
 		05274EE21D66E663002C10A1 /* WatchLive */ = {
@@ -4786,6 +4799,7 @@
 				2CE6176E1D657DD100962163 /* HUAlbumCell.m in Sources */,
 				2C8B19701D0CF7EC0063097B /* JGProgressHUDAnimation.m in Sources */,
 				2CD209A31D6D4BA6005EB62E /* QPImage.m in Sources */,
+				05130FE91D828CA9001023B1 /* ZYZCWebViewController.m in Sources */,
 				2C1B60D61D6D3CF900E3C25B /* MoreFZCTravelOneDayDetailMdel.m in Sources */,
 				2C1B60E21D6D3CF900E3C25B /* MoreFZCRaiseMoneyTableView.m in Sources */,
 				04F6854C1CF57C9F00E1A98E /* MinePersonSetUpScrollView.m in Sources */,
