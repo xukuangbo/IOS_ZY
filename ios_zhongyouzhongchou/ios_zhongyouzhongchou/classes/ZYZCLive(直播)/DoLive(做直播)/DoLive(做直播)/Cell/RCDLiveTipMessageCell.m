@@ -27,7 +27,6 @@
         self.tipMessageLabel.font = [UIFont systemFontOfSize:16.f];;
 //        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 0.5f, 0.5f, 0.5f);
         self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 5.0f, 0.5f, 0.5f);
-        self.tipMessageLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     }
     return self;
 }
@@ -65,6 +64,8 @@
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:name]];
         [attributedString addAttribute:NSForegroundColorAttributeName value:([UIColor whiteColor]) range:[str rangeOfString:localizedMessage]];
         self.tipMessageLabel.attributedText = attributedString.copy;
+        
+        self.tipMessageLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     }else if ([content isMemberOfClass:[RCDLiveGiftMessage class]]){
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)content;
         NSString *name;
@@ -82,6 +83,8 @@
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:name]];
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0xf719ff)) range:[str rangeOfString:localizedMessage]];
         self.tipMessageLabel.attributedText = attributedString.copy;
+        
+        self.tipMessageLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
         
     }
 
