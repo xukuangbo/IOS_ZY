@@ -9,9 +9,9 @@
 #import "ZYFootprintController.h"
 #import <objc/runtime.h>
 #import "ZYPublishFootprintController.h"
-#import "HUImagePickerViewController.h"
+#import "XMNPhotoPickerController.h"
 @interface ZYFootprintController ()
-
+@property (nonatomic, strong) XMNPhotoPickerController *picker;
 @end
 
 @implementation ZYFootprintController
@@ -46,13 +46,31 @@
     }];
     //选择本地相册
     UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"手机相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        if (!_picker) {
+            _picker = [[XMNPhotoPickerController alloc] initWithMaxCount:9 delegate:nil];
+            _picker.pickingVideoEnable=NO;
+            _picker.autoPushToPhotoCollection=YES;
+        }
+        __weak typeof(self) weakSelf = self;
+        // 选择图片后回调
+        [_picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *> * _Nullable asset) {
+            [weakSelf.picker dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        //点击取消
+        [_picker setDidCancelPickingBlock:^{
+            [weakSelf.picker dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [self presentViewController:_picker animated:YES completion:nil];
     }];
     //选择拍照
     UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"拍照上传" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
     }];
     
-    [cancelAction setValue:[UIColor ZYZC_MainColor]    forKey:@"_titleTextColor"];
+    [cancelAction setValue:[UIColor ZYZC_MainColor]
+        forKey:@"_titleTextColor"];
     [videoAction setValue:[UIColor ZYZC_TextBlackColor] forKey:@"_titleTextColor"];
     [albumAction setValue:[UIColor ZYZC_TextBlackColor] forKey:@"_titleTextColor"];
     [photoAction setValue:[UIColor ZYZC_TextBlackColor] forKey:@"_titleTextColor"];
@@ -63,6 +81,11 @@
     [alertController addAction:photoAction];
     
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)dealloc
+{
+    DDLog(@"dealloc:%@",[self class]);
 }
 
 

@@ -85,6 +85,7 @@
     else
     {
         _movieView.hidden=YES;
+        _movieView.height=0.1;
     }
 
     _voiceView.top=_movieView.bottom+hasMovie*KEDGE_DISTANCE;
@@ -97,7 +98,7 @@
     }
     else
     {
-        _voiceView.height=1;
+        _voiceView.height=0.1;
         _voiceView.hidden=YES;
     }
     
@@ -111,6 +112,7 @@
     }
     else
     {
+        _textLab.height=0.1;
         _textLab.hidden=YES;
     }
     

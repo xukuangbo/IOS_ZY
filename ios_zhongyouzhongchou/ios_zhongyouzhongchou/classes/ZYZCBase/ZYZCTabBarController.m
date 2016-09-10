@@ -57,17 +57,12 @@
     UIView *coverView= [[UIView alloc]initWithFrame:CGRectMake(KSCREEN_W/2-40, 0, 80, self.tabBar.height)];
     [self.tabBar addSubview:coverView];
     
-    CGFloat width=46;
-    CGFloat lineImgWidth=(KSCREEN_W-width)/2;
+
+//    CGFloat lineImgWidth=(KSCREEN_W-width)/2;
     
-    UIImageView *img01=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, lineImgWidth, 0.5)];
+    UIImageView *img01=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, KSCREEN_W, 0.5)];
     img01.image=KPULLIMG(@"tab-line", 0, 3, 0, 3);
     [self.tabBar addSubview:img01];
-    
-    UIImageView *img02=[[UIImageView alloc]initWithFrame:CGRectMake(KSCREEN_W-lineImgWidth, 0, lineImgWidth, 0.5)];
-    img02.image=KPULLIMG(@"tab-line", 0, 3, 0, 3);
-    [self.tabBar addSubview:img02];
-
     
     CGFloat centerBtnWidth=60;
     UIButton *moreBtn= [UIButton buttonWithType:UIButtonTypeCustom];
