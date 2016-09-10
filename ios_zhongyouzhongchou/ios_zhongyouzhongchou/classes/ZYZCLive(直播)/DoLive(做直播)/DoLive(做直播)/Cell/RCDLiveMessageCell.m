@@ -56,6 +56,7 @@
     [self.bubbleBackgroundView addSubview:self.nicknameLabel];
     [self.baseContentView addSubview:self.bubbleBackgroundView];
     
+    
     self.statusContentView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
     _statusContentView.backgroundColor = [UIColor clearColor];
     [self.baseContentView addSubview:_statusContentView];

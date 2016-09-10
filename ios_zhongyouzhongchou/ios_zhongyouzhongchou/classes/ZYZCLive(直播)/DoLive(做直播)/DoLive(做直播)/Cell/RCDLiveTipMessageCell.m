@@ -25,7 +25,9 @@
         self.tipMessageLabel.userInteractionEnabled = YES;
         [self.baseContentView addSubview:self.tipMessageLabel];
         self.tipMessageLabel.font = [UIFont systemFontOfSize:16.f];;
-        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 0.5f, 0.5f, 0.5f);
+//        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 0.5f, 0.5f, 0.5f);
+        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 5.0f, 0.5f, 0.5f);
+        self.tipMessageLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     }
     return self;
 }
@@ -91,6 +93,7 @@
 //        self.tipMessageLabel.backgroundColor = RCDLive_HEXCOLOR(0xBBBBBB);
 //        self.tipMessageLabel.alpha = 1;
     }
+    
 }
 
 
@@ -148,6 +151,8 @@
     }else {
         __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_GEIOS7(content, [UIFont systemFontOfSize:16.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT));
     }
-    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+6);    return __textSize;
+    //这里是将文本的cell往外扩张了点内容
+//    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+6);    return __textSize;
+    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+10);    return __textSize;
 }
 @end
