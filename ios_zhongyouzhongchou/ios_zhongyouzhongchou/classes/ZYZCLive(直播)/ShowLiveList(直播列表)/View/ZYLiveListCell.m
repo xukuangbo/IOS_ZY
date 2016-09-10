@@ -50,10 +50,10 @@
     _bgView = [UIImageView new];
     [self.contentView addSubview:_bgView];
     [_bgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView).offset(5);
+        make.top.equalTo(self.contentView).offset(10);
         make.left.mas_equalTo(self.contentView.mas_left).offset(10);
         make.right.mas_equalTo(self.contentView.mas_right).offset(-10);
-        make.bottom.equalTo(self.contentView).offset(-5);
+        make.bottom.equalTo(self.contentView).offset(0);
     }];
     _bgView.layerCornerRadius = 5;
     _bgView.image = KPULLIMG(@"tab_bg_boss0", 5, 0, 5, 0);
