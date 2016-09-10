@@ -48,6 +48,10 @@
         NSString *localizedMessage = [RCDLiveKitUtility formatMessage:notification];
         self.tipMessageLabel.text = localizedMessage;
         self.tipMessageLabel.textColor = RCDLive_HEXCOLOR(0xffb83c);
+        
+        //设置进入直播间的cell背景颜色
+        self.tipMessageLabel.backgroundColor = [UIColor colorWithRed:104 / 256.0 green:111 / 256.0 blue:229 / 256.0 alpha:1];
+
     }else if ([content isMemberOfClass:[RCTextMessage class]]){
         RCTextMessage *notification = (RCTextMessage *)content;
         NSString *localizedMessage = [RCDLiveKitUtility formatMessage:notification];
@@ -78,6 +82,7 @@
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:name]];
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0xf719ff)) range:[str rangeOfString:localizedMessage]];
         self.tipMessageLabel.attributedText = attributedString.copy;
+        
     }
 
     NSString *__text = self.tipMessageLabel.text;
