@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self setBackItem];
+     self.navigationItem.leftBarButtonItem=[self customItemByImgName:@"back_black" andAction:@selector(pressBack)];
     self.title=@"添加足迹";
     self.navigationController.navigationBar.titleTextAttributes=
     @{NSForegroundColorAttributeName:[UIColor ZYZC_TextBlackColor]};
