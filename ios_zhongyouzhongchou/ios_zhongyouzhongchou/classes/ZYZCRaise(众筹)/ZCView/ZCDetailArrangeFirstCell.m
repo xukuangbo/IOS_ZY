@@ -38,7 +38,7 @@
 {
     _oneDaydetailModel=oneDaydetailModel;
     
-    [_wsmView reloadDataByVideoImgUrl:oneDaydetailModel.movieImg andPlayUrl:oneDaydetailModel.movieUrl andVoiceUrl:oneDaydetailModel.voiceUrl andFaceImg:_faceImg andDesc:oneDaydetailModel.wordDes andImgUrlStr:oneDaydetailModel.imgUrlStr];
+    [_wsmView reloadDataByVideoImgUrl:oneDaydetailModel.movieImg andPlayUrl:oneDaydetailModel.movieUrl andVoiceUrl:oneDaydetailModel.voiceUrl andVoiceLen:oneDaydetailModel.voiceLen andFaceImg:_faceImg andDesc:oneDaydetailModel.wordDes andImgUrlStr:oneDaydetailModel.imgUrlStr];
     
     self.bgImg.height=_wsmView.bottom+KEDGE_DISTANCE;
 

@@ -84,6 +84,9 @@ typedef void (^GetDraftDataFinish)();
  *  筹路费语音描述
  */
 @property (nonatomic, copy  ) NSString *raiseMoney_voiceUrl;
+
+@property (nonatomic, assign) float    raiseMoney_voiceLen;
+
 /**
  *  筹路费视屏描述
  */
@@ -138,6 +141,8 @@ typedef void (^GetDraftDataFinish)();
 
 @property (nonatomic, copy  ) NSString *return_voiceUrl;
 
+@property (nonatomic, assign) float    return_voiceLen;
+
 @property (nonatomic, copy  ) NSString *return_movieUrl;
 
 @property (nonatomic, copy  ) NSString *return_movieImg;
@@ -147,6 +152,8 @@ typedef void (^GetDraftDataFinish)();
 @property (nonatomic, copy  ) NSString *return_imgsDes01;
 
 @property (nonatomic, copy  ) NSString *return_voiceUrl01;
+
+@property (nonatomic, assign) float    return_voiceLen01;
 
 @property (nonatomic, copy  ) NSString *return_movieUrl01;
 
@@ -179,6 +186,8 @@ typedef void (^GetDraftDataFinish)();
 @property (nonatomic, copy  ) NSString *return_togtherWordDes;
 
 @property (nonatomic, copy  ) NSString *return_togtherVoice;
+
+@property (nonatomic, assign) float    return_togtherVoiceLen;
 
 @property (nonatomic, copy  ) NSString *return_togtherVideo;
 

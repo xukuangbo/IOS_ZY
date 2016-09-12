@@ -116,7 +116,7 @@
 }
 
 
--(void)reloadDataByWord:(NSString *)word andImgUrlStr:(NSString *)imgUrlStr andVoiceUrl:(NSString *)voiceUrl andVideoUrl:(NSString *)videoUrl andVideoImg:(NSString *)videoImg
+-(void)reloadDataByWord:(NSString *)word andImgUrlStr:(NSString *)imgUrlStr andVoiceUrl:(NSString *)voiceUrl andVoiceLen:(CGFloat)voiceLen andVideoUrl:(NSString *)videoUrl andVideoImg:(NSString *)videoImg
 {
     WordView *wordView=(WordView *)[self viewWithTag:WordViewType];
     if (word.length) {
@@ -128,7 +128,7 @@
     SoundView *soundView=(SoundView *)[self viewWithTag:SoundViewType];
     if (voiceUrl.length) {
         soundView.soundFileName=voiceUrl;
-        soundView.soundProgress=0;
+        soundView.soundProgress=voiceLen?voiceLen:0;
     }
     
     MovieView *movieView=(MovieView *)[self viewWithTag:MovieViewType];

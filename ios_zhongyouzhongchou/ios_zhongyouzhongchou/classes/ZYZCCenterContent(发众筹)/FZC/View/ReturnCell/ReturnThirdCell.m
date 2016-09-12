@@ -146,7 +146,7 @@
     
     //_entryView加载数据
     MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
-    [_entryView reloadDataByWord:manager.return_wordDes andImgUrlStr:manager.return_imgUrlStr andVoiceUrl:manager.return_voiceUrl andVideoUrl:manager.return_movieUrl andVideoImg:manager.return_movieImg];
+    [_entryView reloadDataByWord:manager.return_wordDes andImgUrlStr:manager.return_imgUrlStr andVoiceUrl:manager.return_voiceUrl andVoiceLen:manager.return_voiceLen andVideoUrl:manager.return_movieUrl andVideoImg:manager.return_movieImg];
     
 }
 #pragma mark - requsetData方法

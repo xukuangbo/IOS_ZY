@@ -34,5 +34,9 @@
     
 }
 
+-(void)setContentBelong:(NSString *)contentBelong
+{
+    _contentBelong=contentBelong;
+}
 
 @end

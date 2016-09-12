@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ZYZCCustomVoiceView : UIView
-@property (nonatomic, assign) NSInteger voiceTime;
+@property (nonatomic, assign) float voiceLen;
 @property (nonatomic, copy  ) NSString *voiceUrl;
 @property (nonatomic, copy  ) NSString *faceImg;
 @end

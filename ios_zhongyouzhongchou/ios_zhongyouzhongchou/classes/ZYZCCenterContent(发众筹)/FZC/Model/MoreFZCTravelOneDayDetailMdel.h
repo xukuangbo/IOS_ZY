@@ -47,6 +47,9 @@
  *  当天旅游的语音录入
  */
 @property (nonatomic, copy  ) NSString *voiceUrl;
+
+@property (nonatomic, assign) float  voiceLen;
+
 /**
  *  当天旅游视屏录入
  */

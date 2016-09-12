@@ -29,9 +29,9 @@
     [self changViewFrame];
 }
 
--(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr
+-(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andVoiceLen:(CGFloat)voiceLen  andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr
 {
-    [_wsmView reloadDataByVideoImgUrl:videoImgUrl andPlayUrl:playUrl andVoiceUrl:voiceUrl andFaceImg:faceImg andDesc:desc andImgUrlStr:imgUrlStr];
+    [_wsmView reloadDataByVideoImgUrl:videoImgUrl andPlayUrl:playUrl andVoiceUrl:voiceUrl andVoiceLen:voiceLen andFaceImg:faceImg andDesc:desc andImgUrlStr:imgUrlStr];
     [self changViewFrame];
 }
 

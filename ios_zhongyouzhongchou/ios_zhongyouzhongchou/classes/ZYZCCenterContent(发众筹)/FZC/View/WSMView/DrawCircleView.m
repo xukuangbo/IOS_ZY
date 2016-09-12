@@ -73,7 +73,7 @@
 - (void)setProgressValue:(CGFloat)progressValue
 {
     _progressValue = progressValue;
-    frontFillBezierPath = [UIBezierPath bezierPathWithArcCenter:self.center radius:(CGRectGetWidth(self.bounds)-self.progressStrokeWidth)/2.f startAngle:-M_PI_2 endAngle:(2*M_PI)*progressValue-M_PI_2 clockwise:YES];
+    frontFillBezierPath = [UIBezierPath bezierPathWithArcCenter:self.center radius:(CGRectGetWidth(self.bounds)-self.progressStrokeWidth)/2.f startAngle:-M_PI_2 endAngle:(2*M_PI)*progressValue/60.0-M_PI_2 clockwise:YES];
     frontFillLayer.path = frontFillBezierPath.CGPath;
 }
 
