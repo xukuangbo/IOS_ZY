@@ -21,7 +21,7 @@
         tip.textAlignment = NSTextAlignmentCenter;
         tip.font = [UIFont systemFontOfSize:12.5f];
         tip.layer.masksToBounds = YES;
-        tip.layer.cornerRadius = 5.f;
+        tip.layer.cornerRadius = 15.f;
         
     }
     return tip;

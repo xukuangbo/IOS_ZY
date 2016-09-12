@@ -25,7 +25,8 @@
         self.tipMessageLabel.userInteractionEnabled = YES;
         [self.baseContentView addSubview:self.tipMessageLabel];
         self.tipMessageLabel.font = [UIFont systemFontOfSize:16.f];;
-        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 0.5f, 0.5f, 0.5f);
+//        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 0.5f, 0.5f, 0.5f);
+        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 5.0f, 0.5f, 0.5f);
     }
     return self;
 }
@@ -46,6 +47,10 @@
         NSString *localizedMessage = [RCDLiveKitUtility formatMessage:notification];
         self.tipMessageLabel.text = localizedMessage;
         self.tipMessageLabel.textColor = RCDLive_HEXCOLOR(0xffb83c);
+        
+        //设置进入直播间的cell背景颜色
+        self.tipMessageLabel.backgroundColor = [UIColor colorWithRed:104 / 256.0 green:111 / 256.0 blue:229 / 256.0 alpha:1];
+
     }else if ([content isMemberOfClass:[RCTextMessage class]]){
         RCTextMessage *notification = (RCTextMessage *)content;
         NSString *localizedMessage = [RCDLiveKitUtility formatMessage:notification];
@@ -59,6 +64,8 @@
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:name]];
         [attributedString addAttribute:NSForegroundColorAttributeName value:([UIColor whiteColor]) range:[str rangeOfString:localizedMessage]];
         self.tipMessageLabel.attributedText = attributedString.copy;
+        
+        self.tipMessageLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
     }else if ([content isMemberOfClass:[RCDLiveGiftMessage class]]){
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)content;
         NSString *name;
@@ -76,6 +83,9 @@
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0x3ceff)) range:[str rangeOfString:name]];
         [attributedString addAttribute:NSForegroundColorAttributeName value:(RCDLive_HEXCOLOR(0xf719ff)) range:[str rangeOfString:localizedMessage]];
         self.tipMessageLabel.attributedText = attributedString.copy;
+        
+        self.tipMessageLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
+        
     }
 
     NSString *__text = self.tipMessageLabel.text;
@@ -91,6 +101,7 @@
 //        self.tipMessageLabel.backgroundColor = RCDLive_HEXCOLOR(0xBBBBBB);
 //        self.tipMessageLabel.alpha = 1;
     }
+    
 }
 
 
@@ -148,6 +159,8 @@
     }else {
         __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_GEIOS7(content, [UIFont systemFontOfSize:16.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT));
     }
-    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+6);    return __textSize;
+    //这里是将文本的cell往外扩张了点内容
+//    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+6);    return __textSize;
+    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+10);    return __textSize;
 }
 @end

@@ -348,7 +348,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //聊天消息区
     if (nil == self.conversationMessageCollectionView) {
         UICollectionViewFlowLayout *customFlowLayout = [[UICollectionViewFlowLayout alloc] init];
-        customFlowLayout.minimumLineSpacing = 0;
+        customFlowLayout.minimumLineSpacing = 10;
         customFlowLayout.sectionInset = UIEdgeInsetsMake(10.0f, 0.0f,5.0f, 0.0f);
         customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;//方向
         CGRect _conversationViewFrame = self.contentView.bounds;
@@ -947,7 +947,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         
     }
     
-//    cell.contentView.backgroundColor = [UIColor redColor];
+//    cell.contentView.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
     return cell;
 }
 
