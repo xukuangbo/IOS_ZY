@@ -24,7 +24,7 @@
     UILabel *_nameLabel;//名字
     UILabel *_titleLabel;//标题
     UILabel *_numberLabel;//人数
-    
+
 }
 @end
 @implementation ZYLiveListCell
