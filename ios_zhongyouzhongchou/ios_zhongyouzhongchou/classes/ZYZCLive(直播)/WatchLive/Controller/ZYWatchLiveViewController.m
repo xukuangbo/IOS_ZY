@@ -258,7 +258,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 - (void)initChatroomMemberInfo{
-    UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(15, 30, 125, 35)];
+    UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(15, 30, 135, 35)];
     livePersonNumberView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     livePersonNumberView.layer.cornerRadius = 35/2;
 //    livePersonNumberView.alpha = 0.5;
@@ -275,9 +275,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [livePersonNumberView addSubview:self.chatroomlabel];
     
     self.attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.attentionButton.frame = CGRectMake(82, 2, 40, 31);
+    self.attentionButton.frame = CGRectMake(77, 2, 50, 31);
     [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
     [self.attentionButton addTarget:self action:@selector(attentionButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.attentionButton.backgroundColor = [UIColor ZYZC_MainColor];
+    [self.attentionButton setTitleColor:[UIColor ZYZC_TextBlackColor] forState:UIControlStateNormal];
+    self.attentionButton.layer.cornerRadius = 15;
+    [livePersonNumberView addSubview:self.attentionButton];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 16;
@@ -449,7 +453,26 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 点击关注按钮
 - (void)attentionButtonAction:(UIButton *)sender
 {
-    
+//    NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":_userModel.userId};
+//    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        //            NSLog(@"%@",result);
+//        if (isSuccess) {
+//            [MBProgressHUD showSuccess:@"关注成功"];
+//            [_addInterestBtn setTitle:@"取消关注" forState:UIControlStateNormal];
+//            
+//            _gzMeAll=[NSNumber numberWithInteger:([_gzMeAll integerValue]+1)];
+//            _attentionLab.text=FOLLIOW_AND_BEFOLLOW([_meGzAll integerValue], [_gzMeAll integerValue]);
+//            _friendship=!_friendship;
+//        }
+//        else
+//        {
+//            [MBProgressHUD showSuccess:@"关注失败"];
+//        }
+//        
+//    } andFailBlock:^(id failResult) {
+//        [MBProgressHUD showSuccess:@"关注成功"];
+//        
+//    }];
 }
 
 // 关注
