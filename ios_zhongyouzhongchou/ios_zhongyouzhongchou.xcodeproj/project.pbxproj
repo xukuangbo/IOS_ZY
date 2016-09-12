@@ -100,6 +100,7 @@
 		0503B5751D65955A00546C16 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0503B5741D65955A00546C16 /* QuartzCore.framework */; };
 		0503BFF01D659CF700546C16 /* IJKMediaFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0503BFEF1D659CF700546C16 /* IJKMediaFramework.framework */; };
 		05130FE91D828CA9001023B1 /* ZYZCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */; };
+		0513E2901D8643DE00E8BC63 /* ZYWatchLiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513E28F1D8643DE00E8BC63 /* ZYWatchLiveView.m */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
 		056046CD1D6EBECD006906FD /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C81D6EBECD006906FD /* UIImage+ImageEffects.m */; };
@@ -690,6 +691,8 @@
 		0503BFEF1D659CF700546C16 /* IJKMediaFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = IJKMediaFramework.framework; sourceTree = "<group>"; };
 		05130FE71D828CA9001023B1 /* ZYZCWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCWebViewController.h; sourceTree = "<group>"; };
 		05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCWebViewController.m; sourceTree = "<group>"; };
+		0513E28E1D8643DE00E8BC63 /* ZYWatchLiveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYWatchLiveView.h; path = Pods/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/RongIMKit.framework/Headers/ZYWatchLiveView.h; sourceTree = SOURCE_ROOT; };
+		0513E28F1D8643DE00E8BC63 /* ZYWatchLiveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYWatchLiveView.m; path = Pods/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/RongIMKit.framework/Headers/ZYWatchLiveView.m; sourceTree = SOURCE_ROOT; };
 		05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveViewController.h; sourceTree = "<group>"; };
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
@@ -2191,6 +2194,8 @@
 		05274EE51D66E663002C10A1 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0513E28E1D8643DE00E8BC63 /* ZYWatchLiveView.h */,
+				0513E28F1D8643DE00E8BC63 /* ZYWatchLiveView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4815,6 +4820,7 @@
 				2CE6177B1D657DD100962163 /* UIImage+HUExtension.m in Sources */,
 				39809D161D58762E00CB9EE3 /* TacticMainVideoView.m in Sources */,
 				3941CD751D420B29009224BC /* ChatBlackListCell.m in Sources */,
+				0513E2901D8643DE00E8BC63 /* ZYWatchLiveView.m in Sources */,
 				2C0101CE1D5DF48E00D6470D /* ZFWeiboButton.m in Sources */,
 				392AB2961D669C26003FEDB7 /* RCDLiveGiftMessage.m in Sources */,
 				2C1C07A11D1AC2C100203FF4 /* PartnerTableView.m in Sources */,

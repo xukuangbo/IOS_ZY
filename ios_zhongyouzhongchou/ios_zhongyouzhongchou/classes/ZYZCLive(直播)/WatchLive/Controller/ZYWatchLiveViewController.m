@@ -28,7 +28,7 @@
 #import "ZYZCRCManager.h"
 #import "MBProgressHUD+MJ.h"
 #import "ChatBlackListModel.h"
-
+#import "ZYWatchLiveView.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -41,7 +41,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) id <IJKMediaPlayback> player;
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
-
+@property (nonatomic, strong) ZYWatchLiveView *watchLiveView;
 /**
  *  存储长按返回的消息的model
  */
@@ -68,11 +68,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property(nonatomic,strong) UIView *titleView ;
 
 /**
- *  关闭直播按钮
- */
-@property(nonatomic,strong) UIButton *closeLiveButton ;
-
-/**
  *  播放器view
  */
 @property (strong, nonatomic) UIView *PlayerView;
@@ -94,22 +89,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
  *  当前融云连接状态
  */
 @property (nonatomic, assign) RCConnectionStatus currentConnectionStatus;
-/**
- *  鲜花按钮
- */
-@property(nonatomic,strong)UIButton *flowerBtn;
-/**
- *  评论按钮
- */
-@property(nonatomic,strong)UIButton *feedBackBtn;
-/**
- *  掌声按钮
- */
-@property(nonatomic,strong)UIButton *clapBtn;
-/**
- *  分享按钮
- */
-@property(nonatomic,strong)UIButton *shareBtn;
 /**
  *  显示人数按钮
  */
@@ -224,12 +203,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         self.contentView = [[UIView alloc]initWithFrame:contentViewFrame];
         [self.view addSubview:self.contentView];
     }
-    // 关闭直播
-    UIButton *closeLiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeLiveButton addTarget:self action:@selector(closeLiveButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    [closeLiveButton setBackgroundImage:[UIImage imageNamed:@"live-quit"] forState:UIControlStateNormal];
-    [self.view addSubview:closeLiveButton];
-    self.closeLiveButton = closeLiveButton;
     
     //聊天消息区
     if (nil == self.conversationMessageCollectionView) {
@@ -273,41 +246,14 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                              action:@selector(tap4ResetDefaultBottomBarStatus:)];
     [_resetBottomTapGesture setDelegate:self];
     [self.view addGestureRecognizer:_resetBottomTapGesture];
-
-    _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_feedBackBtn setBackgroundImage:[UIImage imageNamed:@"live-talk"] forState:UIControlStateNormal];
-    [_feedBackBtn addTarget:self
+    self.watchLiveView = [[ZYWatchLiveView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [self.view addSubview:self.watchLiveView];
+    [self.watchLiveView.closeLiveButton addTarget:self action:@selector(closeLiveButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.watchLiveView.feedBackBtn addTarget:self
                      action:@selector(showInputBar:)
            forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_feedBackBtn];
-    
-    _flowerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_flowerBtn setBackgroundImage:[UIImage imageNamed:@"giftIcon"] forState:UIControlStateNormal];
-    [_flowerBtn addTarget:self action:@selector(flowerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_flowerBtn];
-    
-    _shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_shareBtn setImage:[UIImage imageNamed:@"live-share"] forState:UIControlStateNormal];
-    [_shareBtn addTarget:self action:@selector(shareBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_shareBtn];
-
-    
-//    _clapBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
-//    UIImageView *clapImg3 = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"heartIcon"]];
-//    clapImg3.frame = CGRectMake(0,0, 35, 35);
-//    [_clapBtn addSubview:clapImg3];
-//    [_clapBtn addTarget:self
-//                 action:@selector(clapButtonPressed:)
-//       forControlEvents:UIControlEventTouchUpInside];
-//    [self.view addSubview:_clapBtn];
-    
-    // //私信按钮端
-    _massageBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-       [_massageBtn setImage:[UIImage imageNamed:@"live-massage"] forState:UIControlStateNormal];
-    [_massageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-//    _massageBtn.frame = CGRectMake(KSCREEN_W - 40 * 4 - 15 - 30, KSCREEN_H - 55, 40, 40);
-    [self.view addSubview:_massageBtn];
+    [self.watchLiveView.flowerBtn addTarget:self action:@selector(flowerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.watchLiveView.shareBtn addTarget:self action:@selector(shareBtnAction:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)initChatroomMemberInfo{
@@ -324,12 +270,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [livePersonNumberView addSubview:imageView];
     self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
     self.chatroomlabel.numberOfLines = 2;
-//    self.chatroomlabel.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
     self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
     [livePersonNumberView addSubview:self.chatroomlabel];
-    
-//    UIButton *attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [attentionButton addTarget:self action:@selector(clickAttentionButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 16;
@@ -344,39 +286,38 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.view addSubview:self.portraitsCollectionView];
 }
 
-
 - (void)setupConstraints
 {
-    [self.feedBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.watchLiveView.feedBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(15);
         make.bottom.equalTo(self.view).offset(-15);
         make.width.equalTo(@40);
         make.height.equalTo(@40);
     }];
     
-    [self.closeLiveButton mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.watchLiveView.closeLiveButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.right.equalTo(self.view).offset(-15);
         make.bottom.equalTo(self.view).offset(-15);
         make.width.equalTo(@40);
         make.height.equalTo(@40);
     }];
     
-    [self.flowerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.closeLiveButton).offset(-50);
+    [self.watchLiveView.flowerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.watchLiveView.closeLiveButton).offset(-50);
         make.bottom.equalTo(self.view).offset(-15);
         make.width.equalTo(@40);
         make.height.equalTo(@40);
     }];
     
-    [self.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.flowerBtn).offset(-50);
+    [self.watchLiveView.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.watchLiveView.flowerBtn).offset(-50);
         make.bottom.equalTo(self.view).offset(-15);
         make.width.equalTo(@40);
         make.height.equalTo(@40);
     }];
     
-    [self.massageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.shareBtn).offset(-50);
+    [self.watchLiveView.massageBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.watchLiveView.shareBtn).offset(-50);
         make.bottom.equalTo(self.view).offset(-15);
         make.width.equalTo(@40);
         make.height.equalTo(@40);
@@ -549,7 +490,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)praiseHeart{
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(_closeLiveButton.frame.origin.x , _closeLiveButton.frame.origin.y - 49, 35, 35);
+    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , self.watchLiveView.closeLiveButton.frame.origin.y - 49, 35, 35);
     imageView.image = [UIImage imageNamed:@"heart"];
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
@@ -678,9 +619,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.conversationMessageCollectionView.backgroundColor = [UIColor clearColor];
     CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
     self.contentView.frame = contentViewFrame;
-    _feedBackBtn.frame = CGRectMake(10, self.view.frame.size.height - 45, 35, 35);
-    _flowerBtn.frame = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height - 45, 35, 35);
-    _clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
+    self.watchLiveView.flowerBtn.frame = CGRectMake(10, self.view.frame.size.height - 45, 35, 35);
+    self.watchLiveView.flowerBtn.frame = CGRectMake(self.view.frame.size.width-90, self.view.frame.size.height - 45, 35, 35);
+    self.watchLiveView.clapBtn.frame = CGRectMake(self.view.frame.size.width-45, self.view.frame.size.height - 45, 35, 35);
     [self.view sendSubviewToBack:_PlayerView];
     
     float inputBarOriginY = self.conversationMessageCollectionView.bounds.size.height + 30;
@@ -1386,7 +1327,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)praiseGift{
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(_flowerBtn.frame.origin.x , _flowerBtn.frame.origin.y - 49, 35, 35);
+    imageView.frame = CGRectMake(self.watchLiveView.flowerBtn.frame.origin.x , self.watchLiveView.flowerBtn.frame.origin.y - 49, 35, 35);
     imageView.image = [UIImage imageNamed:@"gift"];
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
