@@ -24,7 +24,6 @@
 {
     // 关闭直播
     UIButton *closeLiveButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [closeLiveButton addTarget:self action:@selector(closeLiveButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [closeLiveButton setBackgroundImage:[UIImage imageNamed:@"live-quit"] forState:UIControlStateNormal];
     [self addSubview:closeLiveButton];
     self.closeLiveButton = closeLiveButton;
@@ -32,19 +31,14 @@
     
     _feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
     [_feedBackBtn setBackgroundImage:[UIImage imageNamed:@"live-talk"] forState:UIControlStateNormal];
-//    [_feedBackBtn addTarget:self
-//                     action:@selector(showInputBar:)
-//           forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_feedBackBtn];
     
     _flowerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_flowerBtn setBackgroundImage:[UIImage imageNamed:@"giftIcon"] forState:UIControlStateNormal];
-//    [_flowerBtn addTarget:self action:@selector(flowerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_flowerBtn];
     
     _shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
     [_shareBtn setImage:[UIImage imageNamed:@"live-share"] forState:UIControlStateNormal];
-//    [_shareBtn addTarget:self action:@selector(shareBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_shareBtn];
     
     
@@ -61,11 +55,7 @@
     // //私信按钮端
     _massageBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
     [_massageBtn setImage:[UIImage imageNamed:@"live-massage"] forState:UIControlStateNormal];
-//    [_massageBtn addTarget:self action:@selector(messageBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    //    _massageBtn.frame = CGRectMake(KSCREEN_W - 40 * 4 - 15 - 30, KSCREEN_H - 55, 40, 40);
     [self addSubview:_massageBtn];
-    
-    
     
 }
 
