@@ -441,6 +441,7 @@
 		394D53481D62CAF800E7F595 /* Foundation+ZYLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D53471D62CAF800E7F595 /* Foundation+ZYLog.m */; };
 		394D53721D62D76B00E7F595 /* ZYFaqiLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D53711D62D76B00E7F595 /* ZYFaqiLiveViewController.m */; };
 		394D537B1D62F45500E7F595 /* UIView+ZYLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */; };
+		3951296C1D8658CD00760405 /* LivePersonDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3951296B1D8658CD00760405 /* LivePersonDataView.m */; };
 		395B5A6C1D1FC3910084264C /* jpush-ios-2.1.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6A1D1FC3910084264C /* jpush-ios-2.1.8.a */; };
 		395B5A6E1D1FC4020084264C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6D1D1FC4020084264C /* CFNetwork.framework */; };
 		395B5A701D1FC4110084264C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6F1D1FC4110084264C /* CoreFoundation.framework */; };
@@ -1372,6 +1373,8 @@
 		394D53711D62D76B00E7F595 /* ZYFaqiLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFaqiLiveViewController.m; sourceTree = "<group>"; };
 		394D53791D62F45500E7F595 /* UIView+ZYLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+ZYLayer.h"; sourceTree = "<group>"; };
 		394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZYLayer.m"; sourceTree = "<group>"; };
+		3951296A1D8658CD00760405 /* LivePersonDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivePersonDataView.h; sourceTree = "<group>"; };
+		3951296B1D8658CD00760405 /* LivePersonDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivePersonDataView.m; sourceTree = "<group>"; };
 		395B5A6A1D1FC3910084264C /* jpush-ios-2.1.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.8.a"; sourceTree = "<group>"; };
 		395B5A6B1D1FC3910084264C /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		395B5A6D1D1FC4020084264C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -3647,6 +3650,7 @@
 		392AB2581D669C26003FEDB7 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				395129691D8658BD00760405 /* LivePesonDataView */,
 				39AABC941D717B2A00D25B16 /* LiveDetailHeadView */,
 				39AABC861D6EC7FA00D25B16 /* DoLiveHeadView */,
 				3967ADB51D6C2AFD008A7F81 /* LiveFunctionView(功能键) */,
@@ -3917,6 +3921,15 @@
 				392AB2811D669C26003FEDB7 /* ViewModel */,
 			);
 			path = "DoLive(做直播)";
+			sourceTree = "<group>";
+		};
+		395129691D8658BD00760405 /* LivePesonDataView */ = {
+			isa = PBXGroup;
+			children = (
+				3951296A1D8658CD00760405 /* LivePersonDataView.h */,
+				3951296B1D8658CD00760405 /* LivePersonDataView.m */,
+			);
+			path = LivePesonDataView;
 			sourceTree = "<group>";
 		};
 		395B5A691D1FC3910084264C /* JPush */ = {
@@ -4646,6 +4659,7 @@
 				04C087A71D040F3A00203D40 /* TacticIndexImgModel.m in Sources */,
 				2C1B61041D6D3CF900E3C25B /* UIView+CustomFrame.m in Sources */,
 				39E52FE11D50825F00D0ED83 /* ViewModelClass.m in Sources */,
+				3951296C1D8658CD00760405 /* LivePersonDataView.m in Sources */,
 				2C44698C1D1671C8000639EB /* ZYZCEditProductView.m in Sources */,
 				0432ADAF1D096B89005D789E /* NSCalendar+ST.m in Sources */,
 				2CD209CB1D6D4BA6005EB62E /* QPSave.m in Sources */,
