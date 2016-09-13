@@ -223,7 +223,7 @@ OSSClient * client;
         return nil;
     }];
     
-    [getTask waitUntilFinished];
+    [getTask waitUntilFinished]; 
 }
 
 #pragma mark --- 删除文件

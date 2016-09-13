@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TestViewController">
+            <connections>
+                <outlet property="playerBtn" destination="xnX-B2-bmq" id="iW2-mw-p56"/>
+                <outlet property="playerBtn01" destination="l4E-7q-yvT" id="zJU-kP-Ld7"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnX-B2-bmq" customClass="MLPlayVoiceButton">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <animations/>
+                    <color key="backgroundColor" red="1" green="0.84775174450000002" blue="0.23573812550000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="V7m-ib-W3d"/>
+                        <constraint firstAttribute="width" constant="175" id="hOV-zo-DjF"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="V7m-ib-W3d"/>
+                            <exclude reference="hOV-zo-DjF"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="V7m-ib-W3d"/>
+                            <include reference="hOV-zo-DjF"/>
+                        </mask>
+                    </variation>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4E-7q-yvT" customClass="MLPlayVoiceButton">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <animations/>
+                    <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="175" id="64s-Tb-eyg"/>
+                        <constraint firstAttribute="height" constant="50" id="PoK-qu-p6M"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="64s-Tb-eyg"/>
+                            <exclude reference="PoK-qu-p6M"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="constraints">
+                            <include reference="64s-Tb-eyg"/>
+                            <include reference="PoK-qu-p6M"/>
+                        </mask>
+                    </variation>
+                </button>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="xnX-B2-bmq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="200" id="iv8-4e-CTm"/>
+                <constraint firstItem="xnX-B2-bmq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="mDK-1Q-9ia"/>
+                <constraint firstItem="l4E-7q-yvT" firstAttribute="top" secondItem="xnX-B2-bmq" secondAttribute="bottom" constant="50" id="su5-Ot-6Df"/>
+                <constraint firstItem="l4E-7q-yvT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="vnb-Ot-wd1"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="xnX-B2-bmq"/>
+                    <exclude reference="l4E-7q-yvT"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="iv8-4e-CTm"/>
+                    <exclude reference="mDK-1Q-9ia"/>
+                    <exclude reference="su5-Ot-6Df"/>
+                    <exclude reference="vnb-Ot-wd1"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="xnX-B2-bmq"/>
+                    <include reference="l4E-7q-yvT"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="iv8-4e-CTm"/>
+                    <include reference="mDK-1Q-9ia"/>
+                    <include reference="su5-Ot-6Df"/>
+                    <include reference="vnb-Ot-wd1"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

@@ -20,6 +20,9 @@
 #import "MoreFZCViewController.h"
 #import "MinePersonSetUpController.h"
 #import "MineTravelTagVC.h"
+
+//#import "TestViewController.h"
+
 @interface ZCMainViewController ()<WXApiManagerDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
 @property (nonatomic, strong) UISegmentedControl *segmentedView;
@@ -157,6 +160,10 @@
 #pragma mark --- 点击右侧导航栏按钮
 -(void)clickRightNavBtn
 {
+//    [self.navigationController pushViewController:[TestViewController new] animated:YES];
+//    
+//    return;
+    
     [self enterFZC];
 }
 
