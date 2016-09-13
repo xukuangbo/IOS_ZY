@@ -33,6 +33,7 @@
 #import "ChatBlackListModel.h"
 #import "ZYZCTabBarController.h"
 #import "LivePersonDataView.h"
+#import "ZYLiveEndLiveVC.h"
 
 //输入框的高度
 #define MinHeight_InputView 50.0f
@@ -53,6 +54,12 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 @property (nonatomic, assign )  BOOL           isCTCallStateDisconnected;
 /** skim是否活跃 */
 @property (nonatomic, assign )  BOOL           isSkimLive;
+
+#pragma mark - 直播结束时需要的属性
+/** 最大的人数 */
+@property (nonatomic, assign) NSInteger totalPeopleCount;
+/** 在线最大人数 */
+@property (nonatomic, assign) NSInteger totalOnlinePeopleNumber;
 
 #pragma mark - 聊天需要的属性
 
@@ -514,11 +521,14 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.tabBarController.tabBar setHidden:NO];
     [self destroySession];
     [self quitConversationViewAndClear];
-    [self dismissViewControllerAnimated:NO completion:^{
-        if ([weakSelf.delegate respondsToSelector:@selector(backHomePage)]) {
-            [weakSelf.delegate backHomePage];
-        }
-    }];
+//    [self dismissViewControllerAnimated:NO completion:^{
+//        if ([weakSelf.delegate respondsToSelector:@selector(backHomePage)]) {
+//            [weakSelf.delegate backHomePage];
+//        }
+//    }];
+    ZYLiveEndLiveVC *endVC = [[ZYLiveEndLiveVC alloc] init];
+    endVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:endVC animated:YES];
     
 }
 

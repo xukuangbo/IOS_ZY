@@ -443,6 +443,9 @@
 		394D53721D62D76B00E7F595 /* ZYFaqiLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D53711D62D76B00E7F595 /* ZYFaqiLiveViewController.m */; };
 		394D537B1D62F45500E7F595 /* UIView+ZYLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */; };
 		3951296C1D8658CD00760405 /* LivePersonDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3951296B1D8658CD00760405 /* LivePersonDataView.m */; };
+		395737731D87E550009CEFAC /* ZYLiveEndModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 395737721D87E550009CEFAC /* ZYLiveEndModel.m */; };
+		395737771D87E7CB009CEFAC /* ZYLiveEndLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395737751D87E7CB009CEFAC /* ZYLiveEndLiveVC.m */; };
+		395737781D87E7CB009CEFAC /* ZYLiveEndLiveVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 395737761D87E7CB009CEFAC /* ZYLiveEndLiveVC.xib */; };
 		395B5A6C1D1FC3910084264C /* jpush-ios-2.1.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6A1D1FC3910084264C /* jpush-ios-2.1.8.a */; };
 		395B5A6E1D1FC4020084264C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6D1D1FC4020084264C /* CFNetwork.framework */; };
 		395B5A701D1FC4110084264C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6F1D1FC4110084264C /* CoreFoundation.framework */; };
@@ -460,7 +463,6 @@
 		395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B88DA1D323C40001FF5DB /* AboutUsVC.m */; };
 		3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */; };
 		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
-		3967ADBA1D6D3941008A7F81 /* RoleList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3967ADB91D6D3941008A7F81 /* RoleList.plist */; };
 		39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */; };
 		39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D061D58762E00CB9EE3 /* TacticMainCountryCell.m */; };
 		39809D141D58762E00CB9EE3 /* TacticMainHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D0B1D58762E00CB9EE3 /* TacticMainHeadCell.m */; };
@@ -1379,6 +1381,11 @@
 		394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZYLayer.m"; sourceTree = "<group>"; };
 		3951296A1D8658CD00760405 /* LivePersonDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivePersonDataView.h; sourceTree = "<group>"; };
 		3951296B1D8658CD00760405 /* LivePersonDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivePersonDataView.m; sourceTree = "<group>"; };
+		395737711D87E550009CEFAC /* ZYLiveEndModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveEndModel.h; sourceTree = "<group>"; };
+		395737721D87E550009CEFAC /* ZYLiveEndModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveEndModel.m; sourceTree = "<group>"; };
+		395737741D87E7CB009CEFAC /* ZYLiveEndLiveVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveEndLiveVC.h; sourceTree = "<group>"; };
+		395737751D87E7CB009CEFAC /* ZYLiveEndLiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveEndLiveVC.m; sourceTree = "<group>"; };
+		395737761D87E7CB009CEFAC /* ZYLiveEndLiveVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZYLiveEndLiveVC.xib; sourceTree = "<group>"; };
 		395B5A6A1D1FC3910084264C /* jpush-ios-2.1.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.8.a"; sourceTree = "<group>"; };
 		395B5A6B1D1FC3910084264C /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		395B5A6D1D1FC4020084264C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -1407,7 +1414,6 @@
 		3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDoLiveVC.m; sourceTree = "<group>"; };
 		3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionView.h; sourceTree = "<group>"; };
 		3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionView.m; sourceTree = "<group>"; };
-		3967ADB91D6D3941008A7F81 /* RoleList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RoleList.plist; sourceTree = "<group>"; };
 		39809D021D58762E00CB9EE3 /* TacticBaseCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticBaseCustomView.h; sourceTree = "<group>"; };
 		39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticBaseCustomView.m; sourceTree = "<group>"; };
 		39809D051D58762E00CB9EE3 /* TacticMainCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMainCountryCell.h; sourceTree = "<group>"; };
@@ -2934,7 +2940,6 @@
 			isa = PBXGroup;
 			children = (
 				2C901DBA1C89788C004B844B /* ios_zhongyouzhongchou */,
-				3967ADB91D6D3941008A7F81 /* RoleList.plist */,
 				2C901DD41C89788C004B844B /* ios_zhongyouzhongchouTests */,
 				2C901DDF1C89788C004B844B /* ios_zhongyouzhongchouUITests */,
 				2C901DB91C89788C004B844B /* Products */,
@@ -3862,6 +3867,7 @@
 		394D53571D62D64500E7F595 /* DoLive(做直播) */ = {
 			isa = PBXGroup;
 			children = (
+				3957376D1D87D9FC009CEFAC /* EndLive(直播结束) */,
 				394D53681D62D67F00E7F595 /* DoLive(做直播) */,
 				394D53581D62D64500E7F595 /* MakeLive(发起直播) */,
 			);
@@ -3944,6 +3950,18 @@
 				3951296B1D8658CD00760405 /* LivePersonDataView.m */,
 			);
 			path = LivePesonDataView;
+			sourceTree = "<group>";
+		};
+		3957376D1D87D9FC009CEFAC /* EndLive(直播结束) */ = {
+			isa = PBXGroup;
+			children = (
+				395737711D87E550009CEFAC /* ZYLiveEndModel.h */,
+				395737721D87E550009CEFAC /* ZYLiveEndModel.m */,
+				395737741D87E7CB009CEFAC /* ZYLiveEndLiveVC.h */,
+				395737751D87E7CB009CEFAC /* ZYLiveEndLiveVC.m */,
+				395737761D87E7CB009CEFAC /* ZYLiveEndLiveVC.xib */,
+			);
+			path = "EndLive(直播结束)";
 			sourceTree = "<group>";
 		};
 		395B5A691D1FC3910084264C /* JPush */ = {
@@ -4514,11 +4532,11 @@
 				2CD209191D6D3E27005EB62E /* ZCInfoView.xib in Resources */,
 				2CE617721D657DD100962163 /* HUImagePickerCell.xib in Resources */,
 				2C8B197A1D0CF7EC0063097B /* Info.plist in Resources */,
+				395737781D87E7CB009CEFAC /* ZYLiveEndLiveVC.xib in Resources */,
 				2C901DC61C89788C004B844B /* Main.storyboard in Resources */,
 				2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */,
 				2CD209A11D6D4BA6005EB62E /* icon.png in Resources */,
 				2C8B198D1D0CF7EC0063097B /* XMNPhotoPicker.xib in Resources */,
-				3967ADBA1D6D3941008A7F81 /* RoleList.plist in Resources */,
 				2C8B19851D0CF7EC0063097B /* PhotoPickerKit.xcassets in Resources */,
 				04A99CFB1CBF897A00C6F5F0 /* read_me.txt in Resources */,
 				3941CD761D420B29009224BC /* ChatBlackListCell.xib in Resources */,
@@ -4661,6 +4679,7 @@
 				04F8364D1CD734CD00140980 /* TacticSingleTipsController.m in Sources */,
 				3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */,
 				0406514D1CC87A89003FD539 /* TacticSingleViewController.m in Sources */,
+				395737731D87E550009CEFAC /* ZYLiveEndModel.m in Sources */,
 				2CD209061D6D3E27005EB62E /* ZCSpotVideoModel.m in Sources */,
 				2C1B60FE1D6D3CF900E3C25B /* ZYimageView.m in Sources */,
 				041CFC841D13F3D200871093 /* TacticMoreVideoCell.m in Sources */,
@@ -4709,6 +4728,7 @@
 				2CD2090E1D6D3E27005EB62E /* ZCDetailFirstCell.m in Sources */,
 				2C5159A01D8641B20048BD20 /* AmrPlayerReader.m in Sources */,
 				2C5159A91D8641B20048BD20 /* Mp3RecordWriter.m in Sources */,
+				395737771D87E7CB009CEFAC /* ZYLiveEndLiveVC.m in Sources */,
 				2C90F6F21D532323001ABB44 /* MsgListTableView.m in Sources */,
 				040651411CC78877003FD539 /* TacticImageView.m in Sources */,
 				04A99D221CC07E1800C6F5F0 /* WXMediaMessage+messageConstruct.m in Sources */,
