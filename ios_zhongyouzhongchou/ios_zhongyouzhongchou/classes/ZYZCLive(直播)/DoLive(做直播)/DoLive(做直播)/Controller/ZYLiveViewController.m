@@ -32,6 +32,8 @@
 #import "ZYLiveListModel.h"
 #import "ChatBlackListModel.h"
 #import "ZYZCTabBarController.h"
+#import "LivePersonDataView.h"
+#import "ZYLiveEndLiveVC.h"
 
 //输入框的高度
 #define MinHeight_InputView 50.0f
@@ -53,9 +55,18 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 /** skim是否活跃 */
 @property (nonatomic, assign )  BOOL           isSkimLive;
 
+#pragma mark - 直播结束时需要的属性
+/** 最大的人数 */
+@property (nonatomic, assign) NSInteger totalPeopleCount;
+/** 在线最大人数 */
+@property (nonatomic, assign) NSInteger totalOnlinePeopleNumber;
+
 #pragma mark - 聊天需要的属性
 
 @property (nonatomic, strong) DoLiveHeadView *headView;
+
+//个人信息view
+@property (nonatomic, strong) LivePersonDataView *personDataView;
 
 //返回按钮
 @property (nonatomic, strong) UIButton *backBtn;
@@ -302,8 +313,20 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         make.top.mas_equalTo(KStatus_Height);
         make.size.mas_equalTo(CGSizeMake(110, DoLiveHeadViewHeight));
     }];
+    
+    //添加头像点击事件
+    [_headView addTarget:self action:@selector(showPersonData)];
+    
+    //添加个人信息view
+    CGFloat personDataViewW = 230;
+    CGFloat personDataViewH = 322;
+    CGFloat personDataViewX = (self.view.width - personDataViewW) * 0.5;
+    CGFloat personDataViewY = self.view.height;
+    
+    _personDataView = [[LivePersonDataView alloc] initWithFrame:CGRectMake(personDataViewX, personDataViewY, personDataViewW, personDataViewH)];
+    [self.view addSubview:_personDataView];
+    
     //左上角头像赋值
-//    RCUserInfo *userInfo = [RCDLive sharedRCDLive].currentUserInfo;
     NSString *faceImg = [ZYZCAccountTool account].faceImg64.length > 0? [ZYZCAccountTool account].faceImg64 : [ZYZCAccountTool account].faceImg132;
     [_headView.iconView sd_setImageWithURL:[NSURL URLWithString:faceImg] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
     //左上角人数
@@ -468,6 +491,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - event 点击事件
+/**
+ *  展示个人头像
+ */
+- (void)showPersonData
+{
+    [self.personDataView showPersonDataWithUserId:@"1"];
+}
+
+
 - (void)messageBtnAction:(UIButton *)sender
 {
     
@@ -489,11 +521,14 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.tabBarController.tabBar setHidden:NO];
     [self destroySession];
     [self quitConversationViewAndClear];
-    [self dismissViewControllerAnimated:NO completion:^{
-        if ([weakSelf.delegate respondsToSelector:@selector(backHomePage)]) {
-            [weakSelf.delegate backHomePage];
-        }
-    }];
+//    [self dismissViewControllerAnimated:NO completion:^{
+//        if ([weakSelf.delegate respondsToSelector:@selector(backHomePage)]) {
+//            [weakSelf.delegate backHomePage];
+//        }
+//    }];
+    ZYLiveEndLiveVC *endVC = [[ZYLiveEndLiveVC alloc] init];
+    endVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:endVC animated:YES];
     
 }
 
@@ -1299,6 +1334,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark ---定义展示的UICollectionViewCell的个数
 - (void)tap4ResetDefaultBottomBarStatus:
 (UIGestureRecognizer *)gestureRecognizer {
+    
+    //隐藏个人信息
+    [self.personDataView hidePersonDataView];
+    
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         //        CGRect collectionViewRect = self.conversationMessageCollectionView.frame;
         //        collectionViewRect.size.height = self.contentView.bounds.size.height - 0;

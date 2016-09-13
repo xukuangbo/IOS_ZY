@@ -42,5 +42,10 @@
 
 + (UIColor *)ZYZC_titleBlackColor;
 
+//默认alpha值为1
++ (UIColor *)colorWithHexString:(NSString *)hex withAlpha:(CGFloat)alpha;
++ (UIColor *)colorWithHexString:(NSString *)hex;
++ (UIColor *)colorWithHex:(int)hex withAlpha:(CGFloat)alpha;
++ (UIColor *)colorWithHex:(int)hex;
 
 @end

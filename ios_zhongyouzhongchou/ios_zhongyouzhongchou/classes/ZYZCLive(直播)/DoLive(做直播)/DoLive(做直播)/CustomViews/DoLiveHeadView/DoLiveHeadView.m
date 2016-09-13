@@ -10,6 +10,7 @@
 #import <Masonry.h>
 #import "UIView+ZYLayer.h"
 #import "MZTimerLabel.h"
+
 @interface DoLiveHeadView ()<MZTimerLabelDelegate>
 
 
@@ -20,8 +21,8 @@
 {
     self = [super init];
     if (self) {
-        [self setUpSubviews];
         
+        [self setUpSubviews];
         
         [self starTimer];
     }

@@ -29,6 +29,8 @@
 #import "MBProgressHUD+MJ.h"
 #import "ChatBlackListModel.h"
 #import "ZYWatchLiveView.h"
+#import "MinePersonSetUpModel.h"
+#import "ZYBottomPayView.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -101,7 +103,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) UIButton *attentionButton;
 @property(nonatomic,strong)UICollectionView *portraitsCollectionView;
 @property(nonatomic,strong)NSMutableArray *userList;
-
+// 打赏view
+@property (nonatomic, strong) ZYBottomPayView *payView;
 // 判断是不是进入私聊界面
 @property (nonatomic, assign) BOOL isMessage;
 
@@ -140,6 +143,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self setupConstraints];
     [self initChatroomMemberInfo];
     [self enterInfoLiveRoom];
+    [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
 }
 
@@ -263,7 +267,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     livePersonNumberView.layer.cornerRadius = 35/2;
 //    livePersonNumberView.alpha = 0.5;
     [self.view addSubview:livePersonNumberView];
-    self.livePersonNumberView = livePersonNumberView;
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 34, 34)];
     [imageView sd_setImageWithURL:[NSURL URLWithString:self.liveModel.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
     imageView.layer.cornerRadius = 34/2;
@@ -283,6 +286,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.attentionButton.layer.cornerRadius = 15;
     [livePersonNumberView addSubview:self.attentionButton];
     
+    self.livePersonNumberView = livePersonNumberView;
+    self.livePersonNumberView.hidden = YES;
+
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 16;
     layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
@@ -294,6 +300,20 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
     [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     [self.view addSubview:self.portraitsCollectionView];
+}
+
+- (void)initPayView {
+    if (!self.payView) {
+        ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
+        CGRect rect = self.view.bounds;
+        payView.frame = rect;
+        [payView.layer setCornerRadius:10];
+        [self.view addSubview:payView];
+        
+        self.payView = payView;
+    } else {
+        self.payView.hidden = NO;
+    }
 }
 
 - (void)setupConstraints
@@ -334,6 +354,18 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }];
     [self.portraitsCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.livePersonNumberView).offset(10);
+        make.top.equalTo(self.view).offset(30);
+        make.width.equalTo(@(KSCREEN_W - 135));
+        make.height.equalTo(@35);
+    }];
+}
+
+- (void)updateLivePersonNumberViewFrame
+{
+    self.livePersonNumberView.frame = CGRectMake(15, 30, 85, 35);
+    self.attentionButton.hidden = YES;
+    [self.portraitsCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.livePersonNumberView).offset(80);
         make.top.equalTo(self.view).offset(30);
         make.width.equalTo(@(KSCREEN_W - 135));
         make.height.equalTo(@35);
@@ -434,6 +466,26 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self installMovieNotificationObservers];
 }
 
+// 获取个人信息，是否关注
+- (void)requestData
+{
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSString *getUserInfoURL = Get_SelfInfo(userId, self.liveModel.userId);
+    WEAKSELF
+    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSDictionary *dic = (NSDictionary *)result;
+        NSDictionary *data = dic[@"data"];
+        if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]) {
+            [weakSelf updateLivePersonNumberViewFrame];
+            weakSelf.livePersonNumberView.hidden = NO;
+        } else{
+            weakSelf.livePersonNumberView.hidden = NO;
+        }
+    } andFailBlock:^(id failResult) {
+        weakSelf.livePersonNumberView.hidden = NO;
+    }];
+}
+
 #pragma mark - event
 - (void)closeLiveButtonAction:(UIButton *)sender
 {
@@ -453,29 +505,26 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 点击关注按钮
 - (void)attentionButtonAction:(UIButton *)sender
 {
-//    NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":_userModel.userId};
-//    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
-//        //            NSLog(@"%@",result);
-//        if (isSuccess) {
-//            [MBProgressHUD showSuccess:@"关注成功"];
-//            [_addInterestBtn setTitle:@"取消关注" forState:UIControlStateNormal];
-//            
-//            _gzMeAll=[NSNumber numberWithInteger:([_gzMeAll integerValue]+1)];
-//            _attentionLab.text=FOLLIOW_AND_BEFOLLOW([_meGzAll integerValue], [_gzMeAll integerValue]);
-//            _friendship=!_friendship;
-//        }
-//        else
-//        {
-//            [MBProgressHUD showSuccess:@"关注失败"];
-//        }
-//        
-//    } andFailBlock:^(id failResult) {
-//        [MBProgressHUD showSuccess:@"关注成功"];
-//        
-//    }];
+    WEAKSELF
+    NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":self.liveModel.userId};
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        //            NSLog(@"%@",result);
+        if (isSuccess) {
+            [MBProgressHUD showSuccess:@"关注成功"];
+            [weakSelf updateLivePersonNumberViewFrame];
+        }
+        else
+        {
+            [MBProgressHUD showSuccess:@"关注失败"];
+        }
+        
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD showSuccess:@"关注失败"];
+        
+    }];
 }
 
-// 关注
+// 分享
 - (void)shareBtnAction:(UIButton *)sender
 {
     
@@ -498,8 +547,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  *
  *  @param sender sender description
  */
--(void)flowerButtonPressed:(UIButton *)sender{
-
+-(void)flowerButtonPressed:(UIButton *)sender
+{
+    [self initPayView];
 }
 
 /**
