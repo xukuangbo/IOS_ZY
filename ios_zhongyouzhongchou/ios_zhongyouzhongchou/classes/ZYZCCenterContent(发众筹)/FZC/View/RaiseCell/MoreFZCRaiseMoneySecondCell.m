@@ -56,7 +56,7 @@
 
     //_contentEntryView加载数据
      MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
-    [_contentEntryView reloadDataByWord:manager.raiseMoney_wordDes andImgUrlStr:manager.raiseMoney_imgUrlStr andVoiceUrl:manager.raiseMoney_voiceUrl andVideoUrl:manager.raiseMoney_movieUrl andVideoImg:manager.raiseMoney_movieImg];
+    [_contentEntryView reloadDataByWord:manager.raiseMoney_wordDes andImgUrlStr:manager.raiseMoney_imgUrlStr andVoiceUrl:manager.raiseMoney_voiceUrl andVoiceLen:manager.raiseMoney_voiceLen andVideoUrl:manager.raiseMoney_movieUrl andVideoImg:manager.raiseMoney_movieImg];
 }
 
 /**

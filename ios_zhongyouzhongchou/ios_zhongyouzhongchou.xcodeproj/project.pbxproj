@@ -196,6 +196,16 @@
 		2C3FAA211D54793000F2B187 /* MsgDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FAA201D54793000F2B187 /* MsgDetailModel.m */; };
 		2C44698C1D1671C8000639EB /* ZYZCEditProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */; };
 		2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C4EEFB81CC6087D00AA99F6 /* outboundCity.plist */; };
+		2C5159A01D8641B20048BD20 /* AmrPlayerReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159851D8641B20048BD20 /* AmrPlayerReader.m */; };
+		2C5159A11D8641B20048BD20 /* MLAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159871D8641B20048BD20 /* MLAudioPlayer.m */; };
+		2C5159A21D8641B20048BD20 /* libopencore-amrnb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5159921D8641B20048BD20 /* libopencore-amrnb.a */; };
+		2C5159A31D8641B20048BD20 /* libopencore-amrwb.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C5159931D8641B20048BD20 /* libopencore-amrwb.a */; };
+		2C5159A41D8641B20048BD20 /* AmrRecordWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159951D8641B20048BD20 /* AmrRecordWriter.m */; };
+		2C5159A51D8641B20048BD20 /* CafRecordWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159971D8641B20048BD20 /* CafRecordWriter.m */; };
+		2C5159A61D8641B20048BD20 /* MLAudioMeterObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159991D8641B20048BD20 /* MLAudioMeterObserver.m */; };
+		2C5159A71D8641B20048BD20 /* MLAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C51599B1D8641B20048BD20 /* MLAudioRecorder.m */; };
+		2C5159A81D8641B20048BD20 /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51599D1D8641B20048BD20 /* lame.framework */; };
+		2C5159A91D8641B20048BD20 /* Mp3RecordWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */; };
 		2C79606C1D0A74940026C9F6 /* MyReturnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */; };
 		2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */; };
 		2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E3B4A1D06B34D00F51C61 /* MineTableViewCell.m */; };
@@ -879,6 +889,27 @@
 		2C44698A1D1671C8000639EB /* ZYZCEditProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCEditProductView.h; sourceTree = "<group>"; };
 		2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCEditProductView.m; sourceTree = "<group>"; };
 		2C4EEFB81CC6087D00AA99F6 /* outboundCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = outboundCity.plist; sourceTree = "<group>"; };
+		2C5159841D8641B20048BD20 /* AmrPlayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmrPlayerReader.h; sourceTree = "<group>"; };
+		2C5159851D8641B20048BD20 /* AmrPlayerReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmrPlayerReader.m; sourceTree = "<group>"; };
+		2C5159861D8641B20048BD20 /* MLAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAudioPlayer.h; sourceTree = "<group>"; };
+		2C5159871D8641B20048BD20 /* MLAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAudioPlayer.m; sourceTree = "<group>"; };
+		2C51598C1D8641B20048BD20 /* interf_dec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_dec.h; sourceTree = "<group>"; };
+		2C51598D1D8641B20048BD20 /* interf_enc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = interf_enc.h; sourceTree = "<group>"; };
+		2C51598F1D8641B20048BD20 /* dec_if.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dec_if.h; sourceTree = "<group>"; };
+		2C5159901D8641B20048BD20 /* if_rom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = if_rom.h; sourceTree = "<group>"; };
+		2C5159921D8641B20048BD20 /* libopencore-amrnb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrnb.a"; sourceTree = "<group>"; };
+		2C5159931D8641B20048BD20 /* libopencore-amrwb.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libopencore-amrwb.a"; sourceTree = "<group>"; };
+		2C5159941D8641B20048BD20 /* AmrRecordWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmrRecordWriter.h; sourceTree = "<group>"; };
+		2C5159951D8641B20048BD20 /* AmrRecordWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmrRecordWriter.m; sourceTree = "<group>"; };
+		2C5159961D8641B20048BD20 /* CafRecordWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CafRecordWriter.h; sourceTree = "<group>"; };
+		2C5159971D8641B20048BD20 /* CafRecordWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CafRecordWriter.m; sourceTree = "<group>"; };
+		2C5159981D8641B20048BD20 /* MLAudioMeterObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAudioMeterObserver.h; sourceTree = "<group>"; };
+		2C5159991D8641B20048BD20 /* MLAudioMeterObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAudioMeterObserver.m; sourceTree = "<group>"; };
+		2C51599A1D8641B20048BD20 /* MLAudioRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAudioRecorder.h; sourceTree = "<group>"; };
+		2C51599B1D8641B20048BD20 /* MLAudioRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAudioRecorder.m; sourceTree = "<group>"; };
+		2C51599D1D8641B20048BD20 /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
+		2C51599E1D8641B20048BD20 /* Mp3RecordWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp3RecordWriter.h; sourceTree = "<group>"; };
+		2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp3RecordWriter.m; sourceTree = "<group>"; };
 		2C72BCC21CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		2C72BCC31CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2C79606A1D0A74940026C9F6 /* MyReturnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyReturnViewController.h; sourceTree = "<group>"; };
@@ -1474,6 +1505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0503B5751D65955A00546C16 /* QuartzCore.framework in Frameworks */,
+				2C5159A21D8641B20048BD20 /* libopencore-amrnb.a in Frameworks */,
 				0503B5731D65954900546C16 /* OpenGLES.framework in Frameworks */,
 				0503B5711D65953200546C16 /* MobileCoreServices.framework in Frameworks */,
 				0503B56F1D65952700546C16 /* MediaPlayer.framework in Frameworks */,
@@ -1488,12 +1520,14 @@
 				395B5A761D1FC43D0084264C /* UIKit.framework in Frameworks */,
 				395B5A741D1FC4350084264C /* Foundation.framework in Frameworks */,
 				04A99CFE1CBF89E600C6F5F0 /* SystemConfiguration.framework in Frameworks */,
+				2C5159A31D8641B20048BD20 /* libopencore-amrwb.a in Frameworks */,
 				04A99D061CBF8A4100C6F5F0 /* CoreTelephony.framework in Frameworks */,
 				395B5A701D1FC4110084264C /* CoreFoundation.framework in Frameworks */,
 				2CD209341D6D4B98005EB62E /* QPPhotoMovie.framework in Frameworks */,
 				395B5A6E1D1FC4020084264C /* CFNetwork.framework in Frameworks */,
 				2C8B19921D0D70FB0063097B /* Photos.framework in Frameworks */,
 				04A99D041CBF8A1F00C6F5F0 /* libc++.tbd in Frameworks */,
+				2C5159A81D8641B20048BD20 /* lame.framework in Frameworks */,
 				04A99D021CBF8A1000C6F5F0 /* libsqlite3.0.tbd in Frameworks */,
 				04A99D001CBF89F600C6F5F0 /* libz.tbd in Frameworks */,
 				2CD209321D6D4B32005EB62E /* QPSDKCore.framework in Frameworks */,
@@ -1824,6 +1858,7 @@
 		04A99BCE1CBF848C00C6F5F0 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				2C5159821D86419C0048BD20 /* AudioRecordAndPlay */,
 				39AABC8A1D6EC9D400D25B16 /* MZTimerLabel */,
 				0503BFEE1D659CF700546C16 /* IJKMediaFramework */,
 				2CE617441D657DD100962163 /* HUPhotoBrowser */,
@@ -2432,8 +2467,8 @@
 				2C1B609B1D6D3CF900E3C25B /* SoundView.h */,
 				2C1B609C1D6D3CF900E3C25B /* SoundView.m */,
 				2C1B609D1D6D3CF900E3C25B /* WordEditViewController.h */,
-				2C1B609E1D6D3CF900E3C25B /* WordEditViewController.m */,
 				2C1B609F1D6D3CF900E3C25B /* WordView.h */,
+				2C1B609E1D6D3CF900E3C25B /* WordEditViewController.m */,
 				2C1B60A01D6D3CF900E3C25B /* WordView.m */,
 				2C1B60A11D6D3CF900E3C25B /* WSMBaseView.h */,
 				2C1B60A21D6D3CF900E3C25B /* WSMBaseView.m */,
@@ -2640,6 +2675,98 @@
 				2C9AA6E11D3D2BAF0030A5B4 /* ZYCustomIconView.m */,
 			);
 			path = ZYZCBaseView;
+			sourceTree = "<group>";
+		};
+		2C5159821D86419C0048BD20 /* AudioRecordAndPlay */ = {
+			isa = PBXGroup;
+			children = (
+				2C5159831D8641B20048BD20 /* MLAudioPlayer */,
+				2C5159881D8641B20048BD20 /* MLAudioRecorder */,
+			);
+			path = AudioRecordAndPlay;
+			sourceTree = "<group>";
+		};
+		2C5159831D8641B20048BD20 /* MLAudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				2C5159841D8641B20048BD20 /* AmrPlayerReader.h */,
+				2C5159851D8641B20048BD20 /* AmrPlayerReader.m */,
+				2C5159861D8641B20048BD20 /* MLAudioPlayer.h */,
+				2C5159871D8641B20048BD20 /* MLAudioPlayer.m */,
+			);
+			path = MLAudioPlayer;
+			sourceTree = "<group>";
+		};
+		2C5159881D8641B20048BD20 /* MLAudioRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				2C5159891D8641B20048BD20 /* amr_en_de */,
+				2C5159941D8641B20048BD20 /* AmrRecordWriter.h */,
+				2C5159951D8641B20048BD20 /* AmrRecordWriter.m */,
+				2C5159961D8641B20048BD20 /* CafRecordWriter.h */,
+				2C5159971D8641B20048BD20 /* CafRecordWriter.m */,
+				2C5159981D8641B20048BD20 /* MLAudioMeterObserver.h */,
+				2C5159991D8641B20048BD20 /* MLAudioMeterObserver.m */,
+				2C51599A1D8641B20048BD20 /* MLAudioRecorder.h */,
+				2C51599B1D8641B20048BD20 /* MLAudioRecorder.m */,
+				2C51599C1D8641B20048BD20 /* mp3_en_de */,
+				2C51599E1D8641B20048BD20 /* Mp3RecordWriter.h */,
+				2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */,
+			);
+			path = MLAudioRecorder;
+			sourceTree = "<group>";
+		};
+		2C5159891D8641B20048BD20 /* amr_en_de */ = {
+			isa = PBXGroup;
+			children = (
+				2C51598A1D8641B20048BD20 /* include */,
+				2C5159911D8641B20048BD20 /* lib */,
+			);
+			path = amr_en_de;
+			sourceTree = "<group>";
+		};
+		2C51598A1D8641B20048BD20 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				2C51598B1D8641B20048BD20 /* opencore-amrnb */,
+				2C51598E1D8641B20048BD20 /* opencore-amrwb */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		2C51598B1D8641B20048BD20 /* opencore-amrnb */ = {
+			isa = PBXGroup;
+			children = (
+				2C51598C1D8641B20048BD20 /* interf_dec.h */,
+				2C51598D1D8641B20048BD20 /* interf_enc.h */,
+			);
+			path = "opencore-amrnb";
+			sourceTree = "<group>";
+		};
+		2C51598E1D8641B20048BD20 /* opencore-amrwb */ = {
+			isa = PBXGroup;
+			children = (
+				2C51598F1D8641B20048BD20 /* dec_if.h */,
+				2C5159901D8641B20048BD20 /* if_rom.h */,
+			);
+			path = "opencore-amrwb";
+			sourceTree = "<group>";
+		};
+		2C5159911D8641B20048BD20 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				2C5159921D8641B20048BD20 /* libopencore-amrnb.a */,
+				2C5159931D8641B20048BD20 /* libopencore-amrwb.a */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		2C51599C1D8641B20048BD20 /* mp3_en_de */ = {
+			isa = PBXGroup;
+			children = (
+				2C51599D1D8641B20048BD20 /* lame.framework */,
+			);
+			path = mp3_en_de;
 			sourceTree = "<group>";
 		};
 		2C7960691D0A740F0026C9F6 /* MyReturnProduct(我的回报／草稿) */ = {
@@ -4539,6 +4666,7 @@
 				2CD2091A1D6D3E27005EB62E /* ZCMainTableView.m in Sources */,
 				39809D251D588EE000CB9EE3 /* TacticMainVideoCustomView.m in Sources */,
 				2C1B60DD1D6D3CF900E3C25B /* GoalScheduleView.m in Sources */,
+				2C5159A41D8641B20048BD20 /* AmrRecordWriter.m in Sources */,
 				2CD2092C1D6D3E27005EB62E /* ZCWebViewController.m in Sources */,
 				2C1B60E41D6D3CF900E3C25B /* MoreFZCToolBar.m in Sources */,
 				2C8B198F1D0CF7EC0063097B /* XMNPhotoStickLayout.m in Sources */,
@@ -4565,11 +4693,14 @@
 				2CD209C01D6D4BA6005EB62E /* QPCountDownView.m in Sources */,
 				2C1B60CD1D6D3CF900E3C25B /* ChooseSiteImgController.m in Sources */,
 				2CD2090E1D6D3E27005EB62E /* ZCDetailFirstCell.m in Sources */,
+				2C5159A01D8641B20048BD20 /* AmrPlayerReader.m in Sources */,
+				2C5159A91D8641B20048BD20 /* Mp3RecordWriter.m in Sources */,
 				2C90F6F21D532323001ABB44 /* MsgListTableView.m in Sources */,
 				040651411CC78877003FD539 /* TacticImageView.m in Sources */,
 				04A99D221CC07E1800C6F5F0 /* WXMediaMessage+messageConstruct.m in Sources */,
 				2C1B60F71D6D3CF900E3C25B /* SoundView.m in Sources */,
 				2C8B19901D0CF7EC0063097B /* XMNPhotoManager.m in Sources */,
+				2C5159A71D8641B20048BD20 /* MLAudioRecorder.m in Sources */,
 				040651301CC635A9003FD539 /* TacticTableView.m in Sources */,
 				2C1B60F01D6D3CF900E3C25B /* AddDetailView.m in Sources */,
 				39F2AA181D3F9BA100023CC4 /* ZYZoomImageVIew.m in Sources */,
@@ -4652,6 +4783,7 @@
 				2C1B60F61D6D3CF900E3C25B /* RecordSoundObj.m in Sources */,
 				2C1B60DA1D6D3CF900E3C25B /* FZCSingleTitleView.m in Sources */,
 				2CD209AF1D6D4BA6005EB62E /* QPEffectManager.m in Sources */,
+				2C5159A11D8641B20048BD20 /* MLAudioPlayer.m in Sources */,
 				39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */,
 				2CD209291D6D3E27005EB62E /* ZCCommentViewController.m in Sources */,
 				39911ADC1D5044A8007DF44B /* ZYZCHTTPTool.m in Sources */,
@@ -4773,6 +4905,7 @@
 				2CD2092A1D6D3E27005EB62E /* ZCMainViewController.m in Sources */,
 				2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */,
 				04FCCAAF1CDC45AD00540B28 /* TacticMoreCollectionViewCell.m in Sources */,
+				2C5159A61D8641B20048BD20 /* MLAudioMeterObserver.m in Sources */,
 				2CD209A51D6D4BA6005EB62E /* QPString.m in Sources */,
 				2CD209021D6D3E27005EB62E /* ZCCommentModel.m in Sources */,
 				39809D1F1D5888F400CB9EE3 /* TacticMainCityCustomView.m in Sources */,
@@ -4844,6 +4977,7 @@
 				392AB2821D669C26003FEDB7 /* RCDLiveGiftMessageCell.m in Sources */,
 				2C901DBD1C89788C004B844B /* main.m in Sources */,
 				0432ADA31D0966F9005D789E /* STConst.m in Sources */,
+				2C5159A51D8641B20048BD20 /* CafRecordWriter.m in Sources */,
 				2C1B60DB1D6D3CF900E3C25B /* GoalFirstCell.m in Sources */,
 				2C1B60D81D6D3CF900E3C25B /* ZYImageModel.m in Sources */,
 				3926350E1D5D7C29006A90BE /* MineWalletTableViewCell.m in Sources */,
@@ -5049,13 +5183,14 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/QuPaiSDK",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/ZYShortVideo(短视频)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/IJKMediaFramework",
+					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/AudioRecordAndPlay/MLAudioRecorder/mp3_en_de",
 				);
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/ios_zhongyouzhongchou/ZYZCPch.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5077,6 +5212,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/WeChatSDK1.6.2",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/JPush",
+					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/AudioRecordAndPlay/MLAudioRecorder/amr_en_de/lib",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -5162,7 +5298,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				ENABLE_BITCODE = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_TESTABILITY = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5170,6 +5306,7 @@
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/ZYShortVideo(短视频)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/IJKMediaFramework",
+					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/AudioRecordAndPlay/MLAudioRecorder/mp3_en_de",
 				);
 				GCC_PREFIX_HEADER = "$(PROJECT_DIR)/ios_zhongyouzhongchou/ZYZCPch.pch";
 				HEADER_SEARCH_PATHS = (
@@ -5191,6 +5328,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/WeChatSDK1.6.2",
 					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/JPush",
+					"$(PROJECT_DIR)/ios_zhongyouzhongchou/classes/Main(主要)/libs/AudioRecordAndPlay/MLAudioRecorder/amr_en_de/lib",
 				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",

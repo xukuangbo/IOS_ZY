@@ -18,9 +18,9 @@ static NSString * kQupaiSDKKey = @"__qupai_sdk_config_key__";
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         NSDictionary *dic = [[NSUserDefaults standardUserDefaults] valueForKey:kQupaiSDKKey];
-        DDLog(@"dic:%@",dic);
-//        _qpSave = [[QPSave alloc] initWithDictionary:dic];
-        
+        if ([dic isKindOfClass:[NSDictionary class]]) {
+             _qpSave = [[QPSave alloc] initWithDictionary:dic];
+        }
     });
     return _qpSave;
 }

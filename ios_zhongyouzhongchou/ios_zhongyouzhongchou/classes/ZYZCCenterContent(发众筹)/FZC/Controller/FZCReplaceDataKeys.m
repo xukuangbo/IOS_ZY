@@ -63,6 +63,7 @@ MJCodingImplementation
     self.cover=[self changeFileName:manager.goal_travelThemeImgUrl];
     self.desc=manager.raiseMoney_wordDes;
     self.voice=[self changeFileName:manager.raiseMoney_voiceUrl];
+    self.voiceLen=manager.raiseMoney_voiceLen;
     self.video=[self changeFileName:manager.raiseMoney_movieUrl];
     self.videoImg = [self changeFileName:manager.raiseMoney_movieImg];
     if (manager.raiseMoney_imgUrlStr.length) {
@@ -82,6 +83,7 @@ MJCodingImplementation
         oneSchedule.food=model.foodDes;
         oneSchedule.desc=model.wordDes;
         oneSchedule.voice=[self changeFileName:model.voiceUrl];
+        oneSchedule.voiceLen=model.voiceLen;
         oneSchedule.video=[self changeFileName:model.movieUrl];
         oneSchedule.videoImg=[self changeFileName:model.movieImg];
         if (model.imgUrlStr.length) {
@@ -111,6 +113,7 @@ MJCodingImplementation
         report03.people=(NSNumber *)manager.return_returnPeopleNumber;
         report03.desc=manager.return_wordDes;
         report03.voice=[self changeFileName:manager.return_voiceUrl];
+        report03.voiceLen=manager.return_voiceLen;
         report03.video=[self changeFileName:manager.return_movieUrl];
         report03.videoUrl=[self changeFileName:manager.return_movieImg];
         if (manager.return_imgUrlStr.length) {
@@ -125,6 +128,7 @@ MJCodingImplementation
     report04.price=manager.return_togetherRateMoney;
     report04.desc=manager.return_togtherWordDes;
     report04.voice=[self changeFileName:manager.return_togtherVoice];
+    report04.voiceLen=manager.return_togtherVoiceLen;
     report04.video=[self changeFileName:manager.return_togtherVideo];
     report04.videoUrl=[self changeFileName:manager.return_togtherVideoImg];
     if (manager.return_togtherImgUrlStr.length) {
@@ -139,6 +143,7 @@ MJCodingImplementation
         report05.people=(NSNumber *)manager.return_returnPeopleNumber01;
         report05.desc=manager.return_wordDes01;
         report05.voice=[self changeFileName:manager.return_voiceUrl01];
+        report05.voiceLen=manager.return_voiceLen01;
         report05.video=[self changeFileName:manager.return_movieUrl01];
         report05.videoUrl=[self changeFileName:manager.return_movieImg01];
         if (manager.return_imgUrlStr01.length) {

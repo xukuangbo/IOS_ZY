@@ -133,7 +133,7 @@
     }
     
     //_contentEntryView 加载数据
-    [_contentEntryView reloadDataByWord:oneDetailModel.wordDes andImgUrlStr:oneDetailModel.imgUrlStr andVoiceUrl:oneDetailModel.voiceUrl andVideoUrl:oneDetailModel.movieUrl andVideoImg:oneDetailModel.movieImg];
+    [_contentEntryView reloadDataByWord:oneDetailModel.wordDes andImgUrlStr:oneDetailModel.imgUrlStr andVoiceUrl:oneDetailModel.voiceUrl andVoiceLen:oneDetailModel.voiceLen andVideoUrl:oneDetailModel.movieUrl andVideoImg:oneDetailModel.movieImg];
 }
 
 #pragma mark --- 存储数据到模型中

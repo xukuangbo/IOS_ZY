@@ -22,6 +22,7 @@
 @property (nonatomic, copy  ) NSString *cover;
 @property (nonatomic, copy  ) NSString *desc;
 @property (nonatomic, copy  ) NSString *productVoice;
+@property (nonatomic, assign) float     productVoiceLen;
 @property (nonatomic, copy  ) NSString *productVideo;
 @property (nonatomic, copy  ) NSString *productVideoImg;
 @property (nonatomic, copy  ) NSString *dest;
@@ -51,6 +52,7 @@
 
 @property (nonatomic, copy  ) NSString *desc;
 @property (nonatomic, copy  ) NSString *spellVoice;
+@property (nonatomic, assign) float    spellVoiceLen;
 @property (nonatomic, copy  ) NSString *spellVideo;
 @property (nonatomic, copy  ) NSString *spellVideoImg;
 @property (nonatomic, copy  ) NSString *descImgs;

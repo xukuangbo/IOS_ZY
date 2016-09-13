@@ -136,7 +136,7 @@
             _returnSupportView01.titleLab.text=RETURNSUPPORT01(money);
             _returnSupportView01.titleLab.width=[ZYZCTool calculateStrLengthByText:RETURNSUPPORT01(money) andFont:[UIFont systemFontOfSize:15] andMaxWidth:KSCREEN_W].width;
             
-            [_returnSupportView01 reloadDataByVideoImgUrl:reportModel.spellVideoImg andPlayUrl:reportModel.spellVideo andVoiceUrl:reportModel.spellVoice andFaceImg:cellModel.user.faceImg andDesc:reportModel.desc andImgUrlStr:reportModel.descImgs];
+            [_returnSupportView01 reloadDataByVideoImgUrl:reportModel.spellVideoImg andPlayUrl:reportModel.spellVideo andVoiceUrl:reportModel.spellVoice andVoiceLen:reportModel.spellVoiceLen andFaceImg:cellModel.user.faceImg andDesc:reportModel.desc andImgUrlStr:reportModel.descImgs];
             
             _returnSupportView01.users=reportModel.users;
             _hasSupportReturn=NO;
@@ -167,7 +167,7 @@
             CGFloat titleWidth=[ZYZCTool calculateStrLengthByText:TOGETHERSUPPORT(rate,money) andFont:[UIFont systemFontOfSize:15] andMaxWidth:KSCREEN_W].width;
             _togetherView.titleLab.width=MIN(titleWidth, _togetherView.width-50);
             
-             [_togetherView reloadDataByVideoImgUrl:reportModel.spellVideoImg andPlayUrl:reportModel.spellVideo andVoiceUrl:reportModel.spellVoice andFaceImg:cellModel.user.faceImg andDesc:reportModel.desc andImgUrlStr:reportModel.descImgs];
+             [_togetherView reloadDataByVideoImgUrl:reportModel.spellVideoImg andPlayUrl:reportModel.spellVideo andVoiceUrl:reportModel.spellVoice andVoiceLen:reportModel.spellVoiceLen andFaceImg:cellModel.user.faceImg andDesc:reportModel.desc andImgUrlStr:reportModel.descImgs];
             
              _togetherView.users=reportModel.users;
             _hasSupportTogther=NO;
@@ -190,7 +190,7 @@
             _returnMoney02=[NSNumber numberWithFloat:money];
             _returnSupportView02.titleLab.text=RETURNSUPPORT02(money);
             _returnSupportView02.titleLab.width=[ZYZCTool calculateStrLengthByText:RETURNSUPPORT02(money) andFont:[UIFont systemFontOfSize:15] andMaxWidth:KSCREEN_W].width;
-             [_returnSupportView02 reloadDataByVideoImgUrl:reportModel.spellVideoImg andPlayUrl:reportModel.spellVideo andVoiceUrl:reportModel.spellVoice andFaceImg:cellModel.user.faceImg andDesc:reportModel.desc andImgUrlStr:reportModel.descImgs];
+             [_returnSupportView02 reloadDataByVideoImgUrl:reportModel.spellVideoImg andPlayUrl:reportModel.spellVideo andVoiceUrl:reportModel.spellVoice andVoiceLen:reportModel.spellVoiceLen andFaceImg:cellModel.user.faceImg andDesc:reportModel.desc andImgUrlStr:reportModel.descImgs];
              _returnSupportView02.users=reportModel.users;
             BOOL hasSupportReturnMoney=NO;
             for (UserModel *user in _returnSupportView02.users) {
