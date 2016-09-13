@@ -116,7 +116,7 @@
     
     //_contentEntryView加载数据
     MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
-    [_contentEntryView reloadDataByWord:manager.return_togtherWordDes andImgUrlStr:manager.return_togtherImgUrlStr andVoiceUrl:manager.return_togtherVoice andVideoUrl:manager.return_togtherVideo andVideoImg:manager.return_togtherVideoImg];
+    [_contentEntryView reloadDataByWord:manager.return_togtherWordDes andImgUrlStr:manager.return_togtherImgUrlStr andVoiceUrl:manager.return_togtherVoice andVoiceLen:manager.return_togtherVoiceLen  andVideoUrl:manager.return_togtherVideo andVideoImg:manager.return_togtherVideoImg];
 }
 
 /**

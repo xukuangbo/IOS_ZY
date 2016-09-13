@@ -73,7 +73,7 @@
 //    
 //    cellModel.productVoice=@"tp://zyzc-bucket01.oss-cn-hangzhou.aliyuncs.com/oulbuvolvV8uHEyZwU7gAn8icJFw/20160512105904/20160512105843.caf";
     
-    [_wsmView reloadDataByVideoImgUrl:cellModel.productVideoImg andPlayUrl:cellModel.productVideo andVoiceUrl:cellModel.productVoice andFaceImg:cellModel.user.faceImg andDesc:cellModel.desc andImgUrlStr:cellModel.descImgs];
+    [_wsmView reloadDataByVideoImgUrl:cellModel.productVideoImg andPlayUrl:cellModel.productVideo andVoiceUrl:cellModel.productVoice andVoiceLen:cellModel.productVoiceLen  andFaceImg:cellModel.user.faceImg andDesc:cellModel.desc andImgUrlStr:cellModel.descImgs];
     self.bgImg.height   = _wsmView.bottom+KEDGE_DISTANCE;
     cellModel.introFirstCellHeight= self.bgImg.height;
     if ([cellModel.mySelf isEqual:@0]) {

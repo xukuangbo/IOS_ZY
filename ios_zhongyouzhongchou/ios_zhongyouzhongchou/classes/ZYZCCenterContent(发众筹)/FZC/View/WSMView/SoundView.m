@@ -9,12 +9,37 @@
 #import "SoundView.h"
 #import "ZYZCTool+getLocalTime.h"
 #import "JudgeAuthorityTool.h"
+
+//============================
+#import "MLAudioRecorder.h"
+#import "CafRecordWriter.h"
+#import "AmrRecordWriter.h"
+#import "Mp3RecordWriter.h"
+#import <AVFoundation/AVFoundation.h>
+#import "MLAudioMeterObserver.h"
+
+#import "MLAudioPlayer.h"
+#import "AmrPlayerReader.h"
+
 @interface SoundView ()
 @property (nonatomic, strong)NSTimer        *timer;
 @property (nonatomic, assign)BOOL           isRecord;
 @property (nonatomic, assign)BOOL           hasPlaySound;
 @property (nonatomic, assign)NSInteger      secRecord;
 @property (nonatomic, assign)NSInteger      millisecRecord;
+
+//==============================
+@property (nonatomic, strong) MLAudioRecorder *recorder;
+@property (nonatomic, strong) CafRecordWriter *cafWriter;
+@property (nonatomic, strong) AmrRecordWriter *amrWriter;
+@property (nonatomic, strong) Mp3RecordWriter *mp3Writer;
+
+@property (nonatomic, strong) MLAudioPlayer *player;
+@property (nonatomic, strong) AmrPlayerReader *amrReader;
+@property (nonatomic, strong) AVAudioPlayer *avAudioPlayer;
+@property (nonatomic, copy  ) NSString *filePath;
+@property (nonatomic, strong) MLAudioMeterObserver *meterObserver;
+
 @end
 
 @implementation SoundView
@@ -77,8 +102,6 @@
     [self addSubview:_deleteBtn];
     [_deleteBtn addSubview:[UIView lineViewWithFrame:CGRectMake((_deleteBtn.width-40)/2, _deleteBtn.height-10, 40, 1) andColor:[UIColor ZYZC_TextBlackColor]]];
     
-    
-    
     //圆环进度条
     [self createDrawCircle];
     
@@ -91,7 +114,7 @@
         [weakSelf.playerBtn setBackgroundImage:[UIImage imageNamed:@"ico_sto"] forState:UIControlStateNormal];
         weakSelf.hasPlaySound=NO;
     };
-    
+
 }
 
 #pragma mark --- 创建圆环进度条
@@ -165,6 +188,34 @@
         _soundBtn.hidden=YES;
         [self insertSubview:_playerBtn aboveSubview:_soundBtn];
         [_soundObj stopRecordSound];
+        
+        //保存语音时长保存到单例中
+        MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
+        float vioceLen=[[NSString stringWithFormat:@"%.2zd.%.2zd",_secRecord,_millisecRecord] floatValue];
+        
+        if ([self.contentBelong isEqualToString:RAISEMONEY_CONTENTBELONG]) {
+            manager.raiseMoney_voiceLen = vioceLen;
+        }
+        else if ([self.contentBelong isEqualToString:RETURN_01_CONTENTBELONG])
+        {
+            manager.return_voiceLen = vioceLen;
+        }
+        else if ([self.contentBelong isEqualToString:RETURN_02_CONTENTBELONG])
+        {
+            manager.return_voiceLen01=vioceLen;
+        }
+        else if ([self.contentBelong isEqualToString:TOGTHER_CONTENTBELONG])
+        {
+            manager.return_togtherVoiceLen=vioceLen;
+        }
+        for (int i=0; i<manager.travelDetailDays.count; i++) {
+            if ([self.contentBelong isEqualToString:TRAVEL_CONTENTBELONG(i+1)]) {
+                MoreFZCTravelOneDayDetailMdel *model=manager.travelDetailDays[i];
+                model.voiceLen=vioceLen;
+                break;
+            }
+        }
+
     }
     else
     {
@@ -209,18 +260,23 @@
     MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
     if ([self.contentBelong isEqualToString:RAISEMONEY_CONTENTBELONG]) {
         manager.raiseMoney_voiceUrl= nil;
+        manager.raiseMoney_voiceLen = 0.0;
+        
     }
     else if ([self.contentBelong isEqualToString:RETURN_01_CONTENTBELONG])
     {
         manager.return_voiceUrl= nil;
+        manager.return_voiceLen= 0.0;
     }
     else if ([self.contentBelong isEqualToString:RETURN_02_CONTENTBELONG])
     {
         manager.return_voiceUrl01= nil;
+        manager.return_voiceLen01=0.0;
     }
     else if ([self.contentBelong isEqualToString:TOGTHER_CONTENTBELONG])
     {
         manager.return_togtherVoice= nil;
+        manager.return_togtherVoiceLen=0.0;
     }
     for (int i=0; i<manager.travelDetailDays.count; i++) {
         if ([self.contentBelong isEqualToString:TRAVEL_CONTENTBELONG(i+1)]) {
@@ -229,6 +285,8 @@
             break;
         }
     }
+    
+    
 }
 
 #pragma mark --- 进度条改变
@@ -271,7 +329,15 @@
 
 -(void)setSoundProgress:(CGFloat )soundProgress
 {
+    _soundProgress=soundProgress;
+    NSInteger number=(int )((soundProgress+0.009)*100);
+    _secRecord=number/100;
+    _millisecRecord=number%100;
+    DDLog(@"%f--%zd---%zd--%zd",soundProgress,number,_secRecord,_millisecRecord);
+    [self changeTimeRecordLab];
+    
     _circleView.progressValue=soundProgress;
+    
     _playerBtn.hidden=NO;
     _soundBtn.hidden=YES;
 }
@@ -282,5 +348,262 @@
     self.soundObj.soundFileName=soundFileName;
 }
 
+/*
+-(void)setContentBelong:(NSString *)contentBelong
+{
+    [super setContentBelong:contentBelong];
+    //初始化音频对象
+    [self initAudioRecoder];
+}
+
+#pragma mark --- 初始化音频对象
+-(void)initAudioRecoder
+{
+    //众筹存储路径
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:KMY_ZHONGCHOU_FILE];
+    
+    CafRecordWriter *writer = [[CafRecordWriter alloc]init];
+    writer.filePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.caf",self.contentBelong]];
+    self.cafWriter = writer;
+    
+    AmrRecordWriter *amrWriter = [[AmrRecordWriter alloc]init];
+    amrWriter.filePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.amr",self.contentBelong]];
+    amrWriter.maxSecondCount = 60;
+    amrWriter.maxFileSize = 1024*256;
+    self.amrWriter = amrWriter;
+    
+    Mp3RecordWriter *mp3Writer = [[Mp3RecordWriter alloc]init];
+    mp3Writer.filePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.mp3",self.contentBelong]];
+    mp3Writer.maxSecondCount = 60;
+    mp3Writer.maxFileSize = 1024*256;
+    self.mp3Writer = mp3Writer;
+    
+    MLAudioMeterObserver *meterObserver = [[MLAudioMeterObserver alloc]init];
+    meterObserver.actionBlock = ^(NSArray *levelMeterStates,MLAudioMeterObserver *meterObserver){
+        //音量
+        DDLog(@"volume:%f",[MLAudioMeterObserver volumeForLevelMeterStates:levelMeterStates]);
+    };
+    meterObserver.errorBlock = ^(NSError *error,MLAudioMeterObserver *meterObserver){
+        [[[UIAlertView alloc]initWithTitle:@"错误" message:error.userInfo[NSLocalizedDescriptionKey] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"知道了", nil]show];
+    };
+    self.meterObserver = meterObserver;
+    
+    MLAudioRecorder *recorder = [[MLAudioRecorder alloc]init];
+    __weak __typeof(self)weakSelf = self;
+    //录制结束
+    recorder.receiveStoppedBlock = ^{
+        weakSelf.meterObserver.audioQueue = nil;
+    };
+    //录制出错
+    recorder.receiveErrorBlock = ^(NSError *error){
+        [weakSelf.timer invalidate];
+        weakSelf.timer=nil;
+        if (!(weakSelf.secRecord==0&&weakSelf.millisecRecord==0)) {
+            weakSelf.playerBtn.hidden=NO;
+            weakSelf.soundBtn.hidden=YES;
+            [weakSelf insertSubview:weakSelf.playerBtn aboveSubview:weakSelf.soundBtn];
+            [weakSelf.soundObj stopRecordSound];
+        }
+        else
+        {
+            [weakSelf deleteSound];
+        }
+        weakSelf.meterObserver.audioQueue = nil;
+        [[[UIAlertView alloc]initWithTitle:@"错误" message:error.userInfo[NSLocalizedDescriptionKey] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"知道了", nil]show];
+    };
+    
+    //caf
+    //        recorder.fileWriterDelegate = writer;
+    //        self.filePath = writer.filePath;
+    //mp3
+    //    recorder.fileWriterDelegate = mp3Writer;
+    //    self.filePath = mp3Writer.filePath;
+    
+    //amr
+    recorder.bufferDurationSeconds = 0.25;
+    recorder.fileWriterDelegate = self.amrWriter;
+    
+    self.recorder = recorder;
+    
+    MLAudioPlayer *player = [[MLAudioPlayer alloc]init];
+    AmrPlayerReader *amrReader = [[AmrPlayerReader alloc]init];
+    
+    player.fileReaderDelegate = amrReader;
+    //播放出错
+    player.receiveErrorBlock = ^(NSError *error){
+        [[[UIAlertView alloc]initWithTitle:@"错误" message:error.userInfo[NSLocalizedDescriptionKey] delegate:nil cancelButtonTitle:nil otherButtonTitles:@"知道了", nil]show];
+    };
+    
+    //播放停止
+    player.receiveStoppedBlock = ^{
+        [weakSelf.playerBtn setBackgroundImage:[UIImage imageNamed:@"ico_sto"] forState:UIControlStateNormal];
+    };
+    self.player = player;
+    self.amrReader = amrReader;
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionDidChangeInterruptionType:)
+    name:AVAudioSessionInterruptionNotification object:[AVAudioSession sharedInstance]];
+}
+
+- (void)audioSessionDidChangeInterruptionType:(NSNotification *)notification
+{
+    AVAudioSessionInterruptionType interruptionType = [[[notification userInfo]
+                                                        objectForKey:AVAudioSessionInterruptionTypeKey] unsignedIntegerValue];
+    if (AVAudioSessionInterruptionTypeBegan == interruptionType)
+    {
+        DDLog(@"begin");
+    }
+    else if (AVAudioSessionInterruptionTypeEnded == interruptionType)
+    {
+        DDLog(@"end");
+    }
+}
+
+#pragma mark --- 删除语音
+-(void)deleteSound
+{
+    _soundBtn.hidden=NO;
+    _playerBtn.hidden=YES;
+    _circleView.progressValue=0;
+    _millisecRecord=0;
+    _secRecord=0;
+    [_playerBtn setBackgroundImage:[UIImage imageNamed:@"ico_sto"] forState:UIControlStateNormal];
+    [self changeTimeRecordLab];
+    
+    //如果语音正在播放，则终止播放
+    if (self.player.isPlaying) {
+        [self.player stopPlaying];
+    }
+
+    //如果有语音文件删除文件
+    [ZYZCTool removeExistfile:self.soundFileName];
+    
+    //删除单例中语音路径，赋值为空
+    MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
+    if ([self.contentBelong isEqualToString:RAISEMONEY_CONTENTBELONG]) {
+        manager.raiseMoney_voiceUrl= nil;
+    }
+    else if ([self.contentBelong isEqualToString:RETURN_01_CONTENTBELONG])
+    {
+        manager.return_voiceUrl= nil;
+    }
+    else if ([self.contentBelong isEqualToString:RETURN_02_CONTENTBELONG])
+    {
+        manager.return_voiceUrl01= nil;
+    }
+    else if ([self.contentBelong isEqualToString:TOGTHER_CONTENTBELONG])
+    {
+        manager.return_togtherVoice= nil;
+    }
+    for (int i=0; i<manager.travelDetailDays.count; i++) {
+        if ([self.contentBelong isEqualToString:TRAVEL_CONTENTBELONG(i+1)]) {
+            MoreFZCTravelOneDayDetailMdel *model=manager.travelDetailDays[i];
+            model.voiceUrl=nil;
+            break;
+        }
+    }
+}
+
+
+#pragma mark --- 语音录制
+-(void)recordSound
+{
+    //判断app录音功能是否可用
+    BOOL canRecord=[JudgeAuthorityTool judgeRecordAuthority];
+    if (!canRecord) {
+        return;
+    }
+    
+    //创建语音文件名
+    NSString *fileName=[NSString stringWithFormat:@"%@.amr",self.contentBelong];
+    self.soundFileName=KMY_ZC_FILE_PATH(fileName);
+    
+    //删除已存在语音
+    [ZYZCTool removeExistfile:self.soundFileName];
+    
+    if (self.recorder.isRecording) {
+        //取消录音
+        [self.recorder stopRecording];
+        return;
+    }
+    else{
+        //开始录音
+        [self.recorder startRecording];
+        self.meterObserver.audioQueue = self.recorder->_audioQueue;
+    }
+
+    //进度条加载
+    if (!_timer) {
+        _timer=[NSTimer scheduledTimerWithTimeInterval:0.01f target:self selector:@selector(changeProgressValue) userInfo:nil repeats:YES];
+    }
+    
+    //保存语音文件名到单例中
+    MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
+    if ([self.contentBelong isEqualToString:RAISEMONEY_CONTENTBELONG]) {
+        manager.raiseMoney_voiceUrl=self.soundFileName;
+    }
+    else if ([self.contentBelong isEqualToString:RETURN_01_CONTENTBELONG])
+    {
+        manager.return_voiceUrl=self.soundFileName;
+    }
+    else if ([self.contentBelong isEqualToString:RETURN_02_CONTENTBELONG])
+    {
+        manager.return_voiceUrl01=self.soundFileName;
+    }
+    else if ([self.contentBelong isEqualToString:TOGTHER_CONTENTBELONG])
+    {
+        manager.return_togtherVoice=self.soundFileName;
+    }
+    for (int i=0; i<manager.travelDetailDays.count; i++) {
+        if ([self.contentBelong isEqualToString:TRAVEL_CONTENTBELONG(i+1)]) {
+            MoreFZCTravelOneDayDetailMdel *model=manager.travelDetailDays[i];
+            model.voiceUrl=self.soundFileName;
+            break;
+        }
+    }
+}
+
+#pragma mark --- 停止语音录制
+-(void)stopRecordSound
+{
+    [_timer invalidate];
+    _timer=nil;
+    if (!(_secRecord==0&&_millisecRecord==0)) {
+        _playerBtn.hidden=NO;
+        _soundBtn.hidden=YES;
+        [self insertSubview:_playerBtn aboveSubview:_soundBtn];
+        [self.recorder stopRecording];
+    }
+    else
+    {
+        [self deleteSound];
+    }
+}
+
+
+#pragma mark --- 播放语音
+-(void)playerSound:(UIButton *)btn
+{
+    BOOL canRecord=[JudgeAuthorityTool judgeRecordAuthority];
+    if (!canRecord) {
+        return;
+    }
+    
+    self.amrReader.filePath = self.amrWriter.filePath;
+    DDLog(@"文件时长:%f",[AmrPlayerReader durationOfAmrFilePath:self.amrReader.filePath]);
+
+    if (self.player.isPlaying) {
+        [self.player stopPlaying];
+        [btn setBackgroundImage:[UIImage imageNamed:@"ico_sto"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.player startPlaying];
+        [btn setBackgroundImage:[UIImage imageNamed:@"btn_yylr_pause"] forState:UIControlStateNormal];
+    }
+}
+
+*/
 
 @end

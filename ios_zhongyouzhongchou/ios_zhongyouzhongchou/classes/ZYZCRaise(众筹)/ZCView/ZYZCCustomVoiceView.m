@@ -76,13 +76,13 @@
     [_iconImg sd_setImageWithURL:[NSURL URLWithString:faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
 }
 
--(void)setVoiceTime:(NSInteger )voiceTime
+-(void)setVoiceLen:(float)voiceLen
 {
-    _voiceTime=voiceTime;
+    _voiceLen=voiceLen;
     CGFloat totalLength=self.width-self.iconImg.right-2*KEDGE_DISTANCE-80;
-    self.voiceView.width=50+((CGFloat)voiceTime/60.0)*totalLength;
+    self.voiceView.width=50+((CGFloat)voiceLen/60.0)*totalLength;
     self.timeLab.left=self.voiceView.right+KEDGE_DISTANCE;
-    self.timeLab.text=[NSString stringWithFormat:@"%.zd''",voiceTime];
+    self.timeLab.text=[NSString stringWithFormat:@"%.zd''",voiceLen];
 }
 
 

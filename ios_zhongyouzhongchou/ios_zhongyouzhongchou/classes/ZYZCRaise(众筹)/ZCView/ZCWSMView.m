@@ -44,7 +44,7 @@
     [self addSubview:_movieView];
     
     _voiceView=[[ZYZCCustomVoiceView alloc]initWithFrame:CGRectMake(0, _movieView.bottom+KEDGE_DISTANCE, self.width, 1)];
-    _voiceView.voiceTime=50;
+    _voiceView.voiceLen=50;
     _voiceView.hidden=YES;
     [self addSubview:_voiceView];
     
@@ -62,7 +62,7 @@
     self.height=1;
 }
 
--(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr
+-(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andVoiceLen:(CGFloat)voiceLen  andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr
 {
     _imgUrlStr =imgUrlStr;
     BOOL hasMovie=NO,hasVoice=NO,hasWord=NO,hasImg=YES;
@@ -94,6 +94,7 @@
         hasVoice=YES;
         _voiceView.faceImg=faceImg;
         _voiceView.voiceUrl=voiceUrl;
+        _voiceView.voiceLen=voiceLen;
         _voiceView.height=40;
     }
     else

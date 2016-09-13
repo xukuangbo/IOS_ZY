@@ -37,6 +37,6 @@ typedef NS_ENUM(NSInteger, ContentViewType)
  *  加载数据
  *
  */
--(void)reloadDataByWord:(NSString *)word andImgUrlStr:(NSString *)imgUrlStr andVoiceUrl:(NSString *)voiceUrl andVideoUrl:(NSString *)videoUrl andVideoImg:(NSString *)videoImg;
+-(void)reloadDataByWord:(NSString *)word andImgUrlStr:(NSString *)imgUrlStr andVoiceUrl:(NSString *)voiceUrl andVoiceLen:(CGFloat)voiceLen andVideoUrl:(NSString *)videoUrl  andVideoImg:(NSString *)videoImg;
 
 @end
