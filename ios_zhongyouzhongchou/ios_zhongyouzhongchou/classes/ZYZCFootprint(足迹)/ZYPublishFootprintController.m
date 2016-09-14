@@ -59,7 +59,7 @@
     [publishBtn addTarget:self action:@selector(publishMyFootprint) forControlEvents:UIControlEventTouchUpInside];
     [navView addSubview:publishBtn];
     
-    UIView *lineView=[UIView lineViewWithFrame:CGRectMake(0, navView.height-1, KSCREEN_W, 1) andColor:[UIColor lightGrayColor]];
+    UIView *lineView=[UIView lineViewWithFrame:CGRectMake(0, navView.height-0.5, KSCREEN_W, 0.5) andColor:[UIColor lightGrayColor]];
     [navView addSubview:lineView];
 }
 

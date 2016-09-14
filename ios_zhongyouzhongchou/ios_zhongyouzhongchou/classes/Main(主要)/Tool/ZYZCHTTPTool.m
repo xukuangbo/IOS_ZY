@@ -28,7 +28,7 @@
     {
         newUrl=[url stringByAppendingString:@"&from=ios"];
     }
-    NSRange range=[url rangeOfString:@"userId"];
+    NSRange range=[url rangeOfString:@"userId="];
     if (!range.length) {
         newUrl=[newUrl stringByAppendingString:[NSString stringWithFormat:@"&userId=%@",[ZYZCAccountTool getUserId]]];
     }
