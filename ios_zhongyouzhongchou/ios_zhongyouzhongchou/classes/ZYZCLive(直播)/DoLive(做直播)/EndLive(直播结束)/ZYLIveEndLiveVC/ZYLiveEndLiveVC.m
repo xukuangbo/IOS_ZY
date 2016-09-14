@@ -8,6 +8,7 @@
 
 #import "ZYLiveEndLiveVC.h"
 #import "UIView+ZYLayer.h"
+#import "ZYLiveEndModel.h"
 
 @interface ZYLiveEndLiveVC ()
 /** 背景 */
@@ -60,8 +61,6 @@
     [_bgImageView addSubview:_backView];
     _backView.alpha = 0.6;
     
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -83,9 +82,14 @@
     self.navigationController.navigationBar.hidden = NO;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)setLiveEndLiveModel:(ZYLiveEndModel *)liveEndLiveModel
+{
+    _liveEndLiveModel = liveEndLiveModel;
+    
+    _totalMoneyLabel.text = [NSString stringWithFormat:@"%zd",liveEndLiveModel.totalMoneyCount];
+    _totalTimeLabel.text = liveEndLiveModel.endTime;
+    _totalPeopleCount.text = [NSString stringWithFormat:@"%zd",liveEndLiveModel.totalPeopleCount];
+    _totalOnlinePeopleCount.text = [NSString stringWithFormat:@"%zd",liveEndLiveModel.totalOnlinePeopleNumber];
 }
 
 
