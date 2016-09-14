@@ -94,7 +94,7 @@
         hasVoice=YES;
         _voiceView.faceImg=faceImg;
         _voiceView.voiceUrl=voiceUrl;
-        _voiceView.voiceLen=voiceLen;
+        _voiceView.voiceLen=voiceLen?voiceLen:50;
         _voiceView.height=40;
     }
     else

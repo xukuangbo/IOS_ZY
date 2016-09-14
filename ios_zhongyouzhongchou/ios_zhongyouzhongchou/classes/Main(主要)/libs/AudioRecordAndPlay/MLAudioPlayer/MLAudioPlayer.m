@@ -65,9 +65,9 @@ return; \
 {
     NSAssert(!self.isPlaying, @"MLAudioPlayer dealloc之前必须停止播放");
     
-    //    if (self.isPlaying){
-    //        [self stopPlaying];
-    //    }
+        if (self.isPlaying){
+            [self stopPlaying];
+        }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     
