@@ -275,5 +275,7 @@
 #define Post_Create_Live [NSString stringWithFormat:@"%@zhibo/creatZhibo.action",BASE_URL]
 // 点赞
 #define Post_Clap_Live [NSString stringWithFormat:@"%@zhibo/zanZhibo.action",BASE_URL]
+// 直播打赏
+#define Post_Flower_Live [NSString stringWithFormat:@"%@weixinpay/zhiboAppOrder.action",BASE_URL]
 
 #endif /* HttpCommon_h */

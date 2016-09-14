@@ -239,7 +239,7 @@
         [MBProgressHUD showShortMessage:@"您已支持过该项目，不可重复操作"];
         return;
     }
-    
+    WEAKSELF
     //判断时间是否有冲突，如果有则不可支持
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool getHttpDataByURL:JUDGE_TIME_CONFLICT([ZYZCAccountTool getUserId],_productId) withSuccessGetBlock:^(id result, BOOL isSuccess)
@@ -248,7 +248,7 @@
          //没有冲突
          if ([result[@"data"] isEqual:@1]) {
              //可以支持
-             [self getPayOrder];
+             [weakSelf getPayOrder];
         }
          else if ([result[@"data"] isEqual:@0])
          {
@@ -282,11 +282,11 @@
     __weak typeof (&*self)weakSelf=self;
     [wxManager payForWeChat:@{@"productId":_productId,
                               @"style4"   :[NSNumber numberWithFloat:[_togetherUersModel.price floatValue]/100.0]
-                              }
-           withSuccessBolck:^{
+                              } payUrl:GET_WX_ORDER withSuccessBolck:^{
                                   [weakSelf.navigationController popViewControllerAnimated:YES];
-                             }
-            andFailBlock:nil];
+                              } andFailBlock:^{
+                                  
+                              }];
 }
 
 

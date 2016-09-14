@@ -111,6 +111,21 @@
 		2C0101CC1D5DF48E00D6470D /* ZFButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0101C71D5DF48E00D6470D /* ZFButton.m */; };
 		2C0101CD1D5DF48E00D6470D /* ZFIssueWeiboView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0101C91D5DF48E00D6470D /* ZFIssueWeiboView.m */; };
 		2C0101CE1D5DF48E00D6470D /* ZFWeiboButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0101CB1D5DF48E00D6470D /* ZFWeiboButton.m */; };
+		2C066A651D87937B0048FAE4 /* MLAmrPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C066A531D87937B0048FAE4 /* MLAmrPlayer.m */; };
+		2C066A661D87937B0048FAE4 /* MLDataCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C066A561D87937B0048FAE4 /* MLDataCache.m */; };
+		2C066A671D87937B0048FAE4 /* MLDataResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C066A591D87937B0048FAE4 /* MLDataResponseSerializer.m */; };
+		2C066A681D87937B0048FAE4 /* MLPlayVoiceButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C066A5B1D87937B0048FAE4 /* MLPlayVoiceButton.m */; };
+		2C066A691D87937B0048FAE4 /* ReceiverVoiceNodePlaying000@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A5D1D87937B0048FAE4 /* ReceiverVoiceNodePlaying000@2x.png */; };
+		2C066A6A1D87937B0048FAE4 /* ReceiverVoiceNodePlaying001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A5E1D87937B0048FAE4 /* ReceiverVoiceNodePlaying001@2x.png */; };
+		2C066A6B1D87937B0048FAE4 /* ReceiverVoiceNodePlaying002@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A5F1D87937B0048FAE4 /* ReceiverVoiceNodePlaying002@2x.png */; };
+		2C066A6C1D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A601D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png */; };
+		2C066A6D1D87937B0048FAE4 /* SenderVoiceNodePlaying000@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A611D87937B0048FAE4 /* SenderVoiceNodePlaying000@2x.png */; };
+		2C066A6E1D87937B0048FAE4 /* SenderVoiceNodePlaying001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A621D87937B0048FAE4 /* SenderVoiceNodePlaying001@2x.png */; };
+		2C066A6F1D87937B0048FAE4 /* SenderVoiceNodePlaying002@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A631D87937B0048FAE4 /* SenderVoiceNodePlaying002@2x.png */; };
+		2C066A701D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A641D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png */; };
+		2C066A741D87938B0048FAE4 /* MLAudioRealTimePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C066A731D87938B0048FAE4 /* MLAudioRealTimePlayer.m */; };
+		2C066A781D87D6240048FAE4 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C066A761D87D6240048FAE4 /* TestViewController.m */; };
+		2C066A791D87D6240048FAE4 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A771D87D6240048FAE4 /* TestViewController.xib */; };
 		2C0A20C91D585D7700E6CE40 /* ChatUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A20C81D585D7700E6CE40 /* ChatUserModel.m */; };
 		2C0A20CC1D585DF100E6CE40 /* ChatUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A20CB1D585DF100E6CE40 /* ChatUserInfoModel.m */; };
 		2C179FEF1D8191F400BBAC53 /* ZYPublishFootprintController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C179FEE1D8191F400BBAC53 /* ZYPublishFootprintController.m */; };
@@ -724,6 +739,27 @@
 		2C0101C91D5DF48E00D6470D /* ZFIssueWeiboView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFIssueWeiboView.m; sourceTree = "<group>"; };
 		2C0101CA1D5DF48E00D6470D /* ZFWeiboButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFWeiboButton.h; sourceTree = "<group>"; };
 		2C0101CB1D5DF48E00D6470D /* ZFWeiboButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFWeiboButton.m; sourceTree = "<group>"; };
+		2C066A521D87937B0048FAE4 /* MLAmrPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAmrPlayer.h; sourceTree = "<group>"; };
+		2C066A531D87937B0048FAE4 /* MLAmrPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAmrPlayer.m; sourceTree = "<group>"; };
+		2C066A551D87937B0048FAE4 /* MLDataCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDataCache.h; sourceTree = "<group>"; };
+		2C066A561D87937B0048FAE4 /* MLDataCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDataCache.m; sourceTree = "<group>"; };
+		2C066A581D87937B0048FAE4 /* MLDataResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLDataResponseSerializer.h; sourceTree = "<group>"; };
+		2C066A591D87937B0048FAE4 /* MLDataResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLDataResponseSerializer.m; sourceTree = "<group>"; };
+		2C066A5A1D87937B0048FAE4 /* MLPlayVoiceButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLPlayVoiceButton.h; sourceTree = "<group>"; };
+		2C066A5B1D87937B0048FAE4 /* MLPlayVoiceButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLPlayVoiceButton.m; sourceTree = "<group>"; };
+		2C066A5D1D87937B0048FAE4 /* ReceiverVoiceNodePlaying000@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverVoiceNodePlaying000@2x.png"; sourceTree = "<group>"; };
+		2C066A5E1D87937B0048FAE4 /* ReceiverVoiceNodePlaying001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverVoiceNodePlaying001@2x.png"; sourceTree = "<group>"; };
+		2C066A5F1D87937B0048FAE4 /* ReceiverVoiceNodePlaying002@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverVoiceNodePlaying002@2x.png"; sourceTree = "<group>"; };
+		2C066A601D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ReceiverVoiceNodePlaying003@2x.png"; sourceTree = "<group>"; };
+		2C066A611D87937B0048FAE4 /* SenderVoiceNodePlaying000@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderVoiceNodePlaying000@2x.png"; sourceTree = "<group>"; };
+		2C066A621D87937B0048FAE4 /* SenderVoiceNodePlaying001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderVoiceNodePlaying001@2x.png"; sourceTree = "<group>"; };
+		2C066A631D87937B0048FAE4 /* SenderVoiceNodePlaying002@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderVoiceNodePlaying002@2x.png"; sourceTree = "<group>"; };
+		2C066A641D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderVoiceNodePlaying003@2x.png"; sourceTree = "<group>"; };
+		2C066A721D87938B0048FAE4 /* MLAudioRealTimePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAudioRealTimePlayer.h; sourceTree = "<group>"; };
+		2C066A731D87938B0048FAE4 /* MLAudioRealTimePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAudioRealTimePlayer.m; sourceTree = "<group>"; };
+		2C066A751D87D6240048FAE4 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		2C066A761D87D6240048FAE4 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		2C066A771D87D6240048FAE4 /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
 		2C0A20C71D585D7700E6CE40 /* ChatUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUserModel.h; sourceTree = "<group>"; };
 		2C0A20C81D585D7700E6CE40 /* ChatUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUserModel.m; sourceTree = "<group>"; };
 		2C0A20CA1D585DF100E6CE40 /* ChatUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUserInfoModel.h; sourceTree = "<group>"; };
@@ -2285,6 +2321,62 @@
 			path = ZYAnimotionBttons;
 			sourceTree = "<group>";
 		};
+		2C066A511D87937B0048FAE4 /* MLPlayVoiceButton */ = {
+			isa = PBXGroup;
+			children = (
+				2C066A521D87937B0048FAE4 /* MLAmrPlayer.h */,
+				2C066A531D87937B0048FAE4 /* MLAmrPlayer.m */,
+				2C066A541D87937B0048FAE4 /* MLDataCache */,
+				2C066A571D87937B0048FAE4 /* MLDataResponseSerializer */,
+				2C066A5A1D87937B0048FAE4 /* MLPlayVoiceButton.h */,
+				2C066A5B1D87937B0048FAE4 /* MLPlayVoiceButton.m */,
+				2C066A5C1D87937B0048FAE4 /* VoicePlaySign */,
+			);
+			path = MLPlayVoiceButton;
+			sourceTree = "<group>";
+		};
+		2C066A541D87937B0048FAE4 /* MLDataCache */ = {
+			isa = PBXGroup;
+			children = (
+				2C066A551D87937B0048FAE4 /* MLDataCache.h */,
+				2C066A561D87937B0048FAE4 /* MLDataCache.m */,
+			);
+			path = MLDataCache;
+			sourceTree = "<group>";
+		};
+		2C066A571D87937B0048FAE4 /* MLDataResponseSerializer */ = {
+			isa = PBXGroup;
+			children = (
+				2C066A581D87937B0048FAE4 /* MLDataResponseSerializer.h */,
+				2C066A591D87937B0048FAE4 /* MLDataResponseSerializer.m */,
+			);
+			path = MLDataResponseSerializer;
+			sourceTree = "<group>";
+		};
+		2C066A5C1D87937B0048FAE4 /* VoicePlaySign */ = {
+			isa = PBXGroup;
+			children = (
+				2C066A5D1D87937B0048FAE4 /* ReceiverVoiceNodePlaying000@2x.png */,
+				2C066A5E1D87937B0048FAE4 /* ReceiverVoiceNodePlaying001@2x.png */,
+				2C066A5F1D87937B0048FAE4 /* ReceiverVoiceNodePlaying002@2x.png */,
+				2C066A601D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png */,
+				2C066A611D87937B0048FAE4 /* SenderVoiceNodePlaying000@2x.png */,
+				2C066A621D87937B0048FAE4 /* SenderVoiceNodePlaying001@2x.png */,
+				2C066A631D87937B0048FAE4 /* SenderVoiceNodePlaying002@2x.png */,
+				2C066A641D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png */,
+			);
+			path = VoicePlaySign;
+			sourceTree = "<group>";
+		};
+		2C066A711D87938B0048FAE4 /* MLAudioRealTimePlayer */ = {
+			isa = PBXGroup;
+			children = (
+				2C066A721D87938B0048FAE4 /* MLAudioRealTimePlayer.h */,
+				2C066A731D87938B0048FAE4 /* MLAudioRealTimePlayer.m */,
+			);
+			path = MLAudioRealTimePlayer;
+			sourceTree = "<group>";
+		};
 		2C179FEC1D8191F400BBAC53 /* ZYZCFootprint(足迹) */ = {
 			isa = PBXGroup;
 			children = (
@@ -2469,14 +2561,14 @@
 				2C1B609A1D6D3CF900E3C25B /* RecordSoundObj.m */,
 				2C1B609B1D6D3CF900E3C25B /* SoundView.h */,
 				2C1B609C1D6D3CF900E3C25B /* SoundView.m */,
-				2C1B609D1D6D3CF900E3C25B /* WordEditViewController.h */,
 				2C1B609F1D6D3CF900E3C25B /* WordView.h */,
-				2C1B609E1D6D3CF900E3C25B /* WordEditViewController.m */,
 				2C1B60A01D6D3CF900E3C25B /* WordView.m */,
 				2C1B60A11D6D3CF900E3C25B /* WSMBaseView.h */,
 				2C1B60A21D6D3CF900E3C25B /* WSMBaseView.m */,
 				2C1B60A31D6D3CF900E3C25B /* ZYDescImage.h */,
 				2C1B60A41D6D3CF900E3C25B /* ZYDescImage.m */,
+				2C1B609D1D6D3CF900E3C25B /* WordEditViewController.h */,
+				2C1B609E1D6D3CF900E3C25B /* WordEditViewController.m */,
 			);
 			path = WSMView;
 			sourceTree = "<group>";
@@ -2683,6 +2775,8 @@
 		2C5159821D86419C0048BD20 /* AudioRecordAndPlay */ = {
 			isa = PBXGroup;
 			children = (
+				2C066A711D87938B0048FAE4 /* MLAudioRealTimePlayer */,
+				2C066A511D87937B0048FAE4 /* MLPlayVoiceButton */,
 				2C5159831D8641B20048BD20 /* MLAudioPlayer */,
 				2C5159881D8641B20048BD20 /* MLAudioRecorder */,
 			);
@@ -2958,6 +3052,9 @@
 				04A99BCC1CBF848C00C6F5F0 /* classes */,
 				2C901DC11C89788C004B844B /* ViewController.h */,
 				2C901DC21C89788C004B844B /* ViewController.m */,
+				2C066A751D87D6240048FAE4 /* TestViewController.h */,
+				2C066A761D87D6240048FAE4 /* TestViewController.m */,
+				2C066A771D87D6240048FAE4 /* TestViewController.xib */,
 				2C901DC41C89788C004B844B /* Main.storyboard */,
 				39F7D1A71D45BD60001DEAF4 /* Assets.xcassets */,
 				2C901DC91C89788C004B844B /* LaunchScreen.storyboard */,
@@ -4539,12 +4636,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C066A691D87937B0048FAE4 /* ReceiverVoiceNodePlaying000@2x.png in Resources */,
 				2C901DCB1C89788C004B844B /* LaunchScreen.storyboard in Resources */,
 				2CE617771D657DD100962163 /* pick_checked@3x.png in Resources */,
 				2C8B196E1D0CF7EC0063097B /* JGProgressHUD Resources.bundle in Resources */,
 				2CD209D01D6D4BFD005EB62E /* QPSDK.bundle in Resources */,
 				2CD209191D6D3E27005EB62E /* ZCInfoView.xib in Resources */,
 				2CE617721D657DD100962163 /* HUImagePickerCell.xib in Resources */,
+				2C066A6D1D87937B0048FAE4 /* SenderVoiceNodePlaying000@2x.png in Resources */,
+				2C066A6A1D87937B0048FAE4 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
 				2C8B197A1D0CF7EC0063097B /* Info.plist in Resources */,
 				3931CBD31D88F0D500115F0D /* ZYWatchEndLiveVC.xib in Resources */,
 				3931CBCA1D88ED0500115F0D /* ZYLiveEndLiveVC.xib in Resources */,
@@ -4553,11 +4653,16 @@
 				2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */,
 				2CD209A11D6D4BA6005EB62E /* icon.png in Resources */,
 				2C8B198D1D0CF7EC0063097B /* XMNPhotoPicker.xib in Resources */,
+				2C066A791D87D6240048FAE4 /* TestViewController.xib in Resources */,
+				3967ADBA1D6D3941008A7F81 /* RoleList.plist in Resources */,
 				2C8B19851D0CF7EC0063097B /* PhotoPickerKit.xcassets in Resources */,
 				04A99CFB1CBF897A00C6F5F0 /* read_me.txt in Resources */,
 				3941CD761D420B29009224BC /* ChatBlackListCell.xib in Resources */,
+				2C066A6E1D87937B0048FAE4 /* SenderVoiceNodePlaying001@2x.png in Resources */,
 				2CD2091D1D6D3E27005EB62E /* ZCNoneDataView.xib in Resources */,
+				2C066A6F1D87937B0048FAE4 /* SenderVoiceNodePlaying002@2x.png in Resources */,
 				2C1B610B1D6D3CF900E3C25B /* WeekDayView.xib in Resources */,
+				2C066A6C1D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
 				2CE617761D657DD100962163 /* pick_checked@2x.png in Resources */,
 				2C8B19891D0CF7EC0063097B /* XMNAssetCell.xib in Resources */,
 				39F2AA1F1D40ED3100023CC4 /* MBProgressHUD.bundle in Resources */,
@@ -4565,9 +4670,11 @@
 				39F7D1A81D45BD60001DEAF4 /* Assets.xcassets in Resources */,
 				2C8B19871D0CF7EC0063097B /* XMNAlbumCell.xib in Resources */,
 				04518B4B1CE419F0001921D0 /* MineSetUpVC.storyboard in Resources */,
+				2C066A6B1D87937B0048FAE4 /* ReceiverVoiceNodePlaying002@2x.png in Resources */,
 				2CD209A01D6D4BA6005EB62E /* audio.mp3 in Resources */,
 				2C8B198B1D0CF7EC0063097B /* XMNBottomBar.xib in Resources */,
 				0432ADA11D0966F9005D789E /* area.plist in Resources */,
+				2C066A701D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png in Resources */,
 				2C8288311CD87F7A004873B6 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4644,6 +4751,7 @@
 				2CD209101D6D3E27005EB62E /* ZCDetailIntroSecondCell.m in Sources */,
 				2C1B61051D6D3CF900E3C25B /* RMCalendarLogic.m in Sources */,
 				2CD209AB1D6D4BA6005EB62E /* QPCutViewController.m in Sources */,
+				2C066A781D87D6240048FAE4 /* TestViewController.m in Sources */,
 				0406513E1CC76B4F003FD539 /* TacticThreeMapView.m in Sources */,
 				2CC5FD791D5990EE0001AC95 /* UITabBarItem+WZLBadge.m in Sources */,
 				393A5E3F1D30E1ED00E165C5 /* AboutJianyiVC.m in Sources */,
@@ -4773,6 +4881,7 @@
 				2C1B60FA1D6D3CF900E3C25B /* WSMBaseView.m in Sources */,
 				2C1C079B1D1AAB2700203FF4 /* MyPartnerViewController.m in Sources */,
 				2CEEC1971CFEE4DB00A2DCA8 /* ZYZCPersonalController.m in Sources */,
+				2C066A681D87937B0048FAE4 /* MLPlayVoiceButton.m in Sources */,
 				2CE617731D657DD100962163 /* HUImagePickerRootViewController.m in Sources */,
 				040651241CC62FC7003FD539 /* TAPageControl.m in Sources */,
 				0406512D1CC6356C003FD539 /* TacticMainViewController.m in Sources */,
@@ -4825,6 +4934,7 @@
 				393C29321D43820200B64551 /* EntryPlaceholderView.m in Sources */,
 				04F836451CD72C3300140980 /* SDPieProgressView.m in Sources */,
 				399E94251D38E20C006E1B68 /* NetFailView.m in Sources */,
+				2C066A741D87938B0048FAE4 /* MLAudioRealTimePlayer.m in Sources */,
 				2C179FEF1D8191F400BBAC53 /* ZYPublishFootprintController.m in Sources */,
 				2CE074C31CCF7ECC006D312D /* ZYZCTabBarController.m in Sources */,
 				392AB2831D669C26003FEDB7 /* RCDLiveMessageBaseCell.m in Sources */,
@@ -4835,6 +4945,7 @@
 				2C5159A11D8641B20048BD20 /* MLAudioPlayer.m in Sources */,
 				39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */,
 				2CD209291D6D3E27005EB62E /* ZCCommentViewController.m in Sources */,
+				2C066A651D87937B0048FAE4 /* MLAmrPlayer.m in Sources */,
 				39911ADC1D5044A8007DF44B /* ZYZCHTTPTool.m in Sources */,
 				2C1B61071D6D3CF900E3C25B /* RMCalendarCollectionViewLayout.m in Sources */,
 				2CD209C71D6D4BA6005EB62E /* QPRecordView.m in Sources */,
@@ -4850,6 +4961,8 @@
 				39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */,
 				39911ABD1D5038E2007DF44B /* TacticGeneralModel.m in Sources */,
 				2CD209091D6D3E27005EB62E /* HotCommentCell.m in Sources */,
+				056046CE1D6EBECD006906FD /* UIImage+plus.m in Sources */,
+				2C066A671D87937B0048FAE4 /* MLDataResponseSerializer.m in Sources */,
 				2C8B19731D0CF7EC0063097B /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				39911AB01D5038B2007DF44B /* TacticSingleFoodVC.m in Sources */,
 				2C8B197E1D0CF7EC0063097B /* UIViewController+XMNPhotoHUD.m in Sources */,
@@ -4943,6 +5056,7 @@
 				04C087AB1D044B9600203D40 /* MineWantGoVC.m in Sources */,
 				392AB2AF1D669CE6003FEDB7 /* ZYLiveListViewModel.m in Sources */,
 				2CD209BB1D6D4BA6005EB62E /* QPPickerPreviewView.m in Sources */,
+				2C066A661D87937B0048FAE4 /* MLDataCache.m in Sources */,
 				2C90F6F51D532349001ABB44 /* MsgListTableViewCell.m in Sources */,
 				2CD209C61D6D4BA6005EB62E /* QPRecordTipGuideView.m in Sources */,
 				2C3FAA211D54793000F2B187 /* MsgDetailModel.m in Sources */,

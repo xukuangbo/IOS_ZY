@@ -1,93 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZYBottomPayView">
+        <view alpha="0.5" contentMode="scaleToFill" id="iN0-l3-epB" customClass="ZYBottomPayView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mi1-MV-8JC">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="144"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90l-rp-uoJ">
-                            <rect key="frame" x="18" y="15" width="109.5" height="30"/>
+                        <button opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90l-rp-uoJ">
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="bzs-pm-Dlt"/>
+                                <constraint firstAttribute="height" constant="40" id="igc-c8-QGO"/>
                             </constraints>
-                            <state key="normal" title="10元"/>
+                            <state key="normal" title="1元"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="bzs-pm-Dlt"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="4Ti-EF-bdt"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5z-gL-Lvs">
-                            <rect key="frame" x="132.5" y="15" width="109.5" height="30"/>
+                        <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y5z-gL-Lvs">
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="13S-xQ-0fU"/>
+                                <constraint firstAttribute="height" constant="40" id="m6y-bt-bkA"/>
                             </constraints>
-                            <state key="normal" title="20元"/>
+                            <state key="normal" title="5元"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="13S-xQ-0fU"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="aCb-SN-CPh"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHu-Xa-lxB">
-                            <rect key="frame" x="247" y="15" width="110" height="30"/>
+                        <button opaque="NO" tag="66" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHu-Xa-lxB">
                             <constraints>
+                                <constraint firstAttribute="height" constant="40" id="TlG-XC-D1o"/>
                                 <constraint firstAttribute="width" constant="100" id="hwF-9b-uam"/>
                             </constraints>
-                            <state key="normal" title="30元"/>
+                            <state key="normal" title="6.6元"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="hwF-9b-uam"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="6z6-Va-kLT"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ONL-HI-piO">
-                            <rect key="frame" x="18" y="55" width="109.5" height="30"/>
+                        <button opaque="NO" tag="88" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ONL-HI-piO">
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="GYS-xd-T0k"/>
+                                <constraint firstAttribute="height" constant="40" id="d11-4z-OBY"/>
                             </constraints>
-                            <state key="normal" title="40元"/>
+                            <state key="normal" title="8.8元"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="GYS-xd-T0k"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="49n-NF-6rU"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhB-IN-wpu">
-                            <rect key="frame" x="132" y="55" width="109.5" height="30"/>
+                        <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vhB-IN-wpu">
                             <constraints>
+                                <constraint firstAttribute="height" constant="40" id="N2H-Pc-7oz"/>
                                 <constraint firstAttribute="width" constant="100" id="k4V-rY-uVh"/>
                             </constraints>
-                            <state key="normal" title="50元"/>
+                            <state key="normal" title="100元"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="k4V-rY-uVh"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="Vby-5h-X7x"/>
+                            </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fp-PI-ufC">
-                            <rect key="frame" x="247" y="55" width="109.5" height="30"/>
+                        <button opaque="NO" tag="5200" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1fp-PI-ufC">
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="nDp-Jd-r6Z"/>
+                                <constraint firstAttribute="height" constant="40" id="ww6-kr-pf7"/>
                             </constraints>
-                            <state key="normal" title="60元"/>
+                            <state key="normal" title="520元"/>
                             <variation key="default">
                                 <mask key="constraints">
                                     <exclude reference="nDp-Jd-r6Z"/>
                                 </mask>
                             </variation>
+                            <connections>
+                                <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="yHS-lH-pKa"/>
+                            </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstItem="y5z-gL-Lvs" firstAttribute="centerX" secondItem="mi1-MV-8JC" secondAttribute="centerX" id="1O7-O1-zFN"/>
                         <constraint firstItem="vhB-IN-wpu" firstAttribute="centerX" secondItem="mi1-MV-8JC" secondAttribute="centerX" id="EBs-bi-XZo"/>
@@ -108,7 +126,7 @@
                         <constraint firstItem="y5z-gL-Lvs" firstAttribute="width" secondItem="90l-rp-uoJ" secondAttribute="width" id="jRf-8n-sNe"/>
                         <constraint firstItem="aHu-Xa-lxB" firstAttribute="leading" secondItem="y5z-gL-Lvs" secondAttribute="trailing" constant="5" id="n5T-7d-NzW"/>
                         <constraint firstItem="90l-rp-uoJ" firstAttribute="top" secondItem="mi1-MV-8JC" secondAttribute="top" constant="15" id="oEB-0a-yvc"/>
-                        <constraint firstAttribute="height" constant="144" id="oQG-rc-c8O"/>
+                        <constraint firstAttribute="height" constant="120" id="oQG-rc-c8O"/>
                         <constraint firstItem="y5z-gL-Lvs" firstAttribute="top" secondItem="mi1-MV-8JC" secondAttribute="top" constant="15" id="qAF-bQ-GI0"/>
                         <constraint firstItem="1fp-PI-ufC" firstAttribute="top" secondItem="aHu-Xa-lxB" secondAttribute="bottom" constant="10" id="wz3-Mx-EoZ"/>
                         <constraint firstItem="ONL-HI-piO" firstAttribute="top" secondItem="90l-rp-uoJ" secondAttribute="bottom" constant="10" id="zXd-Hn-q2q"/>
@@ -123,18 +141,24 @@
                     </variation>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="mi1-MV-8JC" secondAttribute="bottom" constant="523" id="1G0-Xd-tZi"/>
+                <constraint firstItem="mi1-MV-8JC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2Zx-iV-pgS"/>
                 <constraint firstAttribute="trailing" secondItem="mi1-MV-8JC" secondAttribute="trailing" id="IlF-TE-FaS"/>
                 <constraint firstItem="mi1-MV-8JC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Jh7-ge-XAP"/>
                 <constraint firstItem="mi1-MV-8JC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ZSx-gP-0ii"/>
             </constraints>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="1G0-Xd-tZi"/>
+                    <exclude reference="ZSx-gP-0ii"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="selectPayView" destination="mi1-MV-8JC" id="rbM-Bl-g85"/>
             </connections>
-            <point key="canvasLocation" x="163.5" y="384.5"/>
+            <point key="canvasLocation" x="32" y="-469"/>
         </view>
     </objects>
 </document>

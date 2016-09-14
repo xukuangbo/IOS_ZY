@@ -10,4 +10,6 @@
 
 @interface ZYPublishFootprintController : ZYZCBaseViewController
 
+@property (nonatomic, strong) NSArray *images;
+
 @end

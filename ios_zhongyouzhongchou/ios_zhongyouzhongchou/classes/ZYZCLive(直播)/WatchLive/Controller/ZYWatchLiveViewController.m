@@ -31,6 +31,7 @@
 #import "ZYWatchLiveView.h"
 #import "MinePersonSetUpModel.h"
 #import "ZYBottomPayView.h"
+#import "WXApiManager.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -38,7 +39,7 @@
 @interface ZYWatchLiveViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate,
-UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate>
+UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate, ZYBottomPayViewDelegate>
 @property (nonatomic, strong) ZYLiveListModel *liveModel;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) id <IJKMediaPlayback> player;
@@ -107,7 +108,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) ZYBottomPayView *payView;
 // 判断是不是进入私聊界面
 @property (nonatomic, assign) BOOL isMessage;
-
+@property (nonatomic, strong) WXApiManager *wxApiManger;
 @end
 /**
  *  文本cell标示
@@ -301,15 +302,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     [self.view addSubview:self.portraitsCollectionView];
 }
-
+// 创建打赏界面
 - (void)initPayView {
     if (!self.payView) {
         ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
-        CGRect rect = self.view.bounds;
+        payView.delegate = self;
+        CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
         payView.frame = rect;
         [payView.layer setCornerRadius:10];
         [self.view addSubview:payView];
-        
         self.payView = payView;
     } else {
         self.payView.hidden = NO;
@@ -378,6 +379,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.userList = [[NSMutableArray alloc] init];
     [self registerNotification];
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
+    self.wxApiManger = [[WXApiManager alloc] init];
 }
 
 #pragma mark - getData
@@ -487,6 +489,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - event
+// 关闭直播按钮
 - (void)closeLiveButtonAction:(UIButton *)sender
 {
     [self removeMovieNotificationObservers];
@@ -542,21 +545,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];
 }
 
-/**
- *  发送鲜花
- *
- *  @param sender sender description
- */
+// 打赏功能
 -(void)flowerButtonPressed:(UIButton *)sender
 {
     [self initPayView];
 }
 
-/**
- *  发送掌声
- *
- *  @param sender
- */
+// 点赞
 -(void)clapButtonPressed{
     RCDLiveGiftMessage *giftMessage = [[RCDLiveGiftMessage alloc]init];
     giftMessage.type = @"1";
@@ -564,10 +559,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self praiseHeart];
     [self clickClapButton];
 }
-
+// 点击屏幕事件
 - (void)tap4ResetDefaultBottomBarStatus:
 (UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        self.payView.hidden = YES;
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
         [self clapButtonPressed];
@@ -774,6 +770,37 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - Selector func
+- (void)getPayResult
+{
+    AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+    NSString *userId=[ZYZCAccountTool getUserId];
+    //判断支付是否成功
+    NSString *httpUrl=GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
+    
+    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
+     {
+         NSLog(@"%@",result);
+         appDelegate.out_trade_no=nil;
+         NSArray *arr=result[@"data"];
+         NSDictionary *dic=nil;
+         if (arr.count) {
+             dic=[arr firstObject];
+         }
+         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
+         //支付成功
+         if(payResult){
+             [MBProgressHUD showSuccess:@"支付成功!"];
+         }
+         else{
+             [MBProgressHUD showError:@"支付失败!"];
+             appDelegate.out_trade_no=nil;
+         }
+     }
+                      andFailBlock:^(id failResult)
+     {
+         [MBProgressHUD showError:@"网络出错,支付失败!"];
+     }];
+}
 - (void)loadStateDidChange:(NSNotification*)notification {
     IJKMPMovieLoadState loadState = _player.loadState;
     if ((loadState & IJKMPMovieLoadStatePlaythroughOK) != 0) {
@@ -1169,6 +1196,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackFinish:) name:IJKMPMoviePlayerPlaybackDidFinishNotification object:_player];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaIsPreparedToPlayDidChange:) name:IJKMPMediaPlaybackIsPreparedToPlayDidChangeNotification object:_player];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackStateDidChange:) name:IJKMPMoviePlayerPlaybackStateDidChangeNotification object:_player];
+    //支付结果通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayResult) name:kGetPayResultNotification object:nil];
 }
 
 /**
@@ -1311,9 +1340,24 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
-
+#pragma mark - ZYBottomPayViewDelegate
+// 打赏金额调用接口
+- (void)clickPayBtnUKey:(NSInteger)moneyNumber
+{
+    WEAKSELF
+    NSString *payMoney = [NSString stringWithFormat:@"%lf", moneyNumber / 10.0];
+    NSDictionary *parameters= @{
+                                @"spaceName":self.liveModel.spaceName,
+                                @"streamName":self.liveModel.streamName,
+                                @"price":payMoney,
+                                };
+    [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
+        weakSelf.payView.hidden = YES;
+    } andFailBlock:^{
+        
+    }];
+}
 #pragma mark RCInputBarControlDelegate
-
 /**
  *  根据inputBar 回调来修改页面布局，inputBar frame 变化会触发这个方法
  *
@@ -1343,8 +1387,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 /**
  *  屏幕翻转
  *
- *  @param newCollection <#newCollection description#>
- *  @param coordinator   <#coordinator description#>
+ *
  */
 - (void)willTransitionToTraitCollection:(UITraitCollection *)newCollection withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
     [super willTransitionToTraitCollection:newCollection
@@ -1363,37 +1406,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 /**
  *  连接状态改变的回调
  *
- *  @param status <#status description#>
+ *
  */
 - (void)onConnectionStatusChanged:(RCConnectionStatus)status {
     self.currentConnectionStatus = status;
-}
-
-
-- (void)praiseGift{
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(self.watchLiveView.flowerBtn.frame.origin.x , self.watchLiveView.flowerBtn.frame.origin.y - 49, 35, 35);
-    imageView.image = [UIImage imageNamed:@"gift"];
-    imageView.backgroundColor = [UIColor clearColor];
-    imageView.clipsToBounds = YES;
-    [self.view addSubview:imageView];
-    
-    
-    CGFloat startX = round(random() % 200);
-    CGFloat scale = round(random() % 2) + 1.0;
-    CGFloat speed = 1 / round(random() % 900) + 0.6;
-    int imageName = round(random() % 2);
-    NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
-    
-    [UIView beginAnimations:nil context:(__bridge void *_Nullable)(imageView)];
-    [UIView setAnimationDuration:7 * speed];
-    
-    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"gift%d.png",imageName]];
-    imageView.frame = CGRectMake(kBounds.width - startX, -100, 35 * scale, 35 * scale);
-    
-    [UIView setAnimationDidStopSelector:@selector(onAnimationComplete:finished:context:)];
-    [UIView setAnimationDelegate:self];
-    [UIView commitAnimations];
 }
 
 /*

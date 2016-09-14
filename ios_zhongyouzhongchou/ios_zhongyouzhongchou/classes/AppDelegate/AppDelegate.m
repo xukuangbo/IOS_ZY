@@ -368,7 +368,7 @@
     [application cancelAllLocalNotifications];
     if(self.out_trade_no)
     {
-        [[NSNotificationCenter defaultCenter]postNotificationName:@"getPay" object:nil];
+        [[NSNotificationCenter defaultCenter]postNotificationName:kGetPayResultNotification object:nil];
     }
 }
 
