@@ -58,6 +58,9 @@
     publishBtn.titleLabel.font=[UIFont systemFontOfSize:17];
     [publishBtn addTarget:self action:@selector(publishMyFootprint) forControlEvents:UIControlEventTouchUpInside];
     [navView addSubview:publishBtn];
+    
+    UIView *lineView=[UIView lineViewWithFrame:CGRectMake(0, navView.height-1, KSCREEN_W, 1) andColor:[UIColor lightGrayColor]];
+    [navView addSubview:lineView];
 }
 
 -(void)configBodyUI
