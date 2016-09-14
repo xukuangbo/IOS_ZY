@@ -34,6 +34,8 @@
 #import "ZYZCTabBarController.h"
 #import "LivePersonDataView.h"
 #import "ZYLiveEndLiveVC.h"
+#import "ZYLiveEndModel.h"
+#import "MZTimerLabel.h"
 
 //输入框的高度
 #define MinHeight_InputView 50.0f
@@ -526,8 +528,16 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 //            [weakSelf.delegate backHomePage];
 //        }
 //    }];
+    
+    
+    //请求总金额
     ZYLiveEndLiveVC *endVC = [[ZYLiveEndLiveVC alloc] init];
-    endVC.hidesBottomBarWhenPushed = YES;
+    ZYLiveEndModel *endModel = [[ZYLiveEndModel alloc] init];
+    endModel.endTime = _headView.timeLabel.timeLabel.text;
+    endModel.totalPeopleCount = self.userList.count;
+    endModel.totalOnlinePeopleNumber = self.userList.count;
+    endModel.totalMoneyCount = 5000;
+    endVC.liveEndLiveModel = endModel;
     [self.navigationController pushViewController:endVC animated:YES];
     
 }

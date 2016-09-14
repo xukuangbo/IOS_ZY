@@ -325,6 +325,8 @@
         NSLog(@"pushUrl : %@", pushUrl);
         NSLog(@"pullUrl : %@", pullUrl);
         
+        
+        
         //请求我们的服务器创建直播
         [weakSelf createLiveDataWithPushUrl:pushUrl pullUrl:pullUrl];
         
@@ -338,9 +340,14 @@
 #pragma mark ---创建服务器直播
 - (void)createLiveDataWithPushUrl:(NSString *)pushUrl pullUrl:(NSString *)pullUrl
 {
-    
+    //分割pullURL,获取spaceName和streamName
+    //    http://play.lss.qupai.me/zhongyoulive/zhongyoulive-1TS1A.flv?auth_key=1471681152-0-2156-87d5e4a6853084c4e9a1b03126899a4b
     NSString *chatRoomId = [NSString stringWithFormat:@"chatRoomId%@",[ZYZCAccountTool getUserId]];
     ZYLiveListModel *createLiveModel = [[ZYLiveListModel alloc] init];
+    NSArray *temArr1 = [pullUrl componentsSeparatedByString:@".flv"];
+    NSArray *temArr2 = [temArr1[0] componentsSeparatedByString:@"/"];
+    createLiveModel.streamName = temArr2[temArr2.count - 1];
+    createLiveModel.spaceName = temArr2[temArr2.count - 2];
     createLiveModel.pullUrl = pullUrl;
     createLiveModel.title = self.titleTextfield.text;
     createLiveModel.img = self.uploadImgString;

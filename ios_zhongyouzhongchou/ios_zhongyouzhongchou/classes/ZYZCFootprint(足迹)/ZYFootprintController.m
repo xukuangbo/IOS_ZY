@@ -55,7 +55,12 @@
         __weak typeof(self) weakSelf = self;
         // 选择图片后回调
         [_picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *> * _Nullable asset) {
-            [weakSelf.picker dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf.picker dismissViewControllerAnimated:NO completion:^{
+                ZYPublishFootprintController  *publishFootprintController=[[ZYPublishFootprintController alloc]init];
+                publishFootprintController.images=images;
+                [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
+                
+            }];
         }];
         
         //点击取消
