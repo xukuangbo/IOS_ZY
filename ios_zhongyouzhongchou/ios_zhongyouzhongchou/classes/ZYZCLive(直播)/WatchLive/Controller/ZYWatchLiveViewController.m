@@ -31,6 +31,7 @@
 #import "ZYWatchLiveView.h"
 #import "MinePersonSetUpModel.h"
 #import "ZYBottomPayView.h"
+#import "WXApiManager.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -38,7 +39,7 @@
 @interface ZYWatchLiveViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate,
-UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate>
+UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate, ZYBottomPayViewDelegate>
 @property (nonatomic, strong) ZYLiveListModel *liveModel;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) id <IJKMediaPlayback> player;
@@ -107,7 +108,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) ZYBottomPayView *payView;
 // 判断是不是进入私聊界面
 @property (nonatomic, assign) BOOL isMessage;
-
+@property (nonatomic, strong) WXApiManager *wxApiManger;
 @end
 /**
  *  文本cell标示
@@ -305,6 +306,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)initPayView {
     if (!self.payView) {
         ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
+        payView.delegate = self;
         CGRect rect = self.view.bounds;
         payView.frame = rect;
         [payView.layer setCornerRadius:10];
@@ -378,6 +380,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.userList = [[NSMutableArray alloc] init];
     [self registerNotification];
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
+    self.wxApiManger = [[WXApiManager alloc] init];
 }
 
 #pragma mark - getData
@@ -568,6 +571,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)tap4ResetDefaultBottomBarStatus:
 (UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        self.payView.hidden = YES;
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
         [self clapButtonPressed];
@@ -1311,7 +1315,25 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
     return NO;
 }
-
+#pragma mark - ZYBottomPayViewDelegate
+- (void)clickPayBtnUKey:(NSInteger)moneyNumber
+{
+    NSDictionary *parameters= @{
+                                @"spaceName":self.liveModel.spaceName,
+                                @"streamName":self.liveModel.streamName,
+                                @"price":@"0.01",
+                                };
+    [self.wxApiManger payForWeChat:parameters withSuccessBolck:^{
+        NSLog(@"resultresult");
+    } andFailBlock:^{
+        
+    }];
+//    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Flower_Live andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        NSLog(@"resultresult");
+//    } andFailBlock:^(id failResult) {
+//        
+//    }];
+}
 #pragma mark RCInputBarControlDelegate
 
 /**
