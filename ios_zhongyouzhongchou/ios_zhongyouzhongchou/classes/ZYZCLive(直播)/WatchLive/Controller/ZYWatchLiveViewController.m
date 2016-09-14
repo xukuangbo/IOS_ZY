@@ -1431,7 +1431,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (CGSize)collectionViewContentSize
 {
-    return SIZE_MAX;
+    return self.conversationMessageCollectionView.frame.size;
 }
 
 /*
