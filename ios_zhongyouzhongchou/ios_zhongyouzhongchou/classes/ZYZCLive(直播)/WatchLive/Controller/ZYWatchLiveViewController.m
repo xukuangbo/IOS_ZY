@@ -213,17 +213,20 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //聊天消息区
     if (nil == self.conversationMessageCollectionView) {
         UICollectionViewFlowLayout *customFlowLayout = [[UICollectionViewFlowLayout alloc] init];
-        customFlowLayout.minimumLineSpacing = 0;
+        customFlowLayout.minimumLineSpacing = 10;
         customFlowLayout.sectionInset = UIEdgeInsetsMake(10.0f, 0.0f,5.0f, 0.0f);
-        customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;//方向
         CGRect _conversationViewFrame = self.contentView.bounds;
-        _conversationViewFrame.origin.y = 0;
-        _conversationViewFrame.size.height = self.contentView.bounds.size.height - 50;
-        _conversationViewFrame.size.width = 240;
-        self.conversationMessageCollectionView = [[UICollectionView alloc] initWithFrame:_conversationViewFrame collectionViewLayout:customFlowLayout];
-        [self.conversationMessageCollectionView setBackgroundColor:[UIColor clearColor]];
-        self.conversationMessageCollectionView.showsHorizontalScrollIndicator = NO;
-        self.conversationMessageCollectionView.alwaysBounceVertical = YES;
+        _conversationViewFrame.origin.y = 0;//y为0
+        _conversationViewFrame.size.height = self.contentView.bounds.size.height - 50;//消息高度为内容view-50
+        _conversationViewFrame.size.width = 240;//宽度240
+        self.conversationMessageCollectionView =
+        [[UICollectionView alloc] initWithFrame:_conversationViewFrame
+                           collectionViewLayout:customFlowLayout];
+        [self.conversationMessageCollectionView
+         setBackgroundColor:[UIColor clearColor]];//背景色透明
+        self.conversationMessageCollectionView.showsHorizontalScrollIndicator = NO;//展示水平条
+        self.conversationMessageCollectionView.alwaysBounceVertical = YES;//垂直可弹
         self.conversationMessageCollectionView.dataSource = self;
         self.conversationMessageCollectionView.delegate = self;
         [self.contentView addSubview:self.conversationMessageCollectionView];
@@ -693,7 +696,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  *  @param isFullScreen 全屏或者半屏
  */
 - (void)changeModel:(BOOL)isFullScreen {
-    _titleView.hidden = YES;
+    // _titleView.hidden = YES;
     self.conversationMessageCollectionView.backgroundColor = [UIColor clearColor];
     CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
     self.contentView.frame = contentViewFrame;
@@ -770,6 +773,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - Selector func
+// 支付回调
 - (void)getPayResult
 {
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
@@ -913,11 +917,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
 }
 
-/**
- *  滚动条滚动时显示正在加载loading
- *
- *  @param scrollView
- */
+#pragma mark ---滚动条滚动时显示正在加载loading
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 是否显示右下未读icon
     if (self.unreadNewMsgCount != 0) {
@@ -932,12 +932,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
 }
 
-/**
- *  滚动结束加载消息 （聊天室消息还没存储，所以暂时还没有此功能）
- *
- *  @param scrollView scrollView description
- *  @param decelerate decelerate description
- */
+#pragma mark ---滚动结束加载消息 （聊天室消息还没存储，所以暂时还没有此功能）
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView
                   willDecelerate:(BOOL)decelerate {
     if (scrollView.contentOffset.y < -15.0f && !_isLoading) {
@@ -1055,17 +1050,18 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }else if ([messageContent isMemberOfClass:[RCTextMessage class]]){
         RCTextMessage *notification = (RCTextMessage *)messageContent;
         localizedMessage = [RCDLiveKitUtility formatMessage:notification];
+        
         localizedMessage = [NSString stringWithFormat:@"%@ %@",[ZYZCAccountTool account].realName,localizedMessage];
     }else if ([messageContent isMemberOfClass:[RCDLiveGiftMessage class]]){
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)messageContent;
         localizedMessage = @"送了一个钻戒";
         if(notification && [notification.type isEqualToString:@"1"]){
-            localizedMessage = ZY_Live_Clap;
+            localizedMessage = @"为主播点了赞";
         }
         
         localizedMessage = [NSString stringWithFormat:@"%@ %@",[ZYZCAccountTool account].realName,localizedMessage];
     }
-    CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:[NSString stringWithFormat:@"%@ 为直播点了赞", [ZYZCAccountTool account].realName]];
+    CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:localizedMessage];
     __height = __height + __labelSize.height;
     
     return CGSizeMake(__width, __height);
@@ -1349,7 +1345,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
-                                @"price":payMoney,
+                                @"price":@"0.01",
                                 };
     [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
         weakSelf.payView.hidden = YES;
@@ -1403,13 +1399,39 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
      } completion:nil];
 }
 
-/**
- *  连接状态改变的回调
- *
- *
- */
+#pragma mark ---连接状态改变的回调
 - (void)onConnectionStatusChanged:(RCConnectionStatus)status {
     self.currentConnectionStatus = status;
+}
+
+- (void)praiseGift{
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.image = [UIImage imageNamed:@"gift"];
+    imageView.backgroundColor = [UIColor clearColor];
+    imageView.clipsToBounds = YES;
+    [self.view addSubview:imageView];
+    
+    
+    CGFloat startX = round(random() % 200);
+    CGFloat scale = round(random() % 2) + 1.0;
+    CGFloat speed = 1 / round(random() % 900) + 0.6;
+    int imageName = round(random() % 2);
+    NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
+    
+    [UIView beginAnimations:nil context:(__bridge void *_Nullable)(imageView)];
+    [UIView setAnimationDuration:7 * speed];
+    
+    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"gift%d.png",imageName]];
+    imageView.frame = CGRectMake(kBounds.width - startX, -100, 35 * scale, 35 * scale);
+    
+    [UIView setAnimationDidStopSelector:@selector(onAnimationComplete:finished:context:)];
+    [UIView setAnimationDelegate:self];
+    [UIView commitAnimations];
+}
+
+- (CGSize)collectionViewContentSize
+{
+    return self.conversationMessageCollectionView.frame.size;
 }
 
 /*
