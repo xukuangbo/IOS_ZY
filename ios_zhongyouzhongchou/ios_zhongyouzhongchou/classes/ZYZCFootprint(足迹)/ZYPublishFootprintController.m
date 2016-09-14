@@ -10,6 +10,8 @@
 #import <objc/runtime.h>
 #import "HUImagePickerViewController.h"
 @interface ZYPublishFootprintController ()
+@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) UIImageView  *bgImageView;
 
 @end
 
@@ -18,22 +20,65 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     self.navigationItem.leftBarButtonItem=[self customItemByImgName:@"back_black" andAction:@selector(pressBack)];
-    self.title=@"添加足迹";
-    self.navigationController.navigationBar.titleTextAttributes=
-    @{NSForegroundColorAttributeName:[UIColor ZYZC_TextBlackColor]};
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_BgGrayColor]];
-    self.view.backgroundColor=[UIColor whiteColor];
     
+    self.view.backgroundColor=[UIColor whiteColor];
     [[UIApplication sharedApplication] setStatusBarStyle:
      UIStatusBarStyleDefault];
+    [self configNavUI];
+    [self configBodyUI];
+}
+
+-(void)configNavUI
+{
+    //navUI
+    UIView *navView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, KSCREEN_W, 64)];
+    navView.backgroundColor=[UIColor ZYZC_BgGrayColor];
+    [self.view addSubview:navView];
+    
+    UILabel *titleLab=[[UILabel alloc]initWithFrame:CGRectMake(0, 20, 100, 44)];
+    titleLab.text=@"添加足迹";
+    titleLab.textColor=[UIColor ZYZC_TextBlackColor];
+    titleLab.font=[UIFont systemFontOfSize:20];
+    titleLab.centerX=navView.centerX;
+    [navView addSubview:titleLab];
+    
+    
+    UIButton *backBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame=CGRectMake(10, 20, 50, 44);
+    [backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor ZYZC_TextBlackColor] forState:UIControlStateNormal];
+    backBtn.titleLabel.font=[UIFont systemFontOfSize:17];
+    [backBtn  addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
+    [navView addSubview:backBtn];
     
     UIButton *publishBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    publishBtn.frame=CGRectMake(0, 0, 50, 30);
+    publishBtn.frame=CGRectMake(KSCREEN_W-60, 20, 50, 44);
     [publishBtn setTitle:@"发布" forState:UIControlStateNormal];
     [publishBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
+    publishBtn.titleLabel.font=[UIFont systemFontOfSize:17];
     [publishBtn addTarget:self action:@selector(publishMyFootprint) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:publishBtn];
+    [navView addSubview:publishBtn];
+}
+
+-(void)configBodyUI
+{
+    _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, KSCREEN_W, KSCREEN_H-64)];
+    _scrollView.contentSize=CGSizeMake(0, _scrollView.height+1);
+    _scrollView.showsVerticalScrollIndicator=NO;
+    _scrollView.backgroundColor=[UIColor ZYZC_BgGrayColor];
+    [self.view addSubview:_scrollView];
+    
+    _bgImageView=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, KEDGE_DISTANCE, _scrollView.width-2*KEDGE_DISTANCE, 300)];
+    _bgImageView.image=KPULLIMG(@"tab_bg_boss0", 5, 0, 5, 0);
+    [_scrollView addSubview:_bgImageView];
+    
+    
+    
+}
+
+-(void)backClick
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark ---  发布足迹👣
@@ -45,14 +90,14 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
-    self.navigationController.navigationBar.titleTextAttributes=
-    @{NSForegroundColorAttributeName:[UIColor whiteColor],
-      NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
     
     [[UIApplication sharedApplication] setStatusBarStyle:
      UIStatusBarStyleLightContent];
+}
 
+-(void)dealloc
+{
+    DDLog(@"dealloc:%@",[self class]);
 }
 
 - (void)didReceiveMemoryWarning {

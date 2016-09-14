@@ -19,7 +19,22 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes =
     [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
-    [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress)
+
+    NSString *newUrl=url;
+    if ([url hasSuffix:@".action"]) {
+        newUrl=[url stringByAppendingString:@"?from=ios"];
+    }
+    else
+    {
+        newUrl=[url stringByAppendingString:@"&from=ios"];
+    }
+    NSRange range=[url rangeOfString:@"userId"];
+    if (!range.length) {
+        newUrl=[newUrl stringByAppendingString:[NSString stringWithFormat:@"&userId=%@",[ZYZCAccountTool getUserId]]];
+    }
+    DDLog(@"newGetUrl:%@",newUrl);
+    
+    [manager GET:newUrl parameters:nil progress:^(NSProgress * _Nonnull downloadProgress)
     {
     }
     success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
@@ -74,7 +89,10 @@
     manager.responseSerializer.acceptableContentTypes =
     [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
     DDLog(@"newParameters:%@",newParameters);
-    [manager POST:url parameters:newParameters progress:^(NSProgress * _Nonnull uploadProgress)
+    
+    NSString *newUrl=[url stringByAppendingString:[NSString stringWithFormat:@"?userId=%@&from=ios",[ZYZCAccountTool getUserId]]];
+    DDLog(@"newPostUrl:%@",newUrl);
+    [manager POST:newUrl parameters:newParameters progress:^(NSProgress * _Nonnull uploadProgress)
     {
         
     }
