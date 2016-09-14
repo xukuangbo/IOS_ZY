@@ -32,10 +32,16 @@
             [tmpView.layer setBorderColor:[[UIColor colorWithHexString:@"#d6d6d6"] CGColor]];
             
             UIButton *btn = (UIButton *)tmpView;
-            [btn setTitleColor:[UIColor colorWithHexString:@"666666"] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [btn setTitleColor:[UIColor colorWithHexString:@"439cf4"] forState:UIControlStateSelected];
         }
     }
 }
 
+- (IBAction)onSelect:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(clickPayBtnUKey:)]) {
+        [self.delegate clickPayBtnUKey:sender.tag];
+    }
+}
 @end
