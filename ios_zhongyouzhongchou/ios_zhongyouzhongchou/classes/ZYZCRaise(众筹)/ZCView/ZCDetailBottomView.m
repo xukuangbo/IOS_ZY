@@ -114,7 +114,7 @@
                 //没有冲突
                 if ([result[@"data"] isEqual:@1]) {
                     WXApiManager *wxManager=[WXApiManager sharedManager];
-                    [wxManager payForWeChat:mutDic withSuccessBolck:nil andFailBlock:nil];
+                    [wxManager payForWeChat:mutDic payUrl:GET_WX_ORDER withSuccessBolck:nil andFailBlock:nil];
                 }
                 else if ([result[@"data"] isEqual:@0])
                 {
@@ -134,7 +134,7 @@
         else
         {
             WXApiManager *wxManager=[WXApiManager sharedManager];
-            [wxManager payForWeChat:mutDic withSuccessBolck:nil andFailBlock:nil];
+            [wxManager payForWeChat:mutDic payUrl:GET_WX_ORDER withSuccessBolck:nil andFailBlock:nil];
         }
         
         

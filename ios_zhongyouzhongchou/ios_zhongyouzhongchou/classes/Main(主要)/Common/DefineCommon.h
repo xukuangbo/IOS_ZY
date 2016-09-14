@@ -169,5 +169,10 @@
 
 #define ZY_Live_Clap @"ZYSendMessageClapStatus"
 #define ZY_Live_Join @"ZYSendMessageJoinRoomStatus"
+/**
+ *  通知的宏定义
+ */
+// 获取支付结果通知
+#define kGetPayResultNotification @"kGetPayResultNotification"
 
 #endif /* DefineCommon_h */

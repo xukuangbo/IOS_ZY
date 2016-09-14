@@ -46,7 +46,7 @@ typedef void(^GetOrderFail)();
  *  @param dict 支付金额（字典形式）
  */
 
--(void )payForWeChat:(NSDictionary *)dict withSuccessBolck:(GetOrderSuccess) getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail;
+-(void )payForWeChat:(NSDictionary *)dict payUrl:(NSString *)payUrl withSuccessBolck:(GetOrderSuccess) getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail;
 
 
 

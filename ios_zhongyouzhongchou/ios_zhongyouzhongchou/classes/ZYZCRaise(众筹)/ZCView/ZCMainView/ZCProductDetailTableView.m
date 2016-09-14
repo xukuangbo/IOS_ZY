@@ -103,7 +103,7 @@
         [_topImgView addSubview:bgImg];
         
         //支付结果通知
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPay) name:@"getPay" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPay) name:kGetPayResultNotification object:nil];
 
         //支付0元时的通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMySelfInStyle4) name:@"support_Style4_Success" object:nil];
