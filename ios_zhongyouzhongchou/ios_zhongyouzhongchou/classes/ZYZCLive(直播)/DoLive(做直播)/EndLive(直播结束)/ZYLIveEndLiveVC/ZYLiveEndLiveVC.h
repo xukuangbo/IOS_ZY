@@ -7,7 +7,8 @@
 //
 
 #import "ZYZCBaseViewController.h"
-
+@class ZYLiveEndModel;
 @interface ZYLiveEndLiveVC : ZYZCBaseViewController
 
+@property (nonatomic, strong) ZYLiveEndModel *liveEndLiveModel;
 @end
