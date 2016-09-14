@@ -22,6 +22,7 @@
 @property (nonatomic, assign) BOOL        getStop;
 @property (nonatomic, strong) RecordSoundObj *soundObj;
 @property (nonatomic, strong) ZYVoicePlayer *avPlayer;
+@property (nonatomic, assign) BOOL        hasGetUI;
 
 //==================
 //播放amr格式音频
@@ -48,6 +49,7 @@
 
 -(void)configCAF_UI
 {
+    _hasGetUI=YES;
     _voiceView=[[UIImageView alloc]initWithFrame:CGRectMake(_iconImg.right +KEDGE_DISTANCE, self.height-38, 50, 38)];
     _voiceView.image=KPULLIMG(@"voiceIcon",0,10,0,5);
     [self addSubview:_voiceView];
@@ -80,6 +82,7 @@
 
 -(void)configAMR_UI
 {
+    _hasGetUI=YES;
     _playVoiceBtn=[[MLPlayVoiceButton alloc]initWithFrame:CGRectMake(_iconImg.right +KEDGE_DISTANCE, self.height-38, 50, 38)];
     [_playVoiceBtn setBackgroundImage:KPULLIMG(@"voiceIcon",0,10,0,5) forState:UIControlStateNormal];
     [self addSubview:_playVoiceBtn];
@@ -104,13 +107,15 @@
     {
         //网络(区分.caf和.amr格式)
          NSRange caf_range=[_voiceUrl rangeOfString:@".caf"];
-        if (caf_range.length) {
-            [self configCAF_UI];
-        }
-        else
-        {
-            [self configAMR_UI];
-            [self.playVoiceBtn downVoiceWithUrl:[NSURL URLWithString:voiceUrl] withComplete:nil];
+        if (!_hasGetUI) {
+            if (caf_range.length) {
+                [self configCAF_UI];
+            }
+            else
+            {
+                [self configAMR_UI];
+                [self.playVoiceBtn downVoiceWithUrl:[NSURL URLWithString:voiceUrl] withComplete:nil];
+            }
         }
     }
 }
@@ -157,6 +162,8 @@
 -(void)playVoice
 {
     //播放语音
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopVoice" object:nil];
+    
     NSRange range=[_voiceUrl rangeOfString:KMY_ZHONGCHOU_FILE];
     if (range.length) {
         //播放本地音频文件
