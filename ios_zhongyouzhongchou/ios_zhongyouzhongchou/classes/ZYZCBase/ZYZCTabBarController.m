@@ -116,7 +116,7 @@
 -(void)getCustomItems
 {
     
-    NSArray *titleArray = @[@"目的地",@"众筹",@"视频",@"我的"];
+    NSArray *titleArray = @[@"目的地",@"众筹",@"直播",@"我的"];
     NSArray *imageArray = @[@"tab_one_gl",@"tab_two_zc",@"tab_zhibo",@"tab_fou_min"];
     for (int i=0; i<4; i++){
         UINavigationController *navi = self.viewControllers[i];

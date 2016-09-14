@@ -105,7 +105,7 @@
 
 //======================================================
 #pragma mark --- 微信支付
--(void )payForWeChat:(NSDictionary *)dict withSuccessBolck:(GetOrderSuccess) getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail
+-(void )payForWeChat:(NSDictionary *)dict payUrl:(NSString *)payUrl withSuccessBolck:(GetOrderSuccess)getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail
 {
 //        post
 //        {
@@ -128,7 +128,7 @@
     
     [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow.rootViewController.view animated:YES];
     
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Flower_Live  andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:payUrl  andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
 //        NSLog(@"result:%@",result);
         [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
         if([result[@"code"] isEqual:@1])
