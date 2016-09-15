@@ -29,6 +29,7 @@
 @property (nonatomic) NSInteger index;
 @property (nonatomic) NSInteger imagesCount;
 @property (nonatomic, copy) DismissBlock   dismissDlock;
+@property (nonatomic, copy) DismissWithImagesBlock   dismissWithImagesBlock;
 @property (nonatomic, copy) DeleteOneImage deleteBlock;
 @property (nonatomic, strong) NSArray *images;
 @property (nonatomic, strong) UIButton *saveBtn;
@@ -86,6 +87,19 @@
     
     return browser;
 
+}
+
++ (nonnull instancetype)showFromImageView:(nullable UIImageView *)imageView withImages:(nullable NSArray *)images atIndex:(NSInteger)index dismissWithImages:(DismissWithImagesBlock)dismisswithImageBlock
+{
+    HUPhotoBrowser *browser = [[HUPhotoBrowser alloc] initWithFrame:kScreenRect];
+    browser.imageView = imageView;
+    browser.images = images;
+    browser.imagesCount = images.count;
+    [browser resetCountLabWithIndex:index+1];
+    [browser configureBrowser];
+    [browser animateImageViewAtIndex:index];
+    browser.dismissWithImagesBlock=dismisswithImageBlock;
+    return browser;
 }
 
 + (instancetype)showFromImageView:(UIImageView *)imageView withImages:(NSArray *)images atIndex:(NSInteger)index deleteImg:(DeleteOneImage)block {
@@ -358,6 +372,11 @@
         self.dismissDlock(cell.imageView.image, _currentPage);
     }
     
+    if (self.dismissWithImagesBlock) {
+        self.dismissWithImagesBlock(self.images);
+    }
+
+    
     if (_currentPage != _index) {
         [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.alpha = 0;
@@ -401,10 +420,33 @@
 #pragma mark --- 删除图片
 - (void) deleteImage
 {
-    [self dismiss];
+    if(!_notDismissWhenDelete)
+    {
+        [self dismiss];
+    }
     if(_deleteBlock)
     {
         _deleteBlock();
+    }
+    
+    //暂时添加删除本地图片
+    if (self.images) {
+        NSMutableArray *newImages=[NSMutableArray arrayWithArray:self.images];
+        [newImages removeObjectAtIndex:_currentPage];
+         self.images=newImages;
+        if (self.images.count) {
+            _imagesCount=newImages.count;
+            if (_currentPage+1>_imagesCount) {
+                _currentPage--;
+            }
+            _imageView.image=newImages[_currentPage];
+            [self resetCountLabWithIndex:_currentPage+1];
+            [_collectionView reloadData];
+        }
+        else
+        {
+            [self dismiss];
+        }
     }
 }
 
