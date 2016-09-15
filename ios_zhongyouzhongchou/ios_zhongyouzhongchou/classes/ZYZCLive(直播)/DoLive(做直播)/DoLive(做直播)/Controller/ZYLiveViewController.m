@@ -528,6 +528,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 //            [weakSelf.delegate backHomePage];
 //        }
 //    }];
+    //发送一个退出直播的通知
+    dispatch_async(dispatch_get_main_queue(), ^{
+        RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
+        joinChatroomMessage.message = [NSString stringWithFormat: @"直播结束"];
+        joinChatroomMessage.extra = [NSString stringWithFormat:@"直播结束"];
+        [weakSelf sendMessage:joinChatroomMessage pushContent:nil];
+    });
     
     
     //请求总金额
