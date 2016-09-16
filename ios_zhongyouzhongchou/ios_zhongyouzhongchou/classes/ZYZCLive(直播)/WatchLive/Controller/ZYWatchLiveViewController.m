@@ -32,6 +32,8 @@
 #import "MinePersonSetUpModel.h"
 #import "ZYBottomPayView.h"
 #import "WXApiManager.h"
+#import "ZYWatchEndLiveVC.h"
+#import "WatchEndLiveModel.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -880,6 +882,38 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
         content = textMessage.message;
+        
+        //判断是否是直播结束通知
+        WEAKSELF
+        if ([content isEqualToString:@"直播结束"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf removeMovieNotificationObservers];
+                if ([weakSelf.player isPlaying]) {
+                    [weakSelf.player pause];
+                    [weakSelf.player stop];
+                }
+                [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
+                                                    success:^{
+                                                        NSLog(@"ddddd");
+                                                    } error:^(RCErrorCode status) {
+                                                        NSLog(@"eeeeee");
+                                                    }];
+
+                
+                ZYWatchEndLiveVC *endVC = [[ZYWatchEndLiveVC alloc] init];
+                WatchEndLiveModel *endModel =[[WatchEndLiveModel alloc] init];
+                endModel.headImgUrl = weakSelf.liveModel.faceImg;
+                endModel.name = weakSelf.liveModel.realName;
+                endModel.sex = weakSelf.liveModel.sex;
+                endModel.isGuanzhu = weakSelf.attentionButton.hidden;
+                endModel.userId = weakSelf.liveModel.userId;
+                endVC.watchEndLiveModel = endModel;
+                [weakSelf.navigationController pushViewController:endVC animated:YES];
+            });
+            
+            return ;
+        }
+        
         [self refreshUserList:textMessage.extra];
     } else if ([model.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
         RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
