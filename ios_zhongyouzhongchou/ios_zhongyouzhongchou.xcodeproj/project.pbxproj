@@ -201,6 +201,7 @@
 		2C1C07A11D1AC2C100203FF4 /* PartnerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1C07A01D1AC2C100203FF4 /* PartnerTableView.m */; };
 		2C1ECC8A1D62B04400B91E7B /* ZYZCEditYoujiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC891D62B04400B91E7B /* ZYZCEditYoujiController.m */; };
 		2C1ECC8D1D62B08C00B91E7B /* YJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */; };
+		2C20BC971D8A4A3500574462 /* HUPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */; };
 		2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */; };
 		2C3777EC1D07BC51004FDA9D /* MyProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EB1D07BC51004FDA9D /* MyProductViewController.m */; };
 		2C3777EF1D07C345004FDA9D /* MyProductTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EE1D07C345004FDA9D /* MyProductTableView.m */; };
@@ -208,6 +209,7 @@
 		2C3777FC1D07F355004FDA9D /* ZYZCBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777FB1D07F355004FDA9D /* ZYZCBaseTableView.m */; };
 		2C3777FF1D07F36F004FDA9D /* ZYZCBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777FE1D07F36F004FDA9D /* ZYZCBaseTableViewCell.m */; };
 		2C3FAA211D54793000F2B187 /* MsgDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FAA201D54793000F2B187 /* MsgDetailModel.m */; };
+		2C41A8121D8A9D2100AD9437 /* ZYLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C41A8111D8A9D2100AD9437 /* ZYLocationManager.m */; };
 		2C44698C1D1671C8000639EB /* ZYZCEditProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */; };
 		2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C4EEFB81CC6087D00AA99F6 /* outboundCity.plist */; };
 		2C5159A01D8641B20048BD20 /* AmrPlayerReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159851D8641B20048BD20 /* AmrPlayerReader.m */; };
@@ -390,7 +392,6 @@
 		2CDC49FA1CFD3B5900E7893C /* ZYZCRCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC49F91CFD3B5900E7893C /* ZYZCRCManager.m */; };
 		2CDC49FD1CFD960A00E7893C /* ChatListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC49FC1CFD960A00E7893C /* ChatListViewController.m */; };
 		2CE074C31CCF7ECC006D312D /* ZYZCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE074C21CCF7ECC006D312D /* ZYZCTabBarController.m */; };
-		2CE6176B1D657DD100962163 /* HUPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE617471D657DD100962163 /* HUPhotoBrowser.m */; };
 		2CE6176C1D657DD100962163 /* HUPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE617491D657DD100962163 /* HUPhotoBrowserCell.m */; };
 		2CE6176D1D657DD100962163 /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6174C1D657DD100962163 /* HUAlbum.m */; };
 		2CE6176E1D657DD100962163 /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6174E1D657DD100962163 /* HUAlbumCell.m */; };
@@ -910,6 +911,8 @@
 		2C1ECC891D62B04400B91E7B /* ZYZCEditYoujiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCEditYoujiController.m; sourceTree = "<group>"; };
 		2C1ECC8B1D62B08C00B91E7B /* YJTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YJTextView.h; sourceTree = "<group>"; };
 		2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJTextView.m; sourceTree = "<group>"; };
+		2C20BC951D8A4A3500574462 /* HUPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowser.h; sourceTree = "<group>"; };
+		2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowser.m; sourceTree = "<group>"; };
 		2C3523211D3C63B8005200AD /* ZYMobileLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMobileLoginController.h; sourceTree = "<group>"; };
 		2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMobileLoginController.m; sourceTree = "<group>"; };
 		2C3777EA1D07BC51004FDA9D /* MyProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductViewController.h; sourceTree = "<group>"; };
@@ -924,6 +927,8 @@
 		2C3777FE1D07F36F004FDA9D /* ZYZCBaseTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCBaseTableViewCell.m; sourceTree = "<group>"; };
 		2C3FAA1F1D54793000F2B187 /* MsgDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgDetailModel.h; sourceTree = "<group>"; };
 		2C3FAA201D54793000F2B187 /* MsgDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgDetailModel.m; sourceTree = "<group>"; };
+		2C41A8101D8A9D2100AD9437 /* ZYLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLocationManager.h; sourceTree = "<group>"; };
+		2C41A8111D8A9D2100AD9437 /* ZYLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLocationManager.m; sourceTree = "<group>"; };
 		2C44698A1D1671C8000639EB /* ZYZCEditProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCEditProductView.h; sourceTree = "<group>"; };
 		2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCEditProductView.m; sourceTree = "<group>"; };
 		2C4EEFB81CC6087D00AA99F6 /* outboundCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = outboundCity.plist; sourceTree = "<group>"; };
@@ -1286,8 +1291,6 @@
 		2CDC49FC1CFD960A00E7893C /* ChatListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatListViewController.m; sourceTree = "<group>"; };
 		2CE074C21CCF7ECC006D312D /* ZYZCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCTabBarController.m; sourceTree = "<group>"; };
 		2CE617451D657DD100962163 /* hu_const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hu_const.h; sourceTree = "<group>"; };
-		2CE617461D657DD100962163 /* HUPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowser.h; sourceTree = "<group>"; };
-		2CE617471D657DD100962163 /* HUPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowser.m; sourceTree = "<group>"; };
 		2CE617481D657DD100962163 /* HUPhotoBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowserCell.h; sourceTree = "<group>"; };
 		2CE617491D657DD100962163 /* HUPhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowserCell.m; sourceTree = "<group>"; };
 		2CE6174B1D657DD100962163 /* HUAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUAlbum.h; sourceTree = "<group>"; };
@@ -3575,8 +3578,8 @@
 			isa = PBXGroup;
 			children = (
 				2CE617451D657DD100962163 /* hu_const.h */,
-				2CE617461D657DD100962163 /* HUPhotoBrowser.h */,
-				2CE617471D657DD100962163 /* HUPhotoBrowser.m */,
+				2C20BC951D8A4A3500574462 /* HUPhotoBrowser.h */,
+				2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */,
 				2CE617481D657DD100962163 /* HUPhotoBrowserCell.h */,
 				2CE617491D657DD100962163 /* HUPhotoBrowserCell.m */,
 				2CE6174A1D657DD100962163 /* HUPhotoPicker */,
@@ -4284,6 +4287,8 @@
 		399E941F1D38E1EC006E1B68 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				2C41A8101D8A9D2100AD9437 /* ZYLocationManager.h */,
+				2C41A8111D8A9D2100AD9437 /* ZYLocationManager.m */,
 				39911ACE1D5044A8007DF44B /* ZYZCAVPlayer.h */,
 				39911ACF1D5044A8007DF44B /* ZYZCAVPlayer.m */,
 				39911AD01D5044A8007DF44B /* ZYZCDataBase.h */,
@@ -4654,7 +4659,6 @@
 				2CD209A11D6D4BA6005EB62E /* icon.png in Resources */,
 				2C8B198D1D0CF7EC0063097B /* XMNPhotoPicker.xib in Resources */,
 				2C066A791D87D6240048FAE4 /* TestViewController.xib in Resources */,
-				3967ADBA1D6D3941008A7F81 /* RoleList.plist in Resources */,
 				2C8B19851D0CF7EC0063097B /* PhotoPickerKit.xcassets in Resources */,
 				04A99CFB1CBF897A00C6F5F0 /* read_me.txt in Resources */,
 				3941CD761D420B29009224BC /* ChatBlackListCell.xib in Resources */,
@@ -4764,6 +4768,7 @@
 				04C087AE1D044F0A00203D40 /* MineWantGoModel.m in Sources */,
 				2CD209C81D6D4BA6005EB62E /* QPRecordViewController.m in Sources */,
 				040651351CC71A99003FD539 /* TacticModel.m in Sources */,
+				2C20BC971D8A4A3500574462 /* HUPhotoBrowser.m in Sources */,
 				2C1B60DF1D6D3CF900E3C25B /* MoreFZCBaseTableView.m in Sources */,
 				39911ABE1D5038E2007DF44B /* TacticGeneralVC.m in Sources */,
 				39AABC971D717B3E00D25B16 /* LiveDetailHeadView.m in Sources */,
@@ -4961,7 +4966,6 @@
 				39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */,
 				39911ABD1D5038E2007DF44B /* TacticGeneralModel.m in Sources */,
 				2CD209091D6D3E27005EB62E /* HotCommentCell.m in Sources */,
-				056046CE1D6EBECD006906FD /* UIImage+plus.m in Sources */,
 				2C066A671D87937B0048FAE4 /* MLDataResponseSerializer.m in Sources */,
 				2C8B19731D0CF7EC0063097B /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				39911AB01D5038B2007DF44B /* TacticSingleFoodVC.m in Sources */,
@@ -5036,7 +5040,6 @@
 				2CD209201D6D3E27005EB62E /* ZCSupportOneYuanView.m in Sources */,
 				39E52FDD1D50815A00D0ED83 /* TacticMainVC.m in Sources */,
 				04F8362D1CD7225200140980 /* TacticSingleLongPicture.m in Sources */,
-				2CE6176B1D657DD100962163 /* HUPhotoBrowser.m in Sources */,
 				2C1A99FF1D1BC26E00B62B39 /* ParterStatusBtn.m in Sources */,
 				2CE617751D657DD100962163 /* HUPhotoHelper.m in Sources */,
 				2CF6832A1D2383D300447349 /* ComplainViewController.m in Sources */,
@@ -5123,6 +5126,7 @@
 				04A99C971CBF848D00C6F5F0 /* ZYZCNavigationController.m in Sources */,
 				2C7FC2AC1D222556000FDFDE /* ChooseStarView.m in Sources */,
 				2C8B19751D0CF7EC0063097B /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
+				2C41A8121D8A9D2100AD9437 /* ZYLocationManager.m in Sources */,
 				2C1B60F41D6D3CF900E3C25B /* DrawCircleView.m in Sources */,
 				2C8B197F1D0CF7EC0063097B /* XMNPhotoCollectionController.m in Sources */,
 				393A5E3C1D30DB8D00E165C5 /* AboutXieyiVC.m in Sources */,

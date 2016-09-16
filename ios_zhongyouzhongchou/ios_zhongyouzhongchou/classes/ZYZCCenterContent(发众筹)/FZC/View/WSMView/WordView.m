@@ -142,15 +142,11 @@
     if (!canChooseAlbum) {
         return;
     }
-    if (!_picker) {
-        _picker = [[XMNPhotoPickerController alloc] initWithMaxCount:_maxImgNumber-_imgModelArr.count delegate:nil];
-        _picker.pickingVideoEnable=NO;
-        _picker.autoPushToPhotoCollection=YES;
-    }
-    else
-    {
-        _picker.maxCount=_maxImgNumber-_imgModelArr.count;
-    }
+    
+    _picker=nil;
+    _picker = [[XMNPhotoPickerController alloc] initWithMaxCount:_maxImgNumber-_imgModelArr.count delegate:nil];
+    _picker.pickingVideoEnable=NO;
+    _picker.autoPushToPhotoCollection=YES;
     
     __weak typeof(self) weakSelf = self;
     // 选择图片后回调
