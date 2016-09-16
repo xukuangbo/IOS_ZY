@@ -170,6 +170,10 @@
             _locationIcon.image=[UIImage imageNamed:@"footprint-coordinate-2"];
             _locationLab.textColor=[UIColor ZYZC_MainColor];
         }
+        else
+        {
+            switchButton.on=NO;
+        }
     }else {
         _locationIcon.image=[UIImage imageNamed:@"footprint-coordinate-2"];
         _locationLab.textColor=[UIColor ZYZC_TextGrayColor01];

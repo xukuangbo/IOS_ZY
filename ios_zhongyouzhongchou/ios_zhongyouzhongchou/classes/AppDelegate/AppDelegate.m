@@ -28,6 +28,8 @@
 #import "MBProgressHUD+MJ.h"
 #import  <QPSDKCore/QPSDKCore.h>
 
+#import "ZYLocationManager.h"
+
 #define  kQPAppKey     @"20a9a463ed1796c"
 #define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
 
@@ -39,6 +41,8 @@
 @property (nonatomic, strong)ZYZCRCManager *RCManager;
 @property (nonatomic, strong) WXApiManager *wxManager;
 @property (nonatomic, strong) Reachability *reachability;
+
+@property (nonatomic, strong) ZYLocationManager *locationManager;
 
 @end
 @implementation AppDelegate
@@ -93,6 +97,9 @@
     
     //初始化趣拍视屏直播
     [self initQPLive];
+    
+    _locationManager =[[ZYLocationManager alloc]init];
+    [_locationManager getCurrentLacation];
     
     return YES;
 }
