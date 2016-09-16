@@ -288,8 +288,7 @@
     for (NSInteger i=0; i<_fileTmpPathArr.count; i++) {
         [self deleteFileByPath:_fileTmpPathArr[i]];
     }
-    
-//    NSLog(@"dealloc:%@",self.class);
+    DDLog(@"dealloc:%@",self.class);
 }
 
 

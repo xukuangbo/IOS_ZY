@@ -12,6 +12,7 @@
 #import "TacticTableView.h"
 #import "ZYZCMessageListViewController.h"
 #import "UIBarButtonItem+WZLBadge.h"
+#import "ZYLocationManager.h"
 //#import "UploadVoucherVC.h"
 
 
@@ -28,7 +29,8 @@
 /**
  *  当地位置管理者
  */
-@property(strong, nonatomic) CLLocationManager *locationManager;
+//@property(strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic, strong) ZYLocationManager *locationManager;
 /**
  * 当地位置
  */
@@ -141,81 +143,39 @@
 #pragma mark - 获取当前定位城市
 - (void)getLocation
 {
-    // 判断是否开启定位
-    if ([CLLocationManager locationServicesEnabled]) {
-        if ([[UIDevice currentDevice].systemVersion doubleValue]>= 8.0) {
-            //如果大于ios大于8.0，就请求获取地理位置授权
-            self.locationManager = [[CLLocationManager alloc] init];
-            [self.locationManager requestWhenInUseAuthorization];
-            self.locationManager.delegate = self;
-            self.locationManager.distanceFilter
-            = 10.0f;//
-            [self.locationManager startUpdatingLocation];
-        }else{
-            self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
-            [self.locationManager startUpdatingLocation];
-        }
-    } else {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法进行定位" message:@"请检查您的设备是否开启定位功能" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        [alert show];
-//        [self.cityChoseButton setTitle:@"杭州" forState:UIControlStateNormal];
-    }
-}
-#pragma mark - 获取用户所在位置代理方法
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    CLLocation *currentLocation = [locations lastObject]; // 最后一个值为最新位置
-    CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
-    // 根据经纬度反向得出位置城市信息
-    [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
-        if (placemarks.count > 0) {
-            CLPlacemark *placeMark = placemarks[0];
-            if (placeMark.locality.length > 2) {
-                 self.currentCity = [placeMark.locality substringToIndex:2];
-            }else{
-                self.currentCity = placeMark.locality;
+    WEAKSELF;
+    _locationManager=[[ZYLocationManager alloc]init];
+    _locationManager.getCurrentLocationResult=^(BOOL isSuccess,NSString *currentCity,NSString *currentAddress)
+    {
+        if (isSuccess) {
+            if (currentCity.length > 2) {
+                weakSelf.currentCity = [currentCity substringToIndex:2];
             }
-           
-            // ? placeMark.locality : placeMark.administrativeArea;
-            if (!self.currentCity) {
-                self.currentCity = @"无法定位当前城市";
+            else{
+                weakSelf.currentCity = currentCity;
             }
+            
             // 获取城市信息后, 异步更新界面信息.      dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             dispatch_async(dispatch_get_main_queue(), ^{
-//                self.cityDict[@*] = @[self.currentCity];
-//                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-                [self.cityChoseButton setTitle:self.currentCity forState:UIControlStateNormal];
+                //                self.cityDict[@*] = @[self.currentCity];
+                //                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+                [weakSelf.cityChoseButton setTitle:weakSelf.currentCity forState:UIControlStateNormal];
                 
                 NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
                 NSString *location=[user objectForKey:KMY_LOCALTION];
-                if (!location||![location isEqualToString:self.currentCity]) {
-                    [user setObject:self.currentCity forKey:KMY_LOCALTION];
+                if (!location||![location isEqualToString:weakSelf.currentCity]) {
+                    [user setObject:weakSelf.currentCity forKey:KMY_LOCALTION];
                     [user synchronize];
                 }
             });
-    } else if (error == nil && placemarks.count == 0) {
-//        NSLog(@"No location and error returned");
-    } else if (error) {
-//        NSLog(@"Location error: %@", error);
-    }
-     }];
-    
-    [manager stopUpdatingLocation];
-}
-
-//获取用户位置数据失败的回调方法，在此通知用户
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    if ([error code] == kCLErrorDenied)
-    {
-        //访问被拒绝
-        [self.cityChoseButton setTitle:@"杭州" forState:UIControlStateNormal];
-    }
-    if ([error code] == kCLErrorLocationUnknown) {
-        //无法获取位置信息
-        [self.cityChoseButton setTitle:@"杭州" forState:UIControlStateNormal];
-    }
+        }
+        else
+        {
+            //访问被拒绝
+            [weakSelf.cityChoseButton setTitle:@"杭州" forState:UIControlStateNormal];
+        }
+    };
+    [_locationManager getCurrentLocation];
 }
 
 //在viewWillDisappear关闭定位
@@ -243,6 +203,5 @@
     }];
     
 }
-
 
 @end

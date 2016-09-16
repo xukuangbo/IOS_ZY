@@ -19,7 +19,9 @@ typedef void (^GetCurrentLocationResult)(BOOL isSuccess,NSString *currentCity,NS
 
 @interface ZYLocationManager : NSObject
 
-- (void)getCurrentLacation;
+- (void)getCurrentLocation;
+
+-(void)stopUpdatingLocation;
 
 @property (nonatomic, copy  ) GetCurrentLocationResult getCurrentLocationResult;
 

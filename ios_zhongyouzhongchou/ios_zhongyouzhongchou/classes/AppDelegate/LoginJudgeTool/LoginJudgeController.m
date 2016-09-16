@@ -18,16 +18,18 @@
 #import "AboutXieyiVC.h"
 #import "AboutYinsiVC.h"
 #import "MBProgressHUD+MJ.h"
-@interface LoginJudgeController ()<WXApiManagerDelegate,CLLocationManagerDelegate,TTTAttributedLabelDelegate>
+#import "ZYLocationManager.h"
+@interface LoginJudgeController ()<WXApiManagerDelegate,TTTAttributedLabelDelegate>
 @property (nonatomic, strong) UIImageView *bgImageView;
 @property (nonatomic, strong) UIButton *wxLoginButton;
 @property (nonatomic, strong) UIButton *phoneLogin;
 @property (nonatomic, strong) UILabel *tsLabel;
 @property (nonatomic, strong) TTTAttributedLabel *txLabel;
+
 /**
  *  当地位置管理者
  */
-@property(strong, nonatomic) CLLocationManager *locationManager;
+@property (nonatomic, strong) ZYLocationManager *locationManager;
 
 @end
 
@@ -69,7 +71,7 @@
     
     self.navigationController.navigationBar.hidden = NO;
     
-    [self.locationManager stopUpdatingLocation];
+    [_locationManager stopUpdatingLocation];
 }
 
 #pragma mark ---configUI
@@ -305,42 +307,9 @@
 #pragma mark - 获取当前定位城市
 - (void)getLocation
 {
-    // 判断是否开启定位
-    if ([CLLocationManager locationServicesEnabled]) {
-        if ([[UIDevice currentDevice].systemVersion doubleValue]>= 8.0) {
-            //如果大于ios大于8.0，就请求获取地理位置授权
-            self.locationManager = [[CLLocationManager alloc] init];
-            [self.locationManager requestWhenInUseAuthorization];
-            self.locationManager.delegate = self;
-            self.locationManager.distanceFilter
-            = 10.0f;//
-            [self.locationManager startUpdatingLocation];
-        }else{
-            self.locationManager = [[CLLocationManager alloc] init];
-            self.locationManager.delegate = self;
-            [self.locationManager startUpdatingLocation];
-        }
-    } else {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法进行定位" message:@"请检查您的设备是否开启定位功能" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        [alert show];
-//        [self.cityChoseButton setTitle:@"杭州" forState:UIControlStateNormal];
-    }
+    _locationManager=[[ZYLocationManager alloc]init];
+    [_locationManager getCurrentLocation];
 }
-
-#pragma mark - 获取用户所在位置代理方法
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-
-    [manager stopUpdatingLocation];
-}
-
-//获取用户位置数据失败的回调方法，在此通知用户
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    
-}
-
-
 
 #pragma mark ---label点击事件
 - (void)attributedLabel:(TTTAttributedLabel *)label
