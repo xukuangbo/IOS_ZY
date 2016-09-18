@@ -109,6 +109,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 // 判断是不是进入私聊界面
 @property (nonatomic, assign) BOOL isMessage;
 @property (nonatomic, strong) WXApiManager *wxApiManger;
+// 支持金额记录
+@property (nonatomic, strong) NSString *payMoney;
 @end
 /**
  *  文本cell标示
@@ -776,6 +778,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 支付回调
 - (void)getPayResult
 {
+    WEAKSELF
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
     NSString *userId=[ZYZCAccountTool getUserId];
     //判断支付是否成功
@@ -798,6 +801,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          else{
              [MBProgressHUD showError:@"支付失败!"];
              appDelegate.out_trade_no=nil;
+             
+             NSString *localizedMessage = [NSString stringWithFormat:@"支持了%@元",weakSelf.payMoney];
+             RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
+             [weakSelf sendMessage:rcTextMessage pushContent:nil];
          }
      }
                       andFailBlock:^(id failResult)
@@ -876,10 +883,19 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSString *content;
     if ([model.content isMemberOfClass:[RCTextMessage class]]) {
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
+        
         content = textMessage.content;
+        
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
         content = textMessage.message;
+        if ([textMessage.extra isEqualToString:@"直播结束"]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+                NSLog(@"dsfkdksf");
+            });
+            return;
+        }
         [self refreshUserList:textMessage.extra];
     } else if ([model.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
         RCDLiveGiftMessage *textMessage = (RCDLiveGiftMessage *)model.content;
@@ -1341,12 +1357,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)clickPayBtnUKey:(NSInteger)moneyNumber
 {
     WEAKSELF
-    NSString *payMoney = [NSString stringWithFormat:@"%lf", moneyNumber / 10.0];
+    NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
                                 @"price":@"0.01",
                                 };
+    self.payMoney = payMoney;
     [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
         weakSelf.payView.hidden = YES;
     } andFailBlock:^{
