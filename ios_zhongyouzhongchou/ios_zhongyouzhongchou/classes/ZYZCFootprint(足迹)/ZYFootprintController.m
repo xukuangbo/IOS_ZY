@@ -39,7 +39,7 @@
     //创建UIAlertController控制器
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    //    选择众游图库
+    // 拍摄视频
     UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"拍摄视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action){
         ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
         [weakSelf.navigationController pushViewController:publishFootprintController animated:YES];
@@ -58,6 +58,7 @@
             [weakSelf.picker dismissViewControllerAnimated:NO completion:^{
                 ZYPublishFootprintController  *publishFootprintController=[[ZYPublishFootprintController alloc]init];
                 publishFootprintController.images=images;
+                publishFootprintController.footprintType=Footprint_AlbumType;
                 [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
                 
             }];

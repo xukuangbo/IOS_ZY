@@ -19,7 +19,9 @@
 #import "HUPhotoBrowser.h"
 #import "XMNPhotoPickerController.h"
 #import "JudgeAuthorityTool.h"
-
+#import "ZYLocationManager.h"
+#import "MBProgressHUD+MJ.h"
+#import "ZYZCOSSManager.h"
 @interface ZYPublishFootprintController ()<UITextViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UIButton     *publishBtn;
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -34,6 +36,12 @@
 @property (nonatomic, strong) UIImageView  *locationIcon;
 @property (nonatomic, strong) UILabel      *locationLab;
 @property (nonatomic, assign) BOOL         showLocation;
+@property (nonatomic, strong) NSString     *currentAddress;
+@property (nonatomic, strong) ZYLocationManager *locationManager;
+
+@property (nonatomic, strong) NSMutableArray *fileTmpPathArr;
+@property (nonatomic, strong) NSMutableArray *imgUrlArr;
+@property (nonatomic, assign) BOOL         uploadSuccess;
 
 @end
 
@@ -167,8 +175,31 @@
     if (isButtonOn) {
         BOOL allowLocation=[JudgeAuthorityTool judgeLocationAuthority];
         if (allowLocation) {
-            _locationIcon.image=[UIImage imageNamed:@"footprint-coordinate-2"];
-            _locationLab.textColor=[UIColor ZYZC_MainColor];
+            
+            if (self.currentAddress) {
+                self.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate-2"];
+                self.locationLab.textColor=[UIColor ZYZC_MainColor];
+                return;
+            }
+            
+            WEAKSELF;
+            _locationManager=[ZYLocationManager new];
+            _locationManager.getCurrentLocationResult=^(BOOL isSuccess,NSString *currentCity,NSString *currentAddress)
+            {
+                if (isSuccess) {
+                    weakSelf.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate-2"];
+                    weakSelf.locationLab.textColor=[UIColor ZYZC_MainColor];
+                    weakSelf.currentAddress=currentAddress;
+                    DDLog(@"currentAddress:%@",weakSelf.currentAddress);
+                }
+                else
+                {
+                    [MBProgressHUD showShortMessage:@"当前位置获取失败"];
+                    switchButton.on=NO;
+                }
+            };
+            [_locationManager getCurrentLocation];
+            
         }
         else
         {
@@ -323,7 +354,121 @@
 #pragma mark ---  发布足迹👣
 -(void)publishMyFootprint
 {
+    //发布图文
+    if (Footprint_AlbumType) {
+        [self albumTypePublish];
+    }
+}
+
+#pragma mark --- 图文发布
+-(void)albumTypePublish
+{
+    if(_uploadSuccess)
+    {
+        [self commitData];
+        return;
+    }
     
+    if (_images)
+    {
+        [MBProgressHUD showMessage:nil];
+        
+        _fileTmpPathArr=[NSMutableArray array];
+        _imgUrlArr=[NSMutableArray array];
+        //将图片保存到本地tmp中
+        NSString *tmpDir = NSTemporaryDirectory();
+        for (NSInteger i=0; i<_images.count; i++) {
+            NSString *path =[tmpDir stringByAppendingPathComponent:[NSString stringWithFormat:@"footprint_album%ld.png",i]];
+            [_fileTmpPathArr addObject:path];
+            UIImage *image=_images[i];
+            BOOL writeResult=[UIImagePNGRepresentation(image) writeToFile:path atomically:YES];
+            if (!writeResult) {
+                [MBProgressHUD showError:@"数据出错，提交失败"];
+                return;
+            }
+        }
+        
+        //将图片上传到oss
+        ZYZCOSSManager *ossManager=[ZYZCOSSManager defaultOSSManager];
+        
+        __weak typeof (&*self)weakSelf=self;
+        dispatch_async(dispatch_get_global_queue(0, 0), ^
+       {
+           NSString *userId=[ZYZCAccountTool getUserId];
+           NSString *timeStmp=[ZYZCTool getTimeStamp];
+           for (NSInteger i=0; i<_fileTmpPathArr.count; i++) {
+               NSString *fileName=[NSString stringWithFormat:@"%@/footprint/%@/%.2ld.png",userId,timeStmp,i+1];
+               NSString *imgUrl=[NSString stringWithFormat:@"%@/%@",KHTTP_FILE_HEAD,fileName];
+               [weakSelf.imgUrlArr addObject:imgUrl];
+               BOOL uploadResult=[ossManager uploadIconSyncByFileName:fileName andFilePath:_fileTmpPathArr[i]];
+               if (!uploadResult) {
+                   //回到主线程提示上传失败
+                   dispatch_async(dispatch_get_main_queue(), ^
+                  {
+                      [MBProgressHUD hideHUD];
+                      [MBProgressHUD showError:@"网络出错,提交失败"];
+                  });
+                   return;
+               }
+           }
+           //数据上传完成， 回到主线程
+           dispatch_async(dispatch_get_main_queue(), ^
+          {
+              _uploadSuccess=YES;
+              [MBProgressHUD hideHUD];
+              [self commitData];
+          });
+       });
+    }
+}
+
+#pragma mark --- 上传数据到服务器
+-(void)commitData
+{
+    NSString *images=[_imgUrlArr componentsJoinedByString:@","];
+    NSString *httpUrl=nil;
+    NSMutableDictionary *param=[NSMutableDictionary dictionaryWithDictionary:@{@"userId":[ZYZCAccountTool getUserId],
+                                   @"type"  :[NSNumber numberWithInteger:_footprintType],
+                                   @"images":images
+                                  }];
+    if (_textView.text) {
+        [param setObject:_textView.text forKey:@"content"];
+    }
+    
+    if (_showLocation) {
+        [param setObject:_currentAddress forKey:@"address"];
+    }
+    
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            [MBProgressHUD showSuccess:@"提交成功"];
+        }
+        else
+        {
+            [MBProgressHUD showError:@"提交失败"];
+        }
+    }
+     andFailBlock:^(id failResult) {
+         
+     }];
+    
+}
+
+#pragma mark --- 删除文件
+-(void)deleteFileByPath:(NSString *)path{
+    if (!path) {
+        return;
+    }
+    NSFileManager* fm = [NSFileManager defaultManager];
+    BOOL isDir = NO;
+    BOOL existed = [fm fileExistsAtPath:path isDirectory:&isDir];
+    
+    NSError* error = nil;
+    if (existed) {
+        [fm removeItemAtPath:path error:&error];
+        //        NSLog(@"deleteError:%@", error);
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -344,6 +489,10 @@
 -(void)dealloc
 {
     DDLog(@"dealloc:%@",[self class]);
+    
+    for (NSInteger i=0; i<_fileTmpPathArr.count; i++) {
+        [self deleteFileByPath:_fileTmpPathArr[i]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

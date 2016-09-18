@@ -18,7 +18,7 @@
 @implementation ZYLocationManager
 
 
-- (void)getCurrentLacation
+- (void)getCurrentLocation
 {
     // 判断是否开启定位
     if ([CLLocationManager locationServicesEnabled]) {
@@ -64,18 +64,18 @@
             
                 _getCurrentLocationResult(YES,city,placeMark.name);
             }
-            DDLog(@"addressDictionary:%@",placeMark.addressDictionary);
-            DDLog(@"name:%@",placeMark.name);
-            DDLog(@"locality:%@",placeMark.locality);
-            DDLog(@"subLocality:%@",placeMark.subLocality);
-            DDLog(@"administrativeArea:%@",placeMark.administrativeArea);
-            DDLog(@"subAdministrativeArea:%@",placeMark.subAdministrativeArea);
-            DDLog(@"postalCode:%@",placeMark.postalCode);
-            DDLog(@"ISOcountryCode:%@",placeMark.ISOcountryCode);
-            DDLog(@"country:%@",placeMark.country);
-            DDLog(@"inlandWater:%@",placeMark.inlandWater);
-            DDLog(@"ocean:%@",placeMark.ocean);
-            DDLog(@"areasOfInterest:%@",placeMark.areasOfInterest);
+//            DDLog(@"addressDictionary:%@",placeMark.addressDictionary);
+//            DDLog(@"name:%@",placeMark.name);
+//            DDLog(@"locality:%@",placeMark.locality);
+//            DDLog(@"subLocality:%@",placeMark.subLocality);
+//            DDLog(@"administrativeArea:%@",placeMark.administrativeArea);
+//            DDLog(@"subAdministrativeArea:%@",placeMark.subAdministrativeArea);
+//            DDLog(@"postalCode:%@",placeMark.postalCode);
+//            DDLog(@"ISOcountryCode:%@",placeMark.ISOcountryCode);
+//            DDLog(@"country:%@",placeMark.country);
+//            DDLog(@"inlandWater:%@",placeMark.inlandWater);
+//            DDLog(@"ocean:%@",placeMark.ocean);
+//            DDLog(@"areasOfInterest:%@",placeMark.areasOfInterest);
         }
         else if (error == nil && placemarks.count == 0)
         {
@@ -116,6 +116,10 @@
     }
 }
 
+-(void)stopUpdatingLocation
+{
+    [self.locationManager stopUpdatingLocation];
+}
 
 
 @end
