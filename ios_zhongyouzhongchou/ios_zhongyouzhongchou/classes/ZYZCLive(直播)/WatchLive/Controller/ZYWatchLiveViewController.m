@@ -800,6 +800,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          else{
              [MBProgressHUD showError:@"支付失败!"];
              appDelegate.out_trade_no=nil;
+             
+             //发一个通知给我的UI
+             WEAKSELF
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 RCInformationNotificationMessage *payMessage = [[RCInformationNotificationMessage alloc]init];
+                 payMessage.message = @"打赏成功";
+                 payMessage.extra = [NSString stringWithFormat:@"打赏成功"];
+                 [weakSelf sendMessage:payMessage pushContent:nil];
+             });
          }
      }
                       andFailBlock:^(id failResult)
