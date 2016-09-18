@@ -61,6 +61,12 @@
     [_bgImageView addSubview:_backView];
     _backView.alpha = 0.6;
     
+    
+    _totalMoneyLabel.text = [NSString stringWithFormat:@"%zd",_liveEndLiveModel.totalMoneyCount];
+    _totalTimeLabel.text = [NSString stringWithFormat:@"本次直播时长:%@",_liveEndLiveModel.endTime];
+    _totalPeopleCount.text = [NSString stringWithFormat:@"%zd",_liveEndLiveModel.totalPeopleCount];
+    _totalOnlinePeopleCount.text = [NSString stringWithFormat:@"%zd",_liveEndLiveModel.totalOnlinePeopleNumber];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated

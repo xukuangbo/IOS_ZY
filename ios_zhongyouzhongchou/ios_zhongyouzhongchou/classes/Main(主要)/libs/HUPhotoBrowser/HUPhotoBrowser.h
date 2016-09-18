@@ -10,6 +10,8 @@
 
 typedef void(^ __nullable DismissBlock)(UIImage * __nullable image, NSInteger index);
 
+typedef void(^ __nullable DismissWithImagesBlock)(NSArray * __nullable images);
+
 typedef void (^__nullable DeleteOneImage)();
 
 @interface HUPhotoBrowser : UIView
@@ -67,6 +69,21 @@ typedef void (^__nullable DeleteOneImage)();
  */
 + (nonnull instancetype)showFromImageView:(nullable UIImageView *)imageView withImgURLs:(nullable NSArray *)imgURLs placeholderImage:(nullable UIImage *)image atIndex:(NSInteger)index dismiss:(DismissBlock)block;
 
+
+/**
+ *  浏览本地图片，带删除功能
+ *
+ *  @param imageView             点击的imageView
+ *  @param images                加载的本地图片
+ *  @param index                 点击的图片在所有要展示图片中的位置
+ *  @param dismisswithImageBlock 退出的回调
+ *
+ */
+
++ (nonnull instancetype)showFromImageView:(nullable UIImageView *)imageView withImages:(nullable NSArray *)images atIndex:(NSInteger)index dismissWithImages:(DismissWithImagesBlock)dismisswithImageBlock;
+
 @property (nonatomic, strong, nullable) UIImage *placeholderImage;
+
+@property (nonatomic, assign ) BOOL notDismissWhenDelete;//删除图片时不退出界面
 
 @end

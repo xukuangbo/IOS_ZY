@@ -47,6 +47,10 @@ static NSString *ID = @"ZYLiveListCell";
 {
     _navRightBtn.hidden=NO;
     [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self getLiveListData];
     });

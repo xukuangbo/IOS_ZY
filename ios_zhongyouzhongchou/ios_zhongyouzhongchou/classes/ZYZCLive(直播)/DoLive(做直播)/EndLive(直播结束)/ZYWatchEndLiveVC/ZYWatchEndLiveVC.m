@@ -61,6 +61,28 @@
     _backView.frame = self.view.frame;
     [_bgImageView addSubview:_backView];
     _backView.alpha = 0.6;
+    
+    
+    SDWebImageOptions option = SDWebImageRetryFailed | SDWebImageLowPriority;
+    
+    //头像
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:_watchEndLiveModel.headImgUrl] placeholderImage:nil options:option];
+    //名字
+    _nameLabel.text = _watchEndLiveModel.name.length > 0? _watchEndLiveModel.name : @"未知";
+    
+    //性别
+    _sexImageView.image = [_watchEndLiveModel.sex isEqualToString:@"1"]? [UIImage imageNamed:@"btn_sex_fem"] : [UIImage imageNamed:@"btn_sex_mal"];
+    
+    //是否关注
+    _friendship = _watchEndLiveModel.isGuanzhu;
+    if (_watchEndLiveModel.isGuanzhu == YES) {
+        [_guanzhuButton setTitle:@"已关注" forState:UIControlStateNormal];
+        _guanzhuButton.backgroundColor = [UIColor lightGrayColor];
+    }else{
+        [_guanzhuButton setTitle:@"关注" forState:UIControlStateNormal];
+        _guanzhuButton.backgroundColor = [UIColor ZYZC_MainColor];
+        
+    }
 }
 
 #pragma mark - set方法
@@ -93,8 +115,7 @@
 #pragma mark - 添加关注／取消关注
 - (IBAction)guanzhuButtonAction:(UIButton *)sender {
     
-    ZYZCAccountModel *model = [ZYZCAccountTool account];
-    NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":model.userId};
+    NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":self.watchEndLiveModel.userId};
     //    NSLog(@"params:%@",params);
     if (_friendship) {
         //取消关注

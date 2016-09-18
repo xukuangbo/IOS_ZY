@@ -325,8 +325,6 @@
         NSLog(@"pushUrl : %@", pushUrl);
         NSLog(@"pullUrl : %@", pullUrl);
         
-        
-        
         //请求我们的服务器创建直播
         [weakSelf createLiveDataWithPushUrl:pushUrl pullUrl:pullUrl];
         

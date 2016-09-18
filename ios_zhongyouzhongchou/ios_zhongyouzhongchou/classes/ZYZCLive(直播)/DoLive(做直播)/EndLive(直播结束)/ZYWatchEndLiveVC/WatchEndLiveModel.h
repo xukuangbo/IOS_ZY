@@ -10,6 +10,7 @@
 
 @interface WatchEndLiveModel : NSObject
 
+@property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, copy) NSString *headImgUrl;
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *sex;
