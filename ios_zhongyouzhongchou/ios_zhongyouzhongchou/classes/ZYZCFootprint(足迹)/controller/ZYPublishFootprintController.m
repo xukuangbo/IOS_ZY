@@ -22,7 +22,8 @@
 #import "ZYLocationManager.h"
 #import "MBProgressHUD+MJ.h"
 #import "ZYZCOSSManager.h"
-@interface ZYPublishFootprintController ()<UITextViewDelegate,UIScrollViewDelegate>
+#import "ZYZCCusomMovieImage.h"
+@interface ZYPublishFootprintController ()<UITextViewDelegate,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) UIButton     *publishBtn;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView  *bgImageView;
@@ -54,7 +55,7 @@
     self.view.backgroundColor=[UIColor whiteColor];
     [self configNavUI];
     [self configBodyUI];
-    [self reloadImageData];
+    [self reloadDataByType:self.footprintType];
 }
 
 -(void)configNavUI
@@ -177,7 +178,7 @@
         if (allowLocation) {
             
             if (self.currentAddress) {
-                self.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate-2"];
+                self.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate"];
                 self.locationLab.textColor=[UIColor ZYZC_MainColor];
                 return;
             }
@@ -187,7 +188,7 @@
             _locationManager.getCurrentLocationResult=^(BOOL isSuccess,NSString *currentCity,NSString *currentAddress)
             {
                 if (isSuccess) {
-                    weakSelf.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate-2"];
+                    weakSelf.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate"];
                     weakSelf.locationLab.textColor=[UIColor ZYZC_MainColor];
                     weakSelf.currentAddress=currentAddress;
                     DDLog(@"currentAddress:%@",weakSelf.currentAddress);
@@ -214,7 +215,7 @@
 
 
 #pragma mark --- 加载图片
--(void)reloadImageData
+-(void)reloadDataByType:(FootprintType)footprintType
 {
     NSArray *views=[_contentView subviews];
     for (NSInteger i=views.count-1; i>=0; i-- ) {
@@ -223,43 +224,63 @@
         }
     }
     
-    if (_images.count) {
-        _addBtn.hidden=NO;
-        NSInteger count=_images.count;
-        CGFloat lastBottom=0.0;
-        for (NSInteger i=0; i<count; i++) {
-            UIImageView *pic= [[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE+(i%3)*(PIC_HEIGHT+KEDGE_DISTANCE), (i/3)*(PIC_HEIGHT+KEDGE_DISTANCE), PIC_HEIGHT, PIC_HEIGHT)];
-            pic.image=_images[i];
-            pic.tag=i;
-            pic.contentMode=UIViewContentModeScaleAspectFill;
-            pic.layer.masksToBounds=YES;
-            lastBottom=pic.bottom;
-            [pic addTarget:self action:@selector(tapPic:)];
-            [_contentView addSubview:pic];
-            
-            if(i==count-1&&i<8)
-            {
-                _addBtn.frame=CGRectMake(KEDGE_DISTANCE+((i+1)%3)*(PIC_HEIGHT+KEDGE_DISTANCE), ((i+1)/3)*(PIC_HEIGHT+KEDGE_DISTANCE),PIC_HEIGHT,PIC_HEIGHT);
-                lastBottom=_addBtn.bottom;
-                _addBtn.hidden=NO;
+    //加载图片
+    if (footprintType==Footprint_AlbumType||footprintType==Footprint_PhotoType) {
+        if (_images.count) {
+            NSInteger count=_images.count;
+            CGFloat lastBottom=0.0;
+            for (NSInteger i=0; i<count; i++) {
+                UIImageView *pic= [[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE+(i%3)*(PIC_HEIGHT+KEDGE_DISTANCE), (i/3)*(PIC_HEIGHT+KEDGE_DISTANCE), PIC_HEIGHT, PIC_HEIGHT)];
+                pic.image=_images[i];
+                pic.tag=i;
+                pic.contentMode=UIViewContentModeScaleAspectFill;
+                pic.layer.masksToBounds=YES;
+                lastBottom=pic.bottom;
+                [pic addTarget:self action:@selector(tapPic:)];
+                [_contentView addSubview:pic];
+                
+                if(i==count-1&&i<8)
+                {
+                    _addBtn.frame=CGRectMake(KEDGE_DISTANCE+((i+1)%3)*(PIC_HEIGHT+KEDGE_DISTANCE), ((i+1)/3)*(PIC_HEIGHT+KEDGE_DISTANCE),PIC_HEIGHT,PIC_HEIGHT);
+                    lastBottom=_addBtn.bottom;
+                    _addBtn.hidden=NO;
+                }
+                if (i==8) {
+                    _addBtn.hidden=YES;
+                }
             }
-            
-            if (i==8) {
-                _addBtn.hidden=YES;
-            }
+            _contentView.height=lastBottom;
         }
-        _contentView.height=lastBottom;
+        else
+        {
+            _addBtn.hidden=NO;
+            _contentView.height=PIC_HEIGHT;
+            _addBtn.frame=CGRectMake(KEDGE_DISTANCE, 0, PIC_HEIGHT, PIC_HEIGHT);
+        }
     }
-    else
+    else if(self.footprintType==Footprint_VideoType)
     {
-        _addBtn.hidden=NO;
-        _contentView.height=PIC_HEIGHT;
-        _addBtn.frame=CGRectMake(KEDGE_DISTANCE, 0, PIC_HEIGHT, PIC_HEIGHT);
-    }
+        ZYZCCusomMovieImage *videoImage=[[ZYZCCusomMovieImage alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, PIC_HEIGHT*71/40, PIC_HEIGHT)];
+        videoImage.image=[UIImage imageWithContentsOfFile:self.thumbnailPath];
+        CGFloat start_width=PIC_HEIGHT/2.0;
+        videoImage.startImg.frame=CGRectMake((videoImage.width-start_width)/2, (videoImage.height-start_width)/2, start_width, start_width);
+        videoImage.startImg.image=[UIImage imageNamed:@"footprint-play"];
+        videoImage.playUrl=self.videoPath;
+        videoImage.playType=Local_Video;
+        [_contentView addSubview:videoImage];
+        }
     
     _locationView.top= _contentView.bottom+KEDGE_DISTANCE;
     _bgImageView.height=_locationView.bottom+KEDGE_DISTANCE;
     _bgImageView.height=MAX(_bgImageView.height, BGIMAGE_HEIGHT);
+    _scrollView.contentSize=CGSizeMake(0, MAX(_scrollView.contentSize.height, _bgImageView.bottom+KEDGE_DISTANCE));
+    
+}
+
+#pragma mark --- 播放视频
+-(void)playVideo
+{
+    
 }
 
 #pragma mark --- 点击浏览和编辑图片
@@ -274,7 +295,7 @@
     WEAKSELF;
     HUPhotoBrowser *browser=[HUPhotoBrowser showFromImageView:pic withImages:_images atIndex:pic.tag dismissWithImages:^(NSArray * _Nullable images) {
             weakSelf.images=images;
-            [self reloadImageData];
+            [self reloadDataByType:Footprint_AlbumType];
         if(weakSelf.images.count==0)
         {
             weakSelf.publishBtn.enabled=NO;
@@ -288,34 +309,107 @@
 #pragma mark --- 添加图片
 -(void)addPic
 {
-    _picker=nil;
-    _picker = [[XMNPhotoPickerController alloc] initWithMaxCount:9-_images.count delegate:nil];
-    _picker.pickingVideoEnable=NO;
-    _picker.autoPushToPhotoCollection=YES;
+    if (self.footprintType==Footprint_PhotoType) {
+        [self createActionView];
+    }
+    else if (self.footprintType==Footprint_AlbumType){
+        _picker=nil;
+        _picker = [[XMNPhotoPickerController alloc] initWithMaxCount:9-_images.count delegate:nil];
+        _picker.pickingVideoEnable=NO;
+        _picker.autoPushToPhotoCollection=YES;
 
-    __weak typeof(self) weakSelf = self;
-    // 选择图片后回调
-    [_picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *> * _Nullable asset) {
-        
-        [weakSelf.picker dismissViewControllerAnimated:NO completion:^{
-            NSMutableArray *newImages=[NSMutableArray arrayWithArray:weakSelf.images];
-            [newImages addObjectsFromArray:images];
-            weakSelf.images=newImages;
-            [weakSelf reloadImageData];
-            if (weakSelf.images.count) {
-                weakSelf.publishBtn.enabled=YES;
-                  [weakSelf.publishBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
-            }
+        __weak typeof(self) weakSelf = self;
+        // 选择图片后回调
+        [_picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *> * _Nullable asset) {
+            
+            [weakSelf.picker dismissViewControllerAnimated:NO completion:^{
+                weakSelf.images= [weakSelf.images arrayByAddingObjectsFromArray:images];
+                [weakSelf reloadDataByType:Footprint_AlbumType];
+                if (weakSelf.images.count) {
+                    weakSelf.publishBtn.enabled=YES;
+                      [weakSelf.publishBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
+                }
+            }];
         }];
-    }];
-    
-    //点击取消
-    [_picker setDidCancelPickingBlock:^{
-        [weakSelf.picker dismissViewControllerAnimated:YES completion:nil];
-    }];
-    [self presentViewController:_picker animated:YES completion:nil];
+        
+        //点击取消
+        [_picker setDidCancelPickingBlock:^{
+            [weakSelf.picker dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [self presentViewController:_picker animated:YES completion:nil];
+    }
 }
 
+#pragma mark --- 创建选择器（选择本地或拍照）
+-(void)createActionView
+{
+    //创建UIAlertController控制器
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    //选择本地相册
+    UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"手机相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //判断是否可以选择照片
+        BOOL canChooseAlbum=[JudgeAuthorityTool judgeAlbumAuthority];
+        if (!canChooseAlbum) {
+            return ;
+        }
+
+        _picker = [[XMNPhotoPickerController alloc] initWithMaxCount:9-_images.count  delegate:nil];
+        _picker.pickingVideoEnable=NO;
+        _picker.autoPushToPhotoCollection=YES;
+
+        WEAKSELF
+        // 选择图片后回调
+        [_picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *> * _Nullable asset) {
+            weakSelf.images=[weakSelf.images arrayByAddingObjectsFromArray:images];
+            [weakSelf reloadDataByType:Footprint_AlbumType];
+            [weakSelf.picker dismissViewControllerAnimated:YES completion:nil];
+        }];
+        
+        //点击取消
+        [_picker setDidCancelPickingBlock:^{
+            [weakSelf.picker dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [self presentViewController:_picker animated:YES completion:nil];
+    }];
+    
+    //选择拍照
+    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"拍照上传" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        UIImagePickerController  *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.delegate = self;
+        imagePicker.allowsEditing = NO;
+        //判断是否可以拍照
+        BOOL canUseMedia=[JudgeAuthorityTool judgeMediaAuthority];
+        if (!canUseMedia) {
+            return ;
+        }
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.mediaTypes =  [[NSArray alloc] initWithObjects: (NSString *) kUTTypeImage, nil];
+        [self presentViewController:imagePicker animated:YES completion:nil];
+    }];
+    
+    [cancelAction setValue:[UIColor ZYZC_MainColor]
+        forKey:@"_titleTextColor"];
+    [albumAction setValue:[UIColor ZYZC_TextBlackColor] forKey:@"_titleTextColor"];
+    [photoAction setValue:[UIColor ZYZC_TextBlackColor] forKey:@"_titleTextColor"];
+    [alertController addAction:cancelAction];
+    [alertController addAction:albumAction];
+    [alertController addAction:photoAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark --- 获取本地照片的回调
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    if ([[info objectForKey:UIImagePickerControllerMediaType] isEqualToString:(NSString*)kUTTypeImage])
+    {
+        
+        UIImage *photoImage = [ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]];
+        self.images=[self.images arrayByAddingObject:photoImage];
+        [self reloadDataByType:self.footprintType];
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    }
+}
 
 #pragma mark --- scrollView代理
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView

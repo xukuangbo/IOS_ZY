@@ -17,11 +17,24 @@ typedef NS_ENUM(NSInteger, FootprintType)
 
 @interface ZYPublishFootprintController : ZYZCBaseViewController
 
-//@property (nonatomic, )
 
+/**
+ *  发布类型
+ */
 @property (nonatomic, assign) FootprintType footprintType;
 
+/**
+ *  手机相册图片
+ */
 @property (nonatomic, strong) NSArray *images;
+/**
+ *  视频第一帧
+ */
+@property (nonatomic, strong) NSString *thumbnailPath;
+/**
+ *  视频路径
+ */
+@property (nonatomic, strong) NSString *videoPath;
 
 
 @end
