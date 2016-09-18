@@ -277,5 +277,6 @@
 #define Post_Clap_Live [NSString stringWithFormat:@"%@zhibo/zanZhibo.action",BASE_URL]
 // 直播打赏
 #define Post_Flower_Live [NSString stringWithFormat:@"%@weixinpay/zhiboAppOrder.action",BASE_URL]
-
+//直播总金额
+#define Post_TotalMoney_Live [NSString stringWithFormat:@"%@zhibo/zhiboOrderTotle.action",BASE_URL]
 #endif /* HttpCommon_h */

@@ -481,6 +481,7 @@
 		395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B88DA1D323C40001FF5DB /* AboutUsVC.m */; };
 		3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */; };
 		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
+		39788C4E1D8D3CF5000AC2BB /* LiveMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */; };
 		39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */; };
 		39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D061D58762E00CB9EE3 /* TacticMainCountryCell.m */; };
 		39809D141D58762E00CB9EE3 /* TacticMainHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D0B1D58762E00CB9EE3 /* TacticMainHeadCell.m */; };
@@ -1457,6 +1458,8 @@
 		3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDoLiveVC.m; sourceTree = "<group>"; };
 		3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionView.h; sourceTree = "<group>"; };
 		3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionView.m; sourceTree = "<group>"; };
+		39788C4C1D8D3CF5000AC2BB /* LiveMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveMoneyView.h; sourceTree = "<group>"; };
+		39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveMoneyView.m; sourceTree = "<group>"; };
 		39809D021D58762E00CB9EE3 /* TacticBaseCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticBaseCustomView.h; sourceTree = "<group>"; };
 		39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticBaseCustomView.m; sourceTree = "<group>"; };
 		39809D051D58762E00CB9EE3 /* TacticMainCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMainCountryCell.h; sourceTree = "<group>"; };
@@ -3787,6 +3790,7 @@
 		392AB2581D669C26003FEDB7 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				39788C4B1D8D3CE5000AC2BB /* LiveMoneyView */,
 				395129691D8658BD00760405 /* LivePesonDataView */,
 				39AABC941D717B2A00D25B16 /* LiveDetailHeadView */,
 				39AABC861D6EC7FA00D25B16 /* DoLiveHeadView */,
@@ -4169,6 +4173,15 @@
 				39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */,
 			);
 			path = "LiveFunctionView(功能键)";
+			sourceTree = "<group>";
+		};
+		39788C4B1D8D3CE5000AC2BB /* LiveMoneyView */ = {
+			isa = PBXGroup;
+			children = (
+				39788C4C1D8D3CF5000AC2BB /* LiveMoneyView.h */,
+				39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */,
+			);
+			path = LiveMoneyView;
 			sourceTree = "<group>";
 		};
 		39809CFF1D58762E00CB9EE3 /* advertise(广告) */ = {
@@ -5189,6 +5202,7 @@
 				3931CBCB1D88ED0500115F0D /* ZYLiveEndModel.m in Sources */,
 				2C1B60E91D6D3CF900E3C25B /* RaiseMoneyFirstModel.m in Sources */,
 				2C8B196F1D0CF7EC0063097B /* JGProgressHUD.m in Sources */,
+				39788C4E1D8D3CF5000AC2BB /* LiveMoneyView.m in Sources */,
 				2CD209B21D6D4BA6005EB62E /* QPEffectView.m in Sources */,
 				2CD209251D6D3E27005EB62E /* ZYVoicePlayer.m in Sources */,
 				0469C56F1D0E44CF00A34A03 /* MineTravelTagVC.m in Sources */,

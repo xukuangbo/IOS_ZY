@@ -36,7 +36,8 @@
 #import "ZYLiveEndLiveVC.h"
 #import "ZYLiveEndModel.h"
 #import "MZTimerLabel.h"
-
+#import "UIView+ZYLayer.h"
+#import "LiveMoneyView.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -66,6 +67,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCTKInputBarControlDelegate
 #pragma mark - 聊天需要的属性
 
 @property (nonatomic, strong) DoLiveHeadView *headView;
+/** 总金额数据 */
+@property (nonatomic, strong) LiveMoneyView *liveMoneyView;
 
 //个人信息view
 @property (nonatomic, strong) LivePersonDataView *personDataView;
@@ -202,18 +205,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
 }
 
-#pragma mark - setup方法
-// 设置主播UserInfo
-- (void)setUpCurrentUserInfo{
-    
-    ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
-    
-    NSString *faceImgStrng = accountModel.faceImg64.length > 0?accountModel.faceImg64 : accountModel.faceImg132;
-    RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:[accountModel.userId stringValue]  name:accountModel.realName portrait:faceImgStrng];
-    //设置userinfo
-    [[RCDLive sharedRCDLive] setCurrentUserInfo:userInfo];
-}
-
 #pragma mark - network 网络请求
 - (void)createLiveSession
 {
@@ -234,7 +225,38 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     } andFailBlock:^(id failResult) {
         [weakSelf dismissViewController];
     }];
+    
+}
+/** 请求总金额数据 */
+- (void)requestTotalMoneyData {
+//    zhibo/zhiboOrderTotle.action   streamName,spaceName  ，权限认证参数
+    WEAKSELF
+    NSString *url = Post_TotalMoney_Live;
+    NSDictionary *parameters = @{
+                                 @"streamName" : self.createLiveModel.streamName,
+                                 @"spaceName" : self.createLiveModel.spaceName
+                                 };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            DDLog(@"%@",result);
+        }else{
+            
+        }
+    } andFailBlock:^(id failResult) {
+        
+    }];
+}
 
+#pragma mark - setup方法
+// 设置主播UserInfo
+- (void)setUpCurrentUserInfo{
+    
+    ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
+    
+    NSString *faceImgStrng = accountModel.faceImg64.length > 0?accountModel.faceImg64 : accountModel.faceImg132;
+    RCUserInfo *userInfo = [[RCUserInfo alloc] initWithUserId:[accountModel.userId stringValue]  name:accountModel.realName portrait:faceImgStrng];
+    //设置userinfo
+    [[RCDLive sharedRCDLive] setCurrentUserInfo:userInfo];
 }
 
 //初始化融云的一些数组信息等
@@ -333,6 +355,18 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [_headView.iconView sd_setImageWithURL:[NSURL URLWithString:faceImg] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
     //左上角人数
     _headView.numberPeopleLabel.text = @"0人";
+    
+    //左上角总金额
+    _liveMoneyView = [[LiveMoneyView alloc] init];
+    [self.view addSubview:_liveMoneyView];
+    _liveMoneyView.moneyLabel.text = @"打赏:0";
+    
+    [_liveMoneyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(KEDGE_DISTANCE);
+        make.top.equalTo(_headView.mas_bottom).offset(KEDGE_DISTANCE);
+        make.height.mas_equalTo(LiveMoneyViewH);
+        make.width.mas_equalTo(110);
+    }];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     layout.minimumInteritemSpacing = 16;
@@ -1241,21 +1275,27 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         content = textMessage.content;
         
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
-        //通知类型
+        //通知类型,三种:1.进入直播间 2.直播结束 3.打赏
+        //调整步骤:1.此处处理通知的形式 2.在tipcell调整通知的cell样式
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
         content = textMessage.message;
         
-        if ([content containsString:@"进入直播间"]) {
+        //判断是否是打赏通知
+//        WEAKSELF
+        if ([content containsString:@"打赏"]) {
+           
+            //打赏在此处只做显示内容,并且提示UI去刷新总金额数据
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self requestTotalMoneyData];
+            });
             
-            [self refreshUserList:textMessage.extra];
-            
-        }else if ([content containsString:@"离开了聊天室"]){
-            
-//            [self deletePortraitsCollectionViewUser:textMessage.extra];
+        }else if([content isEqualToString:@"直播结束"]){
             
             return ;
+        }else{
+            
+            [self refreshUserList:textMessage.extra];
         }
-        
         
     } else if ([model.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
         //礼物类型
@@ -1271,6 +1311,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         
     }
     
+    //这里是显示在cell中
     NSDictionary *leftDic = notification.userInfo;
     if (leftDic && [leftDic[@"left"] isEqual:@(0)]) {
         self.isNeedScrollToButtom = YES;

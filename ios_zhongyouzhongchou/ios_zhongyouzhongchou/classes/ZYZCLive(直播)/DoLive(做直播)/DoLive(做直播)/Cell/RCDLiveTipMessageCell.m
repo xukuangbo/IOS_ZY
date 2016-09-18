@@ -45,11 +45,17 @@
     if ([content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *notification = (RCInformationNotificationMessage *)content;
         NSString *localizedMessage = [RCDLiveKitUtility formatMessage:notification];
-        self.tipMessageLabel.text = localizedMessage;
-        self.tipMessageLabel.textColor = RCDLive_HEXCOLOR(0xffb83c);
         
-        //设置进入直播间的cell背景颜色
-        self.tipMessageLabel.backgroundColor = [UIColor colorWithRed:104 / 256.0 green:111 / 256.0 blue:229 / 256.0 alpha:1];
+        //判断是否是打赏还是进入直播
+        if ([localizedMessage containsString:@"打赏"]) {
+            self.tipMessageLabel.backgroundColor = [UIColor redColor];
+            self.tipMessageLabel.text = localizedMessage;
+            self.tipMessageLabel.textColor = [UIColor whiteColor];
+        }else{//进入直播的cell
+            self.tipMessageLabel.text = localizedMessage;
+            self.tipMessageLabel.textColor = RCDLive_HEXCOLOR(0xffb83c);
+            self.tipMessageLabel.backgroundColor = [UIColor colorWithRed:104 / 256.0 green:111 / 256.0 blue:229 / 256.0 alpha:1];
+        }
 
     }else if ([content isMemberOfClass:[RCTextMessage class]]){
         RCTextMessage *notification = (RCTextMessage *)content;
