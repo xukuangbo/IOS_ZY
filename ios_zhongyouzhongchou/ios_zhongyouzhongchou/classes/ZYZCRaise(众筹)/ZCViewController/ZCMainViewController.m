@@ -6,7 +6,7 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 //所有众筹列表
-#define GET_PRODUCT_LIST(pageNo) [NSString stringWithFormat:@"cache=false&orderType=4&pageNo=%d&status_not=0,2&pageSize=5",pageNo]
+#define GET_PRODUCT_LIST(pageNo) [NSString stringWithFormat:@"cache=false&orderType=4&pageNo=%d&status_not=0,2&pageSize=10",pageNo]
 
 #import "ZCMainViewController.h"
 #import "ZCFilterTableViewCell.h"

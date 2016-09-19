@@ -16,11 +16,13 @@
 #import "MediaUtils.h"
 #import "PromptController.h"
 #import "MBProgressHUD+MJ.h"
+
+#import "ZYFootprintListController.h"
 @interface ZYFootprintController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,QupaiSDKDelegate>
 @property (nonatomic, strong) XMNPhotoPickerController *picker;
 @property (nonatomic, strong) UIImage *videoImage;
-@property (nonatomic, strong) NSString *videoPath;
-@property (nonatomic, strong) NSString *thumbnailPath;
+@property (nonatomic, copy  ) NSString *videoPath;
+@property (nonatomic, copy  ) NSString *thumbnailPath;
 @end
 
 @implementation ZYFootprintController
@@ -32,13 +34,27 @@
     self.title=@"足迹";
     self.view.backgroundColor=[UIColor whiteColor];
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame=CGRectMake(0, 0, 100, 40);
+    btn.frame=CGRectMake(0, 0, 80, 40);
     [btn setTitle:@"发布足迹" forState:UIControlStateNormal];
-    btn.backgroundColor=[UIColor orangeColor];
-    btn.center=self.view.center;
     [btn addTarget:self action:@selector(publish:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
 
+    self.navigationItem.rightBarButtonItem= [[UIBarButtonItem alloc]initWithCustomView:btn];
+    
+    
+    UIButton *btn01=[UIButton buttonWithType:UIButtonTypeCustom];
+    btn01.frame=CGRectMake(0, 0, 80, 40);
+    [btn01 setTitle:@"我的足迹" forState:UIControlStateNormal];
+    btn01.backgroundColor=[UIColor orangeColor];
+    btn01.center=self.view.center;
+    [btn01 addTarget:self action:@selector(footprint:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:btn01];
+
+
+}
+
+-(void)footprint:(UIButton *)sender
+{
+    [self.navigationController pushViewController:[ZYFootprintListController new] animated:YES];
 }
 
 -(void)publish:(UIButton *)sender
@@ -125,6 +141,17 @@
 #pragma mark --- 实现短视频代理方法
 - (void)qupaiSDK:(id<QupaiSDKDelegate>)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath{
     NSLog(@"Qupai SDK compelete:\n videoPath=%@ \n thumbnailPath=%@",videoPath,thumbnailPath);
+    
+    if (!videoPath) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
+    if (!thumbnailPath) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"网络错误，视频合成失败" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     
     if (videoPath) {
         

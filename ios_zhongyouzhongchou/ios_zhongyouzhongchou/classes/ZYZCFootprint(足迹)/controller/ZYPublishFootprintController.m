@@ -37,14 +37,14 @@
 @property (nonatomic, strong) UIImageView  *locationIcon;
 @property (nonatomic, strong) UILabel      *locationLab;
 @property (nonatomic, assign) BOOL         showLocation;
-@property (nonatomic, strong) NSString     *currentAddress;
-@property (nonatomic, strong) NSString     *coordinateStr;
+@property (nonatomic, copy  ) NSString     *currentAddress;
+@property (nonatomic, copy  ) NSString     *coordinateStr;
 @property (nonatomic, strong) ZYLocationManager *locationManager;
 
 @property (nonatomic, strong) NSMutableArray *fileTmpPathArr;
 @property (nonatomic, strong) NSMutableArray *imgUrlArr;
-@property (nonatomic, strong) NSString       *video;
-@property (nonatomic, strong) NSString       *videoImg;
+@property (nonatomic, copy  ) NSString       *video;
+@property (nonatomic, copy  ) NSString       *videoImg;
 @property (nonatomic, assign) BOOL         uploadSuccess;
 
 @end
@@ -203,8 +203,13 @@
                 }
                 else
                 {
-                    [MBProgressHUD showShortMessage:@"当前位置获取失败"];
-                    switchButton.on=NO;
+                    dispatch_async(dispatch_get_main_queue(), ^
+                                   {
+                                       [MBProgressHUD hideHUD];
+                                       [MBProgressHUD showShortMessage:@"当前位置获取失败"];
+                                       switchButton.on=NO;
+
+                                   });
                 }
             };
             [_locationManager getCurrentLocation];

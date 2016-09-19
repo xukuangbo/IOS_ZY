@@ -26,9 +26,7 @@
 
 #define kCBottomViewHeight    120
 
-#define kSaveVideoAlertTag    100
-
-@interface QPEffectView()<UIAlertViewDelegate>
+@interface QPEffectView()
 
 @property (nonatomic, strong) UILabel *topLab;
 
@@ -276,11 +274,7 @@
     }
     
     if ([sender isEqual:self.buttonFinish] && _delegate && [_delegate respondsToSelector:@selector(onClickButtonFinishAction:)]) {
-        
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"是否保存到手机相册?" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-        alert.tag=kSaveVideoAlertTag;
-        [alert show];
-        
+        [_delegate onClickButtonFinishAction:self.buttonFinish];
     }
     
     if ([sender isEqual:self.buttonPlayOrPause] && _delegate && [_delegate respondsToSelector:@selector(onCLickButtonPlayOrPauseAction:)]) {
@@ -302,20 +296,6 @@
     
     if (_delegate && [_delegate respondsToSelector:@selector(onClickSliderAction:)]) {
         [_delegate onClickSliderAction:sender];
-    }
-}
-
-#pragma mark --- alertView代理方法
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if (alertView.tag==kSaveVideoAlertTag) {
-        if (buttonIndex==0) {
-             [_delegate onClickButtonFinishAction:self.buttonFinish];
-        }
-        else if (buttonIndex==1)
-        {
-            [self.viewController dismissViewControllerAnimated:YES completion:nil];
-        }
     }
 }
 

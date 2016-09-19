@@ -30,11 +30,11 @@ typedef NS_ENUM(NSInteger, FootprintType)
 /**
  *  视频第一帧
  */
-@property (nonatomic, strong) NSString *thumbnailPath;
+@property (nonatomic, copy  ) NSString *thumbnailPath;
 /**
  *  视频路径
  */
-@property (nonatomic, strong) NSString *videoPath;
+@property (nonatomic, copy  ) NSString *videoPath;
 
 
 @end

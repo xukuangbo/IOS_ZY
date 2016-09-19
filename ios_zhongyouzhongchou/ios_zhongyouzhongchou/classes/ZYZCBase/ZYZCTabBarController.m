@@ -32,6 +32,8 @@
 #import "QPEffectMusic.h"
 #import <RongIMKit/RongIMKit.h>
 
+#define kSaveVideoAlertTag    100
+
 @interface ZYZCTabBarController ()<UIAlertViewDelegate,RCIMReceiveMessageDelegate,ZFIssueWeiboViewDelegate,QupaiSDKDelegate,UITabBarDelegate>
 @property (nonatomic, strong) UIView          *bottomView;
 @property (nonatomic, strong) RCIM            *rcIM;
@@ -213,8 +215,20 @@
 
 #pragma mark --- 实现短视频代理方法
 - (void)qupaiSDK:(id<QupaiSDKDelegate>)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath{
-    NSLog(@"Qupai SDK compelete %@",videoPath);
-    [self dismissViewControllerAnimated:YES completion:nil];
+    NSLog(@"Qupai SDK compelete %@----thumbnailPath:%@",videoPath,thumbnailPath);
+    
+//    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"是否保存到手机相册?" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+//    alert.tag=kSaveVideoAlertTag;
+//    [alert show];
+
+    NSFileManager *manager=[NSFileManager defaultManager];
+    BOOL  exit= [manager fileExistsAtPath:videoPath];
+    if (!exit) {
+        [MBProgressHUD showError:@"本地视频不存在"];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+
     if (videoPath) {
         UISaveVideoAtPathToSavedPhotosAlbum(videoPath, nil, nil, nil);
     }
@@ -222,6 +236,7 @@
         UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
     }
 }
+
 - (NSArray *)qupaiSDKMusics:(id<QupaiSDKDelegate>)sdk
 {
     NSMutableArray *array = [NSMutableArray array];

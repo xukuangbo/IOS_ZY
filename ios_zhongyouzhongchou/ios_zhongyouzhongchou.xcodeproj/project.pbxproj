@@ -268,6 +268,10 @@
 		2C8B19921D0D70FB0063097B /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8B19911D0D70FB0063097B /* Photos.framework */; };
 		2C8B91711CE71552004FDCB7 /* WXApiShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8B91701CE71552004FDCB7 /* WXApiShare.m */; };
 		2C8D46111D1A269200C47893 /* ZYZCCustomTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8D46101D1A269200C47893 /* ZYZCCustomTextField.m */; };
+		2C8E9AB51D8F917100CA35DE /* ZYFootprintListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E9AB41D8F917100CA35DE /* ZYFootprintListView.m */; };
+		2C8E9AB81D8F942100CA35DE /* ZYFootprintListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E9AB71D8F942100CA35DE /* ZYFootprintListController.m */; };
+		2C8E9AC41D8F978200CA35DE /* ZYfootprintListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E9AC31D8F978200CA35DE /* ZYfootprintListCell.m */; };
+		2C8E9ACA1D8FB79D00CA35DE /* ZYFootprintListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E9AC91D8FB79D00CA35DE /* ZYFootprintListModel.m */; };
 		2C901DBD1C89788C004B844B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C901DBC1C89788C004B844B /* main.m */; };
 		2C901DC31C89788C004B844B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C901DC21C89788C004B844B /* ViewController.m */; };
 		2C901DC61C89788C004B844B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C901DC41C89788C004B844B /* Main.storyboard */; };
@@ -1043,6 +1047,14 @@
 		2C8B91701CE71552004FDCB7 /* WXApiShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiShare.m; sourceTree = "<group>"; };
 		2C8D460F1D1A269200C47893 /* ZYZCCustomTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCCustomTextField.h; sourceTree = "<group>"; };
 		2C8D46101D1A269200C47893 /* ZYZCCustomTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCCustomTextField.m; sourceTree = "<group>"; };
+		2C8E9AB31D8F917100CA35DE /* ZYFootprintListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFootprintListView.h; sourceTree = "<group>"; };
+		2C8E9AB41D8F917100CA35DE /* ZYFootprintListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintListView.m; sourceTree = "<group>"; };
+		2C8E9AB61D8F942100CA35DE /* ZYFootprintListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFootprintListController.h; sourceTree = "<group>"; };
+		2C8E9AB71D8F942100CA35DE /* ZYFootprintListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintListController.m; sourceTree = "<group>"; };
+		2C8E9AC21D8F978200CA35DE /* ZYfootprintListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYfootprintListCell.h; sourceTree = "<group>"; };
+		2C8E9AC31D8F978200CA35DE /* ZYfootprintListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYfootprintListCell.m; sourceTree = "<group>"; };
+		2C8E9AC81D8FB79D00CA35DE /* ZYFootprintListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFootprintListModel.h; sourceTree = "<group>"; };
+		2C8E9AC91D8FB79D00CA35DE /* ZYFootprintListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintListModel.m; sourceTree = "<group>"; };
 		2C901DB81C89788C004B844B /* 众游.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "众游.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C901DBC1C89788C004B844B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2C901DC11C89788C004B844B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -3684,6 +3696,8 @@
 				2CF74EE91D8E7ECD004F8718 /* ZYFootprintController.m */,
 				2CF74EEA1D8E7ECD004F8718 /* ZYPublishFootprintController.h */,
 				2CF74EEB1D8E7ECD004F8718 /* ZYPublishFootprintController.m */,
+				2C8E9AB61D8F942100CA35DE /* ZYFootprintListController.h */,
+				2C8E9AB71D8F942100CA35DE /* ZYFootprintListController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3691,6 +3705,8 @@
 		2CF74EE61D8E7EC1004F8718 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				2C8E9AC81D8FB79D00CA35DE /* ZYFootprintListModel.h */,
+				2C8E9AC91D8FB79D00CA35DE /* ZYFootprintListModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -3698,6 +3714,10 @@
 		2CF74EE71D8E7EC1004F8718 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				2C8E9AB31D8F917100CA35DE /* ZYFootprintListView.h */,
+				2C8E9AB41D8F917100CA35DE /* ZYFootprintListView.m */,
+				2C8E9AC21D8F978200CA35DE /* ZYfootprintListCell.h */,
+				2C8E9AC31D8F978200CA35DE /* ZYfootprintListCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -5051,6 +5071,7 @@
 				040651251CC62FC7003FD539 /* SDCollectionViewCell.m in Sources */,
 				392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */,
 				2C8B197D1D0CF7EC0063097B /* UIView+Animations.m in Sources */,
+				2C8E9AC41D8F978200CA35DE /* ZYfootprintListCell.m in Sources */,
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
 				2CD209AC1D6D4BA6005EB62E /* QPEffect.m in Sources */,
 				2C1B60D51D6D3CF900E3C25B /* FZCReturnCellModel.m in Sources */,
@@ -5069,6 +5090,7 @@
 				040651271CC62FC7003FD539 /* UIView+SDExtension.m in Sources */,
 				2CD209A81D6D4BA6005EB62E /* QPCutInfo.m in Sources */,
 				2CD2092B1D6D3E27005EB62E /* ZCProductDetailController.m in Sources */,
+				2C8E9AB51D8F917100CA35DE /* ZYFootprintListView.m in Sources */,
 				399E942A1D3A2226006E1B68 /* OpenSetTool.m in Sources */,
 				2CD209C21D6D4BA6005EB62E /* QPGuideFactory.m in Sources */,
 				2C1B60E61D6D3CF900E3C25B /* NecessaryView.m in Sources */,
@@ -5162,6 +5184,7 @@
 				04A99C971CBF848D00C6F5F0 /* ZYZCNavigationController.m in Sources */,
 				2C7FC2AC1D222556000FDFDE /* ChooseStarView.m in Sources */,
 				2C8B19751D0CF7EC0063097B /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
+				2C8E9AB81D8F942100CA35DE /* ZYFootprintListController.m in Sources */,
 				2C41A8121D8A9D2100AD9437 /* ZYLocationManager.m in Sources */,
 				2C1B60F41D6D3CF900E3C25B /* DrawCircleView.m in Sources */,
 				2C8B197F1D0CF7EC0063097B /* XMNPhotoCollectionController.m in Sources */,
@@ -5196,6 +5219,7 @@
 				04F836441CD72C3300140980 /* SDPieLoopProgressView.m in Sources */,
 				2C8B19781D0CF7EC0063097B /* JGProgressHUDRingIndicatorView.m in Sources */,
 				2C8B19861D0CF7EC0063097B /* XMNAlbumCell.m in Sources */,
+				2C8E9ACA1D8FB79D00CA35DE /* ZYFootprintListModel.m in Sources */,
 				2CDC49F71CFD32FC00E7893C /* ZYZCConversationController.m in Sources */,
 				2C8B19841D0CF7EC0063097B /* XMNAssetModel.m in Sources */,
 				2CE617741D657DD100962163 /* HUImagePickerViewController.m in Sources */,
