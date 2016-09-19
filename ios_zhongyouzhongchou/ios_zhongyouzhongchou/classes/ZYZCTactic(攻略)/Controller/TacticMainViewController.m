@@ -145,7 +145,7 @@
 {
     WEAKSELF;
     _locationManager=[[ZYLocationManager alloc]init];
-    _locationManager.getCurrentLocationResult=^(BOOL isSuccess,NSString *currentCity,NSString *currentAddress)
+    _locationManager.getCurrentLocationResult=^(BOOL isSuccess,NSString *currentCity,NSString *currentAddress,NSString *coordinateStr)
     {
         if (isSuccess) {
             if (currentCity.length > 2) {

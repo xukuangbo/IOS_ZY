@@ -88,6 +88,18 @@
     return locationString;
 }
 
+#pragma mark --- 将字典转成json
++(NSString *)turnJson:(id )dic
+{
+    //    转换成json
+    NSData *data = [NSJSONSerialization dataWithJSONObject :dic options : NSJSONWritingPrettyPrinted error:NULL];
+    
+    NSString *jsonStr = [[ NSString alloc ] initWithData :data encoding : NSUTF8StringEncoding];
+    
+    return jsonStr;
+}
+
+
 #pragma mark --- 将jsonStr转nsarray
 + (NSArray *)turnJsonStrToArray:(NSString *)jsonStr
 {
@@ -183,17 +195,17 @@
     return address;
 }
 
-#pragma mark --- 判断文件是否已存在,存在就清楚
+#pragma mark --- 判断文件是否已存在,存在就清除
 +(void)removeExistfile:(NSString *)filePath
 {
+    if (!filePath) {
+        return;
+    }
     NSFileManager *manager=[NSFileManager defaultManager];
     BOOL exist=[manager fileExistsAtPath:filePath];
     if (exist) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            BOOL successRemove=[manager removeItemAtPath:filePath error:nil];
-            if (successRemove) {
-                [ZYZCTool getZCDraftFiles];
-            }
+            [manager removeItemAtPath:filePath error:nil];
         });
     }
 }

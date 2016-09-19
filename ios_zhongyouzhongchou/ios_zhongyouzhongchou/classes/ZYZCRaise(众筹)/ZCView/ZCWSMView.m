@@ -70,7 +70,7 @@
     if (videoImgUrl.length) {
         _movieView.hidden=NO;
         hasMovie=YES;
-        //区分是不是本地数据
+        //区分是不是本地发众筹的数据
         NSRange range=[videoImgUrl rangeOfString:KMY_ZHONGCHOU_FILE];
         if (range.length) {
             _movieView.image=[UIImage imageWithContentsOfFile:videoImgUrl];

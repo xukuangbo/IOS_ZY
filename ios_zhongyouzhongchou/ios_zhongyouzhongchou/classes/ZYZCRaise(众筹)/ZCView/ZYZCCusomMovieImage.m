@@ -16,8 +16,7 @@
 //#import "ZYVoicePlayer.h"
 
 @interface ZYZCCusomMovieImage ()<UIAlertViewDelegate>
-@property (nonatomic, strong) MPMoviePlayerController *moviePlayer;//视频播放控制器
-@property (nonatomic, strong) UIImageView *startImg;
+@property (nonatomic, strong) MPMoviePlayerController *moviePlayer;//视频播放控制
 
 @property (nonatomic, assign) BOOL hasNetworkAlert;
 
@@ -32,6 +31,7 @@
         self.contentMode=UIViewContentModeScaleAspectFill;
         self.layer.masksToBounds=YES;
         self.userInteractionEnabled=YES;
+        self.playType=Unsure_Video;
         [self configUI];
     }
     return self;
@@ -73,50 +73,86 @@
 //            make.edges.mas_equalTo(0);
 //        }];
         //这里尝试推送到一个新的控制器
-        //如果是本地视屏
-        NSRange range=[_playUrl rangeOfString:KMY_ZHONGCHOU_FILE];
-        if (range.length){
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerPlaybackFinished:) name:MPMoviePlayerPlaybackDidFinishNotification object:self.moviePlayer];
-            if (!_moviePlayer) {
-                NSURL *url=[NSURL fileURLWithPath:self.playUrl];
-                _moviePlayer=[[MPMoviePlayerController alloc]initWithContentURL:url];
-                _moviePlayer.view.frame=CGRectMake(0, KSCREEN_H, KSCREEN_W, KSCREEN_H);
-                 _moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
-                _moviePlayer.view.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-                [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:_moviePlayer.view];
-            }
-            __weak typeof (&*self)weakSelf=self;
-            [UIView animateWithDuration:0.1 animations:^{
-                weakSelf.moviePlayer.view.top=0;
-            } completion:^(BOOL finished) {
-                [_moviePlayer play];
-            }];
+        //如果是本地发众筹的视频
+        if (self.playType==Local_Video) {
+            [self playLocalVideo];
         }
-        //网络视屏
-        else{
-            //获取当前网络状态
-            int networkType=[ZYZCTool getCurrentNetworkStatus];
-            //无网络
-            if (networkType==0) {
-                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"当前无网络" message:@"无法播放视屏,请检查您的网络" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                alert.tag=0;
-                [alert show];
-                return;
+        else if (self.playType==Net_Video)
+        {
+            [self getNetVideo];
+        }
+        else if (self.playType==Unsure_Video)
+        {
+            NSRange range=[_playUrl rangeOfString:KMY_ZHONGCHOU_FILE];
+            if (range.length){
+                [self playLocalVideo];
             }
-            //无Wi-Fi
-            else if(networkType!=5)
-            {
-                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"【流量使用提示】" message:@"当前网络无Wi-Fi,继续播放可能会被运营商收取流量费用" delegate:self cancelButtonTitle:@"停止播放" otherButtonTitles:@"继续播放", nil];
-                alert.tag=1;
-                [alert show];
-                return;
-            }
-            //有wifi
-            else
-            {
-                [self playNetVideo];
+            //网络视屏
+            else{
+                [self getNetVideo];
             }
         }
+    }
+}
+
+-(void)playLocalVideo
+{
+    NSFileManager *manager=[NSFileManager defaultManager];
+    
+    BOOL  exit= [manager fileExistsAtPath:self.playUrl];
+    if (!exit) {
+        DDLog(@"本地视频不存在");
+        return;
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(mediaPlayerPlaybackFinished:) name:MPMoviePlayerPlaybackDidFinishNotification object:self.moviePlayer];
+//    if (!_moviePlayer) {
+        NSURL *url=[NSURL fileURLWithPath:self.playUrl];
+        _moviePlayer=[[MPMoviePlayerController alloc]initWithContentURL:url];
+        _moviePlayer.view.frame=CGRectMake(0, KSCREEN_H, KSCREEN_W, KSCREEN_H);
+        _moviePlayer.controlStyle = MPMovieControlStyleFullscreen;
+        _moviePlayer.view.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+        
+        if(!self.viewController.navigationController)
+        {
+            [self.viewController.view addSubview:_moviePlayer.view];
+        }
+        else
+        {
+            [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:_moviePlayer.view];
+        }
+//    }
+    __weak typeof (&*self)weakSelf=self;
+    [UIView animateWithDuration:0.1 animations:^{
+        weakSelf.moviePlayer.view.top=0;
+    } completion:^(BOOL finished) {
+        [_moviePlayer play];
+    }];
+}
+
+-(void)getNetVideo
+{
+    //获取当前网络状态
+    int networkType=[ZYZCTool getCurrentNetworkStatus];
+    //无网络
+    if (networkType==0) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"当前无网络" message:@"无法播放视屏,请检查您的网络" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        alert.tag=0;
+        [alert show];
+        return;
+    }
+    //无Wi-Fi
+    else if(networkType!=5)
+    {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"【流量使用提示】" message:@"当前网络无Wi-Fi,继续播放可能会被运营商收取流量费用" delegate:self cancelButtonTitle:@"停止播放" otherButtonTitles:@"继续播放", nil];
+        alert.tag=1;
+        [alert show];
+        return;
+    }
+    //有wifi
+    else
+    {
+        [self playNetVideo];
     }
 }
 
@@ -147,7 +183,6 @@
     } completion:^(BOOL finished) {
     }];
 }
-
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
