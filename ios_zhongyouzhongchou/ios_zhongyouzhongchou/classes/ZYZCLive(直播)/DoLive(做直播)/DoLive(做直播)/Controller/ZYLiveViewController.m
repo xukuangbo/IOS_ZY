@@ -238,7 +238,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                  };
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
+//            weakSelf.liveMoneyView.moneyLabel.text = 
             DDLog(@"%@",result);
+            
         }else{
             
         }
@@ -1273,23 +1275,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         //消息类型
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
         content = textMessage.content;
-        
+        if ([textMessage.extra isEqualToString:kPaySucceed]) {
+            [self requestTotalMoneyData];
+        }
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
-        //通知类型,三种:1.进入直播间 2.直播结束 3.打赏
         //调整步骤:1.此处处理通知的形式 2.在tipcell调整通知的cell样式
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
         content = textMessage.message;
         
         //判断是否是打赏通知
 //        WEAKSELF
-        if ([content containsString:@"打赏"]) {
-           
-            //打赏在此处只做显示内容,并且提示UI去刷新总金额数据
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self requestTotalMoneyData];
-            });
-            
-        }else if([content isEqualToString:@"直播结束"]){
+        if([content isEqualToString:@"直播结束"]){
             
             return ;
         }else{

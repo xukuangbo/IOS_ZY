@@ -174,5 +174,6 @@
  */
 // 获取支付结果通知
 #define kGetPayResultNotification @"kGetPayResultNotification"
+#define kPaySucceed @"打赏成功"
 
 #endif /* DefineCommon_h */
