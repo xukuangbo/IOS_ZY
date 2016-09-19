@@ -811,7 +811,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
     NSString *userId=[ZYZCAccountTool getUserId];
     //判断支付是否成功
-    NSString *httpUrl=GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
+    NSString *httpUrl=GET_LIVE_PAY_STATUS(userId, appDelegate.out_trade_no);
     
     [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
      {
@@ -827,7 +827,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          if(payResult){
              NSString *localizedMessage = [NSString stringWithFormat:@"支持了%@元",weakSelf.payMoney];
              RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
-             rcTextMessage.extra = @"打赏成功";
+             rcTextMessage.extra = kPaySucceed;
              [weakSelf sendMessage:rcTextMessage pushContent:nil];
 
              [MBProgressHUD showSuccess:@"支付成功!"];

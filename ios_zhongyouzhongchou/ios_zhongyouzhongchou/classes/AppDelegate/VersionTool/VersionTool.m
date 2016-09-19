@@ -12,7 +12,7 @@
     [ZYZCHTTPTool getHttpDataByURL:GetNewVersion withSuccessGetBlock:^(id result, BOOL isSuccess) {
         //        NSLog(@"%@",result);
         //拿到版本号进行一系列判断
-        [VersionTool versionWithDic:result[@"data"]];
+        [[self class] versionWithDic:result[@"data"]];
         
     } andFailBlock:^(id failResult) {
 //        NSLog(@"版本请求失败%@",failResult);

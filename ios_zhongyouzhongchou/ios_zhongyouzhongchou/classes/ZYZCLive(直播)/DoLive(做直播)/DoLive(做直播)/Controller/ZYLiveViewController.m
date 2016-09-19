@@ -1275,7 +1275,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         //消息类型
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
         content = textMessage.content;
-        if ([textMessage.extra isEqualToString:@"打赏成功"]) {
+        if ([textMessage.extra isEqualToString:kPaySucceed]) {
             [self requestTotalMoneyData];
         }
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {

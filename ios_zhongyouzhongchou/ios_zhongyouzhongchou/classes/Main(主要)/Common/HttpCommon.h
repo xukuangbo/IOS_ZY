@@ -281,4 +281,7 @@
 #define Post_TotalMoney_Live [NSString stringWithFormat:@"%@zhibo/zhiboOrderTotle.action",BASE_URL]
 //发足迹
 #define Publish_Footprint [NSString stringWithFormat:@"%@youji/addYouji.action",BASE_URL]
+//判断直播是否打赏成功
+#define GET_LIVE_PAY_STATUS(userId,outTradeNo)   [NSString stringWithFormat:@"%@zhibo/getOrderPayStatus.action?userId=%@&outTradeNo=%@",BASE_URL,userId,outTradeNo]
+
 #endif /* HttpCommon_h */

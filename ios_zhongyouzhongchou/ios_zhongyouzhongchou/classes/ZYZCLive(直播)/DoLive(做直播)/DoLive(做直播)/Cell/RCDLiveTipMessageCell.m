@@ -65,7 +65,7 @@
         
         self.tipMessageLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.3];
         //判断是否是打赏还是进入直播
-        if ([notification.extra isEqualToString:@"打赏成功"]) {
+        if ([notification.extra isEqualToString:kPaySucceed]) {
             self.tipMessageLabel.backgroundColor = [UIColor redColor];
             self.tipMessageLabel.text = [NSString stringWithFormat:@"%@ %@",name,localizedMessage];
             self.tipMessageLabel.textColor = [UIColor whiteColor];
