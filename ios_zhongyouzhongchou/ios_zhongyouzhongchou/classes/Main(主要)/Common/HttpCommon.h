@@ -279,4 +279,6 @@
 #define Post_Flower_Live [NSString stringWithFormat:@"%@weixinpay/zhiboAppOrder.action",BASE_URL]
 //直播总金额
 #define Post_TotalMoney_Live [NSString stringWithFormat:@"%@zhibo/zhiboOrderTotle.action",BASE_URL]
+//发足迹
+#define Publish_Footprint [NSString stringWithFormat:@"%@youji/addYouji.action",BASE_URL]
 #endif /* HttpCommon_h */

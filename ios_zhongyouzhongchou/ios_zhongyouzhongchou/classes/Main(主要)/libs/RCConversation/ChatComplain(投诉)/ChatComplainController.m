@@ -266,27 +266,10 @@
 
 }
 
-#pragma mark --- 删除文件
--(void)deleteFileByPath:(NSString *)path{
-    if (!path) {
-        return;
-    }
-    NSFileManager* fm = [NSFileManager defaultManager];
-    BOOL isDir = NO;
-    BOOL existed = [fm fileExistsAtPath:path isDirectory:&isDir];
-    
-    NSError* error = nil;
-    if (existed) {
-        [fm removeItemAtPath:path error:&error];
-//        NSLog(@"deleteError:%@", error);
-    }
-}
-
-
 -(void)dealloc
 {
     for (NSInteger i=0; i<_fileTmpPathArr.count; i++) {
-        [self deleteFileByPath:_fileTmpPathArr[i]];
+        [ZYZCTool removeExistfile:_fileTmpPathArr[i]];
     }
     DDLog(@"dealloc:%@",self.class);
 }

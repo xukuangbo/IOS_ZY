@@ -45,6 +45,12 @@
 +(NSString *)turnDateToCustomDate:(NSDate *)date;
 
 /**
+ *  将字典转成json
+ *
+ */
++(NSString *)turnJson:(id )dic;
+
+/**
  *  json字符串转数组
  */
 +(NSArray *)turnJsonStrToArray:(NSString *)jsonStr;

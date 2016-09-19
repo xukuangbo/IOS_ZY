@@ -37,7 +37,7 @@
         }
     } else {
         if (_getCurrentLocationResult) {
-            _getCurrentLocationResult(NO,nil,nil);
+            _getCurrentLocationResult(NO,nil,nil,nil);
         }
     }
 }
@@ -46,10 +46,11 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *currentLocation = [locations lastObject]; // 最后一个值为最新位置
     CLGeocoder *geoCoder = [[CLGeocoder alloc] init];
+//    DDLog(@"currentLocation:%@",currentLocation);
     // 根据经纬度反向得出位置城市信息
     [geoCoder reverseGeocodeLocation:currentLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         
-        DDLog(@"placemarks:%@",placemarks);
+//        DDLog(@"placemarks:%@",placemarks);
         
         if (placemarks.count > 0) {
             CLPlacemark *placeMark = placemarks[0];
@@ -62,7 +63,9 @@
             
             if (_getCurrentLocationResult) {
             
-                _getCurrentLocationResult(YES,city,placeMark.name);
+                NSString *coordinateStr=[NSString stringWithFormat:@"%f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude];
+                _getCurrentLocationResult(YES,city,placeMark.name,coordinateStr);
+                DDLog(@"coordinateStr:%@",coordinateStr);
             }
 //            DDLog(@"addressDictionary:%@",placeMark.addressDictionary);
 //            DDLog(@"name:%@",placeMark.name);
@@ -82,7 +85,7 @@
             DDLog(@"No location and error returned");
             
             if (_getCurrentLocationResult) {
-                _getCurrentLocationResult(NO,nil,nil);
+                _getCurrentLocationResult(NO,nil,nil,nil);
             }
 
         }
@@ -90,7 +93,7 @@
             DDLog(@"Location error: %@", error);
             
             if (_getCurrentLocationResult) {
-                _getCurrentLocationResult(NO,nil,nil);
+                _getCurrentLocationResult(NO,nil,nil,nil);
             }
         }
     }];
@@ -103,7 +106,7 @@
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
     if (_getCurrentLocationResult) {
-        _getCurrentLocationResult(NO,nil,nil);
+        _getCurrentLocationResult(NO,nil,nil,nil);
     }
     //被拒绝
     if ([error code] == kCLErrorDenied)

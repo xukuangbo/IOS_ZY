@@ -15,7 +15,7 @@
  *  @param currentCity    当前的城市名
  *  @param currentAddress 当前的地址
  */
-typedef void (^GetCurrentLocationResult)(BOOL isSuccess,NSString *currentCity,NSString *currentAddress);
+typedef void (^GetCurrentLocationResult)(BOOL isSuccess,NSString *currentCity,NSString *currentAddress,NSString *coordinateStr);
 
 @interface ZYLocationManager : NSObject
 

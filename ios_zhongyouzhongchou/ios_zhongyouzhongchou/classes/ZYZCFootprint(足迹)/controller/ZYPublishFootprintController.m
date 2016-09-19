@@ -38,10 +38,13 @@
 @property (nonatomic, strong) UILabel      *locationLab;
 @property (nonatomic, assign) BOOL         showLocation;
 @property (nonatomic, strong) NSString     *currentAddress;
+@property (nonatomic, strong) NSString     *coordinateStr;
 @property (nonatomic, strong) ZYLocationManager *locationManager;
 
 @property (nonatomic, strong) NSMutableArray *fileTmpPathArr;
 @property (nonatomic, strong) NSMutableArray *imgUrlArr;
+@property (nonatomic, strong) NSString       *video;
+@property (nonatomic, strong) NSString       *videoImg;
 @property (nonatomic, assign) BOOL         uploadSuccess;
 
 @end
@@ -165,7 +168,6 @@
     [_locationView addSubview:locationSwitch];
     
     _showLocation=locationSwitch.on;
-    
 }
 
 #pragma mark --- 是否显示当前位置
@@ -182,16 +184,22 @@
                 self.locationLab.textColor=[UIColor ZYZC_MainColor];
                 return;
             }
-            
+            [MBProgressHUD showMessage:@"正在获取当前位置"];
             WEAKSELF;
             _locationManager=[ZYLocationManager new];
-            _locationManager.getCurrentLocationResult=^(BOOL isSuccess,NSString *currentCity,NSString *currentAddress)
+            _locationManager.getCurrentLocationResult=^(BOOL isSuccess,NSString *currentCity,NSString *currentAddress,NSString *coordinateStr)
             {
+                
                 if (isSuccess) {
                     weakSelf.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate"];
                     weakSelf.locationLab.textColor=[UIColor ZYZC_MainColor];
                     weakSelf.currentAddress=currentAddress;
-                    DDLog(@"currentAddress:%@",weakSelf.currentAddress);
+                    weakSelf.coordinateStr=coordinateStr;
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^
+                                   {
+                                       [MBProgressHUD hideHUD];
+                                   });
                 }
                 else
                 {
@@ -200,7 +208,6 @@
                 }
             };
             [_locationManager getCurrentLocation];
-            
         }
         else
         {
@@ -277,12 +284,6 @@
     
 }
 
-#pragma mark --- 播放视频
--(void)playVideo
-{
-    
-}
-
 #pragma mark --- 点击浏览和编辑图片
 -(void)tapPic:(UITapGestureRecognizer *)tap
 {
@@ -303,7 +304,6 @@
         }
         }];
     browser.notDismissWhenDelete=YES;
-   
 }
 
 #pragma mark --- 添加图片
@@ -448,25 +448,31 @@
 #pragma mark ---  发布足迹👣
 -(void)publishMyFootprint
 {
+    _publishBtn.enabled=NO;
     //发布图文
-    if (Footprint_AlbumType) {
+    if (self.footprintType==Footprint_AlbumType||self.footprintType==Footprint_PhotoType) {
         [self albumTypePublish];
+    }
+    //发布视频
+    else if(self.footprintType==Footprint_VideoType)
+    {
+        [self videoTypePublish];
     }
 }
 
 #pragma mark --- 图文发布
 -(void)albumTypePublish
 {
+    [MBProgressHUD showMessage:nil];
+    
     if(_uploadSuccess)
     {
         [self commitData];
         return;
     }
     
-    if (_images)
+    if (_images.count)
     {
-        [MBProgressHUD showMessage:nil];
-        
         _fileTmpPathArr=[NSMutableArray array];
         _imgUrlArr=[NSMutableArray array];
         //将图片保存到本地tmp中
@@ -514,55 +520,133 @@
           });
        });
     }
+    else
+    {
+        [MBProgressHUD hideHUD];
+    }
+}
+
+#pragma mark --- 发布视频
+-(void)videoTypePublish
+{
+    [MBProgressHUD showMessage:nil];
+    
+    if(_uploadSuccess)
+    {
+        [self commitData];
+        return;
+    }
+    
+    //将视频和视频第一帧上传到oss
+    ZYZCOSSManager *ossManager=[ZYZCOSSManager defaultOSSManager];
+    
+    WEAKSELF;
+    dispatch_async(dispatch_get_global_queue(0, 0), ^
+       {
+           NSString *userId=[ZYZCAccountTool getUserId];
+           NSString *timeStmp=[ZYZCTool getTimeStamp];
+           
+           NSString *videoFileName=[NSString stringWithFormat:@"%@/footprint/%@/video.mp4",userId,timeStmp];
+            weakSelf.video=[NSString stringWithFormat:@"%@/%@",KHTTP_FILE_HEAD,videoFileName];
+           BOOL uploadResult=[ossManager uploadIconSyncByFileName:videoFileName andFilePath:weakSelf.videoPath];
+               if (!uploadResult) {
+                   //回到主线程提示上传失败
+                   dispatch_async(dispatch_get_main_queue(), ^
+                                  {
+                                      [MBProgressHUD hideHUD];
+                                      [MBProgressHUD showError:@"网络出错,提交失败"];
+                                  });
+                   return;
+               }
+               else
+               {
+                   //视频上传完成，上传第一帧
+                   NSString *videoImgFileName=[NSString stringWithFormat:@"%@/footprint/%@/videoImg.png",userId,timeStmp];
+                    weakSelf.videoImg=[NSString stringWithFormat:@"%@/%@",KHTTP_FILE_HEAD,videoImgFileName];
+                   BOOL uploadResult=[ossManager uploadIconSyncByFileName:videoImgFileName andFilePath:weakSelf.thumbnailPath];
+                   if (!uploadResult) {
+                       //回到主线程提示上传失败
+                       dispatch_async(dispatch_get_main_queue(), ^
+                                      {
+                                          [MBProgressHUD hideHUD];
+                                          [MBProgressHUD showError:@"网络出错,提交失败"];
+                                      });
+                       return;
+                   }
+                   else
+                   {
+                       //数据上传完成， 回到主线程
+                       dispatch_async(dispatch_get_main_queue(), ^
+                                      {
+                                          weakSelf.uploadSuccess=YES;
+                                          [MBProgressHUD hideHUD];
+                                          [weakSelf commitData];
+                                      });
+                   }
+               }
+       });
 }
 
 #pragma mark --- 上传数据到服务器
 -(void)commitData
 {
-    NSString *images=[_imgUrlArr componentsJoinedByString:@","];
-    NSString *httpUrl=nil;
+    NSNumber *type=0;
+   
+    //类型
+    if (self.footprintType==Footprint_AlbumType||self.footprintType==Footprint_PhotoType) {
+        type=@1;
+    }
+    else if (self.footprintType==Footprint_VideoType)
+    {
+        type=@2;
+    }
+    
     NSMutableDictionary *param=[NSMutableDictionary dictionaryWithDictionary:@{@"userId":[ZYZCAccountTool getUserId],
-                                   @"type"  :[NSNumber numberWithInteger:_footprintType],
-                                   @"images":images
+                                   @"type"  :type,
                                   }];
+    //文字
     if (_textView.text) {
         [param setObject:_textView.text forKey:@"content"];
     }
-    
+    //当前位置
     if (_showLocation) {
-        [param setObject:_currentAddress forKey:@"address"];
+        NSDictionary *param01=@{@"GPS_Address":_currentAddress,
+                                @"GPS":_coordinateStr
+                                };
+        NSString *jsonStr=[ZYZCTool turnJson:param01];
+        [param setObject:jsonStr forKey:@"gpsData"];
     }
-    
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    //图片
+    if (_imgUrlArr.count) {
+        NSString *images=[_imgUrlArr componentsJoinedByString:@","];
+        [param setObject:images forKey:@"pics"];
+    }
+    //视频
+    if (_video) {
+        [param setObject:_video forKey:@"video"];
+    }
+    //视频图片
+    if (_videoImg) {
+        [param setObject:_videoImg forKey:@"videoimg"];
+    }
+
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Publish_Footprint andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUD];
+        _publishBtn.enabled=YES;
         if (isSuccess) {
             [self dismissViewControllerAnimated:YES completion:nil];
-            [MBProgressHUD showSuccess:@"提交成功"];
+            [MBProgressHUD showSuccess:@"发布成功"];
         }
         else
         {
-            [MBProgressHUD showError:@"提交失败"];
+            [MBProgressHUD showError:@"发布失败"];
         }
     }
      andFailBlock:^(id failResult) {
-         
+         [MBProgressHUD hideHUD];
+         [MBProgressHUD showError:@"发布失败"];
+         _publishBtn.enabled=YES;
      }];
-    
-}
-
-#pragma mark --- 删除文件
--(void)deleteFileByPath:(NSString *)path{
-    if (!path) {
-        return;
-    }
-    NSFileManager* fm = [NSFileManager defaultManager];
-    BOOL isDir = NO;
-    BOOL existed = [fm fileExistsAtPath:path isDirectory:&isDir];
-    
-    NSError* error = nil;
-    if (existed) {
-        [fm removeItemAtPath:path error:&error];
-        //        NSLog(@"deleteError:%@", error);
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -585,8 +669,12 @@
     DDLog(@"dealloc:%@",[self class]);
     
     for (NSInteger i=0; i<_fileTmpPathArr.count; i++) {
-        [self deleteFileByPath:_fileTmpPathArr[i]];
+        [ZYZCTool removeExistfile:_fileTmpPathArr[i]];
     }
+    
+    [ZYZCTool removeExistfile:self.video];
+    [ZYZCTool removeExistfile:self.videoImg];
+    
 }
 
 - (void)didReceiveMemoryWarning {
