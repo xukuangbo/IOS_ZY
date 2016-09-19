@@ -134,7 +134,7 @@
             }
             else{
 //                self.btnTitleArr=@[@"回报",@"延迟出发",@"上传游记"];
-                 self.btnTitleArr=@[@"回报",@"已延时",@""];
+                 self.btnTitleArr=@[@"回报",@"延时出发",@""];
 
             }
         }
