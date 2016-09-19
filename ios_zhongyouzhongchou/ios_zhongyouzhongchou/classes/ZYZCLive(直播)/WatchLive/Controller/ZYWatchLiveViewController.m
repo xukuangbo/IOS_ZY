@@ -811,9 +811,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
     NSString *userId=[ZYZCAccountTool getUserId];
     //判断支付是否成功
-    NSString *httpUrl=GET_LIVE_PAY_STATUS(userId, appDelegate.out_trade_no);
-    
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
+    NSString *httpUrl=GET_LIVE_PAY_STATUS;
+    NSDictionary *parameters = @{
+                                 @"userId" : userId,
+                                 @"outTradeNo" : appDelegate.out_trade_no
+                                 };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          NSLog(@"%@",result);
          appDelegate.out_trade_no=nil;
@@ -829,7 +832,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
              rcTextMessage.extra = kPaySucceed;
              [weakSelf sendMessage:rcTextMessage pushContent:nil];
-
              [MBProgressHUD showSuccess:@"支付成功!"];
          }else{
              [MBProgressHUD showError:@"支付失败!"];
@@ -839,6 +841,32 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
      {
          [MBProgressHUD showError:@"网络出错,支付失败!"];
      }];
+
+//    [ZYZCHTTPTool postHttpDataWithEncrypt:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
+//     {
+//         NSLog(@"%@",result);
+//         appDelegate.out_trade_no=nil;
+//         NSArray *arr=result[@"data"];
+//         NSDictionary *dic=nil;
+//         if (arr.count) {
+//             dic=[arr firstObject];
+//         }
+//         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
+//         //支付成功
+//         if(payResult){
+//             NSString *localizedMessage = [NSString stringWithFormat:@"支持了%@元",weakSelf.payMoney];
+//             RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
+//             rcTextMessage.extra = kPaySucceed;
+//             [weakSelf sendMessage:rcTextMessage pushContent:nil];
+//             [MBProgressHUD showSuccess:@"支付成功!"];
+//         }else{
+//             [MBProgressHUD showError:@"支付失败!"];
+//             appDelegate.out_trade_no=nil;
+//         }
+//     }andFailBlock:^(id failResult)
+//     {
+//         [MBProgressHUD showError:@"网络出错,支付失败!"];
+//     }];
 }
 - (void)loadStateDidChange:(NSNotification*)notification {
     IJKMPMovieLoadState loadState = _player.loadState;
@@ -1390,7 +1418,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
-                                @"price":@"0.01",
+                                @"price":@"0.1",
                                 };
     self.payMoney = payMoney;
     [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{

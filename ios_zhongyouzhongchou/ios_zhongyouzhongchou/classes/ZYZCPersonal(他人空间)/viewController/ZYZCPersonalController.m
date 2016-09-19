@@ -342,23 +342,13 @@
     lab.font=[UIFont systemFontOfSize:15];
     
     lab.textAlignment=NSTextAlignmentCenter;
-    
     [_noneProductView addSubview:lab];
-    
     _noneProductView.hidden=YES;
-    
 }
 
-
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-
 {
-    
-    
-    
     return _productArr.count*2+1;
-    
 }
 
 

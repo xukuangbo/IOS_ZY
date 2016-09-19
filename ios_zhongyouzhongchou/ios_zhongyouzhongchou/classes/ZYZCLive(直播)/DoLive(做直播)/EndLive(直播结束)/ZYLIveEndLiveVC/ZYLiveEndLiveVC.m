@@ -62,10 +62,10 @@
     _backView.alpha = 0.6;
     
     
-    _totalMoneyLabel.text = [NSString stringWithFormat:@"%zd",_liveEndLiveModel.totalMoneyCount];
-    _totalTimeLabel.text = [NSString stringWithFormat:@"本次直播时长:%@",_liveEndLiveModel.endTime];
-    _totalPeopleCount.text = [NSString stringWithFormat:@"%zd",_liveEndLiveModel.totalPeopleCount];
-    _totalOnlinePeopleCount.text = [NSString stringWithFormat:@"%zd",_liveEndLiveModel.totalOnlinePeopleNumber];
+    self.totalMoneyLabel.text = self.liveEndLiveModel.totalMoneyCount;
+    self.totalTimeLabel.text = [NSString stringWithFormat:@"本次直播时长:%@",self.liveEndLiveModel.endTime];
+    self.totalPeopleCount.text = [NSString stringWithFormat:@"%zd",self.liveEndLiveModel.totalPeopleCount];
+    self.totalOnlinePeopleCount.text = [NSString stringWithFormat:@"%zd",self.liveEndLiveModel.totalOnlinePeopleNumber];
     
 }
 
@@ -92,7 +92,7 @@
 {
     _liveEndLiveModel = liveEndLiveModel;
     
-    _totalMoneyLabel.text = [NSString stringWithFormat:@"%zd",liveEndLiveModel.totalMoneyCount];
+    _totalMoneyLabel.text = liveEndLiveModel.totalMoneyCount;
     _totalTimeLabel.text = liveEndLiveModel.endTime;
     _totalPeopleCount.text = [NSString stringWithFormat:@"%zd",liveEndLiveModel.totalPeopleCount];
     _totalOnlinePeopleCount.text = [NSString stringWithFormat:@"%zd",liveEndLiveModel.totalOnlinePeopleNumber];

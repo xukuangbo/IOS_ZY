@@ -11,6 +11,6 @@
 @interface LiveMoneyView : UIView
 
 @property (nonatomic, strong) UILabel *moneyLabel;
-@property (nonatomic, strong) UIImageView *rightView;
+//@property (nonatomic, strong) UIImageView *rightView;
 
 @end
