@@ -62,12 +62,12 @@
         //msgStyle为99，进入appstore更新app
         if (msgListModel.msgStyle==99) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_STORE_URL]];
-        }
-        else
-        //系统通知
-        {
+        } else if (msgListModel.msgStyle == 10) {
             
+        } else {
+            //系统通知
         }
+        
     }
 }
 

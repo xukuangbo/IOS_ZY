@@ -947,9 +947,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         content = textMessage.message;
         
         //判断是否是直播结束通知
-        WEAKSELF
         if ([content isEqualToString:@"直播结束"]) {
-            [weakSelf liveEndNotification];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self liveEndNotification];
+            });
             return ;
         }
         
