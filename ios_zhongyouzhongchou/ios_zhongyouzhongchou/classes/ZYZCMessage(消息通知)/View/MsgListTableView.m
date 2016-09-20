@@ -10,6 +10,7 @@
 #import "ZYZCMsgDetailViewController.h"
 #import "MBProgressHUD.h"
 #import "MBProgressHUD+MJ.h"
+#import "ZYWatchLiveViewController.h"
 @implementation MsgListTableView
 
 /*
@@ -63,7 +64,8 @@
         if (msgListModel.msgStyle==99) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_STORE_URL]];
         } else if (msgListModel.msgStyle == 10) {
-            
+            ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] init];
+            [self.viewController.navigationController pushViewController:watchLiveVC animated:YES];
         } else {
             //系统通知
         }
