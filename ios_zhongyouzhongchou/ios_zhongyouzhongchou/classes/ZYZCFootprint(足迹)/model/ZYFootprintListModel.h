@@ -10,7 +10,8 @@ typedef NS_ENUM(NSInteger, FootprintCellType)
 {
     HeadCell=1,
     BodyCell,
-    FootCell
+    FootCell,
+    CompleteCell
 };
 
 #import <Foundation/Foundation.h>
@@ -28,7 +29,7 @@ typedef NS_ENUM(NSInteger, FootprintCellType)
 
 @property (nonatomic, assign) NSInteger ID;
 
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) NSInteger footprintType;
 
 @property (nonatomic, copy  ) NSString  *creattime;
 
@@ -49,5 +50,9 @@ typedef NS_ENUM(NSInteger, FootprintCellType)
 @property (nonatomic, assign) FootprintCellType cellType;//头部，中部，尾部
 
 @property (nonatomic, assign) CGFloat cellHeight;
+
+@property (nonatomic, assign) BOOL    showDate;
+
+@property (nonatomic, assign) NSInteger totalMonth;
 
 @end

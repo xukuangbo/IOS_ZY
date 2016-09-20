@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface ZYZCTool : NSObject
+
+/**
+*  创建lab
+*/
++(UILabel *)createLabWithFrame:(CGRect )frame andFont:(UIFont *)font andTitleColor:(UIColor *)color;
+
 /**
  *  计算文字长度
  *
@@ -17,6 +23,7 @@
  *
  *  @return 文字长度
  */
+
 +(CGSize )calculateStrLengthByText:(NSString *)text andFont:(UIFont *)font andMaxWidth:(CGFloat )maxW;
 /**
  *  设置文字间距

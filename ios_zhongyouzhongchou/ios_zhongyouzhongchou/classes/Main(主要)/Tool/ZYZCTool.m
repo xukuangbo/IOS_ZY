@@ -12,6 +12,16 @@
 #import "sys/utsname.h"
 
 @implementation ZYZCTool
+
+#pragma mark --- 创建lab
++(UILabel *)createLabWithFrame:(CGRect )frame andFont:(UIFont *)font andTitleColor:(UIColor *)color
+{
+    UILabel *lab=[[UILabel alloc]initWithFrame:frame];
+    lab.font=font;
+    lab.textColor=color;
+    return lab;
+}
+
 #pragma mark --- 文字长度计算
 +(CGSize)calculateStrLengthByText:(NSString *)text andFont:(UIFont *)font andMaxWidth:(CGFloat )maxW
 {
