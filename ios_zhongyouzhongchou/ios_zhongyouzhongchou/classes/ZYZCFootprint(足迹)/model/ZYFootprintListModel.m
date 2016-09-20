@@ -10,10 +10,11 @@
 
 @implementation ZYFootprintDataModel
 
-+(NSDictionary *)mj_replacedKeyFromPropertyName
++(NSDictionary *)mj_objectClassInArray
 {
-    return @{@"ZYFootprintListModel":@"data"};
+    return @{@"data":@"ZYFootprintListModel"};
 }
+
 @end
 
 
@@ -28,9 +29,9 @@
     return self;
 }
 
-+ (NSDictionary *)mj_objectClassInArray{
++ (NSDictionary *)mj_replacedKeyFromPropertyName{
     
-    return @{@"ID":@"id"};
+    return @{@"ID":@"id",@"footprintType":@"type"};
 }
 
 @end

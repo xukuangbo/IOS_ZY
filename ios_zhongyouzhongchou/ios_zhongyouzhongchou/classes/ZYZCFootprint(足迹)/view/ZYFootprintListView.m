@@ -10,8 +10,6 @@
 
 @interface ZYFootprintListView ()
 
-@property (nonatomic, assign ) NSInteger total_month;
-
 @end
 
 @implementation ZYFootprintListView
@@ -28,23 +26,80 @@
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
     if (self=[super initWithFrame:frame style:style]) {
-        
+        self.contentInset=UIEdgeInsetsMake(74, 0, 10, 0) ;
     }
     return self;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return self.dataArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    ZYfootprintListCell *footprintCell=(ZYfootprintListCell *)[ZYfootprintListCell customTableView:tableView cellWithIdentifier:@"footprintCell" andCellClass:[ZYfootprintListCell class]];
+    ZYFootprintListModel *cellModel=self.dataArr[indexPath.row];
+    if (cellModel.creattime) {
+        NSString *time=[ZYZCTool turnTimeStampToDate:cellModel.creattime];
+        NSInteger year  = [[time substringToIndex:4] integerValue];
+        NSInteger month = [[time substringWithRange:NSMakeRange(5, 2)] integerValue];
+        DDLog(@"year:%ld,month:%ld",year,month);
+        cellModel.totalMonth=year*12+month;
+    }
+    
+    if (indexPath.row==0) {
+         cellModel.showDate=YES;
+    }
+    else
+    {
+        ZYFootprintListModel *pre_cellModel=self.dataArr[indexPath.row-1];
+        if (cellModel.totalMonth<pre_cellModel.totalMonth) {
+            cellModel.showDate=YES;
+        }
+        else
+        {
+            cellModel.showDate=NO;
+        }
+    }
+    
+    if(self.dataArr.count>=3)
+    {
+        if (indexPath.row==0) {
+            cellModel.cellType=HeadCell;
+        }
+        else if (indexPath.row==self.dataArr.count-1)
+        {
+            cellModel.cellType=FootCell;
+        }
+        else
+        {
+            cellModel.cellType=BodyCell;
+        }
+    }
+    else if (self.dataArr.count ==2)
+    {
+        if (indexPath.row==0) {
+            cellModel.cellType=HeadCell;
+        }
+        else
+        {
+            cellModel.cellType=FootCell;
+        }
+    }
+    else if(self.dataArr.count==1)
+    {
+        cellModel.cellType=CompleteCell;
+        
+    }
+    footprintCell.listModel=cellModel;
+    
+    return footprintCell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 0.0;
+    ZYFootprintListModel *cellModel=(ZYFootprintListModel *)self.dataArr[indexPath.row];
+    return cellModel.cellHeight;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

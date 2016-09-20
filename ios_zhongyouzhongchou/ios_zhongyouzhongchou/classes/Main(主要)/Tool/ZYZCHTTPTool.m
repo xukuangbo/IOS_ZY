@@ -177,6 +177,7 @@
     if ([ZYZCAccountTool getUserId]) {
 
         [strDic setObject:[ZYZCAccountTool getUserId] forKey:@"userId"];
+        
     }else{
         
     }

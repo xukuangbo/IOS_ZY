@@ -21,6 +21,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _listArr=[NSMutableArray array];
+    _pageNo=1;
+    self.automaticallyAdjustsScrollViewInsets=NO;
     [self setBackItem];
     [self configUI];
     [self getHttpData];
@@ -29,7 +31,7 @@
 -(void)configUI
 {
     _footprintListView=[[ZYFootprintListView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    
+
     WEAKSELF;
     _footprintListView.headerRefreshingBlock=^()
     {
@@ -51,6 +53,7 @@
 {
     [MBProgressHUD showMessage:nil];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:List_Footprint andParameters:@{@"pageNo":[NSNumber numberWithInteger:_pageNo]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        DDLog(@"%@",result);
         [MBProgressHUD hideHUD];
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_footprintListView.mj_footer ;
@@ -59,7 +62,7 @@
                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
             }
             ZYFootprintDataModel  *listModel=[[ZYFootprintDataModel alloc]mj_setKeyValues:result];
-//
+        
             for(ZYFootprintListModel *oneModel in listModel.data)
             {
                 [_listArr addObject:oneModel];
@@ -74,6 +77,7 @@
                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
             }
             _footprintListView.dataArr=_listArr;
+            
             [_footprintListView reloadData];
         }
         else
