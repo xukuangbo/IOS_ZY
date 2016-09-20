@@ -12,7 +12,7 @@
 /** 结束直播的时间 */
 @property (nonatomic, copy) NSString *endTime;
 /** 本次直播筹集多少钱 */
-@property (nonatomic, assign) NSInteger totalMoneyCount;
+@property (nonatomic, strong) NSString *totalMoneyCount;
 /** 最大的人数 */
 @property (nonatomic, assign) NSInteger totalPeopleCount;
 /** 在线最大人数 */

@@ -285,6 +285,6 @@
 //游记列表
 #define List_Footprint [NSString stringWithFormat:@"%@youji/getPageList.action",BASE_URL]
 //判断直播是否打赏成功
-#define GET_LIVE_PAY_STATUS(userId,outTradeNo)   [NSString stringWithFormat:@"%@zhibo/getOrderPayStatus.action?userId=%@&outTradeNo=%@",BASE_URL,userId,outTradeNo]
+#define GET_LIVE_PAY_STATUS   [NSString stringWithFormat:@"%@zhibo/getOrderPayStatus.action",BASE_URL]
 
 #endif /* HttpCommon_h */
