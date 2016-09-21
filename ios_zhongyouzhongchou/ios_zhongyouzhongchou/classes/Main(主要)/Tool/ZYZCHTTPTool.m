@@ -73,7 +73,7 @@
     if (needLogin)
     {
         //此处添加需登录的操作
-        NSDictionary *entryptParams=[self encryptParams];
+        NSDictionary *entryptParams=[[self class] encryptParams];
         if (!entryptParams) {
             return;
         }

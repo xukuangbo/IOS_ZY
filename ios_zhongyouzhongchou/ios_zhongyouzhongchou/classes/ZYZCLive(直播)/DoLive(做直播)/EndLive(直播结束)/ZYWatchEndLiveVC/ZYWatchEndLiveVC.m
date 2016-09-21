@@ -164,7 +164,8 @@
 }
 
 - (IBAction)backButtonAction:(UIButton *)sender {
-    
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 @end

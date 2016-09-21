@@ -287,4 +287,9 @@
 //判断直播是否打赏成功
 #define GET_LIVE_PAY_STATUS   [NSString stringWithFormat:@"%@zhibo/getOrderPayStatus.action",BASE_URL]
 
+// 设置消息已读 (参数ID)
+#define SYSTEM_MSG_READ  [NSString stringWithFormat:@"%@systemMsg/msgSetRead.action",BASE_URL]
+// 拉取直播内容 (参数 spaceName，streamName)
+#define GET_LIVE_CONTENT   [NSString stringWithFormat:@"%@zhibo/getZHibo.action",BASE_URL]
+
 #endif /* HttpCommon_h */
