@@ -43,6 +43,12 @@ typedef NS_ENUM(NSInteger, FootprintCellType)
 
 @property (nonatomic, copy  ) NSString *gpsData;//jsonStr
 
+@property (nonatomic, assign) NSInteger zanTotles;//点赞数
+
+@property (nonatomic, assign) BOOL hasZan;//是否点赞
+
+@property (nonatomic, assign) NSInteger commentTotles;//评论总数
+
 @property (nonatomic, strong) NSNumber *userId;
 
 @property (nonatomic, strong) NSNumber *productId;

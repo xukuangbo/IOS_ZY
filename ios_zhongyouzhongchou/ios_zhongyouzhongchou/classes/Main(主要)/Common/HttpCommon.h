@@ -16,7 +16,7 @@
 //测试
 #define BASE_URL @"http://121.40.225.119:8080/"
 //华子
-//#define BASE_URL @"http://192.168.1.62:8086/"
+//#define BASE_URL @"https://192.168.1.128:8086/"
 //海外服务器
 //#define BASE_URL @"http://47.88.148.201:8080/"
 //#define BASE_URL @"http://192.168.1.59:8086/"
@@ -284,6 +284,26 @@
 
 //游记列表
 #define List_Footprint [NSString stringWithFormat:@"%@youji/getPageList.action",BASE_URL]
+
+//点赞
+#define Footprint_AddSupport [NSString stringWithFormat:@"%@youji/addZan.action",BASE_URL]
+
+//取消点赞
+#define Footprint_DeleteSupport [NSString stringWithFormat:@"%@youji/delZan.action",BASE_URL]
+
+//评论列表
+#define Footprint_GetCommentList [NSString stringWithFormat:@"%@youji/getCommentPageList.action",BASE_URL]
+
+//评论足迹
+#define Footprint_AddComment [NSString stringWithFormat:@"%@youji/addComment.action",BASE_URL]
+
+//点赞详情
+#define Footprint_GetZanList [NSString stringWithFormat:@"%@youji/getZanList.action",BASE_URL]
+
+//删除足迹
+#define Footprint_DeleteFootprint [NSString stringWithFormat:@"%@youji/deleteYouji.action",BASE_URL]
+
+
 //判断直播是否打赏成功
 #define GET_LIVE_PAY_STATUS   [NSString stringWithFormat:@"%@zhibo/getOrderPayStatus.action",BASE_URL]
 
