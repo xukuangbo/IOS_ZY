@@ -27,6 +27,7 @@
 #import "ChatUserInfoModel.h"
 #import "MBProgressHUD+MJ.h"
 #import  <QPSDKCore/QPSDKCore.h>
+#import <Bugtags/Bugtags.h>
 
 #define  kQPAppKey     @"20a9a463ed1796c"
 #define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
@@ -94,6 +95,9 @@
     //初始化趣拍视屏直播
     [self initQPLive];
     
+    // 集成bugtags sdk
+    [self addBugTags];
+    
     return YES;
 }
 
@@ -119,6 +123,18 @@
             DDLog(@"failed : %@", error.description);
         }];
     }
+}
+// 初始化bugTags
+- (void)addBugTags
+{
+    BugtagsOptions *options = [[BugtagsOptions alloc] init];
+    options.trackingCrashes = YES;
+    
+    BTGInvocationEvent btgEvent = BTGInvocationEventNone;
+    if ([BASE_URL isEqualToString:@"http://121.40.225.119:8080/"]) {
+        btgEvent = BTGInvocationEventShake;
+    }
+    [Bugtags startWithAppKey:kBugTagsAppKey invocationEvent:btgEvent];
 }
 
 // 网络状态改变的通知方法
