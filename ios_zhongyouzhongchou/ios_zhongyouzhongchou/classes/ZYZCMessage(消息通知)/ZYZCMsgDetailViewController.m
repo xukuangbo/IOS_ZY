@@ -187,6 +187,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor colorWithRed:247.0/255.0 green:247.0/255.0 blue:247.0/255.0 alpha:1.0]];
     [[UIApplication sharedApplication] setStatusBarStyle:
      UIStatusBarStyleDefault];
@@ -198,6 +199,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
     self.navigationController.navigationBar.titleTextAttributes=
     @{NSForegroundColorAttributeName:[UIColor whiteColor],
