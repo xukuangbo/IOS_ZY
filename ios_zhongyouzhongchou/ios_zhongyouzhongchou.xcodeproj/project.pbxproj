@@ -200,6 +200,8 @@
 		2C1ECC8A1D62B04400B91E7B /* ZYZCEditYoujiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC891D62B04400B91E7B /* ZYZCEditYoujiController.m */; };
 		2C1ECC8D1D62B08C00B91E7B /* YJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */; };
 		2C20BC971D8A4A3500574462 /* HUPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */; };
+		2C3292F11D922D890095F60E /* ZYFootprintCommentTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */; };
+		2C3292F41D9230CC0095F60E /* ZYCommentFootprintCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F31D9230CC0095F60E /* ZYCommentFootprintCell.m */; };
 		2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */; };
 		2C3777EC1D07BC51004FDA9D /* MyProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EB1D07BC51004FDA9D /* MyProductViewController.m */; };
 		2C3777EF1D07C345004FDA9D /* MyProductTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EE1D07C345004FDA9D /* MyProductTableView.m */; };
@@ -284,6 +286,8 @@
 		2C90F6F51D532349001ABB44 /* MsgListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F6F41D532349001ABB44 /* MsgListTableViewCell.m */; };
 		2C90F6F81D533579001ABB44 /* ZYZCMsgDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F6F71D533579001ABB44 /* ZYZCMsgDetailViewController.m */; };
 		2C90F6FB1D534819001ABB44 /* ZYDetailMsgScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F6FA1D534819001ABB44 /* ZYDetailMsgScrollView.m */; };
+		2C91B6691D9155140091EC79 /* ZYCommentFootprintController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B6681D9155140091EC79 /* ZYCommentFootprintController.m */; };
+		2C91B66C1D9160D20091EC79 /* ZYOneFootprintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B66B1D9160D20091EC79 /* ZYOneFootprintView.m */; };
 		2C9AA6E21D3D2BAF0030A5B4 /* ZYCustomIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AA6E11D3D2BAF0030A5B4 /* ZYCustomIconView.m */; };
 		2CA172061D0122030033A91A /* PersonHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA172051D0122030033A91A /* PersonHeadView.m */; };
 		2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD97981D1D0DCB000E4ED8 /* UserIconButton.m */; };
@@ -914,6 +918,10 @@
 		2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJTextView.m; sourceTree = "<group>"; };
 		2C20BC951D8A4A3500574462 /* HUPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowser.h; sourceTree = "<group>"; };
 		2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowser.m; sourceTree = "<group>"; };
+		2C3292EF1D922D890095F60E /* ZYFootprintCommentTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFootprintCommentTable.h; sourceTree = "<group>"; };
+		2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintCommentTable.m; sourceTree = "<group>"; };
+		2C3292F21D9230CC0095F60E /* ZYCommentFootprintCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCommentFootprintCell.h; sourceTree = "<group>"; };
+		2C3292F31D9230CC0095F60E /* ZYCommentFootprintCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCommentFootprintCell.m; sourceTree = "<group>"; };
 		2C3523211D3C63B8005200AD /* ZYMobileLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMobileLoginController.h; sourceTree = "<group>"; };
 		2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMobileLoginController.m; sourceTree = "<group>"; };
 		2C3777EA1D07BC51004FDA9D /* MyProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductViewController.h; sourceTree = "<group>"; };
@@ -1081,6 +1089,10 @@
 		2C90F6F71D533579001ABB44 /* ZYZCMsgDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCMsgDetailViewController.m; sourceTree = "<group>"; };
 		2C90F6F91D534819001ABB44 /* ZYDetailMsgScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailMsgScrollView.h; sourceTree = "<group>"; };
 		2C90F6FA1D534819001ABB44 /* ZYDetailMsgScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDetailMsgScrollView.m; sourceTree = "<group>"; };
+		2C91B6671D9155140091EC79 /* ZYCommentFootprintController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCommentFootprintController.h; sourceTree = "<group>"; };
+		2C91B6681D9155140091EC79 /* ZYCommentFootprintController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCommentFootprintController.m; sourceTree = "<group>"; };
+		2C91B66A1D9160D20091EC79 /* ZYOneFootprintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYOneFootprintView.h; sourceTree = "<group>"; };
+		2C91B66B1D9160D20091EC79 /* ZYOneFootprintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYOneFootprintView.m; sourceTree = "<group>"; };
 		2C9AA6E01D3D2BAF0030A5B4 /* ZYCustomIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomIconView.h; sourceTree = "<group>"; };
 		2C9AA6E11D3D2BAF0030A5B4 /* ZYCustomIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomIconView.m; sourceTree = "<group>"; };
 		2CA172041D0122030033A91A /* PersonHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonHeadView.h; sourceTree = "<group>"; };
@@ -3698,6 +3710,8 @@
 				2CF74EEB1D8E7ECD004F8718 /* ZYPublishFootprintController.m */,
 				2C8E9AB61D8F942100CA35DE /* ZYFootprintListController.h */,
 				2C8E9AB71D8F942100CA35DE /* ZYFootprintListController.m */,
+				2C91B6671D9155140091EC79 /* ZYCommentFootprintController.h */,
+				2C91B6681D9155140091EC79 /* ZYCommentFootprintController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -3714,10 +3728,16 @@
 		2CF74EE71D8E7EC1004F8718 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				2C91B66A1D9160D20091EC79 /* ZYOneFootprintView.h */,
+				2C91B66B1D9160D20091EC79 /* ZYOneFootprintView.m */,
 				2C8E9AB31D8F917100CA35DE /* ZYFootprintListView.h */,
 				2C8E9AB41D8F917100CA35DE /* ZYFootprintListView.m */,
 				2C8E9AC21D8F978200CA35DE /* ZYfootprintListCell.h */,
 				2C8E9AC31D8F978200CA35DE /* ZYfootprintListCell.m */,
+				2C3292EF1D922D890095F60E /* ZYFootprintCommentTable.h */,
+				2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */,
+				2C3292F21D9230CC0095F60E /* ZYCommentFootprintCell.h */,
+				2C3292F31D9230CC0095F60E /* ZYCommentFootprintCell.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -4919,6 +4939,7 @@
 				2C1B60F71D6D3CF900E3C25B /* SoundView.m in Sources */,
 				2C8B19901D0CF7EC0063097B /* XMNPhotoManager.m in Sources */,
 				2C5159A71D8641B20048BD20 /* MLAudioRecorder.m in Sources */,
+				2C91B66C1D9160D20091EC79 /* ZYOneFootprintView.m in Sources */,
 				040651301CC635A9003FD539 /* TacticTableView.m in Sources */,
 				2C1B60F01D6D3CF900E3C25B /* AddDetailView.m in Sources */,
 				39F2AA181D3F9BA100023CC4 /* ZYZoomImageVIew.m in Sources */,
@@ -4957,6 +4978,7 @@
 				2C1B60D91D6D3CF900E3C25B /* FZCContentEntryView.m in Sources */,
 				2CD209A41D6D4BA6005EB62E /* QPLocalization.m in Sources */,
 				39911ACC1D504174007DF44B /* UIView+ZYZCLineView.m in Sources */,
+				2C91B6691D9155140091EC79 /* ZYCommentFootprintController.m in Sources */,
 				2C90F6F81D533579001ABB44 /* ZYZCMsgDetailViewController.m in Sources */,
 				2C8B19741D0CF7EC0063097B /* JGProgressHUDImageIndicatorView.m in Sources */,
 				39911ACA1D504174007DF44B /* UIView+GetSuperTableView.m in Sources */,
@@ -5253,6 +5275,7 @@
 				2C1B60EA1D6D3CF900E3C25B /* RaiseMoneySecondCellView.m in Sources */,
 				395B5A8E1D24C4440084264C /* VersionTool.m in Sources */,
 				2CD209111D6D3E27005EB62E /* ZCDetailIntroThirdCell.m in Sources */,
+				2C3292F41D9230CC0095F60E /* ZYCommentFootprintCell.m in Sources */,
 				2C1B60F31D6D3CF900E3C25B /* TravelSecondCell.m in Sources */,
 				2CD209B31D6D4BA6005EB62E /* QPEffectViewCell.m in Sources */,
 				2C1B60E31D6D3CF900E3C25B /* MoreFZCReturnTableView.m in Sources */,
@@ -5260,6 +5283,7 @@
 				2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */,
 				3931CBD61D88F9E400115F0D /* WatchEndLiveModel.m in Sources */,
 				3941CD641D41FC60009224BC /* ChatBlackListVC.m in Sources */,
+				2C3292F11D922D890095F60E /* ZYFootprintCommentTable.m in Sources */,
 				2C1B61011D6D3CF900E3C25B /* ChooseTimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
