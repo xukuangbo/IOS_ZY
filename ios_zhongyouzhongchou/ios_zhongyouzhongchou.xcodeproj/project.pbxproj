@@ -104,7 +104,7 @@
 		05130FE91D828CA9001023B1 /* ZYZCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */; };
 		0513E2901D8643DE00E8BC63 /* ZYWatchLiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513E28F1D8643DE00E8BC63 /* ZYWatchLiveView.m */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
-		0550AE9E1D928A9600BC007A /* ZYSystemCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550AE9D1D928A9600BC007A /* ZYSystemCommon.m */; };
+		0550AEA11D93859200BC007A /* ZYSystemCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550AEA01D93859200BC007A /* ZYSystemCommon.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
 		2C0101B71D5DC4C700D6470D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */; };
@@ -740,8 +740,8 @@
 		0513E28F1D8643DE00E8BC63 /* ZYWatchLiveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYWatchLiveView.m; path = Pods/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/RongIMKit.framework/Headers/ZYWatchLiveView.m; sourceTree = SOURCE_ROOT; };
 		05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveViewController.h; sourceTree = "<group>"; };
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
-		0550AE9C1D928A9600BC007A /* ZYSystemCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSystemCommon.h; sourceTree = "<group>"; };
-		0550AE9D1D928A9600BC007A /* ZYSystemCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSystemCommon.m; sourceTree = "<group>"; };
+		0550AE9F1D93859200BC007A /* ZYSystemCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSystemCommon.h; sourceTree = "<group>"; };
+		0550AEA01D93859200BC007A /* ZYSystemCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSystemCommon.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
 		056046C41D6DBDD5006906FD /* RCDLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLive.m; sourceTree = "<group>"; };
 		2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
@@ -2326,8 +2326,8 @@
 		0550AE9B1D928A9600BC007A /* common */ = {
 			isa = PBXGroup;
 			children = (
-				0550AE9C1D928A9600BC007A /* ZYSystemCommon.h */,
-				0550AE9D1D928A9600BC007A /* ZYSystemCommon.m */,
+				0550AE9F1D93859200BC007A /* ZYSystemCommon.h */,
+				0550AEA01D93859200BC007A /* ZYSystemCommon.m */,
 			);
 			name = common;
 			path = ../../../../../common;
@@ -5086,6 +5086,7 @@
 				39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */,
 				2CD209241D6D3E27005EB62E /* ZCWSMView.m in Sources */,
 				04F836461CD72C3300140980 /* SDRotationLoopProgressView.m in Sources */,
+				0550AEA11D93859200BC007A /* ZYSystemCommon.m in Sources */,
 				0432ADA21D0966F9005D789E /* STPickerArea.m in Sources */,
 				2CD209B81D6D4BA6005EB62E /* QPLibrarayItem.m in Sources */,
 				39AABC891D6EC81700D25B16 /* DoLiveHeadView.m in Sources */,
@@ -5276,7 +5277,6 @@
 				392AB2AC1D669CE6003FEDB7 /* ZYLiveListModel.m in Sources */,
 				2C1C079E1D1AC26200203FF4 /* PartnerTableCell.m in Sources */,
 				39809D221D588ABF00CB9EE3 /* TacticMainCountryCustomView.m in Sources */,
-				0550AE9E1D928A9600BC007A /* ZYSystemCommon.m in Sources */,
 				2C8B19811D0CF7EC0063097B /* XMNPhotoPreviewController.m in Sources */,
 				0490D15F1CCB6A3E0064844C /* TacticCustomMapView.m in Sources */,
 				04F836471CD72C3300140980 /* SDTransparentPieProgressView.m in Sources */,
