@@ -207,6 +207,7 @@
 		2C3292FA1D9258F40095F60E /* ZYSupportListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F91D9258F40095F60E /* ZYSupportListModel.m */; };
 		2C3293001D926E890095F60E /* ZYCommentListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292FF1D926E890095F60E /* ZYCommentListModel.m */; };
 		2C3293061D9276110095F60E /* ZYFootprintOneCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3293051D9276110095F60E /* ZYFootprintOneCommentCell.m */; };
+		2C32930D1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C32930C1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m */; };
 		2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */; };
 		2C3777EC1D07BC51004FDA9D /* MyProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EB1D07BC51004FDA9D /* MyProductViewController.m */; };
 		2C3777EF1D07C345004FDA9D /* MyProductTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EE1D07C345004FDA9D /* MyProductTableView.m */; };
@@ -938,6 +939,8 @@
 		2C3292FF1D926E890095F60E /* ZYCommentListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCommentListModel.m; sourceTree = "<group>"; };
 		2C3293041D9276110095F60E /* ZYFootprintOneCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFootprintOneCommentCell.h; sourceTree = "<group>"; };
 		2C3293051D9276110095F60E /* ZYFootprintOneCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintOneCommentCell.m; sourceTree = "<group>"; };
+		2C32930B1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YBAttributeTextTapAction.h"; sourceTree = "<group>"; };
+		2C32930C1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
 		2C3523211D3C63B8005200AD /* ZYMobileLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMobileLoginController.h; sourceTree = "<group>"; };
 		2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMobileLoginController.m; sourceTree = "<group>"; };
 		2C3777EA1D07BC51004FDA9D /* MyProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductViewController.h; sourceTree = "<group>"; };
@@ -2795,6 +2798,15 @@
 			path = "ZYShortVideo(短视频)";
 			sourceTree = "<group>";
 		};
+		2C32930A1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction */ = {
+			isa = PBXGroup;
+			children = (
+				2C32930B1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.h */,
+				2C32930C1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m */,
+			);
+			path = "UILabel+YBAttributeTextTapAction";
+			sourceTree = "<group>";
+		};
 		2C3777E91D07BBE0004FDA9D /* MyProducts(我的行程) */ = {
 			isa = PBXGroup;
 			children = (
@@ -4384,6 +4396,7 @@
 		39911AC01D504174007DF44B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				2C32930A1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction */,
 				394D53471D62CAF800E7F595 /* Foundation+ZYLog.m */,
 				39911AC11D504174007DF44B /* UIColor+ZYZCColors.h */,
 				39911AC21D504174007DF44B /* UIColor+ZYZCColors.m */,
@@ -5251,6 +5264,7 @@
 				2C8B19751D0CF7EC0063097B /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
 				2C8E9AB81D8F942100CA35DE /* ZYFootprintListController.m in Sources */,
 				2C41A8121D8A9D2100AD9437 /* ZYLocationManager.m in Sources */,
+				2C32930D1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				2C1B60F41D6D3CF900E3C25B /* DrawCircleView.m in Sources */,
 				2C8B197F1D0CF7EC0063097B /* XMNPhotoCollectionController.m in Sources */,
 				393A5E3C1D30DB8D00E165C5 /* AboutXieyiVC.m in Sources */,

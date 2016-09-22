@@ -588,7 +588,7 @@
             showDateStr =[NSString stringWithFormat:@"%@年%@月%@日 %@",year,month,day,dayTime];
         }
     }
-    DDLog(@"showDateStr:%@",showDateStr);
+//    DDLog(@"showDateStr:%@",showDateStr);
     }
     
     return showDateStr;

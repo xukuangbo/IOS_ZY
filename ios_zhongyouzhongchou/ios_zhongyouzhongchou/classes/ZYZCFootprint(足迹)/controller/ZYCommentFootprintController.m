@@ -35,15 +35,18 @@
 -(void)configUI
 {
     _commentTable=[[ZYFootprintCommentTable alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain andFootprintModel:_footprintModel];
-    _commentTable.backgroundColor=[UIColor orangeColor];
+//    _commentTable.backgroundColor=[UIColor orangeColor];
     WEAKSELF;
     _commentTable.headerRefreshingBlock=^()
     {
+        weakSelf.pageNo=1;
         [weakSelf getSupportData];
+        [weakSelf getCommentData];
         
     };
     _commentTable.footerRefreshingBlock=^()
     {
+        weakSelf.pageNo++;
         [weakSelf getCommentData];
     };
     
@@ -51,7 +54,7 @@
     
 }
 
-#pragma mark --- 获取评论和点赞的详细信息
+#pragma mark --- 获取点赞的详细信息
 -(void)getSupportData
 {
     
@@ -67,11 +70,11 @@
             
         }
         [_commentTable.mj_header endRefreshing];
+        [_commentTable.mj_footer endRefreshing];
         
     } andFailBlock:^(id failResult) {
-        
         [_commentTable.mj_header endRefreshing];
-        
+        [_commentTable.mj_footer endRefreshing];
     }];
 }
 
@@ -117,6 +120,10 @@
         [_commentTable.mj_footer endRefreshing];
             
     } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUD];
+        [_commentTable.mj_header endRefreshing];
+        [_commentTable.mj_footer endRefreshing];
+        
         DDLog(@"%@",failResult);
     }];
 }

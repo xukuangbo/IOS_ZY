@@ -14,6 +14,7 @@
 @interface ZYCommentFootprintCell ()
 @property (nonatomic, strong) ZYOneFootprintView *oneFootprintView;
 @property (nonatomic, strong) UIImageView        *bgImgView;
+@property (nonatomic, strong) UIView             *lineView;
 @end
 
 @implementation ZYCommentFootprintCell
@@ -45,7 +46,9 @@
     _bgImgView=[[UIImageView alloc]initWithFrame:CGRectMake(10, _oneFootprintView.bottom+KEDGE_DISTANCE, KSCREEN_W-20, 0.1)];
     _bgImgView.userInteractionEnabled=YES;
     [self.contentView addSubview:_bgImgView];
-
+    
+    _lineView=[UIView lineViewWithFrame:CGRectMake(0, 0, _bgImgView.width, 0.5) andColor:[UIColor lightGrayColor]];
+    [_bgImgView addSubview:_lineView];
 
 }
 
@@ -96,6 +99,7 @@
         _bgImgView.image=KPULLIMG(@"comment-background", 15, 0, 5, 0);
     }
     
+    _lineView.top=_bgImgView.height-0.5;
     supportListModel.cellHeight=_bgImgView.bottom;
 }
 
