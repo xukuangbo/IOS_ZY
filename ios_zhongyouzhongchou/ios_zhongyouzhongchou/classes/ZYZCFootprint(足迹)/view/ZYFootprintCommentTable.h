@@ -7,10 +7,12 @@
 //
 
 #import "ZYZCBaseTableView.h"
-#import "ZYFootprintListModel.h"
-
+#import "ZYCommentFootprintCell.h"
+#import "ZYSupportPeopleCell.h"
 @interface ZYFootprintCommentTable : ZYZCBaseTableView
 
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style andFootprintModel:(ZYFootprintListModel *)footprintModel;
+
+@property (nonatomic, strong)ZYSupportListModel *supportUsersModel;
 
 @end

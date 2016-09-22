@@ -163,4 +163,18 @@
  */
 + (BOOL)firstPublishOrSaveProduct;
 
+
+//1..如果当天显示       时分                   xx：xx（12:20）
+//2.之后，如果时间为今年，展示月日 时分    xx月xx日xx：xx（09月20日 12:00）
+//3.当年之前展示详细年月日时分     xxxx年xx月xx日 xx：xx（2015年06月05日 12:00）
+/**
+ *  将时间戳展示为日期
+ *
+ *  @param timestamp 时间戳
+ *
+ *  @return 日期
+ */
++ (NSString *) showCusDateByTimestamp:(NSString *)timestamp;
+
+
 @end

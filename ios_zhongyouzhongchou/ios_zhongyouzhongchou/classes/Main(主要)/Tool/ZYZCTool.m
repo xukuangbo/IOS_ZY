@@ -554,4 +554,44 @@
     }
 }
 
+#pragma mark --- 将时间戳展示为日期
++ (NSString *) showCusDateByTimestamp:(NSString *)timestamp
+{
+    NSString *showDateStr=nil;
+    
+    NSString *dateStr = [self turnTimeStampToDate:timestamp];
+    if (dateStr.length>11) {
+    NSString *year  = [dateStr substringToIndex:4];
+    NSString *month = [dateStr substringWithRange:NSMakeRange(5, 2)];
+    NSString *day   = [dateStr substringWithRange:NSMakeRange(8, 2)];
+    NSString *dayTime=[dateStr substringFromIndex:11];
+    NSString *dayStr=[dateStr substringToIndex:10];
+    
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd"];
+    NSString *todayStr = [dateFormatter stringFromDate:[NSDate date]];
+    
+    if([dayStr isEqualToString:todayStr])
+    {
+        showDateStr=[dateStr substringFromIndex:10];
+    }
+    else
+    {
+        NSString *now_yearStr=[todayStr substringToIndex:4];
+        NSString *date_yearStr=[dateStr substringToIndex:4];
+        if (date_yearStr==now_yearStr) {
+            showDateStr=[dateStr substringFromIndex:5];
+            showDateStr =[NSString stringWithFormat:@"%@月%@日 %@",month,day,dayTime];
+        }
+        else
+        {
+            showDateStr =[NSString stringWithFormat:@"%@年%@月%@日 %@",year,month,day,dayTime];
+        }
+    }
+    DDLog(@"showDateStr:%@",showDateStr);
+    }
+    
+    return showDateStr;
+}
+
 @end
