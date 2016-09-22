@@ -8,8 +8,11 @@
 
 #import "ZYZCBaseTableViewCell.h"
 #import "ZYFootprintListModel.h"
+#import "ZYSupportListModel.h"
 @interface ZYCommentFootprintCell : ZYZCBaseTableViewCell
 
 @property (nonatomic, strong) ZYFootprintListModel *footprintModel;
+
+@property (nonatomic, strong) ZYSupportListModel *supportListModel;
 
 @end

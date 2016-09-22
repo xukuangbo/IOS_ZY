@@ -37,11 +37,8 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSInteger number=1;
-    if (_supportUsersModel) {
-        number+=1;
-    }
-    return number;
+    
+    return 1+self.dataArr.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -49,18 +46,14 @@
     if (indexPath.row==0) {
       ZYCommentFootprintCell *commentFootprintCell=(ZYCommentFootprintCell *)[ZYCommentFootprintCell customTableView:tableView cellWithIdentifier:@"commentFootprintCell" andCellClass:[ZYCommentFootprintCell class]];
         commentFootprintCell.footprintModel=_footprintModel;
+        commentFootprintCell.supportListModel=_supportUsersModel;
         return commentFootprintCell;
-    }
-    else if (indexPath.row==1)
-    {
-        ZYSupportPeopleCell *supportPeopleCell=(ZYSupportPeopleCell *)[ZYSupportPeopleCell customTableView:tableView cellWithIdentifier:@"supportPeopleCell" andCellClass:[ZYSupportPeopleCell class]];
-        supportPeopleCell.supportListModel=_supportUsersModel;
-        return supportPeopleCell;
     }
     else
     {
-        ZYCommentFootprintCell *normalCell=(ZYCommentFootprintCell *)[ZYCommentFootprintCell createNormalCell];
-        return normalCell;
+        ZYFootprintOneCommentCell *oneCommentCell=(ZYFootprintOneCommentCell *) [ZYFootprintOneCommentCell customTableView:tableView cellWithIdentifier:@"oneCommentCell" andCellClass:[ZYFootprintOneCommentCell class]];
+        oneCommentCell.oneCommentModel=self.dataArr[indexPath.row-1];
+        return oneCommentCell;
     }
 }
 
@@ -68,15 +61,12 @@
 {
     if (indexPath.row==0)
     {
-        return  _footprintModel.cellHeight;
-    }
-    else if(indexPath.row==1)
-    {
-        return _supportUsersModel.cellHeight;
+        return  _supportUsersModel.cellHeight;
     }
     else
     {
-        return 100;
+        ZYOneCommentModel *oneCommentModel=self.dataArr[indexPath.row-1];
+        return oneCommentModel.cellHeight;
     }
 }
 
