@@ -34,7 +34,8 @@
 
 -(void)configUI
 {
-    _oneFootprintView=[[ZYOneFootprintView alloc]initWithFrame:CGRectMake(20, 0, KSCREEN_W-40, 0.1)];
+    _oneFootprintView=[[ZYOneFootprintView alloc]initWithFrame:CGRectMake(20, 0, KSCREEN_W-35, 0.1)];
+//    _oneFootprintView.backgroundColor=[UIColor orangeColor];
     _oneFootprintView.commentEnterType=enterCommentEdit;
     _oneFootprintView.canOpenText=NO;
     [self.contentView addSubview:_oneFootprintView];
@@ -45,6 +46,7 @@
 {
     _footprintModel=footprintModel;
     _oneFootprintView.footprintModel=footprintModel;
+    footprintModel.cellHeight=_oneFootprintView.bottom+KEDGE_DISTANCE;
 }
 
 

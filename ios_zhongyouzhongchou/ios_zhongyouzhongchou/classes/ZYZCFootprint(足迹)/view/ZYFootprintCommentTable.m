@@ -7,7 +7,7 @@
 //
 
 #import "ZYFootprintCommentTable.h"
-#import "ZYCommentFootprintCell.h"
+
 
 @interface ZYFootprintCommentTable ()
 
@@ -37,7 +37,11 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    NSInteger number=1;
+    if (_supportUsersModel) {
+        number+=1;
+    }
+    return number;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -46,6 +50,12 @@
       ZYCommentFootprintCell *commentFootprintCell=(ZYCommentFootprintCell *)[ZYCommentFootprintCell customTableView:tableView cellWithIdentifier:@"commentFootprintCell" andCellClass:[ZYCommentFootprintCell class]];
         commentFootprintCell.footprintModel=_footprintModel;
         return commentFootprintCell;
+    }
+    else if (indexPath.row==1)
+    {
+        ZYSupportPeopleCell *supportPeopleCell=(ZYSupportPeopleCell *)[ZYSupportPeopleCell customTableView:tableView cellWithIdentifier:@"supportPeopleCell" andCellClass:[ZYSupportPeopleCell class]];
+        supportPeopleCell.supportListModel=_supportUsersModel;
+        return supportPeopleCell;
     }
     else
     {
@@ -60,6 +70,10 @@
     {
         return  _footprintModel.cellHeight;
     }
+    else if(indexPath.row==1)
+    {
+        return _supportUsersModel.cellHeight;
+    }
     else
     {
         return 100;
@@ -69,6 +83,12 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+}
+
+-(void)setSupportUsersModel:(ZYSupportListModel *)supportUsersModel
+{
+    _supportUsersModel=supportUsersModel;
+    [self reloadData];
 }
 
 #pragma mark --- 置顶按钮状态变化
