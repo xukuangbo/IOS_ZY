@@ -8,11 +8,10 @@
 
 #import "ZYCommentFootprintController.h"
 #import "ZYFootprintCommentTable.h"
-#import "ZYFootprintCommentListTable.h"
+#import "MBProgressHUD+MJ.h"
 @interface ZYCommentFootprintController ()
 
 @property (nonatomic, strong) ZYFootprintCommentTable     *commentTable;
-@property (nonatomic, strong) ZYFootprintCommentListTable *commentListTable;
 @property (nonatomic, strong) NSMutableArray              *commentArr;
 @property (nonatomic, assign) NSInteger                   pageNo;
 
@@ -25,6 +24,7 @@
     // Do any additional setup after loading the view.
     self.title=@"评论";
     _pageNo=1;
+    _commentArr=[NSMutableArray array];
     self.automaticallyAdjustsScrollViewInsets=NO;
     [self setBackItem];
     [self configUI];
@@ -42,10 +42,12 @@
         [weakSelf getSupportData];
         
     };
+    _commentTable.footerRefreshingBlock=^()
+    {
+        [weakSelf getCommentData];
+    };
+    
     [self.view addSubview:_commentTable];
-    
-    _commentListTable=[[ZYFootprintCommentListTable alloc]initWithFrame:CGRectMake(0, 0, KSCREEN_W, 300) style:UITableViewStylePlain];
-    
     
 }
 
@@ -75,15 +77,48 @@
 
 -(void)getCommentData
 {
+    [MBProgressHUD showMessage:nil];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_GetCommentList andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID],
                         @"pageNo":[NSNumber numberWithInteger:_pageNo]}
         andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);
-                            
-                            
-        } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUD];
+        if (isSuccess) {
+             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_commentTable.mj_footer ;
+            if (_pageNo==1&&_commentArr.count) {
+                [_commentArr removeAllObjects];
+                [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
+            }
+             ZYCommentListModel *commentListModel=[[ZYCommentListModel alloc]mj_setKeyValues:result];
             
-        }];
+            for(ZYOneCommentModel *oneModel in commentListModel.data)
+            {
+                [_commentArr addObject:oneModel];
+            }
+            
+            if (commentListModel.data.count==0) {
+                _pageNo--;
+                [autoFooter setTitle:@"没有更多数据了" forState:MJRefreshStateRefreshing];
+            }
+            else
+            {
+                [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
+            }
+            _commentTable.dataArr=_commentArr;
+            [_commentTable reloadData];
+
+        }
+        else
+        {
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+        }
+            
+        [_commentTable.mj_header endRefreshing];
+        [_commentTable.mj_footer endRefreshing];
+            
+    } andFailBlock:^(id failResult) {
+        DDLog(@"%@",failResult);
+    }];
 }
 
 
