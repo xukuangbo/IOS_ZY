@@ -42,7 +42,7 @@
     [self addSubview:_travelLabel];
     _travelLabel.textColor = [UIColor ZYZC_TextMainColor];
     _travelLabel.font = [UIFont systemFontOfSize:17];
-    _travelLabel.text = @"中秋普吉岛之旅";
+    _travelLabel.text = @"         ";
     
     _judgeTravelButton = [UIButton new];
     [self addSubview:_judgeTravelButton];

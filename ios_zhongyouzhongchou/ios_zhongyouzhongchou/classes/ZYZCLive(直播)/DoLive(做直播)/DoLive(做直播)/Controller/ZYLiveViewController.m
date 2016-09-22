@@ -210,12 +210,25 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     WEAKSELF
     NSString *url = Post_Create_Live;
-    NSDictionary *parameters = @{
-                                 @"img" : self.createLiveModel.img,
-                                 @"title" : self.createLiveModel.title,
-                                 @"pullUrl" : self.createLiveModel.pullUrl,
-                                 @"chatRoomId" : self.createLiveModel.chatRoomId
-                                 };
+    NSDictionary *parameters;
+    if (self.productID) {
+        parameters = @{
+                                     @"img" : self.createLiveModel.img,
+                                     @"title" : self.createLiveModel.title,
+                                     @"pullUrl" : self.createLiveModel.pullUrl,
+                                     @"chatRoomId" : self.createLiveModel.chatRoomId,
+                                     @"productId" : self.productID
+                                     };
+        
+    }else{
+        parameters = @{
+                                     @"img" : self.createLiveModel.img,
+                                     @"title" : self.createLiveModel.title,
+                                     @"pullUrl" : self.createLiveModel.pullUrl,
+                                     @"chatRoomId" : self.createLiveModel.chatRoomId
+                                     };
+    }
+    
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             
@@ -1380,13 +1393,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 //    }
 //    
 //}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 
 #pragma mark ---定义展示的UICollectionViewCell的个数
 - (void)tap4ResetDefaultBottomBarStatus:

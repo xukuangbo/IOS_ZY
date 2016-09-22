@@ -34,6 +34,8 @@
 @property (nonatomic, strong) UITextField *titleTextfield;
 /** 关联直播 */
 @property (nonatomic, strong) ZYFaqiGuanlianXCView *guanlianView;
+/** 关联的项目id */
+@property (nonatomic, copy) NSString *guanlianProductID;
 
 
 
@@ -75,8 +77,8 @@
     //配置背景
     [self configUI];
     
-    //请求头像
-    [self requestPersonData];
+    //请求行程数据
+    [self requestXCData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -225,22 +227,41 @@
 
 
 #pragma mark -
-#pragma mark ---请求头像
-- (void)requestPersonData
+#pragma mark ---请求行程数据
+- (void)requestXCData
 {
-    
+    NSString *url = Get_Live_FaqiXC;
+    MJWeakSelf
+//    data = {
+//        productTitle = Hehe,
+//        productId = 121
+//    },
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:nil andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        NSString *title = result[@"data"][@"productTitle"];
+        NSString *productID = result[@"data"][@"productId"];
+        if (title) {
+            weakSelf.guanlianView.hidden = NO;
+            weakSelf.guanlianProductID = productID;
+            weakSelf.guanlianView.travelLabel.text = title;
+        }else{
+            weakSelf.guanlianView.hidden = YES;
+        }
+    } andFailBlock:^(id failResult) {
+        
+    }];
 }
 
 
 #pragma mark - 监听通知
-- (void)addNoti{
-    //监听键盘的出现
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    //收起
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
-    //监听键盘高度改变
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
-}
+//- (void)addNoti{
+//    //监听键盘的出现
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+//    //收起
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
+//    //监听键盘高度改变
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+//}
 
 #pragma mark -
 #pragma mark ---changeImg点击动作
@@ -374,12 +395,16 @@
     liveVC.delegate = self;
     liveVC.targetId = chatRoomId;
     liveVC.pushUrl = pushUrl;
+    //判断是否关联行程
+    if (self.guanlianView.judgeTravelButton.selected == YES) {
+        liveVC.productID = self.guanlianProductID;
+    }
+    
     liveVC.conversationType = ConversationType_CHATROOM;
     dispatch_async(dispatch_get_main_queue(), ^{
 //        [self presentViewController:liveVC animated:NO completion:nil];
         [self.navigationController pushViewController:liveVC animated:YES];
     });
-
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
