@@ -58,6 +58,7 @@ install_resource()
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "Bugtags/Bugtags.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/RongCloud.bundle"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/en.lproj"
@@ -65,6 +66,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/Emoji.plist"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "Bugtags/Bugtags.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/RongCloud.bundle"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/en.lproj"

@@ -14,6 +14,10 @@
     return KCOLOR_RGB(35, 182, 183);
 }
 
++ (UIColor *)ZYZC_TextMainColor{
+    return KCOLOR_RGB(46, 243, 199);
+}
+
 + (UIColor *)ZYZC_NavColor{
    return [[self ZYZC_MainColor] colorWithAlphaComponent:1.0];
 }

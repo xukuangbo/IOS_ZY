@@ -131,11 +131,11 @@
 
 + (instancetype)showFromImageView:(UIImageView *)imageView withURLStrings:(NSArray *)URLStrings atIndex:(NSInteger)index {
 
-    return [self showFromImageView:imageView withURLStrings:URLStrings placeholderImage:nil atIndex:index dismiss:nil];
+    return [[self class] showFromImageView:imageView withURLStrings:URLStrings placeholderImage:nil atIndex:index dismiss:nil];
 }
 
 + (instancetype)showFromImageView:(UIImageView *)imageView withImages:(NSArray *)images atIndex:(NSInteger)index {
-    return [self showFromImageView:imageView withImages:images atIndex:index dismiss:nil];
+    return [[self class] showFromImageView:imageView withImages:images atIndex:index dismiss:nil];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {

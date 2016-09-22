@@ -147,6 +147,12 @@
     self.navigationItem.titleView = searchButton;
 //    _tableView.searchBarBtn = searchButton;
 }
+
+#pragma mark -- event
+- (void)searchButton:(UIButton *)sender
+{
+    
+}
 #pragma mark - 创建tableView
 - (void)createTableView
 {
