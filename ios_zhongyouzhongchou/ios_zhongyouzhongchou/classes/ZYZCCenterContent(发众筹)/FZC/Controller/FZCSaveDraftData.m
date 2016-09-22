@@ -22,7 +22,7 @@
     productModel.productEndTime=dataManager.goal_backDate;
     productModel.productName=dataManager.goal_travelTheme;
     if (dataManager.goal_goals.count) {
-        productModel.productDest=[self turnJson:dataManager.goal_goals];
+        productModel.productDest=[ZYZCTool turnJson:dataManager.goal_goals];
     }
     NSDate *date=[[NSDate dateFromString:dataManager.goal_startDate] dayInTheFollowingDay:-15];
     productModel.productEndTime=[NSDate stringFromDate:date];
@@ -121,15 +121,6 @@
      }];
 }
 
-+(NSString *)turnJson:(id )dic
-{
-    //    转换成json
-    NSData *data = [NSJSONSerialization dataWithJSONObject :dic options : NSJSONWritingPrettyPrinted error:NULL];
-    
-    NSString *jsonStr = [[ NSString alloc ] initWithData :data encoding : NSUTF8StringEncoding];
-    
-    return jsonStr;
-}
 
 
 @end

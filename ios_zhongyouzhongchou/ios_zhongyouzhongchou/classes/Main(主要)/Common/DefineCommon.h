@@ -25,9 +25,11 @@
 
 //融云appKey（正式）
 #define RC_APPKEY @"z3v5yqkbvp960"
+// bugTags appKey
 
 #endif
 
+#define kBugTagsAppKey @"d84d834d54831f523e30df3a7d050e21"
 #define ZYString(name) [NSString stringWithFormat:@"%@",name]
 #define ZYFloatString(name) [NSString stringWithFormat:@"%d",name]
 #define ZYNumberString(name) [NSString stringWithFormat:@"%f",name]
@@ -174,5 +176,6 @@
  */
 // 获取支付结果通知
 #define kGetPayResultNotification @"kGetPayResultNotification"
+#define kPaySucceed @"打赏成功"
 
 #endif /* DefineCommon_h */

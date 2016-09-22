@@ -263,113 +263,56 @@
 #pragma mark --- 获取他的众筹
 
 -(void)getProductsData
-
 {
-    
     if (!_userModel.userId) {
-        
         [MBProgressHUD hideHUDForView:self.view];
-        
         return;
-        
     }
     
-    NSString *url=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS,
-                   
-                   GET_MY_LIST(_userModel.userId,_productType-PublishType+1,_pageNo)];
+    NSString *url=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS, GET_MY_LIST(_userModel.userId,_productType-PublishType+1,_pageNo)];
     
     //    NSLog(@"url:%@",url);
     
     [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
-     
      {
-         
          [MBProgressHUD hideHUDForView:self.view];
-         
          [NetWorkManager hideFailViewForView:self.view];
-         
-         //        NSLog(@"%@",result);
-         
          if (isSuccess) {
-             
              if (_pageNo==1&&_productArr.count) {
-                 
                  [_productArr removeAllObjects];
-                 
              }
-             
              _listModel=[[ZCListModel alloc]mj_setKeyValues:result];
-             
-             
-             
              if (_listModel.data.count) {
-                 
                  for(ZCOneModel *oneModel in _listModel.data)
-                     
                  {
-                     
                      [_productArr addObject:oneModel];
-                     
                  }
-                 
              } else {
-                 
                  _pageNo--;
-                 
              }
-             
              if (!_productArr.count) {
-                 
                  _noneProductView.hidden=NO;
-                 
              } else {
-                 
                  _noneProductView.hidden=YES;
-                 
              }
-             
              [_table reloadData];
-             
          } else {
-             
              [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-             
          }
-         
          //停止上拉刷新
-         
          [_table.mj_footer endRefreshing];
-         
          [_table.mj_header endRefreshing];
-         
-         
-         
-         
-         
      } andFailBlock:^(id failResult) {
-         
          [MBProgressHUD hideHUDForView:self.view];
-         
          //停止上拉刷新
-         
          [_table.mj_footer endRefreshing];
-         
          [_table.mj_header endRefreshing];
-         
-         
-         
          [NetWorkManager hideFailViewForView:self.view];
-         
          [NetWorkManager showMBWithFailResult:failResult];
-         
          __weak typeof (&*self)weakSelf=self;
-         
          [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-             
              [weakSelf getProductsData];
-             
          }];
-         
      }];
     
 }
@@ -399,23 +342,13 @@
     lab.font=[UIFont systemFontOfSize:15];
     
     lab.textAlignment=NSTextAlignmentCenter;
-    
     [_noneProductView addSubview:lab];
-    
     _noneProductView.hidden=YES;
-    
 }
 
-
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-
 {
-    
-    
-    
     return _productArr.count*2+1;
-    
 }
 
 

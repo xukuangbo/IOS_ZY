@@ -10,6 +10,9 @@
 #import "ZYZCMsgDetailViewController.h"
 #import "MBProgressHUD.h"
 #import "MBProgressHUD+MJ.h"
+#import "ZYWatchLiveViewController.h"
+#import "ZYSystemCommon.h"
+#import "ZYLiveListModel.h"
 @implementation MsgListTableView
 
 /*
@@ -62,11 +65,34 @@
         //msgStyle为99，进入appstore更新app
         if (msgListModel.msgStyle==99) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_STORE_URL]];
-        }
-        else
-        //系统通知
-        {
+        } else if (msgListModel.msgStyle == 10) {
+            WEAKSELF
+            ZYSystemCommon *systemCommon = [[ZYSystemCommon alloc] init];
+            [systemCommon cleanNewMessageRedDot:[NSString stringWithFormat:@"%zd", msgListModel.ID]];
+            NSData *jsonData = [msgListModel.extra dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *err;
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                options:NSJSONReadingMutableContainers
+                                                                  error:&err];
+            NSDictionary *parameters= @{
+                                        @"spaceName":dict[@"spaceName"],
+                                        @"streamName":dict[@"streamName"]
+                                        };
+            systemCommon.getLiveDataSuccess = ^(ZYLiveListModel *liveModel) {
+                if (liveModel != nil) {
+                    ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:liveModel];
+                    watchLiveVC.conversationType = ConversationType_CHATROOM;
+                    [weakSelf.viewController.navigationController pushViewController:watchLiveVC animated:YES];
+                } else {
+                    [MBProgressHUD showShortMessage:@"直播已结束"];
+                    NSLog(@"aaaaaaa");
+                }
+            };
             
+            [systemCommon getLiveContent:parameters];
+            
+        } else {
+            //系统通知
         }
     }
 }

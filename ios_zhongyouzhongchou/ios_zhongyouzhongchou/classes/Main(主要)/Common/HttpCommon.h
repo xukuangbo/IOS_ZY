@@ -16,7 +16,7 @@
 //测试
 #define BASE_URL @"http://121.40.225.119:8080/"
 //华子
-//#define BASE_URL @"http://192.168.1.62:8086/"
+//#define BASE_URL @"https://192.168.1.128:8086/"
 //海外服务器
 //#define BASE_URL @"http://47.88.148.201:8080/"
 //#define BASE_URL @"http://192.168.1.59:8086/"
@@ -212,9 +212,9 @@
 #define GET_ORDERPAY_STATUS(userId,outTradeNo)   [NSString stringWithFormat:@"%@productInfo/getOrderPayStatus.action?userId=%@&outTradeNo=%@",BASE_URL,userId,outTradeNo]
 
 //攻略目的地详情添加众筹项目详情
-#define Get_Dest_ZhongChou_List(pageNo,dest) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%ld&status_not=0,2&pageSize=5&dest=%@",BASE_URL,pageNo,dest]
+#define Get_Dest_ZhongChou_List(pageNo,dest) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%ld&status_not=0,2&pageSize=10&dest=%@",BASE_URL,pageNo,dest]
 //国家级目的地详情添加众筹项目详情
-#define Get_Country_ZhongChou_List(pageNo,countryName) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%d&status_not=0,2&pageSize=5&countryName=%@",BASE_URL,pageNo,countryName]
+#define Get_Country_ZhongChou_List(pageNo,countryName) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%d&status_not=0,2&pageSize=10&countryName=%@",BASE_URL,pageNo,countryName]
 //发众筹时判断用户信息是否完善
 #define CHECK_USERINFO [NSString stringWithFormat:@"%@register/checkUserInfoIntegrality.action",BASE_URL]
 
@@ -279,4 +279,37 @@
 #define Post_Flower_Live [NSString stringWithFormat:@"%@weixinpay/zhiboAppOrder.action",BASE_URL]
 //直播总金额
 #define Post_TotalMoney_Live [NSString stringWithFormat:@"%@zhibo/zhiboOrderTotle.action",BASE_URL]
+//发足迹
+#define Publish_Footprint [NSString stringWithFormat:@"%@youji/addYouji.action",BASE_URL]
+
+//游记列表
+#define List_Footprint [NSString stringWithFormat:@"%@youji/getPageList.action",BASE_URL]
+
+//点赞
+#define Footprint_AddSupport [NSString stringWithFormat:@"%@youji/addZan.action",BASE_URL]
+
+//取消点赞
+#define Footprint_DeleteSupport [NSString stringWithFormat:@"%@youji/delZan.action",BASE_URL]
+
+//评论列表
+#define Footprint_GetCommentList [NSString stringWithFormat:@"%@youji/getCommentPageList.action",BASE_URL]
+
+//评论足迹
+#define Footprint_AddComment [NSString stringWithFormat:@"%@youji/addComment.action",BASE_URL]
+
+//点赞详情
+#define Footprint_GetZanList [NSString stringWithFormat:@"%@youji/getZanList.action",BASE_URL]
+
+//删除足迹
+#define Footprint_DeleteFootprint [NSString stringWithFormat:@"%@youji/deleteYouji.action",BASE_URL]
+
+
+//判断直播是否打赏成功
+#define GET_LIVE_PAY_STATUS   [NSString stringWithFormat:@"%@zhibo/getOrderPayStatus.action",BASE_URL]
+
+// 设置消息已读 (参数ID)
+#define SYSTEM_MSG_READ  [NSString stringWithFormat:@"%@systemMsg/msgSetRead.action",BASE_URL]
+// 拉取直播内容 (参数 spaceName，streamName)
+#define GET_LIVE_CONTENT   [NSString stringWithFormat:@"%@zhibo/getZHibo.action",BASE_URL]
+
 #endif /* HttpCommon_h */

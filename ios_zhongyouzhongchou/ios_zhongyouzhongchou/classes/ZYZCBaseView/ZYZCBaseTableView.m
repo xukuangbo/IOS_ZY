@@ -38,7 +38,7 @@
             }
         }];
         normarlHeader.lastUpdatedTimeLabel.hidden=YES;
-        self.mj_header=normarlHeader;
+        self.mj_header=self.headerRefreshingBlock?normarlHeader:nil;
         
         //添加上拉刷新
         MJRefreshAutoNormalFooter *autoFooter=[MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
@@ -47,7 +47,7 @@
             }
         }];
         [autoFooter setTitle:@"" forState:MJRefreshStateIdle];
-        self.mj_footer=autoFooter;
+        self.mj_footer=self.footerRefreshingBlock?autoFooter:nil;
     }
     return self;
 }

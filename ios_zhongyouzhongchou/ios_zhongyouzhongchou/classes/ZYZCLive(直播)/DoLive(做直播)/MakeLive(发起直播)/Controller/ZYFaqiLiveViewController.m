@@ -318,6 +318,7 @@
             [MBProgressHUD showMessage:@"上传图片失败" toView:weakSelf.view];
             //延时1秒后删掉
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf showHintWithText:@"上传图片失败，请重新创建"];
                 [MBProgressHUD hideAllHUDsForView:weakSelf.view animated:YES];
             });
         }

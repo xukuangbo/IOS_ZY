@@ -111,6 +111,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 // 判断是不是进入私聊界面
 @property (nonatomic, assign) BOOL isMessage;
 @property (nonatomic, strong) WXApiManager *wxApiManger;
+// 支持金额记录
+@property (nonatomic, strong) NSString *payMoney;
 @end
 /**
  *  文本cell标示
@@ -510,6 +512,33 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                         }];
     [self.navigationController popViewControllerAnimated:YES];
 }
+// 直播结束
+- (void)liveEndNotification
+{
+    [self removeMovieNotificationObservers];
+    if ([self.player isPlaying]) {
+        [self.player pause];
+        [self.player stop];
+    }
+    [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
+                                            success:^{
+                                                NSLog(@"ddddd");
+                                            } error:^(RCErrorCode status) {
+                                                NSLog(@"eeeeee");
+                                            }];
+        
+        
+        ZYWatchEndLiveVC *liveEndVC = [[ZYWatchEndLiveVC alloc] init];
+        WatchEndLiveModel *endModel =[[WatchEndLiveModel alloc] init];
+        endModel.headImgUrl = self.liveModel.faceImg;
+        endModel.name = self.liveModel.realName;
+        endModel.sex = self.liveModel.sex;
+        endModel.isGuanzhu = self.attentionButton.hidden;
+        endModel.userId = self.liveModel.userId;
+        liveEndVC.watchEndLiveModel = endModel;
+        [self.navigationController pushViewController:liveEndVC animated:YES];
+}
+
 // 点击关注按钮
 - (void)attentionButtonAction:(UIButton *)sender
 {
@@ -778,12 +807,16 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 支付回调
 - (void)getPayResult
 {
+    WEAKSELF
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
     NSString *userId=[ZYZCAccountTool getUserId];
     //判断支付是否成功
-    NSString *httpUrl=GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
-    
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
+    NSString *httpUrl=GET_LIVE_PAY_STATUS;
+    NSDictionary *parameters = @{
+                                 @"userId" : userId,
+                                 @"outTradeNo" : appDelegate.out_trade_no
+                                 };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          NSLog(@"%@",result);
          appDelegate.out_trade_no=nil;
@@ -795,26 +828,45 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
          //支付成功
          if(payResult){
+             NSString *localizedMessage = [NSString stringWithFormat:@"支持了%@元",weakSelf.payMoney];
+             RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
+             rcTextMessage.extra = kPaySucceed;
+             [weakSelf sendMessage:rcTextMessage pushContent:nil];
              [MBProgressHUD showSuccess:@"支付成功!"];
-         }
-         else{
+         }else{
              [MBProgressHUD showError:@"支付失败!"];
              appDelegate.out_trade_no=nil;
-             
-             //发一个通知给我的UI
-             WEAKSELF
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 RCInformationNotificationMessage *payMessage = [[RCInformationNotificationMessage alloc]init];
-                 payMessage.message = @"打赏成功";
-                 payMessage.extra = [NSString stringWithFormat:@"打赏成功"];
-                 [weakSelf sendMessage:payMessage pushContent:nil];
-             });
          }
-     }
-                      andFailBlock:^(id failResult)
+     }andFailBlock:^(id failResult)
      {
          [MBProgressHUD showError:@"网络出错,支付失败!"];
      }];
+
+//    [ZYZCHTTPTool postHttpDataWithEncrypt:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
+//     {
+//         NSLog(@"%@",result);
+//         appDelegate.out_trade_no=nil;
+//         NSArray *arr=result[@"data"];
+//         NSDictionary *dic=nil;
+//         if (arr.count) {
+//             dic=[arr firstObject];
+//         }
+//         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
+//         //支付成功
+//         if(payResult){
+//             NSString *localizedMessage = [NSString stringWithFormat:@"支持了%@元",weakSelf.payMoney];
+//             RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
+//             rcTextMessage.extra = kPaySucceed;
+//             [weakSelf sendMessage:rcTextMessage pushContent:nil];
+//             [MBProgressHUD showSuccess:@"支付成功!"];
+//         }else{
+//             [MBProgressHUD showError:@"支付失败!"];
+//             appDelegate.out_trade_no=nil;
+//         }
+//     }andFailBlock:^(id failResult)
+//     {
+//         [MBProgressHUD showError:@"网络出错,支付失败!"];
+//     }];
 }
 - (void)loadStateDidChange:(NSNotification*)notification {
     IJKMPMovieLoadState loadState = _player.loadState;
@@ -887,39 +939,18 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSString *content;
     if ([model.content isMemberOfClass:[RCTextMessage class]]) {
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
+        
         content = textMessage.content;
+        
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
         content = textMessage.message;
         
         //判断是否是直播结束通知
-        WEAKSELF
         if ([content isEqualToString:@"直播结束"]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf removeMovieNotificationObservers];
-                if ([weakSelf.player isPlaying]) {
-                    [weakSelf.player pause];
-                    [weakSelf.player stop];
-                }
-                [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
-                                                    success:^{
-                                                        NSLog(@"ddddd");
-                                                    } error:^(RCErrorCode status) {
-                                                        NSLog(@"eeeeee");
-                                                    }];
-
-                
-                ZYWatchEndLiveVC *endVC = [[ZYWatchEndLiveVC alloc] init];
-                WatchEndLiveModel *endModel =[[WatchEndLiveModel alloc] init];
-                endModel.headImgUrl = weakSelf.liveModel.faceImg;
-                endModel.name = weakSelf.liveModel.realName;
-                endModel.sex = weakSelf.liveModel.sex;
-                endModel.isGuanzhu = weakSelf.attentionButton.hidden;
-                endModel.userId = weakSelf.liveModel.userId;
-                endVC.watchEndLiveModel = endModel;
-                [weakSelf.navigationController pushViewController:endVC animated:YES];
+                [self liveEndNotification];
             });
-            
             return ;
         }
         
@@ -1384,12 +1415,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)clickPayBtnUKey:(NSInteger)moneyNumber
 {
     WEAKSELF
-    NSString *payMoney = [NSString stringWithFormat:@"%lf", moneyNumber / 10.0];
+    NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
-                                @"price":@"0.01",
+                                @"price":@"0.1",
                                 };
+    self.payMoney = payMoney;
     [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
         weakSelf.payView.hidden = YES;
     } andFailBlock:^{

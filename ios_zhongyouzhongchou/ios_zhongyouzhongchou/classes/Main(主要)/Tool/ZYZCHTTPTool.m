@@ -16,7 +16,8 @@
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     manager.responseSerializer.acceptableContentTypes =
     [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
 
@@ -72,7 +73,7 @@
     if (needLogin)
     {
         //此处添加需登录的操作
-        NSDictionary *entryptParams=[self encryptParams];
+        NSDictionary *entryptParams=[[self class] encryptParams];
         if (!entryptParams) {
             return;
         }
@@ -85,9 +86,12 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     manager.responseSerializer.acceptableContentTypes =
     [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
+
+    
     DDLog(@"newParameters:%@",newParameters);
     
     NSString *newUrl=[url stringByAppendingString:[NSString stringWithFormat:@"?userId=%@&from=ios",[ZYZCAccountTool getUserId]]];
@@ -139,7 +143,7 @@
 {
 //    signature =Md5( timestamp+fix+ nonceStr+fix+ scret+fix+datatime)
     
-    ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
+//    ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
     
     if (![ZYZCAccountTool getUserScret]) {
         [ZYZCAccountTool deleteAccount];
@@ -173,6 +177,7 @@
     if ([ZYZCAccountTool getUserId]) {
 
         [strDic setObject:[ZYZCAccountTool getUserId] forKey:@"userId"];
+        
     }else{
         
     }

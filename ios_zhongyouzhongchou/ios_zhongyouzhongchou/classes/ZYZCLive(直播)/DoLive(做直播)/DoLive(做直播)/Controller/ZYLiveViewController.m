@@ -228,25 +228,39 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
 }
 /** 请求总金额数据 */
-- (void)requestTotalMoneyData {
+- (void)requestTotalMoneyDataParameters:(NSDictionary *)parameters {
 //    zhibo/zhiboOrderTotle.action   streamName,spaceName  ，权限认证参数
     WEAKSELF
     NSString *url = Post_TotalMoney_Live;
-    NSDictionary *parameters = @{
-                                 @"streamName" : self.createLiveModel.streamName,
-                                 @"spaceName" : self.createLiveModel.spaceName
-                                 };
+    
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
+            if (parameters.count == 0) {
+                weakSelf.liveMoneyView.moneyLabel.text = [NSString stringWithFormat:@"打赏:%.1f元", [result[@"data"] floatValue] / 100];
+            } else {
+                [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"%.1f元", [result[@"data"] floatValue] / 100]];
+            }
             DDLog(@"%@",result);
+            
         }else{
             
         }
     } andFailBlock:^(id failResult) {
-        
+        DDLog(@"%@",failResult);
     }];
 }
 
+- (void)enterLiveEndVC:(NSString *)totalMoneyCount
+{
+    ZYLiveEndLiveVC *endVC = [[ZYLiveEndLiveVC alloc] init];
+    ZYLiveEndModel *endModel = [[ZYLiveEndModel alloc] init];
+    endModel.endTime = _headView.timeLabel.timeLabel.text;
+    endModel.totalPeopleCount = self.userList.count;
+    endModel.totalOnlinePeopleNumber = self.userList.count;
+    endModel.totalMoneyCount = totalMoneyCount;
+    endVC.liveEndLiveModel = endModel;
+    [self.navigationController pushViewController:endVC animated:YES];
+}
 #pragma mark - setup方法
 // 设置主播UserInfo
 - (void)setUpCurrentUserInfo{
@@ -548,7 +562,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 //点击返回的时候消耗播放器和退出聊天室
 - (void)leftBarButtonItemPressed:(UIButton *)sender {
-    WEAKSELF
     [_headView stopTimer];
     [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
     [self.conversationMessageCollectionView
@@ -563,24 +576,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 //        }
 //    }];
 //    发送一个退出直播的通知
-    dispatch_async(dispatch_get_main_queue(), ^{
-        RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
-        joinChatroomMessage.message = [NSString stringWithFormat: @"直播结束"];
-        joinChatroomMessage.extra = [NSString stringWithFormat:@"直播结束"];
-        [weakSelf sendMessage:joinChatroomMessage pushContent:nil];
-    });
-    
+    RCInformationNotificationMessage *joinChatroomMessage = [[RCInformationNotificationMessage alloc]init];
+    joinChatroomMessage.message = [NSString stringWithFormat: @"直播结束"];
+    joinChatroomMessage.extra = [NSString stringWithFormat:@"直播结束"];
+    [self sendMessage:joinChatroomMessage pushContent:nil];
     
     //请求总金额
-    ZYLiveEndLiveVC *endVC = [[ZYLiveEndLiveVC alloc] init];
-    ZYLiveEndModel *endModel = [[ZYLiveEndModel alloc] init];
-    endModel.endTime = _headView.timeLabel.timeLabel.text;
-    endModel.totalPeopleCount = self.userList.count;
-    endModel.totalOnlinePeopleNumber = self.userList.count;
-    endModel.totalMoneyCount = 5000;
-    endVC.liveEndLiveModel = endModel;
-    [self.navigationController pushViewController:endVC animated:YES];
-    
+    NSDictionary *parameters = @{
+                                 @"streamName" : self.createLiveModel.streamName,
+                                 @"spaceName" : self.createLiveModel.spaceName
+                                 };
+    [self requestTotalMoneyDataParameters:parameters];
 }
 
 -(void)showInputBar:(id)sender{
@@ -591,7 +597,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)moreBtnAction:(UIButton *)sender
 {
     _liveFunctionView.hidden = !_liveFunctionView.hidden;
-    
 }
 
 //成员信息
@@ -1273,23 +1278,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         //消息类型
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
         content = textMessage.content;
-        
+        if ([textMessage.extra isEqualToString:kPaySucceed]) {
+            [self requestTotalMoneyDataParameters:nil];
+        }
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
-        //通知类型,三种:1.进入直播间 2.直播结束 3.打赏
         //调整步骤:1.此处处理通知的形式 2.在tipcell调整通知的cell样式
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
         content = textMessage.message;
         
         //判断是否是打赏通知
 //        WEAKSELF
-        if ([content containsString:@"打赏"]) {
-           
-            //打赏在此处只做显示内容,并且提示UI去刷新总金额数据
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self requestTotalMoneyData];
-            });
-            
-        }else if([content isEqualToString:@"直播结束"]){
+        if([content isEqualToString:@"直播结束"]){
             
             return ;
         }else{
