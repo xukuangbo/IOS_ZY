@@ -28,9 +28,9 @@
 @property (nonatomic, copy  ) NSString  *faceImg64;
 @property (nonatomic, copy  ) NSString  *faceImg132;
 @property (nonatomic, copy  ) NSString  *faceImg640;
-@property (nonatomic, copy  ) NSString  *comment;
+@property (nonatomic, copy  ) NSString  *content;
 @property (nonatomic, copy  ) NSString  *creattime;
-@property (nonatomic, copy  ) NSString  *replyUserId;
+@property (nonatomic, strong) NSNumber  *replyUserId;
 @property (nonatomic, copy  ) NSString  *replyUserName;
 @property (nonatomic, assign) CGFloat   cellHeight;
 @end

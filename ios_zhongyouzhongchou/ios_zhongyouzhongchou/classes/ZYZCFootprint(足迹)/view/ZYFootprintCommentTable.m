@@ -52,7 +52,10 @@
     else
     {
         ZYFootprintOneCommentCell *oneCommentCell=(ZYFootprintOneCommentCell *) [ZYFootprintOneCommentCell customTableView:tableView cellWithIdentifier:@"oneCommentCell" andCellClass:[ZYFootprintOneCommentCell class]];
-        oneCommentCell.oneCommentModel=self.dataArr[indexPath.row-1];
+       
+            oneCommentCell.showCommentImg=indexPath.row==1;
+            oneCommentCell.showLine=indexPath.row!=self.dataArr.count;
+            oneCommentCell.oneCommentModel=self.dataArr[indexPath.row-1];
         return oneCommentCell;
     }
 }
