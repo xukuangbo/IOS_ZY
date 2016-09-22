@@ -11,6 +11,8 @@
 @interface UIColor (ZYZCColors)
 //主色调
 + (UIColor *)ZYZC_MainColor;
+//文字主色调
++ (UIColor *)ZYZC_TextMainColor;
 //导航栏色调
 + (UIColor *)ZYZC_NavColor;
 //背景灰色

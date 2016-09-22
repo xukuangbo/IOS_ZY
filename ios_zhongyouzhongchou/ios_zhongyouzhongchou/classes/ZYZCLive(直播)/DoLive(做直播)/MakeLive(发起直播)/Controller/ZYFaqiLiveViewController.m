@@ -22,6 +22,7 @@
 #import "ZYLiveListModel.h"
 #import "SelectImageViewController.h"
 #import "ZYZCWebViewController.h"
+#import "ZYFaqiGuanlianXCView.h"
 @interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate, UIAlertViewDelegate, ZYLiveViewControllerDelegate>
 /** 模糊效果 */
 @property (nonatomic, strong) UIVisualEffectView *backView;
@@ -31,6 +32,10 @@
 @property (nonatomic, strong) UILabel *faceTextLabel;
 /** 标题 */
 @property (nonatomic, strong) UITextField *titleTextfield;
+/** 关联直播 */
+@property (nonatomic, strong) ZYFaqiGuanlianXCView *guanlianView;
+
+
 
 /** 上传图片的url */
 @property (nonatomic, copy) NSString *uploadImgString;
@@ -67,9 +72,6 @@
     
     [super viewDidLoad];
     
-    //监听通知
-    [self addNoti];
-    
     //配置背景
     [self configUI];
     
@@ -100,9 +102,6 @@
     //背景
     _bgImageView = [UIImageView new];
     [self.view addSubview:_bgImageView];
-    [_bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
-    }];
     _bgImageView.userInteractionEnabled = YES;
     _bgImageView.image = [UIImage imageNamed:@"create_bg_live"];
     
@@ -110,43 +109,24 @@
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     _backView = [[UIVisualEffectView alloc] initWithEffect:blur];
     [_bgImageView addSubview:_backView];
-    [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(_bgImageView);
-    }];
     _backView.alpha = 0.6;
     
     //退出按钮
     _exitButton = [UIButton new];
     [_bgImageView addSubview:_exitButton];
-    [_exitButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(KStatus_Height + KEDGE_DISTANCE);
-        make.right.mas_equalTo(_bgImageView.mas_right).offset(-KEDGE_DISTANCE);
-        make.size.mas_equalTo(CGSizeMake(30, 30));
-    }];
     [_exitButton setImage:[UIImage imageNamed:@"live-start-quite"] forState:UIControlStateNormal];
     [_exitButton addTarget:self action:@selector(exitAction) forControlEvents:UIControlEventTouchUpInside];
 
     //封面
     _faceImg = [ZYCustomIconView new];
-//    _faceImg.backgroundColor = [UIColor redColor];
     _faceImg.clipsToBounds = YES;
     [_bgImageView addSubview:_faceImg];
-    [_faceImg mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        make.top.equalTo(_exitButton).offset(30);
-        make.left.equalTo(_bgImageView).offset(10);
-        make.right.equalTo(_bgImageView).offset(-10);
-        make.height.mas_equalTo(_faceImg.mas_width).multipliedBy(9 / 20.0);
-    }];
     _faceImg.layerCornerRadius = 5;
     [_faceImg addTarget:self action:@selector(changeFaceImgAction)];
     
     //封面的一个背景色
     UIView *faceColorBg = [UIView new];
     [_faceImg addSubview:faceColorBg];
-    [faceColorBg mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(_faceImg);
-    }];
     faceColorBg.alpha = 0.2;
     faceColorBg.backgroundColor = [UIColor whiteColor];
     
@@ -154,44 +134,28 @@
     _faceTextLabel = [UILabel new];
     _faceTextLabel.font = [UIFont systemFontOfSize:18];
     [_faceImg addSubview:_faceTextLabel];
-    [_faceTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(_faceImg);
-        make.height.mas_equalTo(20);
-    }];
     _faceTextLabel.textColor = [UIColor whiteColor];
     _faceTextLabel.text = @"点击上传封面";
     
     //标题,暂时用个label,后面用textfield
     _titleTextfield = [UITextField new];
     [_bgImageView addSubview:_titleTextfield];
-    [_titleTextfield mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_faceImg.mas_bottom).offset(10);
-        make.left.equalTo(_bgImageView).offset(10);
-        make.right.equalTo(_bgImageView).offset(-10);
-        make.height.mas_equalTo(16);
-        
-    }];
     _titleTextfield.backgroundColor = [UIColor clearColor];
-//    _titleTextfield.layerCornerRadius = 5;
     _titleTextfield.delegate = self;
     _titleTextfield.placeholder = @"请输入标题";
     _titleTextfield.tintColor = [UIColor whiteColor];
     _titleTextfield.textColor = [UIColor whiteColor];
-    [_titleTextfield becomeFirstResponder];
     [_titleTextfield setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
     
+    //关联行程
+    _guanlianView = [[ZYFaqiGuanlianXCView alloc] init];
+    [_bgImageView addSubview:_guanlianView];
+    _guanlianView.layer.masksToBounds = NO;
     
     //开始直播
     _startLiveBtn = [UIButton new];
     [_bgImageView addSubview:_startLiveBtn];
     CGFloat startLiveBtnH = 46;
-    [_startLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(_titleTextfield.mas_bottom).offset(10);
-        make.left.mas_equalTo(30);
-        make.right.mas_equalTo(-30);
-        make.height.mas_equalTo(startLiveBtnH);
-        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-100);
-    }];
     _startLiveBtn.multipleTouchEnabled = NO;
     _startLiveBtn.backgroundColor = [UIColor ZYZC_MainColor];
     _startLiveBtn.layerBorderColor = [UIColor ZYZC_TextGrayColor];
@@ -201,6 +165,61 @@
     [_startLiveBtn setTitle:@"开启直播" forState:UIControlStateNormal];
     [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [_startLiveBtn addTarget:self action:@selector(startLive) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_bgImageView);
+    }];
+    
+    [faceColorBg mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_faceImg);
+    }];
+    
+    [_bgImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [_faceTextLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(_faceImg);
+        make.height.mas_equalTo(20);
+    }];
+    
+    [_exitButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(KStatus_Height + KEDGE_DISTANCE);
+        make.right.mas_equalTo(_bgImageView.mas_right).offset(-KEDGE_DISTANCE);
+        make.size.mas_equalTo(CGSizeMake(30, 30));
+    }];
+    
+    [_faceImg mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.top.equalTo(_exitButton).offset(30);
+        make.left.equalTo(_bgImageView).offset(10);
+        make.right.equalTo(_bgImageView).offset(-10);
+        make.height.mas_equalTo(_faceImg.mas_width).multipliedBy(9 / 20.0);
+    }];
+    
+    [_titleTextfield mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_faceImg.mas_bottom).offset(20);
+        make.left.equalTo(_bgImageView).offset(10);
+        make.right.equalTo(_bgImageView).offset(-10);
+        make.height.mas_equalTo(16);
+    }];
+    
+    [_guanlianView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(_bgImageView.mas_left).offset(KEDGE_DISTANCE);
+        make.top.equalTo(_titleTextfield.mas_bottom).offset(30);
+        make.right.equalTo(_bgImageView.mas_right).offset(-KEDGE_DISTANCE);
+        make.height.mas_equalTo(GuanlianViewH);
+        
+    }];
+    
+    [_startLiveBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        //        make.top.equalTo(_titleTextfield.mas_bottom).offset(10);
+        make.left.mas_equalTo(30);
+        make.right.mas_equalTo(-30);
+        make.height.mas_equalTo(startLiveBtnH);
+        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-100);
+    }];
     
 }
 
@@ -418,42 +437,42 @@
 {
     [self exitAction];
 }
-#pragma mark - 键盘高度改变通知
-#pragma mark --- 键盘出现
--(void)keyboardWillShow:(NSNotification *)notify
-{
-    NSDictionary *dic = notify.userInfo;
-    NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
-    CGFloat height=value.CGRectValue.size.height;
-    if (height < 100) {
-        height = 100;
-    }
-    
-    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height-10);
-    }];
-}
-#pragma mark - 键盘收起方法
--(void)keyboardWillHidden:(NSNotification *)notify
-{
-    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-100);
-    }];
-}
-
-#pragma mark --- 键盘高度改变
--(void)keyboardWillChangeFrame:(NSNotification *)notify
-{
-    NSDictionary *dic = notify.userInfo;
-    NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
-    CGFloat height=value.CGRectValue.size.height;
-    if (height < 100) {
-        height = 100;
-    }
-    
-    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height - 10);
-    }];
-    
-}
+//#pragma mark - 键盘高度改变通知
+//#pragma mark --- 键盘出现
+//-(void)keyboardWillShow:(NSNotification *)notify
+//{
+//    NSDictionary *dic = notify.userInfo;
+//    NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
+//    CGFloat height=value.CGRectValue.size.height;
+//    if (height < 100) {
+//        height = 100;
+//    }
+//    
+//    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height-10);
+//    }];
+//}
+//#pragma mark - 键盘收起方法
+//-(void)keyboardWillHidden:(NSNotification *)notify
+//{
+//    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-100);
+//    }];
+//}
+//
+//#pragma mark --- 键盘高度改变
+//-(void)keyboardWillChangeFrame:(NSNotification *)notify
+//{
+//    NSDictionary *dic = notify.userInfo;
+//    NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
+//    CGFloat height=value.CGRectValue.size.height;
+//    if (height < 100) {
+//        height = 100;
+//    }
+//    
+//    [_startLiveBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.bottom.mas_equalTo(_bgImageView.mas_bottom).offset(-height - 10);
+//    }];
+//    
+//}
 @end
