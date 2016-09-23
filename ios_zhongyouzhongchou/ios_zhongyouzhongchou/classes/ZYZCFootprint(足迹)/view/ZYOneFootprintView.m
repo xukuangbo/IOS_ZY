@@ -16,7 +16,7 @@
 #import "HUPhotoBrowser.h"
 #import "MBProgressHUD+MJ.h"
 #import "ZYCommentFootprintController.h"
-@interface ZYOneFootprintView ()
+@interface ZYOneFootprintView ()<UIAlertViewDelegate>
 @property (nonatomic, strong) UILabel     *contentLab;
 @property (nonatomic, strong) UILabel     *detailTimeLab;
 @property (nonatomic, strong) UIView      *imagesView;
@@ -27,6 +27,8 @@
 @property (nonatomic, strong) UILabel     *commentCountLab;
 @property (nonatomic, strong) UIImageView *supportImg;
 @property (nonatomic, strong) UILabel     *supportCountLab;
+@property (nonatomic, strong) UILabel     *deleteLab;
+@property (nonatomic, strong) UIButton    *deleteBtn;
 
 @property (nonatomic, strong) UIButton    *commentBtn;//评论按钮
 @property (nonatomic, strong) UIButton    *supportBtn;//点赞按钮
@@ -115,8 +117,20 @@
     _supportBtn.backgroundColor=[UIColor clearColor];
     [_supportBtn addTarget:self action:@selector(addOrCancelSupport:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_supportBtn];
+    
+    //删除键
+    _deleteLab=[ZYZCTool createLabWithFrame:CGRectMake(self.width-60,0, 60, 30) andFont:[UIFont systemFontOfSize:15] andTitleColor:[UIColor ZYZC_RedTextColor]];
+    _deleteLab.text=@"删除";
+    _deleteLab.hidden=YES;
+    _deleteLab.textAlignment=NSTextAlignmentRight;
+    [_deleteLab addTarget:self  action:@selector(deleteOneFootprint)];
+    [self addSubview:_deleteLab];
+    
+//    _deleteBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+//    _deleteBtn.frame=_deleteLab.frame ;
+//    [_deleteBtn addTarget:self action:@selector(deleteOneFootprint) forControlEvents:UIControlEventTouchUpInside];
+//    [self addSubview:_deleteBtn];
 }
-
 #pragma mark --- 加载数据
 - (void) setFootprintModel:(ZYFootprintListModel *)footprintModel
 {
@@ -150,8 +164,8 @@
                     [_contentLab addTarget:self action:@selector(OpenOrCloseContent)];
                     _textHasAddGesture=YES;
                 }
-                _contentLab.top   = (!_openContent)?0.0:6.0;
-                _contentLab.height= (!_openContent)?MAX_CONTENT_HEIGHT:contentHeight;
+                _contentLab.top   = _openContent?6.0:0.0;
+                _contentLab.height= _openContent?contentHeight:MAX_CONTENT_HEIGHT;
             }
         }
         detailTimeLab_top = _contentLab.bottom+KEDGE_DISTANCE;
@@ -162,6 +176,11 @@
         _detailTimeLab.text=[NSString stringWithFormat:@"%@年%@月%@日  %@",year,month,day,dayTime];
         _detailTimeLab.top=detailTimeLab_top;
     }
+    
+    //删除键
+    _deleteLab.hidden=(footprintModel.footprintListType!=MyFootprintList);
+    _deleteLab.top = _detailTimeLab.top-5;
+//    _deleteBtn.top= _detailTimeLab.top-5;
     
     //图片
     NSArray *views=[_imagesView subviews];
@@ -248,10 +267,42 @@
         supportText = @"点赞";
     }
     _supportCountLab.text=supportText;
-    
     self.height=_locationImg.bottom;
-    
 }
+
+#pragma mark --- 删除足迹
+-(void)deleteOneFootprint
+{
+    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"是否删除此足迹" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
+    alert.tag=100;
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (alertView.tag==100&&buttonIndex==0) {
+        [MBProgressHUD showMessage:nil];
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_DeleteFootprint andParameters:@{@"id":[NSNumber numberWithInteger:self.footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess)
+         {
+             [MBProgressHUD hideHUD];
+             if (isSuccess) {
+                 [MBProgressHUD showShortMessage:@"删除成功"];
+                 if (self.deleteFootprint) {
+                     self.deleteFootprint(self.footprintModel);
+                 }
+             }
+             else
+             {
+                 [MBProgressHUD showShortMessage:@"删除失败"];
+             }
+             
+         } andFailBlock:^(id failResult) {
+             [MBProgressHUD hideHUD];
+             [MBProgressHUD showShortMessage:@"删除失败"];
+         }];
+    }
+}
+
 
 #pragma mark --- 评论足迹
 -(void)commentFootprint:(UIButton *)sender

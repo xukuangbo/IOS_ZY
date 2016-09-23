@@ -21,7 +21,7 @@
 -(void)configUI
 {
     [super configUI];
-    [self.lineView removeFromSuperview];
+//    [self.lineView removeFromSuperview];
     [self.limitLab removeFromSuperview];
 }
 

@@ -14,9 +14,9 @@
 //正式
 //#define BASE_URL @"http://www.sosona.com:8080/"
 //测试
-#define BASE_URL @"http://121.40.225.119:8080/"
+//#define BASE_URL @"http://121.40.225.119:8080/"
 //华子
-//#define BASE_URL @"https://192.168.1.128:8086/"
+#define BASE_URL @"http://192.168.1.111:8086/"
 //海外服务器
 //#define BASE_URL @"http://47.88.148.201:8080/"
 //#define BASE_URL @"http://192.168.1.59:8086/"

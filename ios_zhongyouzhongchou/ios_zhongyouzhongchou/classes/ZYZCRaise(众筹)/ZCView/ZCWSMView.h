@@ -18,6 +18,8 @@
 
 @property (nonatomic, copy  ) NSString *imgUrlStr;
 
+@property (nonatomic, assign) BOOL     showEmptyText;
+
 -(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andVoiceLen:(CGFloat)voiceLen andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr;
 
 @end

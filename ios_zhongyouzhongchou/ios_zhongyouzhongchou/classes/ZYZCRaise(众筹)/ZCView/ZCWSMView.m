@@ -9,6 +9,9 @@
 #import "ZCWSMView.h"
 #import "ZYDescImage.h"
 #import "HUPhotoBrowser.h"
+
+#define EMPTY_TEXT  @"此处省略一万字..."
+
 @interface ZCWSMView ()
 
 @property (nonatomic, strong)ZYZCCusomMovieImage *movieView;
@@ -115,6 +118,12 @@
     {
         _textLab.height=0.1;
         _textLab.hidden=YES;
+        
+        if (!(playUrl.length||voiceUrl.length||imgUrlStr.length)&&_showEmptyText) {
+            _textLab.text=EMPTY_TEXT;
+            _textLab.height=20;
+            _textLab.hidden=NO;
+        }
     }
     
     _imgsView.top=_textLab.bottom+hasWord*KEDGE_DISTANCE;

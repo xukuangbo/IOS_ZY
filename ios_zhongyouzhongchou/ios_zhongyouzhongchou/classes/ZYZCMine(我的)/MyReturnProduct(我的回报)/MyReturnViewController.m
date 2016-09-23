@@ -21,6 +21,7 @@
 @property (nonatomic, strong) NSMutableArray     *listArr;
 @property (nonatomic, strong) ZCListModel        *listModel;
 @property (nonatomic, assign) int                pageNo;
+@property (nonatomic, assign) BOOL               hasEnterView;
 
 @end
 
@@ -111,6 +112,7 @@
 #pragma mark --- 获取我的回报众筹列表
 -(void)getHttpData
 {
+    _hasEnterView=YES;
     NSString *httpUrl=nil;
     if(_productType==MyReturnProduct)
     {
@@ -126,7 +128,9 @@
 //    NSLog(@"_table.productType:%ld",_table.productType);
     
 //    NSLog(@"httpUrl%@",httpUrl);
+    [MBProgressHUD showMessage:nil];
     [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUD];
         [NetWorkManager hideFailViewForView:self.view];
         [EntryPlaceholderView hidePlaceholderForView:self.view];
         if (isSuccess) {
@@ -170,6 +174,7 @@
         [_table.mj_footer endRefreshing];
         
     } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUD];
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
         [EntryPlaceholderView hidePlaceholderForView:self.view];
@@ -193,7 +198,16 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
-    [self getHttpData];
+    
+    if (self.productType==MyDraftProduct) {
+         [self getHttpData];
+    }
+    else
+    {
+        if (!_hasEnterView) {
+            [self getHttpData];
+        }
+    }
 }
 
 #pragma mark --- 删除某个草稿项目

@@ -75,7 +75,7 @@
         [MBProgressHUD showShortMessage:ZYLocalizedString(@"error_no_spell_buy_price")];
         return 2;
     }
-    if (!manager.raiseMoney_wordDes&&!manager.raiseMoney_voiceUrl&&!manager.raiseMoney_movieUrl) {
+    if (!manager.raiseMoney_wordDes&&!manager.raiseMoney_voiceUrl&&!manager.raiseMoney_movieUrl&&!manager.raiseMoney_imgUrlStr.length) {
         [MBProgressHUD showShortMessage:ZYLocalizedString(@"error_no_travelDesc")];
         return 2;
     }
@@ -115,20 +115,20 @@
         [MBProgressHUD showShortMessage:ZYLocalizedString(@"error_no_spell_buy_price")];
         return 2;
     }
-    if (!manager.raiseMoney_wordDes&&!manager.raiseMoney_voiceUrl&&!manager.raiseMoney_movieUrl) {
+    if (!manager.raiseMoney_wordDes&&!manager.raiseMoney_voiceUrl&&!manager.raiseMoney_movieUrl&&!manager.raiseMoney_imgUrlStr.length) {
         [MBProgressHUD showShortMessage:ZYLocalizedString(@"error_no_travelDesc")];
         return 2;
     }
-    for (int i=0; i<manager.travelDetailDays.count; i++) {
-        MoreFZCTravelOneDayDetailMdel *model=manager.travelDetailDays[i];
-        if (!model.wordDes&&!model.voiceUrl&&!model.movieUrl) {
-            NSDate *startDay=[NSDate dateFromString:manager.goal_startDate];
-            NSDate *cellDate=[[NSDate alloc]init];
-            cellDate=[cellDate dayInTheFollowingDay:i andDate:startDay];
-            [MBProgressHUD showShortMessage:[NSString stringWithFormat:@"%@行程未填写",[NSDate stringFromDate:cellDate]]];
-            return 3;
-        }
-    }
+//    for (int i=0; i<manager.travelDetailDays.count; i++) {
+//        MoreFZCTravelOneDayDetailMdel *model=manager.travelDetailDays[i];
+//        if (!model.wordDes&&!model.voiceUrl&&!model.movieUrl) {
+//            NSDate *startDay=[NSDate dateFromString:manager.goal_startDate];
+//            NSDate *cellDate=[[NSDate alloc]init];
+//            cellDate=[cellDate dayInTheFollowingDay:i andDate:startDay];
+//            [MBProgressHUD showShortMessage:[NSString stringWithFormat:@"%@行程未填写",[NSDate stringFromDate:cellDate]]];
+//            return 3;
+//        }
+//    }
     return 0;
 }
 
@@ -163,20 +163,20 @@
         [MBProgressHUD showShortMessage:ZYLocalizedString(@"error_no_spell_buy_price")];
         return 2;
     }
-    if (!manager.raiseMoney_wordDes&&!manager.raiseMoney_voiceUrl&&!manager.raiseMoney_movieUrl) {
+    if (!manager.raiseMoney_wordDes&&!manager.raiseMoney_voiceUrl&&!manager.raiseMoney_movieUrl&&!manager.raiseMoney_imgUrlStr.length) {
         [MBProgressHUD showShortMessage:ZYLocalizedString(@"error_no_travelDesc")];
         return 2;
     }
-    for (int i=0; i<manager.travelDetailDays.count; i++) {
-        MoreFZCTravelOneDayDetailMdel *model=manager.travelDetailDays[i];
-        if (!model.wordDes&&!model.voiceUrl&&!model.movieUrl) {
-            NSDate *startDay=[NSDate dateFromString:manager.goal_startDate];
-            NSDate *cellDate=[[NSDate alloc]init];
-            cellDate=[cellDate dayInTheFollowingDay:i andDate:startDay];
-            [MBProgressHUD showShortMessage:[NSString stringWithFormat:@"%@行程未填写",[NSDate stringFromDate:cellDate]]];
-            return 3;
-        }
-    }
+//    for (int i=0; i<manager.travelDetailDays.count; i++) {
+//        MoreFZCTravelOneDayDetailMdel *model=manager.travelDetailDays[i];
+//        if (!model.wordDes&&!model.voiceUrl&&!model.movieUrl) {
+//            NSDate *startDay=[NSDate dateFromString:manager.goal_startDate];
+//            NSDate *cellDate=[[NSDate alloc]init];
+//            cellDate=[cellDate dayInTheFollowingDay:i andDate:startDay];
+//            [MBProgressHUD showShortMessage:[NSString stringWithFormat:@"%@行程未填写",[NSDate stringFromDate:cellDate]]];
+//            return 3;
+//        }
+//    }
     
     if ([manager.return_returnPeopleStatus isEqualToString:@"1"]) {
         if (!manager.return_returnPeopleNumber||[manager.return_returnPeopleNumber intValue]==0) {
@@ -221,26 +221,26 @@
     if (manager.goal_goals.count<2) {
         return 1;
     }
-    if (!manager.productEndTime)
+    if (!manager.productEndTime.length)
     {
         return 1;
     }
-    if (!manager.goal_startDate||
-        !manager.goal_backDate||
+    if (!manager.goal_startDate.length||
+        !manager.goal_backDate.length||
         ([manager.goal_startDate isEqualToString:[NSDate stringFromDate:[[NSDate date] dayInTheFollowingDay:2]]]&&
         [manager.goal_backDate isEqualToString:manager.goal_startDate])) {
         return 1;
     }
-    if (!manager.goal_travelTheme) {
+    if (!manager.goal_travelTheme.length) {
         return 1;
     }
-    if (!manager.goal_travelThemeImgUrl) {
+    if (!manager.goal_travelThemeImgUrl.length) {
         return 1;
     }
     if (!manager.raiseMoney_totalMoney||[manager.raiseMoney_totalMoney floatValue]<=0.0) {
         return 2;
     }
-    if (!manager.raiseMoney_wordDes&&!manager.raiseMoney_voiceUrl&&!manager.raiseMoney_movieUrl) {
+    if (!manager.raiseMoney_wordDes&&!manager.raiseMoney_voiceUrl&&!manager.raiseMoney_movieUrl&&manager.raiseMoney_imgUrlStr.length) {
         return 2;
     }
     for (int i=0; i<manager.travelDetailDays.count; i++) {
