@@ -30,7 +30,7 @@
 
 -(void)configUI
 {
-    _footprintListView=[[ZYFootprintListView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _footprintListView=[[ZYFootprintListView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain andFootprintListType:MyFootprintList];
 
     WEAKSELF;
     _footprintListView.headerRefreshingBlock=^()
@@ -52,7 +52,7 @@
 -(void)getHttpData
 {
     [MBProgressHUD showMessage:nil];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:List_Footprint andParameters:@{@"pageNo":[NSNumber numberWithInteger:_pageNo],
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:List_Footprint andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_pageNo],
                         @"targetId":[ZYZCAccountTool getUserId]
                         } andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);

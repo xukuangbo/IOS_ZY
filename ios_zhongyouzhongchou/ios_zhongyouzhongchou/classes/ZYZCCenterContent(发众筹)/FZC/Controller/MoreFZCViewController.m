@@ -30,6 +30,7 @@
 #define ALERT_UPLOAD_TAG  2
 #define ALERT_PUBLISH_TAG 3
 #define ALERT_NO_WIFI_TAG  5
+#define ALERT_PUBLISH      6
 //#define ALERT_NETWORK_CHANGE_TAG  6
 
 @interface MoreFZCViewController ()<MoreFZCToolBarDelegate,UIAlertViewDelegate>
@@ -239,6 +240,39 @@
         //允许发布众筹
         [self doUploadDataOss];
     }
+    else if (alertView.tag ==  ALERT_PUBLISH)
+    {
+        if (buttonIndex==1) {
+            //如果是编辑的草稿
+            if (_editFromDraft) {
+                //判断众筹项目时间是否有冲突
+                MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
+                NSString *httpUrl=JUDGE_MY_PRODUCT_TIME([ZYZCAccountTool getUserId],manager.goal_startDate,manager.goal_backDate);
+                //            NSLog(@"%@",httpUrl);
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
+                 {
+                     [MBProgressHUD hideHUDForView:self.view];
+                     //                 NSLog(@"%@",result);
+                     if([result[@"data"] isEqual:@0])
+                     {
+                         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"旅行时间与已有行程时间冲突,请修改" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                         [alert show];
+                     }
+                     else if([result[@"data"] isEqual:@1])
+                     {
+                         [self uploadDataToOSS];
+                     }
+                 } andFailBlock:^(id failResult) {
+                     [MBProgressHUD hideHUDForView:self.view];
+                     [MBProgressHUD showShortMessage:@"网络错误,发布失败"];
+                 }];
+            }
+            else{
+                [self uploadDataToOSS];
+            }
+        }
+    }
 }
 
 
@@ -356,34 +390,10 @@
                 return;
             }
         }
-        //如果是编辑的草稿
-        if (_editFromDraft) {
-            //判断众筹项目时间是否有冲突
-            MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
-            NSString *httpUrl=JUDGE_MY_PRODUCT_TIME([ZYZCAccountTool getUserId],manager.goal_startDate,manager.goal_backDate);
-//            NSLog(@"%@",httpUrl);
-            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-             {
-                 [MBProgressHUD hideHUDForView:self.view];
-//                 NSLog(@"%@",result);
-                 if([result[@"data"] isEqual:@0])
-                 {
-                     UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"旅行时间与已有行程时间冲突,请修改" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                     [alert show];
-                 }
-                 else if([result[@"data"] isEqual:@1])
-                 {
-                     [self uploadDataToOSS];
-                 }
-             } andFailBlock:^(id failResult) {
-                  [MBProgressHUD hideHUDForView:self.view];
-                  [MBProgressHUD showShortMessage:@"网络错误,发布失败"];
-             }];
-        }
-        else{
-            [self uploadDataToOSS];
-        }
+        
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"此行程发布后不可修改，是否确认发布？" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        alert.tag=ALERT_PUBLISH;
+        [alert show];
     }
 }
 

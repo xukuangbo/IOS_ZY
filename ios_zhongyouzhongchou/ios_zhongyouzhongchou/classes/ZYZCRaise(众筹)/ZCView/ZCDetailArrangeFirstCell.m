@@ -8,6 +8,7 @@
 
 #import "ZCDetailArrangeFirstCell.h"
 #import "NSDate+RMCalendarLogic.h"
+
 @interface ZCDetailArrangeFirstCell ()
 @property (nonatomic ,assign ) BOOL isFirstConfigView;
 @property (nonatomic ,strong ) NSMutableArray *viewHeights;
@@ -28,6 +29,7 @@
     [super configUI];
     _isFirstConfigView=YES;
     _wsmView=[[ZCWSMView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, self.topLineView.bottom+KEDGE_DISTANCE, self.bgImg.width-2*KEDGE_DISTANCE, 0)];
+    _wsmView.showEmptyText=YES;
     [self.bgImg addSubview:_wsmView];
     
     //景点、交通、住宿、餐饮视图初始化高度数组

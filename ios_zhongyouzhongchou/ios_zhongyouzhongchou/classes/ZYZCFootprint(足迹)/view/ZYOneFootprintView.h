@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "ZYFootprintListModel.h"
 
+typedef void (^DeleteFootprint)(ZYFootprintListModel *oneFootprintModel);
+
 typedef NS_ENUM(NSInteger, CommentEnterType)
 {
     enterCommentPage=1,
@@ -21,5 +23,7 @@ typedef NS_ENUM(NSInteger, CommentEnterType)
 @property (nonatomic, strong) ZYFootprintListModel *footprintModel;
 @property (nonatomic, assign) CommentEnterType     commentEnterType;
 @property (nonatomic, assign) BOOL                 canOpenText;
+
+@property (nonatomic, copy  ) DeleteFootprint     deleteFootprint;
 
 @end
