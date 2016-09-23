@@ -389,6 +389,7 @@
     {
         [[NSNotificationCenter defaultCenter]postNotificationName:kGetPayResultNotification object:nil];
     }
+    NSLog(@"applicationWillEnterForeground222");
 }
 
 

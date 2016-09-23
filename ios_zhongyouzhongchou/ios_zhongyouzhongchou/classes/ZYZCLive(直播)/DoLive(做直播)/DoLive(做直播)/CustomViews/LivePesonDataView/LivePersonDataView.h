@@ -7,11 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MinePersonSetUpModel;
 @interface LivePersonDataView : UIView
-
-
 
 - (void)showPersonDataWithUserId:(NSString *)userId;
 
 - (void)hidePersonDataView;
+
+@property (nonatomic, strong) MinePersonSetUpModel *minePersonModel;
 @end

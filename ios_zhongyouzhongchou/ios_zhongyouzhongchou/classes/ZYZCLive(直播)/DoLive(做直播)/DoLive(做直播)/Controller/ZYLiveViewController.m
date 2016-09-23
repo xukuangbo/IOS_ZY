@@ -38,6 +38,7 @@
 #import "MZTimerLabel.h"
 #import "UIView+ZYLayer.h"
 #import "LiveMoneyView.h"
+#import "MinePersonSetUpModel.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -241,12 +242,32 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                 [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"%.1f元", [result[@"data"] floatValue] / 100]];
             }
             DDLog(@"%@",result);
-            
         }else{
-            
+            [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"0.0元"]];
         }
     } andFailBlock:^(id failResult) {
+        [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"0.0元"]];
         DDLog(@"%@",failResult);
+    }];
+}
+
+// 获取个人信息.获取个人中心数据
+- (void)requestData:(NSString *)otherUserId
+{
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSString *getUserInfoURL = Get_SelfInfo(userId, otherUserId);
+    WEAKSELF
+    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            NSDictionary *dic = (NSDictionary *)result;
+            NSDictionary *data = dic[@"data"];
+            MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
+            weakSelf.personDataView.minePersonModel = minePersonModel;
+        } else {
+            NSLog(@"bbbbbbb");
+        }
+    } andFailBlock:^(id failResult) {
+        NSLog(@"aaaaaaa");
     }];
 }
 
@@ -363,7 +384,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     _personDataView = [[LivePersonDataView alloc] initWithFrame:CGRectMake(personDataViewX, personDataViewY, personDataViewW, personDataViewH)];
     [self.view addSubview:_personDataView];
-    
+    [self requestData:@"45"];
     //左上角头像赋值
     NSString *faceImg = [ZYZCAccountTool account].faceImg64.length > 0? [ZYZCAccountTool account].faceImg64 : [ZYZCAccountTool account].faceImg132;
     [_headView.iconView sd_setImageWithURL:[NSURL URLWithString:faceImg] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
