@@ -45,18 +45,16 @@ static NSString *ID = @"ZYLiveListCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    _navRightBtn.hidden=NO;
     [super viewWillAppear:animated];
-    
+    _navRightBtn.hidden=NO;
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self getLiveListData];
     });
 }
 
-- (void) viewWillDisappear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     _navRightBtn.hidden=YES;
@@ -102,6 +100,19 @@ static NSString *ID = @"ZYLiveListCell";
     self.entryView = [EntryPlaceholderView viewWithSuperView:self.tableView type:EntryTypeLiveList];
 //    self.entryView.userInteractionEnabled = NO;
     self.entryView.hidden = YES;
+    
+    WEAKSELF
+    //上啦加载更多
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        ZYLiveListController * __strong strongSelf = weakSelf;
+        [strongSelf.viewModel footRefreshDataWithPageNo:strongSelf.pageNo];
+    }];
+    
+    //下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        ZYLiveListController * __strong strongSelf = weakSelf;
+        [strongSelf.viewModel headRefreshData];
+    }];
 }
 
 #pragma mark - network
@@ -110,13 +121,9 @@ static NSString *ID = @"ZYLiveListCell";
     WEAKSELF
     [self.viewModel headRefreshData];
     [self.viewModel setBlockWithReturnBlock:^(id returnValue) {
-        
         NSMutableArray *tempArray = returnValue;
-        
         if (weakSelf.viewModel.refreshType == RefreshTypeHead) {//下拉刷新
-            
             if (tempArray.count > 0) {
-                
                 weakSelf.entryView.hidden = YES;
                 weakSelf.listArray = tempArray;
                 weakSelf.pageNo = 2;
@@ -152,19 +159,6 @@ static NSString *ID = @"ZYLiveListCell";
         
         [weakSelf.tableView.mj_footer endRefreshing];
         [weakSelf.tableView.mj_header endRefreshing];
-    }];
-    
-    //上啦加载更多
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf.viewModel footRefreshDataWithPageNo:_pageNo];
-    }];
-    
-    //下拉刷新
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        //移除占位view
-//        weakSelf.entryView.hidden = YES;
-        [weakSelf.viewModel headRefreshData];
     }];
 }
 

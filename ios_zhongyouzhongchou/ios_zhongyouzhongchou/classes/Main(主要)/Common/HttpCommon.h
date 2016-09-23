@@ -311,5 +311,7 @@
 #define SYSTEM_MSG_READ  [NSString stringWithFormat:@"%@systemMsg/msgSetRead.action",BASE_URL]
 // 拉取直播内容 (参数 spaceName，streamName)
 #define GET_LIVE_CONTENT   [NSString stringWithFormat:@"%@zhibo/getZHibo.action",BASE_URL]
+// 获取最近的一次直播关联行程内容
+#define Get_Live_FaqiXC   [NSString stringWithFormat:@"%@productInfo/getMyLastProduct.action",BASE_URL]
 
 #endif /* HttpCommon_h */

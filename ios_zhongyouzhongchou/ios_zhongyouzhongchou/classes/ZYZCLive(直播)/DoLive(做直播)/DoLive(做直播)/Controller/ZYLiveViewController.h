@@ -15,6 +15,21 @@
 #import "RCDLiveMessageBaseCell.h"
 #import "RCDLiveMessageModel.h"
 #import "RCDLiveInputBar.h"
+#import "LivePersonDataView.h"
+#import "RCDLiveCollectionViewHeader.h"
+#import <RongIMLib/RongIMLib.h>
+#import "AppDelegate.h"
+#import "RCDLiveMessageCell.h"
+#import "RCDLiveTextMessageCell.h"
+#import "RCDLiveGiftMessageCell.h"
+#import "RCDLiveGiftMessage.h"
+#import "RCDLiveTipMessageCell.h"
+#import "RCDLiveMessageModel.h"
+#import "RCDLive.h"
+#import "RCDLiveKitUtility.h"
+#import "RCDLiveKitCommonDefine.h"
+#import "LiveFunctionView.h"
+
 @class ZYLiveListModel;
 ///输入栏扩展输入的唯一标示
 #define PLUGIN_BOARD_ITEM_ALBUM_TAG    1001
@@ -23,13 +38,19 @@
 #if RC_VOIP_ENABLE
 #define PLUGIN_BOARD_ITEM_VOIP_TAG     1004
 #endif
-
+//输入框的高度
+#define MinHeight_InputView 50.0f
 @protocol ZYLiveViewControllerDelegate <NSObject>
 
 - (void)backHomePage;
 
 @end
-
+//文本cell标示
+static NSString *const rctextCellIndentifier = @"rctextCellIndentifier";
+//小灰条提示cell标示
+static NSString *const RCDLiveTipMessageCellIndentifier = @"RCDLiveTipMessageCellIndentifier";
+//礼物cell标示
+static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageCellIndentifier";
 /*!
  聊天界面类
  */
@@ -39,12 +60,42 @@
 #pragma mark - 会话属性
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
+@property (nonatomic, copy) NSString *productID;
 @property (nonatomic, weak)id<ZYLiveViewControllerDelegate>delegate;
+// 直播需要的属性
+/** 直播任务流 */
+@property (nonatomic, strong )  QPLiveSession  *liveSession;
 
+//个人信息view
+@property (nonatomic, strong) LivePersonDataView *personDataView;
 /*!
  当前会话的会话类型
  */
 @property(nonatomic) RCConversationType conversationType;
+//返回按钮
+@property (nonatomic, strong) UIButton *backBtn;
+
+//分享按钮
+@property(nonatomic,strong)UIButton *shareBtn;
+
+//评论按钮
+@property(nonatomic,strong)UIButton *feedBackBtn;
+
+//主播功能端按钮
+@property(nonatomic,strong)UIButton *moreBtn;
+//主播功能端view
+@property (nonatomic, strong) LiveFunctionView *liveFunctionView;
+
+//私信按钮
+@property (nonatomic, strong) UIButton *massageBtn;
+
+//刷新的view
+@property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
+
+
+
+//点击空白区域事件
+@property(nonatomic, strong) UITapGestureRecognizer *resetBottomTapGesture;
 
 /*!
  目标会话ID
@@ -92,6 +143,7 @@
  -1表示不获取任何历史消息，0表示不特殊设置而使用SDK默认的设置（默认为获取10条），0<messageCount<=50为具体获取的消息数量,最大值为50。
  */
 @property(nonatomic, assign) int defaultHistoryMessageCountOfChatRoom;
-
+- (void)changeModel:(BOOL)isFullScreen;
+- (void)leftBarButtonItemPressed:(UIButton *)sender;
 @end
 #endif

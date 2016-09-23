@@ -14,6 +14,9 @@
 @property (nonatomic, strong) UILabel     *subTitleLab;
 @property (nonatomic, strong) UILabel     *timeLab;
 @property (nonatomic, strong) UIImageView *markImg;
+
+@property (nonatomic, strong) UIImageView *beingLiveImage;
+
 @end
 
 @implementation MsgListTableViewCell
@@ -68,6 +71,16 @@
     [self.contentView addSubview:_markImg];
     _markImg.hidden=YES;
     
+    _beingLiveImage=[[UIImageView alloc]initWithFrame:CGRectMake(KSCREEN_W-10-mark_width, 10, mark_width, mark_width)];
+    _beingLiveImage.image=[UIImage imageNamed:@"being_live"];
+    _beingLiveImage.hidden=YES;
+    [self.contentView addSubview:_beingLiveImage];
+    [_beingLiveImage mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.icon.mas_right).offset(-5);
+        make.bottom.equalTo(self.icon.mas_bottom).offset(-5);
+        make.height.mas_equalTo(15);
+        make.width.mas_equalTo(30);
+    }];
 }
 
 -(void)setMsgListModel:(MsgListModel *)msgListModel
@@ -81,9 +94,10 @@
     {
         if (_msgListModel.msgStyle==99) {
             _icon.image=[UIImage imageNamed:@"Share_iocn"];
-        }
-        else
-        {
+        } else if (_msgListModel.msgStyle == 10) {
+            _beingLiveImage.hidden = NO;
+            [_icon sd_setImageWithURL:[NSURL URLWithString:msgListModel.icon] placeholderImage:[UIImage imageNamed:@"众筹ICON"]];
+        } else {
              _icon.image=[UIImage imageNamed:@"众筹ICON"];
         }
     }
