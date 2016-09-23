@@ -16,9 +16,9 @@
 #define nameLabelH 25
 #define guanzhuLabelH 20
 #define descH 18
-#define roomButtonH 34
-#define zhongchouH 34
-#define bottomBarH 34
+#define roomButtonH 40
+#define zhongchouH 40
+#define bottomBarH 40
 #define FOLLIOW_AND_BEFOLLOW(follow,befollow)  [NSString stringWithFormat:@"关注 %ld   ｜   粉丝 %ld",follow,befollow]
 @interface LivePersonDataView ()
 /** 头像 */
@@ -31,12 +31,9 @@
 @property (nonatomic, strong) UILabel *attentionLabel;
 /** 个人描述 */
 @property (nonatomic, strong) UILabel *descLabel;
-/** 空间 */
-@property (nonatomic, strong) UIButton *roomButton;
-/** 众筹 */
-@property (nonatomic, strong) UILabel *zhongchouLabel;
 /** 底部工具条 */
 @property (nonatomic, strong) UIView *bottomBar;
+
 @end
 
 @implementation LivePersonDataView
@@ -87,25 +84,31 @@
     /** 空间 */
     _roomButton = [UIButton new];
     [self addSubview:_roomButton];
-//    _roomButton.layerCornerRadius = 5;
-//    _roomButton.layerBorderWidth = 1;
-//    _roomButton.layerBorderColor = [UIColor ZYZC_LineGrayColor];
     [_roomButton setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
     
+    UIImageView *roomArrow = [[UIImageView alloc] init];
+    roomArrow.image = [UIImage imageNamed:@"btn_rightin"];
+    [self addSubview:roomArrow];
+    [roomArrow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_roomButton.mas_top).offset(12);
+        make.width.equalTo(@9);
+        make.height.equalTo(@16);
+        make.right.equalTo(self).offset(-10);
+    }];
     /**上灰线 */
     UILabel *topLine = [[UILabel alloc] init];
     [self addSubview:topLine];
     topLine.backgroundColor = [UIColor ZYZC_BgGrayColor];
-    /**下灰线 */
-    UILabel *bottomLine = [[UILabel alloc] init];
-    [self addSubview:bottomLine];
-    bottomLine.backgroundColor = [UIColor ZYZC_BgGrayColor];
     [topLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_roomButton.mas_top);
         make.width.equalTo(@200);
         make.height.mas_equalTo(1);
         make.centerX.equalTo(self.mas_centerX);
     }];
+    /**下灰线 */
+    UILabel *bottomLine = [[UILabel alloc] init];
+    [self addSubview:bottomLine];
+    bottomLine.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
     [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(_roomButton.mas_bottom);
@@ -114,23 +117,52 @@
         make.centerX.equalTo(self.mas_centerX);
     }];
 
-    self.zhongchouLabel = [UILabel new];
-    self.zhongchouLabel.textAlignment = NSTextAlignmentCenter;
-    [self.zhongchouLabel setTextColor:[UIColor colorWithHexString:@"637fc0"]];
-    [self addSubview:_zhongchouLabel];
-
+    self.zhongchouButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.zhongchouButton setTitleColor:[UIColor colorWithHexString:@"637fc0"] forState:UIControlStateNormal];
+    [self addSubview:self.zhongchouButton];
+    
+    UIImageView *zhongchouArrow = [[UIImageView alloc] init];
+    zhongchouArrow.image = [UIImage imageNamed:@"btn_rightin"];
+    [self addSubview:zhongchouArrow];
+    [zhongchouArrow mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.zhongchouButton.mas_top).offset(12);
+        make.width.equalTo(@9);
+        make.height.equalTo(@16);
+        make.right.equalTo(self).offset(-10);
+    }];
+    
+    UILabel *zhongchouBottomLine = [[UILabel alloc] init];
+    [self addSubview:zhongchouBottomLine];
+    zhongchouBottomLine.backgroundColor = [UIColor ZYZC_BgGrayColor];
+    
+    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.zhongchouButton.mas_bottom);
+        make.width.equalTo(@200);
+        make.height.mas_equalTo(1);
+        make.centerX.equalTo(self.mas_centerX);
+    }];
+    
     /** 底部工具条 */
     _bottomBar = [UIView new];
-    _bottomBar.backgroundColor = [UIColor greenColor];
+//    _bottomBar.backgroundColor = [UIColor ZYZC_BgGrayColor];
     [self addSubview:_bottomBar];
     
-    _nameLabel.text = @"齐德龙";
-    _sexImageView.image = [UIImage imageNamed:@"btn_sex_fem"];
-    self.attentionLabel.text = @"20关注 | 60粉丝";
-    _descLabel.text = @"23岁,天秤座,174cm,单身";
-    [_roomButton setTitle:@"空间" forState:UIControlStateNormal];
-    _zhongchouLabel.text = @"正在众筹中'浪漫普及岛自由...'";
+    self.attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
+    [self.attentionButton setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    [self addSubview:self.attentionButton];
     
+    self.bannedSpeakButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.bannedSpeakButton setTitle:@"禁言" forState:UIControlStateNormal];
+    [self.bannedSpeakButton setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    [self addSubview:self.bannedSpeakButton];
+    
+    _nameLabel.text = @"匿名";
+    _sexImageView.image = [UIImage imageNamed:@"btn_sex_fem"];
+    self.attentionLabel.text = @"0关注 | 0粉丝";
+    _descLabel.text = @"";
+    [_roomButton setTitle:@"空间" forState:UIControlStateNormal];
+    [self.zhongchouButton setTitle:@"正在众筹中'浪漫普及岛自由...'" forState:UIControlStateNormal];
 }
 #pragma mark - 设置约束
 - (void)setUpConstraints
@@ -177,12 +209,11 @@
         make.centerX.equalTo(self.mas_centerX);
     }];
     
-    [_zhongchouLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.zhongchouButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_roomButton.mas_bottom).offset(5);
         make.width.equalTo(@200);
         make.height.mas_equalTo(zhongchouH);
         make.centerX.equalTo(self.mas_centerX);
-        
     }];
     
     [_bottomBar mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -192,6 +223,19 @@
         make.centerX.equalTo(self.mas_centerX);
     }];
     
+    [self.attentionButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(34);
+        make.width.mas_equalTo(60);
+        make.bottom.equalTo(self).offset(-3);
+        make.left.equalTo(self).offset(10);
+    }];
+    
+    [self.bannedSpeakButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(34);
+        make.width.mas_equalTo(60);
+        make.bottom.equalTo(self).offset(-3);
+        make.right.equalTo(self).offset(-10);
+    }];
 }
 
 - (void)showPersonDataWithUserId:(NSString *)userId

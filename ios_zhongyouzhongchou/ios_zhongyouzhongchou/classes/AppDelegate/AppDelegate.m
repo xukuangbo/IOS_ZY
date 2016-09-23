@@ -496,12 +496,12 @@ fetchCompletionHandler:
     
     completionHandler(UIBackgroundFetchResultNewData);
     
-if (userInfo[@"_j_msgid"]) {
-        ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
-        ZYZCMessageListViewController *msgController=[[ZYZCMessageListViewController alloc]init];
-        msgController.hidesBottomBarWhenPushed=YES;
-        [mainTab.selectedViewController pushViewController:msgController animated:YES];
-    }
+//if (userInfo[@"_j_msgid"]) {
+//        ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
+//        ZYZCMessageListViewController *msgController=[[ZYZCMessageListViewController alloc]init];
+//        msgController.hidesBottomBarWhenPushed=YES;
+//        [mainTab.selectedViewController pushViewController:msgController animated:YES];
+//    }
 }
 
 #pragma mark ---这个是本地通知的接收

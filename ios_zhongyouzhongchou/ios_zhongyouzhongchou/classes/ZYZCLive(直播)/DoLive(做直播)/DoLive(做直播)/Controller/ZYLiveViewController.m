@@ -378,7 +378,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     //添加个人信息view
     CGFloat personDataViewW = 230;
-    CGFloat personDataViewH = 322;
+    CGFloat personDataViewH = 340;
     CGFloat personDataViewX = (self.view.width - personDataViewW) * 0.5;
     CGFloat personDataViewY = self.view.height;
     
