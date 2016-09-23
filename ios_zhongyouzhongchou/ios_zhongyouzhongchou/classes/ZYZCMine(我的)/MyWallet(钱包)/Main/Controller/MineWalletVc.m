@@ -65,12 +65,12 @@
         
         [self requestProductList];
         
-        [[ZYNSNotificationCenter rac_addObserverForName:@"refreshWalletData" object:nil] subscribeNext:^(NSNotification *notification) {
-            
-            [self requsetData];
-            
-            [self requestProductList];
-        }];
+//        [[ZYNSNotificationCenter rac_addObserverForName:@"refreshWalletData" object:nil] subscribeNext:^(NSNotification *notification) {
+//            
+//            [self requsetData];
+//            
+//            [self requestProductList];
+//        }];
     }
     return self;
 }
@@ -124,7 +124,12 @@
     _moneyLabel.centerX = _headMapView.width * 0.5;
     _moneyLabel.bottom = _headMapView.height * 0.5;
     _moneyLabel.textAlignment = NSTextAlignmentCenter;
-    _moneyLabel.text = @"￥0.00";
+    NSString *ktxMoneyStr1 = [NSString stringWithFormat:@"￥0.00"];
+    NSMutableAttributedString *ktxMoneyString1 = [[NSMutableAttributedString alloc] initWithString:@"￥0.00"];
+    [ktxMoneyString1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:[ktxMoneyStr1 rangeOfString:@"￥"]];
+    [ktxMoneyString1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:30] range:[ktxMoneyStr1 rangeOfString:@"0.00"]];
+    _moneyLabel.attributedText = ktxMoneyString1;
+    
     [_headMapView addSubview:_moneyLabel];
     
     //累计提现旅费标题
@@ -150,7 +155,13 @@
     _totalMoneyLabel.centerX = _headMapView.width * 0.5;
     _totalMoneyLabel.top = _totalMoneyTitleLabel.bottom + KEDGE_DISTANCE;
     _totalMoneyLabel.textAlignment = NSTextAlignmentCenter;
-    _totalMoneyLabel.text = @"￥0.00";
+    
+    NSString *ktxMoneyStr2 = [NSString stringWithFormat:@"￥0.00"];
+    NSMutableAttributedString *ktxMoneyString2 = [[NSMutableAttributedString alloc] initWithString:@"￥0.00"];
+    [ktxMoneyString2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:15] range:[ktxMoneyStr2 rangeOfString:@"￥"]];
+    [ktxMoneyString2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:30] range:[ktxMoneyStr2 rangeOfString:@"0.00"]];
+    
+    _moneyLabel.attributedText = ktxMoneyString2;
     [_headMapView addSubview:_totalMoneyLabel];
     
 }
@@ -164,7 +175,6 @@
     _tableView.dataSource = self;
     _tableView.contentInset = UIEdgeInsetsMake( _headMapView.height, 0, 0, 0);
     [self.view insertSubview:_tableView atIndex:0];
-//    NSLog(@"%@",NSStringFromCGRect(_tableView.frame));
 }
 
 #pragma mark - requsetData方法
@@ -173,13 +183,13 @@
     NSString *url = Get_MyTXTotles([ZYZCAccountTool getUserId]);
     __weak typeof(&*self) weakSelf = self;
 //    NSLog(@"%@",url);
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:nil andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    
+    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
         
-//        NSLog(@"%@",result);
         [weakSelf changeMoneyByMoney:result];
         
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+        
     }];
     
 }
@@ -193,7 +203,6 @@
     NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%d&pageSize=%d",Get_MyTxProducts_List,userId,1,10000];
     
     [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
         
         weakSelf.productArray = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         

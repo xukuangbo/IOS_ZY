@@ -30,7 +30,14 @@ static NSString *ID = @"ZYLiveListCell";
 
 @implementation ZYLiveListController
 
-
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.pageNo = 1;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,7 +59,8 @@ static NSString *ID = @"ZYLiveListCell";
     self.navigationController.navigationBar.hidden = NO;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self getLiveListData];
+        [self requestListDataWithPage:self.pageNo direction:1];
+        
     });
 }
 
@@ -72,24 +80,15 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - setup
 - (void)setupView
 {
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"addLive"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(rightBtnAction)];
-    
     UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
-    //    navRightBtn.backgroundColor=[UIColor orangeColor];
     [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
     navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
-    //    navRightBtn.titleLabel.textAlignment=NSTextAlignmentRight;
     [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [navRightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationController.navigationBar addSubview:navRightBtn];
     _navRightBtn=navRightBtn;
 
-//    
-//    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-//    [button setImage:[UIImage imageNamed:@"addLive"] forState:UIControlStateNormal];
-//    [button addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:button];
     self.view.backgroundColor = [UIColor ZYZC_MainColor];
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -102,70 +101,85 @@ static NSString *ID = @"ZYLiveListCell";
     self.entryView = [EntryPlaceholderView viewWithSuperView:self.tableView type:EntryTypeLiveList];
 //    self.entryView.userInteractionEnabled = NO;
     self.entryView.hidden = YES;
-}
-
-#pragma mark - network
-- (void)getLiveListData
-{
-    WEAKSELF
-    [self.viewModel headRefreshData];
-    [self.viewModel setBlockWithReturnBlock:^(id returnValue) {
-        
-        NSMutableArray *tempArray = returnValue;
-        
-        if (weakSelf.viewModel.refreshType == RefreshTypeHead) {//下拉刷新
-            
-            if (tempArray.count > 0) {
-                
-                weakSelf.entryView.hidden = YES;
-                weakSelf.listArray = tempArray;
-                weakSelf.pageNo = 2;
-                [weakSelf.tableView reloadData];
-                
-            }else{
-                weakSelf.entryView.hidden = NO;
-                weakSelf.listArray = nil;
-                [weakSelf.tableView reloadData];
-            }
-        }else{//上啦加载更多
-            if (tempArray.count > 0) {
-                
-                weakSelf.entryView.hidden = YES;
-                [weakSelf.listArray addObjectsFromArray:tempArray];
-                
-                [weakSelf.tableView reloadData];
-                
-                weakSelf.pageNo++;
-                
-            }else{
-                //说明没有更多数据
-            }
-        }
-        //结束刷新
-        [weakSelf.tableView.mj_footer endRefreshing];
-        [weakSelf.tableView.mj_header endRefreshing];
-    } WithErrorBlock:^(id errorCode) {
-        
-        [weakSelf.tableView.mj_footer endRefreshing];
-        [weakSelf.tableView.mj_header endRefreshing];
-    } WithFailureBlock:^{
-        
-        [weakSelf.tableView.mj_footer endRefreshing];
-        [weakSelf.tableView.mj_header endRefreshing];
-    }];
     
+    WEAKSELF
     //上啦加载更多
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        
-        [weakSelf.viewModel footRefreshDataWithPageNo:_pageNo];
+        [weakSelf requestListDataWithPage:weakSelf.pageNo direction:2];
     }];
     
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         //移除占位view
-//        weakSelf.entryView.hidden = YES;
-        [weakSelf.viewModel headRefreshData];
+        weakSelf.entryView.hidden = YES;
+        weakSelf.pageNo = 1;
+        [weakSelf requestListDataWithPage:weakSelf.pageNo direction:1];
     }];
+}
+
+#pragma mark - network
+- (void)requestListDataWithPage:(NSInteger )pageNO direction:(NSInteger )direction{
+    
+    NSString *url = Post_Live_List;
+    NSDictionary *parameters = @{
+                                 @"pageNo" : @(pageNO),
+                                 @"pageSize" : @"10"
+                                 };
+    
+    __weak typeof(&*self) weakSelf = self;
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        NSMutableArray *dataArray = [ZYLiveListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        
+        if (direction == 1) {//说明是下拉
+            if (dataArray.count > 0) {
+                
+                
+                weakSelf.entryView.hidden = YES;
+                weakSelf.listArray = dataArray;
+                weakSelf.pageNo = 2;
+                [weakSelf.tableView reloadData];
+                
+                [MBProgressHUD hideHUD];
+            }else{
+                weakSelf.listArray = nil;
+                [weakSelf.tableView reloadData];
+                
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showShortMessage:@"没有更多数据"];
+            }
+            
+            
+        }else{//上啦
+            if (dataArray.count > 0) {
+                
+                [weakSelf.listArray addObjectsFromArray:dataArray];
+                weakSelf.pageNo++;
+                [weakSelf.tableView reloadData];
+                
+                
+                [MBProgressHUD hideHUD];
+            }else{
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showShortMessage:@"没有更多数据"];
+            }
+        }
+        
+        //结束刷新
+        [weakSelf.tableView.mj_footer endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
+    } andFailBlock:^(id failResult) {
+        
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showShortMessage:@"连接服务器失败,请检查你的网络"];
+        
+        //结束刷新
+        [weakSelf.tableView.mj_footer endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
+    }];
+    
+    
+
 }
 
 #pragma mark - UITableViewDataSource

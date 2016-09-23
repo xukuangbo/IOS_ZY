@@ -105,7 +105,7 @@
         _productEndTimeLabel.size = [ZYZCTool calculateStrLengthByText:_productEndTimeLabel.text andFont:_productEndTimeLabel.font andMaxWidth:MAXFLOAT];
     }
     if (mineWalletModel.txtotles) {
-        _totalMoneyLabel.text = [NSString stringWithFormat:@"￥%.2f",mineWalletModel.txtotles];
+        _totalMoneyLabel.text = [NSString stringWithFormat:@"￥%.2f",mineWalletModel.txtotles / 100.0];
         _totalMoneyLabel.size = [ZYZCTool calculateStrLengthByText:_totalMoneyLabel.text andFont:_totalMoneyLabel.font andMaxWidth:MAXFLOAT];
     }
     if (mineWalletModel.txstatus == 0) {

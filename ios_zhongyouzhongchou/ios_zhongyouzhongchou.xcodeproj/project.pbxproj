@@ -509,7 +509,6 @@
 		39809D251D588EE000CB9EE3 /* TacticMainVideoCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D241D588EE000CB9EE3 /* TacticMainVideoCustomView.m */; };
 		3985EC391D5C1C86007C43D1 /* WalletMingXiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC311D5C1C86007C43D1 /* WalletMingXiVC.m */; };
 		3985EC3A1D5C1C86007C43D1 /* WalletMingXiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC341D5C1C86007C43D1 /* WalletMingXiModel.m */; };
-		3985EC3E1D5C1D44007C43D1 /* WalletMingxiViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC3D1D5C1D44007C43D1 /* WalletMingxiViewModel.m */; };
 		3985EC411D5C53E6007C43D1 /* MineWalletMingxiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC401D5C53E6007C43D1 /* MineWalletMingxiCell.m */; };
 		3987D55F1D46FE5300556E41 /* TacticGoXXTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3987D55E1D46FE5300556E41 /* TacticGoXXTravelCell.m */; };
 		39911AB01D5038B2007DF44B /* TacticSingleFoodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39911AAF1D5038B2007DF44B /* TacticSingleFoodVC.m */; };
@@ -1529,8 +1528,6 @@
 		3985EC311D5C1C86007C43D1 /* WalletMingXiVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletMingXiVC.m; sourceTree = "<group>"; };
 		3985EC331D5C1C86007C43D1 /* WalletMingXiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletMingXiModel.h; sourceTree = "<group>"; };
 		3985EC341D5C1C86007C43D1 /* WalletMingXiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletMingXiModel.m; sourceTree = "<group>"; };
-		3985EC3C1D5C1D44007C43D1 /* WalletMingxiViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletMingxiViewModel.h; sourceTree = "<group>"; };
-		3985EC3D1D5C1D44007C43D1 /* WalletMingxiViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletMingxiViewModel.m; sourceTree = "<group>"; };
 		3985EC3F1D5C53E6007C43D1 /* MineWalletMingxiCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineWalletMingxiCell.h; sourceTree = "<group>"; };
 		3985EC401D5C53E6007C43D1 /* MineWalletMingxiCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineWalletMingxiCell.m; sourceTree = "<group>"; };
 		3987D55D1D46FE5300556E41 /* TacticGoXXTravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticGoXXTravelCell.h; sourceTree = "<group>"; };
@@ -4350,8 +4347,6 @@
 			children = (
 				3985EC331D5C1C86007C43D1 /* WalletMingXiModel.h */,
 				3985EC341D5C1C86007C43D1 /* WalletMingXiModel.m */,
-				3985EC3C1D5C1D44007C43D1 /* WalletMingxiViewModel.h */,
-				3985EC3D1D5C1D44007C43D1 /* WalletMingxiViewModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5201,7 +5196,6 @@
 				2C7E3B541D06CC4C00F51C61 /* MineOneItemModel.m in Sources */,
 				2C90F6E41D530E73001ABB44 /* ZYZCMessageListViewController.m in Sources */,
 				2CD209131D6D3E27005EB62E /* ZCDetailReturnFourthCell.m in Sources */,
-				3985EC3E1D5C1D44007C43D1 /* WalletMingxiViewModel.m in Sources */,
 				2CD209051D6D3E27005EB62E /* ZCListModel.m in Sources */,
 				2CD2092A1D6D3E27005EB62E /* ZCMainViewController.m in Sources */,
 				2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */,
