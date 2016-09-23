@@ -39,6 +39,7 @@
 #pragma mark - 会话属性
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
+@property (nonatomic, copy) NSString *productID;
 @property (nonatomic, weak)id<ZYLiveViewControllerDelegate>delegate;
 
 /*!

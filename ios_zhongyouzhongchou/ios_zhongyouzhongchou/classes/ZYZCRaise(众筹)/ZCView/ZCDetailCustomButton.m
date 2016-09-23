@@ -31,7 +31,7 @@
 {
     self.layer.cornerRadius=4;
     self.layer.masksToBounds=YES;
-    [self setBackgroundImage:[UIImage imageNamed:@"icon_placeholder"] forState:UIControlStateNormal];
+//    [self setBackgroundImage:[UIImage imageNamed:@"icon_placeholder"] forState:UIControlStateNormal];
     [self addTarget:self action:@selector(personZone) forControlEvents:UIControlEventTouchUpInside];
 }
 

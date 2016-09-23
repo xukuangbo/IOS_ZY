@@ -11,4 +11,5 @@
 @interface ZYFootprintOneCommentCell : ZYZCBaseTableViewCell
 @property (nonatomic, strong) ZYOneCommentModel *oneCommentModel;
 @property (nonatomic, assign) BOOL              showCommentImg;
+@property (nonatomic, assign) BOOL              showLine;
 @end
