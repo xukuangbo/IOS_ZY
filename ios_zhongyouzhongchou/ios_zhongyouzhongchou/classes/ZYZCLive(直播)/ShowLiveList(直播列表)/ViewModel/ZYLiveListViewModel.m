@@ -18,7 +18,6 @@
 - (void)headRefreshData
 {
     self.refreshType = RefreshTypeHead;
-    
     NSString *url = Post_Live_List;
     NSDictionary *parameters = @{
                              @"pageNo" : @"1",

@@ -104,6 +104,7 @@
 		05130FE91D828CA9001023B1 /* ZYZCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */; };
 		0513E2901D8643DE00E8BC63 /* ZYWatchLiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513E28F1D8643DE00E8BC63 /* ZYWatchLiveView.m */; };
 		051666B91D9388E0001ED976 /* ZYSystemCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 051666B81D9388E0001ED976 /* ZYSystemCommon.m */; };
+		051666BC1D9504BF001ED976 /* ZYLiveViewController+EVENT.m in Sources */ = {isa = PBXBuildFile; fileRef = 051666BB1D9504BF001ED976 /* ZYLiveViewController+EVENT.m */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
@@ -745,6 +746,8 @@
 		0513E28F1D8643DE00E8BC63 /* ZYWatchLiveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYWatchLiveView.m; path = Pods/RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/RongIMKit.framework/Headers/ZYWatchLiveView.m; sourceTree = SOURCE_ROOT; };
 		051666B71D9388E0001ED976 /* ZYSystemCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSystemCommon.h; sourceTree = "<group>"; };
 		051666B81D9388E0001ED976 /* ZYSystemCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSystemCommon.m; sourceTree = "<group>"; };
+		051666BA1D9504BF001ED976 /* ZYLiveViewController+EVENT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZYLiveViewController+EVENT.h"; sourceTree = "<group>"; };
+		051666BB1D9504BF001ED976 /* ZYLiveViewController+EVENT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZYLiveViewController+EVENT.m"; sourceTree = "<group>"; };
 		05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveViewController.h; sourceTree = "<group>"; };
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
@@ -3869,6 +3872,8 @@
 			children = (
 				392AB2541D669C26003FEDB7 /* ZYLiveViewController.h */,
 				392AB2551D669C26003FEDB7 /* ZYLiveViewController.m */,
+				051666BA1D9504BF001ED976 /* ZYLiveViewController+EVENT.h */,
+				051666BB1D9504BF001ED976 /* ZYLiveViewController+EVENT.m */,
 				3967ADB21D6C29BD008A7F81 /* ZYDoLiveVC.h */,
 				3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */,
 			);
@@ -5286,6 +5291,7 @@
 				2C1B60DB1D6D3CF900E3C25B /* GoalFirstCell.m in Sources */,
 				2C1B60D81D6D3CF900E3C25B /* ZYImageModel.m in Sources */,
 				3926350E1D5D7C29006A90BE /* MineWalletTableViewCell.m in Sources */,
+				051666BC1D9504BF001ED976 /* ZYLiveViewController+EVENT.m in Sources */,
 				056046C51D6DBDD5006906FD /* RCDLive.m in Sources */,
 				2C1B60D41D6D3CF900E3C25B /* SelectImageViewController.m in Sources */,
 				2CF74EEC1D8E7ECD004F8718 /* ZYFootprintController.m in Sources */,
