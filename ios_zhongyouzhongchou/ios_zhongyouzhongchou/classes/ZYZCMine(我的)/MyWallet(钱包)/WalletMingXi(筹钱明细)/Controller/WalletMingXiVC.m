@@ -11,12 +11,11 @@
 #import "MineWalletMingxiCell.h"
 #import "MBProgressHUD+MJ.h"
 #import "NetWorkManager.h"
-#import "WalletMingxiViewModel.h"
+#import "WalletMingXiModel.h"
 @interface WalletMingXiVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
 
-@property (nonatomic, strong) WalletMingxiViewModel *mingxiViewModel;
 
 /**
  *  可提现列表
@@ -37,74 +36,82 @@
         self.productId = productId;
         self.title=@"众筹明细";
         self.hidesBottomBarWhenPushed = YES;
-        self.pageNo = 2;
+        self.pageNo = 1;
         
         //刷新ui
         [self configUI];
         
-        //请求数据
-        self.mingxiViewModel = [WalletMingxiViewModel viewModel];
+        [self requestListDataWithPage:self.pageNo direction:1];
         
-        __weak typeof(&*self) weakSelf = self;
-    
-        [self.mingxiViewModel headRefreshDataWithProductID:productId];
-        
-        [self.mingxiViewModel setBlockWithReturnBlock:^(id returnValue) {
-            
-            NSMutableArray *tempArray = returnValue;
-            
-            if (weakSelf.mingxiViewModel.refreshType == WalletMingXiRefreshTypeHead) {//下拉刷新
-                
-                if (tempArray.count > 0) {
-                    
-                    weakSelf.moneyListArray = tempArray;
-                    weakSelf.pageNo = 2;
-                    [weakSelf.tableView reloadData];
-                }else{
-                    //说明没有更多数据
-                    [MBProgressHUD showError:@"没有更多数据了哦"];
-                }
-            }else{//上啦加载更多
-                if (tempArray.count > 0) {
-                    
-                    [weakSelf.moneyListArray addObjectsFromArray:tempArray];
-                    
-                    [weakSelf.tableView reloadData];
-                    
-                    weakSelf.pageNo++;
-                    
-                }else{
-                    //说明没有更多数据
-                    [MBProgressHUD showShortMessage:@"没有更多数据了哦"];
-                }
-            }
-            //结束刷新
-            [weakSelf.tableView.mj_footer endRefreshing];
-            [weakSelf.tableView.mj_header endRefreshing];
-        } WithErrorBlock:^(id errorCode) {
-            [MBProgressHUD showError:@"网络错误\n请求失败"];
-            
-            [weakSelf.tableView.mj_footer endRefreshing];
-            [weakSelf.tableView.mj_header endRefreshing];
-        } WithFailureBlock:^{
-            [MBProgressHUD showError:@"网络错误\n请求失败"];
-            [weakSelf.tableView.mj_footer endRefreshing];
-            [weakSelf.tableView.mj_header endRefreshing];
-        }];
-        
-        //上啦加载更多
-        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-            
-            [weakSelf.mingxiViewModel footRefreshDataWithProductID:productId pageNo:weakSelf.pageNo];
-        }];
-        
-        //下拉刷新
-        self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [weakSelf.mingxiViewModel headRefreshDataWithProductID:productId];
-        }];
     }
     
     return  self;
+}
+
+#pragma mark - network
+- (void)requestListDataWithPage:(NSInteger )pageNO direction:(NSInteger )direction{
+    //direction 方向:1为下拉刷新 2为上拉加载更多
+    
+    NSString *url = Get_RecordDetail([ZYZCAccountTool getUserId], self.productId, pageNO);
+    
+    __weak typeof(&*self) weakSelf = self;
+    [MBProgressHUD showMessage:@"正在加载"];
+    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            
+            NSMutableArray *dataArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            if (direction == 1) {//说明是下拉
+                if (dataArray.count > 0) {
+                    
+                    weakSelf.moneyListArray = dataArray;
+                    weakSelf.pageNo = 2;
+                    [weakSelf.tableView reloadData];
+                    
+                    [MBProgressHUD hideHUD];
+                }else{
+                    weakSelf.moneyListArray = nil;
+                    [weakSelf.tableView reloadData];
+                    
+                    [MBProgressHUD hideHUD];
+                    [MBProgressHUD showShortMessage:@"没有更多数据"];
+                }
+                
+                
+            }else{//上啦
+                if (dataArray.count > 0) {
+                    
+                    [weakSelf.moneyListArray addObjectsFromArray:dataArray];
+                    weakSelf.pageNo++;
+                    [weakSelf.tableView reloadData];
+                    
+                    
+                    [MBProgressHUD hideHUD];
+                }else{
+                    [MBProgressHUD hideHUD];
+                    [MBProgressHUD showShortMessage:@"没有更多数据"];
+                }
+            }
+            
+            
+        }else{
+            
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showShortMessage:@"连接服务器失败,请检查你的网络"];
+        }
+        
+        //结束刷新
+        [weakSelf.tableView.mj_footer endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
+    } andFailBlock:^(id failResult) {
+        
+        [MBProgressHUD hideHUD];
+        [MBProgressHUD showShortMessage:@"连接服务器失败,请检查你的网络"];
+        
+        //结束刷新
+        [weakSelf.tableView.mj_footer endRefreshing];
+        [weakSelf.tableView.mj_header endRefreshing];
+    }];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -112,6 +119,7 @@
 
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    
 }
 
 #pragma mark - configUI方法
@@ -128,12 +136,20 @@
     _tableView.contentInset = UIEdgeInsetsMake( 5, 0, 0, 0);
     [self.view addSubview:_tableView];
     
+    
+    WEAKSELF
+    //上啦加载更多
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf requestListDataWithPage:weakSelf.pageNo direction:2];
+    }];
+    
+    //下拉刷新
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //移除占位view
+        weakSelf.pageNo = 1;
+        [weakSelf requestListDataWithPage:weakSelf.pageNo direction:1];
+    }];
 }
-
-#pragma mark - set方法
-
-
-#pragma mark - button点击方法
 
 #pragma mark - 代理方法
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -169,8 +185,6 @@
 {
     [super pressBack];
     
-    //发送一个刷新数据的通知
-    [ZYNSNotificationCenter postNotificationName:@"refreshWalletData" object:nil];
     
 }
 @end
