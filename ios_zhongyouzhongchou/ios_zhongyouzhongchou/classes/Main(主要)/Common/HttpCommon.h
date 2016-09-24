@@ -16,7 +16,7 @@
 //测试
 #define BASE_URL @"http://121.40.225.119:8080/"
 //华子
-//#define BASE_URL @"https://192.168.1.128:8086/"
+//#define BASE_URL @"http://192.168.1.111:8086/"
 //海外服务器
 //#define BASE_URL @"http://47.88.148.201:8080/"
 //#define BASE_URL @"http://192.168.1.59:8086/"
@@ -88,7 +88,8 @@
 #define GET_ORDER          HTTPURL(@"weixinpay/generateAppOrder")
 
 //获取所有众筹列表
-#define LISTALLPRODUCTS    HTTPURL(@"list/listAllProducts")
+//#define LISTALLPRODUCTS    HTTPURL(@"list/listAllProducts")
+#define LISTALLPRODUCTS    HTTPURL(@"list/listAllProductsApp")
 //获取我的众筹列表
 #define LISTMYPRODUCTS     HTTPURL(@"list/listMyProducts")
 //获取国家列表
@@ -212,9 +213,9 @@
 #define GET_ORDERPAY_STATUS(userId,outTradeNo)   [NSString stringWithFormat:@"%@productInfo/getOrderPayStatus.action?userId=%@&outTradeNo=%@",BASE_URL,userId,outTradeNo]
 
 //攻略目的地详情添加众筹项目详情
-#define Get_Dest_ZhongChou_List(pageNo,dest) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%ld&status_not=0,2&pageSize=10&dest=%@",BASE_URL,pageNo,dest]
+#define Get_Dest_ZhongChou_List(pageNo,dest) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%ld&querytype＝98&pageSize=10&dest=%@",BASE_URL,pageNo,dest]
 //国家级目的地详情添加众筹项目详情
-#define Get_Country_ZhongChou_List(pageNo,countryName) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%d&status_not=0,2&pageSize=10&countryName=%@",BASE_URL,pageNo,countryName]
+#define Get_Country_ZhongChou_List(pageNo,countryName) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%d&&querytype＝98&pageSize=10&countryName=%@",BASE_URL,pageNo,countryName]
 //发众筹时判断用户信息是否完善
 #define CHECK_USERINFO [NSString stringWithFormat:@"%@register/checkUserInfoIntegrality.action",BASE_URL]
 

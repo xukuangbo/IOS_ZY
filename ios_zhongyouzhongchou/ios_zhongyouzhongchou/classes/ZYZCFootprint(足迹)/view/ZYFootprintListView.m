@@ -10,6 +10,8 @@
 
 @interface ZYFootprintListView ()
 
+@property (nonatomic, assign) FootprintListType  footprintListType;
+
 @end
 
 @implementation ZYFootprintListView
@@ -22,7 +24,6 @@
 }
 */
 
-
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
     if (self=[super initWithFrame:frame style:style]) {
@@ -30,6 +31,16 @@
     }
     return self;
 }
+
+-(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style andFootprintListType:(FootprintListType ) footprintListType
+{
+    if (self=[super initWithFrame:frame style:style]) {
+        self.contentInset=UIEdgeInsetsMake(74, 0, 10, 0) ;
+        _footprintListType=footprintListType;
+    }
+    return self;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataArr.count;
@@ -39,11 +50,12 @@
 {
     ZYfootprintListCell *footprintCell=(ZYfootprintListCell *)[ZYfootprintListCell customTableView:tableView cellWithIdentifier:@"footprintCell" andCellClass:[ZYfootprintListCell class]];
     ZYFootprintListModel *cellModel=self.dataArr[indexPath.row];
+    cellModel.footprintListType=_footprintListType;
     if (cellModel.creattime) {
         NSString *time=[ZYZCTool turnTimeStampToDate:cellModel.creattime];
         NSInteger year  = [[time substringToIndex:4] integerValue];
         NSInteger month = [[time substringWithRange:NSMakeRange(5, 2)] integerValue];
-        DDLog(@"year:%ld,month:%ld",year,month);
+//        DDLog(@"year:%ld,month:%ld",year,month);
         cellModel.totalMonth=year*12+month;
     }
     
@@ -91,7 +103,17 @@
         cellModel.cellType=CompleteCell;
         
     }
+    
     footprintCell.listModel=cellModel;
+    
+    WEAKSELF;
+    footprintCell.oneFootprintView.deleteFootprint=^(ZYFootprintListModel *oneFootprintModel)
+    {
+        NSMutableArray *mutArr= [NSMutableArray arrayWithArray:weakSelf.dataArr];
+        [mutArr removeObject:oneFootprintModel];
+        weakSelf.dataArr=mutArr;
+        [weakSelf reloadData];
+    };
     
     return footprintCell;
 }

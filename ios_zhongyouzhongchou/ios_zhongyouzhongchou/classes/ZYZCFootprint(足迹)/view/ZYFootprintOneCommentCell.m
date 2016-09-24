@@ -8,7 +8,6 @@
 
 #import "ZYFootprintOneCommentCell.h"
 #import "ZCDetailCustomButton.h"
-#import "UILabel+YBAttributeTextTapAction.h"
 #import "LoginJudgeTool.h"
 #import "ZYZCPersonalController.h"
 @interface ZYFootprintOneCommentCell()
@@ -104,12 +103,12 @@
         [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor ZYZC_MainColor] range:replyUserName_range];
         
         _contentlab.attributedText=attrStr;
-        WEAKSELF;
-        [_contentlab yb_addAttributeTapActionWithStrings:@[content] tapClicked:^(NSString *string, NSRange range, NSInteger index) {
-            
-            [weakSelf enterUserZone:oneCommentModel.replyUserId];
-            
-        }];
+//        WEAKSELF;
+//        [_contentlab yb_addAttributeTapActionWithStrings:@[content] tapClicked:^(NSString *string, NSRange range, NSInteger index) {
+//            
+//            [weakSelf enterUserZone:oneCommentModel.replyUserId];
+//            
+//        }];
     }
     
     CGFloat content_height=[ZYZCTool calculateStrLengthByText:content andFont:_contentlab.font andMaxWidth:_contentlab.width].height;

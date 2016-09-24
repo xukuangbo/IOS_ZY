@@ -8,6 +8,11 @@
 
 #import "ZYZCBaseTableView.h"
 #import "ZYfootprintListCell.h"
+
+
+
 @interface ZYFootprintListView : ZYZCBaseTableView
+
+-(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style andFootprintListType:(FootprintListType ) footprintListType;
 
 @end

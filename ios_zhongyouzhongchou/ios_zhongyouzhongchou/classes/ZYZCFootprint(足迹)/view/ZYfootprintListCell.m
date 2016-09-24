@@ -7,12 +7,10 @@
 //
 
 #import "ZYfootprintListCell.h"
-#import "ZYOneFootprintView.h"
-
+#import "MBProgressHUD+MJ.h"
 @interface ZYfootprintListCell ()
 @property (nonatomic, strong) UIImageView        *bgImage;
 @property (nonatomic, strong) UILabel            *timeLab;
-@property (nonatomic, strong) ZYOneFootprintView *oneFootprintView;
 @property (nonatomic, strong) UIView             *lineView;
 @property (nonatomic, strong) UIImageView        *dotImageView;
 
@@ -61,7 +59,6 @@
     _dotImageView=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE-5, 0, 10, 10)];
     _dotImageView.image=[UIImage imageNamed:@"footprint-point"];
     [_bgImage addSubview:_dotImageView];
-    
 }
 
 -(void)setListModel:(ZYFootprintListModel *)listModel
@@ -129,7 +126,7 @@
         _lineView.top=0;
         _lineView.height=_bgImage.height-KEDGE_DISTANCE;
     }
-
+    
     _listModel.cellHeight=_bgImage.bottom;
 }
 

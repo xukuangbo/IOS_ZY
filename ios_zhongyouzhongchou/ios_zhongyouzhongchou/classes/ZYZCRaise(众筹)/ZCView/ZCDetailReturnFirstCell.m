@@ -55,27 +55,34 @@
     NSString *text04=ZYLocalizedString(@"skim_support_together");
     
     _mySubViews=[NSMutableArray array];
-    _supportOneYuanView =[[ZCSupportOneYuanView alloc]initSupportViewByTop:0 andTitle:@"支持5元" andText:text01 ];
+    
+    //一起游
+    _togetherView =[[ZCSupportTogetherView alloc]initSupportViewByTop:0 andTitle:TOGETHERSUPPORT(0,0.00) andText:text04 ];
+    [self.contentView addSubview:_togetherView];
+    [_mySubViews addObject:_togetherView];
+    
+    //回报
+    _returnSupportView01 =[[ZCSupportReturnView alloc]initSupportViewByTop:_togetherView.bottom andTitle:RETURNSUPPORT01(0.00) andText:text03];
+    [self.contentView addSubview:_returnSupportView01];
+    [_mySubViews addObject:_returnSupportView01];
+    
+    //支持5元
+    _supportOneYuanView =[[ZCSupportOneYuanView alloc]initSupportViewByTop:_returnSupportView01.bottom andTitle:@"支持5元" andText:text01 ];
     [self.contentView addSubview:_supportOneYuanView];
     [_mySubViews addObject:_supportOneYuanView];
     
+    //支持任意金额
     _supportAnyYuanView =[[ZCSupportAnyYuanView alloc]initSupportViewByTop:_supportOneYuanView.bottom andTitle:@"支持任意金额:" andText:text02];
     [self.contentView addSubview:_supportAnyYuanView];
     [_mySubViews addObject:_supportAnyYuanView];
 //    _supportAnyYuanView.chooseSupport=NO;
     
-    _returnSupportView01 =[[ZCSupportReturnView alloc]initSupportViewByTop:_supportAnyYuanView.bottom andTitle:RETURNSUPPORT01(0.00) andText:text03];
-    [self.contentView addSubview:_returnSupportView01];
-    [_mySubViews addObject:_returnSupportView01];
     
-    _returnSupportView02 =[[ZCSupportReturnView alloc]initSupportViewByTop:_returnSupportView01.bottom andTitle:RETURNSUPPORT02(0.00) andText:text03];
-    [self.contentView addSubview:_returnSupportView02];
-    [_mySubViews addObject:_returnSupportView02];
+//    _returnSupportView02 =[[ZCSupportReturnView alloc]initSupportViewByTop:_returnSupportView01.bottom andTitle:RETURNSUPPORT02(0.00) andText:text03];
+//    [self.contentView addSubview:_returnSupportView02];
+//    [_mySubViews addObject:_returnSupportView02];
     
-    _togetherView =[[ZCSupportTogetherView alloc]initSupportViewByTop:_returnSupportView02.bottom andTitle:TOGETHERSUPPORT(0,0.00) andText:text04 ];
-    [self.contentView addSubview:_togetherView];
-    [_mySubViews addObject:_togetherView];
-    
+   
      [self supportCode];
     
     
@@ -208,11 +215,26 @@
     _returnSupportView01.mySelf=_togetherView.mySelf
     =_returnSupportView02.mySelf=[_cellModel.mySelf isEqual:@1];
     
+//    _supportAnyYuanView.top=_supportOneYuanView.bottom;
+//    hasReturn01? _returnSupportView01.top =_supportAnyYuanView.bottom:[_returnSupportView01 removeFromSuperview];
+//    hasReturn02?_returnSupportView02.top =_supportAnyYuanView.bottom+_returnSupportView01.height*hasReturn01:[_returnSupportView02 removeFromSuperview];
+//    _togetherView.top =_supportAnyYuanView.bottom+_returnSupportView01.height*hasReturn01+_returnSupportView02.height*hasReturn02;
+//    self.bgImg.height=_togetherView.bottom;
+    
+    
+    _returnSupportView01.top=_togetherView.bottom;
+    
+    if (!hasReturn01) {
+        _returnSupportView01.hidden=YES;
+        _returnSupportView01.height=0.1;
+    }
+    
+    _supportOneYuanView.top=_returnSupportView01.bottom;
+    
     _supportAnyYuanView.top=_supportOneYuanView.bottom;
-    hasReturn01? _returnSupportView01.top =_supportAnyYuanView.bottom:[_returnSupportView01 removeFromSuperview];
-    hasReturn02?_returnSupportView02.top =_supportAnyYuanView.bottom+_returnSupportView01.height*hasReturn01:[_returnSupportView02 removeFromSuperview];
-    _togetherView.top =_supportAnyYuanView.bottom+_returnSupportView01.height*hasReturn01+_returnSupportView02.height*hasReturn02;
-    self.bgImg.height=_togetherView.bottom;
+    
+    self.bgImg.height=_supportAnyYuanView.bottom;
+    
     cellModel.returnFirtCellHeight=self.bgImg.height;
     
     //判断项目众筹是否已截止

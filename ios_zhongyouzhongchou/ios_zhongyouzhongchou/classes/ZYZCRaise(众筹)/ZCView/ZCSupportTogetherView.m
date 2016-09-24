@@ -24,6 +24,7 @@
      _wsmView=[[ZCWSMView alloc]initWithFrame:CGRectMake(0, 0, self.width, 0)];
     self.otherViews.top=self.textLab.bottom+KEDGE_DISTANCE;
     [self.otherViews addSubview:_wsmView];
+    [self.lineView removeFromSuperview];
     [self changViewFrame];
 }
 

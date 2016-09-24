@@ -208,7 +208,6 @@
 		2C3292FA1D9258F40095F60E /* ZYSupportListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F91D9258F40095F60E /* ZYSupportListModel.m */; };
 		2C3293001D926E890095F60E /* ZYCommentListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292FF1D926E890095F60E /* ZYCommentListModel.m */; };
 		2C3293061D9276110095F60E /* ZYFootprintOneCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3293051D9276110095F60E /* ZYFootprintOneCommentCell.m */; };
-		2C32930D1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C32930C1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m */; };
 		2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */; };
 		2C3777EC1D07BC51004FDA9D /* MyProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EB1D07BC51004FDA9D /* MyProductViewController.m */; };
 		2C3777EF1D07C345004FDA9D /* MyProductTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EE1D07C345004FDA9D /* MyProductTableView.m */; };
@@ -300,6 +299,7 @@
 		2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD97981D1D0DCB000E4ED8 /* UserIconButton.m */; };
 		2CAD979F1D1D1BE3000E4ED8 /* TogetherUersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD979E1D1D1BE3000E4ED8 /* TogetherUersModel.m */; };
 		2CAD97B01D1D3CF4000E4ED8 /* CommentUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD97AF1D1D3CF4000E4ED8 /* CommentUserViewController.m */; };
+		2CB05D071D93E34100A1B731 /* ZYStartPublishFootprintCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CB05D061D93E34100A1B731 /* ZYStartPublishFootprintCell.m */; };
 		2CC5FD781D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5FD6C1D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m */; };
 		2CC5FD791D5990EE0001AC95 /* UITabBarItem+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5FD6E1D5990EE0001AC95 /* UITabBarItem+WZLBadge.m */; };
 		2CC5FD7A1D5990EE0001AC95 /* CAAnimation+WAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5FD711D5990EE0001AC95 /* CAAnimation+WAnimation.m */; };
@@ -510,7 +510,6 @@
 		39809D251D588EE000CB9EE3 /* TacticMainVideoCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D241D588EE000CB9EE3 /* TacticMainVideoCustomView.m */; };
 		3985EC391D5C1C86007C43D1 /* WalletMingXiVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC311D5C1C86007C43D1 /* WalletMingXiVC.m */; };
 		3985EC3A1D5C1C86007C43D1 /* WalletMingXiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC341D5C1C86007C43D1 /* WalletMingXiModel.m */; };
-		3985EC3E1D5C1D44007C43D1 /* WalletMingxiViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC3D1D5C1D44007C43D1 /* WalletMingxiViewModel.m */; };
 		3985EC411D5C53E6007C43D1 /* MineWalletMingxiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC401D5C53E6007C43D1 /* MineWalletMingxiCell.m */; };
 		3987D55F1D46FE5300556E41 /* TacticGoXXTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3987D55E1D46FE5300556E41 /* TacticGoXXTravelCell.m */; };
 		39911AB01D5038B2007DF44B /* TacticSingleFoodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39911AAF1D5038B2007DF44B /* TacticSingleFoodVC.m */; };
@@ -942,8 +941,6 @@
 		2C3292FF1D926E890095F60E /* ZYCommentListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCommentListModel.m; sourceTree = "<group>"; };
 		2C3293041D9276110095F60E /* ZYFootprintOneCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFootprintOneCommentCell.h; sourceTree = "<group>"; };
 		2C3293051D9276110095F60E /* ZYFootprintOneCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintOneCommentCell.m; sourceTree = "<group>"; };
-		2C32930B1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+YBAttributeTextTapAction.h"; sourceTree = "<group>"; };
-		2C32930C1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+YBAttributeTextTapAction.m"; sourceTree = "<group>"; };
 		2C3523211D3C63B8005200AD /* ZYMobileLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMobileLoginController.h; sourceTree = "<group>"; };
 		2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMobileLoginController.m; sourceTree = "<group>"; };
 		2C3777EA1D07BC51004FDA9D /* MyProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductViewController.h; sourceTree = "<group>"; };
@@ -1125,6 +1122,8 @@
 		2CAD979E1D1D1BE3000E4ED8 /* TogetherUersModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TogetherUersModel.m; sourceTree = "<group>"; };
 		2CAD97AE1D1D3CF4000E4ED8 /* CommentUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentUserViewController.h; sourceTree = "<group>"; };
 		2CAD97AF1D1D3CF4000E4ED8 /* CommentUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentUserViewController.m; sourceTree = "<group>"; };
+		2CB05D051D93E34100A1B731 /* ZYStartPublishFootprintCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYStartPublishFootprintCell.h; sourceTree = "<group>"; };
+		2CB05D061D93E34100A1B731 /* ZYStartPublishFootprintCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYStartPublishFootprintCell.m; sourceTree = "<group>"; };
 		2CC5FD6B1D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+WZLBadge.h"; sourceTree = "<group>"; };
 		2CC5FD6C1D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+WZLBadge.m"; sourceTree = "<group>"; };
 		2CC5FD6D1D5990EE0001AC95 /* UITabBarItem+WZLBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+WZLBadge.h"; sourceTree = "<group>"; };
@@ -1532,8 +1531,6 @@
 		3985EC311D5C1C86007C43D1 /* WalletMingXiVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletMingXiVC.m; sourceTree = "<group>"; };
 		3985EC331D5C1C86007C43D1 /* WalletMingXiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletMingXiModel.h; sourceTree = "<group>"; };
 		3985EC341D5C1C86007C43D1 /* WalletMingXiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletMingXiModel.m; sourceTree = "<group>"; };
-		3985EC3C1D5C1D44007C43D1 /* WalletMingxiViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletMingxiViewModel.h; sourceTree = "<group>"; };
-		3985EC3D1D5C1D44007C43D1 /* WalletMingxiViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletMingxiViewModel.m; sourceTree = "<group>"; };
 		3985EC3F1D5C53E6007C43D1 /* MineWalletMingxiCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineWalletMingxiCell.h; sourceTree = "<group>"; };
 		3985EC401D5C53E6007C43D1 /* MineWalletMingxiCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineWalletMingxiCell.m; sourceTree = "<group>"; };
 		3987D55D1D46FE5300556E41 /* TacticGoXXTravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticGoXXTravelCell.h; sourceTree = "<group>"; };
@@ -2801,15 +2798,6 @@
 			path = "ZYShortVideo(短视频)";
 			sourceTree = "<group>";
 		};
-		2C32930A1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction */ = {
-			isa = PBXGroup;
-			children = (
-				2C32930B1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.h */,
-				2C32930C1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m */,
-			);
-			path = "UILabel+YBAttributeTextTapAction";
-			sourceTree = "<group>";
-		};
 		2C3777E91D07BBE0004FDA9D /* MyProducts(我的行程) */ = {
 			isa = PBXGroup;
 			children = (
@@ -3781,6 +3769,8 @@
 				2C8E9AB41D8F917100CA35DE /* ZYFootprintListView.m */,
 				2C8E9AC21D8F978200CA35DE /* ZYfootprintListCell.h */,
 				2C8E9AC31D8F978200CA35DE /* ZYfootprintListCell.m */,
+				2CB05D051D93E34100A1B731 /* ZYStartPublishFootprintCell.h */,
+				2CB05D061D93E34100A1B731 /* ZYStartPublishFootprintCell.m */,
 				2C3292EF1D922D890095F60E /* ZYFootprintCommentTable.h */,
 				2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */,
 				2C3292F21D9230CC0095F60E /* ZYCommentFootprintCell.h */,
@@ -4355,8 +4345,6 @@
 			children = (
 				3985EC331D5C1C86007C43D1 /* WalletMingXiModel.h */,
 				3985EC341D5C1C86007C43D1 /* WalletMingXiModel.m */,
-				3985EC3C1D5C1D44007C43D1 /* WalletMingxiViewModel.h */,
-				3985EC3D1D5C1D44007C43D1 /* WalletMingxiViewModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4401,7 +4389,6 @@
 		39911AC01D504174007DF44B /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				2C32930A1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction */,
 				394D53471D62CAF800E7F595 /* Foundation+ZYLog.m */,
 				39911AC11D504174007DF44B /* UIColor+ZYZCColors.h */,
 				39911AC21D504174007DF44B /* UIColor+ZYZCColors.m */,
@@ -4906,6 +4893,7 @@
 				39911ABE1D5038E2007DF44B /* TacticGeneralVC.m in Sources */,
 				39AABC971D717B3E00D25B16 /* LiveDetailHeadView.m in Sources */,
 				392AB2981D669C26003FEDB7 /* RCDLiveMessageModel.m in Sources */,
+				2CB05D071D93E34100A1B731 /* ZYStartPublishFootprintCell.m in Sources */,
 				2CC5FD781D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				2C0A20CC1D585DF100E6CE40 /* ChatUserInfoModel.m in Sources */,
 				39788C511D8E39BC000AC2BB /* ZYFaqiGuanlianXCView.m in Sources */,
@@ -5206,7 +5194,6 @@
 				2C7E3B541D06CC4C00F51C61 /* MineOneItemModel.m in Sources */,
 				2C90F6E41D530E73001ABB44 /* ZYZCMessageListViewController.m in Sources */,
 				2CD209131D6D3E27005EB62E /* ZCDetailReturnFourthCell.m in Sources */,
-				3985EC3E1D5C1D44007C43D1 /* WalletMingxiViewModel.m in Sources */,
 				2CD209051D6D3E27005EB62E /* ZCListModel.m in Sources */,
 				2CD2092A1D6D3E27005EB62E /* ZCMainViewController.m in Sources */,
 				2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */,
@@ -5269,7 +5256,6 @@
 				2C8B19751D0CF7EC0063097B /* JGProgressHUDIndeterminateIndicatorView.m in Sources */,
 				2C8E9AB81D8F942100CA35DE /* ZYFootprintListController.m in Sources */,
 				2C41A8121D8A9D2100AD9437 /* ZYLocationManager.m in Sources */,
-				2C32930D1D93BEC40095F60E /* UILabel+YBAttributeTextTapAction.m in Sources */,
 				2C1B60F41D6D3CF900E3C25B /* DrawCircleView.m in Sources */,
 				2C8B197F1D0CF7EC0063097B /* XMNPhotoCollectionController.m in Sources */,
 				393A5E3C1D30DB8D00E165C5 /* AboutXieyiVC.m in Sources */,

@@ -14,6 +14,12 @@ typedef NS_ENUM(NSInteger, FootprintCellType)
     CompleteCell
 };
 
+typedef NS_ENUM(NSInteger, FootprintListType)
+{
+    MyFootprintList=1,
+    OtherFootprintList,
+};
+
 #import <Foundation/Foundation.h>
 
 @class ZYFootprintDataModel;
@@ -59,6 +65,15 @@ typedef NS_ENUM(NSInteger, FootprintCellType)
 
 @property (nonatomic, assign) BOOL    showDate;
 
+@property (nonatomic, assign) FootprintListType footprintListType;
+
+
+
+
 @property (nonatomic, assign) NSInteger totalMonth;
 
 @end
+
+
+
+

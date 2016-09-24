@@ -89,7 +89,7 @@
             fourthRowHeight = ReturnFourthCellHeight;
         }
         
-        _heightArray = [NSMutableArray arrayWithArray:@[@(firstRowHeight),@10,@(secondRowHeight),@10,@(thirdRowHeight),@10,@(fourthRowHeight),@10]];
+        _heightArray = [NSMutableArray arrayWithArray:@[@(fourthRowHeight),@10,@(thirdRowHeight),@10,@(firstRowHeight),@10,@(secondRowHeight),@10]];
     }
     return _heightArray;
 }
@@ -110,20 +110,15 @@
         
         return cell;
     }else if (indexPath.row == 0){
-        ReturnFirstCell *cell = [self dequeueReusableCellWithIdentifier:@"ReturnFirstCell"];
+        ReturnFourthCell *cell = [self dequeueReusableCellWithIdentifier:@"ReturnFourthCell"];
         if (!cell) {
-            cell = [[ReturnFirstCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ReturnFirstCell"];
+            cell = [[ReturnFourthCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ReturnFourthCell"];
         }
+        [cell reloadManagerData];
         cell.open = [self.openArray[indexPath.row] intValue];
         return cell;
+
     }else if(indexPath.row == 2){
-        ReturnSecondCell *cell = [self dequeueReusableCellWithIdentifier:@"ReturnSecondCell"];
-        if (!cell) {
-            cell = [[ReturnSecondCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ReturnSecondCell"];
-        }
-        cell.open = [self.openArray[indexPath.row] intValue];
-        return cell;
-    }else if(indexPath.row == 4){
         NSString *cellId=@"ReturnThirdCell";
         ReturnThirdCell *cell = [self dequeueReusableCellWithIdentifier:cellId];
         if (!cell) {
@@ -132,16 +127,22 @@
         cell.open = [self.openArray[indexPath.row] intValue];
         [cell reloadManagerData];
         return cell;
-    }else{
-        ReturnFourthCell *cell = [self dequeueReusableCellWithIdentifier:@"ReturnFourthCell"];
+        
+    }else if(indexPath.row == 4){
+        ReturnFirstCell *cell = [self dequeueReusableCellWithIdentifier:@"ReturnFirstCell"];
         if (!cell) {
-            cell = [[ReturnFourthCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ReturnFourthCell"];
+            cell = [[ReturnFirstCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ReturnFirstCell"];
         }
-        [cell reloadManagerData];
+        cell.open = [self.openArray[indexPath.row] intValue];
+        return cell;
+    }else{
+        ReturnSecondCell *cell = [self dequeueReusableCellWithIdentifier:@"ReturnSecondCell"];
+        if (!cell) {
+            cell = [[ReturnSecondCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ReturnSecondCell"];
+        }
         cell.open = [self.openArray[indexPath.row] intValue];
         return cell;
     }
-   
 }
 
 
@@ -173,7 +174,7 @@
             }
         }];
     }
-    
+
 }
 
 - (void)keyboardWillHide:(NSNotification *)noti {
