@@ -8,15 +8,32 @@
 
 #import "ZYLiveViewController+EVENT.h"
 #import "RCDLiveTextMessageCell.h"
+#import "ZYZCPersonalController.h"
+#import "MinePersonSetUpModel.h"
+#import "MBProgressHUD+MJ.h"
 @implementation ZYLiveViewController (EVENT)
-- (void)initUISubView
+- (void)initLivePersonDataView
 {
+    //添加个人信息view
+    CGFloat personDataViewW = 230;
+    CGFloat personDataViewH = 340;
+    CGFloat personDataViewX = (self.view.width - personDataViewW) * 0.5;
+    CGFloat personDataViewY = self.view.height;
+    self.personDataView = [[LivePersonDataView alloc] initWithFrame:CGRectMake(personDataViewX, personDataViewY, personDataViewW, personDataViewH)];
+    [self.view addSubview:self.personDataView];
     
+    [self.personDataView.roomButton addTarget:self action:@selector(clickEnterRoomButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.personDataView.zhongchouButton addTarget:self action:@selector(clickZhongchouButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.personDataView.attentionButton addTarget:self action:@selector(clickAttentionButton:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.personDataView.bannedSpeakButton addTarget:self action:@selector(clickBannedSpeakButton:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)setUpBottomViews
 {
-    
     //聊天区
     if(self.contentView == nil){
         CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
@@ -71,7 +88,8 @@
                              initWithTarget:self
                              action:@selector(tap4ResetDefaultBottomBarStatus:)];//点击空白
     [self.resetBottomTapGesture setDelegate:self];
-    
+    [self.view addGestureRecognizer:self.resetBottomTapGesture];
+
     //评论
     CGFloat buttonWH = 40;
     self.feedBackBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -148,30 +166,79 @@
 #pragma mark ---定义展示的UICollectionViewCell的个数
 - (void)tap4ResetDefaultBottomBarStatus:
 (UIGestureRecognizer *)gestureRecognizer {
-    
     //隐藏个人信息
     [self.personDataView hidePersonDataView];
     
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        //        CGRect collectionViewRect = self.conversationMessageCollectionView.frame;
-        //        collectionViewRect.size.height = self.contentView.bounds.size.height - 0;
-        //        [self.conversationMessageCollectionView setFrame:collectionViewRect];
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
         self.liveFunctionView.hidden = YES;
-        //        [self clapButtonPressed];
     }
 }
 
 #pragma mark - event 点击事件
-/**
- *  展示个人头像
- */
+// 展示个人头像
 - (void)showPersonData
 {
     [self.personDataView showPersonDataWithUserId:@"1"];
 }
 
+// 进入个人空间界面
+- (void)clickEnterRoomButton:(UIButton *)sender
+{
+    self.navigationController.navigationBar.hidden = NO;
+    ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
+    personalController.hidesBottomBarWhenPushed=YES;
+    personalController.userId = [NSNumber numberWithInteger:[self.personDataView.minePersonModel.userId intValue]];
+    [self.navigationController pushViewController:personalController animated:YES];
+
+}
+// 进入众筹详情
+- (void)clickZhongchouButton:(UIButton *)sender
+{
+    
+}
+
+// 点击关注按钮
+- (void)clickAttentionButton:(UIButton *)sender
+{
+    WEAKSELF
+    NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":self.personDataView.minePersonModel.userId};
+    if ([self.personDataView.attentionButton.titleLabel.text isEqualToString:@"取消关注"]) {
+        //取消关注
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:UNFOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess)
+         {
+             if (isSuccess) {
+                 [MBProgressHUD showSuccess:@"取消成功"];
+                 [weakSelf.personDataView.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
+             } else {
+                 [MBProgressHUD showSuccess:@"取消失败"];
+             }
+         }andFailBlock:^(id failResult) {
+             [MBProgressHUD showSuccess:@"取消失败"];
+         }];
+        
+    } else {
+        //添加关注
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            //            NSLog(@"%@",result);
+            if (isSuccess) {
+                [MBProgressHUD showSuccess:@"关注成功"];
+                [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
+            } else {
+                [MBProgressHUD showSuccess:@"关注失败"];
+            }
+        } andFailBlock:^(id failResult) {
+            [MBProgressHUD showSuccess:@"关注失败"];
+        }];
+    }
+}
+
+// 点击禁言按钮
+- (void)clickBannedSpeakButton:(UIButton *)sender
+{
+    
+}
 
 - (void)messageBtnAction:(UIButton *)sender
 {
@@ -193,5 +260,16 @@
 {
     self.liveFunctionView.hidden = !self.liveFunctionView.hidden;
 }
+
+//#pragma mark - UIGestureRecognizerDelegate
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+//    if ([touch.view.superview isKindOfClass:[UIButton class]])
+//    {
+//        return NO;
+//    }
+//    return YES;
+//}
+
 
 @end

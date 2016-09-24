@@ -10,7 +10,7 @@
 
 @interface ZYLiveViewController (EVENT) <RCTKInputBarControlDelegate, UIGestureRecognizerDelegate>
 
-- (void)initUISubView;
+- (void)initLivePersonDataView;
 - (void)setUpBottomViews;
 /**
  *  展示个人头像
