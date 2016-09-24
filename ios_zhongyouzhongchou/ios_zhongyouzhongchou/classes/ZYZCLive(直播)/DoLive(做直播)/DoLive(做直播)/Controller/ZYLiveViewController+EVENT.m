@@ -11,6 +11,7 @@
 #import "ZYZCPersonalController.h"
 #import "MinePersonSetUpModel.h"
 #import "MBProgressHUD+MJ.h"
+#import <CommonCrypto/CommonDigest.h>
 @implementation ZYLiveViewController (EVENT)
 - (void)initLivePersonDataView
 {
@@ -237,7 +238,13 @@
 // 点击禁言按钮
 - (void)clickBannedSpeakButton:(UIButton *)sender
 {
+    [self postRequest];
     
+}
+
+- (void)showHint
+{
+    [self showHintWithText:@"禁言成功"];
 }
 
 - (void)messageBtnAction:(UIButton *)sender
@@ -260,6 +267,113 @@
 {
     self.liveFunctionView.hidden = !self.liveFunctionView.hidden;
 }
+
+- (void)postRequest
+{
+    //POST请求 请求参数放在请求内部(httpBody)
+    //设置请求
+    NSMutableURLRequest * request = [[NSMutableURLRequest alloc] init];
+    request.timeoutInterval = 10;
+    request.HTTPMethod = @"POST";
+    request.URL = [NSURL URLWithString:@"https://api.cn.ronghub.com/chatroom/user/gag/add.json"];
+    
+    NSString * appkey = RC_APPKEY;
+    NSString * nonce = [NSString stringWithFormat:@"%zd",arc4random() % 10000];
+    NSString * timestamp = [[NSString alloc] initWithFormat:@"%ld",(NSInteger)[NSDate timeIntervalSinceReferenceDate]];
+    
+    //配置http header
+    [request setValue:appkey forHTTPHeaderField:@"RC-App-Key"];
+    [request setValue:nonce forHTTPHeaderField:@"RC-Nonce"];
+    [request setValue:timestamp forHTTPHeaderField:@"RC-Timestamp"];
+    //生成hashcode 用以验证签名
+    [request setValue:[self sha1:[NSString stringWithFormat:@"%@%@%@",appkey,nonce,timestamp]] forHTTPHeaderField:@"RC-Signature"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    NSMutableDictionary * paramDic = [NSMutableDictionary dictionary];
+    [paramDic setObject:self.personDataView.minePersonModel.userId forKey:@"userId"];
+    [paramDic setObject:self.targetId forKey:@"chatroomId"];
+    [paramDic setObject:@"43200" forKey:@"minute"];
+    
+    request.HTTPBody = [self httpBodyFromParamDictionary:paramDic];
+    [NSURLConnection connectionWithRequest:request delegate:self];
+    
+    NSData *retData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSLog(@"datadata%@", retData);
+//    NSString *ret = [[NSString alloc] initWithData:retData encoding:NSUTF8StringEncoding];
+//    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:retData options:NSJSONReadingMutableLeaves error:nil];
+//    
+//     NSLog(@"%@",ret);
+
+}
+
+- (NSData *)httpBodyFromParamDictionary:(NSDictionary *)param
+{
+    NSMutableString * data = [NSMutableString string];
+    for (NSString * key in param.allKeys) {
+        [data appendFormat:@"%@=%@&",key,param[key]];
+    }
+    return [[data substringToIndex:data.length-1] dataUsingEncoding:NSUTF8StringEncoding];
+}
+- (NSString*)sha1:(NSString *)hashString
+{
+    const char *cstr = [hashString cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *data = [NSData dataWithBytes:cstr length:hashString.length];
+    //使用对应的CC_SHA1,CC_SHA256,CC_SHA384,CC_SHA512的长度分别是20,32,48,64
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    //使用对应的CC_SHA256,CC_SHA384,CC_SHA512
+    CC_SHA1(data.bytes, data.length, digest);
+    
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+    
+    return output;
+}
+
+- (void)connection:(NSURLConnection *)theConnection didReceiveResponse:(NSURLResponse *)response{
+#pragma unused(theConnection)
+    NSHTTPURLResponse * httpResponse;
+    NSString *          contentTypeHeader;
+    httpResponse = (NSHTTPURLResponse *) response;
+    // 返回的元数据类型
+    NSString *returnMIMEType= [httpResponse MIMEType];
+    // 请求的URL地址
+    NSURL *returnURL= [httpResponse URL];
+    // 要返回的数据长度（指总共长度）
+    long long returnContentLength= [httpResponse expectedContentLength];
+    // 状态代码，一般根据状态代码。返回来的数据是否正常。
+    NSInteger returnInteger= [httpResponse statusCode];
+    // 编码名称-字符串表示；如果元数据不提供，则返回nil
+    NSString *returnEncodingName=[httpResponse textEncodingName];
+    // 文件名称
+    NSString *returnFilename=[httpResponse suggestedFilename];
+    // 返回的头文件信息
+    NSDictionary *returnHeaderFields= [httpResponse allHeaderFields];
+    
+}
+
+
+
+- (void)connection:(NSURLConnection *)theConnection didFailWithError:(NSError *)error{
+    // 当请求失败时的相关操作；
+    NSLog(@"errorerror%@", error);
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
+{
+    NSLog(@"data%@", data);
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    NSLog(@"dicdic%@", dic);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection
+{
+    NSLog(@"connection%@", connection);
+
+}
+
 
 //#pragma mark - UIGestureRecognizerDelegate
 //- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch

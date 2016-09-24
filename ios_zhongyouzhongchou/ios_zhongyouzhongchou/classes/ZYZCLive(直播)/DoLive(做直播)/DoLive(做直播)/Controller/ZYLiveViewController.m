@@ -215,6 +215,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
                 [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
             }
             MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
+            minePersonModel.gzMeAll = data[@"gzMeAll"];
+            minePersonModel.meGzAll = data[@"meGzAll"];
             weakSelf.personDataView.minePersonModel = minePersonModel;
         } else {
             NSLog(@"bbbbbbb");

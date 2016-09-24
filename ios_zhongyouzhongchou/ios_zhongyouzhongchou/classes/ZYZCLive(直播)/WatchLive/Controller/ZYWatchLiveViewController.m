@@ -167,7 +167,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [super viewWillDisappear:animated];
     [self setClearNavigationBar:NO];
 }
-
+#pragma mark - 直播间
 - (void)enterInfoLiveRoom
 {
     WEAKSELF
@@ -390,6 +390,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - getData
+
 - (void)clickClapButton
 {
     NSDictionary *parameters= @{
@@ -569,9 +570,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)messageBtnAction:(UIButton *)sender
 {
-//    self.isMessage = YES;
-//    self.RCManager = [ZYZCxRCManager defaultManager];
-//    [self.RCManager connectTarget:[NSString stringWithFormat:@"%@",self.liveModel.userId] andTitle:self.liveModel.realName andSuperViewController:self];
+    
 }
 
 -(void)showInputBar:(id)sender{
@@ -841,32 +840,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
      {
          [MBProgressHUD showError:@"网络出错,支付失败!"];
      }];
-
-//    [ZYZCHTTPTool postHttpDataWithEncrypt:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-//     {
-//         NSLog(@"%@",result);
-//         appDelegate.out_trade_no=nil;
-//         NSArray *arr=result[@"data"];
-//         NSDictionary *dic=nil;
-//         if (arr.count) {
-//             dic=[arr firstObject];
-//         }
-//         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
-//         //支付成功
-//         if(payResult){
-//             NSString *localizedMessage = [NSString stringWithFormat:@"支持了%@元",weakSelf.payMoney];
-//             RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
-//             rcTextMessage.extra = kPaySucceed;
-//             [weakSelf sendMessage:rcTextMessage pushContent:nil];
-//             [MBProgressHUD showSuccess:@"支付成功!"];
-//         }else{
-//             [MBProgressHUD showError:@"支付失败!"];
-//             appDelegate.out_trade_no=nil;
-//         }
-//     }andFailBlock:^(id failResult)
-//     {
-//         [MBProgressHUD showError:@"网络出错,支付失败!"];
-//     }];
 }
 - (void)loadStateDidChange:(NSNotification*)notification {
     IJKMPMovieLoadState loadState = _player.loadState;
