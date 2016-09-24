@@ -6,7 +6,18 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 //所有众筹列表
-#define GET_PRODUCT_LIST(pageNo) [NSString stringWithFormat:@"cache=false&orderType=4&pageNo=%d&status_not=0,2&pageSize=10",pageNo]
+typedef NS_ENUM(NSInteger, FilterType)
+{
+    WomanType=1,
+    ManType,
+    SuccessType,
+    AllType
+};
+
+
+#define GET_PRODUCT_LIST(pageNo) [NSString stringWithFormat:@"cache=false&orderType=4&pageNo=%d&pageSize=10",pageNo]
+
+#define FILTER_NUMBE  4
 
 #import "ZCMainViewController.h"
 #import "ZCFilterTableViewCell.h"
@@ -34,12 +45,14 @@
 @property (nonatomic, strong) UIButton           *scrollTop;
 @property (nonatomic, strong) UILabel            *titleView;
 @property (nonatomic, assign) int                pageNo;
-@property (nonatomic, assign) int                sex;
+//@property (nonatomic, assign) int                sex;
 
 @property (nonatomic, strong) UISearchBar        *searchBar;//搜索栏
 @property (nonatomic, strong) UIButton           *navLeftBtn;//发众筹按钮
 @property (nonatomic, strong) UIButton           *navRightBtn;//发众筹按钮
-@property (nonatomic, assign) BOOL               getSearch; //是否是搜索数据
+//@property (nonatomic, assign) BOOL               getSearch; //是否是搜索数据
+
+@property (nonatomic, assign) FilterType        filterType;//过滤条件
 
 @end
 
@@ -51,9 +64,10 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     _listArr=[NSMutableArray array];
     _pageNo=1;
+    _filterType=4;//看全部
     [self setNavBar];
     [self configUI];
-    [self getHttpData];
+    [self getHttpDataByFilterType:_filterType andSeachKey:nil];
 }
 
 -(void)setNavBar
@@ -135,10 +149,8 @@
       return;
     }
     _pageNo=1;
-   
-    _getSearch=YES;
     
-    [self getHttpData];
+    [self getHttpDataByFilterType:4 andSeachKey:searchBar.text];
 }
 
 //-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -185,7 +197,7 @@
     }
     
     if (!_fitersView) {
-        _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(5,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*3)];
+        _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(5,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*FILTER_NUMBE)];
         _fitersView.hidden=YES;
         UIImage * image = [UIImage imageNamed:@"bg_sxleft"] ;
         image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(15, 0, 15, 0) resizingMode:UIImageResizingModeStretch];
@@ -208,7 +220,7 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return FILTER_NUMBE;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -219,7 +231,14 @@
     }
     else
     {
-        fiterCell.textLabel.text=@"看全部";
+        if (indexPath.row==2) {
+            fiterCell.textLabel.text=@"看成功";
+            [fiterCell.contentView addSubview:[UIView lineViewWithFrame:CGRectMake(17, FILTER_CELL_HEIGHT-1, 125-34, 1) andColor:[UIColor whiteColor]]];
+        }
+        else
+        {
+            fiterCell.textLabel.text=@"看全部";
+        }
     }
     return fiterCell;
 }
@@ -232,32 +251,11 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _fitersView.hidden=YES;
-    
     _pageNo=1;
-    
-    _searchBar.text=[_searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    if (!_searchBar.text.length) {
-        _getSearch=NO;
-    }
-    else
-    {
-        _getSearch=YES;
-    }
-    
-    if (indexPath.row==0&&_sex!=2) {
-        _sex=2;
-        [self getHttpData];
-    }
-    else if(indexPath.row==1&&_sex!=1)
-    {
-        _sex=1;
-        [self getHttpData];
-    }
-    else if(indexPath.row==2&&_sex!=0)
-    {
-        _sex=0;
-        [self getHttpData];
+    _searchBar.text=nil;
+    if (_filterType!=indexPath.row+1) {
+        _filterType=indexPath.row+1;
+        [self getHttpDataByFilterType:_filterType andSeachKey:nil];
     }
 }
 
@@ -274,12 +272,12 @@
     _table.headerRefreshingBlock=^()
     {
         weakSelf.pageNo=1;
-        [weakSelf getHttpData];
+        [weakSelf getHttpDataByFilterType:weakSelf.filterType andSeachKey:weakSelf.searchBar.text];
     };
     _table.footerRefreshingBlock=^()
     {
         weakSelf.pageNo++;
-        [weakSelf getHttpData];
+        [weakSelf getHttpDataByFilterType:weakSelf.filterType andSeachKey:weakSelf.searchBar.text];
     };
     
     _table.scrollDidScrollBlock=^(CGFloat offSetY)
@@ -297,9 +295,6 @@
         if (weakSelf.searchBar.isFirstResponder) {
             [weakSelf.searchBar resignFirstResponder];
         }
-        
-        weakSelf.getSearch=weakSelf.searchBar.text.length;
-        
         //        if (offSetY>-54) {
 //            [weakSelf.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_MainColor] colorWithAlphaComponent:0.95]];
 //        }
@@ -335,35 +330,39 @@
 }
 
 #pragma mark --- 获取众筹列表
--(void)getHttpData
+-(void)getHttpDataByFilterType:(FilterType )filterType  andSeachKey:(NSString *)searchKey
 {
     //获取所有众筹详情
     NSString *httpUrl=nil;
-    //搜索关键词
-    if (_getSearch) {
-        //关键词
+    
+    if (searchKey.length) {
+        //搜索关键词
         NSString *keyword= [_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        if (_sex>0) {
-            httpUrl=[NSString stringWithFormat:@"%@%@&keyword=%@&sex=%d",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo),keyword,_sex];
-        }
-        else
-        {
-            httpUrl=[NSString stringWithFormat:@"%@%@&keyword=%@",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo),keyword];
-        }
+    
+        httpUrl=[NSString stringWithFormat:@"%@%@&querytype=98&keyword=%@",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo),keyword];
     }
     else
     {
-        if (_sex>0) {
-            
-             httpUrl=[NSString stringWithFormat:@"%@%@&sex=%d",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo),_sex];
+        //只看女
+        if (_filterType==1) {
+            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=1&sex=2",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
         }
-        else
+        //只看男
+        else if(_filterType==2)
         {
-             httpUrl=[NSString stringWithFormat:@"%@%@",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=1&sex=1",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+        }
+        //看成功
+        else if (_filterType==3)
+        {
+            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=2",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+        }
+        //看全部
+        else if (_filterType==4)
+        {
+            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=3",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
         }
     }
-
     DDLog(@"httpUrl:%@",httpUrl);
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
@@ -411,7 +410,7 @@
         [NetWorkManager showMBWithFailResult:failResult];
         __weak typeof (&*self)weakSelf=self;
         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-            [weakSelf getHttpData];
+            [weakSelf getHttpDataByFilterType:weakSelf.filterType andSeachKey:weakSelf.searchBar.text];
         }];
     }];
 }
