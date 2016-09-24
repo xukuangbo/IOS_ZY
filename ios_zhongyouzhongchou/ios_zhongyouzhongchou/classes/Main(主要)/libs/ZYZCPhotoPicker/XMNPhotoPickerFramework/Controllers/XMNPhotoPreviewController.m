@@ -104,6 +104,11 @@ static NSString * const kXMNPhotoPreviewIdentifier = @"XMNPhotoPreviewCell";
 }
 
 - (void)_handleStateChangeAction {
+    if (!self.assets[self.currentIndex].previewImage) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"照片不可选!" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     if (self.stateButton.selected) {
         [self.selectedAssets removeObject:self.assets[self.currentIndex]];
         self.assets[self.currentIndex].selected = NO;

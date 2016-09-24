@@ -143,6 +143,8 @@
 #define KOPEN_SHAKE_ALERT            @"openShakeAlert"
 //是否同意创建直播协议
 #define CREATE_LIVE_AGREEMENT        @"createLiveAgreement"
+//发布足迹成功
+#define PUBLISH_FOOTPRINT_SUCCESS    @"piblishFootprintSuccess"
 
 //图片拉伸
 #define KPULLIMG(IMGNAME,TOP,LEFT,BOTTOM,RIGHT) [[UIImage imageNamed:IMGNAME]resizableImageWithCapInsets:UIEdgeInsetsMake(TOP, LEFT, BOTTOM, RIGHT) resizingMode:UIImageResizingModeStretch]

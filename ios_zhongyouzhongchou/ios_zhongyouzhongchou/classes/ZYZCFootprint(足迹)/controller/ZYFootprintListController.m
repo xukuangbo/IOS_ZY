@@ -26,6 +26,7 @@
     [self setBackItem];
     [self configUI];
     [self getHttpData];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(publishFootprintSuccess:) name:PUBLISH_FOOTPRINT_SUCCESS  object:nil];
 }
 
 -(void)configUI
@@ -95,6 +96,18 @@
         [_footprintListView.mj_header endRefreshing];
         [_footprintListView.mj_footer endRefreshing];
     }];
+}
+
+-(void)publishFootprintSuccess:(NSNotification *)notify
+{
+    _pageNo=1;
+    [self getHttpData];
+}
+
+-(void)dealloc
+{
+    DDLog(@"dealloc:%@",[self class]);
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 

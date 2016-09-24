@@ -14,6 +14,8 @@
 @property (nonatomic, strong) UIView             *lineView;
 @property (nonatomic, strong) UIImageView        *dotImageView;
 
+@property (nonatomic, strong) UIView             *underLineView;
+
 @end
 
 @implementation ZYfootprintListCell
@@ -59,6 +61,9 @@
     _dotImageView=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE-5, 0, 10, 10)];
     _dotImageView.image=[UIImage imageNamed:@"footprint-point"];
     [_bgImage addSubview:_dotImageView];
+    
+    _underLineView=[UIView lineViewWithFrame:CGRectMake(_oneFootprintView.left, 0, _oneFootprintView.width, 0.5) andColor:[UIColor lightGrayColor]];
+    [_bgImage addSubview:_underLineView];
 }
 
 -(void)setListModel:(ZYFootprintListModel *)listModel
@@ -102,22 +107,27 @@
     //背景卡片
     _bgImage.height=_oneFootprintView.bottom+KEDGE_DISTANCE;
     
+    _underLineView.top=_bgImage.height;
+    
     if (listModel.cellType==CompleteCell) {
          _bgImage.image=KPULLIMG(@"tab_bg_boss0",5, 0, 5, 0);
         _lineView.top=KEDGE_DISTANCE;
         _lineView.height=_bgImage.height-2*KEDGE_DISTANCE;
+         _underLineView.hidden=NO;
     }
     else if (listModel.cellType==HeadCell)
     {
         _bgImage.image=KPULLIMG(@"background-1",5, 0, 5, 0);
         _lineView.top=KEDGE_DISTANCE;
         _lineView.height=_bgImage.height-KEDGE_DISTANCE;
+         _underLineView.hidden=NO;
     }
     else if (listModel.cellType==BodyCell)
     {
          _bgImage.image=KPULLIMG(@"background-2",5, 0, 5, 0);
         _lineView.top=0;
         _lineView.height=_bgImage.height;
+         _underLineView.hidden=NO;
 
     }
     else if (listModel.cellType==FootCell)
@@ -125,6 +135,7 @@
         _bgImage.image=KPULLIMG(@"background-3",5, 0, 5, 0);
         _lineView.top=0;
         _lineView.height=_bgImage.height-KEDGE_DISTANCE;
+        _underLineView.hidden=YES;
     }
     
     _listModel.cellHeight=_bgImage.bottom;

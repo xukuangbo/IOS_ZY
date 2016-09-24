@@ -59,6 +59,8 @@
     [self configNavUI];
     [self configBodyUI];
     [self reloadDataByType:self.footprintType];
+    //监听文本改变
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChange:) name:UITextViewTextDidChangeNotification object:nil];
 }
 
 -(void)configNavUI
@@ -169,6 +171,25 @@
     
     _showLocation=locationSwitch.on;
 }
+
+#pragma mark --- 文字改变
+-(void)textChange:(NSNotification *)notify
+{
+    
+    NSString *text=[_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    BOOL isEmptyStr=[ZYZCTool isEmpty:text];
+    if (isEmptyStr) {
+        _publishBtn.enabled=NO;
+        [_publishBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    }
+    else
+    {
+        _publishBtn.enabled=YES;
+        [_publishBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
+    }
+
+}
+
 
 #pragma mark --- 是否显示当前位置
 -(void)switchAction:(id)sender
@@ -302,7 +323,7 @@
     HUPhotoBrowser *browser=[HUPhotoBrowser showFromImageView:pic withImages:_images atIndex:pic.tag dismissWithImages:^(NSArray * _Nullable images) {
             weakSelf.images=images;
             [self reloadDataByType:Footprint_AlbumType];
-        if(weakSelf.images.count==0)
+        if(!weakSelf.images.count&&!weakSelf.textView.text.length)
         {
             weakSelf.publishBtn.enabled=NO;
             [weakSelf.publishBtn setTitleColor:[UIColor ZYZC_TextBlackColor] forState:UIControlStateNormal];
@@ -416,6 +437,7 @@
     }
 }
 
+
 #pragma mark --- scrollView代理
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -527,7 +549,8 @@
     }
     else
     {
-        [MBProgressHUD hideHUD];
+//        [MBProgressHUD hideHUD];
+        [self commitData];
     }
 }
 
@@ -610,9 +633,12 @@
                                    @"type"  :type,
                                   }];
     //文字
-    if (_textView.text) {
+    _textView.text=[_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    BOOL isEmptyStr=[ZYZCTool isEmpty:_textView.text];
+    if (!isEmptyStr) {
         [param setObject:_textView.text forKey:@"content"];
     }
+    
     //当前位置
     if (_showLocation) {
         NSDictionary *param01=@{@"GPS_Address":_currentAddress,
@@ -641,6 +667,8 @@
         if (isSuccess) {
             [self dismissViewControllerAnimated:YES completion:nil];
             [MBProgressHUD showSuccess:@"发布成功"];
+            //发足迹成功通知
+            [[NSNotificationCenter defaultCenter]postNotificationName:PUBLISH_FOOTPRINT_SUCCESS object:nil];
         }
         else
         {

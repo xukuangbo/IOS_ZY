@@ -80,8 +80,9 @@
     [view addSubview:titleLab];
     
     UILabel *subtitleLab=[self createLabWithFrame:CGRectMake(titleLab.left, titleLab.bottom+5, view.width-stepImg.right-20, 20) andFont:[UIFont systemFontOfSize:13] andTitleColor:msgStepModel.light?[UIColor ZYZC_TextBlackColor]:[UIColor ZYZC_TextGrayColor]];
-    subtitleLab.text=msgStepModel.subnode;
-    CGFloat subNodeTextHeight=[ZYZCTool calculateStrLengthByText:msgStepModel.subnode andFont:subtitleLab.font andMaxWidth:subtitleLab.width].height;
+    subtitleLab.text=msgStepModel.light?msgStepModel.subnode:nil;
+    subtitleLab.hidden=!msgStepModel.light;
+    CGFloat subNodeTextHeight=[ZYZCTool calculateStrLengthByText:subtitleLab.text andFont:subtitleLab.font andMaxWidth:subtitleLab.width].height;
     subtitleLab.height=MAX(subNodeTextHeight,subtitleLab.height);
     [view addSubview:subtitleLab];
     
