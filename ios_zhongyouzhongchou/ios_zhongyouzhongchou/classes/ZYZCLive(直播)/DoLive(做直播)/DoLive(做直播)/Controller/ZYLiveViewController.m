@@ -113,13 +113,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self.view addGestureRecognizer:_resetBottomTapGesture];
-    
     [self.conversationMessageCollectionView reloadData];
-    
     [self.navigationController.navigationBar setHidden:YES];
-    
     [self.tabBarController.tabBar setHidden:YES];
 }
 
@@ -130,30 +125,23 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     //监听通知
     [self registerNotification];
     
     //设置主播userInfo
     [self setUpCurrentUserInfo];
-    
     //设置头像信息
     [self setUpChatroomMemberInfo];
-    
     //设置顶部views
     [self setUpTopViews];
-    
     //设置底部views
     [self setUpBottomViews];
-    
-    [self initUISubView];
-    
+    // 初始化直播个人中心
+    [self initLivePersonDataView];
     //配置直播
     [self setUpLive];
-    
     //进入聊天室
     [self enterChatRoom];
-    
 }
 
 #pragma mark - network 网络请求
@@ -189,7 +177,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     } andFailBlock:^(id failResult) {
         [weakSelf dismissViewController];
     }];
-    
 }
 /** 请求总金额数据 */
 - (void)requestTotalMoneyDataParameters:(NSDictionary *)parameters {
@@ -224,6 +211,9 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         if (isSuccess) {
             NSDictionary *dic = (NSDictionary *)result;
             NSDictionary *data = dic[@"data"];
+            if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]){
+                [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
+            }
             MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
             weakSelf.personDataView.minePersonModel = minePersonModel;
         } else {
@@ -272,6 +262,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 //直播
 -(void)setUpLive{
+    [self requestData:@"45"];
     DDLog(@"kPushUrl:%@",_pushUrl);
     QPLConfiguration *configuration = [[QPLConfiguration alloc] init];
     //推流地址
@@ -338,16 +329,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     
     //添加头像点击事件
     [_headView addTarget:self action:@selector(showPersonData)];
-    
-    //添加个人信息view
-    CGFloat personDataViewW = 230;
-    CGFloat personDataViewH = 340;
-    CGFloat personDataViewX = (self.view.width - personDataViewW) * 0.5;
-    CGFloat personDataViewY = self.view.height;
-    
-    _personDataView = [[LivePersonDataView alloc] initWithFrame:CGRectMake(personDataViewX, personDataViewY, personDataViewW, personDataViewH)];
-    [self.view addSubview:_personDataView];
-    [self requestData:@"45"];
     //左上角头像赋值
     NSString *faceImg = [ZYZCAccountTool account].faceImg64.length > 0? [ZYZCAccountTool account].faceImg64 : [ZYZCAccountTool account].faceImg132;
     [_headView.iconView sd_setImageWithURL:[NSURL URLWithString:faceImg] placeholderImage:[UIImage imageNamed:@"icon_live_placeholder"] options:(SDWebImageRetryFailed | SDWebImageLowPriority)];
@@ -395,9 +376,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 //点击返回的时候消耗播放器和退出聊天室
 - (void)leftBarButtonItemPressed:(UIButton *)sender {
     [_headView stopTimer];
-    [self.conversationMessageCollectionView removeGestureRecognizer:_resetBottomTapGesture];
-    [self.conversationMessageCollectionView
-     addGestureRecognizer:_resetBottomTapGesture];
     [self.navigationController.navigationBar setHidden:NO];
     [self.tabBarController.tabBar setHidden:NO];
     [self destroySession];
@@ -437,8 +415,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
          messageCount:-1
          success:^{
              
-         }
-         error:^(RCErrorCode status) {
+         }error:^(RCErrorCode status) {
              DDLog(@"%zd",status);
              dispatch_async(dispatch_get_main_queue(), ^{
                  

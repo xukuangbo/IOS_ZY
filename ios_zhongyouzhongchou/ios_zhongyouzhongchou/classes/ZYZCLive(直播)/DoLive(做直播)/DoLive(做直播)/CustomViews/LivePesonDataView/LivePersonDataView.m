@@ -82,9 +82,11 @@
     _descLabel.textColor = [UIColor ZYZC_TextGrayColor];
     
     /** 空间 */
-    _roomButton = [UIButton new];
-    [self addSubview:_roomButton];
-    [_roomButton setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    self.roomButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.roomButton.userInteractionEnabled = YES;
+    [self.roomButton addTarget:self action:@selector(aaaaaaa) forControlEvents:UIControlEventTouchUpInside];
+    [self.roomButton setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    [self addSubview:self.roomButton];
     
     UIImageView *roomArrow = [[UIImageView alloc] init];
     roomArrow.image = [UIImage imageNamed:@"btn_rightin"];
@@ -135,7 +137,7 @@
     [self addSubview:zhongchouBottomLine];
     zhongchouBottomLine.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
-    [bottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
+    [zhongchouBottomLine mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.zhongchouButton.mas_bottom);
         make.width.equalTo(@200);
         make.height.mas_equalTo(1);
@@ -202,15 +204,15 @@
     }];
     
     //他的空间按钮
-    [_roomButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_descLabel.mas_bottom).offset(KEDGE_DISTANCE);
+    [self.roomButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.descLabel.mas_bottom).offset(KEDGE_DISTANCE);
         make.width.equalTo(@200);
         make.height.mas_equalTo(roomButtonH);
         make.centerX.equalTo(self.mas_centerX);
     }];
     
     [self.zhongchouButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_roomButton.mas_bottom).offset(5);
+        make.top.equalTo(_roomButton.mas_bottom);
         make.width.equalTo(@200);
         make.height.mas_equalTo(zhongchouH);
         make.centerX.equalTo(self.mas_centerX);
@@ -244,6 +246,7 @@
     
     [UIView animateWithDuration:0.4 animations:^{
         self.centerY = viewCenterY;
+        NSLog(@"1111111111");
     } completion:^(BOOL finished) {
         
     }];
@@ -309,5 +312,10 @@
     }
     self.descLabel.text=personInfo1;
 
+}
+
+- (void)aaaaaaa
+{
+    NSLog(@"");
 }
 @end

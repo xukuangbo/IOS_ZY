@@ -386,7 +386,7 @@
             }
             
         } andFailBlock:^(id failResult) {
-            [MBProgressHUD showSuccess:@"关注成功"];
+            [MBProgressHUD showSuccess:@"关注失败"];
             
         }];
     }
