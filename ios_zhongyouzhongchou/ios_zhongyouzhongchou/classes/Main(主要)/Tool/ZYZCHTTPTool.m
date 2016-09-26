@@ -135,7 +135,6 @@
     NSTimeZone *zone = [NSTimeZone localTimeZone];
     //当前时区和格林尼治时区的时间差 8小时 = 28800s
     NSString *sumString = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
-    
     //截取小数点前的数
     NSString *dateString = [[sumString componentsSeparatedByString:@"."]objectAtIndex:0];
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[dateString intValue]];
