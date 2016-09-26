@@ -11,6 +11,7 @@
 #import "ZYCommentFootprintCell.h"
 #import "ZYOneFootprintView.h"
 #import "ZCDetailCustomButton.h"
+#import "UIView+GetSuperTableView.h"
 @interface ZYCommentFootprintCell ()
 @property (nonatomic, strong) ZYOneFootprintView *oneFootprintView;
 @property (nonatomic, strong) UIImageView        *bgImgView;
@@ -49,6 +50,40 @@
     
     _lineView=[UIView lineViewWithFrame:CGRectMake(0, 0, _bgImgView.width, 0.5) andColor:[UIColor lightGrayColor]];
     [_bgImgView addSubview:_lineView];
+    
+    WEAKSELF;
+    _oneFootprintView.supportChangeBlock=^(BOOL isAdd)
+    {
+        
+        NSMutableArray *newUsers=[NSMutableArray arrayWithArray:weakSelf.supportListModel.data];
+        ZYSupportListModel *newSupportListModel=weakSelf.supportListModel;
+        //添加
+        if (isAdd) {
+            ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
+            ZYOneSupportModel *selfModel=[[ZYOneSupportModel alloc]init];
+            selfModel.userId    = accountModel.userId;
+            selfModel.faceImg   = accountModel.faceImg;
+            selfModel.faceImg64 = accountModel.faceImg64;
+            selfModel.faceImg132= accountModel.faceImg132;
+            selfModel.faceImg640= accountModel.faceImg640;
+            selfModel.userName  = accountModel.userName;
+            selfModel.realName  = accountModel.realName;
+            [newUsers addObject:selfModel];
+        }
+        //删除
+        else
+        {
+            for (NSInteger i=newUsers.count-1; i>=0; i--) {
+                ZYOneSupportModel *oneModel=newUsers[i];
+                if ([[NSString stringWithFormat:@"%@",oneModel.userId] isEqualToString:[ZYZCAccountTool getUserId]] ) {
+                    [newUsers removeObjectAtIndex:i];
+                }
+            }
+        }
+         newSupportListModel.data=newUsers;
+        weakSelf.supportListModel=newSupportListModel;
+        [weakSelf.getSuperTableView reloadData];
+    };
 
 }
 
@@ -88,6 +123,7 @@
             }
             
             ZCDetailCustomButton *userBtn=[[ZCDetailCustomButton alloc]initWithFrame:CGRectMake(icon_left, icon_top, ICON_WIDTH, ICON_WIDTH)];
+            userBtn.canSkimSelf=YES;
             userBtn.userId=userModel.userId;
             [userBtn sd_setImageWithURL:[NSURL URLWithString:userModel.faceImg64?userModel.faceImg64:userModel.faceImg132?userModel.faceImg132:userModel.faceImg640?userModel.faceImg640:userModel.faceImg] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
             
@@ -101,11 +137,25 @@
     
     _lineView.top=_bgImgView.height-0.5;
     
-    
-    _lineView.hidden=!supportListModel.data.count;
-    
-
     supportListModel.cellHeight=_bgImgView.bottom;
+}
+
+-(void)setShowLine:(BOOL)showLine
+{
+    _showLine=showLine;
+    if (_supportListModel.data.count) {
+         _lineView.hidden=!showLine;
+    }
+    else
+    {
+        _lineView.hidden=YES;
+    }
+}
+
+-(void)setCommentNumber:(NSInteger)commentNumber
+{
+    _commentNumber=commentNumber;
+    self.oneFootprintView.commentNumber=commentNumber;
 }
 
 @end

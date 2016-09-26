@@ -62,7 +62,7 @@
     _dotImageView.image=[UIImage imageNamed:@"footprint-point"];
     [_bgImage addSubview:_dotImageView];
     
-    _underLineView=[UIView lineViewWithFrame:CGRectMake(_oneFootprintView.left, 0, _oneFootprintView.width, 0.5) andColor:[UIColor lightGrayColor]];
+    _underLineView=[UIView lineViewWithFrame:CGRectMake(_oneFootprintView.left, 0, _oneFootprintView.width, 0.5) andColor:[UIColor colorWithRed:191.0/255.0 green:191.0/255.0 blue:191.0/255.0 alpha:1.0]];
     [_bgImage addSubview:_underLineView];
 }
 
@@ -107,27 +107,26 @@
     //背景卡片
     _bgImage.height=_oneFootprintView.bottom+KEDGE_DISTANCE;
     
-    _underLineView.top=_bgImage.height;
+    _underLineView.top=_bgImage.height-0.5;
+    _underLineView.hidden=NO;
     
     if (listModel.cellType==CompleteCell) {
          _bgImage.image=KPULLIMG(@"tab_bg_boss0",5, 0, 5, 0);
         _lineView.top=KEDGE_DISTANCE;
         _lineView.height=_bgImage.height-2*KEDGE_DISTANCE;
-         _underLineView.hidden=NO;
+        
     }
     else if (listModel.cellType==HeadCell)
     {
         _bgImage.image=KPULLIMG(@"background-1",5, 0, 5, 0);
         _lineView.top=KEDGE_DISTANCE;
         _lineView.height=_bgImage.height-KEDGE_DISTANCE;
-         _underLineView.hidden=NO;
     }
     else if (listModel.cellType==BodyCell)
     {
          _bgImage.image=KPULLIMG(@"background-2",5, 0, 5, 0);
         _lineView.top=0;
         _lineView.height=_bgImage.height;
-         _underLineView.hidden=NO;
 
     }
     else if (listModel.cellType==FootCell)

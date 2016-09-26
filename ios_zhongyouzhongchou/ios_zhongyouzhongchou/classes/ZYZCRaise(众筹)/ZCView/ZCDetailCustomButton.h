@@ -10,4 +10,5 @@
 
 @interface ZCDetailCustomButton : UIButton
 @property (nonatomic, strong) NSNumber *userId;
+@property (nonatomic, assign) BOOL     canSkimSelf;
 @end

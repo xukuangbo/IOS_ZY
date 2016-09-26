@@ -46,9 +46,11 @@
         return;
     }
 //    NSLog(@"_userId:%@",_userId);
-    //判断是否是自己的
-    if ([[ZYZCAccountTool getUserId] isEqual:[_userId stringValue]]) {
-        return;
+    if (!_canSkimSelf) {
+        //判断是否是自己的
+        if ([[ZYZCAccountTool getUserId] isEqual:[_userId stringValue]]) {
+            return;
+        } 
     }
     //进入他人空间
     ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
