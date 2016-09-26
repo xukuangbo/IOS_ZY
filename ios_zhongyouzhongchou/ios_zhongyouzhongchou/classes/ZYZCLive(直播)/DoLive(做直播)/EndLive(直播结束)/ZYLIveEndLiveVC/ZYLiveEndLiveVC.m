@@ -57,7 +57,7 @@
     //添加模糊效果
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     _backView = [[UIVisualEffectView alloc] initWithEffect:blur];
-    _backView.frame = self.view.frame;
+    _backView.frame = [UIScreen mainScreen].bounds;
     [_bgImageView addSubview:_backView];
     _backView.alpha = 0.6;
     
@@ -91,7 +91,6 @@
 - (void)setLiveEndLiveModel:(ZYLiveEndModel *)liveEndLiveModel
 {
     _liveEndLiveModel = liveEndLiveModel;
-    
     _totalMoneyLabel.text = liveEndLiveModel.totalMoneyCount;
     _totalTimeLabel.text = liveEndLiveModel.endTime;
     _totalPeopleCount.text = [NSString stringWithFormat:@"%zd",liveEndLiveModel.totalPeopleCount];

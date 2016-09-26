@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define LiveMoneyViewH 26
+#define LiveMoneyViewH 20
 @interface LiveMoneyView : UIView
 
 @property (nonatomic, strong) UILabel *moneyLabel;

@@ -1080,6 +1080,11 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         if([content isEqualToString:@"直播结束"]){
             
             return ;
+        }else if ([content isEqualToString:@"打赏"]){
+            
+            [self.dashangMapView showDashangData];
+            
+            return;
         }else{
             //1.进入直播间 2.打赏
             [self refreshUserList:textMessage.extra];

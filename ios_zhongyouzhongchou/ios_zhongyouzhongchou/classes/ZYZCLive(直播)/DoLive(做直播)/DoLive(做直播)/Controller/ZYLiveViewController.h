@@ -29,7 +29,7 @@
 #import "RCDLiveKitUtility.h"
 #import "RCDLiveKitCommonDefine.h"
 #import "LiveFunctionView.h"
-
+#import "showDashangMapView.h"
 @class ZYLiveListModel;
 ///输入栏扩展输入的唯一标示
 #define PLUGIN_BOARD_ITEM_ALBUM_TAG    1001
@@ -91,6 +91,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 //刷新的view
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
+
+//打赏动图界面
+@property (nonatomic, strong) showDashangMapView *dashangMapView;
 
 
 
