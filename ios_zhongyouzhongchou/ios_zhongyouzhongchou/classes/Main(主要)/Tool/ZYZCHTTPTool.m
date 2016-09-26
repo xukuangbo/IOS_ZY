@@ -123,6 +123,71 @@
     }];
 }
 
+#pragma mark --- 添加HttpHead字段的方法post请求
++(void)addHeadPostHttpDataWithEncrypt:(BOOL)needLogin andURL:(NSString *)url andHeadDictionary:(NSDictionary *)headDict andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail
+{
+    //转换成json
+    //    NSData *data = [NSJSONSerialization dataWithJSONObject :parameters options : NSJSONWritingPrettyPrinted error:NULL];
+    //
+    //    NSString *jsonStr = [[ NSString alloc ] initWithData :data encoding : NSUTF8StringEncoding];
+    //
+    
+    NSMutableDictionary *newParameters=[NSMutableDictionary dictionaryWithDictionary:parameters];
+    if (needLogin)
+    {
+        //此处添加需登录的操作
+        NSDictionary *entryptParams=[[self class] encryptParams];
+        if (!entryptParams) {
+            return;
+        }
+        [newParameters addEntriesFromDictionary:entryptParams];
+    }
+    else
+    {
+        //此处添加不需要登录的操作
+    }
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    manager.responseSerializer.acceptableContentTypes =
+    [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
+    
+    for (int i = 0; i < headDict.count; i++) {
+        [manager.requestSerializer setValue:headDict.allValues[i] forHTTPHeaderField:headDict.allKeys[i]];
+    }
+    DDLog(@"newParameters:%@",newParameters);
+    
+    NSString *newUrl=url;
+    DDLog(@"newPostUrl:%@",newUrl);
+    [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress)
+     {
+         
+     }
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         if (responseObject[@"code"]) {
+             if ([responseObject[@"code"] isEqual:@0]) {
+                 successGet(responseObject,YES);
+             }
+             else
+             {
+                 successGet(responseObject,NO);
+             }
+         }
+         else
+         {
+             successGet(responseObject,YES);
+         }
+         
+     }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         fail(error.localizedDescription);
+     }];
+}
+
 #pragma mark --- 需要登录权限才能调用的接口
 +(NSDictionary *)loginPortNeedEncrypt
 {
