@@ -217,7 +217,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //聊天消息区
     if (nil == self.conversationMessageCollectionView) {
         UICollectionViewFlowLayout *customFlowLayout = [[UICollectionViewFlowLayout alloc] init];
-        customFlowLayout.minimumLineSpacing = 10;
+        customFlowLayout.minimumLineSpacing = 6;
         customFlowLayout.sectionInset = UIEdgeInsetsMake(10.0f, 0.0f,5.0f, 0.0f);
         customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;//方向
         CGRect _conversationViewFrame = self.contentView.bounds;
@@ -245,7 +245,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         self.inputBar.delegate = self;
         self.inputBar.backgroundColor = [UIColor clearColor];
         self.inputBar.hidden = YES;
-        [self.contentView addSubview:self.inputBar];
+        [self.view addSubview:self.inputBar];
     }
     self.collectionViewHeader = [[RCDLiveCollectionViewHeader alloc] initWithFrame:CGRectMake(0, -50, self.view.bounds.size.width, 40)];
     _collectionViewHeader.tag = 1999;
@@ -1410,19 +1410,19 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  *  @param curve
  */
 - (void)onInputBarControlContentSizeChanged:(CGRect)frame withAnimationDuration:(CGFloat)duration andAnimationCurve:(UIViewAnimationCurve)curve{
-    CGRect collectionViewRect = self.contentView.frame;
-    self.contentView.backgroundColor = [UIColor clearColor];
-    collectionViewRect.origin.y = self.view.bounds.size.height - frame.size.height - 237 +50;
-    
-    collectionViewRect.size.height = 237;
-    [UIView animateWithDuration:duration animations:^{
-        [UIView setAnimationCurve:curve];
-        [self.contentView setFrame:collectionViewRect];
-        [UIView commitAnimations];
-    }];
+    //    CGRect collectionViewRect = self.contentView.frame;
+    //    self.contentView.backgroundColor = [UIColor clearColor];
+    //    collectionViewRect.origin.y = self.view.bounds.size.height - frame.size.height - 237 +50;
+    //
+    //    collectionViewRect.size.height = 237;
+    //    [UIView animateWithDuration:duration animations:^{
+    //        [UIView setAnimationCurve:curve];
+    //        [self.contentView setFrame:collectionViewRect];
+    //        [UIView commitAnimations];
+    //    }];
     CGRect inputbarRect = self.inputBar.frame;
-    
-    inputbarRect.origin.y = self.contentView.frame.size.height -50;
+    inputbarRect.origin.y = self.view.bounds.size.height - frame.size.height;
+    //    inputbarRect.origin.y = collectionViewRect.size.height -50;
     [self.inputBar setFrame:inputbarRect];
     [self.view bringSubviewToFront:self.inputBar];
     [self scrollToBottomAnimated:NO];
