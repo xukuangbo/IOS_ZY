@@ -264,7 +264,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 //直播
 -(void)setUpLive{
-    [self requestData:@"76"];
+    [self requestData:@"2454"];
     DDLog(@"kPushUrl:%@",_pushUrl);
     QPLConfiguration *configuration = [[QPLConfiguration alloc] init];
     //推流地址
