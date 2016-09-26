@@ -9,11 +9,13 @@
 #import "ZYCommentFootprintController.h"
 #import "ZYFootprintCommentTable.h"
 #import "MBProgressHUD+MJ.h"
+#import "AddCommentView.h"
 @interface ZYCommentFootprintController ()
 
 @property (nonatomic, strong) ZYFootprintCommentTable     *commentTable;
 @property (nonatomic, strong) NSMutableArray              *commentArr;
 @property (nonatomic, assign) NSInteger                   pageNo;
+@property (nonatomic, strong) AddCommentView              *addCommentView;
 
 @end
 
@@ -52,6 +54,48 @@
     
     [self.view addSubview:_commentTable];
     
+    //添加评论
+    _addCommentView=[[AddCommentView alloc]init];
+    _addCommentView.top=KSCREEN_H;
+    
+
+    _addCommentView.commitComment=^(NSString *content)
+    {
+        [weakSelf commitCommentWithContent:content];
+    };
+
+    [self.view addSubview:_addCommentView];
+    
+}
+
+#pragma mark --- 提交评论
+-(void)commitCommentWithContent:(NSString *)content
+{
+//    pid游记id， comment 
+    NSDictionary *parameters= @{
+                                @"pid":[NSNumber numberWithInteger:_footprintModel.ID],
+                                @"content":content
+                                };
+    WEAKSELF;
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_AddComment andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_success")];
+            weakSelf.addCommentView.top=KSCREEN_H;
+            if (weakSelf.addCommentView.commentSuccess) {
+                weakSelf.addCommentView.commentSuccess();
+            }
+            
+            weakSelf.pageNo=1;
+            [weakSelf getCommentData];
+        }
+        else
+        {
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_fail")];
+        }
+        
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+    }];
 }
 
 #pragma mark --- 获取点赞的详细信息
@@ -126,6 +170,16 @@
         
         DDLog(@"%@",failResult);
     }];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 

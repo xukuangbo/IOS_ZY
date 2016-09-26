@@ -204,7 +204,6 @@
 		2C20BC971D8A4A3500574462 /* HUPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */; };
 		2C3292F11D922D890095F60E /* ZYFootprintCommentTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */; };
 		2C3292F41D9230CC0095F60E /* ZYCommentFootprintCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F31D9230CC0095F60E /* ZYCommentFootprintCell.m */; };
-		2C3292F71D9256FE0095F60E /* ZYSupportPeopleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F61D9256FE0095F60E /* ZYSupportPeopleCell.m */; };
 		2C3292FA1D9258F40095F60E /* ZYSupportListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F91D9258F40095F60E /* ZYSupportListModel.m */; };
 		2C3293001D926E890095F60E /* ZYCommentListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292FF1D926E890095F60E /* ZYCommentListModel.m */; };
 		2C3293061D9276110095F60E /* ZYFootprintOneCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3293051D9276110095F60E /* ZYFootprintOneCommentCell.m */; };
@@ -934,8 +933,6 @@
 		2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintCommentTable.m; sourceTree = "<group>"; };
 		2C3292F21D9230CC0095F60E /* ZYCommentFootprintCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCommentFootprintCell.h; sourceTree = "<group>"; };
 		2C3292F31D9230CC0095F60E /* ZYCommentFootprintCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCommentFootprintCell.m; sourceTree = "<group>"; };
-		2C3292F51D9256FE0095F60E /* ZYSupportPeopleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSupportPeopleCell.h; sourceTree = "<group>"; };
-		2C3292F61D9256FE0095F60E /* ZYSupportPeopleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSupportPeopleCell.m; sourceTree = "<group>"; };
 		2C3292F81D9258F40095F60E /* ZYSupportListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSupportListModel.h; sourceTree = "<group>"; };
 		2C3292F91D9258F40095F60E /* ZYSupportListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSupportListModel.m; sourceTree = "<group>"; };
 		2C3292FE1D926E890095F60E /* ZYCommentListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCommentListModel.h; sourceTree = "<group>"; };
@@ -3780,8 +3777,6 @@
 				2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */,
 				2C3292F21D9230CC0095F60E /* ZYCommentFootprintCell.h */,
 				2C3292F31D9230CC0095F60E /* ZYCommentFootprintCell.m */,
-				2C3292F51D9256FE0095F60E /* ZYSupportPeopleCell.h */,
-				2C3292F61D9256FE0095F60E /* ZYSupportPeopleCell.m */,
 				2C3293041D9276110095F60E /* ZYFootprintOneCommentCell.h */,
 				2C3293051D9276110095F60E /* ZYFootprintOneCommentCell.m */,
 			);
@@ -5330,7 +5325,6 @@
 				2C1B60EA1D6D3CF900E3C25B /* RaiseMoneySecondCellView.m in Sources */,
 				395B5A8E1D24C4440084264C /* VersionTool.m in Sources */,
 				2CD209111D6D3E27005EB62E /* ZCDetailIntroThirdCell.m in Sources */,
-				2C3292F71D9256FE0095F60E /* ZYSupportPeopleCell.m in Sources */,
 				2C3292F41D9230CC0095F60E /* ZYCommentFootprintCell.m in Sources */,
 				2C1B60F31D6D3CF900E3C25B /* TravelSecondCell.m in Sources */,
 				2CD209B31D6D4BA6005EB62E /* QPEffectViewCell.m in Sources */,

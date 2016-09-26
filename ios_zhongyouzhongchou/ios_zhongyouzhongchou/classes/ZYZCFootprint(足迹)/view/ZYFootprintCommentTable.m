@@ -30,6 +30,7 @@
     if (self=[super initWithFrame:frame style:style]) {
         self.backgroundColor=[UIColor whiteColor];
         self.contentInset=UIEdgeInsetsMake(74, 0, 10, 0) ;
+        footprintModel.footprintListType=OtherFootprintList;
         self.footprintModel=footprintModel;
     }
     return self;

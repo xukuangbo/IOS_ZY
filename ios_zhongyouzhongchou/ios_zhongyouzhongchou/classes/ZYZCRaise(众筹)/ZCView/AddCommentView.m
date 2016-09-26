@@ -9,6 +9,8 @@
 #import "AddCommentView.h"
 #import "MBProgressHUD+MJ.h"
 @interface AddCommentView ()<UITextViewDelegate>
+@property (nonatomic, strong) UITextView     *editFieldView;
+@property (nonatomic, strong) UIButton       *sendComentBtn;
 @property (nonatomic, strong) UILabel    *placeHolderLab;
 @end
 
@@ -47,6 +49,20 @@
         
         //监听键盘高度改变
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+        
+        WEAKSELF;
+        self.commentSuccess=^()
+        {
+            if (!weakSelf.editFieldView.resignFirstResponder) {
+                [weakSelf.editFieldView resignFirstResponder];
+            }
+            weakSelf.editFieldView.text=nil;
+            weakSelf.placeHolderLab.hidden=NO;
+            weakSelf.editFieldView.height=33;
+            weakSelf.height=49;
+            weakSelf.sendComentBtn.top=self.height-_sendComentBtn.height;
+            [weakSelf.sendComentBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+        };
     }
     return self;
 }
@@ -94,41 +110,9 @@
         [alert show];
         return;
     }
-
-    NSDictionary *parameters= @{
-                                @"userId":[ZYZCAccountTool getUserId],
-                                @"productId":_productId,
-                                @"content":_editFieldView.text
-                              };
-    if (_editFieldView.text.length) {
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:COMMENT_PRODUCT andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-//            NSLog(@"%@",result);
-            if (isSuccess) {
-                [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_success")];
-                if (!_editFieldView.resignFirstResponder) {
-                   [_editFieldView resignFirstResponder];
-                }
-                _editFieldView.text=nil;
-                _placeHolderLab.hidden=NO;
-                _editFieldView.height=33;
-                self.height=49;
-                self.top=KSCREEN_H-self.height;
-                _sendComentBtn.top=self.height-_sendComentBtn.height;
-                 [_sendComentBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
-                if (_commentSuccess) {
-                    _commentSuccess(_editFieldView.text);
-                }
-            }
-            else
-            {
-                 [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_fail")];
-            }
-            
-        } andFailBlock:^(id failResult) {
-//            NSLog(@"%@",failResult);
-            
-            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-        }];
+    
+    if (self.commitComment) {
+        self.commitComment(_editFieldView.text);
     }
 }
 
@@ -211,6 +195,19 @@
     CGFloat height=value.CGRectValue.size.height;
     self.top=KSCREEN_H-height-self.height;
 
+}
+
+#pragma mark --- 编辑框退出编辑
+-(void)textFieldRegisterFirstResponse
+{
+    [self.editFieldView resignFirstResponder];
+    
+}
+
+#pragma mark --- 进入编辑状态
+-(void)textFieldBecomeFirstResponse
+{
+    [self.editFieldView becomeFirstResponder];
 }
 
 -(void)dealloc

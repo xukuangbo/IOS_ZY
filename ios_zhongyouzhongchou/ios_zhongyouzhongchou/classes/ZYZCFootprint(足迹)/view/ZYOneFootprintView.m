@@ -28,7 +28,6 @@
 @property (nonatomic, strong) UIImageView *supportImg;
 @property (nonatomic, strong) UILabel     *supportCountLab;
 @property (nonatomic, strong) UILabel     *deleteLab;
-@property (nonatomic, strong) UIButton    *deleteBtn;
 
 @property (nonatomic, strong) UIButton    *commentBtn;//评论按钮
 @property (nonatomic, strong) UIButton    *supportBtn;//点赞按钮
@@ -314,9 +313,10 @@
     if (_commentEnterType==enterCommentPage) {
         ZYCommentFootprintController *commentFootprintController=[[ZYCommentFootprintController alloc]init];
         commentFootprintController.footprintModel=_footprintModel;
+        
         [self.viewController.navigationController pushViewController:commentFootprintController animated:YES];
     }
-    //进入评论编辑
+    //点击评论编辑
     else if(_commentEnterType==enterCommentEdit)
     {
         
