@@ -275,7 +275,7 @@
     NSMutableURLRequest * request = [[NSMutableURLRequest alloc] init];
     request.timeoutInterval = 10;
     request.HTTPMethod = @"POST";
-    request.URL = [NSURL URLWithString:@"https://api.cn.ronghub.com/chatroom/user/gag/add.json"];
+    request.URL = [NSURL URLWithString:@"https://api.cn.ronghub.com/chatroom/user/gag/rollback.json"];
     
     NSString * appkey = RC_APPKEY;
     NSString * nonce = [NSString stringWithFormat:@"%zd",arc4random() % 10000];
@@ -298,42 +298,42 @@
     [dateFormatter setDateFormat:@"YYYY:MM:dd-HH:mm:ss"];//格式  YYYY:MM:dd-HH:mm:ss
     
     NSString *timestamp = [dateFormatter stringFromDate:date];
-//    //配置http header
-//    [request setValue:appkey forHTTPHeaderField:@"RC-App-Key"];
-//    [request setValue:nonce forHTTPHeaderField:@"RC-Nonce"];
-//    [request setValue:timestamp forHTTPHeaderField:@"RC-Timestamp"];
-//    
-////    [request setValue:@"25UGZKq2zjE55t" forHTTPHeaderField:@"appSecret"];
-//
-//    //生成hashcode 用以验证签名
-//    [request setValue:[self sha1:[NSString stringWithFormat:@"25UGZKq2zjE55t%@%@",nonce,timestamp]] forHTTPHeaderField:@"RC-Signature"];
-//    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    //配置http header
+    [request setValue:appkey forHTTPHeaderField:@"RC-App-Key"];
+    [request setValue:nonce forHTTPHeaderField:@"RC-Nonce"];
+    [request setValue:timestamp forHTTPHeaderField:@"RC-Timestamp"];
     
-    NSMutableDictionary *headDic = [NSMutableDictionary dictionary];
-    [headDic setObject:appkey forKey:@"RC-App-Key"];
-    [headDic setObject:nonce forKey:@"RC-Nonce"];
-    [headDic setObject:timestamp forKey:@"RC-Timestamp"];
-    [headDic setObject:[self sha1:[NSString stringWithFormat:@"25UGZKq2zjE55t%@%@",nonce,timestamp]] forKey:@"RC-Signature"];
+//    [request setValue:@"25UGZKq2zjE55t" forHTTPHeaderField:@"appSecret"];
+
+    //生成hashcode 用以验证签名
+    [request setValue:[self sha1:[NSString stringWithFormat:@"25UGZKq2zjE55t%@%@",nonce,timestamp]] forHTTPHeaderField:@"RC-Signature"];
+    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+//    NSMutableDictionary *headDic = [NSMutableDictionary dictionary];
+//    [headDic setObject:appkey forKey:@"RC-App-Key"];
+//    [headDic setObject:nonce forKey:@"RC-Nonce"];
+//    [headDic setObject:timestamp forKey:@"RC-Timestamp"];
+//    [headDic setObject:[self sha1:[NSString stringWithFormat:@"25UGZKq2zjE55t%@%@",nonce,timestamp]] forKey:@"RC-Signature"];
 
     NSMutableDictionary * paramDic = [NSMutableDictionary dictionary];
     [paramDic setObject:self.personDataView.minePersonModel.userId forKey:@"userId"];
     [paramDic setObject:self.targetId forKey:@"chatroomId"];
     [paramDic setObject:@"43200" forKey:@"minute"];
     
-//    request.HTTPBody = [self httpBodyFromParamDictionary:paramDic];
-//    [NSURLConnection connectionWithRequest:request delegate:self];
-//    
-//    NSData *retData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//    NSLog(@"datadata%@", retData);
+    request.HTTPBody = [self httpBodyFromParamDictionary:paramDic];
+    [NSURLConnection connectionWithRequest:request delegate:self];
+    
+    NSData *retData = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSLog(@"datadata%@", retData);
 //    NSString *ret = [[NSString alloc] initWithData:retData encoding:NSUTF8StringEncoding];
 //    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:retData options:NSJSONReadingMutableLeaves error:nil];
 //    
 //     NSLog(@"%@",ret);
-    [ZYZCHTTPTool addHeadPostHttpDataWithEncrypt:YES andURL:@"https://api.cn.ronghub.com/chatroom/user/gag/add.json" andHeadDictionary:headDic andParameters:paramDic andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        NSLog(@"isSuccessisSuccess");
-    } andFailBlock:^(id failResult) {
-        NSLog(@"failResultfailResult");
-    }];
+//    [ZYZCHTTPTool addHeadPostHttpDataWithEncrypt:YES andURL:@"https://api.cn.ronghub.com/chatroom/user/gag/add.json" andHeadDictionary:headDic andParameters:paramDic andSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        NSLog(@"isSuccessisSuccess");
+//    } andFailBlock:^(id failResult) {
+//        NSLog(@"failResultfailResult");
+//    }];
 }
 
 - (NSData *)httpBodyFromParamDictionary:(NSDictionary *)param
