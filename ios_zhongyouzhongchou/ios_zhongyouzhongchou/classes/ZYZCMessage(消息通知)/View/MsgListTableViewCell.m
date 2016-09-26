@@ -95,7 +95,7 @@
         if (_msgListModel.msgStyle==99) {
             _icon.image=[UIImage imageNamed:@"Share_iocn"];
         } else if (_msgListModel.msgStyle == 10) {
-            _beingLiveImage.hidden = NO;
+//            _beingLiveImage.hidden = NO;
             [_icon sd_setImageWithURL:[NSURL URLWithString:msgListModel.icon] placeholderImage:[UIImage imageNamed:@"众筹ICON"]];
         } else {
              _icon.image=[UIImage imageNamed:@"众筹ICON"];

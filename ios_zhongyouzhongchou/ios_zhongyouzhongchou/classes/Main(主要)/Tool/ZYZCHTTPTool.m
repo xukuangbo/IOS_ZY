@@ -124,43 +124,36 @@
 }
 
 #pragma mark --- 添加HttpHead字段的方法post请求
-+(void)addHeadPostHttpDataWithEncrypt:(BOOL)needLogin andURL:(NSString *)url andHeadDictionary:(NSDictionary *)headDict andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail
++(void)addRongYunHeadPostHttpDataWithURL:(NSString *)url andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail
 {
-    //转换成json
-    //    NSData *data = [NSJSONSerialization dataWithJSONObject :parameters options : NSJSONWritingPrettyPrinted error:NULL];
-    //
-    //    NSString *jsonStr = [[ NSString alloc ] initWithData :data encoding : NSUTF8StringEncoding];
-    //
-    
-    NSMutableDictionary *newParameters=[NSMutableDictionary dictionaryWithDictionary:parameters];
-    if (needLogin)
-    {
-        //此处添加需登录的操作
-        NSDictionary *entryptParams=[[self class] encryptParams];
-        if (!entryptParams) {
-            return;
-        }
-        [newParameters addEntriesFromDictionary:entryptParams];
-    }
-    else
-    {
-        //此处添加不需要登录的操作
-    }
-    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
-    manager.responseSerializer.acceptableContentTypes =
-    [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
+    NSString * appkey = RC_APPKEY;
+    NSString * nonce = [NSString stringWithFormat:@"%zd",arc4random() % 10000];
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    //当前时区和格林尼治时区的时间差 8小时 = 28800s
+    NSString *sumString = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
     
-    for (int i = 0; i < headDict.count; i++) {
-        [manager.requestSerializer setValue:headDict.allValues[i] forHTTPHeaderField:headDict.allKeys[i]];
-    }
-    DDLog(@"newParameters:%@",newParameters);
+    //截取小数点前的数
+    NSString *dateString = [[sumString componentsSeparatedByString:@"."]objectAtIndex:0];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[dateString intValue]];
+    //格式
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    //时区
+    [dateFormatter setTimeZone:zone];
+    [dateFormatter setDateFormat:@"YYYY:MM:dd-HH:mm:ss"];//格式  YYYY:MM:dd-HH:mm:ss
     
-    NSString *newUrl=url;
-    DDLog(@"newPostUrl:%@",newUrl);
+    NSString *timestamp = [dateFormatter stringFromDate:date];
+    //配置http header
+    [[manager requestSerializer]  setValue:appkey forHTTPHeaderField:@"RC-App-Key"];
+    [[manager requestSerializer] setValue:nonce forHTTPHeaderField:@"RC-Nonce"];
+    [[manager requestSerializer] setValue:timestamp forHTTPHeaderField:@"RC-Timestamp"];
+    //生成hashcode 用以验证签名
+    [[manager requestSerializer] setValue:[[self class] sha1:[NSString stringWithFormat:@"25UGZKq2zjE55t%@%@",nonce,timestamp]] forHTTPHeaderField:@"RC-Signature"];
+    [[manager requestSerializer] setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
     [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress)
      {
          
@@ -248,6 +241,25 @@
     }
     
     return strDic;
+}
+
+#pragma mark - 哈希算法加密
++ (NSString*)sha1:(NSString *)hashString
+{
+    const char *cstr = [hashString cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *data = [NSData dataWithBytes:cstr length:hashString.length];
+    //使用对应的CC_SHA1,CC_SHA256,CC_SHA384,CC_SHA512的长度分别是20,32,48,64
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    //使用对应的CC_SHA256,CC_SHA384,CC_SHA512
+    CC_SHA1(data.bytes, data.length, digest);
+    
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+    
+    return output;
 }
 
 #pragma mark --- 将字符串转换成md5
