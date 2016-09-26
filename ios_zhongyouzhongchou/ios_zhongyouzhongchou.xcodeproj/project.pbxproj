@@ -529,6 +529,9 @@
 		399E94261D38E20C006E1B68 /* NetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94241D38E20C006E1B68 /* NetWorkManager.m */; };
 		399E942A1D3A2226006E1B68 /* OpenSetTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94291D3A2226006E1B68 /* OpenSetTool.m */; };
 		399E94331D3C6E8F006E1B68 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94321D3C6E8F006E1B68 /* TTTAttributedLabel.m */; };
+		39A2C7A31D98B6BD00F50204 /* showDashangView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A2C7A21D98B6BD00F50204 /* showDashangView.m */; };
+		39A2C7A61D98FCEA00F50204 /* showDashangMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A2C7A51D98FCEA00F50204 /* showDashangMapView.m */; };
+		39A2C7A91D98FF5000F50204 /* LiveShowDashangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A2C7A81D98FF5000F50204 /* LiveShowDashangModel.m */; };
 		39AABC891D6EC81700D25B16 /* DoLiveHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */; };
 		39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */; };
 		39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */; };
@@ -1572,6 +1575,12 @@
 		399E94291D3A2226006E1B68 /* OpenSetTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenSetTool.m; sourceTree = "<group>"; };
 		399E94311D3C6E8F006E1B68 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		399E94321D3C6E8F006E1B68 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		39A2C7A11D98B6BD00F50204 /* showDashangView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showDashangView.h; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/showDashangView.h"; sourceTree = SOURCE_ROOT; };
+		39A2C7A21D98B6BD00F50204 /* showDashangView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showDashangView.m; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/showDashangView.m"; sourceTree = SOURCE_ROOT; };
+		39A2C7A41D98FCEA00F50204 /* showDashangMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showDashangMapView.h; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/showDashangMapView.h"; sourceTree = SOURCE_ROOT; };
+		39A2C7A51D98FCEA00F50204 /* showDashangMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showDashangMapView.m; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/showDashangMapView.m"; sourceTree = SOURCE_ROOT; };
+		39A2C7A71D98FF5000F50204 /* LiveShowDashangModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveShowDashangModel.h; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/LiveShowDashangModel.h"; sourceTree = SOURCE_ROOT; };
+		39A2C7A81D98FF5000F50204 /* LiveShowDashangModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LiveShowDashangModel.m; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/LiveShowDashangModel.m"; sourceTree = SOURCE_ROOT; };
 		39AABC871D6EC81700D25B16 /* DoLiveHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoLiveHeadView.h; sourceTree = "<group>"; };
 		39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoLiveHeadView.m; sourceTree = "<group>"; };
 		39AABC8B1D6EC9D500D25B16 /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
@@ -3941,6 +3950,12 @@
 		392AB27B1D669C26003FEDB7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				39A2C7A41D98FCEA00F50204 /* showDashangMapView.h */,
+				39A2C7A51D98FCEA00F50204 /* showDashangMapView.m */,
+				39A2C7A11D98B6BD00F50204 /* showDashangView.h */,
+				39A2C7A21D98B6BD00F50204 /* showDashangView.m */,
+				39A2C7A71D98FF5000F50204 /* LiveShowDashangModel.h */,
+				39A2C7A81D98FF5000F50204 /* LiveShowDashangModel.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5142,6 +5157,7 @@
 				040651251CC62FC7003FD539 /* SDCollectionViewCell.m in Sources */,
 				392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */,
 				2C8B197D1D0CF7EC0063097B /* UIView+Animations.m in Sources */,
+				39A2C7A31D98B6BD00F50204 /* showDashangView.m in Sources */,
 				2C8E9AC41D8F978200CA35DE /* ZYfootprintListCell.m in Sources */,
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
 				2CD209AC1D6D4BA6005EB62E /* QPEffect.m in Sources */,
@@ -5238,6 +5254,7 @@
 				04F6854C1CF57C9F00E1A98E /* MinePersonSetUpScrollView.m in Sources */,
 				2C1B60D01D6D3CF900E3C25B /* MoreFZCChooseSceneController.m in Sources */,
 				392AB2871D669C26003FEDB7 /* RCDLiveTipMessageCell.m in Sources */,
+				39A2C7A91D98FF5000F50204 /* LiveShowDashangModel.m in Sources */,
 				39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */,
 				394D537B1D62F45500E7F595 /* UIView+ZYLayer.m in Sources */,
 				2C1B60D71D6D3CF900E3C25B /* ZYDescImgModel.m in Sources */,
@@ -5319,6 +5336,7 @@
 				39809D1C1D5884B700CB9EE3 /* TacticMainImageView.m in Sources */,
 				2CD209B41D6D4BA6005EB62E /* QPEffectViewController.m in Sources */,
 				395B5A9C1D27AC660084264C /* CustomImagemapView.m in Sources */,
+				39A2C7A61D98FCEA00F50204 /* showDashangMapView.m in Sources */,
 				2CD209D31D6D4E98005EB62E /* ZYShortVideoController.m in Sources */,
 				2CD209281D6D3E27005EB62E /* TogetherSupportController.m in Sources */,
 				395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */,

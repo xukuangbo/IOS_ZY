@@ -12,11 +12,12 @@ typedef void(^FailBlock)(id failResult);
 
 @interface ZYZCHTTPTool : NSObject
 #pragma mark --- 获取数据
-//get请求
+// get请求
 +(void)getHttpDataByURL:(NSString *)url withSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail;
-//post请求
+// post请求
 +(void)postHttpDataWithEncrypt:(BOOL)needLogin andURL:(NSString *)url andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail;
-
+// 添加head的post请求
++(void)addRongYunHeadPostHttpDataWithURL:(NSString *)url andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail;
 #pragma mark --- 加密
 //需要登录权限才能调用的接口
 +(NSDictionary *)loginPortNeedEncrypt;

@@ -29,7 +29,7 @@
 #import "RCDLiveKitUtility.h"
 #import "RCDLiveKitCommonDefine.h"
 #import "LiveFunctionView.h"
-
+#import "showDashangMapView.h"
 @class ZYLiveListModel;
 ///输入栏扩展输入的唯一标示
 #define PLUGIN_BOARD_ITEM_ALBUM_TAG    1001
@@ -56,11 +56,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  */
 @interface ZYLiveViewController : ZYZCBaseViewController
 <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate, UIScrollViewDelegate>
+
 - (instancetype)initLiveModel:(ZYLiveListModel *)createLiveModel;
 #pragma mark - 会话属性
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
 @property (nonatomic, copy) NSString *productID;
+// 创建直播model
+@property (nonatomic, strong) ZYLiveListModel *createLiveModel;
+
 @property (nonatomic, weak)id<ZYLiveViewControllerDelegate>delegate;
 // 直播需要的属性
 /** 直播任务流 */
@@ -91,6 +95,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 //刷新的view
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
+
+//打赏动图界面
+@property (nonatomic, strong) showDashangMapView *dashangMapView;
 
 
 

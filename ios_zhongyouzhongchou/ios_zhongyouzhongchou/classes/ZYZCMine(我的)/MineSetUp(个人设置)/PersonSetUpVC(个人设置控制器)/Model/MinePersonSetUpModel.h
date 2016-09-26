@@ -59,6 +59,10 @@
 @property (nonatomic, assign) int height;
 
 @property (nonatomic, copy) NSString *mail;
+// 粉丝
+@property (nonatomic, copy) NSString *meGzAll;
+// 关注
+@property (nonatomic, copy) NSString *gzMeAll;
 
 @property (nonatomic, strong) MinePersonAddressModel *userbyaddress;
 //}

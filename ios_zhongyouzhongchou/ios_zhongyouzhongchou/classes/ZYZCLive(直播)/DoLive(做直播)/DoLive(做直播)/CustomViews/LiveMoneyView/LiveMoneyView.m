@@ -31,7 +31,7 @@
     _moneyLabel = [UILabel new];
     [self addSubview:_moneyLabel];
     _moneyLabel.textColor = [UIColor whiteColor];
-    _moneyLabel.font = [UIFont systemFontOfSize:15];
+    _moneyLabel.font = [UIFont systemFontOfSize:12];
     
 //    _rightView = [UIImageView new];
 //    [self addSubview:_rightView];

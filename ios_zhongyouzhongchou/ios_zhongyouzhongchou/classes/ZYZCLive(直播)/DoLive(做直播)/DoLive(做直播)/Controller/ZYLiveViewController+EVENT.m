@@ -11,6 +11,10 @@
 #import "ZYZCPersonalController.h"
 #import "MinePersonSetUpModel.h"
 #import "MBProgressHUD+MJ.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "showDashangMapView.h"
+#import "ZYLiveListModel.h"
+#import "ZCProductDetailController.h"
 @implementation ZYLiveViewController (EVENT)
 - (void)initLivePersonDataView
 {
@@ -20,6 +24,7 @@
     CGFloat personDataViewX = (self.view.width - personDataViewW) * 0.5;
     CGFloat personDataViewY = self.view.height;
     self.personDataView = [[LivePersonDataView alloc] initWithFrame:CGRectMake(personDataViewX, personDataViewY, personDataViewW, personDataViewH)];
+    [self.personDataView.zhongchouButton setTitle:self.createLiveModel.productTitle forState:UIControlStateNormal];
     [self.view addSubview:self.personDataView];
     
     [self.personDataView.roomButton addTarget:self action:@selector(clickEnterRoomButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -45,7 +50,7 @@
     //聊天消息区
     if (nil == self.conversationMessageCollectionView) {
         UICollectionViewFlowLayout *customFlowLayout = [[UICollectionViewFlowLayout alloc] init];
-        customFlowLayout.minimumLineSpacing = 10;
+        customFlowLayout.minimumLineSpacing = 6;
         customFlowLayout.sectionInset = UIEdgeInsetsMake(10.0f, 0.0f,5.0f, 0.0f);
         customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;//方向
         CGRect _conversationViewFrame = self.contentView.bounds;
@@ -63,6 +68,10 @@
         self.conversationMessageCollectionView.delegate = self;
         [self.contentView addSubview:self.conversationMessageCollectionView];
     }
+    //打赏界面
+    self.dashangMapView = [[showDashangMapView alloc] initWithFrame:CGRectMake(self.contentView.left, self.contentView.top - showDashangMapViewH, showDashangMapViewW, showDashangMapViewH)];
+    [self.view addSubview:self.dashangMapView];
+    
     //输入区
     if(self.inputBar == nil){
         float inputBarOriginY = self.conversationMessageCollectionView.bounds.size.height +30;
@@ -74,7 +83,7 @@
         self.inputBar.delegate = self;
         self.inputBar.backgroundColor = [UIColor clearColor];
         self.inputBar.hidden = YES;
-        [self.contentView addSubview:self.inputBar];
+        [self.view addSubview:self.inputBar];
     }
     self.collectionViewHeader = [[RCDLiveCollectionViewHeader alloc]
                                  initWithFrame:CGRectMake(0, -50, self.view.bounds.size.width, 40)];
@@ -196,7 +205,16 @@
 // 进入众筹详情
 - (void)clickZhongchouButton:(UIButton *)sender
 {
-    
+    self.navigationController.navigationBar.hidden = NO;
+    //推出信息详情页
+    ZCProductDetailController *productDetailVC=[[ZCProductDetailController alloc]init];
+    productDetailVC.hidesBottomBarWhenPushed=YES;
+//    ZCOneModel *oneModel=self.dataArr[indexPath.row/2];
+//    productDetailVC.oneModel=oneModel;
+    productDetailVC.productId = [NSNumber numberWithInteger:[self.createLiveModel.productId integerValue]];
+    productDetailVC.detailProductType=PersonDetailProduct;
+    productDetailVC.fromProductType=ZCListProduct;
+    [self.navigationController pushViewController:productDetailVC animated:YES];
 }
 
 // 点击关注按钮
@@ -237,6 +255,7 @@
 // 点击禁言按钮
 - (void)clickBannedSpeakButton:(UIButton *)sender
 {
+    [self postRequest];
     
 }
 
@@ -259,6 +278,21 @@
 - (void)moreBtnAction:(UIButton *)sender
 {
     self.liveFunctionView.hidden = !self.liveFunctionView.hidden;
+}
+
+- (void)postRequest
+{
+    WEAKSELF
+    NSMutableDictionary * paramDic = [NSMutableDictionary dictionary];
+    [paramDic setObject:self.personDataView.minePersonModel.userId forKey:@"userId"];
+    [paramDic setObject:self.targetId forKey:@"chatroomId"];
+    [paramDic setObject:@"1440" forKey:@"minute"];
+
+    [ZYZCHTTPTool addRongYunHeadPostHttpDataWithURL:@"https://api.cn.ronghub.com/chatroom/user/gag/add.json" andParameters:paramDic andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [weakSelf showHintWithText:@"禁言成功,该用户一天内不能进行任何发言"];
+    } andFailBlock:^(id failResult) {
+        [weakSelf showHintWithText:@"禁言失败,请重试"];
+    }];
 }
 
 //#pragma mark - UIGestureRecognizerDelegate

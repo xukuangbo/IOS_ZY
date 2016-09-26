@@ -84,8 +84,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 @property(nonatomic,strong)UICollectionView *portraitsCollectionView;
 
 @property(nonatomic,strong)NSMutableArray *userList;
-// 创建直播model
-@property (nonatomic, strong) ZYLiveListModel *createLiveModel;
 
 @end
 
@@ -215,6 +213,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
                 [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
             }
             MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
+            minePersonModel.gzMeAll = data[@"gzMeAll"];
+            minePersonModel.meGzAll = data[@"meGzAll"];
             weakSelf.personDataView.minePersonModel = minePersonModel;
         } else {
             NSLog(@"bbbbbbb");
@@ -262,7 +262,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 //直播
 -(void)setUpLive{
-    [self requestData:@"45"];
+    [self requestData:@"2454"];
     DDLog(@"kPushUrl:%@",_pushUrl);
     QPLConfiguration *configuration = [[QPLConfiguration alloc] init];
     //推流地址
@@ -1075,12 +1075,16 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         content = textMessage.message;
         
         //判断是否是打赏通知
-//        WEAKSELF
         if([content isEqualToString:@"直播结束"]){
             
             return ;
-        }else{
+        }else if ([content isEqualToString:@"打赏"]){
             
+            [self.dashangMapView showDashangData];
+            
+            return;
+        }else{
+            //1.进入直播间 2.打赏
             [self refreshUserList:textMessage.extra];
         }
         
@@ -1201,19 +1205,19 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 #pragma mark ---根据inputBar 回调来修改页面布局，inputBar frame 变化会触发这个方法
  // frame    输入框即将占用的大小
 - (void)onInputBarControlContentSizeChanged:(CGRect)frame withAnimationDuration:(CGFloat)duration andAnimationCurve:(UIViewAnimationCurve)curve{
-    CGRect collectionViewRect = self.contentView.frame;
-    self.contentView.backgroundColor = [UIColor clearColor];
-    collectionViewRect.origin.y = self.view.bounds.size.height - frame.size.height - 237 +50;
-    
-    collectionViewRect.size.height = 237;
-    [UIView animateWithDuration:duration animations:^{
-        [UIView setAnimationCurve:curve];
-        [self.contentView setFrame:collectionViewRect];
-        [UIView commitAnimations];
-    }];
+//    CGRect collectionViewRect = self.contentView.frame;
+//    self.contentView.backgroundColor = [UIColor clearColor];
+//    collectionViewRect.origin.y = self.view.bounds.size.height - frame.size.height - 237 +50;
+//    
+//    collectionViewRect.size.height = 237;
+//    [UIView animateWithDuration:duration animations:^{
+//        [UIView setAnimationCurve:curve];
+//        [self.contentView setFrame:collectionViewRect];
+//        [UIView commitAnimations];
+//    }];
     CGRect inputbarRect = self.inputBar.frame;
-    
-    inputbarRect.origin.y = self.contentView.frame.size.height -50;
+    inputbarRect.origin.y = self.view.bounds.size.height - frame.size.height;
+//    inputbarRect.origin.y = collectionViewRect.size.height -50;
     [self.inputBar setFrame:inputbarRect];
     [self.view bringSubviewToFront:self.inputBar];
     [self scrollToBottomAnimated:NO];

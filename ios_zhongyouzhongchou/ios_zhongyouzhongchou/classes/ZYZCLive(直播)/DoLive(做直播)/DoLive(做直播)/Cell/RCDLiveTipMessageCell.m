@@ -24,7 +24,7 @@
 //        self.tipMessageLabel.delegate = self;
         self.tipMessageLabel.userInteractionEnabled = YES;
         [self.baseContentView addSubview:self.tipMessageLabel];
-        self.tipMessageLabel.font = [UIFont systemFontOfSize:16.f];;
+        self.tipMessageLabel.font = [UIFont systemFontOfSize:12.f];;
 //        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 0.5f, 0.5f, 0.5f);
         self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 5.0f, 0.5f, 0.5f);
     }
@@ -94,6 +94,10 @@
 
     NSString *__text = self.tipMessageLabel.text;
     CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:__text];
+    
+    //设置圆角
+    self.tipMessageLabel.layer.cornerRadius = __labelSize.height * 0.5;
+    self.tipMessageLabel.layer.masksToBounds = YES;
 
     if (_isFullScreenMode) {
         self.tipMessageLabel.frame = CGRectMake(6,0, __labelSize.width, __labelSize.height);
@@ -159,12 +163,12 @@
     CGFloat maxMessageLabelWidth = 220;
     CGSize __textSize = CGSizeZero;
     if (RCDLive_IOS_FSystenVersion < 7.0) {
-        __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_LIOS7(content, [UIFont systemFontOfSize:16.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT), NSLineBreakByTruncatingTail);
+        __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_LIOS7(content, [UIFont systemFontOfSize:12.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT), NSLineBreakByTruncatingTail);
     }else {
-        __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_GEIOS7(content, [UIFont systemFontOfSize:16.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT));
+        __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_GEIOS7(content, [UIFont systemFontOfSize:12.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT));
     }
     //这里是将文本的cell往外扩张了点内容
 //    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+6);    return __textSize;
-    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+10);    return __textSize;
+    __textSize = CGSizeMake(ceilf(__textSize.width)+16 , ceilf(__textSize.height)+6);    return __textSize;
 }
 @end

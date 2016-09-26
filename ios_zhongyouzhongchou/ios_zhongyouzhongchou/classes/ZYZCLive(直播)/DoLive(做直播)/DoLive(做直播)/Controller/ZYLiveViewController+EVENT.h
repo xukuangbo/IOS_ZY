@@ -8,7 +8,7 @@
 
 #import "ZYLiveViewController.h"
 
-@interface ZYLiveViewController (EVENT) <RCTKInputBarControlDelegate, UIGestureRecognizerDelegate>
+@interface ZYLiveViewController (EVENT) <RCTKInputBarControlDelegate, UIGestureRecognizerDelegate, NSURLConnectionDelegate>
 
 - (void)initLivePersonDataView;
 - (void)setUpBottomViews;

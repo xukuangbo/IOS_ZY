@@ -227,7 +227,7 @@
     
     [self.attentionButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.height.mas_equalTo(34);
-        make.width.mas_equalTo(60);
+        make.width.mas_equalTo(100);
         make.bottom.equalTo(self).offset(-3);
         make.left.equalTo(self).offset(10);
     }];
@@ -277,8 +277,8 @@
     }
     
     //关注和粉丝
-//    NSString *attentionText=FOLLIOW_AND_BEFOLLOW([_meGzAll integerValue], [_gzMeAll integerValue]);
-//    self.attentionLabel.text=attentionText;
+    NSString *attentionText = [NSString stringWithFormat:@"关注%@ | 粉丝%@", minePersonModel.gzMeAll, minePersonModel.meGzAll];
+    self.attentionLabel.text = attentionText;
     
     //基础信息
     NSInteger age;

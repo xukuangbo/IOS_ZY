@@ -123,6 +123,63 @@
     }];
 }
 
+#pragma mark --- 添加HttpHead字段的方法post请求
++(void)addRongYunHeadPostHttpDataWithURL:(NSString *)url andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
+    NSString * appkey = RC_APPKEY;
+    NSString * nonce = [NSString stringWithFormat:@"%zd",arc4random() % 10000];
+    NSTimeZone *zone = [NSTimeZone localTimeZone];
+    //当前时区和格林尼治时区的时间差 8小时 = 28800s
+    NSString *sumString = [NSString stringWithFormat:@"%f",[[NSDate date] timeIntervalSince1970]];
+    //截取小数点前的数
+    NSString *dateString = [[sumString componentsSeparatedByString:@"."]objectAtIndex:0];
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:[dateString intValue]];
+    //格式
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    //时区
+    [dateFormatter setTimeZone:zone];
+    [dateFormatter setDateFormat:@"YYYY:MM:dd-HH:mm:ss"];//格式  YYYY:MM:dd-HH:mm:ss
+    
+    NSString *timestamp = [dateFormatter stringFromDate:date];
+    //配置http header
+    [[manager requestSerializer]  setValue:appkey forHTTPHeaderField:@"RC-App-Key"];
+    [[manager requestSerializer] setValue:nonce forHTTPHeaderField:@"RC-Nonce"];
+    [[manager requestSerializer] setValue:timestamp forHTTPHeaderField:@"RC-Timestamp"];
+    //生成hashcode 用以验证签名
+    [[manager requestSerializer] setValue:[[self class] sha1:[NSString stringWithFormat:@"25UGZKq2zjE55t%@%@",nonce,timestamp]] forHTTPHeaderField:@"RC-Signature"];
+    [[manager requestSerializer] setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    
+    [manager POST:url parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress)
+     {
+         
+     }
+          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         if (responseObject[@"code"]) {
+             if ([responseObject[@"code"] isEqual:@0]) {
+                 successGet(responseObject,YES);
+             }
+             else
+             {
+                 successGet(responseObject,NO);
+             }
+         }
+         else
+         {
+             successGet(responseObject,YES);
+         }
+         
+     }
+          failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         fail(error.localizedDescription);
+     }];
+}
+
 #pragma mark --- 需要登录权限才能调用的接口
 +(NSDictionary *)loginPortNeedEncrypt
 {
@@ -183,6 +240,25 @@
     }
     
     return strDic;
+}
+
+#pragma mark - 哈希算法加密
++ (NSString*)sha1:(NSString *)hashString
+{
+    const char *cstr = [hashString cStringUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *data = [NSData dataWithBytes:cstr length:hashString.length];
+    //使用对应的CC_SHA1,CC_SHA256,CC_SHA384,CC_SHA512的长度分别是20,32,48,64
+    uint8_t digest[CC_SHA1_DIGEST_LENGTH];
+    //使用对应的CC_SHA256,CC_SHA384,CC_SHA512
+    CC_SHA1(data.bytes, data.length, digest);
+    
+    NSMutableString* output = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
+    
+    for(int i = 0; i < CC_SHA1_DIGEST_LENGTH; i++)
+        [output appendFormat:@"%02x", digest[i]];
+    
+    return output;
 }
 
 #pragma mark --- 将字符串转换成md5
