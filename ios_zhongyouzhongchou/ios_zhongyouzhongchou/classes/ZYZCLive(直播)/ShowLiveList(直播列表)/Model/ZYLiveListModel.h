@@ -43,4 +43,9 @@
 @property (nonatomic, copy) NSString *chatRoomId;
 /** 性别 */
 @property (nonatomic, copy) NSString *sex;
+
+/** 关联行程的id */
+@property (nonatomic, copy) NSString *productId;
+/** 关联行程的标题 */
+@property (nonatomic, copy) NSString *productTitle;
 @end

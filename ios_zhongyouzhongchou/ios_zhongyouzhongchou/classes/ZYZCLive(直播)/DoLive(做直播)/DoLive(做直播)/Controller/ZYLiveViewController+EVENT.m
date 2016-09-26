@@ -12,6 +12,7 @@
 #import "MinePersonSetUpModel.h"
 #import "MBProgressHUD+MJ.h"
 #import <CommonCrypto/CommonDigest.h>
+#import "showDashangMapView.h"
 @implementation ZYLiveViewController (EVENT)
 - (void)initLivePersonDataView
 {
@@ -64,6 +65,10 @@
         self.conversationMessageCollectionView.delegate = self;
         [self.contentView addSubview:self.conversationMessageCollectionView];
     }
+    //打赏界面
+    self.dashangMapView = [[showDashangMapView alloc] initWithFrame:CGRectMake(self.contentView.left, self.contentView.top - showDashangMapViewH, showDashangMapViewW, showDashangMapViewH)];
+    [self.view addSubview:self.dashangMapView];
+    
     //输入区
     if(self.inputBar == nil){
         float inputBarOriginY = self.conversationMessageCollectionView.bounds.size.height +30;

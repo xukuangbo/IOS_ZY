@@ -10,9 +10,7 @@
 #import <RACEXTScope.h>
 #import <Masonry.h>
 #import <QPSDKCore/QPSDKCore.h>
-//#import "ZYZCLiveController.h"
 #import "ZYLiveViewController.h"
-//#import "ZYDoLiveVC.h"
 #import "ZYCustomIconView.h"
 #import <ReactiveCocoa.h>
 #import "JudgeAuthorityTool.h"
@@ -36,12 +34,8 @@
 @property (nonatomic, strong) ZYFaqiGuanlianXCView *guanlianView;
 /** 关联的项目id */
 @property (nonatomic, copy) NSString *guanlianProductID;
-
-
-
 /** 上传图片的url */
 @property (nonatomic, copy) NSString *uploadImgString;
-
 /** 开始直播 */
 @property (nonatomic, strong) UIButton *startLiveBtn;
 /** 退出 */
@@ -397,7 +391,9 @@
     liveVC.pushUrl = pushUrl;
     //判断是否关联行程
     if (self.guanlianView.judgeTravelButton.selected == YES) {
-        liveVC.productID = self.guanlianProductID;
+        createLiveModel.productId = self.guanlianProductID;
+        createLiveModel.productTitle = self.guanlianView.travelLabel.text;
+        
     }
     
     liveVC.conversationType = ConversationType_CHATROOM;

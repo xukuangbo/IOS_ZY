@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "LiveShowDashangModel.h"
+#define ShowDashangViewH 40
 
 @interface showDashangView : UIView
 
+@property (nonatomic, strong) LiveShowDashangModel *dashangModel;
 @end
