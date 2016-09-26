@@ -56,11 +56,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  */
 @interface ZYLiveViewController : ZYZCBaseViewController
 <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate, UIScrollViewDelegate>
+
 - (instancetype)initLiveModel:(ZYLiveListModel *)createLiveModel;
 #pragma mark - 会话属性
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
 @property (nonatomic, copy) NSString *productID;
+// 创建直播model
+@property (nonatomic, strong) ZYLiveListModel *createLiveModel;
+
 @property (nonatomic, weak)id<ZYLiveViewControllerDelegate>delegate;
 // 直播需要的属性
 /** 直播任务流 */
