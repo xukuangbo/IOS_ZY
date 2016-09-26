@@ -7,7 +7,7 @@
 //
 
 #define MAX_CONTENT_HEIGHT   120
-#define PIC_WIDTH            (KSCREEN_W-75.0)/3.0
+#define PIC_WIDTH            (KSCREEN_W-85.0)/3.0
 
 #import "ZYOneFootprintView.h"
 #import "ZYZCCusomMovieImage.h"
@@ -28,7 +28,6 @@
 @property (nonatomic, strong) UIImageView *supportImg;
 @property (nonatomic, strong) UILabel     *supportCountLab;
 @property (nonatomic, strong) UILabel     *deleteLab;
-@property (nonatomic, strong) UIButton    *deleteBtn;
 
 @property (nonatomic, strong) UIButton    *commentBtn;//评论按钮
 @property (nonatomic, strong) UIButton    *supportBtn;//点赞按钮
@@ -151,10 +150,13 @@
     
     _contentLab.top=0.0;
     _contentLab.height=0.1;
+    _contentLab.text=nil;
+    _contentLab.hidden=YES;
     CGFloat detailTimeLab_top=_contentLab.bottom;
     
     //文字内容
     if (footprintModel.content.length) {
+        _contentLab.hidden=NO;
         _contentLab.text=footprintModel.content;
         CGFloat contentHeight = [ZYZCTool calculateStrLengthByText:footprintModel.content andFont:_contentLab.font andMaxWidth:_contentLab.width].height;
         _contentLab.height=contentHeight;
@@ -180,7 +182,6 @@
     //删除键
     _deleteLab.hidden=(footprintModel.footprintListType!=MyFootprintList);
     _deleteLab.top = _detailTimeLab.top-5;
-//    _deleteBtn.top= _detailTimeLab.top-5;
     
     //图片
     NSArray *views=[_imagesView subviews];
@@ -312,9 +313,10 @@
     if (_commentEnterType==enterCommentPage) {
         ZYCommentFootprintController *commentFootprintController=[[ZYCommentFootprintController alloc]init];
         commentFootprintController.footprintModel=_footprintModel;
+        
         [self.viewController.navigationController pushViewController:commentFootprintController animated:YES];
     }
-    //进入评论编辑
+    //点击评论编辑
     else if(_commentEnterType==enterCommentEdit)
     {
         

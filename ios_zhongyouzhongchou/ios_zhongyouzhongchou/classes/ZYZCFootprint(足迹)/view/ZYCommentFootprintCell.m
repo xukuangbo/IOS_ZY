@@ -100,6 +100,11 @@
     }
     
     _lineView.top=_bgImgView.height-0.5;
+    
+    
+    _lineView.hidden=!supportListModel.data.count;
+    
+
     supportListModel.cellHeight=_bgImgView.bottom;
 }
 

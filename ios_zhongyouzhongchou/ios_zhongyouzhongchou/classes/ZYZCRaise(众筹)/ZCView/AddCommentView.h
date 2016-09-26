@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^CommentSuccess)(NSString *content);
+typedef void (^CommentSuccess)();
+typedef void (^CommitComment)(NSString  *content);
 @interface AddCommentView : UIView
-@property (nonatomic, strong) NSNumber *productId;
 @property (nonatomic, copy  ) CommentSuccess commentSuccess;//评论成功后需要的操作
-@property (nonatomic, strong) UITextView     *editFieldView;
-@property (nonatomic, strong) UIButton       *sendComentBtn;
+@property (nonatomic, copy  ) CommitComment  commitComment; //提交评论的操作
+- (void) textFieldRegisterFirstResponse;
+- (void) textFieldBecomeFirstResponse;
 @end

@@ -127,13 +127,11 @@
     //添加评论
     _addCommentView=[[AddCommentView alloc]init];
     _addCommentView.top=KSCREEN_H-_addCommentView.height;
-    _addCommentView.productId=_productId;
     [self.view addSubview:_addCommentView];
     
-    _addCommentView.commentSuccess=^(NSString *content)
+    _addCommentView.commitComment=^(NSString *content)
     {
-        weakSelf.pageNo=1;
-        [weakSelf getHttpData];
+        [weakSelf commitCommentWithContent:content];
     };
     
     //投诉
@@ -145,6 +143,36 @@
     [navRightBtn addTarget:self action:@selector(complain) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:navRightBtn];
 
+}
+
+#pragma mark --- 提交评论
+-(void)commitCommentWithContent:(NSString *)content
+{
+    NSDictionary *parameters= @{
+                                @"userId":[ZYZCAccountTool getUserId],
+                                @"productId":self.productId,
+                                @"content":content
+                                };
+    WEAKSELF;
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:COMMENT_PRODUCT andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_success")];
+            weakSelf.addCommentView.top=KSCREEN_H-weakSelf.addCommentView.height;
+            if (weakSelf.addCommentView.commentSuccess) {
+                weakSelf.addCommentView.commentSuccess();
+            }
+            
+            weakSelf.pageNo=1;
+            [weakSelf getHttpData];
+        }
+        else
+        {
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_fail")];
+        }
+        
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+    }];
 }
 
 #pragma mark --- 进入投诉页面
@@ -177,7 +205,7 @@
 {
     if(scrollView==_table)
     {
-        [_addCommentView.editFieldView resignFirstResponder];
+        [_addCommentView textFieldRegisterFirstResponse];
     }
 }
 
@@ -212,7 +240,7 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-    [_addCommentView.editFieldView resignFirstResponder];
+    [_addCommentView textFieldRegisterFirstResponse];
 }
 
 -(void)dealloc

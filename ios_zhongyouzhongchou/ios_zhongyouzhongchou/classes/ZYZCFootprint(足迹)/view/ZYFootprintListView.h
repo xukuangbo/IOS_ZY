@@ -8,8 +8,7 @@
 
 #import "ZYZCBaseTableView.h"
 #import "ZYfootprintListCell.h"
-
-
+#import "ZYStartPublishFootprintCell.h"
 
 @interface ZYFootprintListView : ZYZCBaseTableView
 

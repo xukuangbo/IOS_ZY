@@ -7,7 +7,7 @@
 //
 #define START_CELL_HEIGHT  130
 #import "ZYZCBaseTableViewCell.h"
-
+#import "ZYFootprintListModel.h"
 @interface ZYStartPublishFootprintCell : ZYZCBaseTableViewCell
-
+@property (nonatomic, assign) FootprintCellType footprintCellType;
 @end
