@@ -45,7 +45,7 @@
     //聊天消息区
     if (nil == self.conversationMessageCollectionView) {
         UICollectionViewFlowLayout *customFlowLayout = [[UICollectionViewFlowLayout alloc] init];
-        customFlowLayout.minimumLineSpacing = 10;
+        customFlowLayout.minimumLineSpacing = 6;
         customFlowLayout.sectionInset = UIEdgeInsetsMake(10.0f, 0.0f,5.0f, 0.0f);
         customFlowLayout.scrollDirection = UICollectionViewScrollDirectionVertical;//方向
         CGRect _conversationViewFrame = self.contentView.bounds;
@@ -74,7 +74,7 @@
         self.inputBar.delegate = self;
         self.inputBar.backgroundColor = [UIColor clearColor];
         self.inputBar.hidden = YES;
-        [self.contentView addSubview:self.inputBar];
+        [self.view addSubview:self.inputBar];
     }
     self.collectionViewHeader = [[RCDLiveCollectionViewHeader alloc]
                                  initWithFrame:CGRectMake(0, -50, self.view.bounds.size.width, 40)];
