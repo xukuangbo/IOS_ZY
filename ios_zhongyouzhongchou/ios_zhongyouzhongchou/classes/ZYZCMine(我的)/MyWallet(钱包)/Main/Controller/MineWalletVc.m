@@ -82,13 +82,19 @@
     [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"我的钱包";
+    [self setBackItem];
+}
 
 #pragma mark - setUI方法
 - (void)configUI
 {
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
-    self.title = @"我的钱包";
+//    self.title = @"我的钱包";
     
     [self setBackItem];
     
@@ -218,10 +224,6 @@
     }];
 }
 
-- (void)dealloc
-{
-    
-}
 #pragma mark - set方法
 - (void)changeMoneyByMoney:(NSDictionary *)result
 {

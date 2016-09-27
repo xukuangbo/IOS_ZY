@@ -12,7 +12,7 @@
 /**
  *  展示个人头像
  */
-- (void)showPersonDataView;
-
+- (void)showPersonDataView:(NSString *)userId;
+- (void)showPersonData;
 - (void)requestData:(NSString *)userId;
 @end

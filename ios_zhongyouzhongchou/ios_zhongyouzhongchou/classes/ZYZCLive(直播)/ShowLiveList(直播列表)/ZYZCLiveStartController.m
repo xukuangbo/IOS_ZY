@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.title=@"直播";
+//    self.title=@"直播";
     [self setBackItem];
     //进入直播按钮
     UIButton *enterBtn=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -39,6 +39,14 @@
     [self.view addSubview:enterBtn];
     
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title=@"直播";
+    [self setBackItem];
+}
+
 
 #pragma mark --- 进入直播
 -(void)enterLive

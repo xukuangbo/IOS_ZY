@@ -45,7 +45,7 @@ static NSString *const ID = @"MineWantGoCollectionViewCell";
 {
     [self setBackItem];
     
-    self.title = @"我想去的目的地";
+//    self.title = @"我想去的目的地";
     
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
@@ -104,6 +104,14 @@ static NSString *const ID = @"MineWantGoCollectionViewCell";
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
     
     [self requestData];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"我想去的目的地";
+
+    [self setBackItem];
 }
 
 #pragma mark - UICollectionViewDataSource

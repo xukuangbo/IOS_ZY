@@ -39,10 +39,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title=@"评价";
-    [self setBackItem];
     [self configUI];
     [self reloadData];
+    [self setBackItem];
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
+
 -(void)configUI
 {
     //投诉

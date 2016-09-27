@@ -40,8 +40,15 @@
     _picArr =[NSMutableArray array];
     _fileTmpPathArr=[NSMutableArray array];
     _imgUrlArr=[NSMutableArray array];
-    [self setBackItem];
     [self configUI];
+    [self setBackItem];
+
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
 }
 
 -(void)configUI

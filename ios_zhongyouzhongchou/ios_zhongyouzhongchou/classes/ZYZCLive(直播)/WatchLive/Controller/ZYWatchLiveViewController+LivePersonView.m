@@ -65,10 +65,16 @@
 
 #pragma mark - event
 // 展示个人头像
-- (void)showPersonDataView
+- (void)showPersonDataView:(NSString *)userId
 {
     [self.personDataView showPersonData];
-    [self requestData:@"2454"];
+    [self requestData:userId];
+}
+
+- (void)showPersonData
+{
+    [self.personDataView showPersonData];
+    [self requestData:[ZYZCAccountTool getUserId]];
 }
 // 进入个人空间界面
 - (void)clickEnterRoomButton:(UIButton *)sender

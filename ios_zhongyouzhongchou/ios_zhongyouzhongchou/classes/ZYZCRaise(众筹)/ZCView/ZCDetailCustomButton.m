@@ -9,6 +9,9 @@
 #import "ZCDetailCustomButton.h"
 #import "ZYZCPersonalController.h"
 #import "LoginJudgeTool.h"
+
+#import "ZYUserZoneController.h"
+
 @implementation ZCDetailCustomButton
 
 /*
@@ -52,12 +55,17 @@
             return;
         } 
     }
-    //进入他人空间
-    ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
-    personalController.hidesBottomBarWhenPushed=YES;
-    personalController.userId=_userId;
-//    NSLog(@"vc:%@",self.viewController.navigationController);
-    [self.viewController.navigationController pushViewController:personalController animated:YES];
+//    //进入他人空间
+//    ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
+//    personalController.hidesBottomBarWhenPushed=YES;
+//    personalController.userId=_userId;
+//    [self.viewController.navigationController pushViewController:personalController animated:YES];
+    
+    ZYUserZoneController *userZoneController=[[ZYUserZoneController alloc]init];
+    userZoneController.hidesBottomBarWhenPushed=YES;
+    userZoneController.friendID=_userId;
+    [self.viewController.navigationController pushViewController:userZoneController animated:YES];
+
 }
 
 @end

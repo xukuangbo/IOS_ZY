@@ -22,6 +22,17 @@
     return lab;
 }
 
+#pragma mark --- 创建btn
++(UIButton *)createBtnWithFrame:(CGRect)frame andNormalTitle:(NSString *)normalTitle andNormalTitleColor:(UIColor *)color andTarget:(id)target andAction:(SEL)action
+{
+    UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame=frame;
+    [btn setTitle:normalTitle forState:UIControlStateNormal];
+    [btn setTitleColor:color forState:UIControlStateNormal];
+    [btn addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
+    return btn;
+}
+
 #pragma mark --- 文字长度计算
 +(CGSize)calculateStrLengthByText:(NSString *)text andFont:(UIFont *)font andMaxWidth:(CGFloat )maxW
 {

@@ -30,7 +30,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.WHScale = WHScale;
         [self setBackItem];
-        self.title = @"编辑封面图片";
+//        self.title = @"编辑封面图片";
         _selectImage = image;
     }
     return self;
@@ -270,4 +270,12 @@
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"编辑封面图片";
+    [self setBackItem];
+}
+
 @end

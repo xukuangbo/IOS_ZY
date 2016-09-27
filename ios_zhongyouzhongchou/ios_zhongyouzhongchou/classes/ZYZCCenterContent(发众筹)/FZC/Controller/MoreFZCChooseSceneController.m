@@ -28,7 +28,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _viewSpot=[NSMutableArray array];
-    self.title=_isStartDest?@"出发地":@"目的地";
+//    self.title=_isStartDest?@"出发地":@"目的地";
     [self setBackItem];
     [self configUI];
     if (!_isStartDest) {
@@ -301,11 +301,22 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title=_isStartDest?@"出发地":@"目的地";
+    
+    [self setBackItem];
+}
+
+
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     if (_searchBar.isFirstResponder) {
         [_searchBar resignFirstResponder];
     }

@@ -41,10 +41,18 @@
     self.title=@"选择同游";
     _chooseArr=[NSMutableArray array];
     _NewChooseArr=[NSMutableArray array];
-    [self setBackItem];
     [self configUI];
     [self getHttpData];
+    [self setBackItem];
+
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
+
 -(void)configUI
 {
     _scroll=[[UIScrollView alloc]initWithFrame:self.view.bounds];

@@ -14,7 +14,7 @@
 
 
 
-//我的众筹列表
+//众筹列表
 
 #define GET_MY_LIST(userId,type,pageNo) [NSString stringWithFormat:@"cache=false&userId=%@&self=%ld&pageNo=%d&status_not=0,2&pageSize=10",userId,type,pageNo]
 
@@ -227,11 +227,9 @@
          else
              
          {
-             
              [MBProgressHUD hideHUDForView:self.view];
              
              [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-             
          }
          
          
@@ -502,22 +500,18 @@
 
 
 -(void)viewWillAppear:(BOOL)animated
-
 {
-    
     [super viewWillAppear:animated];
-    
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]]];
-    
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    
-    
-    
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
-    
 }
 
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
 
 - (void)didReceiveMemoryWarning {
     

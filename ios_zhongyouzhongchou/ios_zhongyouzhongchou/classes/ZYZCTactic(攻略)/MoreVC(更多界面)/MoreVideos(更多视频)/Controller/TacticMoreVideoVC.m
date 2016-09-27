@@ -40,7 +40,7 @@
 - (void)configUI
 {
     [self setBackItem];
-    self.title = @"更多攻略视频";
+//    self.title = @"更多攻略视频";
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
     
@@ -51,6 +51,14 @@
     _tableView.delegate = self;
     [self.view addSubview:_tableView];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"更多攻略视频";
+    [self setBackItem];
+}
+
 #pragma mark - requsetData方法
 - (void)requestData
 {

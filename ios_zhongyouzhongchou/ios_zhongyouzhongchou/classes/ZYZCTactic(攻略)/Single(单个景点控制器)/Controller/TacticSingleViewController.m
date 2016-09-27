@@ -86,8 +86,16 @@
 }
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self scrollViewDidScroll:self.tableView];
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
+
 #pragma mark - set方法
 - (TacticSingleModelFrame *)tacticSingleModelFrame
 {
