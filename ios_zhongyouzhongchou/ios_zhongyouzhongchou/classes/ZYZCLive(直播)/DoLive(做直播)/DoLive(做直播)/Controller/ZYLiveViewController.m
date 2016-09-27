@@ -1068,8 +1068,13 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         //消息类型
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
         content = textMessage.content;
-        if ([textMessage.extra isEqualToString:kPaySucceed]) {
-            [self requestTotalMoneyDataParameters:nil];
+//        if ([textMessage.content isEqualToString:kPaySucceed]) {
+        if ([textMessage.content isEqualToString:@"1"]) {
+//            [self requestTotalMoneyDataParameters:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.dashangMapView showDashangData];
+            });
+            return ;
         }
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         //调整步骤:1.此处处理通知的形式 2.在tipcell调整通知的cell样式
@@ -1080,13 +1085,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         if([content isEqualToString:@"直播结束"]){
             
             return ;
-        }else if ([content isEqualToString:@"打赏"]){
-            
-            [self.dashangMapView showDashangData];
-            
-            return;
         }else{
-            //1.进入直播间 2.打赏
+            //进入直播间
             [self refreshUserList:textMessage.extra];
         }
         
