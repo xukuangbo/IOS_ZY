@@ -20,12 +20,19 @@
     // Do any additional setup after loading the view.
     self.title=@"投诉";
     _titleArr=@[@"色情低俗",@"赌博",@"政治敏感",@"欺诈骗钱",@"违法(暴力恐怖、违禁品等)"];
-    [self setBackItem];
     [self configUI];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
 }
 
 -(void)configUI
 {
+    [self setBackItem];
+
     _table =[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _table.dataSource=self;
     _table.delegate=self;

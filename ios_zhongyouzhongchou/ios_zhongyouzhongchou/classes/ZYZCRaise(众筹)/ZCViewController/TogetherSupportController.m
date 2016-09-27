@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title=@"报名一起去";
+//    self.title=@"报名一起去";
     _chooseArr=[NSMutableArray array];
     _NewChooseArr=[NSMutableArray array];
     [self setBackItem];
@@ -312,10 +312,16 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
 }
 
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title=@"报名一起去";
+    [self setBackItem];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -26,12 +26,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title=@"投诉";
-    [self setBackItem];
     [self configUI];
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
 }
 
 -(void)configUI
 {
+    [self setBackItem];
+
     //卡片
     UIImageView  *bgImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 64+KEDGE_DISTANCE, KSCREEN_W-2*KEDGE_DISTANCE, imageHeight)];
     bgImg.image=KPULLIMG(@"tab_bg_boss0", 10, 0, 10, 0);

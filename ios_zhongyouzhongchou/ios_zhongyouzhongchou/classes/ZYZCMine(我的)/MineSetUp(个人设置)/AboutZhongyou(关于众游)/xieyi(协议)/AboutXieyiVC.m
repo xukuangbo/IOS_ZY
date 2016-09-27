@@ -38,6 +38,12 @@
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

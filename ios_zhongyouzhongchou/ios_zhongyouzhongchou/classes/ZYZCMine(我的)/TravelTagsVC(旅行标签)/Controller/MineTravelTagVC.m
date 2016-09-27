@@ -57,7 +57,7 @@
     
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
-    self.title = @"旅行标签";
+//    self.title = @"旅行标签";
     
     [self setBackItem];
     
@@ -79,7 +79,13 @@
     
 }
 
-
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"旅行标签";
+    [self setBackItem];
+//    [self createSaveButton];
+}
 
 /**
  *  保存按钮

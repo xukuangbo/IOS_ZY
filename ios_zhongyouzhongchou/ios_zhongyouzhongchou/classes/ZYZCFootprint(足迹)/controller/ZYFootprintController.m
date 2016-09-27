@@ -31,7 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setBackItem];
-    self.title=@"足迹";
+//    self.title=@"足迹";
     self.view.backgroundColor=[UIColor whiteColor];
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame=CGRectMake(0, 0, 80, 40);
@@ -50,6 +50,13 @@
     [self.view addSubview:btn01];
 
 
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"足迹";
+    [self setBackItem];
 }
 
 -(void)footprint:(UIButton *)sender

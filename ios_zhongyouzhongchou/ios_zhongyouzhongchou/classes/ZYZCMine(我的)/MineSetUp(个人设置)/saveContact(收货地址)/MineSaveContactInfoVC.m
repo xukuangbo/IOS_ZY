@@ -57,12 +57,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setBackItem];
-    
-    self.title = @"收货地址";
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"收货地址";
+    [self setBackItem];
+}
 
 #pragma mark - setUI方法
 - (void)configUI

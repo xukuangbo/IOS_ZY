@@ -37,8 +37,15 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     _pageNo=1;
     _listArr=[NSMutableArray array];
-    [self setBackItem];
     [self configUI];
+    [self setBackItem];
+
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
 }
 
 -(void)configUI

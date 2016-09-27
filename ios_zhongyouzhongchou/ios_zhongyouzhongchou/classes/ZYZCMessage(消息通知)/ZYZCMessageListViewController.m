@@ -24,13 +24,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.title=@"通知";
     _pageNo=1;
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.view.backgroundColor=[UIColor whiteColor];
     _listArr = [NSMutableArray array];
     [self configUI];
     [self getHttpData];
+
 }
 
 #pragma mark --- 创建控件
@@ -140,6 +140,14 @@
     @{NSForegroundColorAttributeName:[UIColor ZYZC_TextBlackColor],
       NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
     self.navigationItem.leftBarButtonItem=[self customItemByImgName:@"back_black" andAction:@selector(pressBack)];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title=@"通知";
+    self.navigationItem.leftBarButtonItem=[self customItemByImgName:@"back_black" andAction:@selector(pressBack)];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated

@@ -110,6 +110,12 @@
     [_footprintListView reloadData];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
+
 -(void)dealloc
 {
     DDLog(@"dealloc:%@",[self class]);

@@ -39,6 +39,7 @@
     [super viewDidLoad];
     //界面出现的时候需要去加载数据
     [self requestData];
+    [self setBackItem];
 }
 
 
@@ -57,6 +58,12 @@
 
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -102,7 +109,6 @@
     [self.view addSubview:scrollView];
     self.scrollView = scrollView;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    [self setBackItem];
     
 }
 
