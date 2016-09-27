@@ -10,7 +10,7 @@
 #import "ZYDescImage.h"
 #import "HUPhotoBrowser.h"
 
-#define EMPTY_TEXT  @"此处省略一万字..."
+#define EMPTY_TEXT  @"无论走到哪里，那都是我该去的地方。这里和那里并不遥远，我们走着，看着，听着，醉着，笑着，也就到了。"
 
 @interface ZCWSMView ()
 

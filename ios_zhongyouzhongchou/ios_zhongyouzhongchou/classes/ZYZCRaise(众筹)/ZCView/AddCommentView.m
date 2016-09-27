@@ -6,12 +6,12 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 
+#define placeholderText_about_product  @"编写评论"
 #import "AddCommentView.h"
 #import "MBProgressHUD+MJ.h"
 @interface AddCommentView ()<UITextViewDelegate>
-@property (nonatomic, strong) UITextView     *editFieldView;
 @property (nonatomic, strong) UIButton       *sendComentBtn;
-@property (nonatomic, strong) UILabel    *placeHolderLab;
+@property (nonatomic, strong) UILabel        *placeHolderLab;
 @end
 
 @implementation AddCommentView
@@ -80,7 +80,7 @@
     [self addSubview:_editFieldView];
     
     _placeHolderLab=[[UILabel alloc]initWithFrame:CGRectMake(5, 6.5, _editFieldView.width, 20)];
-    _placeHolderLab.text=@"点击编写评论";
+    _placeHolderLab.text=placeholderText_about_product;
     _placeHolderLab.font=[UIFont systemFontOfSize:15];
     _placeHolderLab.textColor=[UIColor ZYZC_TextGrayColor02];
     [_editFieldView addSubview:_placeHolderLab];
@@ -97,6 +97,24 @@
     [_sendComentBtn addTarget:self  action:@selector(sendMyComment) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_sendComentBtn];
     [self addSubview:[UIView lineViewWithFrame:CGRectMake(0, 0, self.width, 1) andColor:nil]];
+}
+
+- (void)setCommentUserName:(NSString *)commentUserName
+{
+    _commentUserName=commentUserName;
+    _placeHolderLab.text=[NSString stringWithFormat:@"回复%@:",commentUserName];
+}
+
+-(void)setCommentTargetType:(CommentTargetType)commentTargetType
+{
+    _commentTargetType=commentTargetType;
+    if (_commentTargetType==CommentProductType) {
+        _placeHolderLab.text=placeholderText_about_product;
+    }
+    else if(_commentTargetType==CommentUserType)
+    {
+       _placeHolderLab.text=[NSString stringWithFormat:@"回复%@:",_commentUserName];
+    }
 }
 
 #pragma mark --- 发表评论
@@ -120,7 +138,7 @@
 
 -(BOOL) textViewShouldBeginEditing:(UITextView *)textView
 {
-    _placeHolderLab.hidden=YES;
+//    _placeHolderLab.hidden=YES;
     return YES;
 }
 -(BOOL) textViewShouldEndEditing:(UITextView *)textView

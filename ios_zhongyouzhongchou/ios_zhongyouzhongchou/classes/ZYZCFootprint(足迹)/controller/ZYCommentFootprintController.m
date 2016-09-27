@@ -10,6 +10,7 @@
 #import "ZYFootprintCommentTable.h"
 #import "MBProgressHUD+MJ.h"
 #import "AddCommentView.h"
+#import "ZYCommentFootprintController.h"
 @interface ZYCommentFootprintController ()
 
 @property (nonatomic, strong) ZYFootprintCommentTable     *commentTable;
@@ -27,36 +28,50 @@
     self.title=@"评论";
     _pageNo=1;
     _commentArr=[NSMutableArray array];
-    self.automaticallyAdjustsScrollViewInsets=NO;
+//    self.automaticallyAdjustsScrollViewInsets=NO;
     [self setBackItem];
     [self configUI];
     [self getSupportData];
     [self getCommentData];
+    [_addCommentView textFieldBecomeFirstResponse];
 }
 
 -(void)configUI
 {
-    _commentTable=[[ZYFootprintCommentTable alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain andFootprintModel:_footprintModel];
-//    _commentTable.backgroundColor=[UIColor orangeColor];
+    _commentTable=[[ZYFootprintCommentTable alloc]initWithFrame:CGRectMake(0, KEDGE_DISTANCE, KSCREEN_W, KSCREEN_H-49-KEDGE_DISTANCE) style:UITableViewStylePlain andFootprintModel:_footprintModel];
     WEAKSELF;
-    _commentTable.headerRefreshingBlock=^()
-    {
-        weakSelf.pageNo=1;
-        [weakSelf getSupportData];
-        [weakSelf getCommentData];
-        
-    };
-    _commentTable.footerRefreshingBlock=^()
-    {
-        weakSelf.pageNo++;
-        [weakSelf getCommentData];
-    };
+//    _commentTable.headerRefreshingBlock=^()
+//    {
+//        weakSelf.pageNo=1;
+//        [weakSelf getSupportData];
+//        [weakSelf getCommentData];
+//        
+//    };
+//    _commentTable.footerRefreshingBlock=^()
+//    {
+//        weakSelf.pageNo++;
+//        [weakSelf getCommentData];
+//    };
+    _commentTable.mj_header=nil;
+    _commentTable.mj_footer=nil;
     
+    _commentTable.scrollWillBeginDecelerating=^()
+    {
+        if(!weakSelf.addCommentView.editFieldView.text.length)
+        {
+            weakSelf.commentTable.replyUserId=nil;
+            weakSelf.commentTable.replyUserName=nil;
+            weakSelf.addCommentView.commentTargetType=CommentProductType;
+        }
+        [weakSelf.addCommentView textFieldRegisterFirstResponse];
+    };
+
+       
     [self.view addSubview:_commentTable];
     
     //添加评论
     _addCommentView=[[AddCommentView alloc]init];
-    _addCommentView.top=KSCREEN_H;
+    _addCommentView.top=KSCREEN_H-_addCommentView.height;
     
 
     _addCommentView.commitComment=^(NSString *content)
@@ -68,25 +83,65 @@
     
 }
 
+#pragma mark --- 评论编辑
+-(void)startEditComment
+{
+    if (_commentTable.replyUserId) {
+        _addCommentView.commentUserName=_commentTable.replyUserName;
+        _addCommentView.commentTargetType=CommentUserType;
+    }
+    [_addCommentView textFieldBecomeFirstResponse];
+}
+
 #pragma mark --- 提交评论
 -(void)commitCommentWithContent:(NSString *)content
 {
-//    pid游记id， comment 
+//    pid游记id， comment
     NSDictionary *parameters= @{
                                 @"pid":[NSNumber numberWithInteger:_footprintModel.ID],
                                 @"content":content
                                 };
+    
+    NSMutableDictionary *newParms=[NSMutableDictionary dictionaryWithDictionary:parameters];
+    if (_commentTable.replyUserId) {
+        [newParms setObject:_commentTable.replyUserId forKey:@"replyUserId"];
+    }
+//    if (_commentTable.replyUserId&&![_commentTable.replyUserId isEqual:[ZYZCAccountTool getUserId]]) {
+//        [newParms setObject:_commentTable.replyUserId forKey:@"replyUserId"];
+//    }
+
     WEAKSELF;
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_AddComment andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_AddComment andParameters:newParms andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        DDLog(@"%@",result);
         if (isSuccess) {
+            ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_success")];
-            weakSelf.addCommentView.top=KSCREEN_H;
+            ZYOneCommentModel *oneCommentModel=[[ZYOneCommentModel alloc]mj_setKeyValues:result[@"data"]];
+            oneCommentModel.userName  = accountModel.userName;
+            oneCommentModel.realName  = accountModel.realName;
+            oneCommentModel.faceImg64 = accountModel.faceImg64;
+            oneCommentModel.faceImg132= accountModel.faceImg132;
+            oneCommentModel.faceImg640= accountModel.faceImg640;
+            oneCommentModel.faceImg   = accountModel.faceImg;
+            oneCommentModel.replyUserId=_commentTable.replyUserId;
+            oneCommentModel.replyUserName=_commentTable.replyUserName;
+            [_commentArr addObject:oneCommentModel];
+            
+            _commentTable.dataArr=_commentArr;
+            [_commentTable reloadData];
+            
             if (weakSelf.addCommentView.commentSuccess) {
                 weakSelf.addCommentView.commentSuccess();
             }
             
-            weakSelf.pageNo=1;
-            [weakSelf getCommentData];
+            if (_commentTable.commentNumberChangeBlock) {
+                _commentTable.commentNumberChangeBlock(_commentArr.count);
+            }
+            weakSelf.addCommentView.top=KSCREEN_H-weakSelf.addCommentView.height;
+            _commentTable.replyUserId=nil;
+            _commentTable.replyUserName=nil;
+            _addCommentView.commentTargetType=CommentProductType;
         }
         else
         {
@@ -109,27 +164,16 @@
             
             _commentTable.supportUsersModel=supportListModel;
         }
-        else
-        {
-            
-        }
-        [_commentTable.mj_header endRefreshing];
-        [_commentTable.mj_footer endRefreshing];
-        
     } andFailBlock:^(id failResult) {
-        [_commentTable.mj_header endRefreshing];
-        [_commentTable.mj_footer endRefreshing];
     }];
 }
 
 -(void)getCommentData
 {
-    [MBProgressHUD showMessage:nil];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_GetCommentList andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID],
                         @"pageNo":[NSNumber numberWithInteger:_pageNo]}
         andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);
-        [MBProgressHUD hideHUD];
         if (isSuccess) {
              MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_commentTable.mj_footer ;
             if (_pageNo==1&&_commentArr.count) {
@@ -153,20 +197,13 @@
             }
             _commentTable.dataArr=_commentArr;
             [_commentTable reloadData];
-
         }
         else
         {
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
         }
             
-        [_commentTable.mj_header endRefreshing];
-        [_commentTable.mj_footer endRefreshing];
-            
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD hideHUD];
-        [_commentTable.mj_header endRefreshing];
-        [_commentTable.mj_footer endRefreshing];
         
         DDLog(@"%@",failResult);
     }];
@@ -175,6 +212,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

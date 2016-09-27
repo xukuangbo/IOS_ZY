@@ -10,15 +10,16 @@
 #import "ZCDetailCustomButton.h"
 #import "LoginJudgeTool.h"
 #import "ZYZCPersonalController.h"
-@interface ZYFootprintOneCommentCell()
-@property (nonatomic, strong) UIView      *bgView;
-@property (nonatomic, strong) UIImageView *commentImg;
-@property (nonatomic, strong) ZCDetailCustomButton *iconBtn;
-@property (nonatomic, strong) ZCDetailCustomButton *nameBtn;
-@property (nonatomic, strong) UILabel     *timeLab;
-@property (nonatomic, strong) UILabel     *contentlab;
-@property (nonatomic, strong) UIButton    *replayBtn;
-@property (nonatomic, strong) UIView      *lineView;
+#import "TTTAttributedLabel.h"
+@interface ZYFootprintOneCommentCell()<TTTAttributedLabelDelegate>
+@property (nonatomic, strong) UIView                *bgView;
+@property (nonatomic, strong) UIImageView           *commentImg;
+@property (nonatomic, strong) ZCDetailCustomButton  *iconBtn;
+@property (nonatomic, strong) ZCDetailCustomButton  *nameBtn;
+@property (nonatomic, strong) UILabel               *timeLab;
+@property (nonatomic, strong) TTTAttributedLabel    *contentlab;
+@property (nonatomic, strong) UIButton              *replayBtn;
+@property (nonatomic, strong) UIView                *lineView;
 
 @end
 
@@ -52,11 +53,13 @@
     [_bgView addSubview:_commentImg];
     
     _iconBtn=[[ZCDetailCustomButton alloc]initWithFrame:CGRectMake(40, 10, 35, 35)];
+    _iconBtn.canSkimSelf=YES;
     [_bgView addSubview:_iconBtn];
     
     _nameBtn=[[ZCDetailCustomButton alloc]initWithFrame:CGRectMake(_iconBtn.right+KEDGE_DISTANCE, _iconBtn.top, 120, 20)];
     [_nameBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
     _nameBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+    _nameBtn.canSkimSelf=YES;
     [_bgView addSubview:_nameBtn];
     
     _timeLab=[ZYZCTool createLabWithFrame:CGRectMake(_bgView.width-130, _iconBtn.top, 120, 20) andFont:[UIFont systemFontOfSize:11] andTitleColor:[UIColor ZYZC_TextGrayColor]];
@@ -64,8 +67,11 @@
 //    _timeLab.backgroundColor=[UIColor orangeColor];
     [_bgView addSubview:_timeLab];
     
-    _contentlab=[ZYZCTool createLabWithFrame:CGRectMake(_iconBtn.right+KEDGE_DISTANCE, _nameBtn.bottom+KEDGE_DISTANCE, _bgView.width-2*KEDGE_DISTANCE-_iconBtn.right, 20) andFont:[UIFont systemFontOfSize:13] andTitleColor:[UIColor ZYZC_TextBlackColor]];
+    _contentlab=[[TTTAttributedLabel alloc]initWithFrame:CGRectMake(_iconBtn.right+KEDGE_DISTANCE, _nameBtn.bottom+KEDGE_DISTANCE, _bgView.width-2*KEDGE_DISTANCE-_iconBtn.right, 20)];
+    _contentlab.textColor=[UIColor ZYZC_TextBlackColor];
+    _contentlab.font=[UIFont systemFontOfSize:13];
     _contentlab.numberOfLines=0;
+    _contentlab.delegate=self;
     [_bgView addSubview:_contentlab];
     
     _lineView=[UIView lineViewWithFrame:CGRectMake(_iconBtn.left, 0, _bgView.width-10-_iconBtn.left, 0.5) andColor:[UIColor lightGrayColor]];
@@ -95,20 +101,31 @@
     _contentlab.text=oneCommentModel.content;
     if(oneCommentModel.replyUserName)
     {
-        _contentlab.backgroundColor=[UIColor orangeColor];
         _contentlab.userInteractionEnabled=YES;
-        content =[NSString stringWithFormat:@"回复%@:%@",oneCommentModel.replyUserName,oneCommentModel.content];
-        NSRange replyUserName_range=[content rangeOfString:oneCommentModel.replyUserName];
-        NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc]initWithString:content];
-        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor ZYZC_MainColor] range:replyUserName_range];
+        content =[NSString stringWithFormat:@"回复%@：%@",oneCommentModel.replyUserName,oneCommentModel.content];
+        _contentlab.text=content;
         
-        _contentlab.attributedText=attrStr;
-//        WEAKSELF;
-//        [_contentlab yb_addAttributeTapActionWithStrings:@[content] tapClicked:^(NSString *string, NSRange range, NSInteger index) {
-//            
-//            [weakSelf enterUserZone:oneCommentModel.replyUserId];
-//            
-//        }];
+        //NO 不显示下划线
+        _contentlab.linkAttributes = [NSDictionary dictionaryWithObject:[NSNumber numberWithBool:NO] forKey:(NSString *)kCTUnderlineStyleAttributeName];
+        
+        [_contentlab setText:content afterInheritingLabelAttributesAndConfiguringWithBlock:^NSMutableAttributedString *(NSMutableAttributedString *mutableAttributedString) {
+            
+            UIFont *font = [UIFont systemFontOfSize:13];
+            //设置可点击文字的范围
+            NSRange boldRange = [[mutableAttributedString string] rangeOfString:oneCommentModel.replyUserName options:NSCaseInsensitiveSearch];
+            
+            //设置可点击文本的大小
+            [mutableAttributedString addAttribute:(NSString *)kCTFontAttributeName value:font range:boldRange];
+            
+            //设置可点击文本的颜色
+            [mutableAttributedString addAttribute:(NSString*)kCTForegroundColorAttributeName value:(id)[[UIColor ZYZC_MainColor] CGColor] range:boldRange];
+            
+            return mutableAttributedString;
+        }];
+        
+        NSRange replyUserName_range = [_contentlab.text rangeOfString:oneCommentModel.replyUserName];
+        [_contentlab addLinkToURL:[NSURL URLWithString:@"userName"] withRange:replyUserName_range];
+
     }
     
     CGFloat content_height=[ZYZCTool calculateStrLengthByText:content andFont:_contentlab.font andMaxWidth:_contentlab.width].height;
@@ -120,6 +137,18 @@
     _commentImg.hidden=!_showCommentImg;
     
      oneCommentModel.cellHeight=_bgView.bottom;
+}
+
+#pragma mark ---label点击事件
+- (void)attributedLabel:(TTTAttributedLabel *)label
+   didSelectLinkWithURL:(NSURL *)url
+{
+    if ([url.absoluteString isEqual:@"userName"]) {
+        ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
+        personalController.hidesBottomBarWhenPushed=YES;
+        personalController.userId=_oneCommentModel.replyUserId;
+        [self.viewController.navigationController pushViewController:personalController animated:YES];
+    }
 }
 
 
@@ -136,9 +165,5 @@
 
     [self.viewController.navigationController pushViewController:personalController animated:YES];
 }
-
-
-
-
 
 @end

@@ -237,37 +237,10 @@
     
     _supportImg.image=footprintModel.hasZan?[UIImage imageNamed:@"footprint-like-2"]:[UIImage imageNamed:@"footprint-like"];
     
-    NSString *commentText=nil;
-    if (footprintModel.commentTotles>0) {
-        if (footprintModel.commentTotles<=99) {
-            commentText = [NSString stringWithFormat:@"%ld",footprintModel.commentTotles];
-        }
-        else
-        {
-            commentText = @"99+";
-        }
-    }
-    else
-    {
-        commentText = @"评论";
-    }
-    _commentCountLab.text=commentText;
+    self.commentNumber=footprintModel.commentTotles;
     
-    NSString *supportText=nil;
-    if (footprintModel.zanTotles>0) {
-        if (footprintModel.zanTotles<=99) {
-            supportText = [NSString stringWithFormat:@"%ld",footprintModel.zanTotles];
-        }
-        else
-        {
-            supportText = @"99+";
-        }
-    }
-    else
-    {
-        supportText = @"点赞";
-    }
-    _supportCountLab.text=supportText;
+    self.supportNumber=footprintModel.zanTotles;
+    
     self.height=_locationImg.bottom;
 }
 
@@ -319,7 +292,11 @@
     //点击评论编辑
     else if(_commentEnterType==enterCommentEdit)
     {
-        
+        ZYCommentFootprintController *commentController=(ZYCommentFootprintController *)self.viewController;
+        if(commentController)
+        {
+            [commentController startEditComment];
+        }
     }
 }
 
@@ -338,17 +315,11 @@
                 _footprintModel.hasZan=YES;
                 
                 _footprintModel.zanTotles++;
-                NSString *supportText=nil;
-                if (_footprintModel.zanTotles<=99) {
-                    supportText = [NSString stringWithFormat:@"%ld",_footprintModel.zanTotles];
+                self.supportNumber++;
+                if (_supportChangeBlock) {
+                    _supportChangeBlock(YES);
                 }
-                else
-                {
-                    supportText = @"99+";
-                }
-                
-                _supportCountLab.text=supportText;
-                
+
             }
         } andFailBlock:^(id failResult) {
             sender.enabled=YES;
@@ -363,23 +334,11 @@
             if (isSuccess) {
                 _supportImg.image=[UIImage imageNamed:@"footprint-like"];
                 _footprintModel.hasZan=NO;
-                
-                _footprintModel.zanTotles--;
-                NSString *supportText=nil;
-                if (_footprintModel.zanTotles>0) {
-                    if (_footprintModel.zanTotles<=99) {
-                        supportText = [NSString stringWithFormat:@"%ld",_footprintModel.zanTotles];
-                    }
-                    else
-                    {
-                        supportText = @"99+";
-                    }
+                self.supportNumber--;
+                if (_supportChangeBlock) {
+                    _supportChangeBlock(NO);
                 }
-                else
-                {
-                    supportText = @"点赞";
-                }
-                _supportCountLab.text=supportText;
+
             }
         } andFailBlock:^(id failResult) {
             sender.enabled=YES;
@@ -446,6 +405,50 @@
     if (self.getSuperTableView) {
         [self.getSuperTableView reloadData];
     }
+}
+
+-(void)setCommentNumber:(NSInteger)commentNumber
+{
+    _commentNumber=commentNumber;
+    NSString *commentText=nil;
+    if (commentNumber>0) {
+        if (commentNumber<=99) {
+            commentText = [NSString stringWithFormat:@"%ld",commentNumber];
+        }
+        else
+        {
+            commentText = @"99+";
+        }
+    }
+    else
+    {
+        commentText = @"评论";
+    }
+    _commentCountLab.text=commentText;
+    
+    _footprintModel.commentTotles=commentNumber;
+}
+
+-(void)setSupportNumber:(NSInteger)supportNumber
+{
+    _supportNumber=supportNumber;
+    NSString *supportText=nil;
+    if (supportNumber>0) {
+        if (supportNumber<=99) {
+            supportText = [NSString stringWithFormat:@"%ld",supportNumber];
+        }
+        else
+        {
+            supportText = @"99+";
+        }
+    }
+    else
+    {
+        supportText = @"点赞";
+    }
+    _supportCountLab.text=supportText;
+    
+    _footprintModel.zanTotles=supportNumber;
 }
 
 @end

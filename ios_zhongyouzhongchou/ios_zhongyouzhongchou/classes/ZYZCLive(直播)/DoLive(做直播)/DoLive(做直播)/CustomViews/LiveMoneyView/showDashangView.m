@@ -45,11 +45,11 @@
     //圆角半径
     CGFloat layRadius = ShowDashangViewH * 0.5;
     //间隙
-    CGFloat DoLiveHeadMargin = 3;
+    CGFloat ShowDashangViewMargin = 3;
     //头像高度
-    CGFloat iconViewHeight = ShowDashangViewH - DoLiveHeadMargin * 2;
+    CGFloat iconViewHeight = ShowDashangViewH - ShowDashangViewMargin * 2;
     //时间高度
-    CGFloat timelabelHeight = (iconViewHeight - DoLiveHeadMargin) * 0.5;
+    CGFloat timelabelHeight = (iconViewHeight - ShowDashangViewMargin) * 0.5;
     
     
     self.layerCornerRadius = layRadius;
@@ -57,7 +57,7 @@
     _headView = [UIImageView new];
     [self addSubview:_headView];
     _headView.layerCornerRadius = iconViewHeight * 0.5;
-    //    _headView.backgroundColor = [UIColor redColor];
+//        _headView.backgroundColor = [UIColor redColor];
     
     _nameLabel = [UILabel new];
     [self addSubview:_nameLabel];
@@ -70,7 +70,7 @@
     [self addSubview:_numberPeopleLabel];
     _numberPeopleLabel.font = [UIFont systemFontOfSize:12];
     _numberPeopleLabel.textColor = [UIColor whiteColor];
-    _numberPeopleLabel.textAlignment = NSTextAlignmentCenter;
+    _numberPeopleLabel.textAlignment = NSTextAlignmentLeft;
     //    _numberPeopleLabel.backgroundColor = [UIColor redColor];
     
     
@@ -82,14 +82,14 @@
     
     [_nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_headView);
-        make.left.mas_equalTo(_headView.mas_right).offset(DoLiveHeadMargin);
+        make.left.mas_equalTo(_headView.mas_right).offset(ShowDashangViewMargin);
         make.right.mas_equalTo(-(layRadius * 0.5));
         make.height.mas_equalTo(timelabelHeight);
     }];
     
     [_numberPeopleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(_nameLabel.mas_bottom).offset(DoLiveHeadMargin);
-        make.left.mas_equalTo(_headView.mas_right).offset(DoLiveHeadMargin);
+        make.top.equalTo(_nameLabel.mas_bottom).offset(ShowDashangViewMargin);
+        make.left.mas_equalTo(_headView.mas_right).offset(ShowDashangViewMargin);
         make.right.mas_equalTo(_nameLabel.mas_right);
         make.height.mas_equalTo(timelabelHeight);
     }];

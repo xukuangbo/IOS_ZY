@@ -157,11 +157,10 @@
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:COMMENT_PRODUCT andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_success")];
-            weakSelf.addCommentView.top=KSCREEN_H-weakSelf.addCommentView.height;
             if (weakSelf.addCommentView.commentSuccess) {
                 weakSelf.addCommentView.commentSuccess();
             }
-            
+             weakSelf.addCommentView.top=KSCREEN_H-weakSelf.addCommentView.height;
             weakSelf.pageNo=1;
             [weakSelf getHttpData];
         }

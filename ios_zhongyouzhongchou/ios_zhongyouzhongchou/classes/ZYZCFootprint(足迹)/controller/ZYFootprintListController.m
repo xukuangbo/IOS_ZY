@@ -104,6 +104,12 @@
     [self getHttpData];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [_footprintListView reloadData];
+}
+
 -(void)dealloc
 {
     DDLog(@"dealloc:%@",[self class]);

@@ -24,9 +24,9 @@
 //        self.tipMessageLabel.delegate = self;
         self.tipMessageLabel.userInteractionEnabled = YES;
         [self.baseContentView addSubview:self.tipMessageLabel];
-        self.tipMessageLabel.font = [UIFont systemFontOfSize:12.f];;
+        self.tipMessageLabel.font = [UIFont systemFontOfSize:14.f];;
 //        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 0.5f, 0.5f, 0.5f);
-        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 5.0f, 0.5f, 0.5f);
+        self.tipMessageLabel.marginInsets = UIEdgeInsetsMake(0.5f, 10.0f, 0.5f, 0.5f);
     }
     return self;
 }
@@ -163,9 +163,9 @@
     CGFloat maxMessageLabelWidth = 220;
     CGSize __textSize = CGSizeZero;
     if (RCDLive_IOS_FSystenVersion < 7.0) {
-        __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_LIOS7(content, [UIFont systemFontOfSize:12.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT), NSLineBreakByTruncatingTail);
+        __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_LIOS7(content, [UIFont systemFontOfSize:14.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT), NSLineBreakByTruncatingTail);
     }else {
-        __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_GEIOS7(content, [UIFont systemFontOfSize:12.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT));
+        __textSize = RCDLive_RC_MULTILINE_TEXTSIZE_GEIOS7(content, [UIFont systemFontOfSize:14.0f], CGSizeMake(maxMessageLabelWidth, MAXFLOAT));
     }
     //这里是将文本的cell往外扩张了点内容
 //    __textSize = CGSizeMake(ceilf(__textSize.width)+10 , ceilf(__textSize.height)+6);    return __textSize;
