@@ -43,7 +43,7 @@ static NSString *const ID = @"MineWantGoCollectionViewCell";
 
 - (void)configUI
 {
-//    [self setBackItem];
+    [self setBackItem];
     
 //    self.title = @"我想去的目的地";
     
