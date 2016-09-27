@@ -1070,7 +1070,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         if ([textMessage.content isEqualToString:@"1"]) {
 //            [self requestTotalMoneyDataParameters:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.dashangMapView showDashangData];
+                [self.dashangMapView showDashangDataWithModelString:@"http://avatar.csdn.net/8/3/E/1_a359696929.jpg,小白,999"];
             });
             return ;
         }

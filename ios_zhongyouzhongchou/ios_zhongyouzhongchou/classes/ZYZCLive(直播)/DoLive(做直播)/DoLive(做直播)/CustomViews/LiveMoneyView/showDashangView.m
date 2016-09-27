@@ -41,15 +41,19 @@
 
 - (void)setUpViews{
     
-    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+//    self.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
+    self.backgroundColor = [UIColor colorWithRed:232 / 256.0 green:22 / 256.0  blue:78 / 256.0  alpha:0.9];
+    
     //圆角半径
     CGFloat layRadius = ShowDashangViewH * 0.5;
     //间隙
     CGFloat ShowDashangViewMargin = 3;
     //头像高度
     CGFloat iconViewHeight = ShowDashangViewH - ShowDashangViewMargin * 2;
-    //时间高度
-    CGFloat timelabelHeight = (iconViewHeight - ShowDashangViewMargin) * 0.5;
+    //名字高度
+    CGFloat nameLabelHeight = (iconViewHeight - ShowDashangViewMargin) * 0.6;
+    //人数高度
+    CGFloat numberLabelHeight = (iconViewHeight - ShowDashangViewMargin) * 0.4;
     
     
     self.layerCornerRadius = layRadius;
@@ -62,9 +66,9 @@
     _nameLabel = [UILabel new];
     [self addSubview:_nameLabel];
     //    _nameLabel.backgroundColor = [UIColor redColor];
-    _nameLabel.font = [UIFont systemFontOfSize:12];
+    _nameLabel.font = [UIFont systemFontOfSize:15];
     _nameLabel.textColor = [UIColor whiteColor];
-    _nameLabel.textAlignment = NSTextAlignmentCenter;
+    _nameLabel.textAlignment = NSTextAlignmentLeft;
     
     _numberPeopleLabel = [UILabel new];
     [self addSubview:_numberPeopleLabel];
@@ -84,27 +88,30 @@
         make.top.equalTo(_headView);
         make.left.mas_equalTo(_headView.mas_right).offset(ShowDashangViewMargin);
         make.right.mas_equalTo(-(layRadius * 0.5));
-        make.height.mas_equalTo(timelabelHeight);
+        make.height.mas_equalTo(nameLabelHeight);
     }];
     
     [_numberPeopleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_nameLabel.mas_bottom).offset(ShowDashangViewMargin);
         make.left.mas_equalTo(_headView.mas_right).offset(ShowDashangViewMargin);
         make.right.mas_equalTo(_nameLabel.mas_right);
-        make.height.mas_equalTo(timelabelHeight);
+        make.height.mas_equalTo(numberLabelHeight);
     }];
 
-    
 }
 
 - (void)setDashangModel:(LiveShowDashangModel *)dashangModel
 {
     _dashangModel = dashangModel;
     
-    [_headView sd_setImageWithURL:[NSURL URLWithString:dashangModel.headURL] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
+//    [_headView sd_setImageWithURL:[NSURL URLWithString:dashangModel.headURL] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_headView sd_setImageWithURL:[NSURL URLWithString:dashangModel.headURL]];
+    });
     
     _nameLabel.text = dashangModel.nameLabel;
     
     _numberPeopleLabel.text = [NSString stringWithFormat:@"打赏主播%@",dashangModel.numberPeople];
+    
 }
 @end
