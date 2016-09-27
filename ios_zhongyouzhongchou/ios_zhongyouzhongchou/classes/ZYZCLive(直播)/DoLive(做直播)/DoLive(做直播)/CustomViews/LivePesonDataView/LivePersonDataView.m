@@ -240,7 +240,7 @@
     }];
 }
 
-- (void)showPersonDataWithUserId:(NSString *)userId
+- (void)showPersonData
 {
     CGFloat viewCenterY = self.superview.frame.size.height * 0.5;
     

@@ -55,7 +55,6 @@ static NSString *ID = @"ZYLiveListCell";
 {
     _navRightBtn.hidden=NO;
     [super viewWillAppear:animated];
-    
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
     
