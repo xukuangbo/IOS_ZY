@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, FilterType)
 #import "MoreFZCViewController.h"
 #import "MinePersonSetUpController.h"
 #import "MineTravelTagVC.h"
+#import "EntryPlaceholderView.h"
 
 //#import "TestViewController.h"
 
@@ -53,6 +54,8 @@ typedef NS_ENUM(NSInteger, FilterType)
 //@property (nonatomic, assign) BOOL               getSearch; //是否是搜索数据
 
 @property (nonatomic, assign) FilterType        filterType;//过滤条件
+
+@property (nonatomic, strong) EntryPlaceholderView *entryView;
 
 @end
 
@@ -271,11 +274,13 @@ typedef NS_ENUM(NSInteger, FilterType)
     __weak typeof (&*self)weakSelf=self;
     _table.headerRefreshingBlock=^()
     {
+        weakSelf.entryView.hidden = YES;
         weakSelf.pageNo=1;
         [weakSelf getHttpDataByFilterType:weakSelf.filterType andSeachKey:weakSelf.searchBar.text];
     };
     _table.footerRefreshingBlock=^()
     {
+        weakSelf.entryView.hidden = YES;
         weakSelf.pageNo++;
         [weakSelf getHttpDataByFilterType:weakSelf.filterType andSeachKey:weakSelf.searchBar.text];
     };
@@ -327,11 +332,16 @@ typedef NS_ENUM(NSInteger, FilterType)
     [_scrollTop addTarget:self action:@selector(scrollToTop) forControlEvents:UIControlEventTouchUpInside];
     _scrollTop.hidden=YES;
     [self.view addSubview:_scrollTop];
+    
+    
+    _entryView = [EntryPlaceholderView viewWithSuperView:self.table type:EntryTypeSearch];
+    _entryView.hidden = YES;
 }
 
 #pragma mark --- 获取众筹列表
 -(void)getHttpDataByFilterType:(FilterType )filterType  andSeachKey:(NSString *)searchKey
 {
+    _entryView.hidden = YES;
     //获取所有众筹详情
     NSString *httpUrl=nil;
     
@@ -372,6 +382,7 @@ typedef NS_ENUM(NSInteger, FilterType)
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_table.mj_footer ;
             if (_pageNo==1&&_listArr.count) {
+                _entryView.hidden = YES;
                 [_listArr removeAllObjects];
                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
             }
@@ -386,6 +397,7 @@ typedef NS_ENUM(NSInteger, FilterType)
             if (_listModel.data.count==0) {
                 _pageNo--;
                 [autoFooter setTitle:@"没有更多数据了" forState:MJRefreshStateRefreshing];
+                _entryView.hidden = NO;
             }
             else
             {
