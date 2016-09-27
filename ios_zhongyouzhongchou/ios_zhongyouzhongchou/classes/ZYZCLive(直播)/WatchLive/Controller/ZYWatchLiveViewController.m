@@ -34,6 +34,8 @@
 #import "WXApiManager.h"
 #import "ZYWatchEndLiveVC.h"
 #import "WatchEndLiveModel.h"
+#import "ZYWatchLiveViewController+LivePersonView.h"
+#import "LivePersonDataView.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -148,6 +150,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self setupConstraints];
     [self initChatroomMemberInfo];
     [self enterInfoLiveRoom];
+    // 初始化直播个人中心
+    [self initLivePersonDataView];
     [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
 }
@@ -280,6 +284,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     imageView.layer.cornerRadius = 34/2;
     imageView.layer.masksToBounds = YES;
     [livePersonNumberView addSubview:imageView];
+    //添加头像点击事件
+    [imageView addTarget:self action:@selector(showPersonData)];
+    
     self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
     self.chatroomlabel.numberOfLines = 2;
     self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
@@ -595,6 +602,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 点击屏幕事件
 - (void)tap4ResetDefaultBottomBarStatus:
 (UIGestureRecognizer *)gestureRecognizer {
+    [self.personDataView hidePersonDataView];
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.payView.hidden = YES;
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];

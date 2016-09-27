@@ -19,9 +19,13 @@
 #endif
 
 @class ZYLiveListModel;
+@class LivePersonDataView;
+
 @interface ZYWatchLiveViewController : ZYZCBaseViewController
 - (instancetype)initWatchLiveModel:(ZYLiveListModel *)liveModel;
 
+//个人信息view
+@property (nonatomic, strong) LivePersonDataView *personDataView;
 
 #pragma mark - 会话属性
 

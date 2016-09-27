@@ -189,7 +189,7 @@
 // 展示个人头像
 - (void)showPersonData
 {
-    [self.personDataView showPersonDataWithUserId:@"1"];
+    [self.personDataView showPersonData];
 }
 
 // 进入个人空间界面
