@@ -16,6 +16,12 @@
 +(UILabel *)createLabWithFrame:(CGRect )frame andFont:(UIFont *)font andTitleColor:(UIColor *)color;
 
 /**
+ *  创建btn
+ *
+ */
++(UIButton *)createBtnWithFrame:(CGRect)frame andNormalTitle:(NSString *)normalTitle andNormalTitleColor:(UIColor *)color andTarget:(id)target andAction:(SEL)action;
+
+/**
  *  计算文字长度
  *
  *  @param text 文字内容
