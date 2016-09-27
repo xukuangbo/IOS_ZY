@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #define showDashangMapViewH 40
-#define showDashangMapViewW 110
+#define showDashangMapViewW 160
+@class LiveShowDashangModel;
 @interface showDashangMapView : UIView
 
 
 
-- (void)showDashangData;
+- (void)showDashangDataWithModelString:(NSString *)modelString;
 @end

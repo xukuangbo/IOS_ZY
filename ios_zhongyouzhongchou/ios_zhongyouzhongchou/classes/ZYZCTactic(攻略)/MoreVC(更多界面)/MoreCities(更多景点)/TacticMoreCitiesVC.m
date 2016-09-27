@@ -45,7 +45,7 @@ static NSString *const ID = @"TacticMoreCitiesCell";
 - (void)configUI
 {
     [self setBackItem];
-    self.title = @"更多热门目的地";
+//    self.title = @"更多热门目的地";
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
@@ -125,5 +125,12 @@ static NSString *const ID = @"TacticMoreCitiesCell";
 -(void)viewWillAppear:(BOOL)animated
 {
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"更多热门目的地";
+    [self setBackItem];
 }
 @end

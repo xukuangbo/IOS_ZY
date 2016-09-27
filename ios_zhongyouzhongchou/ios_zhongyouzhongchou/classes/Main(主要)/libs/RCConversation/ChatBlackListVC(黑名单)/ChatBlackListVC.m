@@ -37,6 +37,12 @@
    
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
+
 - (void)configUI
 {
     [self setBackItem];

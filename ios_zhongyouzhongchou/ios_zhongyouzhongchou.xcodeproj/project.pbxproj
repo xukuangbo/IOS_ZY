@@ -105,8 +105,10 @@
 		0513E2901D8643DE00E8BC63 /* ZYWatchLiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0513E28F1D8643DE00E8BC63 /* ZYWatchLiveView.m */; };
 		051666B91D9388E0001ED976 /* ZYSystemCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 051666B81D9388E0001ED976 /* ZYSystemCommon.m */; };
 		051666BC1D9504BF001ED976 /* ZYLiveViewController+EVENT.m in Sources */ = {isa = PBXBuildFile; fileRef = 051666BB1D9504BF001ED976 /* ZYLiveViewController+EVENT.m */; };
+		05222EEA1D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05222EE91D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
+		056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */; };
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
 		2C0101B71D5DC4C700D6470D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */; };
 		2C0101B91D5DC4E100D6470D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B81D5DC4E100D6470D /* libstdc++.tbd */; };
@@ -754,10 +756,14 @@
 		051666B81D9388E0001ED976 /* ZYSystemCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYSystemCommon.m; sourceTree = "<group>"; };
 		051666BA1D9504BF001ED976 /* ZYLiveViewController+EVENT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZYLiveViewController+EVENT.h"; sourceTree = "<group>"; };
 		051666BB1D9504BF001ED976 /* ZYLiveViewController+EVENT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZYLiveViewController+EVENT.m"; sourceTree = "<group>"; };
+		05222EE81D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ZYWatchLiveViewController+LivePersonView.h"; sourceTree = "<group>"; };
+		05222EE91D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZYWatchLiveViewController+LivePersonView.m"; sourceTree = "<group>"; };
 		05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveViewController.h; sourceTree = "<group>"; };
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
 		056046C41D6DBDD5006906FD /* RCDLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLive.m; sourceTree = "<group>"; };
+		056FB5C61D9A51B600BBEF03 /* UINavigationBar+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Extension.h"; sourceTree = "<group>"; };
+		056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Extension.m"; sourceTree = "<group>"; };
 		2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B81D5DC4E100D6470D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -2346,6 +2352,8 @@
 			children = (
 				05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */,
 				05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */,
+				05222EE81D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.h */,
+				05222EE91D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4467,6 +4475,8 @@
 				39911AC81D504174007DF44B /* UIView+ZYZCLineView.m */,
 				394D53791D62F45500E7F595 /* UIView+ZYLayer.h */,
 				394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */,
+				056FB5C61D9A51B600BBEF03 /* UINavigationBar+Extension.h */,
+				056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -5095,6 +5105,7 @@
 				3910CE701D35D6F4004D7578 /* TacticMoreJieshaoVC.m in Sources */,
 				2C1B60D91D6D3CF900E3C25B /* FZCContentEntryView.m in Sources */,
 				2CD209A41D6D4BA6005EB62E /* QPLocalization.m in Sources */,
+				056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */,
 				39911ACC1D504174007DF44B /* UIView+ZYZCLineView.m in Sources */,
 				2C91B6691D9155140091EC79 /* ZYCommentFootprintController.m in Sources */,
 				2C90F6F81D533579001ABB44 /* ZYZCMsgDetailViewController.m in Sources */,
@@ -5246,6 +5257,7 @@
 				3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */,
 				2CF74EED1D8E7ECD004F8718 /* ZYPublishFootprintController.m in Sources */,
 				2CD2091F1D6D3E27005EB62E /* ZCSupportBaseView.m in Sources */,
+				05222EEA1D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m in Sources */,
 				2CF305101D3DC716008296EC /* JudgeAuthorityTool.m in Sources */,
 				0432ADB01D096B89005D789E /* STPickerDate.m in Sources */,
 				2CD209CD1D6D4BA6005EB62E /* QPVideo.m in Sources */,

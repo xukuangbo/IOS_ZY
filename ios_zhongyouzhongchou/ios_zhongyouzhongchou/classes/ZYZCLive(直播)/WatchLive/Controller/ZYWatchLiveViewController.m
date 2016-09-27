@@ -34,6 +34,8 @@
 #import "WXApiManager.h"
 #import "ZYWatchEndLiveVC.h"
 #import "WatchEndLiveModel.h"
+#import "ZYWatchLiveViewController+LivePersonView.h"
+#import "LivePersonDataView.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -104,7 +106,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) UIButton *massageBtn;
 // 关注按钮
 @property (nonatomic, strong) UIButton *attentionButton;
-@property(nonatomic,strong)UICollectionView *portraitsCollectionView;
+@property(nonatomic,strong) UICollectionView *portraitsCollectionView;
 @property(nonatomic,strong)NSMutableArray *userList;
 // 打赏view
 @property (nonatomic, strong) ZYBottomPayView *payView;
@@ -148,6 +150,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self setupConstraints];
     [self initChatroomMemberInfo];
     [self enterInfoLiveRoom];
+    // 初始化直播个人中心
+    [self initLivePersonDataView];
     [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
 }
@@ -254,11 +258,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self registerClass:[RCDLiveTipMessageCell class]forCellWithReuseIdentifier:RCDLiveTipMessageCellIndentifier];
     [self registerClass:[RCDLiveGiftMessageCell class]forCellWithReuseIdentifier:RCDLiveGiftMessageCellIndentifier];
     [self changeModel:YES];
-    _resetBottomTapGesture =[[UITapGestureRecognizer alloc]
+    self.resetBottomTapGesture =[[UITapGestureRecognizer alloc]
                              initWithTarget:self
                              action:@selector(tap4ResetDefaultBottomBarStatus:)];
-    [_resetBottomTapGesture setDelegate:self];
-    [self.view addGestureRecognizer:_resetBottomTapGesture];
+    [self.resetBottomTapGesture setDelegate:self];
+    [self.view addGestureRecognizer:self.resetBottomTapGesture];
     self.watchLiveView = [[ZYWatchLiveView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.view addSubview:self.watchLiveView];
     [self.watchLiveView.closeLiveButton addTarget:self action:@selector(closeLiveButtonAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -280,6 +284,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     imageView.layer.cornerRadius = 34/2;
     imageView.layer.masksToBounds = YES;
     [livePersonNumberView addSubview:imageView];
+    //添加头像点击事件
+    [imageView addTarget:self action:@selector(showPersonData)];
+    
     self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
     self.chatroomlabel.numberOfLines = 2;
     self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
@@ -306,8 +313,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.portraitsCollectionView.delegate = self;
     self.portraitsCollectionView.dataSource = self;
     self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
-    [self.portraitsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"cell"];
     [self.view addSubview:self.portraitsCollectionView];
+
 }
 // 创建打赏界面
 - (void)initPayView {
@@ -595,6 +602,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 点击屏幕事件
 - (void)tap4ResetDefaultBottomBarStatus:
 (UIGestureRecognizer *)gestureRecognizer {
+    [self.personDataView hidePersonDataView];
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.payView.hidden = YES;
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
@@ -1127,7 +1135,14 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  *  @return
  */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if ([collectionView isEqual:self.portraitsCollectionView]) {
+        ChatBlackListModel *user = self.userList[indexPath.row];
+        [self showPersonDataView:[NSString stringWithFormat:@"%@", user.userId]];
+    }
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"aaaaaaaa");
 }
 
 /**
@@ -1231,7 +1246,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     return index;
 }
 
-
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    // 输出点击的view的类名
+    NSLog(@"%@", NSStringFromClass([touch.view class]));
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view.superview class]) isEqualToString:@"RCDLivePortraitViewCell"]) {
+        return NO;
+    }
+    return  YES;
+}
 
 #pragma mark - Install Notifiacation
 - (void)installMovieNotificationObservers {

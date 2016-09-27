@@ -25,6 +25,7 @@
 
 @property (nonatomic, strong) UIButton           *navRightBtn;
 
+
 @end
 static NSString *ID = @"ZYLiveListCell";
 
@@ -52,9 +53,8 @@ static NSString *ID = @"ZYLiveListCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    _navRightBtn.hidden=NO;
     [super viewWillAppear:animated];
-    
+    _navRightBtn.hidden=NO;
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
     
@@ -90,7 +90,7 @@ static NSString *ID = @"ZYLiveListCell";
     _navRightBtn=navRightBtn;
 
     self.view.backgroundColor = [UIColor ZYZC_MainColor];
-    _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -134,7 +134,6 @@ static NSString *ID = @"ZYLiveListCell";
         if (direction == 1) {//说明是下拉
             if (dataArray.count > 0) {
                 
-                
                 weakSelf.entryView.hidden = YES;
                 weakSelf.listArray = dataArray;
                 weakSelf.pageNo = 2;
@@ -143,13 +142,11 @@ static NSString *ID = @"ZYLiveListCell";
                 [MBProgressHUD hideHUD];
             }else{
                 weakSelf.listArray = nil;
+                weakSelf.entryView.hidden = NO;
                 [weakSelf.tableView reloadData];
                 
                 [MBProgressHUD hideHUD];
-                [MBProgressHUD showShortMessage:@"没有更多数据"];
             }
-            
-            
         }else{//上啦
             if (dataArray.count > 0) {
                 

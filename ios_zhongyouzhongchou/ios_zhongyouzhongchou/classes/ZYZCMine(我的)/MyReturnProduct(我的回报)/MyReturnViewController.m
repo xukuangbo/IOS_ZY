@@ -32,6 +32,22 @@
     // Do any additional setup after loading the view.
 //    NSLog(@"%ld",_productType);
     self.automaticallyAdjustsScrollViewInsets=NO;
+//    if (_productType==MyReturnProduct) {
+//        self.title=@"我的回报";
+//    }
+//    else if (_productType==MyDraftProduct)
+//    {
+//        self.title=@"我的草稿";
+//    }
+    _pageNo=1;
+    _listArr=[NSMutableArray array];
+    [self setBackItem];
+    [self configUI];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     if (_productType==MyReturnProduct) {
         self.title=@"我的回报";
     }
@@ -39,10 +55,7 @@
     {
         self.title=@"我的草稿";
     }
-    _pageNo=1;
-    _listArr=[NSMutableArray array];
     [self setBackItem];
-    [self configUI];
 }
 
 -(void)configUI

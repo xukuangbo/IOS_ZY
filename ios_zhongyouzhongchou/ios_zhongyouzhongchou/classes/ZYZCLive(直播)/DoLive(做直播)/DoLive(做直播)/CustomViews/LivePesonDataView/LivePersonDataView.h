@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UIButton *attentionButton;
 // 禁言
 @property (nonatomic, strong) UIButton *bannedSpeakButton;
-- (void)showPersonDataWithUserId:(NSString *)userId;
+- (void)showPersonData;
 
 - (void)hidePersonDataView;
 

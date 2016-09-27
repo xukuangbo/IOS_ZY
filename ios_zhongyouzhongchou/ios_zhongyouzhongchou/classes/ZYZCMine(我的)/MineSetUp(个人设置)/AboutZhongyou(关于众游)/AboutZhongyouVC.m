@@ -33,6 +33,13 @@
     [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:1]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
+
 - (void)configUI
 {
     [self setBackItem];

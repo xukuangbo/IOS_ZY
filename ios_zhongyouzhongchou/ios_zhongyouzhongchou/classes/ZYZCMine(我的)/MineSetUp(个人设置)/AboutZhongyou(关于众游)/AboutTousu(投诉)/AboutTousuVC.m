@@ -66,5 +66,10 @@
     [self.view addSubview:_webView];
 }
 
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self setBackItem];
+}
 
 @end

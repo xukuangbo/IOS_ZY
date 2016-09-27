@@ -38,7 +38,7 @@
     _wxManager=[WXApiManager sharedManager];
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_back_new"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(pressBack)];
-    self.title = @"设置";
+//    self.title = @"设置";
     
     //判断账号，然后显示登录或者退出按钮
     [self showLoginButton];
@@ -62,6 +62,13 @@
 {
     [super viewWillAppear:animated];
     [self calculateSize];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.title = @"设置";
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_back_new"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(pressBack)];
 }
 
 -(void)pressBack

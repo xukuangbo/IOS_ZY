@@ -69,7 +69,7 @@
         [self.contentView addSubview:self.conversationMessageCollectionView];
     }
     //打赏界面
-    self.dashangMapView = [[showDashangMapView alloc] initWithFrame:CGRectMake(self.contentView.left, self.contentView.top - showDashangMapViewH, showDashangMapViewW, showDashangMapViewH)];
+    self.dashangMapView = [[showDashangMapView alloc] initWithFrame:CGRectMake(KEDGE_DISTANCE, self.contentView.top - showDashangMapViewH, showDashangMapViewW, showDashangMapViewH)];
     [self.view addSubview:self.dashangMapView];
     
     //输入区
@@ -189,7 +189,7 @@
 // 展示个人头像
 - (void)showPersonData
 {
-    [self.personDataView showPersonDataWithUserId:@"1"];
+    [self.personDataView showPersonData];
 }
 
 // 进入个人空间界面
