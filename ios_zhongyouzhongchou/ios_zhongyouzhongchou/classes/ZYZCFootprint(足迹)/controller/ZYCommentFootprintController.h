@@ -13,4 +13,6 @@
 
 @property (nonatomic, strong) ZYFootprintListModel *footprintModel;
 
+-(void)startEditComment;
+
 @end

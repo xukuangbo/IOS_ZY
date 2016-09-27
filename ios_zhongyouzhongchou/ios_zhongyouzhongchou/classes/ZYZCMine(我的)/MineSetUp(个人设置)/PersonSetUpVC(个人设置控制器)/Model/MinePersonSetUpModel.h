@@ -64,7 +64,6 @@
 // 关注
 @property (nonatomic, copy) NSString *gzMeAll;
 
-
 @property (nonatomic, strong) MinePersonAddressModel *userbyaddress;
 //}
 @end

@@ -7,11 +7,14 @@
 //
 
 #import "ZYFootprintCommentTable.h"
-
-
+#import "ZYCommentFootprintController.h"
+#import "MBProgressHUD+MJ.h"
+#import <objc/runtime.h>
 @interface ZYFootprintCommentTable ()
 
 @property (nonatomic, strong) ZYFootprintListModel *footprintModel;
+@property (nonatomic, strong) UIAlertController    *alertController;
+@property (nonatomic, strong) ZYOneCommentModel    *deleteOneComment;
 
 @end
 
@@ -29,9 +32,29 @@
 {
     if (self=[super initWithFrame:frame style:style]) {
         self.backgroundColor=[UIColor whiteColor];
-        self.contentInset=UIEdgeInsetsMake(74, 0, 10, 0) ;
+//        self.contentInset=UIEdgeInsetsMake(74, 0, 0, 0) ;
         footprintModel.footprintListType=OtherFootprintList;
         self.footprintModel=footprintModel;
+        
+        WEAKSELF;
+        if (!_alertController) {
+            //创建UIAlertController控制器
+            UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"删除我的评论" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            // 删除
+            UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action){
+                [weakSelf  deleteCommentWithComment:weakSelf.deleteOneComment];
+            }];
+            
+            [cancelAction setValue:[UIColor ZYZC_MainColor]
+                            forKey:@"_titleTextColor"];
+            [deleteAction setValue:[UIColor ZYZC_TextBlackColor] forKey:@"_titleTextColor"];
+            
+            [alertController addAction:cancelAction];
+            [alertController addAction:deleteAction];
+            
+            _alertController=alertController;
+        }
     }
     return self;
 }
@@ -48,6 +71,11 @@
       ZYCommentFootprintCell *commentFootprintCell=(ZYCommentFootprintCell *)[ZYCommentFootprintCell customTableView:tableView cellWithIdentifier:@"commentFootprintCell" andCellClass:[ZYCommentFootprintCell class]];
         commentFootprintCell.footprintModel=_footprintModel;
         commentFootprintCell.supportListModel=_supportUsersModel;
+        commentFootprintCell.showLine=self.dataArr.count;
+        self.commentNumberChangeBlock=^(NSInteger commentNumber)
+        {
+            commentFootprintCell.commentNumber=commentNumber;
+        };
         return commentFootprintCell;
     }
     else
@@ -76,7 +104,50 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    if(indexPath.row>=1)
+    {
+        
+        ZYOneCommentModel *oneCommentModel=self.dataArr[indexPath.row-1];
+        self.deleteOneComment=oneCommentModel;
+        //如果是自己的评论，提示是否需要删除
+        if ([[NSString stringWithFormat:@"%@",oneCommentModel.userId] isEqualToString:[ZYZCAccountTool getUserId]]) {
+            [self.viewController presentViewController:_alertController animated:YES completion:nil];
+        }
+        else
+        {
+            self.replyUserId=oneCommentModel.userId;
+            self.replyUserName=oneCommentModel.realName?oneCommentModel.realName:oneCommentModel.userName;
+            ZYCommentFootprintController *commentController=(ZYCommentFootprintController *) self.viewController;
+            if (commentController) {
+                [commentController startEditComment];
+            }
+        }
+    }
+}
+
+
+#pragma mark --- 删除评论
+-(void)deleteCommentWithComment:(ZYOneCommentModel *)oneCommentModel
+{
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_deleteComment andParameters:@{@"id":[NSNumber numberWithInteger:oneCommentModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            [MBProgressHUD showShortMessage:@"删除成功"];
+            NSMutableArray *newCommentList=[NSMutableArray arrayWithArray:self.dataArr];
+            [newCommentList removeObject:oneCommentModel];
+            self.dataArr=newCommentList;
+            if (self.commentNumberChangeBlock) {
+                self.commentNumberChangeBlock(newCommentList.count);
+            }
+            [self reloadData];
+        }
+        else
+        {
+            [MBProgressHUD showShortMessage:@"删除失败"];
+        }
+        
+    } andFailBlock:^(id failResult) {
+         [MBProgressHUD showShortMessage:@"删除失败"];
+    }];
 }
 
 -(void)setSupportUsersModel:(ZYSupportListModel *)supportUsersModel
@@ -93,6 +164,19 @@
         if (self.scrollDidScrollBlock) {
             self.scrollDidScrollBlock(offSetY);
         }
+    }
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    if (_scrollDidEndDeceleratingBlock) {
+        _scrollDidEndDeceleratingBlock();
+    }
+}
+
+-(void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    if (_scrollWillBeginDecelerating) {
+        _scrollWillBeginDecelerating();
     }
 }
 

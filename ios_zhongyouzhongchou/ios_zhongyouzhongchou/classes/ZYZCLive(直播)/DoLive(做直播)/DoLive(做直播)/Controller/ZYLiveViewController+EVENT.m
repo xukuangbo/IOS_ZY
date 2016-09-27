@@ -13,6 +13,8 @@
 #import "MBProgressHUD+MJ.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "showDashangMapView.h"
+#import "ZYLiveListModel.h"
+#import "ZCProductDetailController.h"
 @implementation ZYLiveViewController (EVENT)
 - (void)initLivePersonDataView
 {
@@ -22,6 +24,7 @@
     CGFloat personDataViewX = (self.view.width - personDataViewW) * 0.5;
     CGFloat personDataViewY = self.view.height;
     self.personDataView = [[LivePersonDataView alloc] initWithFrame:CGRectMake(personDataViewX, personDataViewY, personDataViewW, personDataViewH)];
+    [self.personDataView.zhongchouButton setTitle:self.createLiveModel.productTitle forState:UIControlStateNormal];
     [self.view addSubview:self.personDataView];
     
     [self.personDataView.roomButton addTarget:self action:@selector(clickEnterRoomButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -202,7 +205,16 @@
 // 进入众筹详情
 - (void)clickZhongchouButton:(UIButton *)sender
 {
-    
+    self.navigationController.navigationBar.hidden = NO;
+    //推出信息详情页
+    ZCProductDetailController *productDetailVC=[[ZCProductDetailController alloc]init];
+    productDetailVC.hidesBottomBarWhenPushed=YES;
+//    ZCOneModel *oneModel=self.dataArr[indexPath.row/2];
+//    productDetailVC.oneModel=oneModel;
+    productDetailVC.productId = [NSNumber numberWithInteger:[self.createLiveModel.productId integerValue]];
+    productDetailVC.detailProductType=PersonDetailProduct;
+    productDetailVC.fromProductType=ZCListProduct;
+    [self.navigationController pushViewController:productDetailVC animated:YES];
 }
 
 // 点击关注按钮

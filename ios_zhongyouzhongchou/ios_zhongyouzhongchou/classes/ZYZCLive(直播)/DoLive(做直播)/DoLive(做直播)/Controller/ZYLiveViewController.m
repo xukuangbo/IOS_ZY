@@ -84,8 +84,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 @property(nonatomic,strong)UICollectionView *portraitsCollectionView;
 
 @property(nonatomic,strong)NSMutableArray *userList;
-// 创建直播model
-@property (nonatomic, strong) ZYLiveListModel *createLiveModel;
 
 @end
 

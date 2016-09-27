@@ -11,6 +11,8 @@
 
 typedef void (^DeleteFootprint)(ZYFootprintListModel *oneFootprintModel);
 
+typedef void (^SupportChangeBlock)(BOOL isAdd);
+
 typedef NS_ENUM(NSInteger, CommentEnterType)
 {
     enterCommentPage=1,
@@ -25,5 +27,10 @@ typedef NS_ENUM(NSInteger, CommentEnterType)
 @property (nonatomic, assign) BOOL                 canOpenText;
 
 @property (nonatomic, copy  ) DeleteFootprint     deleteFootprint;
+
+@property (nonatomic, copy  ) SupportChangeBlock  supportChangeBlock;
+
+@property (nonatomic, assign) NSInteger           commentNumber;//评论数
+@property (nonatomic, assign) NSInteger           supportNumber;//点赞数
 
 @end

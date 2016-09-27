@@ -298,6 +298,9 @@
 //评论足迹
 #define Footprint_AddComment [NSString stringWithFormat:@"%@youji/addComment.action",BASE_URL]
 
+//删除足迹评论
+#define Footprint_deleteComment  [NSString stringWithFormat:@"%@youji/delComment.action",BASE_URL]
+
 //点赞详情
 #define Footprint_GetZanList [NSString stringWithFormat:@"%@youji/getZanList.action",BASE_URL]
 

@@ -16,4 +16,8 @@
 
 @property (nonatomic, strong) ZYSupportListModel *supportListModel;
 
+@property (nonatomic, assign) BOOL               showLine;
+
+@property (nonatomic, assign) NSInteger          commentNumber;
+
 @end
