@@ -1067,10 +1067,10 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
         content = textMessage.content;
 //        if ([textMessage.content isEqualToString:kPaySucceed]) {
-        if ([textMessage.content isEqualToString:@"1"]) {
+        if ([textMessage.extra isEqualToString:@"打赏成功"]) {
 //            [self requestTotalMoneyDataParameters:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.dashangMapView showDashangDataWithModelString:@"http://avatar.csdn.net/8/3/E/1_a359696929.jpg,小白,999"];
+                [self.dashangMapView showDashangDataWithModelString:content];
             });
             return ;
         }
