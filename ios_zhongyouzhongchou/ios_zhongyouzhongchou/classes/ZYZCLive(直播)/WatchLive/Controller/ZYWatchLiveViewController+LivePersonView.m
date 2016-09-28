@@ -76,13 +76,20 @@
 {
     ChatBlackListModel *user = self.userList[sender.view.tag - 1000];
     [self.personDataView showPersonData];
+    if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue]) {
+        self.personDataView.attentionButton.hidden = YES;
+        [self.personDataView setHeight:298];
+    } else {
+        self.personDataView.attentionButton.hidden = NO;
+        [self.personDataView setHeight:340];
+    }
     [self requestData:[NSString stringWithFormat:@"%@", user.userId]];
 }
 
 - (void)showPersonData
 {
     [self.personDataView showPersonData];
-    [self requestData:self.liveModel.userId];
+    [self requestData:[NSString stringWithFormat:@"%@", self.liveModel.userId]];
 }
 // 进入个人空间界面
 - (void)clickEnterRoomButton:(UIButton *)sender
