@@ -111,7 +111,7 @@
     
     _nameLabel.text = dashangModel.nameLabel;
     
-    _numberPeopleLabel.text = [NSString stringWithFormat:@"打赏主播%@",dashangModel.numberPeople];
+    _numberPeopleLabel.text = [NSString stringWithFormat:@"%@",dashangModel.numberPeople];
     
 }
 @end

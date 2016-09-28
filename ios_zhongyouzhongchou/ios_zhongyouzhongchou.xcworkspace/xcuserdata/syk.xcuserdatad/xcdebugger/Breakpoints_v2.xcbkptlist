@@ -2,4 +2,54 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/CustomViews/LiveMoneyView/showDashangView.m"
+            timestampString = "496663182.256796"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "-setDashangModel:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[showDashangView setDashangModel:]"
+                  moduleName = "&#x4f17;&#x6e38;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/syk/Desktop/IOS_ZY/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCLive(%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/CustomViews/LiveMoneyView/showDashangView.m"
+                  timestampString = "496663254.313142"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__35-[showDashangView setDashangModel:]_block_invoke"
+                  moduleName = "&#x4f17;&#x6e38;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/syk/Desktop/IOS_ZY/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCLive(%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/CustomViews/LiveMoneyView/showDashangView.m"
+                  timestampString = "496663254.313428"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "108"
+                  endingLineNumber = "108"
+                  offsetFromSymbolStart = "50">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
