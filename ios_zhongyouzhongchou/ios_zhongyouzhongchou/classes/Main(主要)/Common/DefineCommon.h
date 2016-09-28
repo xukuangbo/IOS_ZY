@@ -145,6 +145,8 @@
 #define CREATE_LIVE_AGREEMENT        @"createLiveAgreement"
 //发布足迹成功
 #define PUBLISH_FOOTPRINT_SUCCESS    @"piblishFootprintSuccess"
+//删除足迹成功
+#define DELETE_ONE_FOOTPRINT_SUCCESS @"deleteOneFootprintSuccess"
 
 //图片拉伸
 #define KPULLIMG(IMGNAME,TOP,LEFT,BOTTOM,RIGHT) [[UIImage imageNamed:IMGNAME]resizableImageWithCapInsets:UIEdgeInsetsMake(TOP, LEFT, BOTTOM, RIGHT) resizingMode:UIImageResizingModeStretch]

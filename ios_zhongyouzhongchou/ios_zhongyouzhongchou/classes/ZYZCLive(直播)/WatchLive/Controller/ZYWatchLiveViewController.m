@@ -46,15 +46,12 @@
 UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate,
 UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate, ZYBottomPayViewDelegate>
-@property (nonatomic, strong) ZYLiveListModel *liveModel;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) id <IJKMediaPlayback> player;
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
 @property (nonatomic, strong) ZYWatchLiveView *watchLiveView;
 /** 总金额数据 */
 @property (nonatomic, strong) LiveMoneyView *liveMoneyView;
-//打赏动图界面
-@property (nonatomic, strong) showDashangMapView *dashangMapView;
 /**
  *  存储长按返回的消息的model
  */
@@ -113,7 +110,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 // 关注按钮
 @property (nonatomic, strong) UIButton *attentionButton;
 @property(nonatomic,strong) UICollectionView *portraitsCollectionView;
-@property(nonatomic,strong)NSMutableArray *userList;
 // 打赏view
 @property (nonatomic, strong) ZYBottomPayView *payView;
 // 判断是不是进入私聊界面
@@ -161,13 +157,14 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
     
-    [self requestTotalMoneyDataParameters:@{@"targetId" : self.liveModel.userId}];
+    [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
 }
 
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setClearNavigationBar:YES];
+    [self.conversationMessageCollectionView reloadData];
     if (![self.player isPlaying] && !self.isMessage) {
         [self.player prepareToPlay];
     }
@@ -218,6 +215,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark - setup
 - (void)setupView
 {
+    self.resetBottomTapGesture =[[UITapGestureRecognizer alloc]
+                                 initWithTarget:self
+                                 action:@selector(tap4ResetDefaultBottomBarStatus:)];
+//    [self.resetBottomTapGesture setDelegate:self];
+    [self.view addGestureRecognizer:self.resetBottomTapGesture];
+    
     //聊天区
     if(self.contentView == nil){
         CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
@@ -266,12 +269,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self registerClass:[RCDLiveTipMessageCell class]forCellWithReuseIdentifier:RCDLiveTipMessageCellIndentifier];
     [self registerClass:[RCDLiveGiftMessageCell class]forCellWithReuseIdentifier:RCDLiveGiftMessageCellIndentifier];
     [self changeModel:YES];
-    self.resetBottomTapGesture =[[UITapGestureRecognizer alloc]
-                             initWithTarget:self
-                             action:@selector(tap4ResetDefaultBottomBarStatus:)];
-    [self.resetBottomTapGesture setDelegate:self];
-    [self.view addGestureRecognizer:self.resetBottomTapGesture];
-    self.watchLiveView = [[ZYWatchLiveView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    self.watchLiveView = [[ZYWatchLiveView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 80, ScreenWidth, 80)];
     [self.view addSubview:self.watchLiveView];
     [self.watchLiveView.closeLiveButton addTarget:self action:@selector(closeLiveButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.watchLiveView.feedBackBtn addTarget:self
@@ -323,7 +322,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     CGFloat memberHeadListViewY = livePersonNumberView.frame.origin.x + livePersonNumberView.frame.size.width;
-    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
+    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.portraitsCollectionView.delegate = self;
     self.portraitsCollectionView.dataSource = self;
     self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
@@ -382,7 +381,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         make.height.equalTo(@40);
     }];
     [self.portraitsCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.livePersonNumberView).offset(10);
+        make.left.equalTo(self.view).offset(150);
         make.top.equalTo(self.view).offset(30);
         make.width.equalTo(@(KSCREEN_W - 135));
         make.height.equalTo(@35);
@@ -525,11 +524,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
-            if (parameters.count == 0) {
-                weakSelf.liveMoneyView.moneyLabel.text = [NSString stringWithFormat:@"打赏:%.1f元", [result[@"data"] floatValue] / 100];
-            } else {
-                
-            }
+            weakSelf.liveMoneyView.moneyLabel.text = [NSString stringWithFormat:@"打赏:%.1f元", [result[@"data"] floatValue] / 100];
             DDLog(@"%@",result);
         }else{
         }
@@ -649,7 +644,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)praiseHeart{
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , self.watchLiveView.closeLiveButton.frame.origin.y - 49, 35, 35);
+    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , ScreenHeight - 90, 35, 35);
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
     [self.view addSubview:imageView];
@@ -965,7 +960,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         
         content = textMessage.content;
         if ([textMessage.extra isEqualToString:@"打赏成功"]) {
-            [self requestTotalMoneyDataParameters:@{@"targetId" : self.liveModel.userId}];
+            [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
@@ -1086,6 +1081,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([collectionView isEqual:self.portraitsCollectionView]) {
         RCDLivePortraitViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"portraitcell" forIndexPath:indexPath];
+        cell.userInteractionEnabled = YES;
+        cell.portaitView.tag = 1000 + indexPath.row;
+        // 添加头像点击事件
+        [cell.portaitView addTarget:self action:@selector(showPersonDataImage:)];
         ChatBlackListModel *user = self.userList[indexPath.row];
         NSString *str = user.faceImg;
         [cell.portaitView sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
@@ -1186,15 +1185,16 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  *  @return
  */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([collectionView isEqual:self.portraitsCollectionView]) {
-        ChatBlackListModel *user = self.userList[indexPath.row];
-        [self showPersonDataView:[NSString stringWithFormat:@"%@", user.userId]];
-    }
+//    if ([collectionView isEqual:self.portraitsCollectionView]) {
+//        ChatBlackListModel *user = self.userList[indexPath.row];
+//        [self showPersonDataView:[NSString stringWithFormat:@"%@", user.userId]];
+//    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"aaaaaaaa");
 }
+
 
 /**
  *  将消息加入本地数组
@@ -1207,6 +1207,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
     if ([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
         return;
+    }
+
+    if ([rcMessage.content isMemberOfClass:[RCTextMessage class]]) {
+        RCTextMessage *notification = (RCTextMessage *)rcMessage.content;
+        if ([notification.extra isEqualToString:kPaySucceed]) {
+            return;
+        }
     }
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
     if([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]){
@@ -1298,16 +1305,16 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - UIGestureRecognizerDelegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    // 输出点击的view的类名
-    NSLog(@"%@", NSStringFromClass([touch.view class]));
-    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-    if ([NSStringFromClass([touch.view.superview class]) isEqualToString:@"RCDLivePortraitViewCell"]) {
-        return NO;
-    }
-    return  YES;
-}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+//    // 输出点击的view的类名
+//    NSLog(@"%@", NSStringFromClass([touch.view class]));
+//    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+//    if ([NSStringFromClass([touch.view.superview class]) isEqualToString:@"RCDLivePortraitViewCell"]) {
+//        return NO;
+//    }
+//    return  YES;
+//}
 
 #pragma mark - Install Notifiacation
 - (void)installMovieNotificationObservers {
@@ -1468,7 +1475,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
-                                @"price":@"0.01",
+                                @"price":@"0.1",
                                 };
     self.payMoney = payMoney;
     [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{

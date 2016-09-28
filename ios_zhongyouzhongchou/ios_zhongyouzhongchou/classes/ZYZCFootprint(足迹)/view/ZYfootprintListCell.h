@@ -13,6 +13,4 @@
 
 @property (nonatomic, strong) ZYFootprintListModel *listModel;
 
-@property (nonatomic, strong) ZYOneFootprintView  *oneFootprintView;
-
 @end
