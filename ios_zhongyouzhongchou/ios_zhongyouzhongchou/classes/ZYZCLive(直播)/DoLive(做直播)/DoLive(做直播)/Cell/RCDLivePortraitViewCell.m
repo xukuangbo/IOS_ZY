@@ -15,7 +15,7 @@
         self.portaitView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 35, 35)];
         self.portaitView.layer.cornerRadius = 35/2.0;
         self.portaitView.layer.masksToBounds = YES;
-        [self addSubview:self.portaitView];
+        [self.contentView addSubview:self.portaitView];
     }
     return self;
 }

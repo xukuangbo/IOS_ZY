@@ -20,14 +20,20 @@
 
 @class ZYLiveListModel;
 @class LivePersonDataView;
+@class showDashangMapView;
 
 @interface ZYWatchLiveViewController : ZYZCBaseViewController
 - (instancetype)initWatchLiveModel:(ZYLiveListModel *)liveModel;
 
 //个人信息view
 @property (nonatomic, strong) LivePersonDataView *personDataView;
-
+//打赏动图界面
+@property (nonatomic, strong) showDashangMapView *dashangMapView;
 #pragma mark - 会话属性
+// 个人信息array
+@property(nonatomic,strong)NSMutableArray *userList;
+// 直播信息model
+@property (nonatomic, strong) ZYLiveListModel *liveModel;
 
 /*!
  当前会话的会话类型
