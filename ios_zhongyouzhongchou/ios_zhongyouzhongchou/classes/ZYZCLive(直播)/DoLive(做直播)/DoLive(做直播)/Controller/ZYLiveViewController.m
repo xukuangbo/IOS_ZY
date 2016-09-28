@@ -140,6 +140,9 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     [self setUpLive];
     //进入聊天室
     [self enterChatRoom];
+    
+    
+    [self requestTotalMoneyDataParameters:nil];
 }
 
 #pragma mark - network 网络请求
@@ -1068,7 +1071,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         content = textMessage.content;
 //        if ([textMessage.content isEqualToString:kPaySucceed]) {
         if ([textMessage.extra isEqualToString:@"打赏成功"]) {
-//            [self requestTotalMoneyDataParameters:nil];
+            [self requestTotalMoneyDataParameters:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dashangMapView showDashangDataWithModelString:content];
             });

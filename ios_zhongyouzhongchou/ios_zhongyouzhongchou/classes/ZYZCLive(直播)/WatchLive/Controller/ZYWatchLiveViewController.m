@@ -36,6 +36,8 @@
 #import "WatchEndLiveModel.h"
 #import "ZYWatchLiveViewController+LivePersonView.h"
 #import "LivePersonDataView.h"
+#import "LiveMoneyView.h"
+#import "showDashangMapView.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -49,6 +51,10 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) id <IJKMediaPlayback> player;
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
 @property (nonatomic, strong) ZYWatchLiveView *watchLiveView;
+/** 总金额数据 */
+@property (nonatomic, strong) LiveMoneyView *liveMoneyView;
+//打赏动图界面
+@property (nonatomic, strong) showDashangMapView *dashangMapView;
 /**
  *  存储长按返回的消息的model
  */
@@ -154,6 +160,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self initLivePersonDataView];
     [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
+    
+    [self requestTotalMoneyDataParameters:@{@"targetId" : self.liveModel.userId}];
 }
 
 
@@ -286,6 +294,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [livePersonNumberView addSubview:imageView];
     //添加头像点击事件
     [imageView addTarget:self action:@selector(showPersonData)];
+    
+    //左上角总金额
+    _liveMoneyView = [[LiveMoneyView alloc] init];
+    _liveMoneyView.frame = CGRectMake(KEDGE_DISTANCE, livePersonNumberView.bottom + KEDGE_DISTANCE, 110, LiveMoneyViewH);
+    [self.view addSubview:_liveMoneyView];
+    _liveMoneyView.moneyLabel.text = @"打赏:0";
     
     self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
     self.chatroomlabel.numberOfLines = 2;
@@ -500,6 +514,28 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         }
     } andFailBlock:^(id failResult) {
         weakSelf.livePersonNumberView.hidden = NO;
+    }];
+}
+
+/** 请求总金额数据 */
+- (void)requestTotalMoneyDataParameters:(NSDictionary *)parameters {
+    //    zhibo/zhiboOrderTotle.action   streamName,spaceName  ，权限认证参数
+    WEAKSELF
+    NSString *url = Post_TotalMoney_Live;
+    
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            if (parameters.count == 0) {
+                weakSelf.liveMoneyView.moneyLabel.text = [NSString stringWithFormat:@"打赏:%.1f元", [result[@"data"] floatValue] / 100];
+            } else {
+                
+            }
+            DDLog(@"%@",result);
+        }else{
+        }
+    } andFailBlock:^(id failResult) {
+        
+        DDLog(@"%@",failResult);
     }];
 }
 
@@ -928,7 +964,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
         
         content = textMessage.content;
-        
+        if ([textMessage.extra isEqualToString:@"打赏成功"]) {
+            [self requestTotalMoneyDataParameters:@{@"targetId" : self.liveModel.userId}];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.dashangMapView showDashangDataWithModelString:content];
+            });
+            return ;
+        }
     } else if ([model.content isMemberOfClass:[RCInformationNotificationMessage class]]) {
         RCInformationNotificationMessage *textMessage = (RCInformationNotificationMessage *)model.content;
         content = textMessage.message;
