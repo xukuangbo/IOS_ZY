@@ -298,6 +298,7 @@
 		2C9AA6E21D3D2BAF0030A5B4 /* ZYCustomIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AA6E11D3D2BAF0030A5B4 /* ZYCustomIconView.m */; };
 		2C9C74071D9A170300D15DEF /* ZYUserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C74061D9A170300D15DEF /* ZYUserHeadView.m */; };
 		2C9C740A1D9A4BF600D15DEF /* ZYTravelTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C74091D9A4BF600D15DEF /* ZYTravelTypeView.m */; };
+		2C9C740D1D9A685600D15DEF /* ZYUserProductTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C740C1D9A685600D15DEF /* ZYUserProductTable.m */; };
 		2CA172061D0122030033A91A /* PersonHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA172051D0122030033A91A /* PersonHeadView.m */; };
 		2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD97981D1D0DCB000E4ED8 /* UserIconButton.m */; };
 		2CAD979F1D1D1BE3000E4ED8 /* TogetherUersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD979E1D1D1BE3000E4ED8 /* TogetherUersModel.m */; };
@@ -1129,6 +1130,8 @@
 		2C9C74061D9A170300D15DEF /* ZYUserHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYUserHeadView.m; sourceTree = "<group>"; };
 		2C9C74081D9A4BF600D15DEF /* ZYTravelTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYTravelTypeView.h; sourceTree = "<group>"; };
 		2C9C74091D9A4BF600D15DEF /* ZYTravelTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYTravelTypeView.m; sourceTree = "<group>"; };
+		2C9C740B1D9A685600D15DEF /* ZYUserProductTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYUserProductTable.h; sourceTree = "<group>"; };
+		2C9C740C1D9A685600D15DEF /* ZYUserProductTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYUserProductTable.m; sourceTree = "<group>"; };
 		2CA172041D0122030033A91A /* PersonHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonHeadView.h; sourceTree = "<group>"; };
 		2CA172051D0122030033A91A /* PersonHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonHeadView.m; sourceTree = "<group>"; };
 		2CAD97971D1D0DCB000E4ED8 /* UserIconButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIconButton.h; sourceTree = "<group>"; };
@@ -3358,6 +3361,8 @@
 				2C9C74061D9A170300D15DEF /* ZYUserHeadView.m */,
 				2CC78A841D994AF300CC04E2 /* ZYUserBottomBarView.h */,
 				2CC78A851D994AF300CC04E2 /* ZYUserBottomBarView.m */,
+				2C9C740B1D9A685600D15DEF /* ZYUserProductTable.h */,
+				2C9C740C1D9A685600D15DEF /* ZYUserProductTable.m */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -5109,6 +5114,7 @@
 				39911ACC1D504174007DF44B /* UIView+ZYZCLineView.m in Sources */,
 				2C91B6691D9155140091EC79 /* ZYCommentFootprintController.m in Sources */,
 				2C90F6F81D533579001ABB44 /* ZYZCMsgDetailViewController.m in Sources */,
+				2C9C740D1D9A685600D15DEF /* ZYUserProductTable.m in Sources */,
 				051666B91D9388E0001ED976 /* ZYSystemCommon.m in Sources */,
 				2C8B19741D0CF7EC0063097B /* JGProgressHUDImageIndicatorView.m in Sources */,
 				39911ACA1D504174007DF44B /* UIView+GetSuperTableView.m in Sources */,

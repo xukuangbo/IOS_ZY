@@ -29,8 +29,6 @@
 @property (nonatomic, strong) UIImageView     *sexImg;
 @property (nonatomic, strong) UILabel         *userInfoLab;
 
-@property (nonatomic, strong) UISegmentedControl *segmentView;
-
 @end
 
 @implementation ZYUserHeadView
@@ -266,5 +264,37 @@
     mineInfoSetVietrroller.hidesBottomBarWhenPushed=YES;
     [self.viewController.navigationController pushViewController:mineInfoSetVietrroller animated:YES];
 }
+
+#pragma mark --- 控件随tableView的contentOffSet而改变
+-(void)setProsuctTableOffSetY:(CGFloat)prosuctTableOffSetY
+{
+    _prosuctTableOffSetY=prosuctTableOffSetY;
+    if (_userZoomType==OtherZoomType) {
+        if (prosuctTableOffSetY>=-(User_Head_Height)&&prosuctTableOffSetY<=64-User_Head_Height) {
+            CGFloat rate=MIN(1, (prosuctTableOffSetY+User_Head_Height)/64);
+            _iconImgView.alpha=1-rate;
+        }
+        if (prosuctTableOffSetY>=-(User_Head_Height)&&prosuctTableOffSetY<=_iconImgView.height+KEDGE_DISTANCE-User_Head_Height) {
+            CGFloat rate=MIN(1, (prosuctTableOffSetY+User_Head_Height)/(_iconImgView.height+KEDGE_DISTANCE));
+            _baseInfoView.alpha=1-rate;
+        }
+    }
+}
+
+-(void)setFootprintTableOffSetY:(CGFloat)footprintTableOffSetY
+{
+    _footprintTableOffSetY=footprintTableOffSetY;
+    if (footprintTableOffSetY>=-(My_User_Head_height)&&
+        footprintTableOffSetY<=64-My_User_Head_height) {
+        CGFloat rate=MIN(1, (footprintTableOffSetY+My_User_Head_height)/64);
+            _iconImgView.alpha=1-rate;
+    }
+    if (footprintTableOffSetY>=-(My_User_Head_height)&&footprintTableOffSetY<_iconImgView.height+KEDGE_DISTANCE-My_User_Head_height) {
+            CGFloat rate=MIN(1, (footprintTableOffSetY+My_User_Head_height)/(_iconImgView.height+KEDGE_DISTANCE));
+        _baseInfoView.alpha=1-rate;
+    }
+
+}
+
 
 @end
