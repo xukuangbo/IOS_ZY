@@ -106,6 +106,16 @@
 
 - (IBAction)deleteAction:(id)sender {
     
+    //删除视频
+    NSDictionary *parameters = @{
+                                 @"spaceName" : self.liveEndLiveModel.spaceName,
+                                 @"streamName" : self.liveEndLiveModel.streamName
+                                 };
     
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Del_Live andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        DDLog(@"%@",result);
+    } andFailBlock:^(id failResult) {
+        DDLog(@"%@",failResult);
+    }];
 }
 @end

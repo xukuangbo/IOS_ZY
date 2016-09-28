@@ -46,15 +46,12 @@
 UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate,
 UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate, ZYBottomPayViewDelegate>
-@property (nonatomic, strong) ZYLiveListModel *liveModel;
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) id <IJKMediaPlayback> player;
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
 @property (nonatomic, strong) ZYWatchLiveView *watchLiveView;
 /** 总金额数据 */
 @property (nonatomic, strong) LiveMoneyView *liveMoneyView;
-//打赏动图界面
-@property (nonatomic, strong) showDashangMapView *dashangMapView;
 /**
  *  存储长按返回的消息的model
  */
@@ -113,7 +110,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 // 关注按钮
 @property (nonatomic, strong) UIButton *attentionButton;
 @property(nonatomic,strong) UICollectionView *portraitsCollectionView;
-@property(nonatomic,strong)NSMutableArray *userList;
 // 打赏view
 @property (nonatomic, strong) ZYBottomPayView *payView;
 // 判断是不是进入私聊界面
@@ -161,7 +157,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
     
-    [self requestTotalMoneyDataParameters:@{@"targetId" : self.liveModel.userId}];
+    [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
 }
 
 
@@ -223,7 +219,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                  initWithTarget:self
                                  action:@selector(tap4ResetDefaultBottomBarStatus:)];
 //    [self.resetBottomTapGesture setDelegate:self];
-//    [self.view addGestureRecognizer:self.resetBottomTapGesture];
+    [self.view addGestureRecognizer:self.resetBottomTapGesture];
     
     //聊天区
     if(self.contentView == nil){
@@ -326,10 +322,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     CGFloat memberHeadListViewY = livePersonNumberView.frame.origin.x + livePersonNumberView.frame.size.width;
-    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
+    self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.portraitsCollectionView.delegate = self;
     self.portraitsCollectionView.dataSource = self;
-//    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
+    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.portraitsCollectionView];
 
 }
@@ -528,11 +524,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
-            if (parameters.count == 0) {
-                weakSelf.liveMoneyView.moneyLabel.text = [NSString stringWithFormat:@"打赏:%.1f元", [result[@"data"] floatValue] / 100];
-            } else {
-                
-            }
+            weakSelf.liveMoneyView.moneyLabel.text = [NSString stringWithFormat:@"打赏:%.1f元", [result[@"data"] floatValue] / 100];
             DDLog(@"%@",result);
         }else{
         }
@@ -968,7 +960,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         
         content = textMessage.content;
         if ([textMessage.extra isEqualToString:@"打赏成功"]) {
-            [self requestTotalMoneyDataParameters:@{@"targetId" : self.liveModel.userId}];
+            [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
@@ -1090,6 +1082,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if ([collectionView isEqual:self.portraitsCollectionView]) {
         RCDLivePortraitViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"portraitcell" forIndexPath:indexPath];
         cell.userInteractionEnabled = YES;
+        cell.portaitView.tag = 1000 + indexPath.row;
+        // 添加头像点击事件
+        [cell.portaitView addTarget:self action:@selector(showPersonDataImage:)];
         ChatBlackListModel *user = self.userList[indexPath.row];
         NSString *str = user.faceImg;
         [cell.portaitView sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
@@ -1190,10 +1185,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
  *  @return
  */
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    if ([collectionView isEqual:self.portraitsCollectionView]) {
-        ChatBlackListModel *user = self.userList[indexPath.row];
-        [self showPersonDataView:[NSString stringWithFormat:@"%@", user.userId]];
-    }
+//    if ([collectionView isEqual:self.portraitsCollectionView]) {
+//        ChatBlackListModel *user = self.userList[indexPath.row];
+//        [self showPersonDataView:[NSString stringWithFormat:@"%@", user.userId]];
+//    }
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
@@ -1212,6 +1207,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
     if ([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]) {
         return;
+    }
+
+    if ([rcMessage.content isMemberOfClass:[RCTextMessage class]]) {
+        RCTextMessage *notification = (RCTextMessage *)rcMessage.content;
+        if ([notification.extra isEqualToString:kPaySucceed]) {
+            return;
+        }
     }
     RCDLiveMessageModel *model = [[RCDLiveMessageModel alloc] initWithMessage:rcMessage];
     if([rcMessage.content isMemberOfClass:[RCDLiveGiftMessage class]]){
@@ -1473,7 +1475,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
-                                @"price":@"0.01",
+                                @"price":@"0.1",
                                 };
     self.payMoney = payMoney;
     [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{

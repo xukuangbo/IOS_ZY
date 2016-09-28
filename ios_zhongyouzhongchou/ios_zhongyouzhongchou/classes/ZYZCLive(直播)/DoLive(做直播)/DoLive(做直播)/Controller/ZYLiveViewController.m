@@ -235,6 +235,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     endModel.totalPeopleCount = self.userList.count;
     endModel.totalOnlinePeopleNumber = self.userList.count;
     endModel.totalMoneyCount = totalMoneyCount;
+    endModel.spaceName = self.createLiveModel.spaceName;
+    endModel.streamName = self.createLiveModel.streamName;
     endVC.liveEndLiveModel = endModel;
     [self.navigationController pushViewController:endVC animated:YES];
 }
@@ -897,6 +899,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 #pragma mark --- UICollectionView被选中时调用的方法
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
 }
 
 

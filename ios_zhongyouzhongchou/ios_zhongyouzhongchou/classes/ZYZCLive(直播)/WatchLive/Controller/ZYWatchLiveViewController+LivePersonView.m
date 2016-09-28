@@ -12,7 +12,9 @@
 #import "ZYZCPersonalController.h"
 #import "MinePersonSetUpModel.h"
 #import "MBProgressHUD+MJ.h"
-
+#import "showDashangMapView.h"
+#import "ChatBlackListModel.h"
+#import "ZYLiveListModel.h"
 @implementation ZYWatchLiveViewController (LivePersonView)
 - (void)initLivePersonDataView
 {
@@ -32,6 +34,10 @@
     [self.personDataView.attentionButton addTarget:self action:@selector(clickAttentionButton:) forControlEvents:UIControlEventTouchUpInside];
     
     self.personDataView.bannedSpeakButton.hidden = YES;
+    
+    //打赏界面
+    self.dashangMapView = [[showDashangMapView alloc] initWithFrame:CGRectMake(KEDGE_DISTANCE, self.contentView.top - showDashangMapViewH, showDashangMapViewW, showDashangMapViewH)];
+    [self.view addSubview:self.dashangMapView];
 }
 
 #pragma mark - netWork
@@ -64,17 +70,26 @@
 
 
 #pragma mark - event
+
 // 展示个人头像
-- (void)showPersonDataView:(NSString *)userId
+- (void)showPersonDataImage:(UITapGestureRecognizer *)sender
 {
+    ChatBlackListModel *user = self.userList[sender.view.tag - 1000];
     [self.personDataView showPersonData];
-    [self requestData:userId];
+    if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue]) {
+        self.personDataView.attentionButton.hidden = YES;
+        [self.personDataView setHeight:298];
+    } else {
+        self.personDataView.attentionButton.hidden = NO;
+        [self.personDataView setHeight:340];
+    }
+    [self requestData:[NSString stringWithFormat:@"%@", user.userId]];
 }
 
 - (void)showPersonData
 {
     [self.personDataView showPersonData];
-    [self requestData:[ZYZCAccountTool getUserId]];
+    [self requestData:[NSString stringWithFormat:@"%@", self.liveModel.userId]];
 }
 // 进入个人空间界面
 - (void)clickEnterRoomButton:(UIButton *)sender

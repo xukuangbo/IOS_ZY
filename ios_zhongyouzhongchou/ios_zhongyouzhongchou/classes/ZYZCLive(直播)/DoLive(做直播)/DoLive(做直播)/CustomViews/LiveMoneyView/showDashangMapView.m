@@ -37,7 +37,7 @@
 - (void)setupViews{
 //    self.backgroundColor = [UIColor greenColor];
     
-//    self.clipsToBounds = YES;
+    self.clipsToBounds = YES;
     
     _firstView = [[showDashangView alloc] initWithFrame:CGRectMake(-showDashangMapViewW - KEDGE_DISTANCE, 0, showDashangMapViewW, showDashangMapViewH)];
     [self addSubview:_firstView];
