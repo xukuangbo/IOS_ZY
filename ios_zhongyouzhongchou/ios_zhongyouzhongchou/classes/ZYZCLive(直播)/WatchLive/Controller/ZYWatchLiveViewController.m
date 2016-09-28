@@ -160,6 +160,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self setClearNavigationBar:YES];
+    [self.conversationMessageCollectionView reloadData];
     if (![self.player isPlaying] && !self.isMessage) {
         [self.player prepareToPlay];
     }
@@ -210,6 +211,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark - setup
 - (void)setupView
 {
+    self.resetBottomTapGesture =[[UITapGestureRecognizer alloc]
+                                 initWithTarget:self
+                                 action:@selector(tap4ResetDefaultBottomBarStatus:)];
+//    [self.resetBottomTapGesture setDelegate:self];
+//    [self.view addGestureRecognizer:self.resetBottomTapGesture];
+    
     //聊天区
     if(self.contentView == nil){
         CGRect contentViewFrame = CGRectMake(0, self.view.bounds.size.height-237, self.view.bounds.size.width,237);
@@ -258,12 +265,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self registerClass:[RCDLiveTipMessageCell class]forCellWithReuseIdentifier:RCDLiveTipMessageCellIndentifier];
     [self registerClass:[RCDLiveGiftMessageCell class]forCellWithReuseIdentifier:RCDLiveGiftMessageCellIndentifier];
     [self changeModel:YES];
-    self.resetBottomTapGesture =[[UITapGestureRecognizer alloc]
-                             initWithTarget:self
-                             action:@selector(tap4ResetDefaultBottomBarStatus:)];
-    [self.resetBottomTapGesture setDelegate:self];
-    [self.view addGestureRecognizer:self.resetBottomTapGesture];
-    self.watchLiveView = [[ZYWatchLiveView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    
+    self.watchLiveView = [[ZYWatchLiveView alloc] initWithFrame:CGRectMake(0, ScreenHeight - 80, ScreenWidth, 80)];
     [self.view addSubview:self.watchLiveView];
     [self.watchLiveView.closeLiveButton addTarget:self action:@selector(closeLiveButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.watchLiveView.feedBackBtn addTarget:self
@@ -312,7 +315,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectMake(memberHeadListViewY,30,self.view.frame.size.width - memberHeadListViewY,35) collectionViewLayout:layout];
     self.portraitsCollectionView.delegate = self;
     self.portraitsCollectionView.dataSource = self;
-    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
+//    self.portraitsCollectionView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.portraitsCollectionView];
 
 }
@@ -368,7 +371,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         make.height.equalTo(@40);
     }];
     [self.portraitsCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.livePersonNumberView).offset(10);
+        make.left.equalTo(self.view).offset(150);
         make.top.equalTo(self.view).offset(30);
         make.width.equalTo(@(KSCREEN_W - 135));
         make.height.equalTo(@35);
@@ -613,7 +616,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)praiseHeart{
     UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , self.watchLiveView.closeLiveButton.frame.origin.y - 49, 35, 35);
+    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , ScreenHeight - 90, 35, 35);
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
     [self.view addSubview:imageView];
@@ -1044,6 +1047,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([collectionView isEqual:self.portraitsCollectionView]) {
         RCDLivePortraitViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"portraitcell" forIndexPath:indexPath];
+        cell.userInteractionEnabled = YES;
         ChatBlackListModel *user = self.userList[indexPath.row];
         NSString *str = user.faceImg;
         [cell.portaitView sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
@@ -1154,6 +1158,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSLog(@"aaaaaaaa");
 }
 
+
 /**
  *  将消息加入本地数组
  *
@@ -1256,16 +1261,16 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - UIGestureRecognizerDelegate
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-{
-    // 输出点击的view的类名
-    NSLog(@"%@", NSStringFromClass([touch.view class]));
-    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
-    if ([NSStringFromClass([touch.view.superview class]) isEqualToString:@"RCDLivePortraitViewCell"]) {
-        return NO;
-    }
-    return  YES;
-}
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+//{
+//    // 输出点击的view的类名
+//    NSLog(@"%@", NSStringFromClass([touch.view class]));
+//    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+//    if ([NSStringFromClass([touch.view.superview class]) isEqualToString:@"RCDLivePortraitViewCell"]) {
+//        return NO;
+//    }
+//    return  YES;
+//}
 
 #pragma mark - Install Notifiacation
 - (void)installMovieNotificationObservers {
