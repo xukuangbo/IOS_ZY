@@ -187,9 +187,12 @@
     {
         __weak typeof (&*self)weakSelf=self;
         [picker dismissViewControllerAnimated:YES completion:^{
-            UIImage *photoImage =[info objectForKey:UIImagePickerControllerOriginalImage];
+            UIImage *photoImage=[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]];
+            UIImage *compressImage=[self compressImage:photoImage];
+            NSData *imageData=UIImageJPEGRepresentation(compressImage, 1.0);
+            DDLog(@"newImageData.length:%ld",imageData.length);
             ZYPublishFootprintController  *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-            publishFootprintController.images=@[photoImage];
+            publishFootprintController.images=@[compressImage];
             publishFootprintController.footprintType=Footprint_PhotoType;
             [weakSelf.viewController presentViewController:publishFootprintController animated:YES completion:nil];
         }];
@@ -259,6 +262,19 @@
         }];
     });
 }
+
+#pragma mark --- 压缩image最大为512k
+- (UIImage *)compressImage:(UIImage *)image
+{
+    NSInteger maxLength=512*1024;
+    NSData *imgData=nil;
+    imgData=UIImageJPEGRepresentation(image, 1.0);
+    DDLog(@"imgData.length:%ld",imgData.length);
+    float scale=(float)maxLength/(float)imgData.length;
+    imgData=UIImageJPEGRepresentation(image, MIN(1.0, scale));
+    return  [UIImage imageWithData:imgData];
+}
+
 
 -(void)dealloc
 {
