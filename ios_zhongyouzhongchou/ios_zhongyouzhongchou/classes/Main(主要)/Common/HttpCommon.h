@@ -317,5 +317,9 @@
 #define GET_LIVE_CONTENT   [NSString stringWithFormat:@"%@zhibo/getZHibo.action",BASE_URL]
 // 获取最近的一次直播关联行程内容
 #define Get_Live_FaqiXC   [NSString stringWithFormat:@"%@productInfo/getMyLastProduct.action",BASE_URL]
+// 删除视频
+#define Post_Del_Live   [NSString stringWithFormat:@"%@zhibo/delZhibo.action",BASE_URL]
+
+
 
 #endif /* HttpCommon_h */
