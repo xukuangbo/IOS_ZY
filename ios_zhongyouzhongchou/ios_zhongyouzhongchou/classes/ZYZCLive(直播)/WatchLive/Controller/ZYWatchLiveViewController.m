@@ -649,21 +649,24 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     imageView.clipsToBounds = YES;
     [self.view addSubview:imageView];
     
-    CGFloat startX = round(random() % 200);
-    CGFloat scale = round(random() % 2) + 1.0;
-    CGFloat speed = 1 / round(random() % 900) + 0.6;
+    CGFloat startX = round(random() % (int)(kBounds.width * 0.5)) + 20;
+    CGFloat scale = round(random() % 2) + 0.5;
+    //    CGFloat speed = 1 / round(random() % 900) + 0.6;
     int imageName = round(random() % 7);
     NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
     
-    [UIView beginAnimations:nil context:(__bridge void *_Nullable)(imageView)];
-    [UIView setAnimationDuration:7 * speed];
-    
     imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
-    imageView.frame = CGRectMake(KSCREEN_W - startX, -100, 35 * scale, 35 * scale);
-    
-    [UIView setAnimationDidStopSelector:@selector(onAnimationComplete:finished:context:)];
-    [UIView setAnimationDelegate:self];
-    [UIView commitAnimations];
+    [UIView animateKeyframesWithDuration:1.5 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
+        imageView.frame = CGRectMake((kBounds.width - startX), kBounds.height * 0.5 , 35 * scale, 35 * scale);
+    } completion:^(BOOL finished) {
+        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
+            imageView.top = kBounds.height * 0.25;
+            imageView.alpha = 0;
+            
+        } completion:^(BOOL finished) {
+            [imageView removeFromSuperview];
+        }];
+    }];
 }
 
 /**

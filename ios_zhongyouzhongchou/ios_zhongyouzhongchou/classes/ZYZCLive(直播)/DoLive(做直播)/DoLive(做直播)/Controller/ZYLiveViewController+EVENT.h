@@ -17,6 +17,8 @@
  */
 - (void)showPersonData;
 
+- (void)showPersonDataImage:(UITapGestureRecognizer *)sender;
+
 - (void)messageBtnAction:(UIButton *)sender;
 
 - (void)shareBtnAction:(UIButton *)sender;
