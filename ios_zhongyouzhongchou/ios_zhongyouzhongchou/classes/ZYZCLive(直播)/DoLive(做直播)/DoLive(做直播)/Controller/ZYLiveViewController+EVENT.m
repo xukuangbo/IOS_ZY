@@ -8,7 +8,7 @@
 
 #import "ZYLiveViewController+EVENT.h"
 #import "RCDLiveTextMessageCell.h"
-#import "ZYZCPersonalController.h"
+#import "ZYUserZoneController.h"
 #import "MinePersonSetUpModel.h"
 #import "MBProgressHUD+MJ.h"
 #import <CommonCrypto/CommonDigest.h>
@@ -217,10 +217,10 @@
 - (void)clickEnterRoomButton:(UIButton *)sender
 {
     self.navigationController.navigationBar.hidden = NO;
-    ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
-    personalController.hidesBottomBarWhenPushed=YES;
-    personalController.userId = [NSNumber numberWithInteger:[self.personDataView.minePersonModel.userId intValue]];
-    [self.navigationController pushViewController:personalController animated:YES];
+    ZYUserZoneController *userZoneController=[[ZYUserZoneController alloc]init];
+    userZoneController.hidesBottomBarWhenPushed=YES;
+    userZoneController.friendID=[NSNumber numberWithInteger:[self.personDataView.minePersonModel.userId intValue]];
+    [self.navigationController pushViewController:userZoneController animated:YES];
 
 }
 // 进入众筹详情

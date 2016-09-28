@@ -9,7 +9,8 @@
 #import "ZYFootprintOneCommentCell.h"
 #import "ZCDetailCustomButton.h"
 #import "LoginJudgeTool.h"
-#import "ZYZCPersonalController.h"
+//#import "ZYZCPersonalController.h"
+#import "ZYUserZoneController.h"
 #import "TTTAttributedLabel.h"
 @interface ZYFootprintOneCommentCell()<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) UIView                *bgView;
@@ -144,13 +145,12 @@
    didSelectLinkWithURL:(NSURL *)url
 {
     if ([url.absoluteString isEqual:@"userName"]) {
-        ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
-        personalController.hidesBottomBarWhenPushed=YES;
-        personalController.userId=_oneCommentModel.replyUserId;
-        [self.viewController.navigationController pushViewController:personalController animated:YES];
+        ZYUserZoneController *userZoneController=[[ZYUserZoneController alloc]init];
+        userZoneController.hidesBottomBarWhenPushed=YES;
+        userZoneController.friendID=_oneCommentModel.replyUserId;
+        [self.viewController.navigationController pushViewController:userZoneController animated:YES];
     }
 }
-
 
 -(void)enterUserZone:(NSNumber *)userId
 {
@@ -159,11 +159,12 @@
         return;
     }
     //进入他人空间
-    ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
-    personalController.hidesBottomBarWhenPushed=YES;
-    personalController.userId=userId;
-
-    [self.viewController.navigationController pushViewController:personalController animated:YES];
+    ZYUserZoneController *userZoneController=[[ZYUserZoneController alloc]init];
+    userZoneController.hidesBottomBarWhenPushed=YES;
+    userZoneController.friendID=userId;
+    [self.viewController.navigationController pushViewController:userZoneController animated:YES];
+    
+    
 }
 
 @end
