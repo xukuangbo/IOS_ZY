@@ -37,8 +37,8 @@
 {
     if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _dataArr=[NSMutableArray array];
-        NSArray *iconNames=@[@"tag",@"icon_wallet",@"icon_message",@"icon_trip",@"icon_reture",@"draft",@"icon_destination",@"icon_man",@"icon_man"];
-        NSArray *titles=@[@"我的旅行标签",@"我的钱包",@"私信",@"我的行程",@"我的回报",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人",@"足迹👣"];
+        NSArray *iconNames=@[@"icon_trip",@"icon_reture",@"icon_wallet",@"tag",@"icon_message",@"draft",@"icon_destination",@"icon_man",@"icon_man"];
+        NSArray *titles=@[@"我的行程",@"我的回报",@"我的钱包",@"我的旅行标签",@"私信",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人"];
 
         for (int i=0; i<CELL_NUMBER; i++) {
             MineOneItemModel *itemModel=[[MineOneItemModel alloc]init];
@@ -110,32 +110,35 @@
     }
     
     if (indexPath.row==0) {
-        [self.viewController.navigationController pushViewController:[[MineTravelTagVC alloc] init] animated:YES];
-    }
-    if (indexPath.row==1) {
-        //我的钱包
-         [self.viewController.navigationController pushViewController:[[MineWalletVc alloc] init] animated:YES];
-    }
-    else if (indexPath.row==2)
-    {
-        //私信
-        ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
-        [RCManager getMyConversationListWithSupperController:self.viewController];
-    }
-    else if (indexPath.row==3)
-    {
         //我的行程
         MyProductViewController *myTravelVC=[[MyProductViewController alloc]init];
         myTravelVC.hidesBottomBarWhenPushed=YES;
         [self.viewController.navigationController pushViewController:myTravelVC animated:YES];
     }
-    else if(indexPath.row==4)
-    {
+    if (indexPath.row==1) {
         //我的回报
         MyReturnViewController *returnViewController=[[MyReturnViewController alloc]init];
         returnViewController.productType=MyReturnProduct;
         returnViewController.hidesBottomBarWhenPushed=YES;
         [self.viewController.navigationController pushViewController:returnViewController animated:YES];
+
+        
+    }
+    else if (indexPath.row==2)
+    {
+        //我的钱包
+        [self.viewController.navigationController pushViewController:[[MineWalletVc alloc] init] animated:YES];
+    }
+    else if (indexPath.row==3)
+    {
+        //标签
+        [self.viewController.navigationController pushViewController:[[MineTravelTagVC alloc] init] animated:YES];
+    }
+    else if(indexPath.row==4)
+    {
+        //私信
+        ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
+        [RCManager getMyConversationListWithSupperController:self.viewController];
     }
     else if (indexPath.row==5)
     {
@@ -144,7 +147,6 @@
         myDraftController.productType=MyDraftProduct;
         myDraftController.hidesBottomBarWhenPushed=YES;
         [self.viewController.navigationController pushViewController:myDraftController animated:YES];
-       
     }
     else if (indexPath.row==6)
     {
@@ -157,13 +159,6 @@
         //我关注的旅行达人
         MyUserFollowedVC *myUserFollowedVC = [[MyUserFollowedVC alloc] init];
         [self.viewController.navigationController pushViewController:myUserFollowedVC animated:YES];
-    }
-    else if(indexPath.row==8)
-    {
-        //足迹
-        ZYFootprintController *footprintController = [[ZYFootprintController alloc] init];
-        footprintController.hidesBottomBarWhenPushed=YES;
-        [self.viewController.navigationController pushViewController:footprintController animated:YES];
     }
 }
 
