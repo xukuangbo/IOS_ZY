@@ -4,54 +4,6 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/CustomViews/LiveMoneyView/showDashangView.m"
-            timestampString = "496663182.256796"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "108"
-            endingLineNumber = "108"
-            landmarkName = "-setDashangModel:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[showDashangView setDashangModel:]"
-                  moduleName = "&#x4f17;&#x6e38;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/syk/Desktop/IOS_ZY/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCLive(%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/CustomViews/LiveMoneyView/showDashangView.m"
-                  timestampString = "496735950.629509"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "64">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__35-[showDashangView setDashangModel:]_block_invoke"
-                  moduleName = "&#x4f17;&#x6e38;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/syk/Desktop/IOS_ZY/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCLive(%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/CustomViews/LiveMoneyView/showDashangView.m"
-                  timestampString = "496735950.629816"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "108"
-                  endingLineNumber = "108"
-                  offsetFromSymbolStart = "50">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
@@ -59,6 +11,102 @@
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
+            timestampString = "496742109.754391"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "902"
+            endingLineNumber = "902"
+            landmarkName = "-collectionView:didSelectItemAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/EndLive(&#x76f4;&#x64ad;&#x7ed3;&#x675f;)/ZYLIveEndLiveVC/ZYLiveEndLiveVC.m"
+            timestampString = "496742109.754391"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "-deleteAction:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/EndLive(&#x76f4;&#x64ad;&#x7ed3;&#x675f;)/ZYLIveEndLiveVC/ZYLiveEndLiveVC.m"
+            timestampString = "496742109.754391"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "-deleteAction:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/EndLive(&#x76f4;&#x64ad;&#x7ed3;&#x675f;)/ZYLIveEndLiveVC/ZYLiveEndLiveVC.m"
+            timestampString = "496742191.973372"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "-deleteAction:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[ZYLiveEndLiveVC deleteAction:]"
+                  moduleName = "&#x4f17;&#x6e38;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/syk/Desktop/IOS_ZY/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCLive(%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/EndLive(%E7%9B%B4%E6%92%AD%E7%BB%93%E6%9D%9F)/ZYLIveEndLiveVC/ZYLiveEndLiveVC.m"
+                  timestampString = "496742191.98677"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "115"
+                  endingLineNumber = "115"
+                  offsetFromSymbolStart = "424">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__32-[ZYLiveEndLiveVC deleteAction:]_block_invoke"
+                  moduleName = "&#x4f17;&#x6e38;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/syk/Desktop/IOS_ZY/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCLive(%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/EndLive(%E7%9B%B4%E6%92%AD%E7%BB%93%E6%9D%9F)/ZYLIveEndLiveVC/ZYLiveEndLiveVC.m"
+                  timestampString = "496742191.987247"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "116"
+                  endingLineNumber = "116"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
