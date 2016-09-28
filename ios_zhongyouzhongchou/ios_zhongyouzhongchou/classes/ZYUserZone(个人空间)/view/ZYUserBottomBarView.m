@@ -34,6 +34,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.height=49;
+        self.backgroundColor=[UIColor ZYZC_BgGrayColor];
         [self configUI];
     }
     return self;
