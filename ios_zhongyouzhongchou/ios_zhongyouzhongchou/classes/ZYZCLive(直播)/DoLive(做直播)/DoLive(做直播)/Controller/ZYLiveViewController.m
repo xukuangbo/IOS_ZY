@@ -82,9 +82,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 @property(nonatomic,strong)UIButton *clapBtn;
 
 @property(nonatomic,strong)UICollectionView *portraitsCollectionView;
-
-@property(nonatomic,strong)NSMutableArray *userList;
-
 @end
 
 #pragma mark - 方法实现
@@ -202,31 +199,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     }];
 }
 
-// 获取个人信息.获取个人中心数据
-- (void)requestData:(NSString *)otherUserId
-{
-    NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *getUserInfoURL = Get_SelfInfo(userId, otherUserId);
-    WEAKSELF
-    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        if (isSuccess) {
-            NSDictionary *dic = (NSDictionary *)result;
-            NSDictionary *data = dic[@"data"];
-            if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]){
-                [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
-            }
-            MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
-            minePersonModel.gzMeAll = data[@"gzMeAll"];
-            minePersonModel.meGzAll = data[@"meGzAll"];
-            weakSelf.personDataView.minePersonModel = minePersonModel;
-        } else {
-            NSLog(@"bbbbbbb");
-        }
-    } andFailBlock:^(id failResult) {
-        NSLog(@"aaaaaaa");
-    }];
-}
-
 - (void)enterLiveEndVC:(NSString *)totalMoneyCount
 {
     ZYLiveEndLiveVC *endVC = [[ZYLiveEndLiveVC alloc] init];
@@ -267,7 +239,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 //直播
 -(void)setUpLive{
-    [self requestData:@"2454"];
     DDLog(@"kPushUrl:%@",_pushUrl);
     QPLConfiguration *configuration = [[QPLConfiguration alloc] init];
     //推流地址
@@ -813,6 +784,9 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if ([collectionView isEqual:self.portraitsCollectionView]) {
         RCDLivePortraitViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"portraitcell" forIndexPath:indexPath];
+        cell.portaitView.tag = 1000 + indexPath.row;
+        // 添加头像点击事件
+        [cell.portaitView addTarget:self action:@selector(showPersonDataImage:)];
         ChatBlackListModel *user = self.userList[indexPath.row];
         NSString *str = user.faceImg;
         [cell.portaitView sd_setImageWithURL:[NSURL URLWithString:str] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
@@ -899,7 +873,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 #pragma mark --- UICollectionView被选中时调用的方法
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"aaaaaaa");
 }
 
 
@@ -1275,7 +1249,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     imageView.backgroundColor = [UIColor clearColor];
     imageView.clipsToBounds = YES;
     [self.view addSubview:imageView];
-    
     
     CGFloat startX = round(random() % (int)(kBounds.width * 0.5)) + 20;
     CGFloat scale = round(random() % 2) + 0.5;

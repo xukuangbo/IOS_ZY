@@ -13,6 +13,6 @@
  *  展示个人头像
  */
 - (void)showPersonData;
-- (void)showPersonDataImage:(UIImageView *)sender;
+- (void)showPersonDataImage:(UITapGestureRecognizer *)sender;
 - (void)requestData:(NSString *)userId;
 @end

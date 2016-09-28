@@ -66,11 +66,7 @@
     }];
 }
 
-
-
-
 #pragma mark - event
-
 // 展示个人头像
 - (void)showPersonDataImage:(UITapGestureRecognizer *)sender
 {
