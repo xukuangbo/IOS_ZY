@@ -138,16 +138,6 @@
     
     footprintCell.listModel=cellModel;
     
-    WEAKSELF;
-    //删除操作
-    footprintCell.oneFootprintView.deleteFootprint=^(ZYFootprintListModel *oneFootprintModel)
-    {
-        NSMutableArray *mutArr= [NSMutableArray arrayWithArray:weakSelf.dataArr];
-        [mutArr removeObject:oneFootprintModel];
-        weakSelf.dataArr=mutArr;
-        [weakSelf reloadData];
-    };
-    
     return footprintCell;
 }
 
@@ -193,6 +183,7 @@
         }
     }
 }
+
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {

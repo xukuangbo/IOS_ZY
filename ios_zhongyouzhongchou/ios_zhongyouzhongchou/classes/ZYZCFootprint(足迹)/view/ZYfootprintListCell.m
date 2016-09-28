@@ -8,7 +8,9 @@
 
 #import "ZYfootprintListCell.h"
 #import "MBProgressHUD+MJ.h"
+
 @interface ZYfootprintListCell ()
+@property (nonatomic, strong) ZYOneFootprintView  *oneFootprintView;
 @property (nonatomic, strong) UIImageView        *bgImage;
 @property (nonatomic, strong) UILabel            *timeLab;
 @property (nonatomic, strong) UIView             *lineView;

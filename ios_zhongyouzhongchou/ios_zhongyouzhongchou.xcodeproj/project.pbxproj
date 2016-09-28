@@ -132,6 +132,8 @@
 		2C066A791D87D6240048FAE4 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A771D87D6240048FAE4 /* TestViewController.xib */; };
 		2C0A20C91D585D7700E6CE40 /* ChatUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A20C81D585D7700E6CE40 /* ChatUserModel.m */; };
 		2C0A20CC1D585DF100E6CE40 /* ChatUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A20CB1D585DF100E6CE40 /* ChatUserInfoModel.m */; };
+		2C18C7CA1D9B96B500CCE330 /* ZYMineZoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18C7C91D9B96B500CCE330 /* ZYMineZoomController.m */; };
+		2C18C7CD1D9B9C6000CCE330 /* ZYMineBusinessTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18C7CC1D9B9C6000CCE330 /* ZYMineBusinessTable.m */; };
 		2C1A99FF1D1BC26E00B62B39 /* ParterStatusBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1A99FE1D1BC26E00B62B39 /* ParterStatusBtn.m */; };
 		2C1B60CC1D6D3CF900E3C25B /* ChooseSceneImgController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B603E1D6D3CF900E3C25B /* ChooseSceneImgController.m */; };
 		2C1B60CD1D6D3CF900E3C25B /* ChooseSiteImgController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B60401D6D3CF900E3C25B /* ChooseSiteImgController.m */; };
@@ -799,6 +801,10 @@
 		2C0A20C81D585D7700E6CE40 /* ChatUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUserModel.m; sourceTree = "<group>"; };
 		2C0A20CA1D585DF100E6CE40 /* ChatUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUserInfoModel.h; sourceTree = "<group>"; };
 		2C0A20CB1D585DF100E6CE40 /* ChatUserInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUserInfoModel.m; sourceTree = "<group>"; };
+		2C18C7C81D9B96B500CCE330 /* ZYMineZoomController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMineZoomController.h; sourceTree = "<group>"; };
+		2C18C7C91D9B96B500CCE330 /* ZYMineZoomController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMineZoomController.m; sourceTree = "<group>"; };
+		2C18C7CB1D9B9C6000CCE330 /* ZYMineBusinessTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMineBusinessTable.h; sourceTree = "<group>"; };
+		2C18C7CC1D9B9C6000CCE330 /* ZYMineBusinessTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMineBusinessTable.m; sourceTree = "<group>"; };
 		2C1A99FD1D1BC26E00B62B39 /* ParterStatusBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParterStatusBtn.h; sourceTree = "<group>"; };
 		2C1A99FE1D1BC26E00B62B39 /* ParterStatusBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParterStatusBtn.m; sourceTree = "<group>"; };
 		2C1B603D1D6D3CF900E3C25B /* ChooseSceneImgController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseSceneImgController.h; sourceTree = "<group>"; };
@@ -2049,6 +2055,8 @@
 			children = (
 				041B550E1D0EB0C3006125C8 /* ZYZCMineVIewController.h */,
 				041B550F1D0EB0C3006125C8 /* ZYZCMineVIewController.m */,
+				2C18C7C81D9B96B500CCE330 /* ZYMineZoomController.h */,
+				2C18C7C91D9B96B500CCE330 /* ZYMineZoomController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2074,6 +2082,8 @@
 		04A99C6B1CBF848D00C6F5F0 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2C18C7CB1D9B9C6000CCE330 /* ZYMineBusinessTable.h */,
+				2C18C7CC1D9B9C6000CCE330 /* ZYMineBusinessTable.m */,
 				2C7E3B491D06B34D00F51C61 /* MineTableViewCell.h */,
 				2C7E3B4A1D06B34D00F51C61 /* MineTableViewCell.m */,
 				2C7E3B4C1D06C92100F51C61 /* MineOneItemCell.h */,
@@ -5047,6 +5057,7 @@
 				2CD209A21D6D4BA6005EB62E /* QPBundle.m in Sources */,
 				2CE6176D1D657DD100962163 /* HUAlbum.m in Sources */,
 				2CD209221D6D3E27005EB62E /* ZCSupportTogetherView.m in Sources */,
+				2C18C7CD1D9B9C6000CCE330 /* ZYMineBusinessTable.m in Sources */,
 				2CE617781D657DD100962163 /* HUToast.m in Sources */,
 				04A99D1F1CC07E1800C6F5F0 /* WXApiResponseHandler.m in Sources */,
 				393A5E421D30E45200E165C5 /* WriteTextView.m in Sources */,
@@ -5398,6 +5409,7 @@
 				2C1C079E1D1AC26200203FF4 /* PartnerTableCell.m in Sources */,
 				39809D221D588ABF00CB9EE3 /* TacticMainCountryCustomView.m in Sources */,
 				2C8B19811D0CF7EC0063097B /* XMNPhotoPreviewController.m in Sources */,
+				2C18C7CA1D9B96B500CCE330 /* ZYMineZoomController.m in Sources */,
 				0490D15F1CCB6A3E0064844C /* TacticCustomMapView.m in Sources */,
 				04F836471CD72C3300140980 /* SDTransparentPieProgressView.m in Sources */,
 				0469C5761D0E4F4800A34A03 /* MineTravelTagBgView.m in Sources */,

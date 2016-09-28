@@ -82,10 +82,10 @@
             </objects>
             <point key="canvasLocation" x="-897" y="2203.5"/>
         </scene>
-        <!--MineV Iew Controller-->
+        <!--Mine Zoom Controller-->
         <scene sceneID="JPD-K2-EU9">
             <objects>
-                <viewController id="QbW-t9-IXc" customClass="ZYZCMineVIewController" sceneMemberID="viewController">
+                <viewController id="QbW-t9-IXc" customClass="ZYMineZoomController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Zzf-j7-fG5"/>
                         <viewControllerLayoutGuide type="bottom" id="vhL-hZ-0Li"/>

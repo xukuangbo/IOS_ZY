@@ -47,18 +47,6 @@
 {
     _commentTable=[[ZYFootprintCommentTable alloc]initWithFrame:CGRectMake(0, KEDGE_DISTANCE, KSCREEN_W, KSCREEN_H-49-KEDGE_DISTANCE) style:UITableViewStylePlain andFootprintModel:_footprintModel];
     WEAKSELF;
-//    _commentTable.headerRefreshingBlock=^()
-//    {
-//        weakSelf.pageNo=1;
-//        [weakSelf getSupportData];
-//        [weakSelf getCommentData];
-//        
-//    };
-//    _commentTable.footerRefreshingBlock=^()
-//    {
-//        weakSelf.pageNo++;
-//        [weakSelf getCommentData];
-//    };
     _commentTable.mj_header=nil;
     _commentTable.mj_footer=nil;
     
@@ -226,6 +214,7 @@
 {
     [super viewWillDisappear:animated];
 }
+
 
 
 
