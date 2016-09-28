@@ -50,16 +50,14 @@
 - (void)showDashangDataWithModelString:(NSString *)modelString{
     
 //    self.backgroundColor = [UIColor greenColor];
-    
-
-    NSArray *modelArr = [modelString componentsSeparatedByString:@","];
-    if (modelArr.count <= 0) {
+    if (!modelString) {
         return ;
     }
+    NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:modelString];
     LiveShowDashangModel *model = [[LiveShowDashangModel alloc] init];
-    model.headURL = modelArr[0];
-    model.nameLabel = modelArr[1];
-    model.numberPeople = modelArr[2];
+    model.headURL = dict[@"payHeaderUrl"];
+    model.nameLabel = dict[@"payName"];
+    model.numberPeople = dict[@"extra"];
     
     _firstView.dashangModel = model;
     
