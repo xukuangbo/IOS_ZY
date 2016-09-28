@@ -55,9 +55,9 @@
     }
     NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:modelString];
     LiveShowDashangModel *model = [[LiveShowDashangModel alloc] init];
-    model.headURL = dict[@"headUrl"];
-    model.nameLabel = dict[@"name"];
-    model.numberPeople = dict[@"numberPeople"];
+    model.headURL = dict[@"payHeaderUrl"];
+    model.nameLabel = dict[@"payName"];
+    model.numberPeople = dict[@"extra"];
     
     _firstView.dashangModel = model;
     

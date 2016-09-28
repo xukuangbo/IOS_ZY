@@ -41,8 +41,8 @@
         title = @"你还没有关注过旅行达人";
         content = @"关注旅行达人可以获取他们的动态信息\n快去关注吧";
     }else if (entryType == EntryTypeLiveList) {
-        image = [UIImage imageNamed:@"Empty-Follow-friends"];
-        title = @"暂时没有人直播哦~";
+        image = [UIImage imageNamed:@"Empty-nothing"];
+        title = @"这里什么都没有";
         content = @"点击右上角发起\n自己动手做一个主播吧";
     }else if (entryType == EntryTypeSearch) {
         image = [UIImage imageNamed:@"Empty-Search-without-result"];
