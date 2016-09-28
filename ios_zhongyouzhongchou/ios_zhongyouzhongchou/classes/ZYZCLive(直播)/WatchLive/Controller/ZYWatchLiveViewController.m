@@ -835,7 +835,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
          //支付成功
          if(payResult){
-             NSString *localizedMessage = [NSString stringWithFormat:@"支持了%@元",weakSelf.payMoney];
+             NSDictionary *payDict = @{
+                                       @"payHeaderUrl":[ZYZCAccountTool account].faceImg,
+                                       @"payName":[ZYZCAccountTool account].realName,
+                                       @"extra":[NSString stringWithFormat:@"打赏主播%@元", weakSelf.payMoney]
+                                       };
+             
+             NSString *localizedMessage = [ZYZCTool turnJson:payDict];
              RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
              rcTextMessage.extra = kPaySucceed;
              [weakSelf sendMessage:rcTextMessage pushContent:nil];
@@ -1105,8 +1111,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }else if ([messageContent isMemberOfClass:[RCTextMessage class]]){
         RCTextMessage *notification = (RCTextMessage *)messageContent;
         localizedMessage = [RCDLiveKitUtility formatMessage:notification];
-        
-        localizedMessage = [NSString stringWithFormat:@"%@ %@",[ZYZCAccountTool account].realName,localizedMessage];
+        if ([notification.extra isEqualToString:kPaySucceed]) {
+            
+        } else {
+            localizedMessage = [NSString stringWithFormat:@"%@ %@",[ZYZCAccountTool account].realName,localizedMessage];
+        }
     }else if ([messageContent isMemberOfClass:[RCDLiveGiftMessage class]]){
         RCDLiveGiftMessage *notification = (RCDLiveGiftMessage *)messageContent;
         localizedMessage = @"送了一个钻戒";

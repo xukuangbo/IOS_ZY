@@ -63,7 +63,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row%2) {
-        
+    
         BOOL loginResult=[LoginJudgeTool judgeLogin];
         if (!loginResult) {
             return;
