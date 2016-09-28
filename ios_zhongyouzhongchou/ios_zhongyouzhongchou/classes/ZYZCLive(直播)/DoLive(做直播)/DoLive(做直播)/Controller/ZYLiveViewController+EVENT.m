@@ -15,6 +15,7 @@
 #import "showDashangMapView.h"
 #import "ZYLiveListModel.h"
 #import "ZCProductDetailController.h"
+#import "ChatBlackListModel.h"
 @implementation ZYLiveViewController (EVENT)
 - (void)initLivePersonDataView
 {
@@ -177,7 +178,6 @@
 (UIGestureRecognizer *)gestureRecognizer {
     //隐藏个人信息
     [self.personDataView hidePersonDataView];
-    
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
@@ -190,6 +190,27 @@
 - (void)showPersonData
 {
     [self.personDataView showPersonData];
+    self.personDataView.attentionButton.hidden = YES;
+    self.personDataView.bannedSpeakButton.hidden = YES;
+    [self.personDataView setHeight:298];
+    [self requestData:[NSString stringWithFormat:@"%@", [ZYZCAccountTool getUserId]]];
+}
+
+// 展示个人头像
+- (void)showPersonDataImage:(UITapGestureRecognizer *)sender
+{
+    ChatBlackListModel *user = self.userList[sender.view.tag - 1000];
+    [self.personDataView showPersonData];
+    if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue]) {
+        self.personDataView.attentionButton.hidden = YES;
+        self.personDataView.bannedSpeakButton.hidden = YES;
+        [self.personDataView setHeight:298];
+    } else {
+        self.personDataView.attentionButton.hidden = NO;
+        self.personDataView.bannedSpeakButton.hidden = NO;
+        [self.personDataView setHeight:340];
+    }
+    [self requestData:[NSString stringWithFormat:@"%@", user.userId]];
 }
 
 // 进入个人空间界面
@@ -295,15 +316,29 @@
     }];
 }
 
-//#pragma mark - UIGestureRecognizerDelegate
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
-//{
-//    if ([touch.view.superview isKindOfClass:[UIButton class]])
-//    {
-//        return NO;
-//    }
-//    return YES;
-//}
-
-
+#pragma mark - network
+// 获取个人信息.获取个人中心数据
+- (void)requestData:(NSString *)otherUserId
+{
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSString *getUserInfoURL = Get_SelfInfo(userId, otherUserId);
+    WEAKSELF
+    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            NSDictionary *dic = (NSDictionary *)result;
+            NSDictionary *data = dic[@"data"];
+            if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]){
+                [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
+            }
+            MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
+            minePersonModel.gzMeAll = data[@"gzMeAll"];
+            minePersonModel.meGzAll = data[@"meGzAll"];
+            weakSelf.personDataView.minePersonModel = minePersonModel;
+        } else {
+            NSLog(@"bbbbbbb");
+        }
+    } andFailBlock:^(id failResult) {
+        NSLog(@"aaaaaaa");
+    }];
+}
 @end

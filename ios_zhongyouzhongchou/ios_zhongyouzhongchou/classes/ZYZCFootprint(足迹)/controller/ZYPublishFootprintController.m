@@ -195,6 +195,7 @@
 -(void)switchAction:(id)sender
 {
     UISwitch *switchButton = (UISwitch*)sender;
+    _showLocation=switchButton.on;
     BOOL isButtonOn = [switchButton isOn];
     if (isButtonOn) {
         BOOL allowLocation=[JudgeAuthorityTool judgeLocationAuthority];
@@ -203,6 +204,7 @@
             if (self.currentAddress) {
                 self.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate"];
                 self.locationLab.textColor=[UIColor ZYZC_MainColor];
+                self.locationLab.text=self.currentAddress;
                 return;
             }
             [MBProgressHUD showMessage:@"正在获取当前位置"];
@@ -212,11 +214,13 @@
             {
                 
                 if (isSuccess) {
-                    weakSelf.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate"];
-                    weakSelf.locationLab.textColor=[UIColor ZYZC_MainColor];
                     weakSelf.currentAddress=currentAddress;
                     weakSelf.coordinateStr=coordinateStr;
                     
+                    weakSelf.locationIcon.image=[UIImage imageNamed:@"footprint-coordinate"];
+                    weakSelf.locationLab.textColor=[UIColor ZYZC_MainColor];
+                    weakSelf.locationLab.text=weakSelf.currentAddress;
+
                     dispatch_async(dispatch_get_main_queue(), ^
                                    {
                                        [MBProgressHUD hideHUD];
@@ -229,7 +233,6 @@
                                        [MBProgressHUD hideHUD];
                                        [MBProgressHUD showShortMessage:@"当前位置获取失败"];
                                        switchButton.on=NO;
-
                                    });
                 }
             };
@@ -242,8 +245,9 @@
     }else {
         _locationIcon.image=[UIImage imageNamed:@"footprint-coordinate-2"];
         _locationLab.textColor=[UIColor ZYZC_TextGrayColor01];
+        _locationLab.text=LOCATION_TEXT;
     }
-    _showLocation=switchButton.on;
+    DDLog(@"showLocation:%d",_showLocation);
 }
 
 

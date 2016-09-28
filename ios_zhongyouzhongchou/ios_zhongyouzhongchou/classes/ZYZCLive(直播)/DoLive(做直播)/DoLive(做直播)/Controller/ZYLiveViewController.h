@@ -62,6 +62,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
 @property (nonatomic, copy) NSString *productID;
+// 看视频的userid
+@property(nonatomic,strong)NSMutableArray *userList;
 // 创建直播model
 @property (nonatomic, strong) ZYLiveListModel *createLiveModel;
 
@@ -98,8 +100,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 //打赏动图界面
 @property (nonatomic, strong) showDashangMapView *dashangMapView;
-
-
 
 //点击空白区域事件
 @property(nonatomic, strong) UITapGestureRecognizer *resetBottomTapGesture;
