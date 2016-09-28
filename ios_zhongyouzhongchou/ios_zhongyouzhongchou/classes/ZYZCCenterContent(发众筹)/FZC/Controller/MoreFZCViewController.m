@@ -228,17 +228,12 @@
             [self uploadDataToOSS];
         }
     }
-    //发布网络出错
-    else if (alertView.tag ==ALERT_PUBLISH_TAG)
-    {
-//        if (buttonIndex ==1) {
-//            [self publishMyZhongchou];
-//        }
-    }
     else if (alertView.tag == ALERT_NO_WIFI_TAG)
     {
-        //允许发布众筹
-        [self doUploadDataOss];
+        if (buttonIndex==1) {
+            //允许发布众筹
+            [self doUploadDataOss];
+        }
     }
     else if (alertView.tag ==  ALERT_PUBLISH)
     {
