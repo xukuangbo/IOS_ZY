@@ -36,8 +36,6 @@
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.contentView.backgroundColor=[UIColor ZYZC_BgGrayColor];
-        self.selectionStyle=UITableViewCellSelectionStyleNone;
         _dataArr=[NSMutableArray array];
         NSArray *iconNames=@[@"tag",@"icon_wallet",@"icon_message",@"icon_trip",@"icon_reture",@"draft",@"icon_destination",@"icon_man",@"icon_man"];
         NSArray *titles=@[@"我的旅行标签",@"我的钱包",@"私信",@"我的行程",@"我的回报",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人",@"足迹👣"];

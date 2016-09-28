@@ -25,8 +25,6 @@
 @property (nonatomic, strong) UITableView    *table;
 @property (nonatomic, strong) UILabel        *titleLab;
 @property (nonatomic, strong) UserModel      *userModel;
-@property (nonatomic, strong) NSNumber       *meGzAll;
-@property (nonatomic, strong) NSNumber       *gzMeAll;
 @property (nonatomic, assign) BOOL           hasGetUserData;
 @property (nonatomic, assign) int            count;
 @end

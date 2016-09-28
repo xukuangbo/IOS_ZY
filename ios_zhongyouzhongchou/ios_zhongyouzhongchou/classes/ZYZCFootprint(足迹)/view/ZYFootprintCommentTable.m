@@ -104,6 +104,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row==0) {
+        [self.viewController.view endEditing:YES];
+    }
+    
     if(indexPath.row>=1)
     {
         

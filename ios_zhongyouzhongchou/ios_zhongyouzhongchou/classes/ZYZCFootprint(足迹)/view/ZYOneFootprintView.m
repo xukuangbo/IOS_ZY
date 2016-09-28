@@ -261,9 +261,7 @@
              [MBProgressHUD hideHUD];
              if (isSuccess) {
                  [MBProgressHUD showShortMessage:@"删除成功"];
-                 if (self.deleteFootprint) {
-                     self.deleteFootprint(self.footprintModel);
-                 }
+                 [[NSNotificationCenter defaultCenter] postNotificationName:DELETE_ONE_FOOTPRINT_SUCCESS object:[NSNumber numberWithInteger:self.footprintModel.ID]];
              }
              else
              {
@@ -300,12 +298,11 @@
     }
 }
 
-
-
 #pragma mark --- 点赞或取消点赞
 -(void)addOrCancelSupport:(UIButton *)sender
 {
     sender.enabled=NO;
+    [self.viewController.view endEditing:YES];
     //点赞
     if (!_footprintModel.hasZan) {
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_AddSupport andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
@@ -319,7 +316,6 @@
                 if (_supportChangeBlock) {
                     _supportChangeBlock(YES);
                 }
-
             }
         } andFailBlock:^(id failResult) {
             sender.enabled=YES;

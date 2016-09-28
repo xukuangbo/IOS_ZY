@@ -196,7 +196,6 @@
 #pragma mark --- 创建没空界面
 -(UIView *)createNoneViewWithFrame:(CGRect)frame
 {
-    //    UIView  *noneProductView=[[UIView alloc]initWithFrame:CGRectMake(0, User_Head_Height, KSCREEN_W, KSCREEN_H-(User_Head_Height))];
     UIView  *noneProductView=[[UIView alloc]initWithFrame:frame];
     noneProductView.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:noneProductView];
@@ -433,8 +432,12 @@
     [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
+    
+    if(_contentType==1&&_footprintListView)
+    {
+        [_footprintListView reloadData];
+    }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
