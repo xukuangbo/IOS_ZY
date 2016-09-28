@@ -503,6 +503,7 @@
 		395B5A991D2699AB0084264C /* UploadVoucherVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B5A981D2699AB0084264C /* UploadVoucherVC.m */; };
 		395B5A9C1D27AC660084264C /* CustomImagemapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B5A9B1D27AC660084264C /* CustomImagemapView.m */; };
 		395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B88DA1D323C40001FF5DB /* AboutUsVC.m */; };
+		395FAD191D9BCF340075FED5 /* FCIMChatGetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FAD181D9BCF340075FED5 /* FCIMChatGetImage.m */; };
 		3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */; };
 		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
 		39788C4E1D8D3CF5000AC2BB /* LiveMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */; };
@@ -1529,6 +1530,8 @@
 		395B5A9B1D27AC660084264C /* CustomImagemapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImagemapView.m; sourceTree = "<group>"; };
 		395B88D91D323C40001FF5DB /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
 		395B88DA1D323C40001FF5DB /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
+		395FAD171D9BCF340075FED5 /* FCIMChatGetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCIMChatGetImage.h; sourceTree = "<group>"; };
+		395FAD181D9BCF340075FED5 /* FCIMChatGetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCIMChatGetImage.m; sourceTree = "<group>"; };
 		3967ADB21D6C29BD008A7F81 /* ZYDoLiveVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDoLiveVC.h; sourceTree = "<group>"; };
 		3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDoLiveVC.m; sourceTree = "<group>"; };
 		3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionView.h; sourceTree = "<group>"; };
@@ -4499,6 +4502,8 @@
 		399E941F1D38E1EC006E1B68 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				395FAD171D9BCF340075FED5 /* FCIMChatGetImage.h */,
+				395FAD181D9BCF340075FED5 /* FCIMChatGetImage.m */,
 				2C41A8101D8A9D2100AD9437 /* ZYLocationManager.h */,
 				2C41A8111D8A9D2100AD9437 /* ZYLocationManager.m */,
 				39911ACE1D5044A8007DF44B /* ZYZCAVPlayer.h */,
@@ -4995,6 +5000,7 @@
 				2C3292FA1D9258F40095F60E /* ZYSupportListModel.m in Sources */,
 				39E4EC5A1D2FB9B200305F73 /* AboutZhongyouVC.m in Sources */,
 				050261971D879D800090C717 /* ZYBottomPayView.m in Sources */,
+				395FAD191D9BCF340075FED5 /* FCIMChatGetImage.m in Sources */,
 				2CE6176C1D657DD100962163 /* HUPhotoBrowserCell.m in Sources */,
 				395B5A7E1D227B5D0084264C /* AppDelegate.m in Sources */,
 				2CD2091B1D6D3E27005EB62E /* ZCProductDetailTableView.m in Sources */,
