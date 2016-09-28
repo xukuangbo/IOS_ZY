@@ -22,13 +22,16 @@ typedef NS_ENUM(NSInteger, UserZoomType)
 typedef void (^ChangeContent)(NSInteger contentType) ;
 
 @interface ZYUserHeadView : UIView
+
+@property (nonatomic, strong) ZYTravelTypeView *travelTypeView;
+@property (nonatomic, strong) UISegmentedControl *segmentView;
+
 @property (nonatomic, strong) UserModel     *userModel;
 @property (nonatomic, assign) NSInteger     fansNumber;   //粉丝数
 @property (nonatomic, assign) NSInteger     friendNumber; //关注数
 
-@property (nonatomic, assign) CGFloat       tableOffSetY;
-
-@property (nonatomic, strong) ZYTravelTypeView *travelTypeView;
+@property (nonatomic, assign) CGFloat       prosuctTableOffSetY;
+@property (nonatomic, assign) CGFloat       footprintTableOffSetY;
 
 @property (nonatomic, copy  ) ChangeContent    changeContent;//改变内容展示
 

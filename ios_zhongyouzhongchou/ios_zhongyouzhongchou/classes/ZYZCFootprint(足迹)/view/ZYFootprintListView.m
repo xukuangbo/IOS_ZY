@@ -27,7 +27,7 @@
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
 {
     if (self=[super initWithFrame:frame style:style]) {
-        self.contentInset=UIEdgeInsetsMake(74, 0, 10, 0) ;
+        self.contentInset=UIEdgeInsetsMake(64, 0, 0, 0) ;
     }
     return self;
 }
@@ -35,7 +35,7 @@
 -(instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style andFootprintListType:(FootprintListType ) footprintListType
 {
     if (self=[super initWithFrame:frame style:style]) {
-        self.contentInset=UIEdgeInsetsMake(74, 0, 10, 0) ;
+        self.contentInset=UIEdgeInsetsMake(64, 0, 0, 0) ;
         _footprintListType=footprintListType;
     }
     return self;
@@ -44,27 +44,35 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _footprintListType==MyFootprintList?
-    self.dataArr.count+1:self.dataArr.count;
+    self.dataArr.count+3:self.dataArr.count+2;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_footprintListType==MyFootprintList) {
-        if (indexPath.row==0) {
-            ZYStartPublishFootprintCell *startFootprintCell=(ZYStartPublishFootprintCell *)[ZYStartPublishFootprintCell customTableView:tableView cellWithIdentifier:@"startFootprintCell" andCellClass:[ZYStartPublishFootprintCell class]];
-            startFootprintCell.footprintCellType=self.dataArr.count?HeadCell:CompleteCell;
-            return startFootprintCell;
+    if (indexPath.row==0||
+        indexPath.row==(_footprintListType==MyFootprintList?
+        self.dataArr.count+2:self.dataArr.count+1)) {
+        UITableViewCell *cell=[ZYStartPublishFootprintCell createNormalCell];
+        return cell;
+    }
+    else{
+        if (_footprintListType==MyFootprintList) {
+            if (indexPath.row==1) {
+                ZYStartPublishFootprintCell *startFootprintCell=(ZYStartPublishFootprintCell *)[ZYStartPublishFootprintCell customTableView:tableView cellWithIdentifier:@"startFootprintCell" andCellClass:[ZYStartPublishFootprintCell class]];
+                startFootprintCell.footprintCellType=self.dataArr.count?HeadCell:CompleteCell;
+                return startFootprintCell;
+            }
+            else
+            {
+                ZYfootprintListCell *footprintListCell=[self createFootprintListCellWithTableView:tableView andIndex:indexPath.row-2];
+                return footprintListCell;
+            }
         }
         else
         {
             ZYfootprintListCell *footprintListCell=[self createFootprintListCellWithTableView:tableView andIndex:indexPath.row-1];
             return footprintListCell;
         }
-    }
-    else
-    {
-        ZYfootprintListCell *footprintListCell=[self createFootprintListCellWithTableView:tableView andIndex:indexPath.row];
-        return footprintListCell;
     }
 }
 
@@ -145,21 +153,28 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_footprintListType==MyFootprintList) {
-        if (indexPath.row==0) {
-            return  START_CELL_HEIGHT;
+    if (indexPath.row==0||
+        indexPath.row==(_footprintListType==MyFootprintList?
+                        self.dataArr.count+2:self.dataArr.count+1)) {
+        return KEDGE_DISTANCE;
+    }
+    else{
+        if (_footprintListType==MyFootprintList) {
+            if (indexPath.row==1) {
+                return  START_CELL_HEIGHT;
+            }
+            else
+            {
+                 ZYFootprintListModel *cellModel=(ZYFootprintListModel *)self.dataArr[indexPath.row-2];
+                return cellModel.cellHeight;
+            }
         }
         else
         {
-             ZYFootprintListModel *cellModel=(ZYFootprintListModel *)self.dataArr[indexPath.row-1];
+            ZYFootprintListModel *cellModel=(ZYFootprintListModel *)self.dataArr[indexPath.row-1];
             return cellModel.cellHeight;
-        }
-    }
-    else
-    {
-        ZYFootprintListModel *cellModel=(ZYFootprintListModel *)self.dataArr[indexPath.row];
-        return cellModel.cellHeight;
 
+        }
     }
 }
 
@@ -178,6 +193,21 @@
         }
     }
 }
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if (self.scrollWillBeginDraggingBlock) {
+        self.scrollWillBeginDraggingBlock();
+    }
+}
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (self.scrollDidEndDeceleratingBlock) {
+        self.scrollDidEndDeceleratingBlock();
+    }
+}
+
 
 
 @end

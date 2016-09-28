@@ -485,7 +485,6 @@
     
     if (offsetY<=-(HEAD_VIEW_HEIGHT) + KEDGE_DISTANCE) {
         
-        //        _table.bounces=NO;
         
     } else {
         
