@@ -284,7 +284,7 @@
     if (_commentEnterType==enterCommentPage) {
         ZYCommentFootprintController *commentFootprintController=[[ZYCommentFootprintController alloc]init];
         commentFootprintController.footprintModel=_footprintModel;
-        
+        commentFootprintController.hidesBottomBarWhenPushed=YES;
         [self.viewController.navigationController pushViewController:commentFootprintController animated:YES];
     }
     //点击评论编辑

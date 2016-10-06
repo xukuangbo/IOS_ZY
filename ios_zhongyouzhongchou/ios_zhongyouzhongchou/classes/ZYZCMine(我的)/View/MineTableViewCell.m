@@ -5,8 +5,6 @@
 //  Created by liuliang on 16/6/7.
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
-#import "ZYZCMineVIewController.h"
-
 #import "MineTableViewCell.h"
 #import "MyProductViewController.h"
 #import "MyReturnViewController.h"
@@ -37,8 +35,8 @@
 {
     if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _dataArr=[NSMutableArray array];
-        NSArray *iconNames=@[@"icon_trip",@"icon_reture",@"icon_wallet",@"tag",@"icon_message",@"draft",@"icon_destination",@"icon_man",@"icon_man"];
-        NSArray *titles=@[@"我的行程",@"我的回报",@"我的钱包",@"我的旅行标签",@"私信",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人"];
+        NSArray *iconNames=@[@"icon_trip",@"icon_reture",@"icon_wallet",@"icon_message",@"draft",@"icon_destination",@"icon_man",@"icon_man",@"tag"];
+        NSArray *titles=@[@"我的行程",@"我的回报",@"我的钱包",@"私信",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人",@"我的旅行标签"];
 
         for (int i=0; i<CELL_NUMBER; i++) {
             MineOneItemModel *itemModel=[[MineOneItemModel alloc]init];
@@ -87,7 +85,7 @@
         cell.hiddenLine=YES;
     }
     
-    if (indexPath.row == 2)
+    if (indexPath.row == 3)
     {
         cell.myBadgeValue=_myBadgeValue;
     }
@@ -131,16 +129,12 @@
     }
     else if (indexPath.row==3)
     {
-        //标签
-        [self.viewController.navigationController pushViewController:[[MineTravelTagVC alloc] init] animated:YES];
-    }
-    else if(indexPath.row==4)
-    {
         //私信
         ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
         [RCManager getMyConversationListWithSupperController:self.viewController];
+
     }
-    else if (indexPath.row==5)
+    else if(indexPath.row==4)
     {
         //我的草稿
         MyReturnViewController *myDraftController=[[MyReturnViewController alloc]init];
@@ -148,17 +142,22 @@
         myDraftController.hidesBottomBarWhenPushed=YES;
         [self.viewController.navigationController pushViewController:myDraftController animated:YES];
     }
-    else if (indexPath.row==6)
+    else if (indexPath.row==5)
     {
         //我想去的目的地
         MineWantGoVC *wantGoVC = [[MineWantGoVC alloc] init];
         [self.viewController.navigationController pushViewController:wantGoVC animated:YES];
     }
-    else if(indexPath.row==7)
+    else if (indexPath.row==6)
     {
         //我关注的旅行达人
         MyUserFollowedVC *myUserFollowedVC = [[MyUserFollowedVC alloc] init];
         [self.viewController.navigationController pushViewController:myUserFollowedVC animated:YES];
+    }
+    else if(indexPath.row==7)
+    {
+        //标签
+        [self.viewController.navigationController pushViewController:[[MineTravelTagVC alloc] init] animated:YES];
     }
 }
 

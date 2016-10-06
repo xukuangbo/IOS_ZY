@@ -237,9 +237,10 @@ typedef NS_ENUM(NSInteger, FilterType)
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _fitersView.hidden=YES;
-    _pageNo=1;
     _searchBar.text=nil;
     if (_filterType!=indexPath.row+1) {
+        _pageNo=1;
+        _isFirstEntry=YES;
         _filterType=indexPath.row+1;
         [self getHttpDataByFilterType:_filterType andSeachKey:nil];
     }

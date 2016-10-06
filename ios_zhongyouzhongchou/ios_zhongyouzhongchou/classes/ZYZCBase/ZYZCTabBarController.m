@@ -8,7 +8,6 @@
 
 #import "ZYZCTabBarController.h"
 #import "FXBlurView.h"
-#import "ZYZCMineVIewController.h"
 #import "ZYZCNavigationController.h"
 #import "LoginJudgeTool.h"
 #import "MoreFZCViewController.h"

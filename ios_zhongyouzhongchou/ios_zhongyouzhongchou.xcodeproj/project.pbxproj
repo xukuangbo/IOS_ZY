@@ -24,7 +24,6 @@
 		0406514D1CC87A89003FD539 /* TacticSingleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406514C1CC87A89003FD539 /* TacticSingleViewController.m */; };
 		040651501CC8BF44003FD539 /* TacticSingleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0406514F1CC8BF44003FD539 /* TacticSingleModel.m */; };
 		040651561CC8DBB6003FD539 /* TacticSingleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 040651551CC8DBB6003FD539 /* TacticSingleTableViewCell.m */; };
-		041B55101D0EB0C3006125C8 /* ZYZCMineVIewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 041B550F1D0EB0C3006125C8 /* ZYZCMineVIewController.m */; };
 		041CFC831D13F3D200871093 /* TacticMoreVideoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 041CFC7E1D13F3D200871093 /* TacticMoreVideoVC.m */; };
 		041CFC841D13F3D200871093 /* TacticMoreVideoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 041CFC821D13F3D200871093 /* TacticMoreVideoCell.m */; };
 		0432ADA11D0966F9005D789E /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0432AD931D0966F9005D789E /* area.plist */; };
@@ -301,7 +300,6 @@
 		2C9C74071D9A170300D15DEF /* ZYUserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C74061D9A170300D15DEF /* ZYUserHeadView.m */; };
 		2C9C740A1D9A4BF600D15DEF /* ZYTravelTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C74091D9A4BF600D15DEF /* ZYTravelTypeView.m */; };
 		2C9C740D1D9A685600D15DEF /* ZYUserProductTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C740C1D9A685600D15DEF /* ZYUserProductTable.m */; };
-		2CA172061D0122030033A91A /* PersonHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CA172051D0122030033A91A /* PersonHeadView.m */; };
 		2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD97981D1D0DCB000E4ED8 /* UserIconButton.m */; };
 		2CAD979F1D1D1BE3000E4ED8 /* TogetherUersModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD979E1D1D1BE3000E4ED8 /* TogetherUersModel.m */; };
 		2CAD97B01D1D3CF4000E4ED8 /* CommentUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CAD97AF1D1D3CF4000E4ED8 /* CommentUserViewController.m */; };
@@ -433,7 +431,6 @@
 		2CE6177C1D657DD100962163 /* UIImageView+HUWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE617681D657DD100962163 /* UIImageView+HUWebImage.m */; };
 		2CE852961D20BE1D00820FF1 /* CommentUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE852951D20BE1D00820FF1 /* CommentUserCell.m */; };
 		2CEBE5521D631A0700E423C7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEBE46F1D6315A100E423C7 /* AVFoundation.framework */; };
-		2CEEC1971CFEE4DB00A2DCA8 /* ZYZCPersonalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CEEC1961CFEE4DB00A2DCA8 /* ZYZCPersonalController.m */; };
 		2CF305101D3DC716008296EC /* JudgeAuthorityTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3050F1D3DC716008296EC /* JudgeAuthorityTool.m */; };
 		2CF6832A1D2383D300447349 /* ComplainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF683291D2383D300447349 /* ComplainViewController.m */; };
 		2CF74EEC1D8E7ECD004F8718 /* ZYFootprintController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF74EE91D8E7ECD004F8718 /* ZYFootprintController.m */; };
@@ -609,8 +606,6 @@
 		0406514F1CC8BF44003FD539 /* TacticSingleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticSingleModel.m; sourceTree = "<group>"; };
 		040651541CC8DBB6003FD539 /* TacticSingleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticSingleTableViewCell.h; sourceTree = "<group>"; };
 		040651551CC8DBB6003FD539 /* TacticSingleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticSingleTableViewCell.m; sourceTree = "<group>"; };
-		041B550E1D0EB0C3006125C8 /* ZYZCMineVIewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCMineVIewController.h; sourceTree = "<group>"; };
-		041B550F1D0EB0C3006125C8 /* ZYZCMineVIewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCMineVIewController.m; sourceTree = "<group>"; };
 		041CFC7D1D13F3D200871093 /* TacticMoreVideoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreVideoVC.h; sourceTree = "<group>"; };
 		041CFC7E1D13F3D200871093 /* TacticMoreVideoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreVideoVC.m; sourceTree = "<group>"; };
 		041CFC811D13F3D200871093 /* TacticMoreVideoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreVideoCell.h; sourceTree = "<group>"; };
@@ -1139,8 +1134,6 @@
 		2C9C74091D9A4BF600D15DEF /* ZYTravelTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYTravelTypeView.m; sourceTree = "<group>"; };
 		2C9C740B1D9A685600D15DEF /* ZYUserProductTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYUserProductTable.h; sourceTree = "<group>"; };
 		2C9C740C1D9A685600D15DEF /* ZYUserProductTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYUserProductTable.m; sourceTree = "<group>"; };
-		2CA172041D0122030033A91A /* PersonHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonHeadView.h; sourceTree = "<group>"; };
-		2CA172051D0122030033A91A /* PersonHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonHeadView.m; sourceTree = "<group>"; };
 		2CAD97971D1D0DCB000E4ED8 /* UserIconButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserIconButton.h; sourceTree = "<group>"; };
 		2CAD97981D1D0DCB000E4ED8 /* UserIconButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserIconButton.m; sourceTree = "<group>"; };
 		2CAD979D1D1D1BE2000E4ED8 /* TogetherUersModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TogetherUersModel.h; sourceTree = "<group>"; };
@@ -1398,8 +1391,6 @@
 		2CE852941D20BE1D00820FF1 /* CommentUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentUserCell.h; sourceTree = "<group>"; };
 		2CE852951D20BE1D00820FF1 /* CommentUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentUserCell.m; sourceTree = "<group>"; };
 		2CEBE46F1D6315A100E423C7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		2CEEC1951CFEE4DB00A2DCA8 /* ZYZCPersonalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCPersonalController.h; sourceTree = "<group>"; };
-		2CEEC1961CFEE4DB00A2DCA8 /* ZYZCPersonalController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCPersonalController.m; sourceTree = "<group>"; };
 		2CF3050E1D3DC716008296EC /* JudgeAuthorityTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudgeAuthorityTool.h; sourceTree = "<group>"; };
 		2CF3050F1D3DC716008296EC /* JudgeAuthorityTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudgeAuthorityTool.m; sourceTree = "<group>"; };
 		2CF683281D2383D300447349 /* ComplainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComplainViewController.h; sourceTree = "<group>"; };
@@ -1971,7 +1962,6 @@
 				2C0101C11D5DE5EF00D6470D /* ZYZCLive(直播) */,
 				2CB5C2F31D5CAB07008C9AEF /* ZYZCEditYouji(写游记) */,
 				2C90F6E11D530E2B001ABB44 /* ZYZCMessage(消息通知) */,
-				2CEEC18B1CFEC04B00A2DCA8 /* ZYZCPersonal(他人空间) */,
 				2CC78A7D1D99485500CC04E2 /* ZYUserZone(个人空间) */,
 				2C1B603A1D6D3CF900E3C25B /* ZYZCCenterContent(发众筹) */,
 				2CD208A31D6D3E26005EB62E /* ZYZCRaise(众筹) */,
@@ -2056,8 +2046,6 @@
 		04A99C5A1CBF848D00C6F5F0 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				041B550E1D0EB0C3006125C8 /* ZYZCMineVIewController.h */,
-				041B550F1D0EB0C3006125C8 /* ZYZCMineVIewController.m */,
 				2C18C7C81D9B96B500CCE330 /* ZYMineZoomController.h */,
 				2C18C7C91D9B96B500CCE330 /* ZYMineZoomController.m */,
 			);
@@ -3775,41 +3763,6 @@
 			path = HUWebImageDownloader;
 			sourceTree = "<group>";
 		};
-		2CEEC18B1CFEC04B00A2DCA8 /* ZYZCPersonal(他人空间) */ = {
-			isa = PBXGroup;
-			children = (
-				2CEEC1941CFEE4CB00A2DCA8 /* viewController */,
-				2CEEC1931CFEE4C400A2DCA8 /* view */,
-				2CEEC1921CFEE4BE00A2DCA8 /* model */,
-			);
-			path = "ZYZCPersonal(他人空间)";
-			sourceTree = "<group>";
-		};
-		2CEEC1921CFEE4BE00A2DCA8 /* model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		2CEEC1931CFEE4C400A2DCA8 /* view */ = {
-			isa = PBXGroup;
-			children = (
-				2CA172041D0122030033A91A /* PersonHeadView.h */,
-				2CA172051D0122030033A91A /* PersonHeadView.m */,
-			);
-			path = view;
-			sourceTree = "<group>";
-		};
-		2CEEC1941CFEE4CB00A2DCA8 /* viewController */ = {
-			isa = PBXGroup;
-			children = (
-				2CEEC1951CFEE4DB00A2DCA8 /* ZYZCPersonalController.h */,
-				2CEEC1961CFEE4DB00A2DCA8 /* ZYZCPersonalController.m */,
-			);
-			path = viewController;
-			sourceTree = "<group>";
-		};
 		2CF3050D1D3DC6EE008296EC /* JudgeAuthority */ = {
 			isa = PBXGroup;
 			children = (
@@ -5028,7 +4981,6 @@
 				3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */,
 				2C8B19801D0CF7EC0063097B /* XMNPhotoPickerController.m in Sources */,
 				39911AC91D504174007DF44B /* UIColor+ZYZCColors.m in Sources */,
-				2CA172061D0122030033A91A /* PersonHeadView.m in Sources */,
 				04F8364D1CD734CD00140980 /* TacticSingleTipsController.m in Sources */,
 				3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */,
 				0406514D1CC87A89003FD539 /* TacticSingleViewController.m in Sources */,
@@ -5112,7 +5064,6 @@
 				2CAD979F1D1D1BE3000E4ED8 /* TogetherUersModel.m in Sources */,
 				2C1B60FA1D6D3CF900E3C25B /* WSMBaseView.m in Sources */,
 				2C1C079B1D1AAB2700203FF4 /* MyPartnerViewController.m in Sources */,
-				2CEEC1971CFEE4DB00A2DCA8 /* ZYZCPersonalController.m in Sources */,
 				2C066A681D87937B0048FAE4 /* MLPlayVoiceButton.m in Sources */,
 				2CE617731D657DD100962163 /* HUImagePickerRootViewController.m in Sources */,
 				040651241CC62FC7003FD539 /* TAPageControl.m in Sources */,
@@ -5138,7 +5089,6 @@
 				0406513B1CC7597A003FD539 /* TacticVideoModel.m in Sources */,
 				393C292B1D435E6600B64551 /* AboutYinsiVC.m in Sources */,
 				3985EC391D5C1C86007C43D1 /* WalletMingXiVC.m in Sources */,
-				041B55101D0EB0C3006125C8 /* ZYZCMineVIewController.m in Sources */,
 				2C1B60F11D6D3CF900E3C25B /* AddSceneView.m in Sources */,
 				04F8362A1CD7102200140980 /* ZYZCPlayViewController.m in Sources */,
 				2CE6177A1D657DD100962163 /* HUWebImageDownloadOperation.m in Sources */,
