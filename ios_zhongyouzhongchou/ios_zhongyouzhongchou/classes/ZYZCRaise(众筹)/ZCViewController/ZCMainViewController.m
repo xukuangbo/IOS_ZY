@@ -395,10 +395,11 @@ typedef NS_ENUM(NSInteger, FilterType)
         [_table.mj_footer endRefreshing];
         
     } andFailBlock:^(id failResult) {
-        if (_isFirstEntry==1) {
+        if (_isFirstEntry) {
             [MBProgressHUD hideHUDForView:self.view];
             _isFirstEntry=NO;
         }
+        _isFirstEntry=YES;
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
         [NetWorkManager hideFailViewForView:self.view];

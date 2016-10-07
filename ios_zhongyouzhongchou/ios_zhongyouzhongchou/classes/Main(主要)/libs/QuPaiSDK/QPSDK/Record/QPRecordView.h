@@ -6,12 +6,6 @@
 //  Copyright © 2016年 danqoo. All rights reserved.
 //
 
-/**
- *
- *下部按键父视图高度
- */
-#define kViewBottomHeight 100
-
 #import <UIKit/UIKit.h>
 @class QPPointProgress;
 
@@ -35,6 +29,8 @@
 @end
 
 @interface QPRecordView : UIView
+
+-(instancetype)initWithFrame:(CGRect)frame videoSize:(CGSize)videoSize bottomPanelHeight:(CGFloat)height;
 
 @property (nonatomic, strong) UIView *viewCenter;
 @property (nonatomic, strong) QPPointProgress *pointProgress;

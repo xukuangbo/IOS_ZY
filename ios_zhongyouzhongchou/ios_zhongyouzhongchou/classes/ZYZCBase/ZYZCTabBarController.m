@@ -207,12 +207,45 @@
 #pragma mark --- 短视频
 -(void)enterShortVideo
 {
-    [QupaiSDK shared].minDurtaion = 2.0;
+    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+    NSString *auth_result=[user objectForKey:Auth_QuPai_Result];
+    if ([auth_result isEqualToString:@"no"]) {
+        if ([ZYZCAccountTool getUserId]) {
+            //鉴权
+            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
+                //鉴权成功
+                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+                [user setObject:@"yes" forKey:Auth_QuPai_Result];
+                [user synchronize];
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    [self createQuPai];
+                });
+            } failure:^(NSError *error) {
+                //鉴权失败
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
+                });
+            }];
+        }
+    }
+    else if ([auth_result isEqualToString:@"yes"])
+    {
+        [self createQuPai];
+    }
+}
+
+-(void)createQuPai
+{
+    //创建趣拍对象
+    [QupaiSDK shared].minDuration = 2.0;
     [QupaiSDK shared].maxDuration = 15.0;
     [QupaiSDK shared].enableBeauty=YES;
     [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
     UIViewController *viewController = [[QupaiSDK shared] createRecordViewController];
     [QupaiSDK shared].delegte = self;
+    [QupaiSDK shared].videoSize = CGSizeMake(KSCREEN_W, KSCREEN_H);
     UINavigationController *navCrl = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self.selectedViewController presentViewController:navCrl animated:YES completion:nil];
 }
@@ -223,7 +256,9 @@
     NSFileManager *manager=[NSFileManager defaultManager];
     BOOL  exit= [manager fileExistsAtPath:videoPath];
     if (!exit) {
-        [MBProgressHUD showShortMessage:@"视频导出失败"];
+        if (videoPath) {
+        [MBProgressHUD showShortMessage:@"网络错误,视频导出失败"];
+        }
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }

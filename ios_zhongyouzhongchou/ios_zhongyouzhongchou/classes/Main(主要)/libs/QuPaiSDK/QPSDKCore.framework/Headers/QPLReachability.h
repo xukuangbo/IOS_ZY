@@ -12,13 +12,13 @@
 
 
 typedef enum : NSInteger {
-	QPLNotReachable = 0,
-	QPLReachableViaWiFi,
-	QPLReachableViaWWAN
-} QPLNetworkStatus;
+	QPNotReachable = 0,
+	QPReachableViaWiFi,
+	QPReachableViaWWAN
+} QPNetworkStatus;
 
 
-extern NSString *kQPLReachabilityChangedNotification;
+extern NSString *kQPReachabilityChangedNotification;
 
 
 @interface QPLReachability : NSObject
@@ -49,7 +49,7 @@ extern NSString *kQPLReachabilityChangedNotification;
 - (BOOL)startNotifier;
 - (void)stopNotifier;
 
-- (QPLNetworkStatus)currentReachabilityStatus;
+- (QPNetworkStatus)currentReachabilityStatus;
 
 /*!
  * WWAN may be available, but not active until a connection has been established. WiFi may require a connection for VPN on Demand.

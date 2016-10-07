@@ -35,11 +35,8 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
     QPRecordViewTagAuthAlert = 101
 };
 
-extern BOOL QPAuthSuccess;
-extern BOOL QPAuthRequestSended;
 
-
-@interface QPRecordViewController()<QPRecordViewDelegate, QPPickerPreviewViewControllerDelegate>
+@interface QPRecordViewController()<QPRecordViewDelegate,QPRecordDelegate>
 
 @property (nonatomic, assign) QPRecordStatus recordStatus;
 @property (nonatomic, assign) BOOL countDown;
@@ -82,7 +79,7 @@ extern BOOL QPAuthRequestSended;
 #pragma mark - life cycle
 
 - (void)loadView {
-    self.qpRecordView = [[QPRecordView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.qpRecordView = [[QPRecordView alloc] initWithFrame:[UIScreen mainScreen].bounds videoSize:self.video.size bottomPanelHeight:[QupaiSDK shared].bottomPanelHeight];
     self.qpRecordView.delegate = self;
     self.view = self.qpRecordView;
 }
@@ -106,8 +103,9 @@ extern BOOL QPAuthRequestSended;
     
     if (!QPSave.shared.recordGuide) {
         QPSave.shared.recordGuide = YES;
-        _guideView = [[QPRecordGuideView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight-kViewBottomHeight)];
-        [self.qpRecordView.viewCenter insertSubview:_guideView belowSubview:self.qpRecordView.viewSkin];
+        _guideView = [[QPRecordGuideView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - [QupaiSDK shared].bottomPanelHeight)];
+        _guideView.userInteractionEnabled = NO;
+        [self.qpRecordView addSubview:_guideView];
     }
     [self chheckAddTipGuide];
     
@@ -127,6 +125,7 @@ extern BOOL QPAuthRequestSended;
     [self startMotion];
     [self startToPreview];
     [self checkDraft];
+//    [self checkAuth];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -162,7 +161,7 @@ extern BOOL QPAuthRequestSended;
     }
     self.countDown = NO;
     
-    self.qpRecordView.pointProgress.colorNomal  = RGBToColor(46,233,199,1);
+    self.qpRecordView.pointProgress.colorNomal  = [QupaiSDK shared].tintColor;
     self.qpRecordView.pointProgress.colorBg     = RGBToColor(0,0,0, 0.1);
     self.qpRecordView.pointProgress.colorSelect = RGBToColor(255,72,72,1);
     self.qpRecordView.pointProgress.colorNotice = RGBToColor(255,255,255,1);
@@ -246,7 +245,7 @@ extern BOOL QPAuthRequestSended;
             [self audioCanRecord:^(BOOL granted) {
                 if (granted) {
                     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-                        [self.recorder startPreviewWithVideoSize:CGSizeMake(ScreenWidth, ScreenHeight) position:_recordFlag.position skin:_recordFlag.skin];
+                        [self.recorder startPreviewWithVideoSize:self.video.size position:_recordFlag.position skin:_recordFlag.skin];
                     });
                     return ;
                 }
@@ -398,7 +397,7 @@ extern BOOL QPAuthRequestSended;
         [_tipGuideView removeAllGuideView];
     }else if (_recordStatus == QPRecordStatusPause) {
         [self changeButton:self.qpRecordView.buttonLibrary image:@"record_ico_delete" size:CGSizeMake(55, 55) x:20];
-        self.qpRecordView.buttonLibrary.userInteractionEnabled = YES;
+        
         self.video.lastSelected = NO;
         
         self.qpRecordView.pointProgress.showCursor = YES;
@@ -431,7 +430,7 @@ extern BOOL QPAuthRequestSended;
         }
     }else if (_recordStatus == QPRecordStatusTrash) {
         [self changeButton:self.qpRecordView.buttonLibrary image:@"record_ico_delete_1" size:CGSizeMake(55, 55) x:20];
-        self.qpRecordView.buttonLibrary.userInteractionEnabled = YES;
+        
         self.qpRecordView.pointProgress.showBlink = NO;
         self.qpRecordView.pointProgress.showCursor = NO;
         
@@ -587,15 +586,15 @@ extern BOOL QPAuthRequestSended;
              [_focusView refreshPosition];
          }
          
-//         [UIView animateWithDuration:0.3 animations:^{
-//             CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI/180.0 * _deviceAngle);
-//             self.qpRecordView.buttonClose.transform = transform;
-//             self.qpRecordView.buttonPosition.transform = transform;
-//             self.qpRecordView.buttonSkin.transform = transform;
-//             self.qpRecordView.buttonTime.transform = transform;
-//             self.qpRecordView.buttonLibrary.transform = transform;
-//             self.qpRecordView.buttonFinish.transform = transform;
-//         }];
+         [UIView animateWithDuration:0.3 animations:^{
+             CGAffineTransform transform = CGAffineTransformMakeRotation(M_PI/180.0 * _deviceAngle);
+             self.qpRecordView.buttonClose.transform = transform;
+             self.qpRecordView.buttonPosition.transform = transform;
+             self.qpRecordView.buttonSkin.transform = transform;
+             self.qpRecordView.buttonTime.transform = transform;
+             self.qpRecordView.buttonLibrary.transform = transform;
+             self.qpRecordView.buttonFinish.transform = transform;
+         }];
      }];
 }
 
@@ -631,7 +630,6 @@ extern BOOL QPAuthRequestSended;
     }
     [self removeCountView];
     self.qpRecordView.buttonRecord.enabled = YES;
-//    [self buttonRecordDown:nil];
     [self onClickButtonRecordDownAction:nil];
     return NO;
 }
@@ -713,7 +711,6 @@ extern BOOL QPAuthRequestSended;
     if (alertView.tag == QPRecordViewTagDraftAlert) {
         if ([alertView cancelButtonIndex] == buttonIndex) {
             [self.video removeAllPoint];
-            _recordFinished = NO;
         }else if (alertView.tag == QPRecordViewTagAuthAlert){
             // do nothing
         }else{
@@ -745,15 +742,15 @@ extern BOOL QPAuthRequestSended;
 -(void)onClickButtonPositionAction:(UIButton *)sender {
     AVCaptureDevicePosition position = [self.recorder switchCameraPosition];
     if (position == AVCaptureDevicePositionBack) {
-        if (!_recordFlag.manualSkin && [self.recorder skinFilterEnabled]){
-//            [self buttonSkinClick:nil];
-            [self onClickButtonSkinAction:nil];
-        }
+//        if (!_recordFlag.manualSkin && [self.recorder skinFilterEnabled]){
+////            [self buttonSkinClick:nil];
+//            [self onClickButtonSkinAction:nil];
+//        }
     }else{
-        if (![self.recorder skinFilterEnabled] && [QupaiSDK shared].enableBeauty) {
-//            [self buttonSkinClick:nil];
-            [self onClickButtonSkinAction:nil];
-        }
+//        if (![self.recorder skinFilterEnabled] && [QupaiSDK shared].enableBeauty) {
+////            [self buttonSkinClick:nil];
+//            [self onClickButtonSkinAction:nil];
+//        }
     }
 }
 

@@ -514,7 +514,7 @@
             UIImage *image=_images[i];
             BOOL writeResult=[UIImagePNGRepresentation(image) writeToFile:path atomically:YES];
             if (!writeResult) {
-                [MBProgressHUD showError:@"数据出错，提交失败"];
+                [MBProgressHUD showError:@"数据错误，提交失败"];
                 return;
             }
         }
@@ -537,7 +537,8 @@
                    dispatch_async(dispatch_get_main_queue(), ^
                   {
                       [MBProgressHUD hideHUD];
-                      [MBProgressHUD showError:@"网络出错,提交失败"];
+                      [MBProgressHUD showShortMessage:@"网络错误,提交失败"];
+                      weakSelf.publishBtn.enabled = YES;
                   });
                    return;
                }
@@ -583,11 +584,12 @@
            BOOL uploadResult=[ossManager uploadIconSyncByFileName:videoFileName andFilePath:weakSelf.videoPath];
                if (!uploadResult) {
                    //回到主线程提示上传失败
-                   dispatch_async(dispatch_get_main_queue(), ^
-                                  {
-                                      [MBProgressHUD hideHUD];
-                                      [MBProgressHUD showError:@"网络出错,提交失败"];
-                                  });
+                 dispatch_async(dispatch_get_main_queue(), ^
+                  {
+                      [MBProgressHUD hideHUD];
+                      [MBProgressHUD showShortMessage:@"网络错误,提交失败"];
+                      weakSelf.publishBtn.enabled = YES;
+                  });
                    return;
                }
                else
@@ -599,21 +601,22 @@
                    if (!uploadResult) {
                        //回到主线程提示上传失败
                        dispatch_async(dispatch_get_main_queue(), ^
-                                      {
-                                          [MBProgressHUD hideHUD];
-                                          [MBProgressHUD showError:@"网络出错,提交失败"];
-                                      });
+                        {
+                            [MBProgressHUD hideHUD];
+                            [MBProgressHUD showShortMessage:@"网络错误,提交失败"];
+                            weakSelf.publishBtn.enabled = YES;
+                        });
                        return;
                    }
                    else
                    {
                        //数据上传完成， 回到主线程
                        dispatch_async(dispatch_get_main_queue(), ^
-                                      {
-                                          weakSelf.uploadSuccess=YES;
-                                          [MBProgressHUD hideHUD];
-                                          [weakSelf commitData];
-                                      });
+                        {
+                          weakSelf.uploadSuccess=YES;
+                          [MBProgressHUD hideHUD];
+                          [weakSelf commitData];
+                        });
                    }
                }
        });

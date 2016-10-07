@@ -1,0 +1,585 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2675ADB81CBF7A9100B1FC24 /* QPSDKCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADB71CBF7A9100B1FC24 /* QPSDKCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE041CBF856A00B1FC24 /* QPRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADC01CBF856A00B1FC24 /* QPRecorder.h */; };
+		2675AE051CBF856A00B1FC24 /* QPRecord.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADC21CBF856A00B1FC24 /* QPRecord.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE061CBF856A00B1FC24 /* QPRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADC31CBF856A00B1FC24 /* QPRecord.m */; };
+		2675AE071CBF856A00B1FC24 /* QPBeautyFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADC61CBF856A00B1FC24 /* QPBeautyFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE081CBF856A00B1FC24 /* QPBeautyFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADC71CBF856A00B1FC24 /* QPBeautyFilter.m */; };
+		2675AE091CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADC81CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE0A1CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADC91CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.m */; };
+		2675AE0B1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADCA1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE0C1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADCB1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.m */; };
+		2675AE0D1CBF856A00B1FC24 /* QPRFourFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADCC1CBF856A00B1FC24 /* QPRFourFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE0E1CBF856A00B1FC24 /* QPRFourFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADCD1CBF856A00B1FC24 /* QPRFourFilter.m */; };
+		2675AE0F1CBF856A00B1FC24 /* QPROneFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADCE1CBF856A00B1FC24 /* QPROneFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE101CBF856A00B1FC24 /* QPROneFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADCF1CBF856A00B1FC24 /* QPROneFilter.m */; };
+		2675AE111CBF856A00B1FC24 /* QPRSkinFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADD01CBF856A00B1FC24 /* QPRSkinFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE121CBF856A00B1FC24 /* QPRSkinFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADD11CBF856A00B1FC24 /* QPRSkinFilter.m */; };
+		2675AE131CBF856A00B1FC24 /* QPRSkinImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADD21CBF856A00B1FC24 /* QPRSkinImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE141CBF856A00B1FC24 /* QPRThreeFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADD31CBF856A00B1FC24 /* QPRThreeFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE151CBF856A00B1FC24 /* QPRThreeFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADD41CBF856A00B1FC24 /* QPRThreeFilter.m */; };
+		2675AE161CBF856A00B1FC24 /* QPRTwoFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADD51CBF856A00B1FC24 /* QPRTwoFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE171CBF856A00B1FC24 /* QPRTwoFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADD61CBF856A00B1FC24 /* QPRTwoFilter.m */; };
+		2675AE181CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADD71CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE191CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADD81CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.m */; };
+		2675AE1A1CBF856A00B1FC24 /* QPGLProgram.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADDA1CBF856A00B1FC24 /* QPGLProgram.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE1B1CBF856A00B1FC24 /* QPGLProgram.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADDB1CBF856A00B1FC24 /* QPGLProgram.m */; };
+		2675AE1C1CBF856A00B1FC24 /* QPGPUImage.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADDC1CBF856A00B1FC24 /* QPGPUImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE1D1CBF856A00B1FC24 /* QPGPUImageContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADDD1CBF856A00B1FC24 /* QPGPUImageContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE1E1CBF856A00B1FC24 /* QPGPUImageContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADDE1CBF856A00B1FC24 /* QPGPUImageContext.m */; };
+		2675AE1F1CBF856A00B1FC24 /* QPGPUImageCropFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADDF1CBF856A00B1FC24 /* QPGPUImageCropFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE201CBF856A00B1FC24 /* QPGPUImageCropFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADE01CBF856A00B1FC24 /* QPGPUImageCropFilter.m */; };
+		2675AE211CBF856A00B1FC24 /* QPGPUImageExposureFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADE11CBF856A00B1FC24 /* QPGPUImageExposureFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE221CBF856A00B1FC24 /* QPGPUImageExposureFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADE21CBF856A00B1FC24 /* QPGPUImageExposureFilter.m */; };
+		2675AE231CBF856A00B1FC24 /* QPGPUImageFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADE31CBF856A00B1FC24 /* QPGPUImageFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE241CBF856A00B1FC24 /* QPGPUImageFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADE41CBF856A00B1FC24 /* QPGPUImageFilter.m */; };
+		2675AE251CBF856A00B1FC24 /* QPGPUImageFilterGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADE51CBF856A00B1FC24 /* QPGPUImageFilterGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE261CBF856A00B1FC24 /* QPGPUImageFilterGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADE61CBF856A00B1FC24 /* QPGPUImageFilterGroup.m */; };
+		2675AE271CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADE71CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE281CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADE81CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.m */; };
+		2675AE291CBF856A00B1FC24 /* QPGPUImageLookupFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADE91CBF856A00B1FC24 /* QPGPUImageLookupFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE2A1CBF856A00B1FC24 /* QPGPUImageLookupFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADEA1CBF856A00B1FC24 /* QPGPUImageLookupFilter.m */; };
+		2675AE2B1CBF856A00B1FC24 /* QPGPUImageMovie.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADEB1CBF856A00B1FC24 /* QPGPUImageMovie.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE2C1CBF856A00B1FC24 /* QPGPUImageMovie.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADEC1CBF856A00B1FC24 /* QPGPUImageMovie.m */; };
+		2675AE2D1CBF856A00B1FC24 /* QPGPUImageMovieComposition.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADED1CBF856A00B1FC24 /* QPGPUImageMovieComposition.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE2E1CBF856A00B1FC24 /* QPGPUImageMovieComposition.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADEE1CBF856A00B1FC24 /* QPGPUImageMovieComposition.m */; };
+		2675AE2F1CBF856A00B1FC24 /* QPGPUImageMovieWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADEF1CBF856A00B1FC24 /* QPGPUImageMovieWriter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE301CBF856A00B1FC24 /* QPGPUImageMovieWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADF01CBF856A00B1FC24 /* QPGPUImageMovieWriter.m */; };
+		2675AE311CBF856A00B1FC24 /* QPGPUImageOutput.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADF11CBF856A00B1FC24 /* QPGPUImageOutput.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE321CBF856A00B1FC24 /* QPGPUImageOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADF21CBF856A00B1FC24 /* QPGPUImageOutput.m */; };
+		2675AE331CBF856A00B1FC24 /* QPGPUImagePicture.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADF31CBF856A00B1FC24 /* QPGPUImagePicture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE341CBF856A00B1FC24 /* QPGPUImagePicture.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADF41CBF856A00B1FC24 /* QPGPUImagePicture.m */; };
+		2675AE351CBF856A00B1FC24 /* QPGPUImageStillCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADF51CBF856A00B1FC24 /* QPGPUImageStillCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE361CBF856A00B1FC24 /* QPGPUImageStillCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADF61CBF856A00B1FC24 /* QPGPUImageStillCamera.m */; };
+		2675AE371CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADF71CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE381CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADF81CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.m */; };
+		2675AE391CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADF91CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE3A1CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADFA1CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.m */; };
+		2675AE3B1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADFB1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE3C1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADFC1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.m */; };
+		2675AE3D1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADFD1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE3E1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675ADFE1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.m */; };
+		2675AE3F1CBF856A00B1FC24 /* QPGPUImageVideoCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675ADFF1CBF856A00B1FC24 /* QPGPUImageVideoCamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE401CBF856A00B1FC24 /* QPGPUImageVideoCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675AE001CBF856A00B1FC24 /* QPGPUImageVideoCamera.m */; };
+		2675AE411CBF856A00B1FC24 /* QPGPUImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675AE011CBF856A00B1FC24 /* QPGPUImageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2675AE421CBF856A00B1FC24 /* QPGPUImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2675AE021CBF856A00B1FC24 /* QPGPUImageView.m */; };
+		2675AE431CBF856A00B1FC24 /* QPRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2675AE031CBF856A00B1FC24 /* QPRenderer.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		2675ADB41CBF7A9100B1FC24 /* QPSDKCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QPSDKCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2675ADB71CBF7A9100B1FC24 /* QPSDKCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QPSDKCore.h; sourceTree = "<group>"; };
+		2675ADB91CBF7A9100B1FC24 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2675ADC01CBF856A00B1FC24 /* QPRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRecorder.h; sourceTree = "<group>"; };
+		2675ADC21CBF856A00B1FC24 /* QPRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRecord.h; sourceTree = "<group>"; };
+		2675ADC31CBF856A00B1FC24 /* QPRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRecord.m; sourceTree = "<group>"; };
+		2675ADC61CBF856A00B1FC24 /* QPBeautyFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPBeautyFilter.h; sourceTree = "<group>"; };
+		2675ADC71CBF856A00B1FC24 /* QPBeautyFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPBeautyFilter.m; sourceTree = "<group>"; };
+		2675ADC81CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageFiveInputFilter.h; sourceTree = "<group>"; };
+		2675ADC91CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageFiveInputFilter.m; sourceTree = "<group>"; };
+		2675ADCA1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageFourInputFilter.h; sourceTree = "<group>"; };
+		2675ADCB1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageFourInputFilter.m; sourceTree = "<group>"; };
+		2675ADCC1CBF856A00B1FC24 /* QPRFourFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRFourFilter.h; sourceTree = "<group>"; };
+		2675ADCD1CBF856A00B1FC24 /* QPRFourFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRFourFilter.m; sourceTree = "<group>"; };
+		2675ADCE1CBF856A00B1FC24 /* QPROneFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPROneFilter.h; sourceTree = "<group>"; };
+		2675ADCF1CBF856A00B1FC24 /* QPROneFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPROneFilter.m; sourceTree = "<group>"; };
+		2675ADD01CBF856A00B1FC24 /* QPRSkinFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRSkinFilter.h; sourceTree = "<group>"; };
+		2675ADD11CBF856A00B1FC24 /* QPRSkinFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRSkinFilter.m; sourceTree = "<group>"; };
+		2675ADD21CBF856A00B1FC24 /* QPRSkinImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRSkinImage.h; sourceTree = "<group>"; };
+		2675ADD31CBF856A00B1FC24 /* QPRThreeFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRThreeFilter.h; sourceTree = "<group>"; };
+		2675ADD41CBF856A00B1FC24 /* QPRThreeFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRThreeFilter.m; sourceTree = "<group>"; };
+		2675ADD51CBF856A00B1FC24 /* QPRTwoFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRTwoFilter.h; sourceTree = "<group>"; };
+		2675ADD61CBF856A00B1FC24 /* QPRTwoFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPRTwoFilter.m; sourceTree = "<group>"; };
+		2675ADD71CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuPaiGPUImageCropFilter.h; sourceTree = "<group>"; };
+		2675ADD81CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuPaiGPUImageCropFilter.m; sourceTree = "<group>"; };
+		2675ADDA1CBF856A00B1FC24 /* QPGLProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGLProgram.h; sourceTree = "<group>"; };
+		2675ADDB1CBF856A00B1FC24 /* QPGLProgram.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGLProgram.m; sourceTree = "<group>"; };
+		2675ADDC1CBF856A00B1FC24 /* QPGPUImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImage.h; sourceTree = "<group>"; };
+		2675ADDD1CBF856A00B1FC24 /* QPGPUImageContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageContext.h; sourceTree = "<group>"; };
+		2675ADDE1CBF856A00B1FC24 /* QPGPUImageContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageContext.m; sourceTree = "<group>"; };
+		2675ADDF1CBF856A00B1FC24 /* QPGPUImageCropFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageCropFilter.h; sourceTree = "<group>"; };
+		2675ADE01CBF856A00B1FC24 /* QPGPUImageCropFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageCropFilter.m; sourceTree = "<group>"; };
+		2675ADE11CBF856A00B1FC24 /* QPGPUImageExposureFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageExposureFilter.h; sourceTree = "<group>"; };
+		2675ADE21CBF856A00B1FC24 /* QPGPUImageExposureFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageExposureFilter.m; sourceTree = "<group>"; };
+		2675ADE31CBF856A00B1FC24 /* QPGPUImageFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageFilter.h; sourceTree = "<group>"; };
+		2675ADE41CBF856A00B1FC24 /* QPGPUImageFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageFilter.m; sourceTree = "<group>"; };
+		2675ADE51CBF856A00B1FC24 /* QPGPUImageFilterGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageFilterGroup.h; sourceTree = "<group>"; };
+		2675ADE61CBF856A00B1FC24 /* QPGPUImageFilterGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageFilterGroup.m; sourceTree = "<group>"; };
+		2675ADE71CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageGaussianBlurFilter.h; sourceTree = "<group>"; };
+		2675ADE81CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageGaussianBlurFilter.m; sourceTree = "<group>"; };
+		2675ADE91CBF856A00B1FC24 /* QPGPUImageLookupFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageLookupFilter.h; sourceTree = "<group>"; };
+		2675ADEA1CBF856A00B1FC24 /* QPGPUImageLookupFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageLookupFilter.m; sourceTree = "<group>"; };
+		2675ADEB1CBF856A00B1FC24 /* QPGPUImageMovie.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageMovie.h; sourceTree = "<group>"; };
+		2675ADEC1CBF856A00B1FC24 /* QPGPUImageMovie.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageMovie.m; sourceTree = "<group>"; };
+		2675ADED1CBF856A00B1FC24 /* QPGPUImageMovieComposition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageMovieComposition.h; sourceTree = "<group>"; };
+		2675ADEE1CBF856A00B1FC24 /* QPGPUImageMovieComposition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageMovieComposition.m; sourceTree = "<group>"; };
+		2675ADEF1CBF856A00B1FC24 /* QPGPUImageMovieWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageMovieWriter.h; sourceTree = "<group>"; };
+		2675ADF01CBF856A00B1FC24 /* QPGPUImageMovieWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageMovieWriter.m; sourceTree = "<group>"; };
+		2675ADF11CBF856A00B1FC24 /* QPGPUImageOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageOutput.h; sourceTree = "<group>"; };
+		2675ADF21CBF856A00B1FC24 /* QPGPUImageOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageOutput.m; sourceTree = "<group>"; };
+		2675ADF31CBF856A00B1FC24 /* QPGPUImagePicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImagePicture.h; sourceTree = "<group>"; };
+		2675ADF41CBF856A00B1FC24 /* QPGPUImagePicture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImagePicture.m; sourceTree = "<group>"; };
+		2675ADF51CBF856A00B1FC24 /* QPGPUImageStillCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageStillCamera.h; sourceTree = "<group>"; };
+		2675ADF61CBF856A00B1FC24 /* QPGPUImageStillCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageStillCamera.m; sourceTree = "<group>"; };
+		2675ADF71CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageThreeInputFilter.h; sourceTree = "<group>"; };
+		2675ADF81CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageThreeInputFilter.m; sourceTree = "<group>"; };
+		2675ADF91CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageTwoInputFilter.h; sourceTree = "<group>"; };
+		2675ADFA1CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageTwoInputFilter.m; sourceTree = "<group>"; };
+		2675ADFB1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageTwoPassFilter.h; sourceTree = "<group>"; };
+		2675ADFC1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageTwoPassFilter.m; sourceTree = "<group>"; };
+		2675ADFD1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageTwoPassTextureSamplingFilter.h; sourceTree = "<group>"; };
+		2675ADFE1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageTwoPassTextureSamplingFilter.m; sourceTree = "<group>"; };
+		2675ADFF1CBF856A00B1FC24 /* QPGPUImageVideoCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageVideoCamera.h; sourceTree = "<group>"; };
+		2675AE001CBF856A00B1FC24 /* QPGPUImageVideoCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageVideoCamera.m; sourceTree = "<group>"; };
+		2675AE011CBF856A00B1FC24 /* QPGPUImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPGPUImageView.h; sourceTree = "<group>"; };
+		2675AE021CBF856A00B1FC24 /* QPGPUImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPGPUImageView.m; sourceTree = "<group>"; };
+		2675AE031CBF856A00B1FC24 /* QPRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPRenderer.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2675ADB01CBF7A9100B1FC24 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2675ADAA1CBF7A9100B1FC24 = {
+			isa = PBXGroup;
+			children = (
+				2675ADBF1CBF856A00B1FC24 /* QPRecorder */,
+				2675ADC41CBF856A00B1FC24 /* QPRenderer */,
+				2675ADB61CBF7A9100B1FC24 /* QPSDKCore */,
+				2675ADB51CBF7A9100B1FC24 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2675ADB51CBF7A9100B1FC24 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2675ADB41CBF7A9100B1FC24 /* QPSDKCore.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2675ADB61CBF7A9100B1FC24 /* QPSDKCore */ = {
+			isa = PBXGroup;
+			children = (
+				2675ADB71CBF7A9100B1FC24 /* QPSDKCore.h */,
+				2675ADB91CBF7A9100B1FC24 /* Info.plist */,
+			);
+			path = QPSDKCore;
+			sourceTree = "<group>";
+		};
+		2675ADBF1CBF856A00B1FC24 /* QPRecorder */ = {
+			isa = PBXGroup;
+			children = (
+				2675ADC01CBF856A00B1FC24 /* QPRecorder.h */,
+				2675ADC11CBF856A00B1FC24 /* Recorder */,
+			);
+			name = QPRecorder;
+			path = ../../Src/QPRecorder;
+			sourceTree = "<group>";
+		};
+		2675ADC11CBF856A00B1FC24 /* Recorder */ = {
+			isa = PBXGroup;
+			children = (
+				2675ADC21CBF856A00B1FC24 /* QPRecord.h */,
+				2675ADC31CBF856A00B1FC24 /* QPRecord.m */,
+			);
+			path = Recorder;
+			sourceTree = "<group>";
+		};
+		2675ADC41CBF856A00B1FC24 /* QPRenderer */ = {
+			isa = PBXGroup;
+			children = (
+				2675ADC51CBF856A00B1FC24 /* Filter */,
+				2675ADD91CBF856A00B1FC24 /* GPUImage */,
+				2675AE031CBF856A00B1FC24 /* QPRenderer.h */,
+			);
+			name = QPRenderer;
+			path = ../../Src/QPRenderer;
+			sourceTree = "<group>";
+		};
+		2675ADC51CBF856A00B1FC24 /* Filter */ = {
+			isa = PBXGroup;
+			children = (
+				2675ADC61CBF856A00B1FC24 /* QPBeautyFilter.h */,
+				2675ADC71CBF856A00B1FC24 /* QPBeautyFilter.m */,
+				2675ADC81CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.h */,
+				2675ADC91CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.m */,
+				2675ADCA1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.h */,
+				2675ADCB1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.m */,
+				2675ADCC1CBF856A00B1FC24 /* QPRFourFilter.h */,
+				2675ADCD1CBF856A00B1FC24 /* QPRFourFilter.m */,
+				2675ADCE1CBF856A00B1FC24 /* QPROneFilter.h */,
+				2675ADCF1CBF856A00B1FC24 /* QPROneFilter.m */,
+				2675ADD01CBF856A00B1FC24 /* QPRSkinFilter.h */,
+				2675ADD11CBF856A00B1FC24 /* QPRSkinFilter.m */,
+				2675ADD21CBF856A00B1FC24 /* QPRSkinImage.h */,
+				2675ADD31CBF856A00B1FC24 /* QPRThreeFilter.h */,
+				2675ADD41CBF856A00B1FC24 /* QPRThreeFilter.m */,
+				2675ADD51CBF856A00B1FC24 /* QPRTwoFilter.h */,
+				2675ADD61CBF856A00B1FC24 /* QPRTwoFilter.m */,
+				2675ADD71CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.h */,
+				2675ADD81CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.m */,
+			);
+			path = Filter;
+			sourceTree = "<group>";
+		};
+		2675ADD91CBF856A00B1FC24 /* GPUImage */ = {
+			isa = PBXGroup;
+			children = (
+				2675ADDA1CBF856A00B1FC24 /* QPGLProgram.h */,
+				2675ADDB1CBF856A00B1FC24 /* QPGLProgram.m */,
+				2675ADDC1CBF856A00B1FC24 /* QPGPUImage.h */,
+				2675ADDD1CBF856A00B1FC24 /* QPGPUImageContext.h */,
+				2675ADDE1CBF856A00B1FC24 /* QPGPUImageContext.m */,
+				2675ADDF1CBF856A00B1FC24 /* QPGPUImageCropFilter.h */,
+				2675ADE01CBF856A00B1FC24 /* QPGPUImageCropFilter.m */,
+				2675ADE11CBF856A00B1FC24 /* QPGPUImageExposureFilter.h */,
+				2675ADE21CBF856A00B1FC24 /* QPGPUImageExposureFilter.m */,
+				2675ADE31CBF856A00B1FC24 /* QPGPUImageFilter.h */,
+				2675ADE41CBF856A00B1FC24 /* QPGPUImageFilter.m */,
+				2675ADE51CBF856A00B1FC24 /* QPGPUImageFilterGroup.h */,
+				2675ADE61CBF856A00B1FC24 /* QPGPUImageFilterGroup.m */,
+				2675ADE71CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.h */,
+				2675ADE81CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.m */,
+				2675ADE91CBF856A00B1FC24 /* QPGPUImageLookupFilter.h */,
+				2675ADEA1CBF856A00B1FC24 /* QPGPUImageLookupFilter.m */,
+				2675ADEB1CBF856A00B1FC24 /* QPGPUImageMovie.h */,
+				2675ADEC1CBF856A00B1FC24 /* QPGPUImageMovie.m */,
+				2675ADED1CBF856A00B1FC24 /* QPGPUImageMovieComposition.h */,
+				2675ADEE1CBF856A00B1FC24 /* QPGPUImageMovieComposition.m */,
+				2675ADEF1CBF856A00B1FC24 /* QPGPUImageMovieWriter.h */,
+				2675ADF01CBF856A00B1FC24 /* QPGPUImageMovieWriter.m */,
+				2675ADF11CBF856A00B1FC24 /* QPGPUImageOutput.h */,
+				2675ADF21CBF856A00B1FC24 /* QPGPUImageOutput.m */,
+				2675ADF31CBF856A00B1FC24 /* QPGPUImagePicture.h */,
+				2675ADF41CBF856A00B1FC24 /* QPGPUImagePicture.m */,
+				2675ADF51CBF856A00B1FC24 /* QPGPUImageStillCamera.h */,
+				2675ADF61CBF856A00B1FC24 /* QPGPUImageStillCamera.m */,
+				2675ADF71CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.h */,
+				2675ADF81CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.m */,
+				2675ADF91CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.h */,
+				2675ADFA1CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.m */,
+				2675ADFB1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.h */,
+				2675ADFC1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.m */,
+				2675ADFD1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.h */,
+				2675ADFE1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.m */,
+				2675ADFF1CBF856A00B1FC24 /* QPGPUImageVideoCamera.h */,
+				2675AE001CBF856A00B1FC24 /* QPGPUImageVideoCamera.m */,
+				2675AE011CBF856A00B1FC24 /* QPGPUImageView.h */,
+				2675AE021CBF856A00B1FC24 /* QPGPUImageView.m */,
+			);
+			path = GPUImage;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		2675ADB11CBF7A9100B1FC24 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2675AE051CBF856A00B1FC24 /* QPRecord.h in Headers */,
+				2675AE071CBF856A00B1FC24 /* QPBeautyFilter.h in Headers */,
+				2675AE091CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.h in Headers */,
+				2675AE0B1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.h in Headers */,
+				2675AE0D1CBF856A00B1FC24 /* QPRFourFilter.h in Headers */,
+				2675AE0F1CBF856A00B1FC24 /* QPROneFilter.h in Headers */,
+				2675AE111CBF856A00B1FC24 /* QPRSkinFilter.h in Headers */,
+				2675AE131CBF856A00B1FC24 /* QPRSkinImage.h in Headers */,
+				2675AE141CBF856A00B1FC24 /* QPRThreeFilter.h in Headers */,
+				2675AE161CBF856A00B1FC24 /* QPRTwoFilter.h in Headers */,
+				2675AE181CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.h in Headers */,
+				2675AE1A1CBF856A00B1FC24 /* QPGLProgram.h in Headers */,
+				2675AE1C1CBF856A00B1FC24 /* QPGPUImage.h in Headers */,
+				2675AE1D1CBF856A00B1FC24 /* QPGPUImageContext.h in Headers */,
+				2675AE1F1CBF856A00B1FC24 /* QPGPUImageCropFilter.h in Headers */,
+				2675AE211CBF856A00B1FC24 /* QPGPUImageExposureFilter.h in Headers */,
+				2675AE231CBF856A00B1FC24 /* QPGPUImageFilter.h in Headers */,
+				2675AE251CBF856A00B1FC24 /* QPGPUImageFilterGroup.h in Headers */,
+				2675AE271CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.h in Headers */,
+				2675AE291CBF856A00B1FC24 /* QPGPUImageLookupFilter.h in Headers */,
+				2675AE2B1CBF856A00B1FC24 /* QPGPUImageMovie.h in Headers */,
+				2675AE2D1CBF856A00B1FC24 /* QPGPUImageMovieComposition.h in Headers */,
+				2675AE2F1CBF856A00B1FC24 /* QPGPUImageMovieWriter.h in Headers */,
+				2675AE311CBF856A00B1FC24 /* QPGPUImageOutput.h in Headers */,
+				2675AE331CBF856A00B1FC24 /* QPGPUImagePicture.h in Headers */,
+				2675AE351CBF856A00B1FC24 /* QPGPUImageStillCamera.h in Headers */,
+				2675AE371CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.h in Headers */,
+				2675AE391CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.h in Headers */,
+				2675AE3B1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.h in Headers */,
+				2675AE3D1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.h in Headers */,
+				2675AE3F1CBF856A00B1FC24 /* QPGPUImageVideoCamera.h in Headers */,
+				2675AE411CBF856A00B1FC24 /* QPGPUImageView.h in Headers */,
+				2675AE041CBF856A00B1FC24 /* QPRecorder.h in Headers */,
+				2675ADB81CBF7A9100B1FC24 /* QPSDKCore.h in Headers */,
+				2675AE431CBF856A00B1FC24 /* QPRenderer.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2675ADB31CBF7A9100B1FC24 /* QPSDKCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2675ADBC1CBF7A9100B1FC24 /* Build configuration list for PBXNativeTarget "QPSDKCore" */;
+			buildPhases = (
+				2675ADAF1CBF7A9100B1FC24 /* Sources */,
+				2675ADB01CBF7A9100B1FC24 /* Frameworks */,
+				2675ADB11CBF7A9100B1FC24 /* Headers */,
+				2675ADB21CBF7A9100B1FC24 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = QPSDKCore;
+			productName = QPSDKCore;
+			productReference = 2675ADB41CBF7A9100B1FC24 /* QPSDKCore.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2675ADAB1CBF7A9100B1FC24 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = lyle;
+				TargetAttributes = {
+					2675ADB31CBF7A9100B1FC24 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+				};
+			};
+			buildConfigurationList = 2675ADAE1CBF7A9100B1FC24 /* Build configuration list for PBXProject "QPSDKCore" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 2675ADAA1CBF7A9100B1FC24;
+			productRefGroup = 2675ADB51CBF7A9100B1FC24 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2675ADB31CBF7A9100B1FC24 /* QPSDKCore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2675ADB21CBF7A9100B1FC24 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2675ADAF1CBF7A9100B1FC24 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2675AE1B1CBF856A00B1FC24 /* QPGLProgram.m in Sources */,
+				2675AE241CBF856A00B1FC24 /* QPGPUImageFilter.m in Sources */,
+				2675AE3E1CBF856A00B1FC24 /* QPGPUImageTwoPassTextureSamplingFilter.m in Sources */,
+				2675AE321CBF856A00B1FC24 /* QPGPUImageOutput.m in Sources */,
+				2675AE3A1CBF856A00B1FC24 /* QPGPUImageTwoInputFilter.m in Sources */,
+				2675AE101CBF856A00B1FC24 /* QPROneFilter.m in Sources */,
+				2675AE0C1CBF856A00B1FC24 /* QPGPUImageFourInputFilter.m in Sources */,
+				2675AE171CBF856A00B1FC24 /* QPRTwoFilter.m in Sources */,
+				2675AE301CBF856A00B1FC24 /* QPGPUImageMovieWriter.m in Sources */,
+				2675AE261CBF856A00B1FC24 /* QPGPUImageFilterGroup.m in Sources */,
+				2675AE0E1CBF856A00B1FC24 /* QPRFourFilter.m in Sources */,
+				2675AE2A1CBF856A00B1FC24 /* QPGPUImageLookupFilter.m in Sources */,
+				2675AE421CBF856A00B1FC24 /* QPGPUImageView.m in Sources */,
+				2675AE081CBF856A00B1FC24 /* QPBeautyFilter.m in Sources */,
+				2675AE221CBF856A00B1FC24 /* QPGPUImageExposureFilter.m in Sources */,
+				2675AE401CBF856A00B1FC24 /* QPGPUImageVideoCamera.m in Sources */,
+				2675AE2C1CBF856A00B1FC24 /* QPGPUImageMovie.m in Sources */,
+				2675AE281CBF856A00B1FC24 /* QPGPUImageGaussianBlurFilter.m in Sources */,
+				2675AE151CBF856A00B1FC24 /* QPRThreeFilter.m in Sources */,
+				2675AE121CBF856A00B1FC24 /* QPRSkinFilter.m in Sources */,
+				2675AE191CBF856A00B1FC24 /* QuPaiGPUImageCropFilter.m in Sources */,
+				2675AE3C1CBF856A00B1FC24 /* QPGPUImageTwoPassFilter.m in Sources */,
+				2675AE201CBF856A00B1FC24 /* QPGPUImageCropFilter.m in Sources */,
+				2675AE0A1CBF856A00B1FC24 /* QPGPUImageFiveInputFilter.m in Sources */,
+				2675AE361CBF856A00B1FC24 /* QPGPUImageStillCamera.m in Sources */,
+				2675AE341CBF856A00B1FC24 /* QPGPUImagePicture.m in Sources */,
+				2675AE061CBF856A00B1FC24 /* QPRecord.m in Sources */,
+				2675AE381CBF856A00B1FC24 /* QPGPUImageThreeInputFilter.m in Sources */,
+				2675AE1E1CBF856A00B1FC24 /* QPGPUImageContext.m in Sources */,
+				2675AE2E1CBF856A00B1FC24 /* QPGPUImageMovieComposition.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		2675ADBA1CBF7A9100B1FC24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		2675ADBB1CBF7A9100B1FC24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2675ADBD1CBF7A9100B1FC24 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = QPSDKCore/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.duanqu.QPSDKCore;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		2675ADBE1CBF7A9100B1FC24 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = QPSDKCore/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				PRODUCT_BUNDLE_IDENTIFIER = com.duanqu.QPSDKCore;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2675ADAE1CBF7A9100B1FC24 /* Build configuration list for PBXProject "QPSDKCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2675ADBA1CBF7A9100B1FC24 /* Debug */,
+				2675ADBB1CBF7A9100B1FC24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2675ADBC1CBF7A9100B1FC24 /* Build configuration list for PBXNativeTarget "QPSDKCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2675ADBD1CBF7A9100B1FC24 /* Debug */,
+				2675ADBE1CBF7A9100B1FC24 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2675ADAB1CBF7A9100B1FC24 /* Project object */;
+}

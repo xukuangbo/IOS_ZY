@@ -29,9 +29,6 @@
 #import  <QPSDKCore/QPSDKCore.h>
 #import <Bugtags/Bugtags.h>
 
-#define  kQPAppKey     @"20a9a463ed1796c"
-#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
-
 #define JPushAppKey    @"0d84e54275eeab85eac5baf6"
 #define JPushChabbel   @"Publish channel"
 
@@ -118,8 +115,14 @@
 {
     if ([ZYZCAccountTool getUserId]) {
         [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
+            NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+            [user setObject:@"yes" forKey:Auth_QuPai_Result];
+            [user synchronize];
             DDLog(@"access token : %@", accessToken);
         } failure:^(NSError *error) {
+            NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+            [user setObject:@"no" forKey:Auth_QuPai_Result];
+            [user synchronize];
             DDLog(@"failed : %@", error.description);
         }];
     }

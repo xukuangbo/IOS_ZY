@@ -71,7 +71,7 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     // 拍摄视频
     UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"拍摄视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action){
-        [QupaiSDK shared].minDurtaion = 2.0;
+        [QupaiSDK shared].minDuration = 2.0;
         [QupaiSDK shared].maxDuration = 15.0;
         UIViewController *controller = [[QupaiSDK shared] createRecordViewController];
         [QupaiSDK shared].delegte = self;

@@ -142,7 +142,7 @@
     UIView *view = [self createViewBg];
     UILabel *label1 = [self createWhiteLabel:@"可录制"];
     [view addSubview:label1];
-    NSString *msg = [NSString stringWithFormat:@"%0.0f至%0.0f秒",QupaiSDK.shared.minDurtaion, QupaiSDK.shared.maxDuration];
+    NSString *msg = [NSString stringWithFormat:@"%0.0f至%0.0f秒",QupaiSDK.shared.minDuration, QupaiSDK.shared.maxDuration];
     UILabel *label2 = [self createYellowLabel:msg];
     [view addSubview:label2];
     UILabel *label3 = [self createWhiteLabel:@"时长的视频"];

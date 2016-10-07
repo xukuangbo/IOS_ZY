@@ -29,7 +29,7 @@ static NSString *const AVPlayerRateKeyPath = @"_avPlayer.rate";
 
 static const CGFloat UpNeedleAdjust = 0.03;
 
-@interface QPCutViewController ()<QPCutViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
+@interface QPCutViewController ()<QPCutViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource, QPCutVideoDelegate>
 {
     AVPlayer *_avPlayer;
     AVPlayerLayer *_playerLayer;
@@ -296,14 +296,15 @@ static const CGFloat UpNeedleAdjust = 0.03;
     CGPoint offset = CGPointZero;
     CGSize size = CGSizeMake(200, 200);
     NSArray *instructions = [self instructionWithAsset:asset outFrameRate:&frameRate offset:offset toSize:size error:&error];
-    AVMutableVideoComposition *videoComposition = [AVMutableVideoComposition videoCompositionWithPropertiesOfAsset:asset];
-    videoComposition.instructions = instructions;
+    
     if (frameRate > 30) {
+        AVMutableVideoComposition *videoComposition = [AVMutableVideoComposition videoCompositionWithPropertiesOfAsset:asset];
+        videoComposition.instructions = instructions;
         videoComposition.frameDuration = CMTimeMakeWithSeconds(1.0/30, 10000);
+        videoComposition.renderSize = size;
         _generator.videoComposition = videoComposition;
     }
-    videoComposition.renderSize = size;
-    
+  
     __block __weak QPCutViewController *wself = self;
     AVAssetImageGeneratorCompletionHandler handler = ^(CMTime requestedTime, CGImageRef im, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error){
         if (result == AVAssetImageGeneratorSucceeded) {
@@ -318,7 +319,7 @@ static const CGFloat UpNeedleAdjust = 0.03;
             NSLog(@"genset failed");
         }
     };
-    //    _generator.maximumSize = CGSizeMake(200, 200);
+        _generator.maximumSize = CGSizeMake(200, 200);
     [_generator generateCGImagesAsynchronouslyForTimes:array completionHandler:handler];
 }
 
@@ -598,7 +599,7 @@ static const CGFloat UpNeedleAdjust = 0.03;
     [UIApplication sharedApplication].idleTimerDisabled = YES;
     
     if (![QupaiSDK shared].enableVideoEffect && [QupaiSDK shared].enableWatermark) {//如果不进合成页面而且有水印，剪裁的时候直接加水印
-        [_cutVideo cutVideoAVAsset:_cutInfo.asset range:range waterMark:[QupaiSDK shared].watermarkImage offset:[self offsetVideo] size:[QPSDKConfig videoSize] toURL:toURL completeBlock:^(NSURL *filePath) {
+        [_cutVideo cutVideoAVAsset:_cutInfo.asset range:range waterMark:[QupaiSDK shared].watermarkImage offset:[self offsetVideo] size:[QPSDKConfig videoSize] presetName:AVAssetExportPresetMediumQuality toURL:toURL completeBlock:^(NSURL *filePath) {
             [UIApplication sharedApplication].idleTimerDisabled = NO;
             if ([[NSFileManager defaultManager] fileExistsAtPath:filePath.path]) {
                 [_delegate cutViewControllerFinishCut:filePath.path];
@@ -610,7 +611,7 @@ static const CGFloat UpNeedleAdjust = 0.03;
         }];
     }else{
         [_cutVideo cutVideoAVAsset:_cutInfo.asset range:range offset:[self offsetVideo]
-                              size:[self sizeVideo] toURL:toURL completeBlock:^(NSURL *filePath) {
+                              size:[self sizeVideo] presetName:AVAssetExportPresetHighestQuality toURL:toURL completeBlock:^(NSURL *filePath) {
                                   [UIApplication sharedApplication].idleTimerDisabled = NO;
                                   if ([[NSFileManager defaultManager] fileExistsAtPath:filePath.path]) {
                                       [_delegate cutViewControllerFinishCut:filePath.path];
@@ -620,9 +621,36 @@ static const CGFloat UpNeedleAdjust = 0.03;
                                       [self.navigationController popViewControllerAnimated:YES];
                                   }
                               }];
+        
+//        _cutVideo.delegate = self;
+//        
+//        [_cutVideo cutVideoAndCompressAVAsset:_cutInfo.asset range:range offset:[self offsetVideo] waterMark:[QupaiSDK shared].watermarkImage size:[self sizeVideo] bitrate:400000 presetName:AVAssetExportPresetHighestQuality toURL:toURL];
     }
     [[QPEventManager shared] event:QPEventImportCutOk];
 }
+
+#pragma mark QPCutVideoDelegate
+
+- (void)cutAndCompressVideoSuccess:(NSURL *)fileURL {
+    
+    NSLog(@"视频路径%@", fileURL.path);
+//    UISaveVideoAtPathToSavedPhotosAlbum(fileURL.path, nil, nil, nil);
+  [_delegate cutViewControllerFinishCut:fileURL.path];
+}
+
+
+- (void)cutAndCompressVideofailure:(NSError *)error {
+    
+    NSLog(@"视频裁剪合成失败%@", error);
+}
+
+
+- (void)currentCompressPlan:(CGFloat)plan {
+    
+    NSLog(@"当前视频合成进度:%f", plan);
+    
+}
+
 
 - (void)buttonGuideImageViewClick:(id)sender
 {

@@ -178,7 +178,7 @@
     QPPickerPreviewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"QPPickerPreviewCell" forIndexPath:indexPath];
     QPLibrarayItem *item = _array[indexPath.row];
     
-    NSInteger duration = (int)(item.duration);
+    NSInteger duration = (int)ceil(item.duration);
     cell.labelDuration.text = [NSString stringWithFormat:@"%02zd:%02zd",(int)duration/60, duration%60];
     cell.imageViewIcon.image = item.image;
     cell.imageViewFlag.image = [self imageForVideoSubtype:item.type];
@@ -313,7 +313,7 @@
     CGFloat maxDuration = [QupaiSDK shared].maxDuration;
     cutInfo.cutMaxDuration = MIN(videoDuration, maxDuration);
 //    cutInfo.cutMaxDuration = [QupaiSDK shared].maxDuration;
-    cutInfo.cutMinDuration = [QupaiSDK shared].minDurtaion;
+    cutInfo.cutMinDuration = [QupaiSDK shared].minDuration;
     [cutInfo setupWithAVAsset:asset];
     QPCutViewController *cut = [[QPCutViewController alloc] initWithNibName:@"QPCutViewController" bundle:[QPBundle mainBundle] cutInfo:cutInfo];
     cut.delegate = self;
@@ -335,9 +335,9 @@
         [[QPProgressHUD sharedInstance] showtitleNotic:@"导出失败！"];
         return;
     }
-    if (CMTimeGetSeconds(asset.duration) < QupaiSDK.shared.minDurtaion) {
+    if (CMTimeGetSeconds(asset.duration) < QupaiSDK.shared.minDuration) {
         [picker popViewControllerAnimated:YES];
-        [[QPProgressHUD sharedInstance] showtitleNotic:[NSString stringWithFormat:@"视频时长不能小于%0.0f秒",QupaiSDK.shared.minDurtaion] time:3.0];
+        [[QPProgressHUD sharedInstance] showtitleNotic:[NSString stringWithFormat:@"视频时长不能小于%0.0f秒",QupaiSDK.shared.minDuration] time:3.0];
         return;
     }
     [picker dismissViewControllerAnimated:YES completion:^{

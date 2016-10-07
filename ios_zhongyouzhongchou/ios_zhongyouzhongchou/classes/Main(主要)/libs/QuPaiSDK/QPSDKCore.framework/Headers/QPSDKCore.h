@@ -16,6 +16,7 @@ FOUNDATION_EXPORT const unsigned char QPSDKCoreVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <QPSDKCore/PublicHeader.h>
 
+
 #import <QPSDKCore/QPJSONModel.h>
 #import <QPSDKCore/QPRecord.h>
 #import <QPSDKCore/QPVideoCombine.h>
@@ -26,4 +27,7 @@ FOUNDATION_EXPORT const unsigned char QPSDKCoreVersionString[];
 #import <QPSDKCore/QPAuth.h>
 #import <QPSDKCore/QPAuth-Private.h>
 #import <QPSDKCore/QPLReachability.h>
+#import <QPSDKCore/QPVideoEditor.h>
+#import <QPSDKCore/QPHttpClient.h>
+#import <QPSDKCore/QPDeviceManager.h>
 #import <QPSDKCore/QPLive.h>

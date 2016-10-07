@@ -6,7 +6,6 @@
 //  Copyright © 2016年 danqoo. All rights reserved.
 //
 
-#define VIEW_ALPHA   0.5
 #import "QPRecordView.h"
 #import "QPPointProgress.h"
 
@@ -14,23 +13,26 @@
 #define kViewTopButtonWeight 44
 #define kViewTopButtonScale 18
 
-#define kViewProgressHeight 20
+#define kViewProgressHeight 4
 
+//#define kViewBottomHeight (ScreenHeight - kViewTopButtonWeight - kViewProgressHeight - ScreenWidth)
 #define kButtonLibraryWeight 55
 #define kButtonRecordWeight 85
 
 #define kViewTimeHeight 72
 
 @interface QPRecordView ()
-
-
+@property (nonatomic, assign) CGSize videoSize;
+@property (nonatomic, assign) CGFloat bottomPanelHeight;
 @end
 
 @implementation QPRecordView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+-(instancetype)initWithFrame:(CGRect)frame videoSize:(CGSize)videoSize bottomPanelHeight:(CGFloat)height {
     self = [super initWithFrame:frame];
     if (self) {
+        self.videoSize = videoSize;
+        self.bottomPanelHeight = height;
         [self setupSubViews];
     }
     return self;
@@ -38,10 +40,7 @@
 
 - (void)setupSubViews {
     
-    self.backgroundColor = [UIColor whiteColor];
-    
-    [self setupCenterViews];
-
+    self.backgroundColor = [UIColor blackColor];
     
     [self setupTopViews];
     
@@ -49,7 +48,11 @@
     
     [self setupBottomViews];
     
+    [self setupCenterViews];
+    
     [self centerViewAddGestures];
+    
+     [self sendSubviewToBack:self.viewCenter];
 }
 
 
@@ -57,36 +60,35 @@
     
     // topView
     self.viewTop = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, ScreenWidth, 44))];
-    self.viewTop.alpha=VIEW_ALPHA;
-    self.viewTop.backgroundColor = [UIColor blackColor];
+    self.viewTop.backgroundColor = RGBToColor(255, 255, 255, 0.1);
     [self addSubview:self.viewTop];
     
     self.buttonClose = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonClose.frame = CGRectMake(0, 0, kViewTopButtonWeight, kViewTopButtonWeight);
     [self.buttonClose addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.buttonClose setImage:[QPImage imageNamed:@"record_ico_close.png"] forState:(UIControlStateNormal)];
-    [self addSubview:self.buttonClose];
+    [self.viewTop addSubview:self.buttonClose];
     
     self.buttonPosition = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonPosition.frame = CGRectMake(CGRectGetWidth(self.viewTop.frame) - kViewTopButtonWeight, 0, kViewTopButtonWeight, kViewTopButtonWeight);
     [self.buttonPosition setImage:[QPImage imageNamed:@"record_ico_switch.png"] forState:(UIControlStateNormal)];
     [self.buttonPosition setImage:[QPImage imageNamed:@"record_ico_switch_1.png"] forState:(UIControlStateSelected)];
     [self.buttonPosition addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self addSubview:self.buttonPosition];
+    [self.viewTop addSubview:self.buttonPosition];
     
     self.buttonTime = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonTime.frame = CGRectMake(CGRectGetMinX(self.buttonPosition.frame) - kViewTopButtonWeight - kViewTopButtonScale, 0, kViewTopButtonWeight, kViewTopButtonWeight);
     [self.buttonTime setImage:[QPImage imageNamed:@"record_ico_countdown.png"] forState:(UIControlStateNormal)];
     [self.buttonTime setImage:[QPImage imageNamed:@"record_ico_countdown_1.png"] forState:(UIControlStateSelected)];
     [self.buttonTime addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    [self addSubview:self.buttonTime];
+    [self.viewTop addSubview:self.buttonTime];
     
     self.buttonSkin = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonSkin.frame = CGRectMake(CGRectGetMinX(self.buttonTime.frame) - kViewTopButtonWeight - kViewTopButtonScale, 0, kViewTopButtonWeight, kViewTopButtonWeight);
     [self.buttonSkin addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.buttonSkin setImage:[QPImage imageNamed:@"record_ico_mackup.png"] forState:(UIControlStateNormal)];
     [self.buttonSkin setImage:[QPImage imageNamed:@"record_ico_mackup_1.png"] forState:(UIControlStateSelected)];
-    [self addSubview:self.buttonSkin];
+    [self.viewTop addSubview:self.buttonSkin];
     
     self.skinBgImage = [[UIImageView alloc] initWithFrame:self.buttonSkin.frame];
     
@@ -105,7 +107,8 @@
     
     NSArray *skinImageArray = [NSArray arrayWithArray:makeupIcos];
     [self.skinBgImage setImage:[UIImage animatedImageWithImages:skinImageArray duration:2]];
-    [self addSubview:self.skinBgImage];
+    [self.viewTop addSubview:self.skinBgImage];
+
 }
 
 
@@ -113,21 +116,30 @@
     
     // viewProgress
     self.viewProgress = [[UIView alloc] initWithFrame:(CGRectMake(CGRectGetMinX(self.viewTop.frame), CGRectGetMaxY(self.viewTop.frame), CGRectGetWidth(self.viewTop.frame), kViewProgressHeight))];
-    self.viewProgress.backgroundColor = RGBToColor(0,0,0, VIEW_ALPHA);
+    self.viewProgress.backgroundColor = RGBToColor(0,0,0, 0.1);
     [self addSubview:self.viewProgress];
     
     self.pointProgress = [[QPPointProgress alloc] initWithFrame:self.viewProgress.frame];
     [self addSubview:self.pointProgress];
 }
 
+
 - (void)setupCenterViews {
-    
+    CGFloat ratio = self.videoSize.height / self.videoSize.width;
+    CGFloat centerTop = kViewTopButtonWeight + kViewProgressHeight;
+    CGFloat centerHeight = CGRectGetWidth(self.frame) * ratio;
+    if (centerHeight > CGRectGetHeight(self.frame)) {
+        centerTop = -(centerHeight - CGRectGetHeight(self.frame))/2.0f;
+    }else if (centerHeight > (CGRectGetHeight(self.frame) -  kViewTopButtonWeight - kViewProgressHeight)) {
+        centerTop = 0;
+    }
     // centerView
-    self.viewCenter = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, ScreenWidth, ScreenHeight))];
-    self.viewCenter.backgroundColor = [UIColor whiteColor];
+    self.viewCenter = [[UIView alloc] initWithFrame:CGRectMake(0, centerTop, CGRectGetWidth(self.viewTop.frame), centerHeight)];
+    self.viewCenter.backgroundColor = [UIColor clearColor];
     [self addSubview:self.viewCenter];
     
     self.gpuImageView = [[UIView alloc] init];
+//    self.gpuImageView.fillMode = kQPGPUImageFillModePreserveAspectRatioAndFill;
     self.gpuImageView.backgroundColor = [UIColor blackColor];
     self.gpuImageView.frame = self.viewCenter.bounds;
     [self.viewCenter addSubview:self.gpuImageView];
@@ -135,7 +147,7 @@
     self.viewFocusContent = [[UIView alloc] initWithFrame:self.viewCenter.bounds];
     self.viewMask = [[UIView alloc] initWithFrame:self.viewFocusContent.frame];
     self.viewMask.hidden = YES;
-    self.viewMask.backgroundColor = [UIColor blackColor];
+    self.viewMask.backgroundColor = [UIColor clearColor];
     [self.viewFocusContent addSubview:self.viewMask];
     [self.viewCenter addSubview:self.viewFocusContent];
     
@@ -145,8 +157,8 @@
     [self addSubview:self.activityIndicator];
     
     // centerView viewSkin
-    self.viewSkin = [[UIView alloc] initWithFrame:(CGRectMake(3, CGRectGetHeight(self.viewCenter.frame) - 11 - 32 - kViewBottomHeight-30, CGRectGetWidth(self.viewCenter.frame) - 6, 32))];
-    [self.viewCenter addSubview:self.viewSkin];
+    self.viewSkin = [[UIView alloc] initWithFrame:(CGRectMake(3, CGRectGetHeight(self.frame) - 36 - 32 - _bottomPanelHeight, CGRectGetWidth(self.viewCenter.frame) - 6, 32))];
+    [self addSubview:self.viewSkin];
     
     UIImageView *viewSkinBg = [[UIImageView alloc] initWithFrame:self.viewSkin.bounds];
     viewSkinBg.image = [QPImage imageNamed:@"record_levelbase_bg.png"];
@@ -242,9 +254,8 @@
 - (void)setupBottomViews {
     
     // bottomView
-    self.viewBottom = [[UIView alloc] initWithFrame:(CGRectMake(CGRectGetMinX(self.viewTop.frame), ScreenHeight - kViewBottomHeight, ScreenWidth, kViewBottomHeight))];
-    self.viewBottom.backgroundColor = [UIColor blackColor];
-    self.viewBottom.alpha=VIEW_ALPHA;
+    self.viewBottom = [[UIView alloc] initWithFrame:(CGRectMake(0, ScreenHeight - self.bottomPanelHeight, ScreenWidth, self.bottomPanelHeight))];
+    self.viewBottom.backgroundColor = RGBToColor(255,255,255, 0.1);
     [self addSubview:self.viewBottom];
     
     UITapGestureRecognizer *bottomTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bottomGestureAction:)];
@@ -254,24 +265,24 @@
     self.buttonLibrary = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.buttonLibrary setImage:[QPImage imageNamed:@"record_ico_input.png"] forState:(UIControlStateNormal)];
     [self.buttonLibrary addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
-    self.buttonLibrary.frame = CGRectMake(29,(ScreenHeight-kViewBottomHeight)+(kViewBottomHeight - kButtonLibraryWeight) / 2, kButtonLibraryWeight, kButtonLibraryWeight);
-    [self addSubview:self.buttonLibrary];
+    self.buttonLibrary.frame = CGRectMake(29, (self.bottomPanelHeight - kButtonLibraryWeight) / 2, kButtonLibraryWeight, kButtonLibraryWeight);
+    [self.viewBottom addSubview:self.buttonLibrary];
     
     self.buttonRecord = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.buttonRecord addTarget:self action:@selector(buttonRecordDownAction:) forControlEvents:(UIControlEventTouchDown)];
     [self.buttonRecord addTarget:self action:@selector(buttonRecordUpAction:) forControlEvents:(UIControlEventTouchUpOutside | UIControlEventTouchUpInside)];
-    self.buttonRecord.frame = CGRectMake((ScreenWidth - kButtonRecordWeight) / 2, (ScreenHeight-kViewBottomHeight)+(kViewBottomHeight - kButtonRecordWeight) / 2, kButtonRecordWeight, kButtonRecordWeight);
+    self.buttonRecord.frame = CGRectMake((ScreenWidth - kButtonRecordWeight) / 2, (self.bottomPanelHeight - kButtonRecordWeight) / 2, kButtonRecordWeight, kButtonRecordWeight);
     [self.buttonRecord setImage:[QPImage imageNamed:@"record_ico_rec.png"] forState:(UIControlStateNormal)];
     [self.buttonRecord setImage:[QPImage imageNamed:@"record_ico_rec_1.png"] forState:(UIControlStateHighlighted)];
     self.buttonRecord.adjustsImageWhenHighlighted = NO;
-    [self addSubview:self.buttonRecord];
+    [self.viewBottom addSubview:self.buttonRecord];
     
     self.buttonFinish = [UIButton buttonWithType:(UIButtonTypeCustom)];
     [self.buttonFinish addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.buttonFinish setImage:[QPImage imageNamed:@"record_ico_check_dis.png"] forState:(UIControlStateDisabled)];
     [self.buttonFinish setImage:[QPImage imageNamed:@"record_ico_check_on.png"] forState:(UIControlStateNormal)];
     self.buttonFinish.frame = CGRectMake(CGRectGetWidth(self.viewBottom.frame) - kButtonLibraryWeight - 29, CGRectGetMinY(self.buttonLibrary.frame), kButtonLibraryWeight, kButtonLibraryWeight);
-    [self addSubview:self.buttonFinish];
+    [self.viewBottom addSubview:self.buttonFinish];
     
     // 趣拍 logo
     self.qupaiLogo = [[UILabel alloc] initWithFrame:(CGRectMake((ScreenWidth - 94) / 2, ScreenHeight - 21, 94, 21))];
