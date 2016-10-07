@@ -311,6 +311,13 @@
 		2CC78A831D9948E800CC04E2 /* ZYUserZoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC78A821D9948E800CC04E2 /* ZYUserZoneController.m */; };
 		2CC78A861D994AF300CC04E2 /* ZYUserBottomBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC78A851D994AF300CC04E2 /* ZYUserBottomBarView.m */; };
 		2CD1E5FF1DA735BA008E4203 /* QPSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CD1E5FE1DA735BA008E4203 /* QPSDK.bundle */; };
+		2CD1E6101DA78A5D008E4203 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1E60D1DA78A5D008E4203 /* README.md */; };
+		2CD1E6111DA78A5D008E4203 /* VideoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1E60F1DA78A5D008E4203 /* VideoService.m */; };
+		2CD1E6161DA790A5008E4203 /* HJCarouselViewLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1E6151DA790A5008E4203 /* HJCarouselViewLayout.m */; };
+		2CD1E61E1DA79272008E4203 /* HJCarouselViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1E61C1DA79272008E4203 /* HJCarouselViewCell.m */; };
+		2CD1E61F1DA79272008E4203 /* HJCarouselViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD1E61D1DA79272008E4203 /* HJCarouselViewCell.xib */; };
+		2CD1E6281DA799D8008E4203 /* ZYPublishQupaiVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1E6271DA799D8008E4203 /* ZYPublishQupaiVideo.m */; };
+		2CD1E62B1DA79B4D008E4203 /* ZYVideoImageCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1E62A1DA79B4D008E4203 /* ZYVideoImageCollection.m */; };
 		2CD209001D6D3E27005EB62E /* StylesUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD208A61D6D3E26005EB62E /* StylesUserModel.m */; };
 		2CD209011D6D3E27005EB62E /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD208A81D6D3E26005EB62E /* UserModel.m */; };
 		2CD209021D6D3E27005EB62E /* ZCCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD208AA1D6D3E26005EB62E /* ZCCommentModel.m */; };
@@ -1195,6 +1202,18 @@
 		2CC78A841D994AF300CC04E2 /* ZYUserBottomBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYUserBottomBarView.h; sourceTree = "<group>"; };
 		2CC78A851D994AF300CC04E2 /* ZYUserBottomBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYUserBottomBarView.m; sourceTree = "<group>"; };
 		2CD1E5FE1DA735BA008E4203 /* QPSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = QPSDK.bundle; sourceTree = "<group>"; };
+		2CD1E60D1DA78A5D008E4203 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		2CD1E60E1DA78A5D008E4203 /* VideoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoService.h; sourceTree = "<group>"; };
+		2CD1E60F1DA78A5D008E4203 /* VideoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoService.m; sourceTree = "<group>"; };
+		2CD1E6141DA790A5008E4203 /* HJCarouselViewLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCarouselViewLayout.h; sourceTree = "<group>"; };
+		2CD1E6151DA790A5008E4203 /* HJCarouselViewLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCarouselViewLayout.m; sourceTree = "<group>"; };
+		2CD1E61B1DA79272008E4203 /* HJCarouselViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HJCarouselViewCell.h; sourceTree = "<group>"; };
+		2CD1E61C1DA79272008E4203 /* HJCarouselViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HJCarouselViewCell.m; sourceTree = "<group>"; };
+		2CD1E61D1DA79272008E4203 /* HJCarouselViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HJCarouselViewCell.xib; sourceTree = "<group>"; };
+		2CD1E6261DA799D8008E4203 /* ZYPublishQupaiVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYPublishQupaiVideo.h; sourceTree = "<group>"; };
+		2CD1E6271DA799D8008E4203 /* ZYPublishQupaiVideo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYPublishQupaiVideo.m; sourceTree = "<group>"; };
+		2CD1E6291DA79B4D008E4203 /* ZYVideoImageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYVideoImageCollection.h; sourceTree = "<group>"; };
+		2CD1E62A1DA79B4D008E4203 /* ZYVideoImageCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYVideoImageCollection.m; sourceTree = "<group>"; };
 		2CD208A51D6D3E26005EB62E /* StylesUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StylesUserModel.h; sourceTree = "<group>"; };
 		2CD208A61D6D3E26005EB62E /* StylesUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StylesUserModel.m; sourceTree = "<group>"; };
 		2CD208A71D6D3E26005EB62E /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
@@ -3474,6 +3493,46 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		2CD1E60C1DA78A5D008E4203 /* VideoService */ = {
+			isa = PBXGroup;
+			children = (
+				2CD1E60D1DA78A5D008E4203 /* README.md */,
+				2CD1E60E1DA78A5D008E4203 /* VideoService.h */,
+				2CD1E60F1DA78A5D008E4203 /* VideoService.m */,
+			);
+			path = VideoService;
+			sourceTree = "<group>";
+		};
+		2CD1E6121DA790A5008E4203 /* ZYVideoThumbImages */ = {
+			isa = PBXGroup;
+			children = (
+				2CD1E6171DA790ED008E4203 /* views */,
+				2CD1E6131DA790A5008E4203 /* HJCarouselViewLayout */,
+			);
+			path = ZYVideoThumbImages;
+			sourceTree = "<group>";
+		};
+		2CD1E6131DA790A5008E4203 /* HJCarouselViewLayout */ = {
+			isa = PBXGroup;
+			children = (
+				2CD1E6141DA790A5008E4203 /* HJCarouselViewLayout.h */,
+				2CD1E6151DA790A5008E4203 /* HJCarouselViewLayout.m */,
+			);
+			path = HJCarouselViewLayout;
+			sourceTree = "<group>";
+		};
+		2CD1E6171DA790ED008E4203 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				2CD1E6291DA79B4D008E4203 /* ZYVideoImageCollection.h */,
+				2CD1E62A1DA79B4D008E4203 /* ZYVideoImageCollection.m */,
+				2CD1E61B1DA79272008E4203 /* HJCarouselViewCell.h */,
+				2CD1E61C1DA79272008E4203 /* HJCarouselViewCell.m */,
+				2CD1E61D1DA79272008E4203 /* HJCarouselViewCell.xib */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		2CD208A31D6D3E26005EB62E /* ZYZCRaise(众筹) */ = {
 			isa = PBXGroup;
 			children = (
@@ -4014,6 +4073,8 @@
 				2C8E9AB71D8F942100CA35DE /* ZYFootprintListController.m */,
 				2C91B6671D9155140091EC79 /* ZYCommentFootprintController.h */,
 				2C91B6681D9155140091EC79 /* ZYCommentFootprintController.m */,
+				2CD1E6261DA799D8008E4203 /* ZYPublishQupaiVideo.h */,
+				2CD1E6271DA799D8008E4203 /* ZYPublishQupaiVideo.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -4781,6 +4842,8 @@
 				39911AD71D5044A8007DF44B /* ZYZCTool.m */,
 				39911AD81D5044A8007DF44B /* ZYZCTool+getLocalTime.h */,
 				39911AD91D5044A8007DF44B /* ZYZCTool+getLocalTime.m */,
+				2CD1E6121DA790A5008E4203 /* ZYVideoThumbImages */,
+				2CD1E60C1DA78A5D008E4203 /* VideoService */,
 				2CF3050D1D3DC6EE008296EC /* JudgeAuthority */,
 				399E94271D3A21E5006E1B68 /* OpenSetTool */,
 				399E94201D38E20C006E1B68 /* NetworkView */,
@@ -5146,6 +5209,7 @@
 				2C8B19851D0CF7EC0063097B /* PhotoPickerKit.xcassets in Resources */,
 				04A99CFB1CBF897A00C6F5F0 /* read_me.txt in Resources */,
 				3941CD761D420B29009224BC /* ChatBlackListCell.xib in Resources */,
+				2CD1E61F1DA79272008E4203 /* HJCarouselViewCell.xib in Resources */,
 				2C066A6E1D87937B0048FAE4 /* SenderVoiceNodePlaying001@2x.png in Resources */,
 				2CDE67051DA651070066F49D /* more_ico_previe_on@2x.png in Resources */,
 				2CD2091D1D6D3E27005EB62E /* ZCNoneDataView.xib in Resources */,
@@ -5357,6 +5421,7 @@
 				04C087B81D05534600203D40 /* MyUserFollowedCell.m in Sources */,
 				0469C5731D0E472900A34A03 /* MineTravelTagButton.m in Sources */,
 				39911ACB1D504174007DF44B /* UIView+ViewController.m in Sources */,
+				2CD1E62B1DA79B4D008E4203 /* ZYVideoImageCollection.m in Sources */,
 				392AB28B1D669C26003FEDB7 /* RCDLiveEmojiPageControl.m in Sources */,
 				2CDE66DC1DA650A80066F49D /* QPRecordTipGuideView.m in Sources */,
 				2C1B60CD1D6D3CF900E3C25B /* ChooseSiteImgController.m in Sources */,
@@ -5484,6 +5549,7 @@
 				2CFC7D081DA648B900A28D74 /* QPBundle.m in Sources */,
 				39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */,
 				39911ABD1D5038E2007DF44B /* TacticGeneralModel.m in Sources */,
+				2CD1E6111DA78A5D008E4203 /* VideoService.m in Sources */,
 				2CD209091D6D3E27005EB62E /* HotCommentCell.m in Sources */,
 				2C066A671D87937B0048FAE4 /* MLDataResponseSerializer.m in Sources */,
 				2CDE66D71DA650A80066F49D /* QPFocusView.m in Sources */,
@@ -5594,6 +5660,7 @@
 				2CD2092A1D6D3E27005EB62E /* ZCMainViewController.m in Sources */,
 				2CDE66881DA64EB70066F49D /* JSONValueTransformer.m in Sources */,
 				2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */,
+				2CD1E6101DA78A5D008E4203 /* README.md in Sources */,
 				04FCCAAF1CDC45AD00540B28 /* TacticMoreCollectionViewCell.m in Sources */,
 				2C5159A61D8641B20048BD20 /* MLAudioMeterObserver.m in Sources */,
 				2CDE66831DA64EB70066F49D /* JSONModelError.m in Sources */,
@@ -5628,10 +5695,13 @@
 				2C8B19701D0CF7EC0063097B /* JGProgressHUDAnimation.m in Sources */,
 				05130FE91D828CA9001023B1 /* ZYZCWebViewController.m in Sources */,
 				2C1B60D61D6D3CF900E3C25B /* MoreFZCTravelOneDayDetailMdel.m in Sources */,
+				2CD1E6161DA790A5008E4203 /* HJCarouselViewLayout.m in Sources */,
 				2CDE670F1DA651070066F49D /* QPMVMoreViewCell.m in Sources */,
 				2C1B60E21D6D3CF900E3C25B /* MoreFZCRaiseMoneyTableView.m in Sources */,
 				04F6854C1CF57C9F00E1A98E /* MinePersonSetUpScrollView.m in Sources */,
+				2CD1E61E1DA79272008E4203 /* HJCarouselViewCell.m in Sources */,
 				2C1B60D01D6D3CF900E3C25B /* MoreFZCChooseSceneController.m in Sources */,
+				2CD1E6281DA799D8008E4203 /* ZYPublishQupaiVideo.m in Sources */,
 				392AB2871D669C26003FEDB7 /* RCDLiveTipMessageCell.m in Sources */,
 				39A2C7A91D98FF5000F50204 /* LiveShowDashangModel.m in Sources */,
 				39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */,

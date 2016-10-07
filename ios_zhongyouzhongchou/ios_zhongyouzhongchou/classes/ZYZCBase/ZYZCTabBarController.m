@@ -30,7 +30,11 @@
 #import "QupaiSDK.h"
 #import "QPEffectMusic.h"
 #import <RongIMKit/RongIMKit.h>
-#import "ZYPublishFootprintController.h"
+//#import "ZYPublishFootprintController.h"
+
+#import "HJCarouselViewLayout.h"
+#import "ZYPublishQupaiVideo.h"
+
 
 #define kSaveVideoAlertTag    100
 
@@ -294,11 +298,19 @@
     if (buttonIndex==0) {
         WEAKSELF;
         [self dismissViewControllerAnimated:YES completion:^{
-            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-            publishFootprintController.footprintType=Footprint_VideoType;
-            publishFootprintController.videoPath=weakSelf.videoPath;
-            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
-            [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
+            
+            HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
+            layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+            layout.itemSize = CGSizeMake(150, 150);
+            ZYPublishQupaiVideo *publishQupaiVideo=[[ZYPublishQupaiVideo alloc]initWithCollectionViewLayout:layout];
+            publishQupaiVideo.videoPath=weakSelf.videoPath;
+            [weakSelf presentViewController:publishQupaiVideo animated:YES completion:nil];
+            
+//            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
+//            publishFootprintController.footprintType=Footprint_VideoType;
+//            publishFootprintController.videoPath=weakSelf.videoPath;
+//            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
+//            [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
         }];
     }
     else if(buttonIndex==1)
