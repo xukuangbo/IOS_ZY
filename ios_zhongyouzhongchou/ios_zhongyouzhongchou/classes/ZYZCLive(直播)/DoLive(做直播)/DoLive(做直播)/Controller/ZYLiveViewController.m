@@ -183,15 +183,18 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     NSString *url = Post_TotalMoney_Live;
     
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        if (isSuccess) {
-            if (parameters.count == 0) {
+        if (parameters.count == 0) {
+            if (isSuccess) {
                 weakSelf.liveMoneyView.moneyLabel.text = [NSString stringWithFormat:@"打赏:%.1f元", [result[@"data"] floatValue] / 100];
             } else {
-                [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"%.1f元", [result[@"data"] floatValue] / 100]];
+                weakSelf.liveMoneyView.moneyLabel.text = [NSString stringWithFormat:@"打赏:0.0元"];
             }
-            DDLog(@"%@",result);
-        }else{
-            [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"0.0元"]];
+        } else {
+            if (isSuccess) {
+                [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"%.1f元", [result[@"data"] floatValue] / 100]];
+            } else {
+                [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"0.0元"]];
+            }
         }
     } andFailBlock:^(id failResult) {
         [weakSelf enterLiveEndVC:[NSString stringWithFormat:@"0.0元"]];
@@ -1047,7 +1050,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         RCTextMessage *textMessage = (RCTextMessage *)model.content;
         content = textMessage.content;
 //        if ([textMessage.content isEqualToString:kPaySucceed]) {
-        if ([textMessage.extra isEqualToString:@"打赏成功"]) {
+        if ([textMessage.extra isEqualToString:kPaySucceed]) {
             [self requestTotalMoneyDataParameters:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.dashangMapView showDashangDataWithModelString:content];

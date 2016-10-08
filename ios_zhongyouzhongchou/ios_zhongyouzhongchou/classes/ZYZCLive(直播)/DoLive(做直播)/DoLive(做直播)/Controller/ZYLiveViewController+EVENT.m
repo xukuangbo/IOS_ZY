@@ -236,6 +236,7 @@
     productDetailVC.detailProductType=PersonDetailProduct;
     productDetailVC.fromProductType=ZCListProduct;
     [self.navigationController pushViewController:productDetailVC animated:YES];
+    
 }
 
 // 点击关注按钮
