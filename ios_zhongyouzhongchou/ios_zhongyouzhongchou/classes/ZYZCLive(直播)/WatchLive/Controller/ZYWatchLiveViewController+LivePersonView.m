@@ -9,7 +9,8 @@
 #import "ZYWatchLiveViewController+LivePersonView.h"
 #import "LivePersonDataView.h"
 #import "ZCProductDetailController.h"
-#import "ZYZCPersonalController.h"
+//#import "ZYZCPersonalController.h"
+#import "ZYUserZoneController.h"
 #import "MinePersonSetUpModel.h"
 #import "MBProgressHUD+MJ.h"
 #import "showDashangMapView.h"
@@ -91,12 +92,13 @@
 - (void)clickEnterRoomButton:(UIButton *)sender
 {
     self.navigationController.navigationBar.hidden = NO;
-    ZYZCPersonalController *personalController=[[ZYZCPersonalController alloc]init];
-    personalController.hidesBottomBarWhenPushed=YES;
-    personalController.userId = [NSNumber numberWithInteger:[self.personDataView.minePersonModel.userId intValue]];
-    [self.navigationController pushViewController:personalController animated:YES];
-    
+ 
+    ZYUserZoneController *userZoneController=[[ZYUserZoneController alloc]init];
+    userZoneController.hidesBottomBarWhenPushed=YES;
+    userZoneController.friendID=[NSNumber numberWithInteger:[self.personDataView.minePersonModel.userId intValue]];
+    [self.navigationController pushViewController:userZoneController animated:YES];
 }
+
 // 进入众筹详情
 - (void)clickZhongchouButton:(UIButton *)sender
 {

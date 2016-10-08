@@ -75,7 +75,7 @@
         _timeImageViewLeft.hidden = NO;
         _timeImageViewRight.hidden = YES;
     }
-    _timeView.frame = frame;
+//    _timeView.frame = frame;
     _timeView.hidden = self.video.duration == 0;
 }
 

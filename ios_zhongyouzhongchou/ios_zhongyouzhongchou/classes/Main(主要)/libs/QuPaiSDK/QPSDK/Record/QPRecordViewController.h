@@ -11,9 +11,7 @@
 //#import "QPRenderer.h"
 //#import "QPRecorder.h"
 
-@interface QPRecordViewController : QPBaseViewController
-
-
+@interface QPRecordViewController : QPBaseViewController<QPRecordDelegate>
 
 @property (nonatomic, assign) BOOL videoIsDraft;
 @property (nonatomic, assign) BOOL videoNeedToEffectView;

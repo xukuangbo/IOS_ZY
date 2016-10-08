@@ -11,7 +11,7 @@
 #import "ZYZCAccountTool.h"
 #import "MyUserFollowedModel.h"
 #import "MyUserFollowedCell.h"
-#import "ZYZCPersonalController.h"
+#import "ZYUserZoneController.h"
 #import "MBProgressHUD+MJ.h"
 #import "NetWorkManager.h"
 #import "EntryPlaceholderView.h"
@@ -135,10 +135,9 @@
 {
     MyUserFollowedModel *followedModel = _userFollowedArray[indexPath.row];
     
-    ZYZCPersonalController *personalVC = [[ZYZCPersonalController alloc] init];
-    personalVC.userId = [NSNumber numberWithInteger:followedModel.userId];
-    
-    [self.navigationController pushViewController:personalVC animated:YES];
-    
+    ZYUserZoneController *userZoneController=[[ZYUserZoneController alloc]init];
+    userZoneController.hidesBottomBarWhenPushed=YES;
+    userZoneController.friendID=[NSNumber numberWithInteger:followedModel.userId];
+    [self.navigationController pushViewController:userZoneController animated:YES];
 }
 @end

@@ -32,12 +32,19 @@
     
     if (account.userId) {
         //注册趣拍
-        [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
-            DDLog(@"access token : %@", accessToken);
-        } failure:^(NSError *error) {
-            DDLog(@"failed : %@", error.description);
-        }];
-    
+        if ([ZYZCAccountTool getUserId]) {
+            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
+                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+                [user setObject:@"yes" forKey:Auth_QuPai_Result];
+                [user synchronize];
+                DDLog(@"access token : %@", accessToken);
+            } failure:^(NSError *error) {
+                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+                [user setObject:@"no" forKey:Auth_QuPai_Result];
+                [user synchronize];
+                DDLog(@"failed : %@", error.description);
+            }];
+        }    
         //注册成功,获取融云token
         ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
         RCManager.hasLogin=NO;

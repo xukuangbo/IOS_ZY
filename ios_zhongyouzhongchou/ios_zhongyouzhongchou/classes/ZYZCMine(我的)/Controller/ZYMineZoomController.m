@@ -243,9 +243,9 @@
     }
     if (offsetY > show_Name_offsetY) {
         NSString *name=_userModel.realName?_userModel.realName:_userModel.userName;
-        self.title=name.length>8?[name substringToIndex:8]:name;
+        self.titleLab.text=name.length>8?[name substringToIndex:8]:name;
     } else {
-        self.title=nil;
+        self.titleLab.text=nil;
     }
     if (offsetY<=-(headViewHeight) + KEDGE_DISTANCE) {
     }

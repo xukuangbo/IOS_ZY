@@ -16,6 +16,8 @@
 #import "MediaUtils.h"
 #import "PromptController.h"
 #import "MBProgressHUD+MJ.h"
+#import "FCIMChatGetImage.h"
+#define kcMaxThumbnailSize 720*1024
 
 @interface ZYStartFootprintBtn ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,QupaiSDKDelegate>
 @property (nonatomic, strong) XMNPhotoPickerController *picker;
@@ -51,12 +53,33 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     // 拍摄视频
     UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"拍摄视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action){
-        [QupaiSDK shared].minDurtaion = 2.0;
-        [QupaiSDK shared].maxDuration = 15.0;
-        UIViewController *controller = [[QupaiSDK shared] createRecordViewController];
-        [QupaiSDK shared].delegte = self;
-        UINavigationController *navCrl = [[UINavigationController alloc] initWithRootViewController:controller];
-        [self.viewController presentViewController:navCrl animated:YES completion:nil];
+        NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+        NSString *auth_result=[user objectForKey:Auth_QuPai_Result];
+        if ([auth_result isEqualToString:@"no"]) {
+            if ([ZYZCAccountTool getUserId]) {
+                //鉴权
+                [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
+                    //鉴权成功
+                    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+                    [user setObject:@"yes" forKey:Auth_QuPai_Result];
+                    [user synchronize];
+                    dispatch_async(dispatch_get_main_queue(), ^
+                    {
+                        [self createQuPai];
+                    });
+                } failure:^(NSError *error) {
+                    //鉴权失败
+                    dispatch_async(dispatch_get_main_queue(), ^
+                    {
+                        [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
+                    });
+                }];
+            }
+        }
+        else if ([auth_result isEqualToString:@"yes"])
+        {
+            [self createQuPai];
+        }
     }];
     //选择本地相册
     UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"手机相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -125,6 +148,21 @@
     [self.viewController presentViewController:alertController animated:YES completion:nil];
 }
 
+-(void)createQuPai
+{
+    //创建趣拍对象
+    [QupaiSDK shared].minDuration = 2.0;
+    [QupaiSDK shared].maxDuration = 15.0;
+    [QupaiSDK shared].enableBeauty=YES;
+    [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
+    UIViewController *viewController = [[QupaiSDK shared] createRecordViewController];
+    [QupaiSDK shared].delegte = self;
+    [QupaiSDK shared].videoSize = CGSizeMake(KSCREEN_W, KSCREEN_H);
+    UINavigationController *navCrl = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self.viewController presentViewController:navCrl animated:YES completion:nil];
+}
+
+
 #pragma mark --- 实现短视频代理方法
 - (void)qupaiSDK:(id<QupaiSDKDelegate>)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath{
     NSLog(@"Qupai SDK compelete:\n videoPath=%@ \n thumbnailPath=%@",videoPath,thumbnailPath);
@@ -135,13 +173,12 @@
     }
     
     if (!thumbnailPath) {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"网络错误，视频合成失败" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"网络错误,视频导出失败" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
     
     if (videoPath) {
-        
         NSFileManager *manager=[NSFileManager defaultManager];
         BOOL  exit= [manager fileExistsAtPath:videoPath];
         if (!exit) {
@@ -187,9 +224,12 @@
     {
         __weak typeof (&*self)weakSelf=self;
         [picker dismissViewControllerAnimated:YES completion:^{
-            UIImage *photoImage =[info objectForKey:UIImagePickerControllerOriginalImage];
+            UIImage *photoImage=[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]];
+            UIImage *compressImage=[self compressImage:photoImage];
+            NSData *imageData=UIImageJPEGRepresentation(compressImage, 1.0);
+            DDLog(@"newImageData.length:%ld",imageData.length);
             ZYPublishFootprintController  *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-            publishFootprintController.images=@[photoImage];
+            publishFootprintController.images=@[compressImage];
             publishFootprintController.footprintType=Footprint_PhotoType;
             [weakSelf.viewController presentViewController:publishFootprintController animated:YES completion:nil];
         }];
@@ -260,11 +300,66 @@
     });
 }
 
+#pragma mark --- 压缩image最大为512k
+- (UIImage *)compressImage:(UIImage *)image
+{
+
+//    NSInteger maxLength=512*1024;
+//    NSData *imgData=nil;
+//    imgData=UIImageJPEGRepresentation(image, 1.0);
+//    DDLog(@"imgData.length:%ld",imgData.length);
+//    float scale=(float)maxLength/(float)imgData.length;
+//    imgData=UIImageJPEGRepresentation(image, MIN(1.0, scale));
+//    return  [UIImage imageWithData:imgData];
+    
+    NSData *imgData=nil;
+    imgData=UIImageJPEGRepresentation(image, 1.0);
+    DDLog(@"imgData.length:%zd",imgData.length);
+    
+    UIImage *rightImage = [FCIMChatGetImage rotateScreenImage:image];
+    UIImage *compressImage = [self compressTheImage:rightImage];
+    
+    imgData=UIImageJPEGRepresentation(compressImage, 1.0);
+    DDLog(@"imgData.length:%zd",imgData.length);
+    
+//    DDLog(@"%@",compressImage);
+    return compressImage;
+}
+
+
 -(void)dealloc
 {
     DDLog(@"dealloc:%@",[self class]);
 }
 
+#pragma mark - 压缩图片
+- (UIImage *)compressTheImage:(UIImage *)uploadImage
+{
+    NSData *imageData = UIImagePNGRepresentation(uploadImage);
+    if (imageData.length > kcMaxThumbnailSize) {
+        // 缩略图大于72k,压缩到720*1024
+        UIImage *thumbnailImage = [self thumbnailWithImage:uploadImage size:CGSizeMake(720, 1280)];
+        NSData * imageData = UIImageJPEGRepresentation(thumbnailImage,0.5);
+        UIImage *compressImage = [UIImage imageWithData:imageData];
+        
+        return compressImage;
+    } else {
+        return uploadImage;
+    }
+}
 
+- (UIImage *)thumbnailWithImage:(UIImage *)image size:(CGSize)asize
+{
+    UIImage *newimage;
+    if (nil == image) {
+        newimage = nil;
+    } else {
+        UIGraphicsBeginImageContext(asize);
+        [image drawInRect:CGRectMake(0, 0, asize.width, asize.height)];
+        newimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    }
+    return newimage;
+}
 
 @end

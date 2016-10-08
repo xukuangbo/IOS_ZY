@@ -64,7 +64,7 @@
         id rt = [result valueForProperty:ALAssetPropertyDuration];
         if (rt != ALErrorInvalidProperty) {
             int dur = [rt intValue];
-            if ([QupaiSDK shared].minDurtaion <= dur && dur <= 10*60) {
+            if ([QupaiSDK shared].minDuration <= dur && dur <= 10*60) {
                 [a addObject:[QPLibrarayItem createFromAsset:result]];
             }
         }

@@ -16,12 +16,26 @@
 #import "NetWorkManager.h"
 @interface MyProductViewController ()
 @property (nonatomic, strong) UISegmentedControl *segmentedView;
-@property (nonatomic, strong) MyProductTableView *table;
+@property (nonatomic, strong) MyProductTableView *myProductTable;
+@property (nonatomic, strong) MyProductTableView *MyJoinProductTable;
+@property (nonatomic, strong) MyProductTableView *MyRecProductTable;
 @property (nonatomic, weak  ) ZCNoneDataView     *noneDataView;
 @property (nonatomic, strong) UIButton           *scrollTop;
 @property (nonatomic, strong) NSMutableArray     *listArr;
+
+//@property (nonatomic, strong) NSMutableArray     *myPublishArr;
+//@property (nonatomic, strong) NSMutableArray     *myJoinArr;
+//@property (nonatomic, strong) NSMutableArray     *myRecArr;
+//
+//@property (nonatomic, assign) int                myPublish_pageNo;
+//@property (nonatomic, assign) int                myJoin_pageNo;
+//@property (nonatomic, assign) int                myRec_pageNo;
+
 @property (nonatomic, strong) ZCListModel        *listModel;
+
 @property (nonatomic, assign) int                pageNo;
+
+
 @end
 
 @implementation MyProductViewController
@@ -34,6 +48,14 @@
 //    self.title=@"我的行程";
     _listArr=[NSMutableArray array];
     _pageNo=1;
+    
+//    _myPublishArr= [NSMutableArray array];
+//    _myJoinArr   = [NSMutableArray array];
+//    _myRecArr    = [NSMutableArray array];
+//    
+//    _myPublish_pageNo = 1;
+//    _myJoin_pageNo    = 1;
+//    _myRec_pageNo     = 1;
     
     if (!_myProductType) {
         _myProductType=MyPublishType;
@@ -54,23 +76,23 @@
 -(void)configUI
 {
     //创建table
-    _table=[[MyProductTableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    _myProductTable=[[MyProductTableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
     __weak typeof (&*self)weakSelf=self;
-     _table.myProductType=_myProductType;
-    [self.view addSubview:_table];
+     _myProductTable.myProductType=_myProductType;
+    [self.view addSubview:_myProductTable];
     
-    _table.headerRefreshingBlock=^()
+    _myProductTable.headerRefreshingBlock=^()
     {
          weakSelf.pageNo=1;
         [weakSelf getHttpData];
     };
-    _table.footerRefreshingBlock=^()
+    _myProductTable.footerRefreshingBlock=^()
     {
         weakSelf.pageNo++;
         [weakSelf getHttpData];
     };
     
-    _table.scrollDidScrollBlock=^(CGFloat offSetY)
+    _myProductTable.scrollDidScrollBlock=^(CGFloat offSetY)
     {
         if (offSetY>=1000.0) {
             weakSelf.scrollTop.hidden=NO;
@@ -122,7 +144,7 @@
 #pragma mark --- 置顶
 -(void)scrollToTop
 {
-    [_table setContentOffset:CGPointMake(0, -108) animated:YES];
+    [_myProductTable setContentOffset:CGPointMake(0, -108) animated:YES];
 }
 
 #pragma mark --- 切换我的行程内容
@@ -131,23 +153,23 @@
     if (segemented.selectedSegmentIndex==0) {
         //我发起
         self.myProductType=MyPublishType;
-        _table.myProductType=MyPublishType;
+        _myProductTable.myProductType=MyPublishType;
     }
     else if(segemented.selectedSegmentIndex==1){
         //我报名
         self.myProductType=MyJoinType;
-        _table.myProductType=MyJoinType;
+        _myProductTable.myProductType=MyJoinType;
     }
     else if (segemented.selectedSegmentIndex==2)
     {
         //我推荐
         self.myProductType=MyRecommendType;
-        _table.myProductType=MyRecommendType;
+        _myProductTable.myProductType=MyRecommendType;
     }
     
     _pageNo=1;
     [_listArr removeAllObjects];
-    [_table reloadData];
+    [_myProductTable reloadData];
     
     [self getHttpData];
 }
@@ -164,7 +186,7 @@
         [MBProgressHUD hideHUDForView:self.view];
 //        NSLog(@"%@",result);
         if (isSuccess) {
-             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_table.mj_footer ;
+             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_myProductTable.mj_footer ;
             if (_pageNo==1&&_listArr.count) {
                 [_listArr removeAllObjects];
                  [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
@@ -193,16 +215,16 @@
             {
                 _noneDataView.hidden=YES;
             }
-            _table.dataArr=_listArr;
-            [_table reloadData];
+            _myProductTable.dataArr=_listArr;
+            [_myProductTable reloadData];
         }
-        [_table.mj_header endRefreshing];
-        [_table.mj_footer endRefreshing];
+        [_myProductTable.mj_header endRefreshing];
+        [_myProductTable.mj_footer endRefreshing];
         
     } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:self.view];
-        [_table.mj_header endRefreshing];
-        [_table.mj_footer endRefreshing];
+        [_myProductTable.mj_header endRefreshing];
+        [_myProductTable.mj_footer endRefreshing];
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
         __weak typeof (&*self)weakSelf=self;
@@ -235,7 +257,7 @@
         ZCOneModel *oneModel=_listArr[i];
         if ([oneModel.product.productId isEqual:productId] ) {
             [_listArr removeObject:oneModel];
-            [_table reloadData];
+            [_myProductTable reloadData];
             //删到没有数据时
             if (!_listArr.count) {
                 _noneDataView.hidden=NO;

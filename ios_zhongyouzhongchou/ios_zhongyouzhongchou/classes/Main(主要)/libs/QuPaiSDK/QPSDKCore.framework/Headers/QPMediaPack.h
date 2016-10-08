@@ -37,4 +37,6 @@
 // 保存的视频水印图片
 @property (nonatomic, strong) UIImage* saveWatermarkImage;
 
+- (CGSize)outputSize;
+
 @end

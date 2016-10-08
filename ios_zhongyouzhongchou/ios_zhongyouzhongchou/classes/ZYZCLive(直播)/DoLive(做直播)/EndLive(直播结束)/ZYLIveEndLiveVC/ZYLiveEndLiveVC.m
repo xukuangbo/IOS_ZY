@@ -9,7 +9,7 @@
 #import "ZYLiveEndLiveVC.h"
 #import "UIView+ZYLayer.h"
 #import "ZYLiveEndModel.h"
-
+#import "MBProgressHUD+MJ.h"
 @interface ZYLiveEndLiveVC ()
 /** 背景 */
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
@@ -113,8 +113,11 @@
                                  };
     
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Del_Live andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        DDLog(@"%@",result);
+        
+        
+        [MBProgressHUD showSuccess:@"删除成功"];
     } andFailBlock:^(id failResult) {
+        [MBProgressHUD showError:@"删除失败"];
         DDLog(@"%@",failResult);
     }];
 }

@@ -37,9 +37,9 @@
 - (void)setupViews{
 //    self.backgroundColor = [UIColor greenColor];
     
-    self.clipsToBounds = YES;
     
     _firstView = [[showDashangView alloc] initWithFrame:CGRectMake(-showDashangMapViewW - KEDGE_DISTANCE, 0, showDashangMapViewW, showDashangMapViewH)];
+    _firstView.hidden = YES;
     [self addSubview:_firstView];
 //    _sencondView = [[showDashangView alloc] initWithFrame:CGRectMake(-showDashangMapViewH, 40, showDashangMapViewW, 40)];
 //    [self addSubview:_sencondView];
@@ -49,7 +49,8 @@
 
 - (void)showDashangDataWithModelString:(NSString *)modelString{
     
-//    self.backgroundColor = [UIColor greenColor];
+    
+    _firstView.hidden = NO;
     if (!modelString) {
         return ;
     }
@@ -74,6 +75,7 @@
                 } completion:^(BOOL finished) {
                     _firstView.left = -showDashangMapViewW - KEDGE_DISTANCE;
                     _firstView.alpha = 1;
+                    _firstView.hidden = YES;
                 }];
             });
             

@@ -8,7 +8,6 @@
 
 #import "ZYZCTabBarController.h"
 #import "FXBlurView.h"
-#import "ZYZCMineVIewController.h"
 #import "ZYZCNavigationController.h"
 #import "LoginJudgeTool.h"
 #import "MoreFZCViewController.h"
@@ -31,6 +30,11 @@
 #import "QupaiSDK.h"
 #import "QPEffectMusic.h"
 #import <RongIMKit/RongIMKit.h>
+//#import "ZYPublishFootprintController.h"
+
+#import "HJCarouselViewLayout.h"
+#import "ZYPublishQupaiVideo.h"
+
 
 #define kSaveVideoAlertTag    100
 
@@ -38,6 +42,8 @@
 @property (nonatomic, strong) UIView          *bottomView;
 @property (nonatomic, strong) RCIM            *rcIM;
 @property (nonatomic, strong) UITabBarItem    *preItem;
+@property (nonatomic, copy  ) NSString        *videoPath;
+@property (nonatomic, copy  ) NSString        *thumbnailPath;
 
 @end
 
@@ -205,35 +211,69 @@
 #pragma mark --- 短视频
 -(void)enterShortVideo
 {
-    [QupaiSDK shared].minDurtaion = 2.0;
+    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+    NSString *auth_result=[user objectForKey:Auth_QuPai_Result];
+    if ([auth_result isEqualToString:@"no"]) {
+        if ([ZYZCAccountTool getUserId]) {
+            //鉴权
+            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
+                //鉴权成功
+                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+                [user setObject:@"yes" forKey:Auth_QuPai_Result];
+                [user synchronize];
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    [self createQuPai];
+                });
+            } failure:^(NSError *error) {
+                //鉴权失败
+                dispatch_async(dispatch_get_main_queue(), ^
+                {
+                    [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
+                });
+            }];
+        }
+    }
+    else if ([auth_result isEqualToString:@"yes"])
+    {
+        [self createQuPai];
+    }
+}
+
+-(void)createQuPai
+{
+    //创建趣拍对象
+    [QupaiSDK shared].minDuration = 2.0;
     [QupaiSDK shared].maxDuration = 15.0;
-    UIViewController *controller = [[QupaiSDK shared] createRecordViewController];
+    [QupaiSDK shared].enableBeauty=YES;
+    [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
+    UIViewController *viewController = [[QupaiSDK shared] createRecordViewController];
     [QupaiSDK shared].delegte = self;
-    UINavigationController *navCrl = [[UINavigationController alloc] initWithRootViewController:controller];
-    [self presentViewController:navCrl animated:YES completion:nil];
+    [QupaiSDK shared].videoSize = CGSizeMake(KSCREEN_W, KSCREEN_H);
+    UINavigationController *navCrl = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self.selectedViewController presentViewController:navCrl animated:YES completion:nil];
 }
 
 #pragma mark --- 实现短视频代理方法
 - (void)qupaiSDK:(id<QupaiSDKDelegate>)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath{
     NSLog(@"Qupai SDK compelete %@----thumbnailPath:%@",videoPath,thumbnailPath);
-    
-//    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"是否保存到手机相册?" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil];
-//    alert.tag=kSaveVideoAlertTag;
-//    [alert show];
-
     NSFileManager *manager=[NSFileManager defaultManager];
     BOOL  exit= [manager fileExistsAtPath:videoPath];
     if (!exit) {
-        [MBProgressHUD showError:@"本地视频不存在"];
+        if (videoPath) {
+        [MBProgressHUD showShortMessage:@"网络错误,视频导出失败"];
+        }
         [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
-
-    if (videoPath) {
-        UISaveVideoAtPathToSavedPhotosAlbum(videoPath, nil, nil, nil);
-    }
-    if (thumbnailPath) {
-        UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
+    else
+    {
+        _videoPath=videoPath;
+        _thumbnailPath=thumbnailPath;
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择下一步操作" delegate:(id<UIActionSheetDelegate>)self
+        cancelButtonTitle:@"退出" destructiveButtonTitle:@"发布足迹"
+        otherButtonTitles:@"保存本地", nil];
+        [actionSheet showInView:self.selectedViewController.view];
     }
 }
 
@@ -249,6 +289,48 @@
     
     return array;
 }
+
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    DDLog(@"%ld",buttonIndex);
+    if (buttonIndex==0) {
+        WEAKSELF;
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+            HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
+            layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+            layout.itemSize = CGSizeMake(150, 150);
+            ZYPublishQupaiVideo *publishQupaiVideo=[[ZYPublishQupaiVideo alloc]initWithCollectionViewLayout:layout];
+            publishQupaiVideo.videoPath=weakSelf.videoPath;
+            [weakSelf presentViewController:publishQupaiVideo animated:YES completion:nil];
+            
+//            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
+//            publishFootprintController.footprintType=Footprint_VideoType;
+//            publishFootprintController.videoPath=weakSelf.videoPath;
+//            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
+//            [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
+        }];
+    }
+    else if(buttonIndex==1)
+    {
+        if (_videoPath) {
+            UISaveVideoAtPathToSavedPhotosAlbum(_videoPath, nil, nil, nil);
+        }
+    
+        if (_thumbnailPath) {
+        UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:_thumbnailPath], nil, nil, nil);
+        }
+        
+        [self.selectedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+    else if (buttonIndex==2)
+    {
+        [self.selectedViewController dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 
 #pragma mark --- 进入游记
 -(void)enterYouji
@@ -285,7 +367,7 @@
                  UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"个人信息未完善,无法发送众筹,是否完善" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
                  alert.tag=1;
                  [alert show];
-                 //                self.selectedIndex=4;
+                 //self.selectedIndex=4;
              }
              else if([result[@"data"][@"info"] boolValue]&&![result[@"data"][@"tag"] boolValue])
              {

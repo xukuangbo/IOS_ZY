@@ -42,9 +42,9 @@
 
 -(void)configUI
 {
-    CGFloat btn_width=self.width/3.0;
-    NSArray *titleArr=@[@"关注",@"私信",@"TA的资料"];
-    for (int i=0; i<3; i++) {
+    CGFloat btn_width=self.width/2.0;
+    NSArray *titleArr=@[@"关注",@"私信"];
+    for (int i=0; i<titleArr.count; i++) {
         UIButton *btn=[ZYZCTool createBtnWithFrame:CGRectMake(btn_width*i, 0, btn_width, self.height) andNormalTitle:titleArr[i] andNormalTitleColor:[UIColor ZYZC_TextGrayColor] andTarget:self andAction:@selector(doSomething:)];
         btn.tag=i+first_btn_tag;
         [self addSubview:btn];
@@ -53,7 +53,7 @@
             _friendShipBtn=btn;
         }
         
-        if (i<2) {
+        if (i<1) {
             [btn addSubview:[UIView lineViewWithFrame:CGRectMake(btn.width-0.5, (btn.height-30)/2.0, 0.5, 30) andColor:[UIColor lightGrayColor]]];
         }
     }

@@ -57,6 +57,8 @@ typedef NS_ENUM(NSInteger, FilterType)
 
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
 
+@property (nonatomic, assign) BOOL              isFirstEntry;//是否第一次进入
+
 @end
 
 @implementation ZCMainViewController
@@ -68,6 +70,7 @@ typedef NS_ENUM(NSInteger, FilterType)
     _listArr=[NSMutableArray array];
     _pageNo=1;
     _filterType=4;//看全部
+    _isFirstEntry=YES;
     [self setNavBar];
     [self configUI];
     [self getHttpDataByFilterType:_filterType andSeachKey:nil];
@@ -156,29 +159,9 @@ typedef NS_ENUM(NSInteger, FilterType)
     [self getHttpDataByFilterType:4 andSeachKey:searchBar.text];
 }
 
-//-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-//{
-//    searchBar.text=[searchBar.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-//    
-//    BOOL isEmptyStr=[ZYZCTool isEmpty:searchBar.text];
-//    if (isEmptyStr) {
-//        return;
-//    }
-//    if (!searchBar.text.length) {
-//         _getSearch=NO;
-//         _pageNo=1;
-//         _sex=0;
-//        [self getHttpData];
-//    }
-//}
-
 #pragma mark --- 点击右侧导航栏按钮
 -(void)clickRightNavBtn
 {
-//    [self.navigationController pushViewController:[TestViewController new] animated:YES];
-//    
-//    return;
-    
     [self enterFZC];
 }
 
@@ -254,15 +237,14 @@ typedef NS_ENUM(NSInteger, FilterType)
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     _fitersView.hidden=YES;
-    _pageNo=1;
     _searchBar.text=nil;
     if (_filterType!=indexPath.row+1) {
+        _pageNo=1;
+        _isFirstEntry=YES;
         _filterType=indexPath.row+1;
         [self getHttpDataByFilterType:_filterType andSeachKey:nil];
     }
 }
-
-
 
 #pragma mark --- 创建控件
 -(void)configUI
@@ -300,13 +282,6 @@ typedef NS_ENUM(NSInteger, FilterType)
         if (weakSelf.searchBar.isFirstResponder) {
             [weakSelf.searchBar resignFirstResponder];
         }
-        //        if (offSetY>-54) {
-//            [weakSelf.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_MainColor] colorWithAlphaComponent:0.95]];
-//        }
-//        else
-//        {
-//            [weakSelf.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor] ];
-//        }
     };
     
     _table.scrollEndScrollBlock=^(CGPoint velocity)
@@ -373,16 +348,20 @@ typedef NS_ENUM(NSInteger, FilterType)
             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=3",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
         }
     }
-    DDLog(@"httpUrl:%@",httpUrl);
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    DDLog(@"httpUrl:%@",httpUrl);
+    if (_isFirstEntry) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
     [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        [MBProgressHUD hideHUDForView:self.view];
+        if (_isFirstEntry) {
+            [MBProgressHUD hideHUDForView:self.view];
+            _isFirstEntry=NO;
+        }
         [NetWorkManager hideFailViewForView:self.view];
 //        DDLog(@"result：%@",result);
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_table.mj_footer ;
             if (_pageNo==1&&_listArr.count) {
-                _entryView.hidden = YES;
                 [_listArr removeAllObjects];
                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
             }
@@ -397,12 +376,14 @@ typedef NS_ENUM(NSInteger, FilterType)
             if (_listModel.data.count==0) {
                 _pageNo--;
                 [autoFooter setTitle:@"没有更多数据了" forState:MJRefreshStateRefreshing];
-                _entryView.hidden = NO;
             }
             else
             {
                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
             }
+            
+            _entryView.hidden=_listArr.count;
+            
             _table.dataArr=_listArr;
             [_table reloadData];
         }
@@ -414,10 +395,13 @@ typedef NS_ENUM(NSInteger, FilterType)
         [_table.mj_footer endRefreshing];
         
     } andFailBlock:^(id failResult) {
-//        NSLog(@"failResult：%@",failResult);
+        if (_isFirstEntry) {
+            [MBProgressHUD hideHUDForView:self.view];
+            _isFirstEntry=NO;
+        }
+        _isFirstEntry=YES;
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
-        [MBProgressHUD  hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
         __weak typeof (&*self)weakSelf=self;
@@ -511,8 +495,6 @@ typedef NS_ENUM(NSInteger, FilterType)
 {
     [self.navigationController pushViewController:[[MineTravelTagVC alloc] init] animated:YES];
 }
-
-
 
 -(void)viewWillDisappear:(BOOL)animated
 {

@@ -96,15 +96,6 @@
         }
     };
     
-//    //添加没数据状态的视图
-//    NSArray* nibView =  [[NSBundle mainBundle] loadNibNamed:@"ZCNoneDataView" owner:nil options:nil];
-//    _noneDataView=[nibView objectAtIndex:0];
-//    _noneDataView.frame=CGRectMake(KEDGE_DISTANCE, 108+KEDGE_DISTANCE, KSCREEN_W-2*KEDGE_DISTANCE, KSCREEN_H-108-2*KEDGE_DISTANCE);
-//    _noneDataView.layer.cornerRadius=KCORNERRADIUS;
-//    _noneDataView.layer.masksToBounds=YES;
-//    [self.view addSubview:_noneDataView];
-//    _noneDataView.hidden=YES;
-    
     //添加置顶按钮
     _scrollTop=[UIButton buttonWithType:UIButtonTypeCustom];
     _scrollTop.layer.cornerRadius=KCORNERRADIUS;
@@ -125,7 +116,6 @@
 #pragma mark --- 获取我的回报众筹列表
 -(void)getHttpData
 {
-    _hasEnterView=YES;
     NSString *httpUrl=nil;
     if(_productType==MyReturnProduct)
     {
@@ -141,9 +131,12 @@
 //    NSLog(@"_table.productType:%ld",_table.productType);
     
 //    NSLog(@"httpUrl%@",httpUrl);
-    [MBProgressHUD showMessage:nil];
+    if (!_hasEnterView) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        _hasEnterView=YES;
+    }
     [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         [EntryPlaceholderView hidePlaceholderForView:self.view];
         if (isSuccess) {
@@ -187,7 +180,7 @@
         [_table.mj_footer endRefreshing];
         
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD hideHUD];
+       [MBProgressHUD hideHUDForView:self.view];
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
         [EntryPlaceholderView hidePlaceholderForView:self.view];
