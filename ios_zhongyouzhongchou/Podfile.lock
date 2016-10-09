@@ -15,6 +15,21 @@ PODS:
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
   - AliyunOSSiOS (2.4.1)
+  - BlocksKit (2.2.5):
+    - BlocksKit/All (= 2.2.5)
+  - BlocksKit/All (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.5)
+  - BlocksKit/DynamicDelegate (2.2.5)
+  - BlocksKit/MessageUI (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
   - Bugtags (1.3.1)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
@@ -40,7 +55,8 @@ PODS:
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
   - AliyunOSSiOS (= 2.4.1)
-  - Bugtags
+  - BlocksKit (~> 2.2.5)
+  - Bugtags (= 1.3.1)
   - FMDB (= 2.6.2)
   - FXBlurView (= 1.6.4)
   - Masonry (= 1.0.0)
@@ -55,6 +71,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   AliyunOSSiOS: 1171c8c064b14c451ff54402178a1acab3aba8b3
+  BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
   Bugtags: a2f1671df9dacfdfd53fa59d3e6ffe7575bb2212
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f

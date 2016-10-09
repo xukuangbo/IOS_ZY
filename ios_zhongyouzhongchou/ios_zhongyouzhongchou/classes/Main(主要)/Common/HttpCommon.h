@@ -320,6 +320,7 @@
 // 删除视频
 #define Post_Del_Live   [NSString stringWithFormat:@"%@zhibo/delZhibo.action",BASE_URL]
 
-
+// 打赏明细
+#define PLAY_TOUR_DETAIL   [NSString stringWithFormat:@"%@zhibo/zhiboOrderList.action",BASE_URL]
 
 #endif /* HttpCommon_h */

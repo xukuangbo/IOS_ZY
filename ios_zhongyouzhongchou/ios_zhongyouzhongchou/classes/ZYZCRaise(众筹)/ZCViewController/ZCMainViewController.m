@@ -23,7 +23,7 @@
 #import "MineTravelTagVC.h"
 #import "EntryPlaceholderView.h"
 
-//#import "TestViewController.h"
+#import "ViewController.h"
 
 @interface ZCMainViewController ()<WXApiManagerDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
@@ -61,7 +61,7 @@
     _listArr=[NSMutableArray array];
     _pageNo=1;
     _isFirstEntry=YES;
-    _filterItems=@[@"看成功",@"看最近",@"看全部",@"默认"];
+    _filterItems=@[@"看成功",@"看最新",@"看全部",@"默认"];
     _filterType=2+_filterItems.count;//默认
     [self setNavBar];
     [self configUI];

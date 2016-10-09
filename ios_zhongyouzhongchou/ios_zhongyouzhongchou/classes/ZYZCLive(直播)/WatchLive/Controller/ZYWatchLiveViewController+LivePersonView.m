@@ -43,6 +43,11 @@
     [self.view addSubview:self.dashangMapView];
 }
 
+- (void)initPersonData
+{
+    
+}
+
 #pragma mark - netWork
 // 获取个人信息.获取个人中心数据
 - (void)requestData:(NSString *)otherUserId
@@ -100,6 +105,24 @@
 {
     [self.personDataView showPersonData];
     [self requestData:[NSString stringWithFormat:@"%@", self.liveModel.userId]];
+    if ([self.liveModel.userId intValue] == [[ZYZCAccountTool getUserId] intValue] && [self.liveModel.productId length] == 0) {
+        self.personDataView.attentionButton.hidden = YES;
+        [self.personDataView showTravelNull];
+        [self.personDataView setHeight:258];
+    } else if ([self.liveModel.userId intValue] == [[ZYZCAccountTool getUserId] intValue] && [self.liveModel.productId length] != 0) {
+        self.personDataView.attentionButton.hidden = YES;
+        [self.personDataView showTravelNoNull];
+        [self.personDataView setHeight:298];
+    } else if ([self.liveModel.userId intValue] != [[ZYZCAccountTool getUserId] intValue] && [self.liveModel.productId length] == 0) {
+        self.personDataView.attentionButton.hidden = NO;
+        [self.personDataView setHeight:300];
+        [self.personDataView showTravelNull];
+    } else if ([self.liveModel.userId intValue] != [[ZYZCAccountTool getUserId] intValue] && [self.liveModel.productId length] != 0) {
+        self.personDataView.attentionButton.hidden = NO;
+        [self.personDataView setHeight:340];
+        [self.personDataView showTravelNoNull];
+    }
+
 }
 // 进入个人空间界面
 - (void)clickEnterRoomButton:(UIButton *)sender
