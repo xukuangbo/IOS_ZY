@@ -265,6 +265,8 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
 
 #pragma mark <UITextViewDelegate>
 - (void)changeInputViewFrame:(NSString *)text textView:(UITextView *)textView range:(NSRange)range {
+//    [textView scrollRangeToVisible:NSMakeRange([textView.text length], 1)];
+
     _inputTextview_height = 36.0f;
     if (_inputTextView.contentSize.height < 70 && _inputTextView.contentSize.height > 36.0f) {
         _inputTextview_height = _inputTextView.contentSize.height;
@@ -348,6 +350,8 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+//    [textView scrollRangeToVisible:NSMakeRange([textView.text length], 1)];
+
     [self.delegate inputTextView:textView shouldChangeTextInRange:range replacementText:text];
     if ([text isEqualToString:@"\n"]) {
         if ([self.delegate respondsToSelector:@selector(didTouchKeyboardReturnKey:text:)]) {

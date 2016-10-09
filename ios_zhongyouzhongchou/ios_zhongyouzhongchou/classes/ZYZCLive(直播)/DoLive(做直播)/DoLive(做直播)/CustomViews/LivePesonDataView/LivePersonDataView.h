@@ -21,5 +21,8 @@
 
 - (void)hidePersonDataView;
 
+- (void)showTravelNull;
+- (void)showTravelNoNull;
+
 @property (nonatomic, strong) MinePersonSetUpModel *minePersonModel;
 @end
