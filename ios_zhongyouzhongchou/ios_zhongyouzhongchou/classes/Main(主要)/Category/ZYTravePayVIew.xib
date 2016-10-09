@@ -12,29 +12,49 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOn-dX-nDJ">
+                <button opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOn-dX-nDJ">
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="H1r-xe-kAY"/>
                     </constraints>
                     <state key="normal" title="1元">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="f5j-7k-6X0"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v51-Ih-6Fs">
+                <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-RP-fWv">
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="QQ5-1C-8h6"/>
+                    </constraints>
+                    <state key="normal" title="5元">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="iuW-DP-7z9"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v51-Ih-6Fs">
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="257-cK-IlX"/>
                     </constraints>
                     <state key="normal" title="10元">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="oxO-p9-gea"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjP-XO-E5J">
+                <button opaque="NO" tag="500" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjP-XO-E5J">
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="Hua-Mt-lrd"/>
                     </constraints>
                     <state key="normal" title="50元">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="ZCh-An-OzH"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SuN-6c-paR">
                     <constraints>
@@ -43,6 +63,9 @@
                     <state key="normal" title="报名回报50元">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="rewardButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="LnS-4a-NMj"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6i3-bQ-Ocw">
                     <constraints>
@@ -51,21 +74,17 @@
                     <state key="normal" title="报名一起去500元">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="togetherGoButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="CKs-32-Hd1"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-RP-fWv">
-                    <constraints>
-                        <constraint firstAttribute="height" constant="40" id="QQ5-1C-8h6"/>
-                    </constraints>
-                    <state key="normal" title="5元">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fs-bA-tFc">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fs-bA-tFc">
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="0gu-Ez-hyr"/>
                         <constraint firstAttribute="width" constant="132" id="UW8-GJ-lzO"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <state key="normal" title="我的打赏记录">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -79,6 +98,7 @@
                         <constraint firstAttribute="width" constant="132" id="tFU-yU-Jab"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="tintColor" red="1" green="1" blue="0.30831106089999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <size key="titleShadowOffset" width="-1" height="0.0"/>
                     <state key="normal" title="了解行程详情">
                         <color key="titleColor" red="1" green="1" blue="0.30831106085526316" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -43,6 +43,11 @@
     [self.view addSubview:self.dashangMapView];
 }
 
+- (void)initPersonData
+{
+    
+}
+
 #pragma mark - netWork
 // 获取个人信息.获取个人中心数据
 - (void)requestData:(NSString *)otherUserId

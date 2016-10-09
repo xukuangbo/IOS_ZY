@@ -46,7 +46,7 @@
 @interface ZYWatchLiveViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate,
-UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate, ZYBottomPayViewDelegate>
+UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegate,RCConnectionStatusChangeDelegate, RCDLiveMessageCellDelegate, ZYBottomPayViewDelegate, ZYTravePayViewDelegate>
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) id <IJKMediaPlayback> player;
 @property(nonatomic, strong)RCDLiveCollectionViewHeader *collectionViewHeader;
@@ -156,6 +156,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self enterInfoLiveRoom];
     // 初始化直播个人中心
     [self initLivePersonDataView];
+    // 初始化直播的个人信息
+    [self initPersonData];
     [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
     
@@ -343,13 +345,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         [self.view addSubview:payView];
         self.payView = payView;
     } else {
-        ZYTravePayView * payView = [ZYTravePayView loadCustumView];
-//        payView.delegate = self;
+        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView];
+        travePayView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 200, KSCREEN_W, 200);
-        payView.frame = rect;
-        [payView.layer setCornerRadius:10];
-        [self.view addSubview:payView];
-        self.travePayView = payView;
+        travePayView.frame = rect;
+        [travePayView.layer setCornerRadius:10];
+        [self.view addSubview:travePayView];
+        self.travePayView = travePayView;
         self.travePayView.hidden = NO;
 //        self.payView.hidden = NO;
     }
@@ -1484,6 +1486,24 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 #pragma mark - ZYBottomPayViewDelegate
 // 打赏金额调用接口
 - (void)clickPayBtnUKey:(NSInteger)moneyNumber
+{
+    WEAKSELF
+    NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
+    NSDictionary *parameters= @{
+                                @"spaceName":self.liveModel.spaceName,
+                                @"streamName":self.liveModel.streamName,
+                                @"price":@"0.1",
+                                };
+    self.payMoney = payMoney;
+    [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
+        weakSelf.payView.hidden = YES;
+    } andFailBlock:^{
+        
+    }];
+}
+
+#pragma mark - ZYTravePayViewDelegate
+- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber
 {
     WEAKSELF
     NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
