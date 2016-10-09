@@ -21,11 +21,11 @@
 
 
 - (void)initMember {
-    self.playTourRecordButton.titleEdgeInsets = UIEdgeInsetsMake(0,-15, 0, 0);
+    self.playTourRecordButton.titleEdgeInsets = UIEdgeInsetsMake(0,-25, 0, 0);
     self.playTourRecordButton.imageEdgeInsets = UIEdgeInsetsMake(0,115, 0, 9);
     [self.playTourRecordButton setImage:[UIImage imageNamed:@"btn_rightin"] forState:UIControlStateNormal];
     
-    self.journeyDetailButton.titleEdgeInsets = UIEdgeInsetsMake(0,-15, 0, 0);
+    self.journeyDetailButton.titleEdgeInsets = UIEdgeInsetsMake(0,-25, 0, 0);
     self.journeyDetailButton.imageEdgeInsets = UIEdgeInsetsMake(0,115, 0, 9);
     [self.journeyDetailButton setImage:[UIImage imageNamed:@"btn_rightin"] forState:UIControlStateNormal];
     
@@ -75,8 +75,21 @@
     }
 }
 - (IBAction)playTourRecordButtonAction:(UIButton *)sender {
+    
 }
 - (IBAction)journeyDetailButtonAction:(UIButton *)sender {
+    
+}
+
+- (IBAction)onSelect:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(clickTravePayBtnUKey:)]) {
+        [self.delegate clickTravePayBtnUKey:sender.tag];
+    }
+}
+
+- (IBAction)rewardButtonAction:(UIButton *)sender {
+}
+- (IBAction)togetherGoButtonAction:(UIButton *)sender {
 }
 
 /*

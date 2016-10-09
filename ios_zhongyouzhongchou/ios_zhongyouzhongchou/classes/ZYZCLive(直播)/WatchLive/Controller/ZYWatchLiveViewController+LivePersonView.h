@@ -9,6 +9,7 @@
 #import "ZYWatchLiveViewController.h"
 @interface ZYWatchLiveViewController (LivePersonView)
 - (void)initLivePersonDataView;
+- (void)initPersonData;
 /**
  *  展示个人头像
  */
