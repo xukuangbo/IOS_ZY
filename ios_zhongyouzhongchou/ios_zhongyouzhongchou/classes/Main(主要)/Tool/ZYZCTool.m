@@ -605,4 +605,76 @@
     return showDateStr;
 }
 
+
++(UIView*)getFirstResponder
+{
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    UIView *firstResponder;
+    if ([keyWindow respondsToSelector:@selector(firstResponder)]) {
+        firstResponder = [keyWindow performSelector:@selector(firstResponder)];
+    }
+    return firstResponder;
+}
+
+
+float scro_distance = 0;
+CGPoint oringnalPoint;
+BOOL isFuguozhi = false;
+
++(void)handleKeyBoardScroOn:(UIView*)view forTarget:(UIView*)targetView noti:(NSNotification*)noti state:(NSString*)state
+{
+    if ([state isEqualToString:@"show"]) {
+        double keyboard_height =[noti.userInfo[@"UIKeyboardFrameEndUserInfoKey"] CGRectValue].size.height;
+        CGRect frame_f;
+        if (targetView) {
+            frame_f = [targetView convertRect:targetView.bounds toView:nil];
+        }else{
+            UIView *firstResponder = [self getFirstResponder];
+            frame_f = [firstResponder convertRect:firstResponder.bounds toView:nil];
+        }
+        if ([view isKindOfClass:[UIScrollView class]]) {
+            if (!isFuguozhi) {
+                oringnalPoint = ((UIScrollView*)view).contentOffset;
+                isFuguozhi = true;
+            }
+        }else{
+            if (!isFuguozhi) {
+                oringnalPoint = CGPointMake(view.frame.origin.x, view.frame.origin.y);
+                isFuguozhi = true;
+            }
+        }
+        
+        float distance = KSCREEN_H - frame_f.origin.y - frame_f.size.height - keyboard_height-5;
+        if (distance < 0) {
+            scro_distance = - distance;
+        }else{
+            scro_distance = 0;
+        }
+        [UIView animateWithDuration:0.3 animations:^{
+            if (distance < 0) {
+                if ([view isKindOfClass:[UIScrollView class]]) {
+                    CGPoint point = ((UIScrollView*)view).contentOffset;
+                    ((UIScrollView*)view).contentOffset = CGPointMake(point.x, point.y+scro_distance);
+                }else{
+                    view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y -scro_distance, view.frame.size.width, view.frame.size.height);
+                }
+                
+            }
+        }];
+    }else if ([state isEqualToString:@"hide"]){
+        [UIView animateWithDuration:0.5 animations:^{
+            if ([view isKindOfClass:[UIScrollView class]]) {
+                //                ((UIScrollView*)view).contentOffset = oringnalPoint;
+                CGPoint point = ((UIScrollView*)view).contentOffset;
+                ((UIScrollView*)view).contentOffset = CGPointMake(point.x, point.y-scro_distance);
+            }else{
+                view.frame = CGRectMake(oringnalPoint.x, oringnalPoint.y, view.frame.size.width, view.frame.size.height);
+            }
+        }];
+        scro_distance = 0;
+        oringnalPoint = CGPointMake(0, 0);
+        isFuguozhi = false;
+    }
+}
+
 @end
