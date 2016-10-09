@@ -96,7 +96,7 @@
     CGSize __labelSize = [RCDLiveTipMessageCell getTipMessageCellSize:__text];
     
     //设置圆角
-    self.tipMessageLabel.layer.cornerRadius = __labelSize.height * 0.5;
+    self.tipMessageLabel.layer.cornerRadius = 23 * 0.5;
     self.tipMessageLabel.layer.masksToBounds = YES;
 
     if (_isFullScreenMode) {

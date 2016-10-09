@@ -255,7 +255,6 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
     }
 }
 
-
 - (void)didTouchEmojiDown:(UIButton *)sender {
     if (self.inputTextView.hidden) {
         [self switchInputBoxOrRecord];
@@ -274,6 +273,7 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
         _inputTextview_height = 70;
         
     }
+    
     NSString *inputStr = _inputTextView.text;
     CGSize textViewSize=[self TextViewAutoCalculateRectWith:inputStr FontSize:16.0 MaxSize:CGSizeMake(_inputTextView.frame.size.width, 70)];
     
