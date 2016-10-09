@@ -207,6 +207,7 @@
 		2C1ECC8A1D62B04400B91E7B /* ZYZCEditYoujiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC891D62B04400B91E7B /* ZYZCEditYoujiController.m */; };
 		2C1ECC8D1D62B08C00B91E7B /* YJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */; };
 		2C20BC971D8A4A3500574462 /* HUPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */; };
+		2C3178481DAA41340042B5DB /* ZYDetailIUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3178471DAA41340042B5DB /* ZYDetailIUserInfoCell.m */; };
 		2C3292F11D922D890095F60E /* ZYFootprintCommentTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */; };
 		2C3292F41D9230CC0095F60E /* ZYCommentFootprintCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F31D9230CC0095F60E /* ZYCommentFootprintCell.m */; };
 		2C3292FA1D9258F40095F60E /* ZYSupportListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F91D9258F40095F60E /* ZYSupportListModel.m */; };
@@ -367,6 +368,8 @@
 		2CD6B90E1DA9E02C00B7E60A /* ZCCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B9081DA9E02C00B7E60A /* ZCCommentCell.m */; };
 		2CD6B90F1DA9E02C00B7E60A /* ZCDetailFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B90A1DA9E02C00B7E60A /* ZCDetailFirstCell.m */; };
 		2CD6B9101DA9E02C00B7E60A /* ZCFilterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B90C1DA9E02C00B7E60A /* ZCFilterTableViewCell.m */; };
+		2CD6B9131DA9E2D900B7E60A /* ZYDetailUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B9121DA9E2D900B7E60A /* ZYDetailUserInfoView.m */; };
+		2CD6B9171DA9E34500B7E60A /* ZYDetailUserInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6B9161DA9E34500B7E60A /* ZYDetailUserInfoView.xib */; };
 		2CD6F6031D964D5600D57457 /* ZYStartFootprintBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F6021D964D5600D57457 /* ZYStartFootprintBtn.m */; };
 		2CD802841CF6DA3000823C9F /* LanguageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD802831CF6DA3000823C9F /* LanguageTool.m */; };
 		2CDC49F71CFD32FC00E7893C /* ZYZCConversationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC49F61CFD32FC00E7893C /* ZYZCConversationController.m */; };
@@ -995,6 +998,8 @@
 		2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJTextView.m; sourceTree = "<group>"; };
 		2C20BC951D8A4A3500574462 /* HUPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowser.h; sourceTree = "<group>"; };
 		2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowser.m; sourceTree = "<group>"; };
+		2C3178461DAA41340042B5DB /* ZYDetailIUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailIUserInfoCell.h; sourceTree = "<group>"; };
+		2C3178471DAA41340042B5DB /* ZYDetailIUserInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDetailIUserInfoCell.m; sourceTree = "<group>"; };
 		2C3292EF1D922D890095F60E /* ZYFootprintCommentTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFootprintCommentTable.h; sourceTree = "<group>"; };
 		2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintCommentTable.m; sourceTree = "<group>"; };
 		2C3292F21D9230CC0095F60E /* ZYCommentFootprintCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCommentFootprintCell.h; sourceTree = "<group>"; };
@@ -1310,6 +1315,9 @@
 		2CD6B90A1DA9E02C00B7E60A /* ZCDetailFirstCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailFirstCell.m; sourceTree = "<group>"; };
 		2CD6B90B1DA9E02C00B7E60A /* ZCFilterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCFilterTableViewCell.h; sourceTree = "<group>"; };
 		2CD6B90C1DA9E02C00B7E60A /* ZCFilterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCFilterTableViewCell.m; sourceTree = "<group>"; };
+		2CD6B9111DA9E2D900B7E60A /* ZYDetailUserInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailUserInfoView.h; sourceTree = "<group>"; };
+		2CD6B9121DA9E2D900B7E60A /* ZYDetailUserInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDetailUserInfoView.m; sourceTree = "<group>"; };
+		2CD6B9161DA9E34500B7E60A /* ZYDetailUserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZYDetailUserInfoView.xib; sourceTree = "<group>"; };
 		2CD6F6011D964D5600D57457 /* ZYStartFootprintBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYStartFootprintBtn.h; sourceTree = "<group>"; };
 		2CD6F6021D964D5600D57457 /* ZYStartFootprintBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYStartFootprintBtn.m; sourceTree = "<group>"; };
 		2CD802821CF6DA3000823C9F /* LanguageTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageTool.h; sourceTree = "<group>"; };
@@ -3577,8 +3585,8 @@
 		2CD208B51D6D3E26005EB62E /* ZCView */ = {
 			isa = PBXGroup;
 			children = (
-				2CD6B8D01DA9DFAB00B7E60A /* BaseView */,
 				2CD208D91D6D3E27005EB62E /* ZCMainView */,
+				2CD6B8D01DA9DFAB00B7E60A /* BaseView */,
 				2CD6B8B71DA9DD4E00B7E60A /* ZYDetailProductCell */,
 			);
 			path = ZCView;
@@ -3655,6 +3663,8 @@
 				2CD6B8C71DA9DDB700B7E60A /* ZCDetailReturnThridCell.m */,
 				2CD6B8C21DA9DDB700B7E60A /* ZCDetailReturnFourthCell.h */,
 				2CD6B8C31DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m */,
+				2C3178461DAA41340042B5DB /* ZYDetailIUserInfoCell.h */,
+				2C3178471DAA41340042B5DB /* ZYDetailIUserInfoCell.m */,
 			);
 			path = ZYDetailProductCell;
 			sourceTree = "<group>";
@@ -3696,6 +3706,9 @@
 				2CD6B8F01DA9DFEE00B7E60A /* ZYZCCusomMovieImage.m */,
 				2CD6B8F11DA9DFEE00B7E60A /* ZYZCCustomVoiceView.h */,
 				2CD6B8F21DA9DFEE00B7E60A /* ZYZCCustomVoiceView.m */,
+				2CD6B9111DA9E2D900B7E60A /* ZYDetailUserInfoView.h */,
+				2CD6B9121DA9E2D900B7E60A /* ZYDetailUserInfoView.m */,
+				2CD6B9161DA9E34500B7E60A /* ZYDetailUserInfoView.xib */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -5225,6 +5238,7 @@
 				3931CBCA1D88ED0500115F0D /* ZYLiveEndLiveVC.xib in Resources */,
 				050261991D879E1F0090C717 /* BottomPayView.xib in Resources */,
 				2C901DC61C89788C004B844B /* Main.storyboard in Resources */,
+				2CD6B9171DA9E34500B7E60A /* ZYDetailUserInfoView.xib in Resources */,
 				2CDE67031DA651070066F49D /* more_ico_download@2x.png in Resources */,
 				2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */,
 				2CD1E5FF1DA735BA008E4203 /* QPSDK.bundle in Resources */,
@@ -5345,6 +5359,7 @@
 				2CFC7D101DA648B900A28D74 /* QPBaseViewController.m in Sources */,
 				2C1B61031D6D3CF900E3C25B /* NSDate+RMCalendarLogic.m in Sources */,
 				2C8B19761D0CF7EC0063097B /* JGProgressHUDIndicatorView.m in Sources */,
+				2CD6B9131DA9E2D900B7E60A /* ZYDetailUserInfoView.m in Sources */,
 				392AB2AD1D669CE6003FEDB7 /* ZYLiveListCell.m in Sources */,
 				2C1B60D11D6D3CF900E3C25B /* MoreFZCDataManager.m in Sources */,
 				04C087AE1D044F0A00203D40 /* MineWantGoModel.m in Sources */,
@@ -5692,6 +5707,7 @@
 				2C3293061D9276110095F60E /* ZYFootprintOneCommentCell.m in Sources */,
 				2CD6B90F1DA9E02C00B7E60A /* ZCDetailFirstCell.m in Sources */,
 				39809D1F1D5888F400CB9EE3 /* TacticMainCityCustomView.m in Sources */,
+				2C3178481DAA41340042B5DB /* ZYDetailIUserInfoCell.m in Sources */,
 				2C7FC2B21D22A007000FDFDE /* CommentListTableView.m in Sources */,
 				3941CD6A1D41FCB7009224BC /* ChatComplainController.m in Sources */,
 				2C3777EF1D07C345004FDA9D /* MyProductTableView.m in Sources */,
