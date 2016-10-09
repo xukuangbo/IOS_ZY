@@ -302,7 +302,7 @@
         else if (self.contentType == ArrangeType)
         {
             if (indexPath.row%2==0) {
-                NSString *arrangeCellId=@"arrangeCell";
+                NSString *arrangeCellId=[NSString stringWithFormat:@"arrangeCell%ld",indexPath.row];
                 ZCDetailArrangeFirstCell *arrangeCell=(ZCDetailArrangeFirstCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:arrangeCellId andCellClass:[ZCDetailArrangeFirstCell class]];
                 arrangeCell.faceImg=_oneModel.user.faceImg;
                 arrangeCell.startDay=_oneModel.product.travelstartTime;

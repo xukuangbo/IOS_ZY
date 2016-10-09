@@ -68,7 +68,7 @@
 -(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andVoiceLen:(CGFloat)voiceLen  andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr
 {
     _imgUrlStr =imgUrlStr;
-    BOOL hasMovie=NO,hasVoice=NO,hasWord=NO,hasImg=YES;
+    BOOL hasMovie=NO,hasVoice=NO,hasWord=NO,hasImg=NO;
     _movieView.top=0;
     if (videoImgUrl.length) {
         _movieView.hidden=NO;
@@ -159,6 +159,7 @@
     else
     {
         _imgsView.hidden=YES;
+        _imgsView.height=0.1;
     }
     
      self.height=_imgsView.bottom;
