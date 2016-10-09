@@ -9,6 +9,8 @@
 #import "ZYZCHTTPTool.h"
 #import "LoginJudgeTool.h"
 #import <CommonCrypto/CommonDigest.h>
+@interface ZYZCHTTPTool ()<UIAlertViewDelegate >
+@end
 @implementation ZYZCHTTPTool
 
 #pragma mark --- get请求
@@ -108,14 +110,18 @@
             }
             else
             {
-                successGet(responseObject,NO);
+                if ([responseObject[@"errorMsg"] isEqualToString:@"非法访问"]) {
+                    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"非法访问，需重新登录" message:@"是否重新登录" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
+                    alert.tag=999;
+                    [alert show];
+                }
+                 successGet(responseObject,NO);
             }
         }
         else
         {
             successGet(responseObject,YES);
         }
-        
     }
     failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
     {
