@@ -38,6 +38,7 @@
 #import "LivePersonDataView.h"
 #import "LiveMoneyView.h"
 #import "showDashangMapView.h"
+#import "ZYTravePayView.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -112,6 +113,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property(nonatomic,strong) UICollectionView *portraitsCollectionView;
 // 打赏view
 @property (nonatomic, strong) ZYBottomPayView *payView;
+@property (nonatomic, strong) ZYTravePayView *travePayView;
 // 判断是不是进入私聊界面
 @property (nonatomic, assign) BOOL isMessage;
 @property (nonatomic, strong) WXApiManager *wxApiManger;
@@ -302,6 +304,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
     self.chatroomlabel.numberOfLines = 2;
+    self.chatroomlabel.textColor = [UIColor whiteColor];
     self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
     [livePersonNumberView addSubview:self.chatroomlabel];
     
@@ -310,7 +313,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
     [self.attentionButton addTarget:self action:@selector(attentionButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     self.attentionButton.backgroundColor = [UIColor ZYZC_MainColor];
-    [self.attentionButton setTitleColor:[UIColor ZYZC_TextBlackColor] forState:UIControlStateNormal];
+    [self.attentionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.attentionButton.layer.cornerRadius = 15;
     [livePersonNumberView addSubview:self.attentionButton];
     
@@ -321,7 +324,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     layout.minimumInteritemSpacing = 16;
     layout.sectionInset = UIEdgeInsetsMake(0.0f, 20.0f, 0.0f, 20.0f);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    CGFloat memberHeadListViewY = livePersonNumberView.frame.origin.x + livePersonNumberView.frame.size.width;
+//    CGFloat memberHeadListViewY = livePersonNumberView.frame.origin.x + livePersonNumberView.frame.size.width;
     self.portraitsCollectionView  = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
     self.portraitsCollectionView.delegate = self;
     self.portraitsCollectionView.dataSource = self;
@@ -340,7 +343,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         [self.view addSubview:payView];
         self.payView = payView;
     } else {
-        self.payView.hidden = NO;
+        ZYTravePayView * payView = [ZYTravePayView loadCustumView];
+//        payView.delegate = self;
+        CGRect rect = CGRectMake(0, KSCREEN_H - 200, KSCREEN_W, 200);
+        payView.frame = rect;
+        [payView.layer setCornerRadius:10];
+        [self.view addSubview:payView];
+        self.travePayView = payView;
+        self.travePayView.hidden = NO;
+//        self.payView.hidden = NO;
     }
 }
 
@@ -636,6 +647,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.personDataView hidePersonDataView];
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.payView.hidden = YES;
+        self.travePayView.hidden = YES;
         [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
         [self clapButtonPressed];

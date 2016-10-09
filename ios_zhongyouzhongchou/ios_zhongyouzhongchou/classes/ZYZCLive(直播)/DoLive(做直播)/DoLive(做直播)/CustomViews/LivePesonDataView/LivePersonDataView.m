@@ -33,6 +33,8 @@
 @property (nonatomic, strong) UILabel *descLabel;
 /** 底部工具条 */
 @property (nonatomic, strong) UIView *bottomBar;
+// 众筹箭头
+@property (nonatomic, strong) UIImageView *zhongchouArrow;
 
 @end
 
@@ -126,6 +128,7 @@
     UIImageView *zhongchouArrow = [[UIImageView alloc] init];
     zhongchouArrow.image = [UIImage imageNamed:@"btn_rightin"];
     [self addSubview:zhongchouArrow];
+    self.zhongchouArrow = zhongchouArrow;
     [zhongchouArrow mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.zhongchouButton.mas_top).offset(12);
         make.width.equalTo(@9);
@@ -261,6 +264,49 @@
     } completion:^(BOOL finished) {
         //置空数据
     }];
+}
+
+- (void)showTravelNull
+{
+    self.zhongchouArrow.hidden = YES;
+    [self.zhongchouButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_roomButton.mas_bottom);
+        make.width.equalTo(@200);
+        make.height.mas_equalTo(0);
+        make.centerX.equalTo(self.mas_centerX);
+    }];
+}
+
+- (void)showTravelNoNull
+{
+    [self.zhongchouButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(_roomButton.mas_bottom);
+        make.width.equalTo(@200);
+        make.height.mas_equalTo(zhongchouH);
+        make.centerX.equalTo(self.mas_centerX);
+    }];
+    
+    [_bottomBar mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(bottomBarH);
+        make.width.equalTo(self.mas_width);
+        make.bottom.equalTo(self.mas_bottom);
+        make.centerX.equalTo(self.mas_centerX);
+    }];
+    
+    [self.attentionButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(34);
+        make.width.mas_equalTo(100);
+        make.bottom.equalTo(self).offset(-3);
+        make.left.equalTo(self).offset(10);
+    }];
+    
+    [self.bannedSpeakButton mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.height.mas_equalTo(34);
+        make.width.mas_equalTo(60);
+        make.bottom.equalTo(self).offset(-3);
+        make.right.equalTo(self).offset(-10);
+    }];
+
 }
 
 - (void)setMinePersonModel:(MinePersonSetUpModel *)minePersonModel
