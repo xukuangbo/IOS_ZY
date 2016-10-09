@@ -21,6 +21,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.view.backgroundColor=[UIColor whiteColor];
     self.collectionView.frame=CGRectMake(0, 64, KSCREEN_W, 200);
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
@@ -35,7 +36,6 @@ static NSString * const reuseIdentifier = @"Cell";
     NSArray *images=[VideoService thumbnailImagesForVideo:[NSURL fileURLWithPath:self.videoPath] withImageCount:20];
     self.imageData=images;
     [self.collectionView reloadData];
-    
 }
 
 -(void)configNavUI

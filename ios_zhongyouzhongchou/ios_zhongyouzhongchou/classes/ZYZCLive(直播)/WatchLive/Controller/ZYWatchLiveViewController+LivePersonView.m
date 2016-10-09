@@ -25,6 +25,8 @@
     CGFloat personDataViewX = (self.view.width - personDataViewW) * 0.5;
     CGFloat personDataViewY = self.view.height;
     self.personDataView = [[LivePersonDataView alloc] initWithFrame:CGRectMake(personDataViewX, personDataViewY, personDataViewW, personDataViewH)];
+    [self.personDataView.zhongchouButton setTitle:self.liveModel.productTitle forState:UIControlStateNormal];
+
 //    [self.personDataView.zhongchouButton setTitle:self.createLiveModel.productTitle forState:UIControlStateNormal];
     [self.view addSubview:self.personDataView];
     
@@ -73,12 +75,23 @@
 {
     ChatBlackListModel *user = self.userList[sender.view.tag - 1000];
     [self.personDataView showPersonData];
-    if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue]) {
+    
+    if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue] && [self.liveModel.productId length] == 0) {
         self.personDataView.attentionButton.hidden = YES;
+        [self.personDataView showTravelNull];
+        [self.personDataView setHeight:258];
+    } else if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue] && [self.liveModel.productId length] != 0) {
+        self.personDataView.attentionButton.hidden = YES;
+        [self.personDataView showTravelNoNull];
         [self.personDataView setHeight:298];
-    } else {
+    } else if ([user.userId intValue] != [[ZYZCAccountTool getUserId] intValue] && [self.liveModel.productId length] == 0) {
+        self.personDataView.attentionButton.hidden = NO;
+        [self.personDataView setHeight:300];
+        [self.personDataView showTravelNull];
+    } else if ([user.userId intValue] != [[ZYZCAccountTool getUserId] intValue] && [self.liveModel.productId length] != 0) {
         self.personDataView.attentionButton.hidden = NO;
         [self.personDataView setHeight:340];
+        [self.personDataView showTravelNoNull];
     }
     [self requestData:[NSString stringWithFormat:@"%@", user.userId]];
 }
@@ -108,7 +121,7 @@
     productDetailVC.hidesBottomBarWhenPushed=YES;
     //    ZCOneModel *oneModel=self.dataArr[indexPath.row/2];
     //    productDetailVC.oneModel=oneModel;
-//    productDetailVC.productId = [NSNumber numberWithInteger:[self.createLiveModel.productId integerValue]];
+    productDetailVC.productId = [NSNumber numberWithInteger:[self.liveModel.productId integerValue]];
     productDetailVC.detailProductType=PersonDetailProduct;
     productDetailVC.fromProductType=ZCListProduct;
     [self.navigationController pushViewController:productDetailVC animated:YES];

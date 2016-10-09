@@ -7,7 +7,7 @@
 //
 
 #import "ZYZCCustomTextField.h"
-
+#import "UIView+GetSuperTableView.h"
 @interface ZYZCCustomTextField ()
 @property (nonatomic, strong) UILabel *textlab;
 @property (nonatomic, strong) UIView *bgView;
@@ -211,7 +211,11 @@
         [[UIApplication sharedApplication].keyWindow.rootViewController.view addSubview:_bgView];
         
         [_bgView addTarget:self action:@selector(hiddenKeyboard)];
-
+    }
+    
+    UIView *table=[self getSuperTableView];
+    if ([table isKindOfClass:[UITableView class]]) {
+        [ZYZCTool handleKeyBoardScroOn:table forTarget:self noti:notify state:@"show"];
     }
 }
 
@@ -221,6 +225,10 @@
     if (_bgView&&_needBackgroudView) {
         [_bgView removeFromSuperview];
         _bgView=nil;
+    }
+    UIView *table=[self getSuperTableView];
+    if ([table isKindOfClass:[UITableView class]]||[table isKindOfClass:[UIScrollView class]]) {
+        [ZYZCTool handleKeyBoardScroOn:table forTarget:self noti:notify state:@"hide"];
     }
 }
 

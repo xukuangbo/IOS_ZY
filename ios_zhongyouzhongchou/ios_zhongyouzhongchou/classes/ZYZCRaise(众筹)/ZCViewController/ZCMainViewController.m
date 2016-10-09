@@ -6,18 +6,8 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 //所有众筹列表
-typedef NS_ENUM(NSInteger, FilterType)
-{
-    WomanType=1,
-    ManType,
-    SuccessType,
-    AllType
-};
-
 
 #define GET_PRODUCT_LIST(pageNo) [NSString stringWithFormat:@"cache=false&orderType=4&pageNo=%d&pageSize=10",pageNo]
-
-#define FILTER_NUMBE  4
 
 #import "ZCMainViewController.h"
 #import "ZCFilterTableViewCell.h"
@@ -53,7 +43,8 @@ typedef NS_ENUM(NSInteger, FilterType)
 @property (nonatomic, strong) UIButton           *navRightBtn;//发众筹按钮
 //@property (nonatomic, assign) BOOL               getSearch; //是否是搜索数据
 
-@property (nonatomic, assign) FilterType        filterType;//过滤条件
+@property (nonatomic, assign) NSInteger         filterType;//过滤条件
+@property (nonatomic, strong) NSArray           *filterItems;
 
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
 
@@ -69,8 +60,9 @@ typedef NS_ENUM(NSInteger, FilterType)
     self.automaticallyAdjustsScrollViewInsets=NO;
     _listArr=[NSMutableArray array];
     _pageNo=1;
-    _filterType=4;//看全部
     _isFirstEntry=YES;
+    _filterItems=@[@"看成功",@"看最近",@"看全部",@"默认"];
+    _filterType=2+_filterItems.count;//默认
     [self setNavBar];
     [self configUI];
     [self getHttpDataByFilterType:_filterType andSeachKey:nil];
@@ -183,7 +175,7 @@ typedef NS_ENUM(NSInteger, FilterType)
     }
     
     if (!_fitersView) {
-        _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(5,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*FILTER_NUMBE)];
+        _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(5,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*(2+_filterItems.count))];
         _fitersView.hidden=YES;
         UIImage * image = [UIImage imageNamed:@"bg_sxleft"] ;
         image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(15, 0, 15, 0) resizingMode:UIImageResizingModeStretch];
@@ -206,7 +198,7 @@ typedef NS_ENUM(NSInteger, FilterType)
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return FILTER_NUMBE;
+    return (2+_filterItems.count);
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -217,14 +209,7 @@ typedef NS_ENUM(NSInteger, FilterType)
     }
     else
     {
-        if (indexPath.row==2) {
-            fiterCell.textLabel.text=@"看成功";
-            [fiterCell.contentView addSubview:[UIView lineViewWithFrame:CGRectMake(17, FILTER_CELL_HEIGHT-1, 125-34, 1) andColor:[UIColor whiteColor]]];
-        }
-        else
-        {
-            fiterCell.textLabel.text=@"看全部";
-        }
+        fiterCell.textLabel.text=_filterItems[indexPath.row-2];
     }
     return fiterCell;
 }
@@ -314,7 +299,7 @@ typedef NS_ENUM(NSInteger, FilterType)
 }
 
 #pragma mark --- 获取众筹列表
--(void)getHttpDataByFilterType:(FilterType )filterType  andSeachKey:(NSString *)searchKey
+-(void)getHttpDataByFilterType:(NSInteger )filterType  andSeachKey:(NSString *)searchKey
 {
     _entryView.hidden = YES;
     //获取所有众筹详情
@@ -324,7 +309,7 @@ typedef NS_ENUM(NSInteger, FilterType)
         //搜索关键词
         NSString *keyword= [_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
-        httpUrl=[NSString stringWithFormat:@"%@%@&querytype=98&keyword=%@",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo),keyword];
+        httpUrl=[NSString stringWithFormat:@"%@%@&querytype=6&keyword=%@",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo),keyword];
     }
     else
     {
@@ -342,10 +327,20 @@ typedef NS_ENUM(NSInteger, FilterType)
         {
             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=2",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
         }
-        //看全部
+        //看最近
         else if (_filterType==4)
         {
+            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=5",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+        }
+        //看全部
+        else if (_filterType==5)
+        {
             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=3",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+        }
+        //默认
+        else if (_filterType==6)
+        {
+             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=98",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
         }
     }
 //    DDLog(@"httpUrl:%@",httpUrl);

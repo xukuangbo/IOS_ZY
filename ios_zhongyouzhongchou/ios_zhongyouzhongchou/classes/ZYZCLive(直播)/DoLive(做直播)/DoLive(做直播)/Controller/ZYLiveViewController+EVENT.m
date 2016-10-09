@@ -192,7 +192,13 @@
     [self.personDataView showPersonData];
     self.personDataView.attentionButton.hidden = YES;
     self.personDataView.bannedSpeakButton.hidden = YES;
-    [self.personDataView setHeight:298];
+    if ([self.createLiveModel.productId length] == 0) {
+        [self.personDataView showTravelNull];
+        [self.personDataView setHeight:258];
+    } else if ([self.createLiveModel.productId length] != 0) {
+        [self.personDataView showTravelNoNull];
+        [self.personDataView setHeight:298];
+    }
     [self requestData:[NSString stringWithFormat:@"%@", [ZYZCAccountTool getUserId]]];
 }
 
@@ -201,15 +207,33 @@
 {
     ChatBlackListModel *user = self.userList[sender.view.tag - 1000];
     [self.personDataView showPersonData];
-    if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue]) {
+    self.personDataView.bannedSpeakButton.hidden = NO;
+    if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue] && [self.createLiveModel.productId length] == 0) {
         self.personDataView.attentionButton.hidden = YES;
-        self.personDataView.bannedSpeakButton.hidden = YES;
+        [self.personDataView showTravelNull];
+        [self.personDataView setHeight:258];
+    } else if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue] && [self.createLiveModel.productId length] != 0) {
+        self.personDataView.attentionButton.hidden = YES;
+        [self.personDataView showTravelNoNull];
         [self.personDataView setHeight:298];
-    } else {
+    } else if ([user.userId intValue] != [[ZYZCAccountTool getUserId] intValue] && [self.createLiveModel.productId length] == 0) {
         self.personDataView.attentionButton.hidden = NO;
-        self.personDataView.bannedSpeakButton.hidden = NO;
+        [self.personDataView setHeight:300];
+        [self.personDataView showTravelNull];
+    } else if ([user.userId intValue] != [[ZYZCAccountTool getUserId] intValue] && [self.createLiveModel.productId length] != 0) {
+        self.personDataView.attentionButton.hidden = NO;
         [self.personDataView setHeight:340];
+        [self.personDataView showTravelNoNull];
     }
+//    if ([user.userId intValue] == [[ZYZCAccountTool getUserId] intValue]) {
+//        self.personDataView.attentionButton.hidden = YES;
+//        self.personDataView.bannedSpeakButton.hidden = YES;
+//        [self.personDataView setHeight:298];
+//    } else {
+//        self.personDataView.attentionButton.hidden = NO;
+//        self.personDataView.bannedSpeakButton.hidden = NO;
+//        [self.personDataView setHeight:340];
+//    }
     [self requestData:[NSString stringWithFormat:@"%@", user.userId]];
 }
 
@@ -236,6 +260,7 @@
     productDetailVC.detailProductType=PersonDetailProduct;
     productDetailVC.fromProductType=ZCListProduct;
     [self.navigationController pushViewController:productDetailVC animated:YES];
+    
 }
 
 // 点击关注按钮
