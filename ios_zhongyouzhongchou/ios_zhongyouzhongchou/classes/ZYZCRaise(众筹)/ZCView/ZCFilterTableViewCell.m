@@ -30,10 +30,8 @@
         {
             [self configUI];
         }
-        if (indexPath.row!=2) {
-            [self addSubview:[UIView lineViewWithFrame:CGRectMake(17, self.frame.size.height-6, 125-34, 1) andColor:[UIColor whiteColor]]];
-        }
-
+        
+        [self addSubview:[UIView lineViewWithFrame:CGRectMake(17, self.frame.size.height-6, 125-34, 1) andColor:[UIColor whiteColor]]];
     }
     return self;
 }
@@ -54,7 +52,6 @@
     
     img=[[UIImageView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(lab.frame)-3, 10, 20, 20)];
     [self.contentView addSubview:img];
-    
 }
 
 -(void)setModel:(ZCFilterModel *)model

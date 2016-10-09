@@ -183,4 +183,7 @@
 + (NSString *) showCusDateByTimestamp:(NSString *)timestamp;
 
 
++(void)handleKeyBoardScroOn:(UIView*)view forTarget:(UIView*)targetView noti:(NSNotification*)noti state:(NSString*)state;
+
+
 @end
