@@ -133,10 +133,10 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="1O7-O1-zFN"/>
-                            <exclude reference="EBs-bi-XZo"/>
-                            <exclude reference="h03-O4-w91"/>
                             <exclude reference="Fiu-61-myu"/>
+                            <exclude reference="h03-O4-w91"/>
+                            <exclude reference="EBs-bi-XZo"/>
+                            <exclude reference="1O7-O1-zFN"/>
                         </mask>
                     </variation>
                 </view>
