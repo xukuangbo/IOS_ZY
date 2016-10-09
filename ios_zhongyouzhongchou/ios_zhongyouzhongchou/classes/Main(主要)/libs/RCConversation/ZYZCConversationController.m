@@ -21,18 +21,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.conversationMessageCollectionView.backgroundColor=[UIColor whiteColor];
-    self.navigationItem.leftBarButtonItem= [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_back_new"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(pressBack)];
-    
-//    UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-//    navRightBtn.frame=CGRectMake(0, 0, 44, 44);
-//    [navRightBtn setTitle:@"投诉" forState:UIControlStateNormal];
-//    navRightBtn.backgroundColor=[UIColor orangeColor];
-//    [navRightBtn setImage:[UIImage imageNamed:@"nav_r"] forState:UIControlStateNormal];
-//    [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [navRightBtn addTarget:self action:@selector(showGerenCaozuoAlert) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"nav_r"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(showGerenCaozuoAlert)];
-    
 }
 
 #pragma mark --- 进入投诉页面
@@ -139,5 +127,14 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.navigationItem.leftBarButtonItem= [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_back_new"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(pressBack)];
+    
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"nav_r"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(showGerenCaozuoAlert)];
+}
+
 
 @end

@@ -51,6 +51,9 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+//    通知的类型:1:我发起，2我参与，3、我回报，99系统升级 ,10 直播通知，98无跳转通知
+    
     MsgListModel *msgListModel=self.dataArr[indexPath.row];
     msgListModel.readstatus=YES;
     [self reloadData];
@@ -65,7 +68,9 @@
         //msgStyle为99，进入appstore更新app
         if (msgListModel.msgStyle==99) {
             [[UIApplication sharedApplication] openURL:[NSURL URLWithString:APP_STORE_URL]];
-        } else if (msgListModel.msgStyle == 10) {
+        }
+        //msgStyle为10,为直播
+        else if (msgListModel.msgStyle == 10) {
             WEAKSELF
             ZYSystemCommon *systemCommon = [[ZYSystemCommon alloc] init];
             [systemCommon cleanNewMessageRedDot:[NSString stringWithFormat:@"%zd", msgListModel.ID]];
@@ -91,7 +96,13 @@
             
             [systemCommon getLiveContent:parameters];
             
-        } else {
+        }
+        else if (msgListModel.msgStyle==98)
+        {
+            ZYSystemCommon *systemCommon = [[ZYSystemCommon alloc] init];
+            [systemCommon cleanNewMessageRedDot:[NSString stringWithFormat:@"%zd", msgListModel.ID]];
+        }
+        else {
             //系统通知
         }
     }
