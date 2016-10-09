@@ -45,9 +45,8 @@
 
 - (void)awakeFromNib
 {
-    
+    [super awakeFromNib];
 }
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -113,7 +112,6 @@
                                  };
     
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Del_Live andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
         
         [MBProgressHUD showSuccess:@"删除成功"];
     } andFailBlock:^(id failResult) {
