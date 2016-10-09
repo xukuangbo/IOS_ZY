@@ -894,6 +894,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              rcTextMessage.extra = kPaySucceed;
              [weakSelf sendMessage:rcTextMessage pushContent:nil];
              [MBProgressHUD showSuccess:@"支付成功!"];
+             
+             //展示支付成功动画
+             dispatch_async(dispatch_get_main_queue(), ^{
+                 [self.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
+             });
          }else{
              [MBProgressHUD showError:@"支付失败!"];
              appDelegate.out_trade_no=nil;
