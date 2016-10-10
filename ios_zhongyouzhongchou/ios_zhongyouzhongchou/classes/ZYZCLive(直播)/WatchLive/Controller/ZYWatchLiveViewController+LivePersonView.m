@@ -16,6 +16,7 @@
 #import "showDashangMapView.h"
 #import "ChatBlackListModel.h"
 #import "ZYLiveListModel.h"
+#import "ZYJourneyLiveModel.h"
 @implementation ZYWatchLiveViewController (LivePersonView)
 - (void)initLivePersonDataView
 {
@@ -45,7 +46,17 @@
 
 - (void)initPersonData
 {
-    
+    NSDictionary *params=@{@"productId":self.liveModel.productId};
+
+    WEAKSELF
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:PRODUCT_INFO_MONEY andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        ZYJourneyLiveModel *journeyLiveModel=[[ZYJourneyLiveModel alloc] mj_setKeyValues:result[@"data"]];
+        weakSelf.journeyLiveModel = journeyLiveModel;
+        [weakSelf.personDataView.zhongchouButton setTitle:weakSelf.journeyLiveModel.journeyTitle forState:UIControlStateNormal];
+//        NSLog(@"resultresult%@", result);
+    } andFailBlock:^(id failResult) {
+//        NSLog(@"failResult%@", failResult);
+    }];
 }
 
 #pragma mark - netWork

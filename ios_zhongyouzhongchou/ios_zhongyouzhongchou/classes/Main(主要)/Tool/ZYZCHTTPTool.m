@@ -8,6 +8,7 @@
 
 #import "ZYZCHTTPTool.h"
 #import "LoginJudgeTool.h"
+#import "UIAlertView+BlocksKit.h"
 #import <CommonCrypto/CommonDigest.h>
 @interface ZYZCHTTPTool ()<UIAlertViewDelegate >
 @end
@@ -111,9 +112,12 @@
             else
             {
                 if ([responseObject[@"errorMsg"] isEqualToString:@"非法访问"]) {
-                    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"非法访问，需重新登录" message:@"是否重新登录" delegate:self cancelButtonTitle:@"否" otherButtonTitles:@"是", nil];
-                    alert.tag=999;
-                    [alert show];
+                [UIAlertView bk_showAlertViewWithTitle:@"非法访问，需重新登录" message:@"重新登录" cancelButtonTitle:@"否" otherButtonTitles:@[@"是"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+                    if (buttonIndex==1) {
+                        [ZYZCAccountTool deleteAccount];
+                        [LoginJudgeTool judgeLogin];
+                    }
+                }];
                 }
                  successGet(responseObject,NO);
             }
@@ -128,6 +132,7 @@
         fail(error.localizedDescription);
     }];
 }
+
 
 #pragma mark --- 添加HttpHead字段的方法post请求
 +(void)addRongYunHeadPostHttpDataWithURL:(NSString *)url andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail

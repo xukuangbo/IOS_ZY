@@ -276,6 +276,10 @@
         [MBProgressHUD hideHUDForView:self.view];
         if (isSuccess) {
             //如果没有用户信息，填写用户信息
+            //主要保存scr
+            ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"][@"user"] ];
+            [ZYZCAccountTool saveAccount:accountModel];
+
             if ([result[@"data"][@"setinfo"] isEqual:@1]) {
                 FinishBaseInfoController *baseInfoController=[[FinishBaseInfoController alloc]init];
                 baseInfoController.userId=result[@"data"][@"user"][@"userId"];

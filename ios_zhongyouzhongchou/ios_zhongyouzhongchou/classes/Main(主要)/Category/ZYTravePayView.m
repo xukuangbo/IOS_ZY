@@ -8,19 +8,20 @@
 
 #import "ZYTravePayView.h"
 #import "ZYTravePayView.h"
+#import "ZYJourneyLiveModel.h"
 @implementation ZYTravePayView
 
-+ (instancetype)loadCustumView {
++ (instancetype)loadCustumView:(ZYJourneyLiveModel *)model {
     ZYTravePayView * view = nil;
     NSArray *nibs=[[NSBundle mainBundle] loadNibNamed:@"ZYTravePayVIew" owner:self options:nil];
     view = (ZYTravePayView *)[nibs objectAtIndex:0];
-    [view initMember];
+    [view initMember:model];
     
     return view;
 }
 
 
-- (void)initMember {
+- (void)initMember:(ZYJourneyLiveModel *)model {
     self.playTourRecordButton.titleEdgeInsets = UIEdgeInsetsMake(0,-25, 0, 0);
     self.playTourRecordButton.imageEdgeInsets = UIEdgeInsetsMake(0,115, 0, 9);
     [self.playTourRecordButton setImage:[UIImage imageNamed:@"btn_rightin"] forState:UIControlStateNormal];
@@ -43,7 +44,8 @@
                 
                 btn.titleLabel.font = [UIFont systemFontOfSize:20.0];
                 btn.titleLabel.numberOfLines = 2;
-                [btn setTitle:@"报名回报\n    50元" forState:UIControlStateNormal];
+                [btn setTitle:[NSString stringWithFormat:@"报名回报\n    %zd元", model.rewardMoney / 100] forState:UIControlStateNormal];
+                btn.tag = model.rewardMoney / 10;
             } else if ([btn.currentTitle isEqualToString:@"报名一起去500元"]) {
                 [tmpView.layer setMasksToBounds:YES];
                 [tmpView.layer setBorderWidth:1];
@@ -52,7 +54,8 @@
                 
                 btn.titleLabel.numberOfLines = 2;
                 btn.titleLabel.font = [UIFont systemFontOfSize:20.0];
-                [btn setTitle:@"报名一起去\n     500元" forState:UIControlStateNormal];
+                [btn setTitle:[NSString stringWithFormat:@"报名回报\n    %zd元", model.togetherGoMoney / 100]  forState:UIControlStateNormal];
+                btn.tag = model.togetherGoMoney / 10;
             } else if ([btn.currentTitle isEqualToString:@"我的打赏记录"]) {
                 
             } else if ([btn.currentTitle isEqualToString:@"了解行程详情"]) {
@@ -82,14 +85,20 @@
 }
 
 - (IBAction)onSelect:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(clickTravePayBtnUKey:)]) {
-        [self.delegate clickTravePayBtnUKey:sender.tag];
+    if ([self.delegate respondsToSelector:@selector(clickTravePayBtnUKey:style:)]) {
+        [self.delegate clickTravePayBtnUKey:sender.tag style:kAverageLivePlayTourStyle];
     }
 }
 
 - (IBAction)rewardButtonAction:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(clickTravePayBtnUKey:style:)]) {
+        [self.delegate clickTravePayBtnUKey:sender.tag style:kRewardLivePlayTourStyle];
+    }
 }
 - (IBAction)togetherGoButtonAction:(UIButton *)sender {
+    if ([self.delegate respondsToSelector:@selector(clickTravePayBtnUKey:style:)]) {
+        [self.delegate clickTravePayBtnUKey:sender.tag style:kTogetherGoLivePlayTourStyle];
+    }
 }
 
 /*

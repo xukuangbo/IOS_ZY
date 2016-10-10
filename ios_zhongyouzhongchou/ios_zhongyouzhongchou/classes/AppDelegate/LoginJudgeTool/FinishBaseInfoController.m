@@ -262,6 +262,8 @@
              //保存基本信息到本地
              ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
              accountModel.headimgurl=imgUrl;
+             ZYZCAccountModel *oldAccountModel=[ZYZCAccountTool account];
+             accountModel.scr=oldAccountModel.scr;
              [ZYZCAccountTool saveAccount:accountModel];
              
              //回到主页

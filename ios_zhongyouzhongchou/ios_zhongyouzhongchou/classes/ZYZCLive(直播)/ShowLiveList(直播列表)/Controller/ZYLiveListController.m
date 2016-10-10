@@ -59,6 +59,7 @@ static NSString *ID = @"ZYLiveListCell";
     self.navigationController.navigationBar.hidden = NO;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        self.pageNo = 1;
         [self requestListDataWithPage:self.pageNo direction:1];
         
     });

@@ -157,7 +157,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     // 初始化直播个人中心
     [self initLivePersonDataView];
     // 初始化直播的个人信息
-    [self initPersonData];
+    if ([self.liveModel.productId length] != 0) {
+        [self initPersonData];
+    }
     [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
     
@@ -335,8 +337,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 }
 // 创建打赏界面
-- (void)initPayView {
-    if (!self.payView) {
+- (void)initPayView:(ZYJourneyLiveModel *)model {
+    if (!self.payView && [self.liveModel.productId length] == 0) {
         ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
         payView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
@@ -344,16 +346,18 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         [payView.layer setCornerRadius:10];
         [self.view addSubview:payView];
         self.payView = payView;
-    } else {
-        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView];
+    } else if (self.payView && [self.liveModel.productId length] == 0) {
+        self.payView.hidden = NO;
+    } else if (!self.travePayView && [self.liveModel.productId length] != 0) {
+        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.journeyLiveModel];
         travePayView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 200, KSCREEN_W, 200);
         travePayView.frame = rect;
         [travePayView.layer setCornerRadius:10];
         [self.view addSubview:travePayView];
         self.travePayView = travePayView;
+    } else {
         self.travePayView.hidden = NO;
-//        self.payView.hidden = NO;
     }
 }
 
@@ -632,7 +636,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 打赏功能
 -(void)flowerButtonPressed:(UIButton *)sender
 {
-    [self initPayView];
+    [self initPayView:self.journeyLiveModel];
 }
 
 // 点赞
@@ -1508,7 +1512,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - ZYTravePayViewDelegate
-- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber
+- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber style:(kLivePlayTourStyle)style
 {
     WEAKSELF
     NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
@@ -1518,11 +1522,17 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                 @"price":@"0.1",
                                 };
     self.payMoney = payMoney;
-    [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
-        weakSelf.payView.hidden = YES;
-    } andFailBlock:^{
+    if (style == kAverageLivePlayTourStyle) {
+        [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
+            weakSelf.payView.hidden = YES;
+        } andFailBlock:^{
+            
+        }];
+    } else if (style == kRewardLivePlayTourStyle) {
         
-    }];
+    } else if (style == kTogetherGoLivePlayTourStyle) {
+        
+    }
 }
 #pragma mark RCInputBarControlDelegate
 /**
