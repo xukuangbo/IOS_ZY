@@ -110,6 +110,7 @@
 		056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */; };
 		05BB94F91DA9E7BA000DA5BA /* ZYTravePayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */; };
 		05BB94FB1DA9E7CE000DA5BA /* ZYTravePayVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */; };
+		05CAE7041DAB362300CE6D4B /* ZYJourneyLiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */; };
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
 		2C0101B71D5DC4C700D6470D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */; };
 		2C0101B91D5DC4E100D6470D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B81D5DC4E100D6470D /* libstdc++.tbd */; };
@@ -816,6 +817,8 @@
 		05BB94F71DA9E7BA000DA5BA /* ZYTravePayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYTravePayView.h; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.h"; sourceTree = SOURCE_ROOT; };
 		05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYTravePayView.m; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.m"; sourceTree = SOURCE_ROOT; };
 		05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZYTravePayVIew.xib; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayVIew.xib"; sourceTree = SOURCE_ROOT; };
+		05CAE7021DAB362300CE6D4B /* ZYJourneyLiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYJourneyLiveModel.h; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYJourneyLiveModel.h"; sourceTree = SOURCE_ROOT; };
+		05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYJourneyLiveModel.m; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYJourneyLiveModel.m"; sourceTree = SOURCE_ROOT; };
 		2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B81D5DC4E100D6470D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -2503,6 +2506,8 @@
 		05274EE41D66E663002C10A1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				05CAE7021DAB362300CE6D4B /* ZYJourneyLiveModel.h */,
+				05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5847,6 +5852,7 @@
 				2C3292F41D9230CC0095F60E /* ZYCommentFootprintCell.m in Sources */,
 				2C1B60F31D6D3CF900E3C25B /* TravelSecondCell.m in Sources */,
 				2C1B60E31D6D3CF900E3C25B /* MoreFZCReturnTableView.m in Sources */,
+				05CAE7041DAB362300CE6D4B /* ZYJourneyLiveModel.m in Sources */,
 				2C1B60CC1D6D3CF900E3C25B /* ChooseSceneImgController.m in Sources */,
 				2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */,
 				3931CBD61D88F9E400115F0D /* WatchEndLiveModel.m in Sources */,

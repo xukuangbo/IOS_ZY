@@ -385,17 +385,20 @@
     createLiveModel.title = self.titleTextfield.text;
     createLiveModel.img = self.uploadImgString;
     createLiveModel.chatRoomId = chatRoomId;
-    ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] initLiveModel:createLiveModel];
-    liveVC.delegate = self;
-    liveVC.targetId = chatRoomId;
-    liveVC.pushUrl = pushUrl;
     //判断是否关联行程
     if (self.guanlianView.judgeTravelButton.selected == YES) {
         createLiveModel.productId = self.guanlianProductID;
         createLiveModel.productTitle = self.guanlianView.travelLabel.text;
         
     }
-    
+
+    ZYLiveViewController *liveVC = [[ZYLiveViewController alloc] initLiveModel:createLiveModel];
+    liveVC.delegate = self;
+    liveVC.targetId = chatRoomId;
+    liveVC.pushUrl = pushUrl;
+    if ([[NSString stringWithFormat:@"%@", self.guanlianProductID] length] != 0) {
+        liveVC.productID = self.guanlianProductID;
+    }
     liveVC.conversationType = ConversationType_CHATROOM;
     dispatch_async(dispatch_get_main_queue(), ^{
 //        [self presentViewController:liveVC animated:NO completion:nil];

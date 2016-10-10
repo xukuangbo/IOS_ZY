@@ -21,12 +21,15 @@
 @class ZYLiveListModel;
 @class LivePersonDataView;
 @class showDashangMapView;
+@class ZYJourneyLiveModel;
 
 @interface ZYWatchLiveViewController : ZYZCBaseViewController
 - (instancetype)initWatchLiveModel:(ZYLiveListModel *)liveModel;
 
 //个人信息view
 @property (nonatomic, strong) LivePersonDataView *personDataView;
+//个人关联行程信息
+@property (nonatomic, strong) ZYJourneyLiveModel *journeyLiveModel;
 //打赏动图界面
 @property (nonatomic, strong) showDashangMapView *dashangMapView;
 #pragma mark - 会话属性
