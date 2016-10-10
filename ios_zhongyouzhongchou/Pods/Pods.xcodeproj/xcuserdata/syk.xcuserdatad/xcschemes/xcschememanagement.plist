@@ -14,6 +14,11 @@
 			<key>orderHint</key>
 			<integer>2</integer>
 		</dict>
+		<key>BlocksKit.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -82,6 +87,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>1B6B6482CC72C9452D146B33A69044D1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>3893CA6C0C3AFABA5EFC0F3429C0541F</key>
 		<dict>
 			<key>primary</key>
@@ -117,7 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>65FCDE51ECA1C3295C39FBD96E6A614B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>70BC44266C6FFE30D2C57129458E070B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>807DD687129468940E388E55F122D301</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -128,6 +148,11 @@
 			<true/>
 		</dict>
 		<key>928353533005A4198EBDA5B700D37B64</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>94277D2A3656468E355C423184B82E48</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -148,6 +173,11 @@
 			<true/>
 		</dict>
 		<key>D058B89EB3B3DF45457A2DCD3971AFFE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA1A7295DF2A99609DA0EEBF5E83233D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
