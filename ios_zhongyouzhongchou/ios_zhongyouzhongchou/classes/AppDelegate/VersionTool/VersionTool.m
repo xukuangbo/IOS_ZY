@@ -73,7 +73,7 @@
             [alertController addAction:goStoreAction];
             
             [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
-        }else if(versionModel.appupdate == 3){//不提示的更新
+        }else{//不提示的更新
             //不需要动作
         }
     }

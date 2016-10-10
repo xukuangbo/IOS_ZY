@@ -117,7 +117,7 @@
     UIButton *cityChoseButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cityChoseButton.titleLabel.font = [UIFont systemFontOfSize:15];
     cityChoseButton.size = CGSizeMake(40, 25);
-    [cityChoseButton addTarget:self action:@selector(cityChoseButton:) forControlEvents:UIControlEventTouchUpInside];
+//    [cityChoseButton addTarget:self action:@selector(cityChoseButton:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *cityBarbtn = [[UIBarButtonItem alloc] initWithCustomView:cityChoseButton];
     self.navigationItem.leftBarButtonItem = cityBarbtn;
     self.cityChoseButton = cityChoseButton;
@@ -141,7 +141,7 @@
     searchButton.titleLabel.font = [UIFont systemFontOfSize:15];
     searchButton.layer.cornerRadius = 5;
     searchButton.layer.masksToBounds = YES;
-    [searchButton setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
+//    [searchButton setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
     [searchButton setTitle:@"搜索热门城市" forState:UIControlStateNormal];
     [searchButton addTarget:self action:@selector(searchButton:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = searchButton;
