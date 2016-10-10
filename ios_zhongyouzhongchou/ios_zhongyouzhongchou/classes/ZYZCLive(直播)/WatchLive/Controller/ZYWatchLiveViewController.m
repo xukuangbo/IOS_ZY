@@ -1512,7 +1512,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - ZYTravePayViewDelegate
-- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber style:(kLivePlayTourStyle)style
+- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber style:(kLiveUserContributionStyle)style
 {
     WEAKSELF
     NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
@@ -1522,18 +1522,24 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                 @"price":@"0.1",
                                 };
     self.payMoney = payMoney;
-    if (style == kAverageLivePlayTourStyle) {
+    if (style == kCommonLiveUserContributionStyle) {
         [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
             weakSelf.payView.hidden = YES;
         } andFailBlock:^{
             
         }];
-    } else if (style == kRewardLivePlayTourStyle) {
-        
-    } else if (style == kTogetherGoLivePlayTourStyle) {
-        
+    } else if (style == kRewardLiveUserContributionStyle) {
+        [self rewardUserContribution];
+    } else if (style == kTogetherGoLiveUserContributionStyle) {
+        [self togetherGoUserContribution];
     }
 }
+
+- (void)clickJourneyDetailBtnUKey
+{
+    [self clickZhongchouButton];
+}
+
 #pragma mark RCInputBarControlDelegate
 /**
  *  根据inputBar 回调来修改页面布局，inputBar frame 变化会触发这个方法

@@ -14,6 +14,14 @@
  *  展示个人头像
  */
 - (void)showPersonData;
+// 点击每个看直播头像
 - (void)showPersonDataImage:(UITapGestureRecognizer *)sender;
+// 请求个人数据
 - (void)requestData:(NSString *)userId;
+// 进入众筹详情
+- (void)clickZhongchouButton;
+// 打赏一起去金额
+- (void)togetherGoUserContribution;
+// 打赏回报金额
+- (void)rewardUserContribution;
 @end

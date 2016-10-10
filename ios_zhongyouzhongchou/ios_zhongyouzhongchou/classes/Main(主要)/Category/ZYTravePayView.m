@@ -22,9 +22,9 @@
 
 
 - (void)initMember:(ZYJourneyLiveModel *)model {
-    self.playTourRecordButton.titleEdgeInsets = UIEdgeInsetsMake(0,-25, 0, 0);
-    self.playTourRecordButton.imageEdgeInsets = UIEdgeInsetsMake(0,115, 0, 9);
-    [self.playTourRecordButton setImage:[UIImage imageNamed:@"btn_rightin"] forState:UIControlStateNormal];
+    self.contributionRecordButton.titleEdgeInsets = UIEdgeInsetsMake(0,-25, 0, 0);
+    self.contributionRecordButton.imageEdgeInsets = UIEdgeInsetsMake(0,115, 0, 9);
+    [self.contributionRecordButton setImage:[UIImage imageNamed:@"btn_rightin"] forState:UIControlStateNormal];
     
     self.journeyDetailButton.titleEdgeInsets = UIEdgeInsetsMake(0,-25, 0, 0);
     self.journeyDetailButton.imageEdgeInsets = UIEdgeInsetsMake(0,115, 0, 9);
@@ -44,7 +44,7 @@
                 
                 btn.titleLabel.font = [UIFont systemFontOfSize:20.0];
                 btn.titleLabel.numberOfLines = 2;
-                [btn setTitle:[NSString stringWithFormat:@"报名回报\n    %zd元", model.rewardMoney / 100] forState:UIControlStateNormal];
+                [btn setTitle:[NSString stringWithFormat:@"报名回报\n    %.1lf元", model.rewardMoney / 100.0] forState:UIControlStateNormal];
                 btn.tag = model.rewardMoney / 10;
             } else if ([btn.currentTitle isEqualToString:@"报名一起去500元"]) {
                 [tmpView.layer setMasksToBounds:YES];
@@ -54,7 +54,7 @@
                 
                 btn.titleLabel.numberOfLines = 2;
                 btn.titleLabel.font = [UIFont systemFontOfSize:20.0];
-                [btn setTitle:[NSString stringWithFormat:@"报名回报\n    %zd元", model.togetherGoMoney / 100]  forState:UIControlStateNormal];
+                [btn setTitle:[NSString stringWithFormat:@"报名一起去\n     %.1lf元", model.togetherGoMoney / 100.0]  forState:UIControlStateNormal];
                 btn.tag = model.togetherGoMoney / 10;
             } else if ([btn.currentTitle isEqualToString:@"我的打赏记录"]) {
                 
@@ -77,27 +77,27 @@
         }
     }
 }
-- (IBAction)playTourRecordButtonAction:(UIButton *)sender {
-    
-}
+
 - (IBAction)journeyDetailButtonAction:(UIButton *)sender {
-    
+    if ([self.delegate respondsToSelector:@selector(clickJourneyDetailBtnUKey)]) {
+        [self.delegate clickJourneyDetailBtnUKey];
+    }
 }
 
 - (IBAction)onSelect:(UIButton *)sender {
     if ([self.delegate respondsToSelector:@selector(clickTravePayBtnUKey:style:)]) {
-        [self.delegate clickTravePayBtnUKey:sender.tag style:kAverageLivePlayTourStyle];
+        [self.delegate clickTravePayBtnUKey:sender.tag style:kCommonLiveUserContributionStyle];
     }
 }
 
 - (IBAction)rewardButtonAction:(UIButton *)sender {
     if ([self.delegate respondsToSelector:@selector(clickTravePayBtnUKey:style:)]) {
-        [self.delegate clickTravePayBtnUKey:sender.tag style:kRewardLivePlayTourStyle];
+        [self.delegate clickTravePayBtnUKey:sender.tag style:kRewardLiveUserContributionStyle];
     }
 }
 - (IBAction)togetherGoButtonAction:(UIButton *)sender {
     if ([self.delegate respondsToSelector:@selector(clickTravePayBtnUKey:style:)]) {
-        [self.delegate clickTravePayBtnUKey:sender.tag style:kTogetherGoLivePlayTourStyle];
+        [self.delegate clickTravePayBtnUKey:sender.tag style:kTogetherGoLiveUserContributionStyle];
     }
 }
 
