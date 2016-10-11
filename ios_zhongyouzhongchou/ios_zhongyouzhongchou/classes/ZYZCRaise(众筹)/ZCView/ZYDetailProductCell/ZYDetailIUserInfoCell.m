@@ -9,6 +9,8 @@
 #import "ZYDetailIUserInfoCell.h"
 #import "ZYDetailUserInfoView.h"
 #import "NSDate+RMCalendarLogic.h"
+#import "ZYUserZoneController.h"
+#import "ZYZCAccountTool.h"
 #define KRAISE_MONEY(money)  [NSString stringWithFormat:@"预筹¥%.2f",money]
 #define KSTART_TIME(time)     [NSString stringWithFormat:@"%@出发",time]
 
@@ -63,6 +65,7 @@
     _infoView.faceImg.layer.masksToBounds=YES;
     _infoView.startDest.layer.cornerRadius=3;
     _infoView.startDest.layer.masksToBounds=YES;
+    _infoView.startDest.hidden=YES;
     
     _infoView.hidden=YES;
 }
@@ -111,17 +114,30 @@
     //出发地
     CGFloat destWidth=0.0;
     if (startDest) {
+        _infoView.startDest.hidden=NO;
         _infoView.startDest.text=[NSString stringWithFormat:@"%@出发",startDest];
         destWidth=[ZYZCTool calculateStrLengthByText:_infoView.startDest.text andFont:_infoView.startDest.font andMaxWidth:self.width].width+10;
         destWidth=MIN(destWidth, 100);
         _infoView.startDest.width=destWidth;
+        _infoView.startDest.right=_infoView.right-10;
     }
     //计算名字的文字长度
     NSString *name=detailProductModel.user.realName?detailProductModel.user.realName:detailProductModel.user.userName;
     CGFloat nameStrWidth=[ZYZCTool calculateStrLengthByText:name andFont:_infoView.name.font andMaxWidth:self.bgImg.width].width;
-    nameStrWidth=MIN(nameStrWidth, self.bgImg.width-destWidth-100);
+    nameStrWidth=MIN(nameStrWidth, self.bgImg.width-destWidth-140);
     _infoView.name.text=name;
     _infoView.name.width=nameStrWidth;
+    
+    _infoView.sexImg.left=_infoView.name.right;
+    //获取性别图标（1.男，2.女）
+    if ([detailProductModel.user.sex isEqualToString:@"1"]) {
+        _infoView.sexImg.image=[UIImage imageNamed:@"btn_sex_mal"];
+    }
+    else if ([detailProductModel.user.sex isEqualToString:@"2"])
+    {
+        _infoView.sexImg.image=[UIImage imageNamed:@"btn_sex_fem"];
+    }
+    
     
     //职位
     NSString *jobStr=nil;
@@ -235,7 +251,16 @@
 #pragma mark --- 点击进入个人空间
 -(void)tapFaceImg
 {
+    //判断是否是自己的
+    if ([[ZYZCAccountTool getUserId] isEqual:[_detailProductModel.user.userId stringValue]]) {
+        return;
+    }
     
+    ZYUserZoneController *userZoneController=[[ZYUserZoneController alloc]init];
+    userZoneController.hidesBottomBarWhenPushed=YES;
+    userZoneController.friendID=_detailProductModel.user.userId;
+    [self.viewController.navigationController pushViewController:userZoneController animated:YES];
+
 }
 
 #pragma mark --- 字符串的字体更改
