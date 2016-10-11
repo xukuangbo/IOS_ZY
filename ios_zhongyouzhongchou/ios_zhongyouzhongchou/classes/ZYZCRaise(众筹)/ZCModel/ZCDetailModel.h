@@ -63,6 +63,7 @@
 @property (nonatomic, strong) NSNumber *sumPeople;
 @property (nonatomic, strong) NSNumber *sumPrice;
 @property (nonatomic, strong) NSArray  *users;
+@property (nonatomic, assign) float    realzjeNew;
 
 @end
 
