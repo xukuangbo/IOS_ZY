@@ -16,8 +16,10 @@
 
 @property (nonatomic, copy  ) NSNumber         *productId;
 
+
 @property (nonatomic, strong) ZCOneModel       *oneModel;
 
+//预览详情时传入的详情数据对象
 @property (nonatomic, strong) ZCDetailModel    *detailModel;
 
 @property (nonatomic, strong) NSArray          *schedule;//行程安排（我的草稿中数据）

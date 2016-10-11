@@ -118,8 +118,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 // 判断是不是进入私聊界面
 @property (nonatomic, assign) BOOL isMessage;
 @property (nonatomic, strong) WXApiManager *wxApiManger;
-// 支持金额记录
-@property (nonatomic, strong) NSString *payMoney;
+// 打赏类型
+@property (nonatomic, assign) kLiveUserContributionStyle userContributionStyle;
 @end
 /**
  *  文本cell标示
@@ -877,8 +877,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     WEAKSELF
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
     NSString *userId=[ZYZCAccountTool getUserId];
+    NSString *httpUrl;
     //判断支付是否成功
-    NSString *httpUrl=GET_LIVE_PAY_STATUS;
+    if (self.userContributionStyle == kRewardLiveUserContributionStyle || self.userContributionStyle == kTogetherGoLiveUserContributionStyle) {
+        httpUrl = GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
+        [self getUserContributionResultHttpUrl:httpUrl];
+        return;
+    } else {
+        httpUrl=GET_LIVE_PAY_STATUS;
+    }
     NSDictionary *parameters = @{
                                  @"userId" : userId,
                                  @"outTradeNo" : appDelegate.out_trade_no
@@ -1524,6 +1531,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     WEAKSELF
     NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
+    self.payMoney = payMoney;
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
@@ -1537,8 +1545,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
             
         }];
     } else if (style == kRewardLiveUserContributionStyle) {
+        self.userContributionStyle = kRewardLiveUserContributionStyle;
         [self rewardUserContribution];
     } else if (style == kTogetherGoLiveUserContributionStyle) {
+        self.userContributionStyle = kTogetherGoLiveUserContributionStyle;
         [self togetherGoUserContribution];
     }
 }

@@ -29,6 +29,8 @@
 #import "ZCProductDetailController.h"
 #import "AppDelegate.h"
 
+#import "ZYDetailIUserInfoCell.h"
+
 @interface ZCProductDetailTableView ()
 @property (nonatomic, strong) UIView                *blurView;     //毛玻璃
 @property (nonatomic, strong) UILabel               *travelThemeLab;//主题名
@@ -72,17 +74,6 @@
         _topImgView.layer.masksToBounds=YES;
         [self addSubview:_topImgView];
         
-        //创建毛玻璃添加到顶部图片上
-//        _blurView = [[FXBlurView alloc] initWithFrame:CGRectMake(0, BGIMAGEHEIGHT-BLURHEIGHT, KSCREEN_W, BLURHEIGHT)];
-//        [_blurView setDynamic:NO];
-//        _blurView.alpha=0.9;
-//        [_topImgView addSubview:_blurView];
-//        //给毛玻璃润色
-//        UIView *blackView=[[UIView alloc]initWithFrame:_blurView.bounds];
-//        blackView.backgroundColor=[UIColor blackColor];
-//        blackView.alpha=0.3;
-//        [_blurView addSubview:blackView];
-        
         _blurView=[[UIView alloc]initWithFrame:CGRectMake(0, BGIMAGEHEIGHT-BLURHEIGHT, KSCREEN_W, BLURHEIGHT)];
         _blurView.backgroundColor=[UIColor blackColor];
         _blurView.alpha=0.4;
@@ -111,27 +102,16 @@
     return self;
 }
 
-
--(void)setOneModel:(ZCOneModel *)oneModel
-{
-    _oneModel=oneModel;
-    if(oneModel.product.productName)
-    {
-        _travelThemeLab.text=oneModel.product.productName;
-    }
-    else
-    {
-        _blurView.hidden=YES;
-    }
-    [self reloadData];
-}
-
 -(void)setDetailModel:(ZCDetailModel *)detailModel
 {
     _detailModel=detailModel;
     _hasIntroGoal=YES;
     _hasSupportView=YES;
     _hasInterestTravel=NO;
+    if (!detailModel.detailProductModel.title) {
+        _blurView.hidden=YES;
+    }
+    _travelThemeLab.text=detailModel.detailProductModel.title;
     [self reloadData];
 }
 
@@ -170,49 +150,6 @@
     }
 }
 
-//#pragma mark --- 获取目的地及对应视屏
-//-(void)setProductDest:(NSString *)productDest
-//{
-//    _productDest=productDest;
-//    if (productDest.length) {
-//        NSArray *destArr=[ZYZCTool turnJsonStrToArray:productDest];
-//        //如果目的地是地名库中的目的地，则保存下来
-//        ZYZCDataBase *dataBase=[ZYZCDataBase sharedDBManager];
-//        _viewSpots=[NSMutableArray array];
-//        for (NSString *dest in destArr) {
-//            OneSpotModel *oneSportModel=[dataBase searchOneDataWithName:dest];
-//            if (oneSportModel) {
-//                [_viewSpots addObject:oneSportModel];
-//            }
-//        }
-//        //如果有地名库中的数据，获取目的地视屏
-//        if (_viewSpots.count) {
-//            _hasIntroGeneral=YES;
-//            // 获取景点视屏
-//            _spotVideos=[NSMutableArray array];
-//            for(OneSpotModel *oneSportModel in _viewSpots){
-//                NSNumber *viewId=oneSportModel.ID;
-//                [ZYZCHTTPTool getHttpDataByURL:[NSString stringWithFormat:@"%@viewId=%@",GET_SPOT_VIDEO,viewId] withSuccessGetBlock:^(id result, BOOL isSuccess)
-//                 {
-//                     if (isSuccess) {
-//                         ZCSpotVideoModel *spotVideo=[[ZCSpotVideoModel alloc]mj_setKeyValues:result[@"data"]];
-//                         if (spotVideo.videoUrl.length) {
-//                             spotVideo.spotName=oneSportModel.name;
-//                             [_spotVideos addObject:spotVideo];
-//                         } ;
-//                         if (_spotVideos.count) {
-//                             _hasIntroMovie=YES;
-//                             [self reloadData];
-//                         }
-//                     }
-//                 }
-//                andFailBlock:^(id failResult)
-//                 {
-//                 }];
-//            }
-//        }
-//    }
-//}
 
 -(NSInteger )numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -245,10 +182,9 @@
         if(indexPath.row==1)
         {
             NSString *cellId01=@"cellId01";
-            ZYZCOneProductCell *productCell=(ZYZCOneProductCell *)[ZYZCOneProductCell customTableView:tableView cellWithIdentifier:cellId01 andCellClass:[ZYZCOneProductCell class]];
-            productCell.oneModel.productType=ZCDetailProduct;
-            productCell.oneModel=_oneModel;
-            return productCell;
+            ZYDetailIUserInfoCell *userInfoCell=(ZYDetailIUserInfoCell *)[ZYDetailIUserInfoCell customTableView:tableView cellWithIdentifier:cellId01 andCellClass:[ZYDetailIUserInfoCell class]];
+            userInfoCell.detailProductModel=_detailModel.detailProductModel;
+            return userInfoCell;
         }
         //联和发起人(暂时没有)
         else if (indexPath.row == 1+_hasCosponsor*2&&indexPath.row!=1)
@@ -304,8 +240,8 @@
             if (indexPath.row%2==0) {
                 NSString *arrangeCellId=[NSString stringWithFormat:@"arrangeCell%ld",indexPath.row];
                 ZCDetailArrangeFirstCell *arrangeCell=(ZCDetailArrangeFirstCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:arrangeCellId andCellClass:[ZCDetailArrangeFirstCell class]];
-                arrangeCell.faceImg=_oneModel.user.faceImg;
-                arrangeCell.startDay=_oneModel.product.travelstartTime;
+                arrangeCell.faceImg=_detailModel.detailProductModel.user.faceImg;
+                arrangeCell.startDay=_detailModel.detailProductModel.start_time;
                 arrangeCell.oneDaydetailModel=_detailDays[indexPath.row/2];
                 return arrangeCell;
             }
@@ -348,7 +284,7 @@
         
         if (indexPath.row ==1)
         {
-            return PRODUCT_DETAIL_CELL_HEIGHT;
+             return USER_INFO_CELL_HEIGHT;
         }
         else if (indexPath.row==1+_hasCosponsor*2&&indexPath.row!=1)
         {
@@ -461,8 +397,8 @@
     if (indexPath.section==1&&self.contentType==ReturnType) {
         if (indexPath.row==2) {
             ZCCommentViewController *commentVC=[[ZCCommentViewController alloc]init];
-            commentVC.productId=_oneModel.product.productId;
-            commentVC.user=_oneModel.user;
+            commentVC.productId=_productId;
+            commentVC.user=_detailModel.detailProductModel.user;
             commentVC.title=@"评论";
             [self.viewController.navigationController pushViewController:commentVC animated:YES];
         }

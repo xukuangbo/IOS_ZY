@@ -38,7 +38,12 @@
     detailProductModel.productVideoImg=dataManager.raiseMoney_movieImg;
     detailProductModel.descImgs=dataManager.raiseMoney_imgUrlStr;
     detailProductModel.spell_buy_price=[NSString stringWithFormat:@"%.2f",[dataManager.raiseMoney_totalMoney floatValue]*100.0];
-    
+    detailProductModel.start_time=dataManager.goal_startDate;
+    detailProductModel.end_time=dataManager.goal_backDate;
+    detailProductModel.spell_end_time=dataManager.productEndTime;
+    if (dataManager.goal_goals.count) {
+        detailProductModel.dest=[ZYZCTool turnJson:dataManager.goal_goals];
+    }
     NSMutableArray *reportArr=[NSMutableArray array];
     ReportModel *reportModel01=[[ReportModel alloc]init];
     reportModel01.people = 0;

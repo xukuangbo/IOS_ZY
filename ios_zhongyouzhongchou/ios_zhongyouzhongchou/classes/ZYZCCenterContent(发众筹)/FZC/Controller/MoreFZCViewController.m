@@ -309,8 +309,6 @@
     ZCDetailModel *detailModel=[[ZCDetailModel alloc]init];
     detailModel.detailProductModel=_detailProductModel;
     ZCProductDetailController *draftDetailVC=[[ZCProductDetailController alloc]init];
-    draftDetailVC.oneModel=_oneModel;
-    draftDetailVC.oneModel.productType=ZCDetailProduct;
     draftDetailVC.detailModel=detailModel;
     draftDetailVC.schedule=_detailProductModel.schedule;
     draftDetailVC.detailProductType=SkimDetailProduct;
