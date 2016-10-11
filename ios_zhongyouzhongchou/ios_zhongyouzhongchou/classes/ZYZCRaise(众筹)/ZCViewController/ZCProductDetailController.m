@@ -54,16 +54,17 @@
       NSFontAttributeName:[UIFont boldSystemFontOfSize:18]};
     [self setBackItem];
     [self configUI];
-    self.oneModel.productType=ZCDetailProduct;
-    //如果不是本地草稿，获取数据
+    //如果不是预览，获取数据
     if (_detailProductType!=SkimDetailProduct) {
+        _table.hidden=YES;
         [self getHttpData];
     }
-    
-    if (_detailProductType==SkimDetailProduct) {
-        self.productDest=_oneModel.product.productDest;
+    else
+    {
+        _table.hidden=NO;
+        self.productDest=_detailModel.detailProductModel.dest;
+        [self getHeadImg];
     }
-
 }
 
 #pragma mark --- 返回控制器
@@ -74,7 +75,6 @@
     self.navigationController.navigationBar.titleTextAttributes=
     @{NSForegroundColorAttributeName:[UIColor whiteColor],
       NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
-    self.oneModel.productType=_fromProductType;
 }
 
 #pragma mark --- 初始化数据
@@ -85,6 +85,7 @@
     if (_detailProductType==SkimDetailProduct) {
         _table.detailDays=_detailDays;
         _table.detailModel=_detailModel;
+        self.productDest=_detailModel.detailProductModel.dest;
     }
 }
 
@@ -93,35 +94,13 @@
 {
     //创建table
     _table=[[ZCProductDetailTableView alloc]initWithFrame:CGRectMake(0, 0, KSCREEN_W, KSCREEN_H-KTABBAR_HEIGHT) style:UITableViewStylePlain];
-     [self.view addSubview:_table];
+        [self.view addSubview:_table];
     _table.height=(_detailProductType==SkimDetailProduct||_detailProductType==DraftDetailProduct)?KSCREEN_H-KEDGE_DISTANCE:KSCREEN_H-KTABBAR_HEIGHT;
     _table.detailProductType=_detailProductType;
     _table.productId  =_productId;
-    _table.oneModel   =_oneModel;
-    
-//    __weak typeof (&*self)weakSelf=self;
-//    _table.headerRefreshingBlock=^()
-//    {
-//        if (weakSelf.detailProductType!=SkimDetailProduct) {
-//            [weakSelf getHttpData];
-//        }
-//    };
     
     [self scrollDidScroll];
     
-    if (_oneModel.product.headImage.length) {
-        NSRange range=[_oneModel.product.headImage rangeOfString:KMY_ZHONGCHOU_FILE];
-        //如果封面图片为本地图片
-        if (range.length) {
-            _table.topImgView.image=[UIImage imageWithContentsOfFile:_oneModel.product.headImage];
-        }
-        else
-        {
-             [_table.topImgView sd_setImageWithURL:[NSURL URLWithString:_oneModel.product.headImage ] placeholderImage:[UIImage imageNamed:@"image_placeholder"] options: SDWebImageRetryFailed | SDWebImageLowPriority];
-        }
-    }
-
-
     //除预览和草稿，项目添加分享，评论，收藏，支付操作
     if (_detailProductType!=SkimDetailProduct&&_detailProductType!=DraftDetailProduct) {
         
@@ -172,7 +151,7 @@
             //设置导航栏title
             CGFloat height=BGIMAGEHEIGHT;
             if ((height + offSetY)/(height)>1) {
-                weakSelf.title= weakSelf.oneModel.product.productName;
+                weakSelf.title= weakSelf.detailModel.detailProductModel.title;
                 if (weakSelf.title.length>8) {
                     weakSelf.title=[NSString stringWithFormat:@"%@...",[weakSelf.title substringToIndex:7]];
                 }
@@ -197,7 +176,7 @@
         [NetWorkManager hideFailViewForView:self.view];
         DDLog(@"productDetail:%@",result);
         if (isSuccess) {
-            
+            _table.hidden=NO;
             _detailModel=[[ZCDetailModel alloc]mj_setKeyValues:result];
             
             NSArray *detailDays=_detailModel.detailProductModel.schedule;
@@ -213,7 +192,7 @@
             //判断是不是自己的项目，并更改底部按钮展示
             BOOL mySelf=[_detailModel.detailProductModel.mySelf boolValue];
             
-            _oneModel.mySelf=mySelf;
+//            _oneModel.mySelf=mySelf;
             
             _bottomView.detailProductType=mySelf?MineDetailProduct:PersonDetailProduct;
             //判断是否已推荐
@@ -238,7 +217,8 @@
             }
             
             //获取目的地介绍和对应的视屏
-            self.productDest=_oneModel.product.productDest;
+            self.productDest=_detailModel.detailProductModel.dest;
+            [self getHeadImg];
         }
         else
         {
@@ -257,6 +237,23 @@
         }];
 
     }];
+}
+
+#pragma mark --- 加载封面图
+-(void) getHeadImg
+{
+    NSString *imgUrl=_detailModel.detailProductModel.cover;
+    if (imgUrl.length) {
+        NSRange range=[imgUrl rangeOfString:KMY_ZHONGCHOU_FILE];
+        //如果封面图片为本地图片
+        if (range.length) {
+            _table.topImgView.image=[UIImage imageWithContentsOfFile:imgUrl];
+        }
+        else
+        {
+            [_table.topImgView sd_setImageWithURL:[NSURL URLWithString:imgUrl] placeholderImage:[UIImage imageNamed:@"image_placeholder"] options: SDWebImageRetryFailed | SDWebImageLowPriority];
+        }
+    }
 }
 
 #pragma mark --- 获取目的地及对应视屏
@@ -312,10 +309,11 @@
 {
     NSString *url=SHARE_URL(_productId);
     
-    NSArray *destArr=[ZYZCTool turnJsonStrToArray:_oneModel.product.productDest];
+    NSArray *destArr=[ZYZCTool turnJsonStrToArray:_detailModel.detailProductModel.dest];
     NSString *dest=destArr.count>1?destArr[1]:@"";
     
-    [WXApiShare shareScene:isFriendScene withTitle:_oneModel.product.productName andDesc:[NSString stringWithFormat:@"%@梦想去%@旅行,正在众游筹旅费，希望你能支持TA",_oneModel.user.realName?_oneModel.user.realName:_oneModel.user.userName,dest] andThumbImage:_oneModel.user.faceImg andWebUrl:url];
+    UserModel *user=_detailModel.detailProductModel.user;
+    [WXApiShare shareScene:isFriendScene withTitle:_detailModel.detailProductModel.title andDesc:[NSString stringWithFormat:@"%@梦想去%@旅行,正在众游筹旅费，希望你能支持TA",user.realName?user.realName:user.userName,dest] andThumbImage:user.faceImg andWebUrl:url];
 }
 
 #pragma mark --- 推荐/取消推荐
@@ -345,8 +343,8 @@
 -(void)comment
 {
     ZCCommentViewController *commentVC=[[ZCCommentViewController alloc]init];
-    commentVC.productId=_oneModel.product.productId;
-    commentVC.user=_oneModel.user;
+    commentVC.productId=_productId;
+    commentVC.user=_detailModel.detailProductModel.user;
     commentVC.title=@"评论";
     [self.navigationController pushViewController:commentVC animated:YES];
 }
@@ -365,7 +363,7 @@
         }
         
         if (_bottomView.payMoneyBlock) {
-            _bottomView.payMoneyBlock(_oneModel.product.productId);
+            _bottomView.payMoneyBlock(_productId);
         }
     }
     //提示选择支付众筹的类型
@@ -428,7 +426,7 @@
 #pragma mark ---刷新部分数据
 -(void)reloadPartInfo
 {
-    NSString *httpUrl=[NSString stringWithFormat:@"%@cache=false&orderType=4&status_not=0,2&productId=%@",LISTALLPRODUCTS,_oneModel.product.productId];
+    NSString *httpUrl=[NSString stringWithFormat:@"%@cache=false&orderType=4&status_not=0,2&productId=%@",LISTALLPRODUCTS,_productId];
 //    NSLog(@"%@",httpUrl);
     [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
      {
@@ -437,6 +435,8 @@
          {
              ZCListModel *listModel=[[ZCListModel alloc]mj_setKeyValues:result];
              ZCOneModel *oneModel=listModel.data.firstObject;
+             ReportModel *report=[_detailModel.detailProductModel.report firstObject];
+             report.realzjeNew = [oneModel.spellbuyproduct.realzjeNew floatValue];
              _oneModel.spellbuyproduct.realzjeNew=oneModel.spellbuyproduct.realzjeNew;
              [_table reloadData];
          }
@@ -444,7 +444,6 @@
       andFailBlock:^(id failResult) {
 //        NSLog(@"%@",failResult);
       }];
-    
 }
 
 

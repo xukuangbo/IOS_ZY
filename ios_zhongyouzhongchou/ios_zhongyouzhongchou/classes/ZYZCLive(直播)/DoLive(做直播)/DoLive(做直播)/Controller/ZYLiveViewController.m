@@ -26,6 +26,7 @@
 #import "LiveMoneyView.h"
 #import "MinePersonSetUpModel.h"
 #import "ZYLiveViewController+EVENT.h"
+#import "XTLoveHeartView.h"
 #define kBounds [UIScreen mainScreen].bounds.size
 @interface ZYLiveViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
@@ -1246,36 +1247,43 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 }
 
 - (void)praiseHeart{
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(self.backBtn.origin.x , self.backBtn.frame.origin.y - 49, 35, 35);
-    imageView.image = [UIImage imageNamed:@"heart"];
-    imageView.backgroundColor = [UIColor clearColor];
-    imageView.clipsToBounds = YES;
-    [self.view addSubview:imageView];
+//    UIImageView *imageView = [[UIImageView alloc] init];
+//    imageView.frame = CGRectMake(self.backBtn.origin.x , self.backBtn.frame.origin.y - 49, 35, 35);
+//    imageView.image = [UIImage imageNamed:@"heart"];
+//    imageView.backgroundColor = [UIColor clearColor];
+//    imageView.clipsToBounds = YES;
+//    [self.view addSubview:imageView];
+//    
+//    CGFloat startX = round(random() % (int)(kBounds.width * 0.5)) + 20;
+//    CGFloat scale = round(random() % 2) + 0.5;
+////    CGFloat speed = 1 / round(random() % 900) + 0.6;
+//    int imageName = round(random() % 7);
+//    NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
+//    
+//    
+//    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
+//    [UIView animateKeyframesWithDuration:1.5 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
+//        
+//        imageView.frame = CGRectMake((kBounds.width - startX), kBounds.height * 0.5 , 35 * scale, 35 * scale);
+//        
+//    } completion:^(BOOL finished) {
+//        
+//        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
+//            imageView.top = kBounds.height * 0.25;
+//            imageView.alpha = 0;
+//            
+//        } completion:^(BOOL finished) {
+//            [imageView removeFromSuperview];
+//        }];
+//    }];
     
-    CGFloat startX = round(random() % (int)(kBounds.width * 0.5)) + 20;
-    CGFloat scale = round(random() % 2) + 0.5;
-//    CGFloat speed = 1 / round(random() % 900) + 0.6;
+    XTLoveHeartView *heart = [[XTLoveHeartView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     int imageName = round(random() % 7);
-    NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
-    
-    
-    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
-    [UIView animateKeyframesWithDuration:1.5 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
-        
-        imageView.frame = CGRectMake((kBounds.width - startX), kBounds.height * 0.5 , 35 * scale, 35 * scale);
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
-            imageView.top = kBounds.height * 0.25;
-            imageView.alpha = 0;
-            
-        } completion:^(BOOL finished) {
-            [imageView removeFromSuperview];
-        }];
-    }];
-    
+    heart.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
+    [self.view addSubview:heart];
+    CGPoint fountainSource = CGPointMake(self.backBtn.centerX , self.backBtn.top);
+    heart.center = fountainSource;
+    [heart animateInView:self.view];
     
 }
 

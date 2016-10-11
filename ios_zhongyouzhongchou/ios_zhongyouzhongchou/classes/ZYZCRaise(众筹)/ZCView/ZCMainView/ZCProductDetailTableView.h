@@ -21,8 +21,6 @@
 
 @property (nonatomic, copy  ) NSString      *travelTheme;  //旅行主题名
 
-@property (nonatomic, strong) ZCOneModel    *oneModel;    //众筹概况数据
-
 @property (nonatomic, strong) ZCDetailModel *detailModel; //众筹详细数据
 
 @property (nonatomic, strong) NSArray       *detailDays;  //行程安排数组
