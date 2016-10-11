@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-@protocol ZYTravePayViewDelegate;
+typedef NS_ENUM(NSUInteger, kLiveUserContributionStyle) {
+    kCommonLiveUserContributionStyle,              // 普通打赏
+    kRewardLiveUserContributionStyle,               // 回报打赏
+    kTogetherGoLiveUserContributionStyle,           // 一起去打赏
+};
 
+@protocol ZYTravePayViewDelegate;
+@class ZYJourneyLiveModel;
 @interface ZYTravePayView : UIView
-+ (instancetype)loadCustumView;
-@property (strong, nonatomic) IBOutlet UIButton *playTourRecordButton;
++ (instancetype)loadCustumView:(ZYJourneyLiveModel *)model;
+@property (strong, nonatomic) IBOutlet UIButton *contributionRecordButton;
 @property (strong, nonatomic) IBOutlet UIButton *journeyDetailButton;
 @property (weak, nonatomic) id <ZYTravePayViewDelegate> delegate;
 
@@ -21,6 +27,7 @@
 
 @required
 // 跳转到支付
-- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber;
-
+- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber style:(kLiveUserContributionStyle)style;
+// 跳转到行程详情
+- (void)clickJourneyDetailBtnUKey;
 @end

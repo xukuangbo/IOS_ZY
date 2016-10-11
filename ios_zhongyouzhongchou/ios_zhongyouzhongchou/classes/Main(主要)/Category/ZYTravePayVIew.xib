@@ -78,20 +78,6 @@
                         <action selector="togetherGoButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="CKs-32-Hd1"/>
                     </connections>
                 </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3fs-bA-tFc">
-                    <constraints>
-                        <constraint firstAttribute="height" constant="30" id="0gu-Ez-hyr"/>
-                        <constraint firstAttribute="width" constant="132" id="UW8-GJ-lzO"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <state key="normal" title="我的打赏记录">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="playTourRecordButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="3im-j3-5DA"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqH-3y-eEn">
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="POd-2e-twg"/>
@@ -112,8 +98,6 @@
             <constraints>
                 <constraint firstItem="OjJ-RP-fWv" firstAttribute="width" secondItem="FOn-dX-nDJ" secondAttribute="width" id="3k5-tU-kag"/>
                 <constraint firstItem="SuN-6c-paR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="18" id="6HX-hS-3wK"/>
-                <constraint firstItem="3fs-bA-tFc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="18" id="6Oi-R9-UjA"/>
-                <constraint firstItem="3fs-bA-tFc" firstAttribute="top" secondItem="SuN-6c-paR" secondAttribute="bottom" constant="10" id="7nd-pn-VF0"/>
                 <constraint firstItem="6i3-bQ-Ocw" firstAttribute="leading" secondItem="SuN-6c-paR" secondAttribute="trailing" constant="5" id="889-xn-brf"/>
                 <constraint firstItem="pjP-XO-E5J" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="B5Y-98-YBW"/>
                 <constraint firstItem="OjJ-RP-fWv" firstAttribute="leading" secondItem="FOn-dX-nDJ" secondAttribute="trailing" constant="5" id="BDg-Bm-76w"/>
@@ -135,7 +119,6 @@
             </constraints>
             <connections>
                 <outlet property="journeyDetailButton" destination="sqH-3y-eEn" id="NME-rl-MUa"/>
-                <outlet property="playTourRecordButton" destination="3fs-bA-tFc" id="C3L-Fx-qXL"/>
             </connections>
             <point key="canvasLocation" x="-84" y="69"/>
         </view>

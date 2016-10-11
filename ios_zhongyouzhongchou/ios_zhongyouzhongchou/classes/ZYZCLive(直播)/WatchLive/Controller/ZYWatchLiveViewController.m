@@ -39,6 +39,7 @@
 #import "LiveMoneyView.h"
 #import "showDashangMapView.h"
 #import "ZYTravePayView.h"
+#import "XTLoveHeartView.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -157,7 +158,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     // 初始化直播个人中心
     [self initLivePersonDataView];
     // 初始化直播的个人信息
-    [self initPersonData];
+    if ([self.liveModel.productId length] != 0) {
+        [self initPersonData];
+    }
     [self requestData];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
     
@@ -335,8 +338,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 }
 // 创建打赏界面
-- (void)initPayView {
-    if (!self.payView) {
+- (void)initPayView:(ZYJourneyLiveModel *)model {
+    if (!self.payView && [self.liveModel.productId length] == 0) {
         ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
         payView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
@@ -344,16 +347,18 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         [payView.layer setCornerRadius:10];
         [self.view addSubview:payView];
         self.payView = payView;
-    } else {
-        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView];
+    } else if (self.payView && [self.liveModel.productId length] == 0) {
+        self.payView.hidden = NO;
+    } else if (!self.travePayView && [self.liveModel.productId length] != 0) {
+        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.journeyLiveModel];
         travePayView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 200, KSCREEN_W, 200);
         travePayView.frame = rect;
         [travePayView.layer setCornerRadius:10];
         [self.view addSubview:travePayView];
         self.travePayView = travePayView;
+    } else {
         self.travePayView.hidden = NO;
-//        self.payView.hidden = NO;
     }
 }
 
@@ -632,7 +637,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 打赏功能
 -(void)flowerButtonPressed:(UIButton *)sender
 {
-    [self initPayView];
+    [self initPayView:self.journeyLiveModel];
 }
 
 // 点赞
@@ -657,30 +662,37 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 - (void)praiseHeart{
-    UIImageView *imageView = [[UIImageView alloc] init];
-    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , ScreenHeight - 90, 35, 35);
-    imageView.backgroundColor = [UIColor clearColor];
-    imageView.clipsToBounds = YES;
-    [self.view addSubview:imageView];
-    
-    CGFloat startX = round(random() % (int)(kBounds.width * 0.5)) + 20;
-    CGFloat scale = round(random() % 2) + 0.5;
-    //    CGFloat speed = 1 / round(random() % 900) + 0.6;
+//    UIImageView *imageView = [[UIImageView alloc] init];
+//    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , ScreenHeight - 90, 35, 35);
+//    imageView.backgroundColor = [UIColor clearColor];
+//    imageView.clipsToBounds = YES;
+//    [self.view addSubview:imageView];
+//    
+//    CGFloat startX = round(random() % (int)(kBounds.width * 0.5)) + 20;
+//    CGFloat scale = round(random() % 2) + 0.5;
+//    //    CGFloat speed = 1 / round(random() % 900) + 0.6;
+//    int imageName = round(random() % 7);
+//    NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
+//    
+//    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
+//    [UIView animateKeyframesWithDuration:1.5 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
+//        imageView.frame = CGRectMake((kBounds.width - startX), kBounds.height * 0.5 , 35 * scale, 35 * scale);
+//    } completion:^(BOOL finished) {
+//        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
+//            imageView.top = kBounds.height * 0.25;
+//            imageView.alpha = 0;
+//            
+//        } completion:^(BOOL finished) {
+//            [imageView removeFromSuperview];
+//        }];
+//    }];
+    XTLoveHeartView *heart = [[XTLoveHeartView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     int imageName = round(random() % 7);
-    NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
-    
-    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
-    [UIView animateKeyframesWithDuration:1.5 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
-        imageView.frame = CGRectMake((kBounds.width - startX), kBounds.height * 0.5 , 35 * scale, 35 * scale);
-    } completion:^(BOOL finished) {
-        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
-            imageView.top = kBounds.height * 0.25;
-            imageView.alpha = 0;
-            
-        } completion:^(BOOL finished) {
-            [imageView removeFromSuperview];
-        }];
-    }];
+    heart.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
+    [self.view addSubview:heart];
+    CGPoint fountainSource = CGPointMake(self.watchLiveView.closeLiveButton.centerX , ScreenHeight - 50);
+    heart.center = fountainSource;
+    [heart animateInView:self.view];
 }
 
 /**
@@ -1508,7 +1520,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - ZYTravePayViewDelegate
-- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber
+- (void)clickTravePayBtnUKey:(NSInteger)moneyNumber style:(kLiveUserContributionStyle)style
 {
     WEAKSELF
     NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
@@ -1518,12 +1530,24 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                 @"price":@"0.1",
                                 };
     self.payMoney = payMoney;
-    [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
-        weakSelf.payView.hidden = YES;
-    } andFailBlock:^{
-        
-    }];
+    if (style == kCommonLiveUserContributionStyle) {
+        [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
+            weakSelf.payView.hidden = YES;
+        } andFailBlock:^{
+            
+        }];
+    } else if (style == kRewardLiveUserContributionStyle) {
+        [self rewardUserContribution];
+    } else if (style == kTogetherGoLiveUserContributionStyle) {
+        [self togetherGoUserContribution];
+    }
 }
+
+- (void)clickJourneyDetailBtnUKey
+{
+    [self clickZhongchouButton];
+}
+
 #pragma mark RCInputBarControlDelegate
 /**
  *  根据inputBar 回调来修改页面布局，inputBar frame 变化会触发这个方法

@@ -16,6 +16,9 @@
 #import "showDashangMapView.h"
 #import "ChatBlackListModel.h"
 #import "ZYLiveListModel.h"
+#import "ZYJourneyLiveModel.h"
+#import "WXApiManager.h"
+
 @implementation ZYWatchLiveViewController (LivePersonView)
 - (void)initLivePersonDataView
 {
@@ -32,7 +35,7 @@
     
     [self.personDataView.roomButton addTarget:self action:@selector(clickEnterRoomButton:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.personDataView.zhongchouButton addTarget:self action:@selector(clickZhongchouButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.personDataView.zhongchouButton addTarget:self action:@selector(clickZhongchouButton) forControlEvents:UIControlEventTouchUpInside];
     
     [self.personDataView.attentionButton addTarget:self action:@selector(clickAttentionButton:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -45,7 +48,17 @@
 
 - (void)initPersonData
 {
-    
+    NSDictionary *params=@{@"productId":self.liveModel.productId};
+
+    WEAKSELF
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:PRODUCT_INFO_MONEY andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        ZYJourneyLiveModel *journeyLiveModel=[[ZYJourneyLiveModel alloc] mj_setKeyValues:result[@"data"]];
+        weakSelf.journeyLiveModel = journeyLiveModel;
+        [weakSelf.personDataView.zhongchouButton setTitle:weakSelf.journeyLiveModel.journeyTitle forState:UIControlStateNormal];
+//        NSLog(@"resultresult%@", result);
+    } andFailBlock:^(id failResult) {
+//        NSLog(@"failResult%@", failResult);
+    }];
 }
 
 #pragma mark - netWork
@@ -136,7 +149,7 @@
 }
 
 // 进入众筹详情
-- (void)clickZhongchouButton:(UIButton *)sender
+- (void)clickZhongchouButton
 {
     self.navigationController.navigationBar.hidden = NO;
     //推出信息详情页
@@ -183,6 +196,45 @@
             [MBProgressHUD showSuccess:@"关注失败"];
         }];
     }
+}
+
+// 点击打赏一起去
+- (void)togetherGoUserContribution
+{
+    WEAKSELF
+    NSDictionary *params=@{@"productId":[NSString stringWithFormat:@"%@", self.liveModel.productId],@"style4":[NSString stringWithFormat:@"%.1lf", self.journeyLiveModel.togetherGoMoney / 10000.0]};
+
+    //判断时间是否有冲突，如果有则不可支持
+    [ZYZCHTTPTool getHttpDataByURL:JUDGE_TIME_CONFLICT([ZYZCAccountTool getUserId],self.liveModel.productId) withSuccessGetBlock:^(id result, BOOL isSuccess)
+     {
+         //没有冲突
+         if ([result[@"data"] isEqual:@1]) {
+             WXApiManager *wxManager=[WXApiManager sharedManager];
+             [wxManager payForWeChat:params payUrl:GET_WX_ORDER withSuccessBolck:nil andFailBlock:nil];
+         }
+         else if ([result[@"data"] isEqual:@0])
+         {
+             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"此行程与已有行程时间冲突,不可支持一起游" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+             [alert show];
+         }
+         else
+         {
+             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+         }
+     }
+                      andFailBlock:^(id failResult)
+     {
+         [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+     }];
+}
+
+// 点击打赏回报
+- (void)rewardUserContribution
+{
+    NSDictionary *params=@{@"productId":[NSString stringWithFormat:@"%@", self.liveModel.productId],@"style3":[NSString stringWithFormat:@"%.1lf", self.journeyLiveModel.rewardMoney / 10000.0]};
+    
+    WXApiManager *wxManager=[WXApiManager sharedManager];
+    [wxManager payForWeChat:params payUrl:GET_WX_ORDER withSuccessBolck:nil andFailBlock:nil];
 }
 
 @end

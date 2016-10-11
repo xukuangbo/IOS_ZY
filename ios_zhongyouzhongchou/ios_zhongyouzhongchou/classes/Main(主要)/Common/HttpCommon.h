@@ -323,4 +323,8 @@
 // 打赏明细
 #define PLAY_TOUR_DETAIL   [NSString stringWithFormat:@"%@zhibo/zhiboOrderList.action",BASE_URL]
 
+// 请求众游详情的回报和一起游金额
+#define PRODUCT_INFO_MONEY   [NSString stringWithFormat:@"%@productInfo/getProductMinInfo.action",BASE_URL]
+
+
 #endif /* HttpCommon_h */

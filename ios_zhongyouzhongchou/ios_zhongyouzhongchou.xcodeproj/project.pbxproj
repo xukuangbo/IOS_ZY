@@ -110,6 +110,7 @@
 		056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */; };
 		05BB94F91DA9E7BA000DA5BA /* ZYTravePayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */; };
 		05BB94FB1DA9E7CE000DA5BA /* ZYTravePayVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */; };
+		05CAE7041DAB362300CE6D4B /* ZYJourneyLiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */; };
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
 		2C0101B71D5DC4C700D6470D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */; };
 		2C0101B91D5DC4E100D6470D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B81D5DC4E100D6470D /* libstdc++.tbd */; };
@@ -485,6 +486,11 @@
 		2CFC7D141DA648B900A28D74 /* QPVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC7D051DA648B900A28D74 /* QPVideo.m */; };
 		2CFC7D151DA648B900A28D74 /* QPVideoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC7D071DA648B900A28D74 /* QPVideoPoint.m */; };
 		2CFC7D191DA648D900A28D74 /* QPProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC7D181DA648D900A28D74 /* QPProgressHUD.m */; };
+		390D2FC31DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FC21DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m */; };
+		390D2FD51DAC8B1000D44E90 /* LiveShowDashangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD01DAC8B1000D44E90 /* LiveShowDashangModel.m */; };
+		390D2FD61DAC8B1000D44E90 /* showDashangMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD21DAC8B1000D44E90 /* showDashangMapView.m */; };
+		390D2FD71DAC8B1000D44E90 /* showDashangView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD41DAC8B1000D44E90 /* showDashangView.m */; };
+		390D2FDA1DAC8D8300D44E90 /* XTLoveHeartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */; };
 		3910CE701D35D6F4004D7578 /* TacticMoreJieshaoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */; };
 		3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 392635051D5D7C29006A90BE /* MineWalletVc.m */; };
 		3926350D1D5D7C29006A90BE /* MineWalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392635081D5D7C29006A90BE /* MineWalletModel.m */; };
@@ -554,7 +560,6 @@
 		3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB31D6C29BD008A7F81 /* ZYDoLiveVC.m */; };
 		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
 		39788C4E1D8D3CF5000AC2BB /* LiveMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */; };
-		39788C511D8E39BC000AC2BB /* ZYFaqiGuanlianXCView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39788C501D8E39BC000AC2BB /* ZYFaqiGuanlianXCView.m */; };
 		39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */; };
 		39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D061D58762E00CB9EE3 /* TacticMainCountryCell.m */; };
 		39809D141D58762E00CB9EE3 /* TacticMainHeadCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D0B1D58762E00CB9EE3 /* TacticMainHeadCell.m */; };
@@ -586,9 +591,6 @@
 		399E94261D38E20C006E1B68 /* NetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94241D38E20C006E1B68 /* NetWorkManager.m */; };
 		399E942A1D3A2226006E1B68 /* OpenSetTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94291D3A2226006E1B68 /* OpenSetTool.m */; };
 		399E94331D3C6E8F006E1B68 /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 399E94321D3C6E8F006E1B68 /* TTTAttributedLabel.m */; };
-		39A2C7A31D98B6BD00F50204 /* showDashangView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A2C7A21D98B6BD00F50204 /* showDashangView.m */; };
-		39A2C7A61D98FCEA00F50204 /* showDashangMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A2C7A51D98FCEA00F50204 /* showDashangMapView.m */; };
-		39A2C7A91D98FF5000F50204 /* LiveShowDashangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39A2C7A81D98FF5000F50204 /* LiveShowDashangModel.m */; };
 		39AABC891D6EC81700D25B16 /* DoLiveHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */; };
 		39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */; };
 		39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */; };
@@ -816,6 +818,8 @@
 		05BB94F71DA9E7BA000DA5BA /* ZYTravePayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYTravePayView.h; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.h"; sourceTree = SOURCE_ROOT; };
 		05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYTravePayView.m; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.m"; sourceTree = SOURCE_ROOT; };
 		05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZYTravePayVIew.xib; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayVIew.xib"; sourceTree = SOURCE_ROOT; };
+		05CAE7021DAB362300CE6D4B /* ZYJourneyLiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYJourneyLiveModel.h; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYJourneyLiveModel.h"; sourceTree = SOURCE_ROOT; };
+		05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYJourneyLiveModel.m; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYJourneyLiveModel.m"; sourceTree = SOURCE_ROOT; };
 		2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B81D5DC4E100D6470D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -1537,6 +1541,16 @@
 		2CFC7D071DA648B900A28D74 /* QPVideoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPVideoPoint.m; sourceTree = "<group>"; };
 		2CFC7D171DA648D900A28D74 /* QPProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPProgressHUD.h; sourceTree = "<group>"; };
 		2CFC7D181DA648D900A28D74 /* QPProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPProgressHUD.m; sourceTree = "<group>"; };
+		390D2FC11DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFaqiGuanlianXCView.h; sourceTree = "<group>"; };
+		390D2FC21DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFaqiGuanlianXCView.m; sourceTree = "<group>"; };
+		390D2FCF1DAC8B1000D44E90 /* LiveShowDashangModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveShowDashangModel.h; sourceTree = "<group>"; };
+		390D2FD01DAC8B1000D44E90 /* LiveShowDashangModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveShowDashangModel.m; sourceTree = "<group>"; };
+		390D2FD11DAC8B1000D44E90 /* showDashangMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = showDashangMapView.h; sourceTree = "<group>"; };
+		390D2FD21DAC8B1000D44E90 /* showDashangMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = showDashangMapView.m; sourceTree = "<group>"; };
+		390D2FD31DAC8B1000D44E90 /* showDashangView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = showDashangView.h; sourceTree = "<group>"; };
+		390D2FD41DAC8B1000D44E90 /* showDashangView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = showDashangView.m; sourceTree = "<group>"; };
+		390D2FD81DAC8D8300D44E90 /* XTLoveHeartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTLoveHeartView.h; sourceTree = "<group>"; };
+		390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTLoveHeartView.m; sourceTree = "<group>"; };
 		3910CE6E1D35D6F4004D7578 /* TacticMoreJieshaoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreJieshaoVC.h; sourceTree = "<group>"; };
 		3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreJieshaoVC.m; sourceTree = "<group>"; };
 		392635041D5D7C29006A90BE /* MineWalletVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineWalletVc.h; sourceTree = "<group>"; };
@@ -1667,8 +1681,6 @@
 		3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionView.m; sourceTree = "<group>"; };
 		39788C4C1D8D3CF5000AC2BB /* LiveMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveMoneyView.h; sourceTree = "<group>"; };
 		39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveMoneyView.m; sourceTree = "<group>"; };
-		39788C4F1D8E39BC000AC2BB /* ZYFaqiGuanlianXCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYFaqiGuanlianXCView.h; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/ZYFaqiGuanlianXCView.h"; sourceTree = SOURCE_ROOT; };
-		39788C501D8E39BC000AC2BB /* ZYFaqiGuanlianXCView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYFaqiGuanlianXCView.m; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/ZYFaqiGuanlianXCView.m"; sourceTree = SOURCE_ROOT; };
 		39809D021D58762E00CB9EE3 /* TacticBaseCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticBaseCustomView.h; sourceTree = "<group>"; };
 		39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticBaseCustomView.m; sourceTree = "<group>"; };
 		39809D051D58762E00CB9EE3 /* TacticMainCountryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMainCountryCell.h; sourceTree = "<group>"; };
@@ -1734,12 +1746,6 @@
 		399E94291D3A2226006E1B68 /* OpenSetTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenSetTool.m; sourceTree = "<group>"; };
 		399E94311D3C6E8F006E1B68 /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		399E94321D3C6E8F006E1B68 /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
-		39A2C7A11D98B6BD00F50204 /* showDashangView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showDashangView.h; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/showDashangView.h"; sourceTree = SOURCE_ROOT; };
-		39A2C7A21D98B6BD00F50204 /* showDashangView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showDashangView.m; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/showDashangView.m"; sourceTree = SOURCE_ROOT; };
-		39A2C7A41D98FCEA00F50204 /* showDashangMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = showDashangMapView.h; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/showDashangMapView.h"; sourceTree = SOURCE_ROOT; };
-		39A2C7A51D98FCEA00F50204 /* showDashangMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = showDashangMapView.m; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/showDashangMapView.m"; sourceTree = SOURCE_ROOT; };
-		39A2C7A71D98FF5000F50204 /* LiveShowDashangModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LiveShowDashangModel.h; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/LiveShowDashangModel.h"; sourceTree = SOURCE_ROOT; };
-		39A2C7A81D98FF5000F50204 /* LiveShowDashangModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LiveShowDashangModel.m; path = "ios_zhongyouzhongchou/classes/ZYZCLive(直播)/DoLive(做直播)/DoLive(做直播)/CustomViews/LiveMoneyView/LiveShowDashangModel.m"; sourceTree = SOURCE_ROOT; };
 		39AABC871D6EC81700D25B16 /* DoLiveHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoLiveHeadView.h; sourceTree = "<group>"; };
 		39AABC881D6EC81700D25B16 /* DoLiveHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoLiveHeadView.m; sourceTree = "<group>"; };
 		39AABC8B1D6EC9D500D25B16 /* MZTimerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MZTimerLabel.h; sourceTree = "<group>"; };
@@ -2503,6 +2509,8 @@
 		05274EE41D66E663002C10A1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				05CAE7021DAB362300CE6D4B /* ZYJourneyLiveModel.h */,
+				05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4231,6 +4239,30 @@
 			path = QPProgressHUD;
 			sourceTree = "<group>";
 		};
+		390D2FC01DAC8AC700D44E90 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				390D2FC11DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.h */,
+				390D2FC21DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		390D2FCE1DAC8B1000D44E90 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				390D2FCF1DAC8B1000D44E90 /* LiveShowDashangModel.h */,
+				390D2FD01DAC8B1000D44E90 /* LiveShowDashangModel.m */,
+				390D2FD11DAC8B1000D44E90 /* showDashangMapView.h */,
+				390D2FD21DAC8B1000D44E90 /* showDashangMapView.m */,
+				390D2FD31DAC8B1000D44E90 /* showDashangView.h */,
+				390D2FD41DAC8B1000D44E90 /* showDashangView.m */,
+				390D2FD81DAC8D8300D44E90 /* XTLoveHeartView.h */,
+				390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3910CE6D1D35D6CC004D7578 /* MoreJieshao(更多介绍) */ = {
 			isa = PBXGroup;
 			children = (
@@ -4384,19 +4416,6 @@
 				392AB27A1D669C26003FEDB7 /* RCDLiveMessageModel.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		392AB27B1D669C26003FEDB7 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				39A2C7A41D98FCEA00F50204 /* showDashangMapView.h */,
-				39A2C7A51D98FCEA00F50204 /* showDashangMapView.m */,
-				39A2C7A11D98B6BD00F50204 /* showDashangView.h */,
-				39A2C7A21D98B6BD00F50204 /* showDashangView.m */,
-				39A2C7A71D98FF5000F50204 /* LiveShowDashangModel.h */,
-				39A2C7A81D98FF5000F50204 /* LiveShowDashangModel.m */,
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		392AB2811D669C26003FEDB7 /* ViewModel */ = {
@@ -4560,10 +4579,8 @@
 		394D53581D62D64500E7F595 /* MakeLive(发起直播) */ = {
 			isa = PBXGroup;
 			children = (
+				390D2FC01DAC8AC700D44E90 /* View */,
 				394D53591D62D64500E7F595 /* Controller */,
-				394D535C1D62D64500E7F595 /* Model */,
-				394D535D1D62D64500E7F595 /* View */,
-				394D535E1D62D64500E7F595 /* ViewModel */,
 			);
 			path = "MakeLive(发起直播)";
 			sourceTree = "<group>";
@@ -4575,29 +4592,6 @@
 				394D53711D62D76B00E7F595 /* ZYFaqiLiveViewController.m */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		394D535C1D62D64500E7F595 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		394D535D1D62D64500E7F595 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				39788C4F1D8E39BC000AC2BB /* ZYFaqiGuanlianXCView.h */,
-				39788C501D8E39BC000AC2BB /* ZYFaqiGuanlianXCView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		394D535E1D62D64500E7F595 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		394D53641D62D65900E7F595 /* ShowLiveList(直播列表) */ = {
@@ -4622,8 +4616,8 @@
 				392AB2581D669C26003FEDB7 /* CustomViews */,
 				392AB26F1D669C26003FEDB7 /* Lib */,
 				392AB2741D669C26003FEDB7 /* Model */,
-				392AB27B1D669C26003FEDB7 /* View */,
 				392AB2811D669C26003FEDB7 /* ViewModel */,
+				390D2FCE1DAC8B1000D44E90 /* View */,
 			);
 			path = "DoLive(做直播)";
 			sourceTree = "<group>";
@@ -5374,7 +5368,6 @@
 				2CB05D071D93E34100A1B731 /* ZYStartPublishFootprintCell.m in Sources */,
 				2CC5FD781D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				2C0A20CC1D585DF100E6CE40 /* ChatUserInfoModel.m in Sources */,
-				39788C511D8E39BC000AC2BB /* ZYFaqiGuanlianXCView.m in Sources */,
 				04C087A01D03E31300203D40 /* TacticMoreCitiesVC.m in Sources */,
 				2C3777F51D07CA2C004FDA9D /* ZYZCOneProductCell.m in Sources */,
 				0469C5701D0E44CF00A34A03 /* MineTravelTagsModel.m in Sources */,
@@ -5447,6 +5440,7 @@
 				2C8B198F1D0CF7EC0063097B /* XMNPhotoStickLayout.m in Sources */,
 				2C8B19771D0CF7EC0063097B /* JGProgressHUDPieIndicatorView.m in Sources */,
 				2C7E3B4E1D06C92100F51C61 /* MineOneItemCell.m in Sources */,
+				390D2FC31DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m in Sources */,
 				2CDE670A1DA651070066F49D /* QPPlayerManager.m in Sources */,
 				3987D55F1D46FE5300556E41 /* TacticGoXXTravelCell.m in Sources */,
 				2CD6B8F41DA9DFEE00B7E60A /* ZCDetailBottomView.m in Sources */,
@@ -5609,6 +5603,7 @@
 				2C1B60EF1D6D3CF900E3C25B /* ReturnThirdCell.m in Sources */,
 				2CC5FD7B1D5990EE0001AC95 /* UIView+WZLBadge.m in Sources */,
 				2C8B197B1D0CF7EC0063097B /* MediaUtils.m in Sources */,
+				390D2FDA1DAC8D8300D44E90 /* XTLoveHeartView.m in Sources */,
 				2CDC49FD1CFD960A00E7893C /* ChatListViewController.m in Sources */,
 				39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */,
 				2CDE66BE1DA650690066F49D /* QPLibrarayItem.m in Sources */,
@@ -5637,7 +5632,6 @@
 				040651251CC62FC7003FD539 /* SDCollectionViewCell.m in Sources */,
 				392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */,
 				2C8B197D1D0CF7EC0063097B /* UIView+Animations.m in Sources */,
-				39A2C7A31D98B6BD00F50204 /* showDashangView.m in Sources */,
 				2C8E9AC41D8F978200CA35DE /* ZYfootprintListCell.m in Sources */,
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
 				2C1B60D51D6D3CF900E3C25B /* FZCReturnCellModel.m in Sources */,
@@ -5697,6 +5691,7 @@
 				2C90F6E41D530E73001ABB44 /* ZYZCMessageListViewController.m in Sources */,
 				2CD209051D6D3E27005EB62E /* ZCListModel.m in Sources */,
 				2CD2092A1D6D3E27005EB62E /* ZCMainViewController.m in Sources */,
+				390D2FD61DAC8B1000D44E90 /* showDashangMapView.m in Sources */,
 				2CDE66881DA64EB70066F49D /* JSONValueTransformer.m in Sources */,
 				2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */,
 				2CD1E6101DA78A5D008E4203 /* README.md in Sources */,
@@ -5743,7 +5738,6 @@
 				2C1B60D01D6D3CF900E3C25B /* MoreFZCChooseSceneController.m in Sources */,
 				2CD1E6281DA799D8008E4203 /* ZYPublishQupaiVideo.m in Sources */,
 				392AB2871D669C26003FEDB7 /* RCDLiveTipMessageCell.m in Sources */,
-				39A2C7A91D98FF5000F50204 /* LiveShowDashangModel.m in Sources */,
 				39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */,
 				2CDE66301DA64D7A0066F49D /* QPCutInfo.m in Sources */,
 				394D537B1D62F45500E7F595 /* UIView+ZYLayer.m in Sources */,
@@ -5793,6 +5787,7 @@
 				0432ADA31D0966F9005D789E /* STConst.m in Sources */,
 				2C5159A51D8641B20048BD20 /* CafRecordWriter.m in Sources */,
 				2C1B60DB1D6D3CF900E3C25B /* GoalFirstCell.m in Sources */,
+				390D2FD51DAC8B1000D44E90 /* LiveShowDashangModel.m in Sources */,
 				2CDE66331DA64D7A0066F49D /* QPCutViewController.m in Sources */,
 				2C1B60D81D6D3CF900E3C25B /* ZYImageModel.m in Sources */,
 				3926350E1D5D7C29006A90BE /* MineWalletTableViewCell.m in Sources */,
@@ -5814,6 +5809,7 @@
 				3931CBCB1D88ED0500115F0D /* ZYLiveEndModel.m in Sources */,
 				2C1B60E91D6D3CF900E3C25B /* RaiseMoneyFirstModel.m in Sources */,
 				2CDE67581DA652C30066F49D /* unzip.c in Sources */,
+				390D2FD71DAC8B1000D44E90 /* showDashangView.m in Sources */,
 				2CDE66D61DA650A80066F49D /* QPCountDownView.m in Sources */,
 				2C8B196F1D0CF7EC0063097B /* JGProgressHUD.m in Sources */,
 				39788C4E1D8D3CF5000AC2BB /* LiveMoneyView.m in Sources */,
@@ -5838,7 +5834,6 @@
 				39809D1C1D5884B700CB9EE3 /* TacticMainImageView.m in Sources */,
 				2CFC7D0E1DA648B900A28D74 /* NSData+QPMD5.m in Sources */,
 				395B5A9C1D27AC660084264C /* CustomImagemapView.m in Sources */,
-				39A2C7A61D98FCEA00F50204 /* showDashangMapView.m in Sources */,
 				2CD209D31D6D4E98005EB62E /* ZYShortVideoController.m in Sources */,
 				2CD209281D6D3E27005EB62E /* TogetherSupportController.m in Sources */,
 				395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */,
@@ -5847,6 +5842,7 @@
 				2C3292F41D9230CC0095F60E /* ZYCommentFootprintCell.m in Sources */,
 				2C1B60F31D6D3CF900E3C25B /* TravelSecondCell.m in Sources */,
 				2C1B60E31D6D3CF900E3C25B /* MoreFZCReturnTableView.m in Sources */,
+				05CAE7041DAB362300CE6D4B /* ZYJourneyLiveModel.m in Sources */,
 				2C1B60CC1D6D3CF900E3C25B /* ChooseSceneImgController.m in Sources */,
 				2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */,
 				3931CBD61D88F9E400115F0D /* WatchEndLiveModel.m in Sources */,
