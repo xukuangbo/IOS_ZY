@@ -24,4 +24,6 @@
 - (void)togetherGoUserContribution;
 // 打赏回报金额
 - (void)rewardUserContribution;
+// 获取关联行程打赏结果
+- (void)getUserContributionResultHttpUrl:(NSString *)httpUrl;
 @end

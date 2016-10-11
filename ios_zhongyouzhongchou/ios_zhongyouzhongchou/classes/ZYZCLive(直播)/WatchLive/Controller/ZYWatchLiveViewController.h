@@ -28,6 +28,8 @@
 
 //个人信息view
 @property (nonatomic, strong) LivePersonDataView *personDataView;
+// 支持金额记录
+@property (nonatomic, strong) NSString *payMoney;
 //个人关联行程信息
 @property (nonatomic, strong) ZYJourneyLiveModel *journeyLiveModel;
 //打赏动图界面
@@ -89,4 +91,8 @@
  -1表示不获取任何历史消息，0表示不特殊设置而使用SDK默认的设置（默认为获取10条），0<messageCount<=50为具体获取的消息数量,最大值为50。
  */
 @property(nonatomic, assign) int defaultHistoryMessageCountOfChatRoom;
+
+// 发送消息
+- (void)sendMessage:(RCMessageContent *)messageContent
+        pushContent:(NSString *)pushContent;
 @end
