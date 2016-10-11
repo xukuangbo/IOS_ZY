@@ -8,7 +8,7 @@
 
 #import "ZYZCHTTPTool.h"
 #import "LoginJudgeTool.h"
-#import "UIAlertView+BlocksKit.h"
+//#import "UIAlertView+BlocksKit.h"
 #import <CommonCrypto/CommonDigest.h>
 @interface ZYZCHTTPTool ()<UIAlertViewDelegate >
 @end
@@ -112,12 +112,12 @@
             else
             {
                 if ([responseObject[@"errorMsg"] isEqualToString:@"非法访问"]) {
-                [UIAlertView bk_showAlertViewWithTitle:@"非法访问，需重新登录" message:@"重新登录" cancelButtonTitle:@"否" otherButtonTitles:@[@"是"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-                    if (buttonIndex==1) {
-                        [ZYZCAccountTool deleteAccount];
-                        [LoginJudgeTool judgeLogin];
-                    }
-                }];
+//                [UIAlertView bk_showAlertViewWithTitle:@"非法访问，需重新登录" message:@"重新登录" cancelButtonTitle:@"否" otherButtonTitles:@[@"是"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
+//                    if (buttonIndex==1) {
+//                        [ZYZCAccountTool deleteAccount];
+//                        [LoginJudgeTool judgeLogin];
+//                    }
+//                }];
                 }
                  successGet(responseObject,NO);
             }
