@@ -556,6 +556,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 关闭直播按钮
 - (void)closeLiveButtonAction:(UIButton *)sender
 {
+    self.tabBarController.tabBar.hidden = NO;
+    self.navigationController.navigationBar.hidden = NO;
     [self removeMovieNotificationObservers];
     if ([self.player isPlaying]) {
         [self.player pause];
