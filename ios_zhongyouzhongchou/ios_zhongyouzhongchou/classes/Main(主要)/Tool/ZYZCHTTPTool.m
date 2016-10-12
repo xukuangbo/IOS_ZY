@@ -97,8 +97,26 @@
     
     DDLog(@"newParameters:%@",newParameters);
     
-    NSString *newUrl=[url stringByAppendingString:[NSString stringWithFormat:@"?userId=%@&from=ios",[ZYZCAccountTool getUserId]]];
-    DDLog(@"newPostUrl:%@",newUrl);
+//    NSString *newUrl=[url stringByAppendingString:[NSString stringWithFormat:@"?userId=%@&from=ios",[ZYZCAccountTool getUserId]]];
+    NSString *newUrl=url;
+    if ([url hasSuffix:@".action"]) {
+        newUrl=[url stringByAppendingString:@"?from=ios"];
+    }
+    else
+    {
+        if ([url hasSuffix:@".action?"]) {
+            newUrl=[url stringByAppendingString:@"from=ios"];
+        }
+        else
+        {
+            newUrl=[url stringByAppendingString:@"&from=ios"];
+        }
+    }
+    NSRange range=[url rangeOfString:@"userId="];
+    if (!range.length) {
+        newUrl=[newUrl stringByAppendingString:[NSString stringWithFormat:@"&userId=%@",[ZYZCAccountTool getUserId]]];
+    }
+
     [manager POST:newUrl parameters:newParameters progress:^(NSProgress * _Nonnull uploadProgress)
     {
         
