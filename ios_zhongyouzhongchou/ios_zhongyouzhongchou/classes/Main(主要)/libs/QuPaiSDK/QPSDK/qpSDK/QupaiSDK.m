@@ -44,7 +44,7 @@ static QupaiSDK *_qupaiSDK = nil;
         _enableVideoEffect = YES;
         _enableWatermark = NO;
         _tintColor = RGBToColor(2,212,225,1);
-        _bottomPanelHeight = 160;
+        _bottomPanelHeight = 100;
         _cameraPosition = QupaiSDKCameraPositionBack;
         _qupaiSDK = self;
         return self;
