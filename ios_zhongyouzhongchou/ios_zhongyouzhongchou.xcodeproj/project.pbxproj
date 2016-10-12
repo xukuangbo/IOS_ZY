@@ -108,9 +108,14 @@
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
 		056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */; };
+		059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792B1DAE068800371302 /* ZYCGContextView.m */; };
+		059A792F1DAE0B8300371302 /* ZYDetailGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */; };
 		05BB94F91DA9E7BA000DA5BA /* ZYTravePayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */; };
 		05BB94FB1DA9E7CE000DA5BA /* ZYTravePayVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */; };
 		05CAE7041DAB362300CE6D4B /* ZYJourneyLiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */; };
+		05D887A61DACC1F40093910D /* ZYNewGuiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D887A51DACC1F40093910D /* ZYNewGuiView.m */; };
+		05D887A91DACC45F0093910D /* GuideWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D887A81DACC45F0093910D /* GuideWindow.m */; };
+		05D887AC1DACC9BA0093910D /* ZYGuideManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05D887AB1DACC9BA0093910D /* ZYGuideManager.m */; };
 		2C0101B51D5DC4AA00D6470D /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */; };
 		2C0101B71D5DC4C700D6470D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */; };
 		2C0101B91D5DC4E100D6470D /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C0101B81D5DC4E100D6470D /* libstdc++.tbd */; };
@@ -815,11 +820,21 @@
 		056046C41D6DBDD5006906FD /* RCDLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLive.m; sourceTree = "<group>"; };
 		056FB5C61D9A51B600BBEF03 /* UINavigationBar+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Extension.h"; sourceTree = "<group>"; };
 		056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Extension.m"; sourceTree = "<group>"; };
+		059A792A1DAE068800371302 /* ZYCGContextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCGContextView.h; sourceTree = "<group>"; };
+		059A792B1DAE068800371302 /* ZYCGContextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCGContextView.m; sourceTree = "<group>"; };
+		059A792D1DAE0B8300371302 /* ZYDetailGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailGuideView.h; sourceTree = "<group>"; };
+		059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDetailGuideView.m; sourceTree = "<group>"; };
 		05BB94F71DA9E7BA000DA5BA /* ZYTravePayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYTravePayView.h; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.h"; sourceTree = SOURCE_ROOT; };
 		05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYTravePayView.m; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.m"; sourceTree = SOURCE_ROOT; };
 		05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZYTravePayVIew.xib; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayVIew.xib"; sourceTree = SOURCE_ROOT; };
 		05CAE7021DAB362300CE6D4B /* ZYJourneyLiveModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYJourneyLiveModel.h; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYJourneyLiveModel.h"; sourceTree = SOURCE_ROOT; };
 		05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYJourneyLiveModel.m; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYJourneyLiveModel.m"; sourceTree = SOURCE_ROOT; };
+		05D887A41DACC1F40093910D /* ZYNewGuiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYNewGuiView.h; sourceTree = "<group>"; };
+		05D887A51DACC1F40093910D /* ZYNewGuiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYNewGuiView.m; sourceTree = "<group>"; };
+		05D887A71DACC45F0093910D /* GuideWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideWindow.h; sourceTree = "<group>"; };
+		05D887A81DACC45F0093910D /* GuideWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideWindow.m; sourceTree = "<group>"; };
+		05D887AA1DACC9BA0093910D /* ZYGuideManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYGuideManager.h; sourceTree = "<group>"; };
+		05D887AB1DACC9BA0093910D /* ZYGuideManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYGuideManager.m; sourceTree = "<group>"; };
 		2C0101B41D5DC4AA00D6470D /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B61D5DC4C700D6470D /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2C0101B81D5DC4E100D6470D /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -2528,6 +2543,23 @@
 				05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		05D887A31DACC1C40093910D /* ZYGuideView */ = {
+			isa = PBXGroup;
+			children = (
+				05D887A41DACC1F40093910D /* ZYNewGuiView.h */,
+				05D887A51DACC1F40093910D /* ZYNewGuiView.m */,
+				05D887A71DACC45F0093910D /* GuideWindow.h */,
+				05D887A81DACC45F0093910D /* GuideWindow.m */,
+				05D887AA1DACC9BA0093910D /* ZYGuideManager.h */,
+				05D887AB1DACC9BA0093910D /* ZYGuideManager.m */,
+				059A792A1DAE068800371302 /* ZYCGContextView.h */,
+				059A792B1DAE068800371302 /* ZYCGContextView.m */,
+				059A792D1DAE0B8300371302 /* ZYDetailGuideView.h */,
+				059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */,
+			);
+			path = ZYGuideView;
 			sourceTree = "<group>";
 		};
 		2C0101AF1D5DC36100D6470D /* QuPaiSDK */ = {
@@ -4857,6 +4889,7 @@
 		399E941F1D38E1EC006E1B68 /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				05D887A31DACC1C40093910D /* ZYGuideView */,
 				395FAD171D9BCF340075FED5 /* FCIMChatGetImage.h */,
 				395FAD181D9BCF340075FED5 /* FCIMChatGetImage.m */,
 				2C41A8101D8A9D2100AD9437 /* ZYLocationManager.h */,
@@ -5410,6 +5443,7 @@
 				2CDE66811DA64EB70066F49D /* JSONModel.m in Sources */,
 				0406514D1CC87A89003FD539 /* TacticSingleViewController.m in Sources */,
 				2CDE66DB1DA650A80066F49D /* QPRecordGuideView.m in Sources */,
+				05D887A61DACC1F40093910D /* ZYNewGuiView.m in Sources */,
 				2CD209061D6D3E27005EB62E /* ZCSpotVideoModel.m in Sources */,
 				2C1B60FE1D6D3CF900E3C25B /* ZYimageView.m in Sources */,
 				041CFC841D13F3D200871093 /* TacticMoreVideoCell.m in Sources */,
@@ -5669,6 +5703,7 @@
 				05222EEA1D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m in Sources */,
 				2CF305101D3DC716008296EC /* JudgeAuthorityTool.m in Sources */,
 				0432ADB01D096B89005D789E /* STPickerDate.m in Sources */,
+				059A792F1DAE0B8300371302 /* ZYDetailGuideView.m in Sources */,
 				395B5A991D2699AB0084264C /* UploadVoucherVC.m in Sources */,
 				2CDE673F1DA652380066F49D /* QPEffectMusicManager.m in Sources */,
 				04F685491CF57C9F00E1A98E /* MinePersonSetUpController.m in Sources */,
@@ -5771,6 +5806,7 @@
 				2C1B61091D6D3CF900E3C25B /* RMCollectionCell.m in Sources */,
 				2CDE66321DA64D7A0066F49D /* QPCutView.m in Sources */,
 				2C8B198C1D0CF7EC0063097B /* XMNPhotoPicker.m in Sources */,
+				05D887AC1DACC9BA0093910D /* ZYGuideManager.m in Sources */,
 				2C8B19791D0CF7EC0063097B /* JGProgressHUDSuccessIndicatorView.m in Sources */,
 				3926350D1D5D7C29006A90BE /* MineWalletModel.m in Sources */,
 				39911ADE1D5044A8007DF44B /* ZYZCTool.m in Sources */,
@@ -5801,12 +5837,14 @@
 				2CC5FD7A1D5990EE0001AC95 /* CAAnimation+WAnimation.m in Sources */,
 				04F836441CD72C3300140980 /* SDPieLoopProgressView.m in Sources */,
 				2C8B19781D0CF7EC0063097B /* JGProgressHUDRingIndicatorView.m in Sources */,
+				059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */,
 				2C8B19861D0CF7EC0063097B /* XMNAlbumCell.m in Sources */,
 				2C8E9ACA1D8FB79D00CA35DE /* ZYFootprintListModel.m in Sources */,
 				2CDC49F71CFD32FC00E7893C /* ZYZCConversationController.m in Sources */,
 				2C8B19841D0CF7EC0063097B /* XMNAssetModel.m in Sources */,
 				2CE617741D657DD100962163 /* HUImagePickerViewController.m in Sources */,
 				3931CBCB1D88ED0500115F0D /* ZYLiveEndModel.m in Sources */,
+				05D887A91DACC45F0093910D /* GuideWindow.m in Sources */,
 				2C1B60E91D6D3CF900E3C25B /* RaiseMoneyFirstModel.m in Sources */,
 				2CDE67581DA652C30066F49D /* unzip.c in Sources */,
 				390D2FD71DAC8B1000D44E90 /* showDashangView.m in Sources */,
