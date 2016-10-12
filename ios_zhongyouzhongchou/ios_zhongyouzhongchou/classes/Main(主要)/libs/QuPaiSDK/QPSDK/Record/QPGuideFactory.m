@@ -15,7 +15,7 @@
 + (UIView *)createViewBg
 {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, 36)];
-    view.backgroundColor = RGBToColor(255, 255, 255, 0.7);
+    view.backgroundColor = [UIColor clearColor];
     return view;
 }
 
@@ -24,7 +24,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 8, 200, 36-8)];
     label.text = text;
     label.font = [UIFont boldSystemFontOfSize:19];
-    label.textColor = RGBToColor(255, 0, 0, 1);
+    label.textColor = [UIColor ZYZC_MainColor];
     label.backgroundColor = [UIColor clearColor];
     [label sizeToFit];
     return label;

@@ -60,7 +60,7 @@
     
     // topView
     self.viewTop = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, ScreenWidth, 44))];
-    self.viewTop.backgroundColor = RGBToColor(255, 255, 255, 0.1);
+    self.viewTop.backgroundColor = [UIColor clearColor];
     [self addSubview:self.viewTop];
     
     self.buttonClose = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -255,7 +255,7 @@
     
     // bottomView
     self.viewBottom = [[UIView alloc] initWithFrame:(CGRectMake(0, ScreenHeight - self.bottomPanelHeight, ScreenWidth, self.bottomPanelHeight))];
-    self.viewBottom.backgroundColor = RGBToColor(255,255,255, 0.1);
+    self.viewBottom.backgroundColor = [UIColor clearColor];
     [self addSubview:self.viewBottom];
     
     UITapGestureRecognizer *bottomTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(bottomGestureAction:)];
