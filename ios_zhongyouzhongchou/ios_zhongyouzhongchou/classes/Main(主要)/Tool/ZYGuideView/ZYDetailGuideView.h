@@ -7,18 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum : NSUInteger {
-    commonType,//居右
-    leftType,//居左
-    centerType,
-    rightType,
-    brushType,
-    DodoodleType,
-    cleanDoodleType,
-    openFlashType,
-    flashLessonType,
-} AlignmentType;
+#import "ZYNewGuiView.h"
+//typedef enum : NSUInteger {
+//    commonType,//居右
+//    leftType,//居左
+//    centerType,
+//    rightType,
+//    brushType,
+//    DodoodleType,
+//    cleanDoodleType,
+//    openFlashType,
+//    flashLessonType,
+//} AlignmentType;
 
 
 @interface ZYDetailGuideView : UIView
@@ -26,8 +26,6 @@ typedef enum : NSUInteger {
 @property (strong, nonatomic) UILabel *detailLabel;
 @property (strong, nonatomic) UIButton *seeButton;
 
-- (void)createDetailTitle:(NSString *)title withAlignmentType:(AlignmentType)alignmentType;//学生端
-- (void)createTeacherGuideTitle:(NSString *)title withAlignmentType:(AlignmentType)alignmentType;//老师端
-
+- (void)createDetailWithAlignmentType:(detailType)alignmentType; // 引导页
 
 @end
