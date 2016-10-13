@@ -22,7 +22,7 @@ static NSString * const reuseIdentifier = @"Cell";
     [super viewDidLoad];
     
     self.view.backgroundColor=[UIColor whiteColor];
-    self.collectionView.frame=CGRectMake(0, 64, KSCREEN_W, 200);
+    self.collectionView.frame=CGRectMake(0, 64, KSCREEN_W, 150);
     self.collectionView.showsHorizontalScrollIndicator = NO;
     self.collectionView.showsVerticalScrollIndicator = NO;
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([HJCarouselViewCell class]) bundle:nil] forCellWithReuseIdentifier:reuseIdentifier];
@@ -33,9 +33,14 @@ static NSString * const reuseIdentifier = @"Cell";
 
 -(void )getImageData
 {
-    NSArray *images=[VideoService thumbnailImagesForVideo:[NSURL fileURLWithPath:self.videoPath] withImageCount:20];
-    self.imageData=images;
-    [self.collectionView reloadData];
+    NSFileManager *manager=[NSFileManager defaultManager];
+    BOOL exist=[manager fileExistsAtPath:self.videoPath];
+    if(exist)
+    {
+        NSArray *images=[VideoService thumbnailImagesForVideo:[NSURL fileURLWithPath:self.videoPath] withImageCount:20];
+        self.imageData=images;
+        [self.collectionView reloadData];
+    }
 }
 
 -(void)configNavUI
@@ -130,6 +135,7 @@ static NSString * const reuseIdentifier = @"Cell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     HJCarouselViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     cell.imageView.image = self.imageData[indexPath.row];
+    cell.imageView.contentMode=UIViewContentModeScaleAspectFit;
     return cell;
 }
 

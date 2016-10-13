@@ -27,7 +27,7 @@ typedef enum {
 
 NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 
-@interface QPEffectViewController()<QPEffectViewDelegate,QPMediaRenderDelegate,QPMVMoreViewControllerDelegate>
+@interface QPEffectViewController()<QPEffectViewDelegate,QPMediaRenderDelegate,QPMVMoreViewControllerDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, assign) QPEffectTab selectTab;
 @property (nonatomic, strong) QPEffectView *qpEffectView;
@@ -379,6 +379,14 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     pack.mixVolume = self.video.mixVolume;
     pack.videoSize = self.video.size;
     pack.rotateArray = [self.video AllPointsRotate];
+    
+    //保存第一个视频方向
+    if([pack.rotateArray firstObject])
+    {
+        NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+        [user setObject:[pack.rotateArray firstObject] forKey:QuPai_Video_Rotate];
+    }
+    
     if (self.video.preferFilterOrMV) {
         if (effectFilter.resourceLocalUrl) {
             pack.effectPath = effectFilter.resourceLocalUrl;
@@ -599,15 +607,10 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 }
 
 - (void)onClickButtonFinishAction:(UIButton *)sender {
-    [self.qpEffectView.activityIndicator startAnimating];
-    self.qpEffectView.buttonFinish.hidden = YES;
-    self.qpEffectView.buttonClose.enabled = NO;
-    self.qpEffectView.viewBottom.userInteractionEnabled = NO;
     
-    _shouldSave = YES;
-    [self destroyMovie];
-    [[QPEventManager shared] event:QPEventEditNext];
-    _startEncodingTime = [[NSDate date] timeIntervalSince1970];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择下一步操作" delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:@"发布足迹"
+    otherButtonTitles:@"保存本地", nil];
+    [actionSheet showInView:self.view];
 }
 
 - (void)onCLickButtonPlayOrPauseAction:(UIButton *)sender {
@@ -638,6 +641,27 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     _shouldPlay = YES;
     [self destroyMovie];
 }
+
+#pragma mark - UIActionSheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex==0) {
+        [self.qpEffectView.activityIndicator startAnimating];
+        self.qpEffectView.buttonFinish.hidden = YES;
+        self.qpEffectView.buttonClose.enabled = NO;
+        self.qpEffectView.viewBottom.userInteractionEnabled = NO;
+        
+        _shouldSave = YES;
+        [self destroyMovie];
+        [[QPEventManager shared] event:QPEventEditNext];
+        _startEncodingTime = [[NSDate date] timeIntervalSince1970];
+    }
+    else if(buttonIndex==1)
+    {
+        
+    }
+}
+
 
 #pragma mark - more mv
 
