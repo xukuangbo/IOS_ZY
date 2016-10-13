@@ -74,6 +74,9 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
 
     BOOL _recordFinished; // 拍摄时间完成，从效果页面返回当前页的标志
     NSTimeInterval _startEncodingTime;
+    
+    AVCaptureDevicePosition _markPosition;
+    BOOL _markskin;
 }
 
 #pragma mark - life cycle
@@ -187,6 +190,8 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
     _focusView.userInteractionEnabled = NO;
     [self.qpRecordView.viewFocusContent addSubview:_focusView];
     
+    _markPosition=_recordFlag.position;
+    _markskin=_recordFlag.skin;
 }
 
 -(void)setupMakeupFrames{
@@ -741,6 +746,7 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
 
 -(void)onClickButtonPositionAction:(UIButton *)sender {
     AVCaptureDevicePosition position = [self.recorder switchCameraPosition];
+    _markPosition=position;
     if (position == AVCaptureDevicePositionBack) {
 //        if (!_recordFlag.manualSkin && [self.recorder skinFilterEnabled]){
 ////            [self buttonSkinClick:nil];
@@ -790,6 +796,7 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
 
 - (void)onClickButtonSkinAction:(UIButton *)sender {
     BOOL skin = !self.qpRecordView.buttonSkin.selected;
+    _markskin=skin;
     self.qpRecordView.buttonSkin.selected = skin;
     self.qpRecordView.viewSkin.hidden = !skin;
     [self.recorder setSkinFilterEnabled:skin];
@@ -1077,7 +1084,10 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
 
 - (void)recordWillStopPreview:(QPRecord *)record {
     _recordFlag.skin = record.skinFilterEnabled;
-    _recordFlag.position = record.captureDevicePosition;
+//    _recordFlag.position = record.captureDevicePosition;
+    _recordFlag.position=_markPosition;
+    _recordFlag.skin=_markskin;
+    DDLog(@"_recordFlag.position:%ld",_recordFlag.position);
     self.qpRecordView.pointProgress.hidden = YES;
 }
 

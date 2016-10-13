@@ -93,14 +93,12 @@
     [self.buttonCut setImage:[QPImage imageNamed:@"edit_proportion_selected.png"] forState:(UIControlStateSelected)];
     
     [self.buttonCut setSelected:YES];
-    
-    
+    self.buttonCut.hidden = YES;
 }
 
 
 // bottomView
 - (void)setupBottomViews {
-    
     
     [self setupBottomCutInfoViews];
     
