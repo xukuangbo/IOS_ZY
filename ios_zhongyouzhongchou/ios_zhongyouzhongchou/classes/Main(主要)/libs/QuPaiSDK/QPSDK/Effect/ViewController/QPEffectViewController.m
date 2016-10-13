@@ -73,7 +73,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     }
     
     if (!self.qpEffectView.gpuImageView) {
-        CGRect renderFrame =  CGRectMake(0, 0, ScreenWidth,  ScreenWidth);
+        CGRect renderFrame = self.qpEffectView.viewCenter.bounds;
         UIView *renderView = [QPMediaRender createRenderViewWithFame:renderFrame];
         [self.qpEffectView.viewCenter addSubview:renderView];
         self.qpEffectView.gpuImageView = renderView;
@@ -257,8 +257,12 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     QPEffectViewCell *cell = (QPEffectViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"QPEffectViewCell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor clearColor];
     cell.nameLabel.text = effect.name;
+    cell.nameLabel.textColor=[UIColor whiteColor];
     cell.iconImageView.image = [QPImage imageNamed:effect.icon];
     cell.contentView.frame = cell.bounds;
+    if (self.video.filterID == effect.eid||self.video.mvID == effect.eid||self.video.musicID==effect.eid) {
+        cell.selected = YES;
+    }
     return cell;
 }
 
@@ -302,7 +306,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    return CGSizeMake(70, 95);
+    return CGSizeMake(ICON_HALF_WIDTH*2, 80);
 }
 
 #pragma mark - Play
