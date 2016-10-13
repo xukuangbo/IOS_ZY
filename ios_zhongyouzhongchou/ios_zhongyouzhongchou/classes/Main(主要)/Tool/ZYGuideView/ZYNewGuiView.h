@@ -18,7 +18,7 @@ typedef enum : NSInteger {
 @protocol ShowDoneDelegate <NSObject>
 
 - (void)showDone;
-- (void)resetGuideSubviews;
+//- (void)resetGuideSubviews;
 
 @end
 @interface ZYNewGuiView : UIView

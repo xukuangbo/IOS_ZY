@@ -21,8 +21,9 @@
 
 #import "FZCSaveDraftData.h"
 #import "ZCProductDetailController.h"
-
-
+#import "GuideWindow.h"
+#import "ZYNewGuiView.h"
+#import "ZYGuideManager.h"
 #define kMoreFZCToolBar 20
 #define kNaviBar 64
 
@@ -33,7 +34,7 @@
 #define ALERT_PUBLISH      6
 //#define ALERT_NETWORK_CHANGE_TAG  6
 
-@interface MoreFZCViewController ()<MoreFZCToolBarDelegate,UIAlertViewDelegate>
+@interface MoreFZCViewController ()<MoreFZCToolBarDelegate,UIAlertViewDelegate, ShowDoneDelegate>
 @property (nonatomic, assign) BOOL needPopVC;
                               //记录发布的数据在oss的位置
 @property (nonatomic, copy  ) NSString *myZhouChouMarkName;
@@ -62,7 +63,12 @@
 @property (nonatomic, strong) MBProgressHUD *mbProgress;
 
 //@property (nonatomic, assign) BOOL stopPublish;
-
+// 引导页view
+@property (strong, nonatomic) GuideWindow *guideWindow;
+@property (strong, nonatomic) ZYNewGuiView *guideView;
+@property (strong, nonatomic) ZYNewGuiView *skipGuideView;
+@property (strong, nonatomic) ZYNewGuiView *changeGuideView;
+@property (nonatomic, assign) detailType guideType;
 @end
 
 @implementation MoreFZCViewController
@@ -83,7 +89,9 @@
     [self createToolBar];
     [self createClearMapView];
     [self createBottomView];
-    
+    if (![ZYGuideManager getGuidePreview]) {
+        [self createPrevContextView];
+    }
     //    [self getHttpData];
 }
 /**
@@ -147,6 +155,78 @@
     }
     return nil;
 }
+
+#pragma mark -guideView
+- (GuideWindow *)guideWindow
+{
+    if (!_guideWindow) {
+        _guideWindow = [[GuideWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    }
+    return _guideWindow;
+}
+
+- (void)createPrevContextView
+{
+    self.guideType = prevType;
+    ZYNewGuiView *newGuideView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(0, -49, ScreenWidth, ScreenHeight)];
+    [self.guideWindow addSubview:newGuideView];
+    self.guideView = newGuideView;
+    newGuideView.showDoneDelagate = self;
+    [newGuideView initSubViewWithTeacherGuideType:prevType withContextViewType:rectTangleType];
+    [self.guideWindow bringSubviewToFront:newGuideView];
+    [self.guideWindow show];
+}
+
+- (void)createChangeContextView
+{
+    self.guideType = voiceType;
+    ZYNewGuiView *changeGuideView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight)];
+    [self.guideWindow addSubview:changeGuideView];
+    self.changeGuideView = changeGuideView;
+    self.changeGuideView.rectTypeOriginalY = 283;
+    changeGuideView.showDoneDelagate = self;
+    [changeGuideView initSubViewWithTeacherGuideType:voiceType withContextViewType:rectTangleType];
+    [self.guideWindow bringSubviewToFront:changeGuideView];
+    [self.guideWindow show];
+}
+
+- (void)createSkipContextView
+{
+    self.guideType = skipType;
+    ZYNewGuiView *skipGuideView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight)];
+    [self.guideWindow addSubview:skipGuideView];
+    self.skipGuideView = skipGuideView;
+    skipGuideView.showDoneDelagate = self;
+    [skipGuideView initSubViewWithTeacherGuideType:skipType withContextViewType:rectTangleType];
+    [self.guideWindow bringSubviewToFront:skipGuideView];
+    [self.guideWindow show];
+}
+
+
+#pragma mark - ShowDoneDelegate
+- (void)showDone
+{
+    if (self.guideType == prevType) {
+        self.guideView = nil;
+        [self.guideView removeFromSuperview];
+        [self.guideWindow dismiss];
+        self.guideWindow = nil;
+        [ZYGuideManager guidePreview:YES];
+    } else if (self.guideType == skipType) {
+        self.skipGuideView = nil;
+        [self.skipGuideView removeFromSuperview];
+        [self.guideWindow dismiss];
+        self.guideWindow = nil;
+        [ZYGuideManager guideSkip:YES];
+    } else {
+        self.changeGuideView = nil;
+        [self.changeGuideView removeFromSuperview];
+        [self.guideWindow dismiss];
+        self.guideWindow = nil;
+        [ZYGuideManager guideChangeVoice:YES];
+    }
+}
+
 #pragma mark --- 创建底部视图
 -(void)createBottomView
 {
@@ -180,6 +260,15 @@
     //把tableview带到前面去
     UITableView *tableView=(UITableView *)[self selectdView:buttonTag];
     [self.clearMapView bringSubviewToFront:tableView];
+    if (tableView.tag == MoreFZCToolBarTypeTravel) {
+        if (![ZYGuideManager getGuideSkip]) {
+            [self createSkipContextView];
+        }
+    } else if (tableView.tag == MoreFZCToolBarTypeRaiseMoney) {
+        if (![ZYGuideManager getGuideChangeVoice]) {
+            [self createChangeContextView];
+        }
+    }
 
     if (tableView.tag!=MoreFZCToolBarTypeRaiseMoney)
     {

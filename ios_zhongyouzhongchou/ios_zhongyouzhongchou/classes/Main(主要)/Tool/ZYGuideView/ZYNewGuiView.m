@@ -39,27 +39,27 @@
     [self addSubview:_cgContextView];
     _guideView = [[ZYDetailGuideView alloc] initWithFrame:CGRectZero];
     [_cgContextView addSubview:_guideView];
-    
-    NSDictionary *dic = [self getDetailTitleArray][type];
-    
+//    NSDictionary *dic = [self getDetailTitleArray][type];
     
     switch (type) {
         case startHomeType:
-        {[_guideView createDetailTitle:dic[@"title"] withAlignmentType:commonType];
+        {
+            [_guideView createDetailWithAlignmentType:startHomeType];
         }
             break;
         case voiceType:
         {
-            [_guideView createDetailTitle:dic[@"title"] withAlignmentType:commonType];
+            [_guideView createDetailWithAlignmentType:voiceType];
+            break;
         }
         case skipType:
         {
-            [_guideView createDetailTitle:dic[@"title"] withAlignmentType:commonType];
+            [_guideView createDetailWithAlignmentType:skipType];
         }
             break;
         case prevType:
         {
-            [_guideView createDetailTitle:dic[@"title"] withAlignmentType:commonType];
+            [_guideView createDetailWithAlignmentType:prevType];
         }
             break;
             
@@ -74,12 +74,12 @@
             [_cgContextView drawRectInWay:CGRectMake(0, self.frame.size.height-43, self.frame.size.width, 49) withdrawType:contextType];
             UIImageView *guideCircleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
             [_cgContextView addSubview:guideCircleImageView];
-            guideCircleImageView.image = [UIImage imageNamed:@"common_circle_small"];
+            guideCircleImageView.image = [UIImage imageNamed:@"guide_start"];
             [guideCircleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.mas_right);
-                make.width.equalTo(@(218/2));
-                make.height.equalTo(@(218/2));
-                make.centerY.equalTo(self.mas_bottom).offset(-43/2);
+                make.right.equalTo(self.mas_right).equalTo(@-5);
+                make.width.equalTo(@(326/2));
+                make.height.equalTo(@(83/2));
+                make.top.equalTo(@3);
             }];
             
             [_guideView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,40 +90,40 @@
             break;
         case voiceType:
         {
-            [_cgContextView drawRectInWay:CGRectMake(self.frame.size.width - 33, 40, 20, 20) withdrawType:contextType];
-            [_guideView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.left.right.equalTo(_cgContextView);
-                make.top.equalTo(self.mas_top).offset(10+50+100);
-            }];
+            [_cgContextView drawRectInWay:CGRectMake(0, self.rectTypeOriginalY, self.frame.size.width, 40) withdrawType:contextType];
             
             UIImageView *guideCircleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
             [_cgContextView addSubview:guideCircleImageView];
-            guideCircleImageView.image = [UIImage imageNamed:@"common_aperture"];
+            guideCircleImageView.image = [UIImage imageNamed:@"guide_change"];
             [guideCircleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.mas_right).offset(5);
-                make.width.equalTo(@(152/2));
-                make.height.equalTo(@(152/2));
-                make.top.equalTo(self.mas_top).offset(2);
+                make.right.equalTo(self.mas_right).offset(-5);
+                make.width.equalTo(@(516/2));
+                make.height.equalTo(@(83/2));
+                make.top.equalTo(self.mas_top).offset(328);
+            }];
+            
+            [_guideView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.left.right.equalTo(_cgContextView);
+                make.top.equalTo(self.mas_top).offset(0);
             }];
             break;
         }
         case skipType:
         {
-            [_cgContextView drawRectInWay:CGRectMake(0, self.rectTypeOriginalY, self.frame.size.width,44) withdrawType:contextType];
-            
+            [_cgContextView drawRectInWay:CGRectMake(0, self.frame.size.height-43, self.frame.size.width, 49) withdrawType:contextType];
             UIImageView *guideCircleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
             [_cgContextView addSubview:guideCircleImageView];
-            guideCircleImageView.image = [UIImage imageNamed:@"common_circle_small"];
+            guideCircleImageView.image = [UIImage imageNamed:@"guide_skip"];
             [guideCircleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.mas_right);
-                make.width.equalTo(@(218/2));
-                make.height.equalTo(@(218/2));
-                make.centerY.equalTo(self.mas_top).offset(self.rectTypeOriginalY+44/2);
+                make.right.equalTo(self.mas_right).equalTo(@-5);
+                make.width.equalTo(@(280/2));
+                make.height.equalTo(@(83/2));
+                make.top.equalTo(@3);
             }];
             
             [_guideView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(_cgContextView);
-                make.top.equalTo(guideCircleImageView.mas_centerY).offset(22+50+100);
+                make.bottom.equalTo(guideCircleImageView.mas_centerY).offset(-10-100);
             }];
             
             break;
@@ -134,17 +134,17 @@
             
             UIImageView *guideCircleImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
             [_cgContextView addSubview:guideCircleImageView];
-            guideCircleImageView.image = [UIImage imageNamed:@"common_circle_small"];
+            guideCircleImageView.image = [UIImage imageNamed:@"guide_preview"];
             [guideCircleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.right.equalTo(self.mas_right);
-                make.width.equalTo(@(218/2));
-                make.height.equalTo(@(218/2));
-                make.centerY.equalTo(self.mas_top).offset(self.rectTypeOriginalY+44/2);
+                make.left.equalTo(@5);
+                make.width.equalTo(@(280/2));
+                make.height.equalTo(@(83/2));
+                make.bottom.equalTo(@-3);
             }];
             
             [_guideView mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.left.right.equalTo(_cgContextView);
-                make.top.equalTo(guideCircleImageView.mas_centerY).offset(22+50+100);
+                make.top.equalTo(guideCircleImageView.mas_centerY).offset(0);
             }];
             
             break;
