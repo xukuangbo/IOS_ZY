@@ -12,7 +12,7 @@ typedef enum : NSInteger {
     startHomeType,// 发起众筹主界面 0
     voiceType,    // 切换语音和视频  1
     skipType,     // 跳过按钮  2
-    prevType     // 预览提示  3
+    prevType      // 预览提示  3
 } detailType;
 
 @protocol ShowDoneDelegate <NSObject>
