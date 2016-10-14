@@ -31,3 +31,4 @@ FOUNDATION_EXPORT const unsigned char QPSDKCoreVersionString[];
 #import <QPSDKCore/QPHttpClient.h>
 #import <QPSDKCore/QPDeviceManager.h>
 #import <QPSDKCore/QPLive.h>
+

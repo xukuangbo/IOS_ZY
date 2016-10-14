@@ -269,12 +269,25 @@
     else
     {
         if (videoPath) {
+            _videoPath=videoPath;
             UISaveVideoAtPathToSavedPhotosAlbum(videoPath, nil, nil, nil);
         }
         if (thumbnailPath) {
+            _thumbnailPath=thumbnailPath;
             UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
         }
         WEAKSELF;
+        [self dismissViewControllerAnimated:YES completion:^
+        {
+            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
+            publishFootprintController.footprintType=Footprint_VideoType;
+            publishFootprintController.videoPath=weakSelf.videoPath;
+            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
+            [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
+        }];
+        
+        return;
+       
         [self dismissViewControllerAnimated:YES completion:^{
             
         HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
