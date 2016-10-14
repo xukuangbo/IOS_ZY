@@ -32,8 +32,8 @@
 #import <RongIMKit/RongIMKit.h>
 #import "ZYPublishFootprintController.h"
 
-//#import "HJCarouselViewLayout.h"
-//#import "ZYPublishQupaiVideo.h"
+#import "HJCarouselViewLayout.h"
+#import "ZYPublishQupaiVideo.h"
 
 
 #define kSaveVideoAlertTag    100
@@ -268,12 +268,36 @@
     }
     else
     {
-        _videoPath=videoPath;
-        _thumbnailPath=thumbnailPath;
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择下一步操作" delegate:(id<UIActionSheetDelegate>)self
-        cancelButtonTitle:@"退出" destructiveButtonTitle:@"发布足迹"
-        otherButtonTitles:@"保存本地", nil];
-        [actionSheet showInView:self.selectedViewController.view];
+        if (videoPath) {
+            UISaveVideoAtPathToSavedPhotosAlbum(videoPath, nil, nil, nil);
+        }
+        if (thumbnailPath) {
+            UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
+        }
+        WEAKSELF;
+        [self dismissViewControllerAnimated:YES completion:^{
+            
+        HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+        layout.itemSize = CGSizeMake(150, 150);
+        NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+        NSNumber *rotate=[user objectForKey:QuPai_Video_Rotate];
+        CGFloat height=150.0;
+        //横屏
+        if ([rotate isEqual:@1]||[rotate isEqual:@3]) {
+            
+            layout.itemSize = CGSizeMake(height*16.0/9.0, height);
+        }
+        //竖屏
+        else if ([rotate isEqual:@2]||[rotate isEqual:@4])
+        {
+            layout.itemSize = CGSizeMake(height*9.0/16.0, height);
+        }
+
+        ZYPublishQupaiVideo *publishQupaiVideo=[[ZYPublishQupaiVideo alloc]initWithCollectionViewLayout:layout];
+        publishQupaiVideo.videoPath=videoPath;
+        [weakSelf presentViewController:publishQupaiVideo animated:YES completion:nil];
+        }];
     }
 }
 
@@ -288,47 +312,6 @@
     [array addObject:effect];
     
     return array;
-}
-
-
-#pragma mark - UIActionSheet Delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    DDLog(@"%ld",buttonIndex);
-    if (buttonIndex==0) {
-        WEAKSELF;
-        [self dismissViewControllerAnimated:YES completion:^{
-            
-//            HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
-//            layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//            layout.itemSize = CGSizeMake(150, 150);
-//            ZYPublishQupaiVideo *publishQupaiVideo=[[ZYPublishQupaiVideo alloc]initWithCollectionViewLayout:layout];
-//            publishQupaiVideo.videoPath=weakSelf.videoPath;
-//            [weakSelf presentViewController:publishQupaiVideo animated:YES completion:nil];
-            
-            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-            publishFootprintController.footprintType=Footprint_VideoType;
-            publishFootprintController.videoPath=weakSelf.videoPath;
-            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
-            [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
-        }];
-    }
-    else if(buttonIndex==1)
-    {
-        if (_videoPath) {
-            UISaveVideoAtPathToSavedPhotosAlbum(_videoPath, nil, nil, nil);
-        }
-    
-        if (_thumbnailPath) {
-        UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:_thumbnailPath], nil, nil, nil);
-        }
-        
-        [self.selectedViewController dismissViewControllerAnimated:YES completion:nil];
-    }
-    else if (buttonIndex==2)
-    {
-        [self.selectedViewController dismissViewControllerAnimated:YES completion:nil];
-    }
 }
 
 

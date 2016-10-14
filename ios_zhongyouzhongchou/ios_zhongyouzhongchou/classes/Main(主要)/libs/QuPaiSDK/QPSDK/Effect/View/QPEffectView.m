@@ -85,7 +85,6 @@
     self.activityIndicator.hidesWhenStopped = YES;
     [self.viewTop addSubview:self.activityIndicator];
     self.activityIndicator.hidden = YES;
-    
 }
 
 
