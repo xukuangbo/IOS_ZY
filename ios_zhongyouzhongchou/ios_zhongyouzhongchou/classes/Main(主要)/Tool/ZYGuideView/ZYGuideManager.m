@@ -8,11 +8,12 @@
 
 #import "ZYGuideManager.h"
 
-//学生端显示微课程引导
+//显示引导
 static NSString *const kUserInfoStartZhongchouGuide = @"kUserInfoStartZhongchouGuide";
 static NSString *const KUserInfoPreviewGuide = @"KUserInfoPreviewGuide";
 static NSString *const kUserInfoChangeVoiceGuide = @"kUserInfoChangeVoiceGuide";
 static NSString *const kUserInfoSkipGuide = @"kUserInfoSkipGuide";
+static NSString *const kUserInfoStartLiveGuide = @"kUserInfoStartLiveGuide";
 
 @implementation ZYGuideManager
 
@@ -72,6 +73,21 @@ static NSString *const kUserInfoSkipGuide = @"kUserInfoSkipGuide";
 + (BOOL)getGuideSkip
 {
     return [self integerFromUserDefaultsKey:kUserInfoSkipGuide];
+}
+
+/**
+ *  发起直播
+ *
+ *
+ */
++ (void)guideStartLive:(BOOL)show
+{
+    [self saveToUserDefaultsInteger:show forKey:kUserInfoStartLiveGuide];
+}
+
++ (BOOL)getGuideStartLive
+{
+    return [self integerFromUserDefaultsKey:kUserInfoStartLiveGuide];
 }
 
 

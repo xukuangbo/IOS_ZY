@@ -21,4 +21,7 @@
 
 + (BOOL)getGuideSkip;
 + (void)guideSkip:(BOOL)show;
+
++ (BOOL)getGuideStartLive;
++ (void)guideStartLive:(BOOL)show;
 @end

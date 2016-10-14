@@ -623,7 +623,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 分享
 - (void)shareBtnAction:(UIButton *)sender
 {
-    
+    MPMoviePlayerViewController *movie = [[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL URLWithString:self.liveModel.pullUrl]];
+    [movie.moviePlayer prepareToPlay];
+    [self presentMoviePlayerViewControllerAnimated:movie];
+    [movie.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
+    [movie.view setBackgroundColor:[UIColor clearColor]];
+    [movie.view setFrame:self.view.bounds];
+   
 }
 
 - (void)messageBtnAction:(UIButton *)sender
