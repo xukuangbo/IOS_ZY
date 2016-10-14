@@ -22,7 +22,7 @@
 
 - (void)setupSubViews {
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor blackColor];
     
     [self setupTopViews];
     
@@ -37,26 +37,26 @@
 - (void)setupTopViews {
     
     self.viewTop = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, ScreenWidth, kTopViewHeight))];
-    self.viewTop.backgroundColor = [UIColor whiteColor];
+    self.viewTop.backgroundColor = [UIColor clearColor];
     [self addSubview:self.viewTop];
     
     self.buttonClose = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    [self.buttonClose setImage:[QPImage imageNamed:@"record_ico_close_1_1.png"] forState:(UIControlStateNormal)];
+    [self.buttonClose setImage:[QPImage imageNamed:@"record_ico_close.png"] forState:(UIControlStateNormal)];
     self.buttonClose.frame = CGRectMake(0, 0, 60, kTopViewHeight);
     [self.buttonClose addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.viewTop addSubview:self.buttonClose];
     
     self.buttonFinish = [UIButton buttonWithType:(UIButtonTypeCustom)];
     self.buttonFinish.frame = CGRectMake(CGRectGetWidth(self.viewTop.frame) - 60, 0, 60, kTopViewHeight);
-    [self.buttonFinish setImage:[QPImage imageNamed:@"input_ico_check.png"] forState:(UIControlStateNormal)];
+    [self.buttonFinish setImage:[QPImage imageNamed:@"record_ico_next.png"] forState:(UIControlStateNormal)];
     [self.buttonFinish addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.viewTop addSubview:self.buttonFinish];
 
     self.labelTopTitle = [[UILabel alloc] initWithFrame:self.viewTop.bounds];
     self.labelTopTitle.text = @"导入";
-    self.labelTopTitle.textColor = [UIColor blackColor];
+    self.labelTopTitle.textColor = [UIColor whiteColor];
     self.labelTopTitle.textAlignment = NSTextAlignmentCenter;
-    self.labelTopTitle.font = [UIFont systemFontOfSize:18.f];
+    self.labelTopTitle.font = [UIFont boldSystemFontOfSize:18.f];
     [self.viewTop addSubview:self.labelTopTitle];
 
 }
@@ -125,7 +125,7 @@
 - (void)setupBottomViews {
     
     self.viewBottom = [[UIView alloc] initWithFrame:(CGRectMake(0, CGRectGetMaxY(self.viewCenter.frame), ScreenWidth, ScreenHeight - CGRectGetMaxY(self.viewCenter.frame)))];
-    self.viewBottom.backgroundColor = [UIColor whiteColor];
+    self.viewBottom.backgroundColor = [UIColor clearColor];
     [self addSubview:self.viewBottom];
     
     [self setupCollectionView];
@@ -147,7 +147,7 @@
     
     self.collectionView = [[UICollectionView alloc]  initWithFrame:(CGRectMake(0, (CGRectGetHeight(self.viewBottom.frame) - 80) / 2, ScreenWidth, 80)) collectionViewLayout:layout];
     self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     [self.viewBottom addSubview:self.collectionView];
 }
 

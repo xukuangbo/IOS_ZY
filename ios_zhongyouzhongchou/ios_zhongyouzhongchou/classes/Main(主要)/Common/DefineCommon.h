@@ -149,8 +149,6 @@
 #define DELETE_ONE_FOOTPRINT_SUCCESS @"deleteOneFootprintSuccess"
 //纪录趣拍是否鉴权成功
 #define Auth_QuPai_Result            @"authQupaiResult"
-//纪录短视频的方向
-#define QuPai_Video_Rotate           @"QuPaiVideoRotate"
 
 //图片拉伸
 #define KPULLIMG(IMGNAME,TOP,LEFT,BOTTOM,RIGHT) [[UIImage imageNamed:IMGNAME]resizableImageWithCapInsets:UIEdgeInsetsMake(TOP, LEFT, BOTTOM, RIGHT) resizingMode:UIImageResizingModeStretch]
