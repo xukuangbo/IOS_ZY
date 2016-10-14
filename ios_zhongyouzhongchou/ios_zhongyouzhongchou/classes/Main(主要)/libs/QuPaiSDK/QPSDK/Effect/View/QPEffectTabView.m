@@ -91,8 +91,8 @@
     for (int i = 0; i < self.tabs.count; i++) {
         NSString *tab = self.tabs[i];
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:15];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         [button setTitle:tab forState:UIControlStateNormal];
         button.tag = i;
         [button addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -117,7 +117,7 @@
     if (selected) {
         [button setTitleColor:[QupaiSDK shared].tintColor forState:UIControlStateNormal];
     }else {
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }
 

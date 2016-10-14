@@ -24,8 +24,10 @@
 #import "EntryPlaceholderView.h"
 
 #import "ViewController.h"
-
-@interface ZCMainViewController ()<WXApiManagerDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+#import "GuideWindow.h"
+#import "ZYNewGuiView.h"
+#import "ZYGuideManager.h"
+@interface ZCMainViewController ()<WXApiManagerDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate, ShowDoneDelegate>
 
 @property (nonatomic, strong) UISegmentedControl *segmentedView;
 @property (nonatomic, strong) ZCMainTableView    *table;
@@ -49,6 +51,9 @@
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
 
 @property (nonatomic, assign) BOOL              isFirstEntry;//是否第一次进入
+// 引导页view
+@property (strong, nonatomic) GuideWindow *guideWindow;
+@property (strong, nonatomic) ZYNewGuiView *guideView;
 
 @end
 
@@ -65,6 +70,9 @@
     _filterType=2+_filterItems.count;//默认
     [self setNavBar];
     [self configUI];
+    if (![ZYGuideManager getGuideStartZhongchou]) {
+        [self createOpenFlashContextView];
+    }
     [self getHttpDataByFilterType:_filterType andSeachKey:nil];
 }
 
@@ -296,6 +304,39 @@
     
     _entryView = [EntryPlaceholderView viewWithSuperView:self.table type:EntryTypeSearch];
     _entryView.hidden = YES;
+    
+}
+
+#pragma mark -customView
+- (GuideWindow *)guideWindow
+{
+    if (!_guideWindow) {
+        CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+        _guideWindow = [[GuideWindow alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    }
+    return _guideWindow;
+}
+
+- (void)createOpenFlashContextView
+{
+    ZYNewGuiView *newGuideView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(0, 64, ScreenWidth, ScreenHeight)];
+    [self.guideWindow addSubview:newGuideView];
+    self.guideView = newGuideView;
+    newGuideView.showDoneDelagate = self;
+    [newGuideView initSubViewWithTeacherGuideType:startHomeType withContextViewType:rectTangleType];
+    [self.guideWindow bringSubviewToFront:newGuideView];
+    [self.guideWindow show];
+}
+
+#pragma mark - ShowDoneDelegate
+- (void)showDone
+{
+    self.guideView = nil;
+    [self.guideView removeFromSuperview];
+    [self.guideWindow dismiss];
+    self.guideWindow = nil;
+    
+    [ZYGuideManager guideStartZhongchou:YES];
 }
 
 #pragma mark --- 获取众筹列表

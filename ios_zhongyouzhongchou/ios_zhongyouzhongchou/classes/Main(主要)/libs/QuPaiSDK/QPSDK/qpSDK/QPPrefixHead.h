@@ -58,7 +58,7 @@
 #ifdef kQPEnableDevNetwork
 #define kQPResourceHostUrl @"http://m.api.inner.qupaicloud.com/"
 #else
-#define kQPResourceHostUrl @"http://auth.qupai.me/"
+#define kQPResourceHostUrl @"https://m.api.qupaicloud.com/"
 #endif
 
 #ifndef DEBUG

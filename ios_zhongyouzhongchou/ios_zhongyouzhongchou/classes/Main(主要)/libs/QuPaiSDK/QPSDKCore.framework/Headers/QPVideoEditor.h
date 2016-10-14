@@ -7,8 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface QPVideoEditor : NSObject
+
 - (void)exportVideoAVAsset:(AVAsset *)asset
                      range:(CMTimeRange)range
                       rect:(CGRect)rect
@@ -17,4 +19,6 @@
                      toURL:(NSURL *)toURL
               percentBlock:(void(^)(CGFloat percent))percentBlock
              completeBlock:(void(^)(NSURL *filePath))completeBlock;
+
+- (void)cancel;
 @end

@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef NS_ENUM(NSInteger, QPMediaPackAudioMixType) {
+    QPMediaPackAudioMixTypeOrigin,
+    QPMediaPackAudioMixTypeMVMusic,
+    QPMediaPackAudioMixTypeMusic
+};
+
 @interface QPMediaPack : NSObject
 
 // 视频路径
@@ -36,6 +42,13 @@
 @property (nonatomic, assign) NSUInteger saveBitRate;
 // 保存的视频水印图片
 @property (nonatomic, strong) UIImage* saveWatermarkImage;
+
+// 音效路径
+@property (nonatomic, copy) NSString *soundPath;
+
+@property (nonatomic, copy) NSArray *soundComposition;
+
+@property (nonatomic, assign) QPMediaPackAudioMixType audioMixType;
 
 - (CGSize)outputSize;
 

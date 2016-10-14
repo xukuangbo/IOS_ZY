@@ -14,21 +14,21 @@
 {
     [super awakeFromNib];
     if ([[UIScreen mainScreen] bounds].size.height == 480) {
-        _nameLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+//        _nameLabel.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
     }
     
     _imageViewFrame.layer.masksToBounds = YES;
-    _imageViewFrame.layer.cornerRadius = 35;
+    _imageViewFrame.layer.cornerRadius = ICON_HALF_WIDTH;
     
     _iconImageView.layer.masksToBounds = YES;
-    _iconImageView.layer.cornerRadius = 35;
+    _iconImageView.layer.cornerRadius = ICON_HALF_WIDTH;
 }
 
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : RGB(159, 159, 159);
-    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : [UIColor blackColor];
+//    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : RGB(159, 159, 159); 
+    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : [UIColor whiteColor];
     
     if ([_nameLabel.text isEqualToString:@"原片"]) {
         _imageViewFrame.hidden = YES;

@@ -16,11 +16,11 @@
 
 #define kViewCenterNextTipHeight 34
 
-#define kViewBottomViewtapHeight 42
+#define kViewBottomViewtapHeight 33
 
 #define kViewCenterViewMixHeight 32
 
-#define kCollectionViewHeight 100
+#define kCollectionViewHeight 80
 
 @interface QPEffectView() <QPEffectTabViewDelegate>
 
@@ -40,7 +40,7 @@
 
 - (void)setupSubViews {
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor blackColor];
     
     [self setupTopSubViews];
     
@@ -64,7 +64,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:self.viewTop.bounds];
     label.text = @"编辑视频";
     label.textAlignment = NSTextAlignmentCenter;
-    label.textColor = [UIColor blackColor];
+    label.textColor = [UIColor whiteColor];
     label.font = [UIFont systemFontOfSize:17.f];
     [self.viewTop addSubview:label];
     
@@ -80,24 +80,22 @@
     [self.buttonFinish addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.viewTop addSubview:self.buttonFinish];
     
-    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
+    self.activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleWhite)];
     self.activityIndicator.frame = CGRectMake(CGRectGetWidth(self.viewTop.frame) - 9 - kActivityIndicatorWeight, 0, kActivityIndicatorWeight, kViewTopHeight - 7);
     self.activityIndicator.hidesWhenStopped = YES;
     [self.viewTop addSubview:self.activityIndicator];
     self.activityIndicator.hidden = YES;
-    
 }
 
 
 // centerView
 - (void)setupCenterSubViews {
     
-    self.viewCenter = [[UIView alloc] initWithFrame:(CGRectMake(0, CGRectGetMaxY(self.viewTop.frame), ScreenWidth, ScreenWidth))];
+    self.viewCenter = [[UIView alloc] initWithFrame:(CGRectMake(0, CGRectGetMaxY(self.viewTop.frame), ScreenWidth,ScreenHeight - kViewBottomViewtapHeight-kViewTopHeight-kCollectionViewHeight-20))];
     self.viewCenter.backgroundColor = [UIColor blackColor];
     [self addSubview:self.viewCenter];
     
     self.viewVideoContainer = [[UIView alloc] initWithFrame: self.viewCenter.bounds];
-    self.viewVideoContainer.backgroundColor = [UIColor blackColor];
     [self.viewCenter addSubview:self.viewVideoContainer];
     
     self.viewNextTip = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, CGRectGetWidth(self.viewCenter.frame), kViewCenterNextTipHeight))];
@@ -146,7 +144,7 @@
 - (void)setupBottomTabViews {
     
     self.viewTab = [[QPEffectTabView alloc] initWithFrame:(CGRectMake(0, 0, CGRectGetWidth(self.viewEffect.frame), 42))];
-    self.viewTab.backgroundColor = [UIColor whiteColor];
+    self.viewTab.backgroundColor = [UIColor clearColor];
     self.viewTab.delegate = self;
     [self.viewEffect addSubview:self.viewTab];
     
@@ -191,7 +189,7 @@
 - (void)setupCollectionView {
     
     UIView *BgView = [[UIView alloc] initWithFrame:(CGRectMake(0, CGRectGetMaxY(self.viewTab.frame), ScreenWidth, CGRectGetHeight(self.viewEffect.frame) - CGRectGetMaxY(self.viewTab.frame)))];
-    BgView.backgroundColor = RGB(212, 212, 212);
+    BgView.backgroundColor = [UIColor clearColor];
     [self.viewEffect addSubview:BgView];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

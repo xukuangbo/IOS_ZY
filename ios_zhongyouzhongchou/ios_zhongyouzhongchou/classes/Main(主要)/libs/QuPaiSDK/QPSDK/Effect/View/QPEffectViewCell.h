@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define ICON_HALF_WIDTH 30
 @interface QPEffectViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;

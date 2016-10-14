@@ -117,6 +117,7 @@ static const CGFloat UpNeedleAdjust = 0.03;
     [self generateImageByAVAsset:_cutInfo.asset];
     [self refreshViewLayout];
     [self addStausObserver];
+    [self onClickButtonCutAction:_qpCutView.buttonCut];
 }
 
 - (void)stopPlayAndReset
