@@ -290,7 +290,17 @@
             if ([QupaiSDK shared].zy_VideoHandleType==ZY_QupaiVideoPublish) {
                 ZYShortVideoPublish *videoPublish=[ZYShortVideoPublish new];
                 videoPublish.videoPath=videoPath;
+                
+                if ([QupaiSDK shared].zy_VideoSize==ZY_VideoSize16To9) {
+                    videoPublish.img_rate=16.0/9.0;
+                }
+                else if([QupaiSDK shared].zy_VideoSize==ZY_VideoSize9To16)
+                {
+                    videoPublish.img_rate=9.0/16.0;
+                }
+
                 [weakSelf presentViewController:videoPublish animated:YES completion:nil];
+                
 
 //                HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
 //                layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;

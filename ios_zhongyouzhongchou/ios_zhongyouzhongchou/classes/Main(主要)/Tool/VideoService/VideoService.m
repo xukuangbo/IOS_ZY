@@ -105,9 +105,9 @@
     CGImageRef thumbnailImageRef = NULL;
     
     CGFloat space=(timeLen-0.1)/count;
-    for (CGFloat i=0.1; i<timeLen; i+=space) {
-        DDLog(@"=======%.2f",i);
-        CFTimeInterval thumbnailImageTime = i*20;
+    for (NSInteger i=0; i<20; i++) {
+        CGFloat time = i*space;
+        CFTimeInterval thumbnailImageTime = time*20;
         NSError *thumbnailImageGenerationError = nil;
         thumbnailImageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMake(thumbnailImageTime, 20)actualTime:NULL error:&thumbnailImageGenerationError];
         if(!thumbnailImageRef)

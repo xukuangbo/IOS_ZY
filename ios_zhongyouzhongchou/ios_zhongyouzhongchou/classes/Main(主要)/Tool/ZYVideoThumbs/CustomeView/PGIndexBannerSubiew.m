@@ -29,6 +29,7 @@
     
     if (_mainImageView == nil) {
         _mainImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _mainImageView.contentMode = UIViewContentModeScaleAspectFill;
         _mainImageView.userInteractionEnabled = YES;
     }
     return _mainImageView;
@@ -38,6 +39,7 @@
     if (_coverView == nil) {
         _coverView = [[UIView alloc] initWithFrame:self.bounds];
         _coverView.backgroundColor = [UIColor blackColor];
+        _coverView.userInteractionEnabled=YES;
     }
     return _coverView;
 }

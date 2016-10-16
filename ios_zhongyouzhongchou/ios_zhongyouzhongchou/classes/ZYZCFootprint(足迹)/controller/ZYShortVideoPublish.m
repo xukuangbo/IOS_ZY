@@ -5,13 +5,15 @@
 //  Created by liuliang on 16/10/14.
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
-
+#define img_height        150
+#define page_text(page)  [NSString stringWithFormat:@"封面%ld",page]
 #import "ZYShortVideoPublish.h"
 #import "VideoService.h"
 #import "NewPagedFlowView.h"
 #import "PGIndexBannerSubiew.h"
 @interface ZYShortVideoPublish ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource>
 @property (nonatomic, strong) UIButton         *publishBtn;
+@property (nonatomic, strong) UILabel          *pageLab;
 @property (nonatomic, strong) NSMutableArray   *imageArray;
 /**
  *  轮播图
@@ -24,9 +26,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self configNavUI];
     [self getImageData];
     [self configBodyUI];
+    [self configNavUI];
 }
 
 
@@ -40,8 +42,6 @@
         NSArray *images=[VideoService thumbnailImagesForVideo:[NSURL fileURLWithPath:self.videoPath] withImageCount:20];
         self.imageArray=[NSMutableArray arrayWithArray:images];
     }
-    
-    [self.pageFlowView needsReload];
 }
 
 -(void)configNavUI
@@ -83,17 +83,16 @@
 
 - (void)configBodyUI {
     
-    
-    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 64, KSCREEN_W, (KSCREEN_W - 84) * 9 / 16 + 24)];
+    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 64+10, KSCREEN_W, img_height)];
     pageFlowView.backgroundColor = [UIColor clearColor];
     pageFlowView.delegate = self;
     pageFlowView.dataSource = self;
-    pageFlowView.minimumPageAlpha = 0.1;
+    pageFlowView.minimumPageAlpha = 0.5;
     pageFlowView.minimumPageScale = 0.85;
     pageFlowView.orientation = NewPagedFlowViewOrientationHorizontal;
     
     //提前告诉有多少页
-    //    pageFlowView.orginPageCount = self.imageArray.count;
+    pageFlowView.orginPageCount = self.imageArray.count;
     
     /****************************
      使用导航控制器(UINavigationController)
@@ -105,6 +104,11 @@
     [pageFlowView reloadData];
     
     [self.view addSubview:bottomScrollView];
+    
+    _pageLab=[ZYZCTool createLabWithFrame:CGRectMake(0, pageFlowView.bottom+5, self.view.width, 20) andFont:[UIFont systemFontOfSize:15.f] andTitleColor:[UIColor ZYZC_TextBlackColor]];
+    _pageLab.textAlignment=NSTextAlignmentCenter;
+    _pageLab.text=page_text((NSInteger)1);
+    [self.view addSubview:_pageLab];
     
 
 }
@@ -130,7 +134,7 @@
 
 #pragma mark NewPagedFlowView Delegate
 - (CGSize)sizeForPageInFlowView:(NewPagedFlowView *)flowView {
-    return CGSizeMake(KSCREEN_W - 84, (KSCREEN_W - 84) * 9 / 16);
+    return CGSizeMake(img_height*_img_rate, img_height);
 }
 
 - (void)didSelectCell:(UIView *)subView withSubViewIndex:(NSInteger)subIndex {
@@ -146,20 +150,19 @@
 - (UIView *)flowView:(NewPagedFlowView *)flowView cellForPageAtIndex:(NSInteger)index{
     PGIndexBannerSubiew *bannerView = (PGIndexBannerSubiew *)[flowView dequeueReusableCell];
     if (!bannerView) {
-        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_W - 84, (KSCREEN_W - 84) * 9 / 16)];
+        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, img_height*_img_rate, img_height)];
         bannerView.layer.cornerRadius = 4;
         bannerView.layer.masksToBounds = YES;
     }
     //在这里下载网络图片
     //  [bannerView.mainImageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:hostUrlsImg,imageDict[@"img"]]] placeholderImage:[UIImage imageNamed:@""]];
     bannerView.mainImageView.image = self.imageArray[index];
-    
     return bannerView;
 }
 
 - (void)didScrollToPage:(NSInteger)pageNumber inFlowView:(NewPagedFlowView *)flowView {
-    
-    NSLog(@"ViewController 滚动到了第%ld页",pageNumber);
+    DDLog(@"移动到第%ld张",pageNumber);
+    _pageLab.text=page_text(pageNumber+1);
 }
 
 #pragma mark --懒加载
