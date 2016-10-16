@@ -306,6 +306,9 @@
 		2C90F6FB1D534819001ABB44 /* ZYDetailMsgScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C90F6FA1D534819001ABB44 /* ZYDetailMsgScrollView.m */; };
 		2C91B6691D9155140091EC79 /* ZYCommentFootprintController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B6681D9155140091EC79 /* ZYCommentFootprintController.m */; };
 		2C91B66C1D9160D20091EC79 /* ZYOneFootprintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C91B66B1D9160D20091EC79 /* ZYOneFootprintView.m */; };
+		2C920D911DB0DEA10038C3E1 /* ZYShortVideoPublish.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C920D901DB0DEA10038C3E1 /* ZYShortVideoPublish.m */; };
+		2C920D991DB0E0520038C3E1 /* PGIndexBannerSubiew.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C920D951DB0E0510038C3E1 /* PGIndexBannerSubiew.m */; };
+		2C920D9A1DB0E0520038C3E1 /* NewPagedFlowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C920D981DB0E0520038C3E1 /* NewPagedFlowView.m */; };
 		2C9AA6E21D3D2BAF0030A5B4 /* ZYCustomIconView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9AA6E11D3D2BAF0030A5B4 /* ZYCustomIconView.m */; };
 		2C9C74071D9A170300D15DEF /* ZYUserHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C74061D9A170300D15DEF /* ZYUserHeadView.m */; };
 		2C9C740A1D9A4BF600D15DEF /* ZYTravelTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C9C74091D9A4BF600D15DEF /* ZYTravelTypeView.m */; };
@@ -1201,6 +1204,12 @@
 		2C91B6681D9155140091EC79 /* ZYCommentFootprintController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCommentFootprintController.m; sourceTree = "<group>"; };
 		2C91B66A1D9160D20091EC79 /* ZYOneFootprintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYOneFootprintView.h; sourceTree = "<group>"; };
 		2C91B66B1D9160D20091EC79 /* ZYOneFootprintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYOneFootprintView.m; sourceTree = "<group>"; };
+		2C920D8F1DB0DEA10038C3E1 /* ZYShortVideoPublish.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYShortVideoPublish.h; sourceTree = "<group>"; };
+		2C920D901DB0DEA10038C3E1 /* ZYShortVideoPublish.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYShortVideoPublish.m; sourceTree = "<group>"; };
+		2C920D941DB0E0510038C3E1 /* PGIndexBannerSubiew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PGIndexBannerSubiew.h; sourceTree = "<group>"; };
+		2C920D951DB0E0510038C3E1 /* PGIndexBannerSubiew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGIndexBannerSubiew.m; sourceTree = "<group>"; };
+		2C920D971DB0E0520038C3E1 /* NewPagedFlowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewPagedFlowView.h; sourceTree = "<group>"; };
+		2C920D981DB0E0520038C3E1 /* NewPagedFlowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewPagedFlowView.m; sourceTree = "<group>"; };
 		2C9AA6E01D3D2BAF0030A5B4 /* ZYCustomIconView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomIconView.h; sourceTree = "<group>"; };
 		2C9AA6E11D3D2BAF0030A5B4 /* ZYCustomIconView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomIconView.m; sourceTree = "<group>"; };
 		2C9C74051D9A170300D15DEF /* ZYUserHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYUserHeadView.h; sourceTree = "<group>"; };
@@ -3405,6 +3414,33 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		2C920D921DB0E03C0038C3E1 /* ZYVideoThumbs */ = {
+			isa = PBXGroup;
+			children = (
+				2C920D931DB0E0510038C3E1 /* CustomeView */,
+				2C920D961DB0E0510038C3E1 /* NewPagedFlowView */,
+			);
+			path = ZYVideoThumbs;
+			sourceTree = "<group>";
+		};
+		2C920D931DB0E0510038C3E1 /* CustomeView */ = {
+			isa = PBXGroup;
+			children = (
+				2C920D941DB0E0510038C3E1 /* PGIndexBannerSubiew.h */,
+				2C920D951DB0E0510038C3E1 /* PGIndexBannerSubiew.m */,
+			);
+			path = CustomeView;
+			sourceTree = "<group>";
+		};
+		2C920D961DB0E0510038C3E1 /* NewPagedFlowView */ = {
+			isa = PBXGroup;
+			children = (
+				2C920D971DB0E0520038C3E1 /* NewPagedFlowView.h */,
+				2C920D981DB0E0520038C3E1 /* NewPagedFlowView.m */,
+			);
+			path = NewPagedFlowView;
+			sourceTree = "<group>";
+		};
 		2CAD97AA1D1D3CAB000E4ED8 /* CommentUser(评价) */ = {
 			isa = PBXGroup;
 			children = (
@@ -4150,6 +4186,8 @@
 				2C8E9AB71D8F942100CA35DE /* ZYFootprintListController.m */,
 				2C91B6671D9155140091EC79 /* ZYCommentFootprintController.h */,
 				2C91B6681D9155140091EC79 /* ZYCommentFootprintController.m */,
+				2C920D8F1DB0DEA10038C3E1 /* ZYShortVideoPublish.h */,
+				2C920D901DB0DEA10038C3E1 /* ZYShortVideoPublish.m */,
 				2CD1E6261DA799D8008E4203 /* ZYPublishQupaiVideo.h */,
 				2CD1E6271DA799D8008E4203 /* ZYPublishQupaiVideo.m */,
 			);
@@ -4906,6 +4944,7 @@
 				39911AD71D5044A8007DF44B /* ZYZCTool.m */,
 				39911AD81D5044A8007DF44B /* ZYZCTool+getLocalTime.h */,
 				39911AD91D5044A8007DF44B /* ZYZCTool+getLocalTime.m */,
+				2C920D921DB0E03C0038C3E1 /* ZYVideoThumbs */,
 				2CD1E6121DA790A5008E4203 /* ZYVideoThumbImages */,
 				2CD1E60C1DA78A5D008E4203 /* VideoService */,
 				2CF3050D1D3DC6EE008296EC /* JudgeAuthority */,
@@ -5567,6 +5606,7 @@
 				2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */,
 				2C1B60F51D6D3CF900E3C25B /* MovieView.m in Sources */,
 				2C1B60CE1D6D3CF900E3C25B /* FZCReplaceDataKeys.m in Sources */,
+				2C920D911DB0DEA10038C3E1 /* ZYShortVideoPublish.m in Sources */,
 				2CDE66BF1DA650690066F49D /* QPPickerLibraray.m in Sources */,
 				2C901DC31C89788C004B844B /* ViewController.m in Sources */,
 				2CD6B9101DA9E02C00B7E60A /* ZCFilterTableViewCell.m in Sources */,
@@ -5650,6 +5690,7 @@
 				2CE617711D657DD100962163 /* HUImagePickerCell.m in Sources */,
 				2C8B91711CE71552004FDCB7 /* WXApiShare.m in Sources */,
 				2C8D46111D1A269200C47893 /* ZYZCCustomTextField.m in Sources */,
+				2C920D991DB0E0520038C3E1 /* PGIndexBannerSubiew.m in Sources */,
 				04A99D2A1CC0926400C6F5F0 /* ZYZCAccountTool.m in Sources */,
 				0432ADA51D0966F9005D789E /* UIView+ST.m in Sources */,
 				3941CD6B1D41FCB7009224BC /* ComplainTypeController.m in Sources */,
@@ -5888,6 +5929,7 @@
 				3941CD641D41FC60009224BC /* ChatBlackListVC.m in Sources */,
 				2CFC7D091DA648B900A28D74 /* QPImage.m in Sources */,
 				2C3292F11D922D890095F60E /* ZYFootprintCommentTable.m in Sources */,
+				2C920D9A1DB0E0520038C3E1 /* NewPagedFlowView.m in Sources */,
 				2C1B61011D6D3CF900E3C25B /* ChooseTimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
