@@ -381,10 +381,19 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     pack.rotateArray = [self.video AllPointsRotate];
     
     //保存第一个视频方向
-    if([pack.rotateArray firstObject])
+    NSNumber *rotate=[pack.rotateArray firstObject];
+    if(rotate)
     {
-        NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-        [user setObject:[pack.rotateArray firstObject] forKey:QuPai_Video_Rotate];
+        //横屏
+        if ([rotate isEqual:@1]||[rotate isEqual:@3]) {
+            [QupaiSDK shared].zy_VideoSize=ZY_VideoSize16To9;
+        }
+        //竖屏
+        else if ([rotate isEqual:@2]||[rotate isEqual:@4])
+        {
+            [QupaiSDK shared].zy_VideoSize=ZY_VideoSize9To16;
+        }
+        
     }
     
     if (self.video.preferFilterOrMV) {
@@ -645,20 +654,28 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 #pragma mark - UIActionSheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    
     if (buttonIndex==0) {
+        [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoPublish;
+    }
+    else if (buttonIndex==1)
+    {
+        [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoSaveLocal;
+    }
+    else if(buttonIndex==2)
+    {
+        [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoCancle;
+    }
+    
+    if (buttonIndex==0||buttonIndex==1) {
         [self.qpEffectView.activityIndicator startAnimating];
         self.qpEffectView.buttonFinish.hidden = YES;
         self.qpEffectView.buttonClose.enabled = NO;
         self.qpEffectView.viewBottom.userInteractionEnabled = NO;
-        
         _shouldSave = YES;
         [self destroyMovie];
         [[QPEventManager shared] event:QPEventEditNext];
         _startEncodingTime = [[NSDate date] timeIntervalSince1970];
-    }
-    else if(buttonIndex==1)
-    {
-        
     }
 }
 

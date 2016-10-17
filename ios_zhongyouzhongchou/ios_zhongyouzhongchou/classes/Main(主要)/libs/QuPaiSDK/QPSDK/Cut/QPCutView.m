@@ -25,7 +25,7 @@
 
 - (void)setupSubViews {
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor blackColor];
     
     [self setupTopViews];
     
@@ -39,7 +39,7 @@
 - (void)setupTopViews {
     
     self.viewTop = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, ScreenWidth, kTopViewHeight))];
-    self.viewTop.backgroundColor = [UIColor whiteColor];
+    self.viewTop.backgroundColor = [UIColor clearColor];
     [self addSubview:self.viewTop];
     
     self.buttonBack = [UIButton buttonWithType:(UIButtonTypeCustom)];
@@ -49,18 +49,19 @@
     [self.viewTop addSubview:self.buttonBack];
     
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:self.viewTop.bounds];
-    nameLabel.textColor = [UIColor blackColor];
+    nameLabel.textColor = [UIColor whiteColor];
     nameLabel.textAlignment = NSTextAlignmentCenter;
     nameLabel.text = @"裁剪";
+    nameLabel.font = [UIFont boldSystemFontOfSize:18.f];
     [self.viewTop addSubview:nameLabel];
     
     self.buttonNext = [UIButton buttonWithType:(UIButtonTypeCustom)];
-    self.buttonNext.frame = CGRectMake(CGRectGetWidth(self.viewTop.frame) - 4 - 80, 16, 80, kTopViewHeight - 16 - 15);
+    self.buttonNext.frame = CGRectMake(CGRectGetWidth(self.viewTop.frame)  - 60, 0, 60, kTopViewHeight);
     [self.buttonNext setImage:[QPImage imageNamed:@"record_ico_next.png"] forState:(UIControlStateNormal)];
     [self.buttonNext addTarget:self action:@selector(buttonAction:) forControlEvents:(UIControlEventTouchUpInside)];
     [self.viewTop addSubview:self.buttonNext];
     
-    self.activityNext = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleGray)];
+    self.activityNext = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:(UIActivityIndicatorViewStyleWhite)];
     self.activityNext.frame = CGRectMake(CGRectGetWidth(self.viewTop.frame) - 16 - 37, 9, 37, kTopViewHeight - 9 - 9);
     [self.viewTop addSubview:self.activityNext];
 }
@@ -113,7 +114,7 @@
     [self addSubview:self.viewBottom];
     
     self.viewCutInfo = [[UIView alloc] initWithFrame:(CGRectMake(0, 0, ScreenWidth, 45))];
-    self.viewCutInfo.backgroundColor = [UIColor whiteColor];
+    self.viewCutInfo.backgroundColor = [UIColor clearColor];
     [self.viewBottom addSubview:self.viewCutInfo];
     
     self.labelCutLeft = [[UILabel alloc] initWithFrame:(CGRectMake(10, 0, 48, CGRectGetHeight(self.viewCutInfo.frame)))];
@@ -142,7 +143,7 @@
 - (void)setupBottomOtherViews {
     
     self.viewProgress = [[UIView alloc] initWithFrame:(CGRectMake(0, CGRectGetMaxY(self.viewCutInfo.frame), ScreenWidth, CGRectGetHeight(self.viewBottom.frame) - CGRectGetMaxY(self.viewCutInfo.frame) - 69))];
-    self.viewProgress.backgroundColor = [UIColor whiteColor];
+    self.viewProgress.backgroundColor = [UIColor clearColor];
     [self.viewBottom addSubview:self.viewProgress];
     
     [self setupCollectionView];
@@ -166,7 +167,7 @@
     
     self.collectionView = [[UICollectionView alloc]  initWithFrame:(CGRectMake(0, CGRectGetMaxY(self.viewCutInfo.frame) + 3, ScreenWidth, 40)) collectionViewLayout:layout];
     self.collectionView.showsHorizontalScrollIndicator = NO;
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     [self.viewBottom addSubview:self.collectionView];
 }
 

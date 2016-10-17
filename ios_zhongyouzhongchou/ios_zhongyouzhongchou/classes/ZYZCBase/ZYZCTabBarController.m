@@ -32,9 +32,7 @@
 #import <RongIMKit/RongIMKit.h>
 #import "ZYPublishFootprintController.h"
 
-#import "HJCarouselViewLayout.h"
-#import "ZYPublishQupaiVideo.h"
-
+#import "ZYShortVideoPublish.h"
 
 #define kSaveVideoAlertTag    100
 
@@ -277,39 +275,49 @@
             UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
         }
         WEAKSELF;
-        [self dismissViewControllerAnimated:YES completion:^
-        {
-            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-            publishFootprintController.footprintType=Footprint_VideoType;
-            publishFootprintController.videoPath=weakSelf.videoPath;
-            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
-            [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
-        }];
-        
-        return;
+//        [self dismissViewControllerAnimated:YES completion:^
+//        {
+//            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
+//            publishFootprintController.footprintType=Footprint_VideoType;
+//            publishFootprintController.videoPath=weakSelf.videoPath;
+//            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
+//            [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
+//        }];
+//        
+//        return;
        
         [self dismissViewControllerAnimated:YES completion:^{
-            
-        HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-        layout.itemSize = CGSizeMake(150, 150);
-        NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-        NSNumber *rotate=[user objectForKey:QuPai_Video_Rotate];
-        CGFloat height=150.0;
-        //横屏
-        if ([rotate isEqual:@1]||[rotate isEqual:@3]) {
-            
-            layout.itemSize = CGSizeMake(height*16.0/9.0, height);
-        }
-        //竖屏
-        else if ([rotate isEqual:@2]||[rotate isEqual:@4])
-        {
-            layout.itemSize = CGSizeMake(height*9.0/16.0, height);
-        }
+            if ([QupaiSDK shared].zy_VideoHandleType==ZY_QupaiVideoPublish) {
+                ZYShortVideoPublish *videoPublish=[ZYShortVideoPublish new];
+                videoPublish.videoPath=videoPath;
+                
+                if ([QupaiSDK shared].zy_VideoSize==ZY_VideoSize16To9) {
+                    videoPublish.img_rate=16.0/9.0;
+                }
+                else if([QupaiSDK shared].zy_VideoSize==ZY_VideoSize9To16)
+                {
+                    videoPublish.img_rate=9.0/16.0;
+                }
 
-        ZYPublishQupaiVideo *publishQupaiVideo=[[ZYPublishQupaiVideo alloc]initWithCollectionViewLayout:layout];
-        publishQupaiVideo.videoPath=videoPath;
-        [weakSelf presentViewController:publishQupaiVideo animated:YES completion:nil];
+                [weakSelf presentViewController:videoPublish animated:YES completion:nil];
+                
+
+//                HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
+//                layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
+//                layout.itemSize = CGSizeMake(150, 150);
+//                CGFloat height=150.0;
+//                if ([QupaiSDK shared].zy_VideoSize==ZY_VideoSize16To9) {
+//                     layout.itemSize = CGSizeMake(height*16.0/9.0, height);
+//                }
+//                else if([QupaiSDK shared].zy_VideoSize==ZY_VideoSize9To16)
+//                {
+//                    layout.itemSize = CGSizeMake(height*9.0/16.0, height);
+//                }
+//
+//                ZYPublishQupaiVideo *publishQupaiVideo=[[ZYPublishQupaiVideo alloc]initWithCollectionViewLayout:layout];
+//                publishQupaiVideo.videoPath=videoPath;
+//                [weakSelf presentViewController:publishQupaiVideo animated:YES completion:nil];
+            }
         }];
     }
 }

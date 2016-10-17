@@ -47,6 +47,8 @@ static QupaiSDK *_qupaiSDK = nil;
         _tintColor=[UIColor ZYZC_MainColor];
         _bottomPanelHeight = 100;
         _cameraPosition = QupaiSDKCameraPositionBack;
+        _zy_VideoHandleType=ZY_QupaiVideoCancle;
+        _zy_VideoSize=ZY_VideoSize9To16;
         _qupaiSDK = self;
         return self;
     }
