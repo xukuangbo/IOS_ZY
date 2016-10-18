@@ -21,7 +21,7 @@
 /**
  *  刚进app的时候将版本号置为0
  */
-+ (NSNumber *)judgeIfHaveVersion;
+//+ (NSNumber *)judgeIfHaveVersion;
 
 /**
  *  退出app的时候移除
