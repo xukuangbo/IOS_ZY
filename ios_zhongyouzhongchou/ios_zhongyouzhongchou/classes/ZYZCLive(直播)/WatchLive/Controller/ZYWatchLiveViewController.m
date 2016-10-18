@@ -142,6 +142,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if (self) {
         self.liveModel = liveModel;
         _targetId = liveModel.chatRoomId;
+        self.liveModel.pullUrl = @"http://play.lss.qupai.me/zhongyoulive/zhongyoulive-20GGU.flv?auth_key=1476777600-0-2156-aaf1f1d4e0a3fe79bc7a1de83aded3b9";
     }
     return self;
 }
@@ -378,15 +379,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         make.height.equalTo(@40);
     }];
     
-    [self.watchLiveView.flowerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.watchLiveView.closeLiveButton).offset(-50);
-        make.bottom.equalTo(self.view).offset(-15);
-        make.width.equalTo(@40);
-        make.height.equalTo(@40);
-    }];
     
     [self.watchLiveView.shareBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.watchLiveView.flowerBtn).offset(-50);
+        make.right.equalTo(self.watchLiveView.closeLiveButton).offset(-50);
         make.bottom.equalTo(self.view).offset(-15);
         make.width.equalTo(@40);
         make.height.equalTo(@40);
@@ -397,7 +392,22 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         make.bottom.equalTo(self.view).offset(-15);
         make.width.equalTo(@40);
         make.height.equalTo(@40);
+
     }];
+    
+    [self.watchLiveView.flowerBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.right.equalTo(self.watchLiveView.closeLiveButton).offset(-50);
+//        make.bottom.equalTo(self.view).offset(-15);
+//        make.width.equalTo(@40);
+//        make.height.equalTo(@40);
+        make.right.equalTo(self.watchLiveView.massageBtn).offset(-50);
+        make.bottom.equalTo(self.view).offset(-15);
+        make.width.equalTo(@40);
+        make.height.equalTo(@40);
+
+        
+    }];
+    
     [self.portraitsCollectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(150);
         make.top.equalTo(self.view).offset(30);
@@ -561,7 +571,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self removeMovieNotificationObservers];
     if ([self.player isPlaying]) {
         [self.player pause];
-        [self.player stop];
     }
     [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
                                         success:^{
@@ -577,7 +586,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self removeMovieNotificationObservers];
     if ([self.player isPlaying]) {
         [self.player pause];
-        [self.player stop];
     }
     [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
                                             success:^{

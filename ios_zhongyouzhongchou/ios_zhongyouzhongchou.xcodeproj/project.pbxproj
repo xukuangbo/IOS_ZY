@@ -106,6 +106,7 @@
 		051666BC1D9504BF001ED976 /* ZYLiveViewController+EVENT.m in Sources */ = {isa = PBXBuildFile; fileRef = 051666BB1D9504BF001ED976 /* ZYLiveViewController+EVENT.m */; };
 		05222EEA1D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05222EE91D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
+		055F68491DB619F4005C4345 /* ZYLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055F68481DB619F4005C4345 /* ZYLiveViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
 		056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */; };
 		059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792B1DAE068800371302 /* ZYCGContextView.m */; };
@@ -819,6 +820,8 @@
 		05222EE91D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZYWatchLiveViewController+LivePersonView.m"; sourceTree = "<group>"; };
 		05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveViewController.h; sourceTree = "<group>"; };
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
+		055F68471DB619F4005C4345 /* ZYLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveViewController.h; sourceTree = "<group>"; };
+		055F68481DB619F4005C4345 /* ZYLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveViewController.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
 		056046C41D6DBDD5006906FD /* RCDLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLive.m; sourceTree = "<group>"; };
 		056FB5C61D9A51B600BBEF03 /* UINavigationBar+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Extension.h"; sourceTree = "<group>"; };
@@ -2554,6 +2557,15 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		055F68461DB6194E005C4345 /* Live(直播分为现场和直播) */ = {
+			isa = PBXGroup;
+			children = (
+				055F68471DB619F4005C4345 /* ZYLiveViewController.h */,
+				055F68481DB619F4005C4345 /* ZYLiveViewController.m */,
+			);
+			path = "Live(直播分为现场和直播)";
+			sourceTree = "<group>";
+		};
 		05D887A31DACC1C40093910D /* ZYGuideView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2585,6 +2597,7 @@
 		2C0101C11D5DE5EF00D6470D /* ZYZCLive(直播) */ = {
 			isa = PBXGroup;
 			children = (
+				055F68461DB6194E005C4345 /* Live(直播分为现场和直播) */,
 				05274EE21D66E663002C10A1 /* WatchLive */,
 				394D53641D62D65900E7F595 /* ShowLiveList(直播列表) */,
 				394D53571D62D64500E7F595 /* DoLive(做直播) */,
@@ -5703,6 +5716,7 @@
 				04F836411CD72C3300140980 /* SDBallProgressView.m in Sources */,
 				04518B4C1CE419F0001921D0 /* MineSetUpViewController.m in Sources */,
 				395B5A951D24D6AD0084264C /* LoginJudgeController.m in Sources */,
+				055F68491DB619F4005C4345 /* ZYLiveViewController.m in Sources */,
 				04D9A4A81D06B9FC00753392 /* MineSaveContactInfoVC.m in Sources */,
 				040651251CC62FC7003FD539 /* SDCollectionViewCell.m in Sources */,
 				392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */,

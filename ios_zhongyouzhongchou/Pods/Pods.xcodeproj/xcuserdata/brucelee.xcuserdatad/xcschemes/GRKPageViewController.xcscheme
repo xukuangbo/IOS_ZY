@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'DE4E3299D67F9A64309EC528'
-               BlueprintName = 'SDWebImage'
+               BlueprintIdentifier = 'A9EDC746B35C23808093993E'
+               BlueprintName = 'GRKPageViewController'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libSDWebImage.a'>
+               BuildableName = 'libGRKPageViewController.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
