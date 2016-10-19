@@ -43,11 +43,11 @@
 - (void)onResp:(BaseResp *)resp {
     
     if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
-//        if (_delegate
-//            && [_delegate respondsToSelector:@selector(managerDidRecvMessageResponse:)]) {
-//            SendMessageToWXResp *messageResp = (SendMessageToWXResp *)resp;
-//            [_delegate managerDidRecvMessageResponse:messageResp];
-//        }
+        if (_delegate
+            && [_delegate respondsToSelector:@selector(managerDidRecvMessageResponse:)]) {
+            SendMessageToWXResp *messageResp = (SendMessageToWXResp *)resp;
+            [_delegate managerDidRecvMessageResponse:messageResp];
+        }
     } else if ([resp isKindOfClass:[SendAuthResp class]]) {
         if (_delegate
             && [_delegate respondsToSelector:@selector(managerDidRecvAuthResponse:)]) {
@@ -107,17 +107,13 @@
 #pragma mark --- 微信支付
 -(void )payForWeChat:(NSDictionary *)dict payUrl:(NSString *)payUrl withSuccessBolck:(GetOrderSuccess)getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail
 {
-//        post
-//        {
-//        openid: string  // 微信用户openid
-//        ip: string // 用户ip
-//        productId: number   // 众筹项目id
-//        style1: number      // 支持1元 不传为未选择
-//        style2: number      // 支持任意金额的钱数 不传为未选择
-//        style3: number      // 回报支持一钱数   不传为未选择
-//        style4: number       // 一起去支付的钱数   不传为未选择
-//        style5: number       // 回报支持二钱数   不传为未选择
-//        }
+
+    //如果没有安装微信/不能支持微信API，则提示
+    if (![WXApi isWXAppInstalled]||![WXApi isWXAppSupportApi]) {
+        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"支持失败" message:@"未安装微信或微信版本过低" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+        return;
+    }
     
     ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
     NSMutableDictionary *params=[NSMutableDictionary dictionaryWithDictionary:dict];
@@ -172,6 +168,57 @@
         [self showSupportFailAlertWithTitle:FAIL_NETWORK];
     }];
 }
+
+#pragma mark --- 微信分享
+- (void) shareScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(NSString *)thumbImage andWebUrl:(NSString *)webUrl
+{
+    WXMediaMessage *message=[WXMediaMessage message];
+    message.title=title;
+    message.description=description;
+    //图片不能大于32k
+    if (!thumbImage) {
+        [message setThumbImage:[UIImage imageNamed:@"Share_iocn"]];
+    }
+    else{
+        if ([thumbImage hasSuffix:@"/0"]) {
+            thumbImage=[thumbImage stringByReplacingCharactersInRange:NSMakeRange(thumbImage.length-2, 2) withString:@"/132"];
+        }
+        
+        NSData *imgData=[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbImage]];
+        UIImage *image=[UIImage imageWithData:imgData];
+#warning 需做压缩处理
+        [message setThumbImage:image];
+    }
+    WXWebpageObject *webpageObject=[WXWebpageObject object];
+    webpageObject.webpageUrl=webUrl;
+    message.mediaObject=webpageObject;
+    SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
+    req.bText=NO;
+    req.message=message;
+    req.scene=scene;
+    [WXApi sendReq:req];
+}
+
+#pragma mark ---分享视频
+- (void)shareToWeChatWithScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(UIImage *)thumbImage andVideoUrl:(NSString *)videoUrl
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = title;
+    message.description = description;
+    [message setThumbImage:[UIImage imageNamed:@"Share_iocn"]];
+    WXVideoObject *videoObject = [WXVideoObject object];
+    videoObject.videoUrl = videoUrl;
+    videoObject.videoLowBandUrl = videoObject.videoUrl;
+    
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+    req.bText=NO;
+    req.message = message;
+    req.scene =scene;
+    [WXApi sendReq:req];
+}
+
+
+
 
 #pragma mark --- 生成订单失败提示
 -(void)showSupportFailAlertWithTitle:(NSString *)title

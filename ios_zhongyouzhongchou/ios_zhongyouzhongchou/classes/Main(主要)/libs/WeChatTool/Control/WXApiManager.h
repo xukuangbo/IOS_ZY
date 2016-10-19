@@ -46,7 +46,18 @@ typedef void(^GetOrderFail)();
  *  @param dict 支付金额（字典形式）
  */
 
--(void )payForWeChat:(NSDictionary *)dict payUrl:(NSString *)payUrl withSuccessBolck:(GetOrderSuccess) getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail;
+- (void) payForWeChat:(NSDictionary *)dict payUrl:(NSString *)payUrl withSuccessBolck:(GetOrderSuccess) getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail;
+
+/**
+ *  分享网页
+ *  @param thumbImage 图片网址
+ */
+- (void) shareScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(NSString *)thumbImage andWebUrl:(NSString *)webUrl;
+
+/**
+ *  分享视频
+ */
+- (void)shareToWeChatWithScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(UIImage *)thumbImage andVideoUrl:(NSString *)videoUrl;
 
 
 

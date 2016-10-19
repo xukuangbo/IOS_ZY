@@ -478,17 +478,6 @@
     return [emailTest evaluateWithObject:email];
 }
 
-#pragma mark --- 压缩image
-+(UIImage *)compressImage:(UIImage *)image scale:(CGFloat )scale
-{
-    if (!scale) {
-        scale = 0.1;
-    }
-    NSData *imgData=UIImageJPEGRepresentation(image, scale);
-    UIImage *newImage=[UIImage imageWithData:imgData];
-    return newImage;
-}
-
 #pragma 获取当前网络状态
 + (int)getCurrentNetworkStatus
 {

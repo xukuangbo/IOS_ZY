@@ -7,10 +7,14 @@
 //
 
 #import "WXApiShare.h"
+#import "FCIMChatGetImage.h"
+
+#define kcMaxThumbnailSize 32*1024
 
 @implementation WXApiShare
 
-+(void)shareScene:(BOOL )zoneScene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(NSString *)thumbImage andWebUrl:(NSString *)webUrl
+#pragma mark --- 分享网址
++(void)shareScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(NSString *)thumbImage andWebUrl:(NSString *)webUrl
 {
     WXMediaMessage *message=[WXMediaMessage message];
     message.title=title;
@@ -24,7 +28,7 @@
         SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
         req.bText=NO;
         req.message=message;
-        req.scene=zoneScene?WXSceneTimeline:WXSceneSession;
+        req.scene=scene;
         [WXApi sendReq:req];
     }
     else{
@@ -42,22 +46,8 @@
         SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
         req.bText=NO;
         req.message=message;
-        req.scene=zoneScene?WXSceneTimeline:WXSceneSession;
+        req.scene=scene;
         [WXApi sendReq:req];
-
-//        UIImageView *iconImg=[[UIImageView alloc]init];
-//        [iconImg sd_setImageWithURL:[NSURL URLWithString:thumbImage] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-////            [message setThumbData:[self compressImage:image]];
-//            [message setThumbImage:[self compressImage:image]];
-//            WXWebpageObject *webpageObject=[WXWebpageObject object];
-//            webpageObject.webpageUrl=webUrl;
-//            message.mediaObject=webpageObject;
-//            SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
-//            req.bText=NO;
-//            req.message=message;
-//            req.scene=zoneScene?WXSceneTimeline:WXSceneSession;
-//            [WXApi sendReq:req];
-//        }];
     }
 }
 
@@ -77,6 +67,55 @@
     else
     {
         return  [UIImage imageWithData:imgData];
+    }
+}
+
+#pragma mark ---分享视频
++(void)shareToWeChatWithScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(UIImage *)thumbImage andVideoUrl:(NSString *)videoUrl
+{
+    WXMediaMessage *message = [WXMediaMessage message];
+    message.title = title;
+    message.description = description;
+    [message setThumbImage:[UIImage imageNamed:@"Share_iocn"]];
+    WXVideoObject *videoObject = [WXVideoObject object];
+    videoObject.videoUrl = videoUrl;
+    videoObject.videoLowBandUrl = videoObject.videoUrl;
+    
+    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+    req.bText=NO;
+    req.message = message;
+    req.scene =scene;
+    [WXApi sendReq:req];
+}
+
+
+#pragma mark --- 压缩image
++ (UIImage *)compressImageUnder32K:(UIImage *)image
+{
+    if(!image)
+    {
+        return nil;
+    }
+    NSData *imgData=UIImageJPEGRepresentation(image, 1.0);
+    DDLog(@"原图大小:%zd",imgData.length);
+    //获取图片正确方向
+    UIImage *rightImage = [FCIMChatGetImage rotateScreenImage:image];
+    
+    if (imgData.length>kcMaxThumbnailSize) {
+        CGSize asize=CGSizeMake(rightImage.size.width*0.5, rightImage.size.height*0.5);
+        UIGraphicsBeginImageContext(asize);
+        [image drawInRect:CGRectMake(0, 0, asize.width, asize.height)];
+        UIImage *newimage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+
+        NSData * imageData = UIImageJPEGRepresentation(newimage,0.5);
+        UIImage *compressImage = [UIImage imageWithData:imageData];
+        DDLog(@"压缩后图片大小:%ld",imageData.length) ;
+        return compressImage;
+    }
+    else
+    {
+        return image;
     }
 }
 

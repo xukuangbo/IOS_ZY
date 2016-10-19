@@ -428,7 +428,8 @@
             SelectImageViewController *selectImgVC=[[SelectImageViewController alloc]initWithImage:[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]] WHScale:(20 / 9.0)];
             selectImgVC.imageBlock=^(UIImage *img)
             {
-                weakSelf.faceImg.image=[ZYZCTool compressImage:img scale:0.1];
+#warning 需要 压缩处理
+                weakSelf.faceImg.image=img ;
             };
             [weakSelf.navigationController pushViewController:selectImgVC animated:YES];
         }];

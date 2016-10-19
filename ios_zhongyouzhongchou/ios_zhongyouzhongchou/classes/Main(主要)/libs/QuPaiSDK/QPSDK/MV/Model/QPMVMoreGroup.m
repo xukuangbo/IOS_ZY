@@ -32,7 +32,8 @@
 {
     self = [super init];
     if (self) {
-        _mvs = (NSMutableArray<QPEffectMV *> *)[NSMutableArray arrayWithCapacity:4];
+//        _mvs = (NSMutableArray<QPEffectMV *> *)[NSMutableArray arrayWithCapacity:4];
+         _mvs = (NSMutableArray<QPEffectMV *> *)[NSMutableArray array];
         return self;
     }
     return nil;

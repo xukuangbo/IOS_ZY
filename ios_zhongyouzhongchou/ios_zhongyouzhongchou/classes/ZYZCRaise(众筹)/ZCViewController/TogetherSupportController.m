@@ -271,12 +271,6 @@
 #pragma mark --- 生成订单
 -(void)getPayOrder
 {
-    //如果没有安装微信/不能支持微信API，则提示
-    if (![WXApi isWXAppInstalled]||![WXApi isWXAppSupportApi]) {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"支持失败" message:@"未安装微信或微信版本过低" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        return;
-    }
 
     WXApiManager *wxManager=[WXApiManager sharedManager];
     __weak typeof (&*self)weakSelf=self;

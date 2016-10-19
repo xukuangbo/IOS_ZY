@@ -32,6 +32,8 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 @property (nonatomic, assign) QPEffectTab selectTab;
 @property (nonatomic, strong) QPEffectView *qpEffectView;
 @property (nonatomic, strong) QPVideoWatermarkGenerator *generator;
+
+@property (nonatomic, assign) QPMediaPackAudioMixType audioMixType;
 @end
 
 @implementation QPEffectViewController{
@@ -74,6 +76,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     
     if (!self.qpEffectView.gpuImageView) {
         CGRect renderFrame = self.qpEffectView.viewCenter.bounds;
+
         UIView *renderView = [QPMediaRender createRenderViewWithFame:renderFrame];
         [self.qpEffectView.viewCenter addSubview:renderView];
         self.qpEffectView.gpuImageView = renderView;
@@ -260,9 +263,6 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     cell.nameLabel.textColor=[UIColor whiteColor];
     cell.iconImageView.image = [QPImage imageNamed:effect.icon];
     cell.contentView.frame = cell.bounds;
-    if (self.video.filterID == effect.eid||self.video.mvID == effect.eid||self.video.musicID==effect.eid) {
-        cell.selected = YES;
-    }
     return cell;
 }
 
@@ -276,26 +276,32 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeMV];
         if ([effect isMore]) {
             [self presentMVMoreViewController];
-        }else {
+        }else if([effect isEmpty]){
+            self.audioMixType = QPMediaPackAudioMixTypeOrigin;
             self.video.mvID = effect.eid;
             self.video.preferFilterOrMV = NO;
+        }else {
+            self.audioMixType = QPMediaPackAudioMixTypeMVMusic;
+            self.video.mvID = effect.eid;
+            self.video.preferFilterOrMV = NO;
+            [self checkMVResourceExists];
         }
     }else{
-        QPEffectMusic *lastMusic = (QPEffectMusic *)[[QPEffectManager sharedManager] effectByID:self.video.musicID type:QPEffectTypeMusic];
         effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeMusic];
         if ([effect isMore]) {
             if ([QupaiSDK.shared.delegte respondsToSelector:@selector(qupaiSDKShowMoreMusicView:viewController:)]) {
                 _viewIsShow = NO;
                 [self destroyMovie];
-                [QupaiSDK.shared.delegte qupaiSDKShowMoreMusicView:QupaiSDK.shared viewController:self];
+                [QupaiSDK.shared.delegte qupaiSDKShowMoreMusicView:(id<QupaiSDKDelegate>)QupaiSDK.shared viewController:self];
             }
-        }else {
-            self.video.musicID = effect.eid;
-        }
-        if ([effect isEmpty]) {
+        }else if([effect isEmpty]){
             self.video.mixVolume = 1.0;
-        }else if([lastMusic isEmpty]){
+            self.video.musicID = effect.eid;
+            self.audioMixType = QPMediaPackAudioMixTypeOrigin;
+        }else {
             self.video.mixVolume = 0.5;
+            self.video.musicID = effect.eid;
+            self.audioMixType = QPMediaPackAudioMixTypeMusic;
         }
     }
     
@@ -378,8 +384,8 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     pack.musicPath = effectMusic.musicName;
     pack.mixVolume = self.video.mixVolume;
     pack.videoSize = self.video.size;
+    pack.audioMixType = self.audioMixType;
     pack.rotateArray = [self.video AllPointsRotate];
-    
     //保存第一个视频方向
     NSNumber *rotate=[pack.rotateArray firstObject];
     if(rotate)
@@ -395,7 +401,6 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         }
         
     }
-    
     if (self.video.preferFilterOrMV) {
         if (effectFilter.resourceLocalUrl) {
             pack.effectPath = effectFilter.resourceLocalUrl;
@@ -403,6 +408,10 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     }else {
         if(effectMV.resourceLocalUrl) {
             pack.effectPath = [effectMV resourceLocalRatioPathWithRatio:[self mvRatioWithCurrentVideo]];
+            BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:pack.effectPath];
+            if (!exists) {
+                pack.effectPath = nil;
+            }
         }
     }
     return pack;
@@ -425,6 +434,29 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         }
     }
     return (QPEffectMVRatio)videoAspect;
+}
+
+- (void)checkMVResourceExists {
+    QPEffectMV *effectMV = (QPEffectMV *)[[QPEffectManager sharedManager] effectByID:self.video.mvID type:QPEffectTypeMV];
+    QPEffectMVRatio mvRatio=[self mvRatioWithCurrentVideo];
+    NSString *path = [effectMV resourceLocalRatioPathWithRatio:mvRatio];
+    BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path];
+    if (!exists) {
+        NSString *alertStr=nil;
+        if (mvRatio==QPEffectMVRatio9To16) {
+            alertStr=@"对不起，您所选择的MV只支持横屏";
+        }
+        else if (mvRatio==QPEffectMVRatio16To9)
+        {
+            alertStr=@"对不起，您所选择的MV只支持竖屏";
+        }
+        else
+        {
+            alertStr=@"对不起，您所选择的MV不支持本视频";
+        }
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertStr message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }
 }
 
 #pragma mark - Direcot System
@@ -516,12 +548,8 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     });
 }
 
-- (void)directorPlayTime:(CGFloat)time format:(NSString *)format
-{
-    //    dispatch_async(dispatch_get_main_queue(), ^{
-    //        _labelVideoTime.hidden = NO;
-    //       _labelVideoTime.text = format;
-    //    });
+- (void)directorPlayTime:(CGFloat)time format:(NSString *)format {
+
 }
 
 - (void)processVideoLength:(NSURL *)url
@@ -616,9 +644,8 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 }
 
 - (void)onClickButtonFinishAction:(UIButton *)sender {
-    
     UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择下一步操作" delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:@"发布足迹"
-    otherButtonTitles:@"保存本地", nil];
+        otherButtonTitles:@"保存本地", nil];
     [actionSheet showInView:self.view];
 }
 
@@ -678,7 +705,6 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         _startEncodingTime = [[NSDate date] timeIntervalSince1970];
     }
 }
-
 
 #pragma mark - more mv
 

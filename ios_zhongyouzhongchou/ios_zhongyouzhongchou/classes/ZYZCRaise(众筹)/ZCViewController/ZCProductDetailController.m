@@ -17,15 +17,13 @@
 
 #import "ZCCommentViewController.h"
 #import "MBProgressHUD+MJ.h"
-
-#import "WXApiShare.h"
-
 #import "ZYVoicePlayer.h"
 #import "NSDate+RMCalendarLogic.h"
 #import "NetWorkManager.h"
 #import "ZYZCDataBase.h"
 #import "ZCSpotVideoModel.h"
 #import "ZCListModel.h"
+#import "WXApiManager.h"
 @interface ZCProductDetailController ()<UIActionSheetDelegate>
 @property (nonatomic, strong) ZCProductDetailTableView *table;
 @property (nonatomic, strong) UIColor               *navColor;
@@ -313,7 +311,10 @@
     NSString *dest=destArr.count>1?destArr[1]:@"";
     
     UserModel *user=_detailModel.detailProductModel.user;
-    [WXApiShare shareScene:isFriendScene withTitle:_detailModel.detailProductModel.title andDesc:[NSString stringWithFormat:@"%@梦想去%@旅行,正在众游筹旅费，希望你能支持TA",user.realName?user.realName:user.userName,dest] andThumbImage:user.faceImg andWebUrl:url];
+    
+    
+    WXApiManager *wxManager=[WXApiManager sharedManager];
+    [wxManager shareScene:isFriendScene withTitle:_detailModel.detailProductModel.title andDesc:[NSString stringWithFormat:@"%@梦想去%@旅行,正在众游筹旅费，希望你能支持TA",user.realName?user.realName:user.userName,dest] andThumbImage:user.faceImg andWebUrl:url];
 }
 
 #pragma mark --- 推荐/取消推荐
@@ -354,14 +355,6 @@
 {
     //支付
     if (_bottomView.surePay) {
-        
-        //如果没有安装微信/不能支持微信API，则提示
-        if (![WXApi isWXAppInstalled]||![WXApi isWXAppSupportApi]) {
-            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"支持失败" message:@"未安装微信或微信版本过低" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-            [alert show];
-            return;
-        }
-        
         if (_bottomView.payMoneyBlock) {
             _bottomView.payMoneyBlock(_productId);
         }

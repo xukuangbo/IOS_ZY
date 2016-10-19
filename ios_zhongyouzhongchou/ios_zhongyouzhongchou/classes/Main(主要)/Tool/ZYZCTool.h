@@ -139,12 +139,6 @@
  *  邮箱判断
  */
 + (BOOL) validateEmail:(NSString *)email;
-
-/**
- *  压缩uiimage，scale为0~1
- */
-+(UIImage *)compressImage:(UIImage *)image scale:(CGFloat )scale;
-
 /**
  *  获取当前wangl状态
  *
