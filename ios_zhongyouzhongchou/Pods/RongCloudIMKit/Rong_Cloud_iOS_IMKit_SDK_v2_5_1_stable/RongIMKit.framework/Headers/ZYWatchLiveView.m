@@ -34,7 +34,7 @@
     [self addSubview:_feedBackBtn];
     
     _flowerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_flowerBtn setBackgroundImage:[UIImage imageNamed:@"giftIcon"] forState:UIControlStateNormal];
+    [_flowerBtn setBackgroundImage:[UIImage imageNamed:@"giftFlower"] forState:UIControlStateNormal];
     [self addSubview:_flowerBtn];
     
     _shareBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -54,7 +54,7 @@
     
     // //私信按钮端
     _massageBtn  = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_massageBtn setImage:[UIImage imageNamed:@"live-massage"] forState:UIControlStateNormal];
+    [_massageBtn setImage:[UIImage imageNamed:@"giftIcon"] forState:UIControlStateNormal];
     [self addSubview:_massageBtn];
     
 }

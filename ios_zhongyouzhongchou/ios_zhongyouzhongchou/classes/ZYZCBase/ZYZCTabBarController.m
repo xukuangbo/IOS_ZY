@@ -300,23 +300,6 @@
                 }
 
                 [weakSelf presentViewController:videoPublish animated:YES completion:nil];
-                
-
-//                HJCarouselViewLayout *layout = [[HJCarouselViewLayout alloc] initWithAnim:HJCarouselAnimLinear];
-//                layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-//                layout.itemSize = CGSizeMake(150, 150);
-//                CGFloat height=150.0;
-//                if ([QupaiSDK shared].zy_VideoSize==ZY_VideoSize16To9) {
-//                     layout.itemSize = CGSizeMake(height*16.0/9.0, height);
-//                }
-//                else if([QupaiSDK shared].zy_VideoSize==ZY_VideoSize9To16)
-//                {
-//                    layout.itemSize = CGSizeMake(height*9.0/16.0, height);
-//                }
-//
-//                ZYPublishQupaiVideo *publishQupaiVideo=[[ZYPublishQupaiVideo alloc]initWithCollectionViewLayout:layout];
-//                publishQupaiVideo.videoPath=videoPath;
-//                [weakSelf presentViewController:publishQupaiVideo animated:YES completion:nil];
             }
         }];
     }
