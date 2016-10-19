@@ -98,6 +98,7 @@
 
 - (IBAction)buttonCloseClick:(id)sender {
 //    [self saveCache];
+    [[QPEffectManager sharedManager] updateMVEffect];
     [_delegate mvMoreViewControllerClose:self downID:_downItemID isNew:NO];
 }
 
