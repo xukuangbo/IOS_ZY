@@ -6,15 +6,17 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 
-#import "ZYLimitTextBaseView.h"
+#import "ZYBaseLimitTextView.h"
 
-@interface ZYLimitTextBaseView ()<UITextViewDelegate>
+@interface ZYBaseLimitTextView ()<UITextViewDelegate>
+
+@property (nonatomic, strong) UILabel   *placeHolderLab;
 
 @property (nonatomic, assign) NSInteger maxTextNum;//最大文字字数
 
 @end
 
-@implementation ZYLimitTextBaseView
+@implementation ZYBaseLimitTextView
 
 /*
 // Only override drawRect: if you perform custom drawing.
@@ -27,6 +29,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.tintColor=[UIColor ZYZC_MainColor];
+        self.textColor=[UIColor ZYZC_TextBlackColor];
+        self.showsVerticalScrollIndicator=NO;
         _maxTextNum = maxNum;
         self.delegate=self;
     }
@@ -37,9 +42,30 @@
 {
     self = [super init];
     if (self) {
+        self.tintColor=[UIColor ZYZC_MainColor];
+        self.textColor=[UIColor ZYZC_TextBlackColor];
+        self.showsVerticalScrollIndicator=NO;
         _maxTextNum = maxNum;
     }
     return self;
+}
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
+{
+    if (_placeHolderLab) {
+        _placeHolderLab.hidden=YES;
+    }
+    return YES;
+}
+
+-(BOOL) textViewShouldEndEditing:(UITextView *)textView
+{
+    textView.text=[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    BOOL isEmptyStr=[ZYZCTool isEmpty:textView.text];
+    if (_placeHolderLab) {
+         _placeHolderLab.hidden=!isEmptyStr;
+    }
+    return YES;
 }
 
 -(BOOL) textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -64,11 +90,8 @@
             return NO;
         }
     }
-    
     NSString *comcatstr = [textView.text stringByReplacingCharactersInRange:range withString:text];
-    
     NSInteger caninputlen = _maxTextNum - comcatstr.length;
-    
     if (caninputlen >= 0)
     {
         return YES;
@@ -92,26 +115,70 @@
                 __block NSInteger idx = 0;
                 __block NSString  *trimString = @"";//截取出的字串
                 //使用字符串遍历，这个方法能准确知道每个emoji是占一个unicode还是两个
-                [text enumerateSubstringsInRange:NSMakeRange(0, [text length])
-                                         options:NSStringEnumerationByComposedCharacterSequences usingBlock: ^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
-                                             if (idx >= rg.length) {
-                                                 *stop = YES; //取出所需要就break，提高效率
-                                                 return ;
-                                             }
-                                             
-                                             trimString = [trimString stringByAppendingString:substring];
-                                             
-                                             idx++;
-                                         }];
+                [text enumerateSubstringsInRange:NSMakeRange(0, [text length]) options:NSStringEnumerationByComposedCharacterSequences usingBlock: ^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
+                     if (idx >= rg.length) {
+                         *stop = YES; //取出所需要就break，提高效率
+                         return ;
+                     }
+                     
+                     trimString = [trimString stringByAppendingString:substring];
+                     
+                     idx++;
+                    }];
                 s = trimString;
             }
             //rang是指从当前光标处进行替换处理(注意如果执行此句后面返回的是YES会触发didchange事件)
             [textView setText:[textView.text stringByReplacingCharactersInRange:range withString:s]];
 //            //既然是超出部分截取了，那一定是最大限制了。
-//            _leftNumLab.text = leftNum_text((NSInteger)0);
+            if (_textChangeBlock) {
+                _textChangeBlock(0);
+            }
         }
         return NO;
     }
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    UITextRange *selectedRange = [textView markedTextRange];
+    //获取高亮部分
+    UITextPosition *pos = [textView positionFromPosition:selectedRange.start offset:0];
+    
+    //如果在变化中是高亮部分在变，就不要计算字符了
+    if (selectedRange && pos) {
+        return;
+    }
+    NSString  *nsTextContent = textView.text;
+    NSInteger existTextNum = nsTextContent.length;
+    
+    if (existTextNum > _maxTextNum)
+    {
+        //截取到最大位置的字符(由于超出截部分在should时被处理了所在这里这了提高效率不再判断)
+        NSString *s = [nsTextContent substringToIndex:_maxTextNum];
+        
+        [textView setText:s];
+    }
+    //不让显示负数 口口日
+    if (_textChangeBlock) {
+        _textChangeBlock(MAX(0,_maxTextNum - existTextNum));
+    }
+}
+
+- (void) setPlaceholder:(NSString *)placeholder
+{
+    _placeholder=placeholder;
+    self.placeHolderLab.text=placeholder;
+}
+
+-(UILabel *)placeHolderLab
+{
+    if (!_placeHolderLab) {
+        _placeHolderLab =[[UILabel alloc]initWithFrame:CGRectMake(5, 8, self.width-5, 20)];
+        _placeHolderLab.font=self.font;
+        _placeHolderLab.textColor=[UIColor ZYZC_TextGrayColor01];
+        [self addSubview:_placeHolderLab];
+    }
+    return _placeHolderLab;
 }
 
 @end
