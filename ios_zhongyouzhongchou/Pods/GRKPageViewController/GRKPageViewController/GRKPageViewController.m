@@ -364,7 +364,7 @@
 - (CGSize)contentSizeForPagingScrollView
 {
     CGRect bounds = self.scrollView.bounds;
-    return CGSizeMake(bounds.size.width * self.pageCount, bounds.size.height);
+    return CGSizeMake(bounds.size.width * self.pageCount,0);
 }
 
 #pragma mark - UIScrollViewDelegate
