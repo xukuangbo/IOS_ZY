@@ -14,9 +14,9 @@
 //正式
 //#define BASE_URL @"http://www.sosona.com:8080/"
 //测试
-#define BASE_URL @"http://121.40.225.119:8080/"
+//#define BASE_URL @"http://121.40.225.119:8080/"
 //华子
-//#define BASE_URL @"http://192.168.1.112:8086/"
+#define BASE_URL @"http://192.168.1.112:8086/"
 //海外服务器
 //#define BASE_URL @"http://47.88.148.201:8080/"
 //#define BASE_URL @"http://192.168.1.59:8086/"
@@ -271,6 +271,9 @@
 
 //获取在线直播列表
 #define Post_Live_List [NSString stringWithFormat:@"%@zhibo/onlineList.action",BASE_URL]
+
+//获取直播和回放列表
+#define Post_Scene_List [NSString stringWithFormat:@"%@youji/getXCPageList.action",BASE_URL]
 
 //创建直播
 #define Post_Create_Live [NSString stringWithFormat:@"%@zhibo/creatZhibo.action",BASE_URL]
