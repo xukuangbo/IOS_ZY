@@ -48,7 +48,7 @@ static NSString *ID = @"ZYLiveListCell";
     
     _viewModel = [[ZYLiveListViewModel alloc] init];
     //请求网络数据
-//    [self getLiveListData];
+//    [self getLiveListData]
 }
 
 - (void)viewWillAppear:(BOOL)animated
