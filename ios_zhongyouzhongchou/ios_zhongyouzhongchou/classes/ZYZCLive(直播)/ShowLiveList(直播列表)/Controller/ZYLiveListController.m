@@ -48,15 +48,15 @@ static NSString *ID = @"ZYLiveListCell";
     
     _viewModel = [[ZYLiveListViewModel alloc] init];
     //请求网络数据
-//    [self getLiveListData];
+//    [self getLiveListData]
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    _navRightBtn.hidden=NO;
-    self.tabBarController.tabBar.hidden = NO;
-    self.navigationController.navigationBar.hidden = NO;
+//    _navRightBtn.hidden=NO;
+//    self.tabBarController.tabBar.hidden = NO;
+//    self.navigationController.navigationBar.hidden = NO;
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         self.pageNo = 1;
@@ -68,7 +68,7 @@ static NSString *ID = @"ZYLiveListCell";
 - (void) viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    _navRightBtn.hidden=YES;
+//    _navRightBtn.hidden=YES;
 }
 
 - (void)rightBtnAction
@@ -81,23 +81,28 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - setup
 - (void)setupView
 {
-    UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
-    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
-    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
-    [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [navRightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.navigationBar addSubview:navRightBtn];
-    _navRightBtn=navRightBtn;
+//    UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+//    navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
+//    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
+//    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+//    [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [navRightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.navigationController.navigationBar addSubview:navRightBtn];
+//    _navRightBtn=navRightBtn;
 
-    self.view.backgroundColor = [UIColor ZYZC_MainColor];
-    _tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    _tableView.dataSource = self;
-    _tableView.delegate = self;
-    [self.view addSubview:_tableView];
+    self.view.backgroundColor = [UIColor redColor];
+    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.tableFooterView = [UIView new];
+
+    [self.view addSubview:self.tableView];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.top.equalTo(@64);
+        make.bottom.equalTo(@49);
     }];
     self.entryView = [EntryPlaceholderView viewWithSuperView:self.tableView type:EntryTypeLiveList];
 //    self.entryView.userInteractionEnabled = NO;

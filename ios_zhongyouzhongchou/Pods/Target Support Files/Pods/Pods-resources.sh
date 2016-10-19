@@ -64,6 +64,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/en.lproj"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/zh-Hans.lproj"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/Emoji.plist"
+  install_resource "ZFPlayer/ZFPlayer/ZFPlayer.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "Bugtags/Bugtags.bundle"
@@ -72,6 +73,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/en.lproj"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/zh-Hans.lproj"
   install_resource "RongCloudIMKit/Rong_Cloud_iOS_IMKit_SDK_v2_5_1_stable/Emoji.plist"
+  install_resource "ZFPlayer/ZFPlayer/ZFPlayer.bundle"
 fi
 
 mkdir -p "${CONFIGURATION_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
