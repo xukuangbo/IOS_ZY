@@ -55,7 +55,7 @@
     pageViewController.view.backgroundColor = [UIColor whiteColor];
     pageViewController.dataSource = self;
     pageViewController.delegate = self;
-    
+    pageViewController.scrollEnabled = NO;
     [self addChildViewController:pageViewController];
     [self.view addSubview:pageViewController.view];
     
@@ -71,6 +71,8 @@
 - (void)customNavigationView
 {
     UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"现场",@"直播"]];
+    UISegmentedControl *segmentControlmili911004 = [[UISegmentedControl alloc] initWithItems:@[@"现场",@"直播"]];
+
     segmentControl.frame = CGRectMake(110, 7, 158, 30);
     segmentControl.selectedSegmentIndex = 0;
     segmentControl.layer.cornerRadius = 5;

@@ -326,5 +326,8 @@
 // 请求众游详情的回报和一起游金额
 #define PRODUCT_INFO_MONEY   [NSString stringWithFormat:@"%@productInfo/getProductMinInfo.action",BASE_URL]
 
+// 请求现场数据
+#define GET_SCENE_LIST   [NSString stringWithFormat:@"%@youji/getXCPageList.action",BASE_URL]
+
 
 #endif /* HttpCommon_h */
