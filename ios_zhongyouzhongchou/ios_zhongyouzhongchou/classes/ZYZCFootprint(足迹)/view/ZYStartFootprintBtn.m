@@ -107,7 +107,8 @@
         
         //选择视频后的回调
         [_picker setDidFinishPickingVideoBlock:^(UIImage * _Nullable image, XMNAssetModel * _Nullable asset) {
-            weakSelf.videoImage=[ZYZCTool compressImage:image scale:0.1];
+#warning 需要做压缩处理
+            weakSelf.videoImage=image;
             [weakSelf compressVideo:asset.asset];
         }];
         
@@ -225,9 +226,9 @@
         __weak typeof (&*self)weakSelf=self;
         [picker dismissViewControllerAnimated:YES completion:^{
             UIImage *photoImage=[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]];
-            UIImage *compressImage=[self compressImage:photoImage];
-            NSData *imageData=UIImageJPEGRepresentation(compressImage, 1.0);
-            DDLog(@"newImageData.length:%ld",imageData.length);
+//            UIImage *compressImage=[self compressImage:photoImage];
+#warning 需要做压缩处理
+            UIImage *compressImage=photoImage;
             ZYPublishFootprintController  *publishFootprintController=[[ZYPublishFootprintController alloc]init];
             publishFootprintController.images=@[compressImage];
             publishFootprintController.footprintType=Footprint_PhotoType;
@@ -300,66 +301,58 @@
     });
 }
 
-#pragma mark --- 压缩image最大为512k
-- (UIImage *)compressImage:(UIImage *)image
-{
-
-//    NSInteger maxLength=512*1024;
-//    NSData *imgData=nil;
-//    imgData=UIImageJPEGRepresentation(image, 1.0);
-//    DDLog(@"imgData.length:%ld",imgData.length);
-//    float scale=(float)maxLength/(float)imgData.length;
-//    imgData=UIImageJPEGRepresentation(image, MIN(1.0, scale));
-//    return  [UIImage imageWithData:imgData];
-    
-    NSData *imgData=nil;
-    imgData=UIImageJPEGRepresentation(image, 1.0);
-    DDLog(@"imgData.length:%zd",imgData.length);
-    
-    UIImage *rightImage = [FCIMChatGetImage rotateScreenImage:image];
-    UIImage *compressImage = [self compressTheImage:rightImage];
-    
-    imgData=UIImageJPEGRepresentation(compressImage, 1.0);
-    DDLog(@"imgData.length:%zd",imgData.length);
-    
-//    DDLog(@"%@",compressImage);
-    return compressImage;
-}
-
-
 -(void)dealloc
 {
     DDLog(@"dealloc:%@",[self class]);
 }
 
-#pragma mark - 压缩图片
-- (UIImage *)compressTheImage:(UIImage *)uploadImage
-{
-    NSData *imageData = UIImagePNGRepresentation(uploadImage);
-    if (imageData.length > kcMaxThumbnailSize) {
-        // 缩略图大于72k,压缩到720*1024
-        UIImage *thumbnailImage = [self thumbnailWithImage:uploadImage size:CGSizeMake(720, 1280)];
-        NSData * imageData = UIImageJPEGRepresentation(thumbnailImage,0.5);
-        UIImage *compressImage = [UIImage imageWithData:imageData];
-        
-        return compressImage;
-    } else {
-        return uploadImage;
-    }
-}
 
-- (UIImage *)thumbnailWithImage:(UIImage *)image size:(CGSize)asize
-{
-    UIImage *newimage;
-    if (nil == image) {
-        newimage = nil;
-    } else {
-        UIGraphicsBeginImageContext(asize);
-        [image drawInRect:CGRectMake(0, 0, asize.width, asize.height)];
-        newimage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
-    }
-    return newimage;
-}
+//#pragma mark --- 压缩image
+//- (UIImage *)compressImage:(UIImage *)image
+//{
+//    NSData *imgData=nil;
+//    imgData=UIImageJPEGRepresentation(image, 1.0);
+//    DDLog(@"imgData.length:%zd",imgData.length);
+//    
+//    UIImage *rightImage = [FCIMChatGetImage rotateScreenImage:image];
+//    UIImage *compressImage = [self compressTheImage:rightImage];
+//    
+//    imgData=UIImageJPEGRepresentation(compressImage, 1.0);
+//    DDLog(@"imgData.length:%zd",imgData.length);
+//    
+////    DDLog(@"%@",compressImage);
+//    return compressImage;
+//}
+//
+
+//#pragma mark - 压缩图片
+//- (UIImage *)compressTheImage:(UIImage *)uploadImage
+//{
+//    NSData *imageData = UIImagePNGRepresentation(uploadImage);
+//    if (imageData.length > kcMaxThumbnailSize) {
+//        // 缩略图大于72k,压缩到720*1024
+//        UIImage *thumbnailImage = [self thumbnailWithImage:uploadImage size:CGSizeMake(720, 1280)];
+//        NSData * imageData = UIImageJPEGRepresentation(thumbnailImage,0.5);
+//        UIImage *compressImage = [UIImage imageWithData:imageData];
+//        
+//        return compressImage;
+//    } else {
+//        return uploadImage;
+//    }
+//}
+//
+//- (UIImage *)thumbnailWithImage:(UIImage *)image size:(CGSize)asize
+//{
+//    UIImage *newimage;
+//    if (nil == image) {
+//        newimage = nil;
+//    } else {
+//        UIGraphicsBeginImageContext(asize);
+//        [image drawInRect:CGRectMake(0, 0, asize.width, asize.height)];
+//        newimage = UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();
+//    }
+//    return newimage;
+//}
 
 @end

@@ -26,6 +26,7 @@
 #import "ZYLocationManager.h"
 #import "ZYZCOSSManager.h"
 #import "MediaUtils.h"
+#import "WXApiManager.h"
 @interface ZYShortVideoPublish ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource,UITextViewDelegate,UIScrollViewDelegate>
 @property (nonatomic, strong) UIImageView         *backImgView;
 @property (nonatomic, strong) UILabel             *pageLab;
@@ -37,6 +38,8 @@
 @property (nonatomic, strong) UISwitch            *switchView;
 @property (nonatomic, strong) UIButton            *publishBtn;
 @property (nonatomic, strong) UILabel             *placeHolderLab;
+@property (nonatomic, strong) UIButton            *shareToFBtn;
+@property (nonatomic, strong) UIButton            *shareToPYQBtn;
 
 @property (nonatomic, strong) NSMutableArray      *imageArray;
 @property (nonatomic, copy  ) NSString     *currentAddress;//位置
@@ -48,6 +51,7 @@
 @property (nonatomic, strong) NSNumber      *videoImgSize;//视频图片长宽比值
 @property (nonatomic, strong) NSNumber     *videoLen;//视频长
 @property (nonatomic, copy  ) NSString      *localVideoImgPath;//本地视频图片路径
+
 
 
 /**
@@ -81,6 +85,9 @@
         self.imageArray=[NSMutableArray arrayWithArray:images];
         if (!_backImgView.image) {
              _backImgView.image=[self.imageArray firstObject];
+            //视频长宽比
+            CGFloat sizeRate=_backImgView.image.size.width/_backImgView.image.size.height;
+            _videoImgSize=[NSNumber numberWithFloat:sizeRate];
         }
     }
 }
@@ -135,7 +142,10 @@
     
     [self.view addSubview:scrollView];
     
-    _pageLab=[ZYZCTool createLabWithFrame:CGRectMake(0, pageFlowView.bottom-25, self.view.width, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor whiteColor]];
+    _pageLab=[ZYZCTool createLabWithFrame:CGRectMake((self.view.width-40)/2, pageFlowView.bottom-20, 40, 15) andFont:[UIFont systemFontOfSize:11.f] andTitleColor:[UIColor whiteColor]];
+//    _pageLab.layer.cornerRadius=3;
+//    _pageLab.layer.masksToBounds=YES;
+//    _pageLab.backgroundColor=[UIColor ZYZC_TextGrayColor01];
     _pageLab.textAlignment=NSTextAlignmentCenter;
     _pageLab.text=page_text((NSInteger)1);
     [scrollView addSubview:_pageLab];
@@ -188,26 +198,33 @@
     
     //分享
     CGFloat left=(self.view.width-220)/2;
-    UIView *shareToFriend=[self createShareBtnWithFrame:CGRectMake(left, _publishBtn.top-140, 90, 80) andImgName:@"Wechat" andTitle:@"分享给微信朋友"];
-    [shareToFriend addTarget:self action:@selector(shareToWeChat)];
+    UIView  *shareToFriend=[self createShareBtnWithFrame:CGRectMake(left, _publishBtn.top-140, 90, 80) andImgName:@"Wechat" andTitle:@"分享给微信朋友" andTag:1];
     [scrollView addSubview:shareToFriend];
+    shareToFriend.hidden=YES;
     
-    UIView *shareToPYQ=[self createShareBtnWithFrame:CGRectMake(left+130, shareToFriend.top, 90, 80) andImgName:@"PYQ" andTitle:@"分享到朋友圈"];
-    [shareToPYQ addTarget:self action:@selector(shareToWeChat)];
-    
+    UIView  *shareToPYQ=[self createShareBtnWithFrame:CGRectMake(left+130, shareToFriend.top, 90, 80) andImgName:@"PYQ" andTitle:@"分享到朋友圈" andTag:2];
     [scrollView addSubview: shareToPYQ];
+    shareToPYQ.hidden=YES;
 }
 
 #pragma mark --- 创建分享视图
--(UIView *)createShareBtnWithFrame:(CGRect)frame andImgName:(NSString *)imgName andTitle:(NSString *)title
+-(UIView *)createShareBtnWithFrame:(CGRect)frame andImgName:(NSString *)imgName andTitle:(NSString *)title andTag:(NSInteger)tag
 {
     UIView *view=[[UIView alloc]initWithFrame:frame];
     
-    UIImageView *img=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-    img.image=[UIImage imageNamed:imgName];
-    [view addSubview:img];
+    UIButton *imgBtn=[ZYZCTool createBtnWithFrame:CGRectMake(0, 0, 50, 50) andNormalTitle:nil andNormalTitleColor:nil andTarget:self andAction:@selector(shareToWeChat:)];
+    imgBtn.tag=tag;
+    [imgBtn setImage:[UIImage imageNamed:imgName] forState:UIControlStateNormal];
+    if (tag==1) {
+        _shareToFBtn=imgBtn;
+    }
+    else if (tag==2)
+    {
+        _shareToPYQBtn=imgBtn;
+    }
+    [view addSubview:imgBtn];
     
-    UILabel *lab=[ZYZCTool createLabWithFrame:CGRectMake(0, img.bottom+10, 0, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor whiteColor]];
+    UILabel *lab=[ZYZCTool createLabWithFrame:CGRectMake(0, imgBtn.bottom+10, 0, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor whiteColor]];
     lab.textAlignment=NSTextAlignmentCenter;
     lab.text=title;
     [view addSubview:lab];
@@ -215,7 +232,7 @@
     lab.width=titleWidth;
     view.width=titleWidth;
     view.height=lab.bottom;
-    img.centerX=lab.centerX;
+    imgBtn.centerX=lab.centerX;
     
     return view;
 }
@@ -252,9 +269,17 @@
 
 
 #pragma mark --- 分享微信
--(void) shareToWeChat
+-(void) shareToWeChat:(UIButton *)button
 {
-    
+    if (button.tag==1) {
+        [button setImage:[UIImage imageNamed:@"wechat_1"] forState:UIControlStateNormal];
+        [_shareToPYQBtn setImage:[UIImage imageNamed:@"PYQ"] forState:UIControlStateNormal];
+    }
+    else if (button.tag==2)
+    {
+        [button setImage:[UIImage imageNamed:@"frends-ship"] forState:UIControlStateNormal];
+         [_shareToFBtn setImage:[UIImage imageNamed:@"Wechat"] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark ---  发布足迹👣
@@ -608,6 +633,7 @@
     _backImgView.image=self.imageArray[pageNumber];
     //视频长宽比
     CGFloat sizeRate=_backImgView.image.size.width/_backImgView.image.size.height;
+    DDLog(@"sizeRate:%.2f",sizeRate);
     _videoImgSize=[NSNumber numberWithFloat:sizeRate];
 
 }

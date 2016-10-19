@@ -193,7 +193,8 @@
             selectImgVC.imageBlock=^(UIImage *img)
             {
                [ZYZCTool removeExistfile:ThemeImagePath];
-                weakSelf.frameImg.image=[ZYZCTool compressImage:img scale:0.1];
+#warning 需要 压缩处理
+                weakSelf.frameImg.image=img ;
                 // 将图片保存为png格式到documents中
                 NSString *filePath=ThemeImagePath;
                 [UIImagePNGRepresentation(img)

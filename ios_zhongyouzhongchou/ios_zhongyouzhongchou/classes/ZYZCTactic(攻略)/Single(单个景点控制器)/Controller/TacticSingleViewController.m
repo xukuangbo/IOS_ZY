@@ -23,8 +23,8 @@
 #import "ZCProductDetailController.h"
 #import "TacticMoreJieshaoVC.h"
 #import "NetWorkManager.h"
-#import "WXApiShare.h"
 #import "TacticGoXXTravelCell.h"
+#import "WXApiManager.h"
 @interface TacticSingleViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, weak) UITableView *tableView;
 
@@ -224,12 +224,12 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *shareToZoneAction = [UIAlertAction actionWithTitle:@"分享到微信朋友圈" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                                         {
-                                            [weakSelf shareToFriendScene:YES];
+                                            [weakSelf shareToFriendScene:1];
                                         }];
     
     UIAlertAction *shareToFriendAction = [UIAlertAction actionWithTitle:@"分享到微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
                                           {
-                                              [weakSelf shareToFriendScene:NO];
+                                              [weakSelf shareToFriendScene:0];
                                           }];
     
     [alertController addAction:cancelAction];
@@ -239,12 +239,13 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
--(void)shareToFriendScene:(BOOL)isFriendScene
+-(void)shareToFriendScene:(int)scene
 {
     NSString *url= [NSString stringWithFormat:@"http://www.sosona.com/view?id=%ld&type=%ld",(long)self.viewId,(long)self.tacticSingleModelFrame.tacticSingleModel.viewType];
     NSString *imgURL = KWebImage(self.tacticSingleModelFrame.tacticSingleModel.min_viewImg);
     
-    [WXApiShare shareScene:isFriendScene withTitle:@"风景目的地" andDesc:[NSString stringWithFormat:@"%@是个好地方,希望大家多去观光",self.tacticSingleModelFrame.tacticSingleModel.name] andThumbImage:imgURL andWebUrl:url];
+    WXApiManager *manager=[WXApiManager sharedManager];
+    [manager shareScene:scene withTitle:@"风景目的地" andDesc:[NSString stringWithFormat:@"%@是个好地方,希望大家多去观光",self.tacticSingleModelFrame.tacticSingleModel.name] andThumbImage:imgURL andWebUrl:url];
 }
 #pragma mark - requsetData方法
 /**

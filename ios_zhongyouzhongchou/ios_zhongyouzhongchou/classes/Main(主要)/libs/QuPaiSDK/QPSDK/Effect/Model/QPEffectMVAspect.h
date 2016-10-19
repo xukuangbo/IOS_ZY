@@ -11,7 +11,7 @@
 
 static NSString *const QPEffectMVAspect1To1 = @"1";
 static NSString *const QPEffectMVAspect4To3 = @"2";
-static NSString *const QPEffectMVAspect9To16 = @"4";
+static NSString *const QPEffectMVAspect9To16 = @"3";
 
 
 @protocol QPEffectMVAspect <NSObject>

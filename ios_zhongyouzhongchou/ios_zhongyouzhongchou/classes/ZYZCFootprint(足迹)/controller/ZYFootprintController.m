@@ -104,7 +104,8 @@
         
         //选择视频后的回调
         [_picker setDidFinishPickingVideoBlock:^(UIImage * _Nullable image, XMNAssetModel * _Nullable asset) {
-            weakSelf.videoImage=[ZYZCTool compressImage:image scale:0.1];
+#warning 需要 压缩处理
+            weakSelf.videoImage=image;
             [weakSelf compressVideo:asset.asset];
         }];
         

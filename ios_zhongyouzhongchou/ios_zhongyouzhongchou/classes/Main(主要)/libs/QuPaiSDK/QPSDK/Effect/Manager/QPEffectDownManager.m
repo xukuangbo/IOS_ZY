@@ -25,6 +25,8 @@ typedef NS_ENUM(NSInteger,QPDownPathType){
     effect.downStatus = QPEffectItemDownStatusDowning;
     NSString *path = [self directoryWithType:QPDownPathTypeDown effect:effect];
 //    [self createDirectoryIfNeeded:path];
+//    NSString *url= [self downloadUrlForEffect:effect];
+//    DDLog(@"%@",url);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[self downloadUrlForEffect:effect]]];
 
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];

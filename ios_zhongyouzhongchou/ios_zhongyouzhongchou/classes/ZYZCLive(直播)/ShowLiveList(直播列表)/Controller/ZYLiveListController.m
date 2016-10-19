@@ -103,7 +103,6 @@ static NSString *ID = @"ZYLiveListCell";
         make.right.equalTo(self.view);
         make.top.equalTo(@64);
         make.bottom.equalTo(@49);
-
     }];
     self.entryView = [EntryPlaceholderView viewWithSuperView:self.tableView type:EntryTypeLiveList];
 //    self.entryView.userInteractionEnabled = NO;
