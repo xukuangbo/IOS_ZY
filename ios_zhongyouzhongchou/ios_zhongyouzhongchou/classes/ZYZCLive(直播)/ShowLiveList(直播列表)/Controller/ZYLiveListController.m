@@ -99,7 +99,11 @@ static NSString *ID = @"ZYLiveListCell";
 
     [self.view addSubview:self.tableView];
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.edges.equalTo(self.view);
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.top.equalTo(@64);
+        make.bottom.equalTo(@49);
+
     }];
     self.entryView = [EntryPlaceholderView viewWithSuperView:self.tableView type:EntryTypeLiveList];
 //    self.entryView.userInteractionEnabled = NO;
