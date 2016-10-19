@@ -37,8 +37,6 @@ PODS:
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
-  - ZFPlayer (1.2.2):
-    - Masonry
 
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
@@ -55,7 +53,6 @@ DEPENDENCIES:
   - ReactiveCocoa (~> 2.5)
   - RongCloudIMKit (= 2.5.1)
   - SDWebImage (= 3.7.6)
-  - ZFPlayer
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -72,6 +69,5 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   RongCloudIMKit: d7b234005ed139f03081ca87d48ad9a8ee7dd766
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
-  ZFPlayer: 6bad7340a51e0067d806e28985bea9f46433f91a
 
 COCOAPODS: 0.39.0
