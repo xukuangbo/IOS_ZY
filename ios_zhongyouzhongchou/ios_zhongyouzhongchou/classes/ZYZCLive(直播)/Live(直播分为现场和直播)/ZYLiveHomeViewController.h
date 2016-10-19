@@ -1,5 +1,5 @@
 //
-//  ZYLiveViewController.h
+//  ZYLiveHomeViewController.h
 //  ios_zhongyouzhongchou
 //
 //  Created by 李灿 on 2016/10/18.
@@ -8,6 +8,6 @@
 
 #import "ZYZCBaseViewController.h"
 
-@interface ZYLiveViewController : ZYZCBaseViewController
+@interface ZYLiveHomeViewController : ZYZCBaseViewController
 
 @end

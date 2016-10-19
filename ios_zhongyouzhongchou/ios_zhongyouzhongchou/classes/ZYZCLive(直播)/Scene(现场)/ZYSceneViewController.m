@@ -1,18 +1,18 @@
 //
-//  ZYLiveViewController.m
+//  ZYSceneViewController.m
 //  ios_zhongyouzhongchou
 //
 //  Created by 李灿 on 2016/10/18.
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 
-#import "ZYLiveViewController.h"
+#import "ZYSceneViewController.h"
 
-@interface ZYLiveViewController ()
+@interface ZYSceneViewController ()
 
 @end
 
-@implementation ZYLiveViewController
+@implementation ZYSceneViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
