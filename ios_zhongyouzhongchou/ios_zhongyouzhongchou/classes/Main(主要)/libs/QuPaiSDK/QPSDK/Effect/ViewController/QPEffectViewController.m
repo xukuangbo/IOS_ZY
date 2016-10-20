@@ -121,6 +121,9 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
         self.navigationController.interactivePopGestureRecognizer.enabled = NO;
     }
+    
+    //保存视频长宽比
+    [QupaiSDK shared].zy_VideoSizeRate=self.video.size.width/self.video.size.height;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -386,21 +389,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     pack.videoSize = self.video.size;
     pack.audioMixType = self.audioMixType;
     pack.rotateArray = [self.video AllPointsRotate];
-    //保存第一个视频方向
-    NSNumber *rotate=[pack.rotateArray firstObject];
-    if(rotate)
-    {
-        //横屏
-        if ([rotate isEqual:@1]||[rotate isEqual:@3]) {
-            [QupaiSDK shared].zy_VideoSize=ZY_VideoSize16To9;
-        }
-        //竖屏
-        else if ([rotate isEqual:@2]||[rotate isEqual:@4])
-        {
-            [QupaiSDK shared].zy_VideoSize=ZY_VideoSize9To16;
-        }
-        
-    }
+    
     if (self.video.preferFilterOrMV) {
         if (effectFilter.resourceLocalUrl) {
             pack.effectPath = effectFilter.resourceLocalUrl;

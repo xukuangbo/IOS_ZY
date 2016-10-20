@@ -46,6 +46,7 @@
         self.textColor=[UIColor ZYZC_TextBlackColor];
         self.showsVerticalScrollIndicator=NO;
         _maxTextNum = maxNum;
+        self.delegate=self;
     }
     return self;
 }

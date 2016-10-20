@@ -246,6 +246,7 @@
 		2C5159A71D8641B20048BD20 /* MLAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C51599B1D8641B20048BD20 /* MLAudioRecorder.m */; };
 		2C5159A81D8641B20048BD20 /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51599D1D8641B20048BD20 /* lame.framework */; };
 		2C5159A91D8641B20048BD20 /* Mp3RecordWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */; };
+		2C5A78561DB85982003E2743 /* ZYBaseLimitTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */; };
 		2C6739981DAFA219000C7E3C /* QPSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6739971DAFA219000C7E3C /* QPSDKCore.framework */; };
 		2C79606C1D0A74940026C9F6 /* MyReturnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */; };
 		2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */; };
@@ -1085,6 +1086,8 @@
 		2C51599D1D8641B20048BD20 /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
 		2C51599E1D8641B20048BD20 /* Mp3RecordWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp3RecordWriter.h; sourceTree = "<group>"; };
 		2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp3RecordWriter.m; sourceTree = "<group>"; };
+		2C5A78541DB85982003E2743 /* ZYBaseLimitTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBaseLimitTextField.h; sourceTree = "<group>"; };
+		2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBaseLimitTextField.m; sourceTree = "<group>"; };
 		2C6739971DAFA219000C7E3C /* QPSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPSDKCore.framework; sourceTree = "<group>"; };
 		2C72BCC21CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		2C72BCC31CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -3090,6 +3093,8 @@
 				2C9AA6E11D3D2BAF0030A5B4 /* ZYCustomIconView.m */,
 				2C2BCE2A1DB77C1F007C6E1C /* ZYBaseLimitTextView.h */,
 				2C2BCE2B1DB77C1F007C6E1C /* ZYBaseLimitTextView.m */,
+				2C5A78541DB85982003E2743 /* ZYBaseLimitTextField.h */,
+				2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */,
 			);
 			path = ZYZCBaseView;
 			sourceTree = "<group>";
@@ -5731,6 +5736,7 @@
 				048DDE9C1CC229F600136C7A /* MBProgressHUD+MJ.m in Sources */,
 				04F836411CD72C3300140980 /* SDBallProgressView.m in Sources */,
 				04518B4C1CE419F0001921D0 /* MineSetUpViewController.m in Sources */,
+				2C5A78561DB85982003E2743 /* ZYBaseLimitTextField.m in Sources */,
 				395B5A951D24D6AD0084264C /* LoginJudgeController.m in Sources */,
 				394C2A601DB723CE00821F78 /* ZYLiveSceneModel.m in Sources */,
 				04D9A4A81D06B9FC00753392 /* MineSaveContactInfoVC.m in Sources */,
