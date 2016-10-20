@@ -274,6 +274,8 @@
     {
         [tableView reloadData];
     }
+    
+    [self.view endEditing:YES];
 }
 
 #pragma mark - 自定义方法
@@ -759,11 +761,16 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"fzcVC_Show" object:nil];
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.view endEditing:YES];
+}
+
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     self.title=@"发起众筹";
-    
     [self setBackItem];
 }
 

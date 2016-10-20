@@ -8,8 +8,8 @@
 
 #define ThemeImagePath  KMY_ZC_FILE_PATH(@"themeImage.png")
 
-#define TRAVELPLACEHOLDER @"编写旅行主题名(20字以内)"
-#define LIMIT_STR_NUMBER   20
+#define TRAVELPLACEHOLDER @"编写旅行主题名(18字以内)"
+#define LIMIT_STR_NUMBER   18
 #define ALERTTEXT @"选择目的地封面"//添加风景图提示文字
 #import "GoalSecondCell.h"
 #import "ChooseSceneImgController.h"
@@ -21,8 +21,9 @@
 #import "JudgeAuthorityTool.h"
 #import "ZYZCDataBase.h"
 #import <objc/runtime.h>
+
 @interface GoalSecondCell()<UIAlertViewDelegate>
-//@property (nonatomic, assign) BOOL  hasShowThemeAlert;
+
 @end
 
 @implementation GoalSecondCell
@@ -40,13 +41,12 @@
     [super configUI];
     self.bgImg.height=SECONDCELLHEIGHT;
     [self.titleLab removeFromSuperview];
-    _textField= [[ZYZCCustomTextField alloc]initWithFrame:CGRectMake(2*KEDGE_DISTANCE, 15, KSCREEN_W-40, 20)];
+    _textField= [[ZYBaseLimitTextField alloc]initWithFrame:CGRectMake(2*KEDGE_DISTANCE, 15, KSCREEN_W-40, 20) andMaxTextNum:LIMIT_STR_NUMBER];
     _textField.borderStyle=UITextBorderStyleNone;
     _textField.placeholder=TRAVELPLACEHOLDER;
     _textField.font=[UIFont systemFontOfSize:17];
-    _textField.customTextFieldDelegate=self;
+    _textField.limitTextFieldDelegate=self;
     _textField.returnKeyType=UIReturnKeyDone;
-    _textField.needAccess=NO;
     _textField.textColor=[UIColor ZYZC_TextBlackColor];
     [self.contentView addSubview:_textField];
     
@@ -103,8 +103,6 @@
 #pragma mark --- 选择图片
 -(void)tapHappen:(UITapGestureRecognizer *)tap
 {
-//    [self getAlertActionAttributes];
-    
     //获取已选图库ids
     BOOL canChooseNetImages=NO;
     MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
@@ -224,98 +222,47 @@
 }
 
 
-//-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
-//{
-//    _hasShowThemeAlert=YES;
-//    [_textField becomeFirstResponder];
-//}
-
 #pragma mark --- textField代理方法
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    textField.text=[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    BOOL isEmptyStr=[ZYZCTool isEmpty:textField.text];
-    if (isEmptyStr) {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"文字不能为空" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        textField.text=nil;
-    }
-
-    if(textField ==_textField){
-        [_textField endEditing:YES];
-    }
+    [_textField endEditing:YES];
     return YES;
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     //监听键盘的出现和收起
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textFiledEditChanged:)
-    name:UITextFieldTextDidChangeNotification object:nil];
-    
-//    if (!_hasShowThemeAlert) {
-//        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"提示" message:@"一个吸引人的标题更容易众筹成功哦" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//        [alert show];
-//        return NO;
-//    }
+    [ZYNSNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [ZYNSNotificationCenter addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
     return YES;
 }
 
--(void)textFieldDidEndEditing:(UITextField *)textField
+-(BOOL)textFieldShouldEndEditing:(UITextField *)textField
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver: self name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver: self name:UITextFieldTextDidChangeNotification object:nil];
-}
-
-
--(void)textFiledEditChanged:(NSNotification *)notify
-{
-    if ([notify.object isKindOfClass:[UITextField class]])
-    {
-        UITextField *textField = notify.object;
-        if (textField.text.length>=LIMIT_STR_NUMBER) {
-            textField.text=[textField.text substringToIndex:LIMIT_STR_NUMBER];
-        }
-    }
-}
-
-#pragma mark --- 键盘出现和收起方法
--(void)keyboardWillShow:(NSNotification *)notify
-{
-
-    self.getSuperTableView.contentInset=UIEdgeInsetsMake(-100, 0, 0, 0);
-    
-}
-
--(void)keyboardWillHidden:(NSNotification *)notify
-{
-    self.getSuperTableView.contentInset = UIEdgeInsetsMake(64 + 40, 0, 49, 0);
+    textField.text=[textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
-    if (_textField.text.length) {
+    if (textField.text.length) {
         manager.goal_travelTheme=_textField.text;
     }
     else
     {
         manager.goal_travelTheme=nil;
     }
+
+    [ZYNSNotificationCenter removeObserver:self];
+    return YES;
 }
 
--(void)getAlertActionAttributes
+#pragma mark --- 键盘出现和收起方法
+-(void)keyboardWillShow:(NSNotification *)notify
 {
-    unsigned int count = 0;
-    Ivar *ivars = class_copyIvarList([UIAlertAction class], &count);
-    for (int i = 0; i<count; i++) {
-        // 取出成员变量
-        //        Ivar ivar = *(ivars + i);
-        Ivar ivar = ivars[i];
-        // 打印成员变量名字
-        NSLog(@"%s------%s", ivar_getName(ivar),ivar_getTypeEncoding(ivar));
-    }
+    [ZYZCTool handleKeyBoardScroOn:self.getSuperTableView forTarget:_textField noti:notify state:@"show"];
+}
+
+-(void)keyboardWillHidden:(NSNotification *)notify
+{
+    [ZYZCTool handleKeyBoardScroOn:self.getSuperTableView forTarget:_textField noti:notify state:@"hide"];
 }
 
 @end
