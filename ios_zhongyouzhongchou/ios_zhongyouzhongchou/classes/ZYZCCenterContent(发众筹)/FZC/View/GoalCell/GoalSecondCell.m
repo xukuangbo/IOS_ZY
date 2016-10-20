@@ -190,12 +190,12 @@
             SelectImageViewController *selectImgVC=[[SelectImageViewController alloc]initWithImage:[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]] WHScale:(16 / 10.0)];
             selectImgVC.imageBlock=^(UIImage *img)
             {
+                UIImage *compressImg=[ZYZCTool imageByScalingAndCroppingWithSourceImage:img];
                [ZYZCTool removeExistfile:ThemeImagePath];
-#warning 需要 压缩处理
-                weakSelf.frameImg.image=img ;
+                weakSelf.frameImg.image=compressImg ;
                 // 将图片保存为png格式到documents中
                 NSString *filePath=ThemeImagePath;
-                [UIImagePNGRepresentation(img)
+                [UIImagePNGRepresentation(compressImg)
                  writeToFile:filePath atomically:YES];
                 //将图片路径保存到单例中
                 MoreFZCDataManager  *manager=[MoreFZCDataManager sharedMoreFZCDataManager];

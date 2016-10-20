@@ -177,6 +177,10 @@
 + (NSString *) showCusDateByTimestamp:(NSString *)timestamp;
 
 
+//压缩图片
++ (UIImage*)imageByScalingAndCroppingWithSourceImage:(UIImage *)sourceImage;
+
+
 +(void)handleKeyBoardScroOn:(UIView*)view forTarget:(UIView*)targetView noti:(NSNotification*)noti state:(NSString*)state;
 
 

@@ -98,8 +98,12 @@
         // 选择图片后回调
         [_picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *> * _Nullable asset) {
             [weakSelf.picker dismissViewControllerAnimated:NO completion:^{
+                NSMutableArray *newImgs=[NSMutableArray array];
+                for (NSInteger i=0; i<images.count; i++) {
+                    [newImgs addObject:[ZYZCTool imageByScalingAndCroppingWithSourceImage:images[i]]];
+                }
                 ZYPublishFootprintController  *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-                publishFootprintController.images=images;
+                publishFootprintController.images=newImgs;
                 publishFootprintController.footprintType=Footprint_AlbumType;
                 [weakSelf.viewController presentViewController:publishFootprintController animated:YES completion:nil];
             }];
@@ -107,8 +111,7 @@
         
         //选择视频后的回调
         [_picker setDidFinishPickingVideoBlock:^(UIImage * _Nullable image, XMNAssetModel * _Nullable asset) {
-#warning 需要做压缩处理
-            weakSelf.videoImage=image;
+            weakSelf.videoImage=[ZYZCTool imageByScalingAndCroppingWithSourceImage:image];
             [weakSelf compressVideo:asset.asset];
         }];
         
@@ -226,9 +229,7 @@
         __weak typeof (&*self)weakSelf=self;
         [picker dismissViewControllerAnimated:YES completion:^{
             UIImage *photoImage=[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]];
-//            UIImage *compressImage=[self compressImage:photoImage];
-#warning 需要做压缩处理
-            UIImage *compressImage=photoImage;
+            UIImage *compressImage=[ZYZCTool imageByScalingAndCroppingWithSourceImage:photoImage];
             ZYPublishFootprintController  *publishFootprintController=[[ZYPublishFootprintController alloc]init];
             publishFootprintController.images=@[compressImage];
             publishFootprintController.footprintType=Footprint_PhotoType;
@@ -305,54 +306,5 @@
 {
     DDLog(@"dealloc:%@",[self class]);
 }
-
-
-//#pragma mark --- 压缩image
-//- (UIImage *)compressImage:(UIImage *)image
-//{
-//    NSData *imgData=nil;
-//    imgData=UIImageJPEGRepresentation(image, 1.0);
-//    DDLog(@"imgData.length:%zd",imgData.length);
-//    
-//    UIImage *rightImage = [FCIMChatGetImage rotateScreenImage:image];
-//    UIImage *compressImage = [self compressTheImage:rightImage];
-//    
-//    imgData=UIImageJPEGRepresentation(compressImage, 1.0);
-//    DDLog(@"imgData.length:%zd",imgData.length);
-//    
-////    DDLog(@"%@",compressImage);
-//    return compressImage;
-//}
-//
-
-//#pragma mark - 压缩图片
-//- (UIImage *)compressTheImage:(UIImage *)uploadImage
-//{
-//    NSData *imageData = UIImagePNGRepresentation(uploadImage);
-//    if (imageData.length > kcMaxThumbnailSize) {
-//        // 缩略图大于72k,压缩到720*1024
-//        UIImage *thumbnailImage = [self thumbnailWithImage:uploadImage size:CGSizeMake(720, 1280)];
-//        NSData * imageData = UIImageJPEGRepresentation(thumbnailImage,0.5);
-//        UIImage *compressImage = [UIImage imageWithData:imageData];
-//        
-//        return compressImage;
-//    } else {
-//        return uploadImage;
-//    }
-//}
-//
-//- (UIImage *)thumbnailWithImage:(UIImage *)image size:(CGSize)asize
-//{
-//    UIImage *newimage;
-//    if (nil == image) {
-//        newimage = nil;
-//    } else {
-//        UIGraphicsBeginImageContext(asize);
-//        [image drawInRect:CGRectMake(0, 0, asize.width, asize.height)];
-//        newimage = UIGraphicsGetImageFromCurrentImageContext();
-//        UIGraphicsEndImageContext();
-//    }
-//    return newimage;
-//}
 
 @end
