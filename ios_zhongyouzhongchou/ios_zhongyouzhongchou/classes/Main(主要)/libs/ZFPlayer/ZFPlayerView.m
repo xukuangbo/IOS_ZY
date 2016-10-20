@@ -56,8 +56,6 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
 @property (nonatomic, strong) id                     timeObserve;
 /** 滑杆 */
 @property (nonatomic, strong) UISlider               *volumeViewSlider;
-/** 控制层View */
-@property (nonatomic, strong) ZFPlayerControlView    *controlView;
 /** 用来保存快进的总时长 */
 @property (nonatomic, assign) CGFloat                sumTime;
 /** 定义一个实例变量，保存枚举值 */
