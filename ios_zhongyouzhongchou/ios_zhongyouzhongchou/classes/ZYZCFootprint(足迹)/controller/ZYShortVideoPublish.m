@@ -15,8 +15,6 @@
 
 #define MAX_LIMIT_NUMS      36
 
-#define leftNum_text(left) [NSString stringWithFormat:@"%ld/36",left]
-
 #import "ZYShortVideoPublish.h"
 #import "VideoService.h"
 #import "NewPagedFlowView.h"
@@ -27,17 +25,17 @@
 #import "ZYZCOSSManager.h"
 #import "MediaUtils.h"
 #import "WXApiManager.h"
-@interface ZYShortVideoPublish ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource,UITextViewDelegate,UIScrollViewDelegate>
+#import "ZYBaseLimitTextView.h"
+@interface ZYShortVideoPublish ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource,UIScrollViewDelegate>
 @property (nonatomic, strong) UIImageView         *backImgView;
 @property (nonatomic, strong) UILabel             *pageLab;
 @property (nonatomic, strong) UIImageView         *cardImg;
-@property (nonatomic, strong) UITextView          *textView;
+@property (nonatomic, strong) ZYBaseLimitTextView *textView;
 @property (nonatomic, strong) UILabel             *leftNumLab;
 @property (nonatomic, strong) UIImageView         *locationImg;
 @property (nonatomic, strong) UILabel             *locationLab;
 @property (nonatomic, strong) UISwitch            *switchView;
 @property (nonatomic, strong) UIButton            *publishBtn;
-@property (nonatomic, strong) UILabel             *placeHolderLab;
 @property (nonatomic, strong) UIButton            *shareToFBtn;
 @property (nonatomic, strong) UIButton            *shareToPYQBtn;
 
@@ -151,27 +149,20 @@
     [scrollView addSubview:_pageLab];
     
     //描述卡片
-    _cardImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, pageFlowView.bottom+10, self.view.width-2*KEDGE_DISTANCE, 120)];
+    _cardImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, pageFlowView.bottom+10, self.view.width-2*KEDGE_DISTANCE, 120) ];
     _cardImg.image=KPULLIMG(@"tab_bg_boss0", 5, 0, 5, 0) ;
     _cardImg.userInteractionEnabled = YES;
     [scrollView addSubview:_cardImg];
     
-    _textView=[[UITextView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, _cardImg.width-2*KEDGE_DISTANCE, 50)];
-    _textView.delegate=self;
-    _textView.tintColor=[UIColor ZYZC_MainColor];
-    _textView.textColor=[UIColor ZYZC_TextBlackColor];
-    _textView.showsVerticalScrollIndicator=NO;
+    _textView=[[ZYBaseLimitTextView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, _cardImg.width-2*KEDGE_DISTANCE, 50) andMaxTextNum:(NSInteger)MAX_LIMIT_NUMS];
     _textView.font=[UIFont systemFontOfSize:15.f];
+    _textView.placeholder = placeHolder_text;
     _textView.layoutManager.allowsNonContiguousLayout = NO;
     [_cardImg addSubview:_textView];
     
-    _placeHolderLab=[ZYZCTool createLabWithFrame:CGRectMake(5, 8, _textView.width, 20) andFont:_textView.font andTitleColor:[UIColor ZYZC_TextGrayColor]];
-    _placeHolderLab.text=placeHolder_text;
-    [_textView addSubview:_placeHolderLab];
-    
     _leftNumLab=[ZYZCTool createLabWithFrame:CGRectMake(_cardImg.width-70, _textView.bottom+5, 60, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor ZYZC_TextBlackColor]];
     _leftNumLab.textAlignment=NSTextAlignmentRight;
-    _leftNumLab.text=leftNum_text((NSInteger)36);
+    _leftNumLab.text=[NSString stringWithFormat:@"%ld/%ld",(NSInteger)MAX_LIMIT_NUMS,(NSInteger)MAX_LIMIT_NUMS];
     [_cardImg addSubview:_leftNumLab];
     
     _locationImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, _leftNumLab.bottom+10, 17, 20)];
@@ -205,6 +196,12 @@
     UIView  *shareToPYQ=[self createShareBtnWithFrame:CGRectMake(left+130, shareToFriend.top, 90, 80) andImgName:@"PYQ" andTitle:@"分享到朋友圈" andTag:2];
     [scrollView addSubview: shareToPYQ];
     shareToPYQ.hidden=YES;
+    
+    WEAKSELF;
+    _textView.textChangeBlock = ^(NSInteger leftNum)
+    {
+        weakSelf.leftNumLab.text = [NSString stringWithFormat:@"%ld/36",leftNum];
+    };
 }
 
 #pragma mark --- 创建分享视图
@@ -470,129 +467,11 @@
     }
 }
 
-
 #pragma mark --- scrollView Delegate
 - (void) scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [_textView resignFirstResponder];
 }
-
-#pragma mark ---  textView Delegate
-- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
-{
-    _placeHolderLab.hidden=YES;
-    return YES;
-}
-
--(BOOL) textViewShouldEndEditing:(UITextView *)textView
-{
-    textView.text=[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    BOOL isEmptyStr=[ZYZCTool isEmpty:textView.text];
-    _placeHolderLab.hidden=!isEmptyStr;
-    return YES;
-}
-
-- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range
- replacementText:(NSString *)text
-{
-    UITextRange *selectedRange = [textView markedTextRange];
-    //获取高亮部分
-    UITextPosition *pos = [textView positionFromPosition:selectedRange.start offset:0];
-    //获取高亮部分内容
-    //NSString * selectedtext = [textView textInRange:selectedRange];
-    
-    //如果有高亮且当前字数开始位置小于最大限制时允许输入
-    if (selectedRange && pos) {
-        NSInteger startOffset = [textView offsetFromPosition:textView.beginningOfDocument toPosition:selectedRange.start];
-        NSInteger endOffset = [textView offsetFromPosition:textView.beginningOfDocument toPosition:selectedRange.end];
-        NSRange offsetRange = NSMakeRange(startOffset, endOffset - startOffset);
-        
-        if (offsetRange.location < MAX_LIMIT_NUMS) {
-            return YES;
-        }
-        else
-        {
-            return NO;
-        }
-    }
-    
-    
-    NSString *comcatstr = [textView.text stringByReplacingCharactersInRange:range withString:text];
-    
-    NSInteger caninputlen = MAX_LIMIT_NUMS - comcatstr.length;
-    
-    if (caninputlen >= 0)
-    {
-        return YES;
-    }
-    else
-    {
-        NSInteger len = text.length + caninputlen;
-        //防止当text.length + caninputlen < 0时，使得rg.length为一个非法最大正数出错
-        NSRange rg = {0,MAX(len,0)};
-        
-        if (rg.length > 0)
-        {
-            NSString *s = @"";
-            //判断是否只普通的字符或asc码(对于中文和表情返回NO)
-            BOOL asc = [text canBeConvertedToEncoding:NSASCIIStringEncoding];
-            if (asc) {
-                s = [text substringWithRange:rg];//因为是ascii码直接取就可以了不会错
-            }
-            else
-            {
-                __block NSInteger idx = 0;
-                __block NSString  *trimString = @"";//截取出的字串
-                //使用字符串遍历，这个方法能准确知道每个emoji是占一个unicode还是两个
-                [text enumerateSubstringsInRange:NSMakeRange(0, [text length])
-                options:NSStringEnumerationByComposedCharacterSequences usingBlock: ^(NSString* substring, NSRange substringRange, NSRange enclosingRange, BOOL* stop) {
-                      if (idx >= rg.length) {
-                          *stop = YES; //取出所需要就break，提高效率
-                          return ;
-                      }
-                      
-                      trimString = [trimString stringByAppendingString:substring];
-                      
-                      idx++;
-                    }];
-                s = trimString;
-            }
-            //rang是指从当前光标处进行替换处理(注意如果执行此句后面返回的是YES会触发didchange事件)
-            [textView setText:[textView.text stringByReplacingCharactersInRange:range withString:s]];
-            //既然是超出部分截取了，哪一定是最大限制了。
-            _leftNumLab.text = leftNum_text((NSInteger)0);
-        }
-        return NO;
-    }
-    
-}
-
-- (void)textViewDidChange:(UITextView *)textView
-{
-    UITextRange *selectedRange = [textView markedTextRange];
-    //获取高亮部分
-    UITextPosition *pos = [textView positionFromPosition:selectedRange.start offset:0];
-    
-    //如果在变化中是高亮部分在变，就不要计算字符了
-    if (selectedRange && pos) {
-        return;
-    }
-    NSString  *nsTextContent = textView.text;
-    NSInteger existTextNum = nsTextContent.length;
-    
-    if (existTextNum > MAX_LIMIT_NUMS)
-    {
-        //截取到最大位置的字符(由于超出截部分在should时被处理了所在这里这了提高效率不再判断)
-        NSString *s = [nsTextContent substringToIndex:MAX_LIMIT_NUMS];
-        
-        [textView setText:s];
-    }
-    
-    //不让显示负数 口口日
-    _leftNumLab.text =leftNum_text(MAX(0,MAX_LIMIT_NUMS - existTextNum));
-//    [NSString stringWithFormat:@"%ld/%d",MAX(0,MAX_LIMIT_NUMS - existTextNum),MAX_LIMIT_NUMS];
-}
-
 
 #pragma mark NewPagedFlowView Delegate
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -652,8 +531,9 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
--(void) viewWillDisappear:(BOOL)animated
+-(void) dealloc
 {
+    DDLog(@"dealloc:%@",[self class]);
     [ZYNSNotificationCenter  removeObserver:self];
     [MediaUtils deleteFileByPath:_localVideoImgPath];
 }
