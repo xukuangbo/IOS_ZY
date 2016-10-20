@@ -8,7 +8,7 @@
 
 #define PLACEHOLDER_TEXT  @"分享此刻的心情"
 #define LOCATION_TEXT     @"显示当前位置"
-
+#define Max_Limit_Num     100
 
 #define PIC_HEIGHT     (KSCREEN_W-60)/3.0
 #define BGIMAGE_HEIGHT PIC_HEIGHT*2+80
@@ -23,12 +23,13 @@
 #import "MBProgressHUD+MJ.h"
 #import "ZYZCOSSManager.h"
 #import "ZYZCCusomMovieImage.h"
-@interface ZYPublishFootprintController ()<UITextViewDelegate,UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+#import "ZYBaseLimitTextView.h"
+@interface ZYPublishFootprintController ()<UIScrollViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic, strong) UIButton     *publishBtn;
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) UIImageView  *bgImageView;
-@property (nonatomic, strong) UITextView   *textView;//文字
-@property (nonatomic, strong) UILabel      *placeHolderLab;
+@property (nonatomic, strong) ZYBaseLimitTextView *textView;//文字
+//@property (nonatomic, strong) UILabel      *placeHolderLab;
 
 @property (nonatomic, strong) UIView       *contentView;//图片，视频。。。
 @property (nonatomic, strong) UIView       *locationView;//显示位置
@@ -117,20 +118,11 @@
     [_scrollView addSubview:_bgImageView];
     
     //文字框
-    _textView=[[UITextView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, KEDGE_DISTANCE, _bgImageView.width-2*KEDGE_DISTANCE, PIC_HEIGHT)];
-//    _textView.backgroundColor=[UIColor greenColor];
-    _textView.delegate=self;
+    _textView=[[ZYBaseLimitTextView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, KEDGE_DISTANCE, _bgImageView.width-2*KEDGE_DISTANCE, PIC_HEIGHT) andMaxTextNum:Max_Limit_Num];
     _textView.font=[UIFont systemFontOfSize:15];
-    _textView.tintColor=[UIColor ZYZC_MainColor];
-    _textView.textColor=[UIColor ZYZC_TextBlackColor];
+    _textView.placeholder=PLACEHOLDER_TEXT;
     [_bgImageView addSubview:_textView];
     
-    //占位文字
-    _placeHolderLab=[[UILabel alloc]initWithFrame:CGRectMake(5, 5, _textView.width-5, 20)];
-    _placeHolderLab.text=PLACEHOLDER_TEXT;
-     _placeHolderLab.font=[UIFont systemFontOfSize:15];
-    _placeHolderLab.textColor= [UIColor ZYZC_TextGrayColor01];
-    [_textView addSubview:_placeHolderLab];
     
     //放图片，视频的控件
     _contentView=[[UIView alloc]initWithFrame:CGRectMake(0,_textView.bottom+KEDGE_DISTANCE , _bgImageView.width, PIC_HEIGHT)];
@@ -187,7 +179,6 @@
         _publishBtn.enabled=YES;
         [_publishBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
     }
-
 }
 
 
@@ -448,26 +439,6 @@
     if (_textView.isFirstResponder) {
         [_textView resignFirstResponder];
     }
-}
-
-#pragma mark --- textView代理
--(BOOL)textViewShouldBeginEditing:(UITextView *)textView
-{
-    _placeHolderLab.hidden=YES;
-    return YES;
-}
-
--(BOOL)textViewShouldEndEditing:(UITextView *)textView
-{
-    textView.text=[textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    BOOL isEmptyStr=[ZYZCTool isEmpty:textView.text];
-    
-    if (isEmptyStr) {
-        _placeHolderLab.hidden=NO;
-    }
-
-    return YES;
 }
 
 #pragma mark --- 返回操作
