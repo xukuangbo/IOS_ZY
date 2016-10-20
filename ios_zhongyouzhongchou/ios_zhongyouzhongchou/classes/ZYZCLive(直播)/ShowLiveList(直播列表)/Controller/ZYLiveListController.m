@@ -17,6 +17,7 @@
 #import "ZYFaqiLiveViewController.h"
 #import "EntryPlaceholderView.h"
 #import "ZYZCMoviePlayerViewController.h"
+
 @interface ZYLiveListController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *listArray;

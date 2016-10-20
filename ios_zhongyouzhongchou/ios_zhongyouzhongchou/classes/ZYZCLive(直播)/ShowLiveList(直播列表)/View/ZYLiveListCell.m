@@ -166,10 +166,12 @@
     }
     
     //状态
-    if (model.liveStatus == 0) {
-        _liveStatusLabel.text = @"直播中";
-    }else{
-        _liveStatusLabel.text = @"休息中";
+    if (model.event.length > 0) {
+        if ([model.event isEqualToString:@"publish"]) {
+            _liveStatusLabel.text = @"直播";
+        }else{//publish_done
+            _liveStatusLabel.text = @"回放";
+        }
     }
     
     //头像

@@ -22,7 +22,7 @@
 /**封面 */
 @property (nonatomic, copy) NSString *img;
 /**状态 */
-@property (nonatomic, assign) NSInteger liveStatus;
+@property (nonatomic, copy) NSString *event;
 /**头像 */
 @property (nonatomic, copy) NSString *faceImg;
 /**名字 */
