@@ -16,6 +16,7 @@
 #import "ZYLiveViewController.h"
 #import "ZYFaqiLiveViewController.h"
 #import "EntryPlaceholderView.h"
+
 @interface ZYLiveListController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *listArray;

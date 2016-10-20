@@ -527,7 +527,6 @@
 		392AB2AC1D669CE6003FEDB7 /* ZYLiveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2A11D669CE6003FEDB7 /* ZYLiveListModel.m */; };
 		392AB2AD1D669CE6003FEDB7 /* ZYLiveListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2A41D669CE6003FEDB7 /* ZYLiveListCell.m */; };
 		392AB2AF1D669CE6003FEDB7 /* ZYLiveListViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2A81D669CE6003FEDB7 /* ZYLiveListViewModel.m */; };
-		392AB2B01D669CE6003FEDB7 /* ZYZCLiveStartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 392AB2AA1D669CE6003FEDB7 /* ZYZCLiveStartController.m */; };
 		3931CBC91D88ED0500115F0D /* ZYLiveEndLiveVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3931CBC41D88ED0500115F0D /* ZYLiveEndLiveVC.m */; };
 		3931CBCA1D88ED0500115F0D /* ZYLiveEndLiveVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3931CBC51D88ED0500115F0D /* ZYLiveEndLiveVC.xib */; };
 		3931CBCB1D88ED0500115F0D /* ZYLiveEndModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3931CBC71D88ED0500115F0D /* ZYLiveEndModel.m */; };
@@ -1639,8 +1638,6 @@
 		392AB2A41D669CE6003FEDB7 /* ZYLiveListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveListCell.m; sourceTree = "<group>"; };
 		392AB2A71D669CE6003FEDB7 /* ZYLiveListViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveListViewModel.h; sourceTree = "<group>"; };
 		392AB2A81D669CE6003FEDB7 /* ZYLiveListViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveListViewModel.m; sourceTree = "<group>"; };
-		392AB2A91D669CE6003FEDB7 /* ZYZCLiveStartController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCLiveStartController.h; sourceTree = "<group>"; };
-		392AB2AA1D669CE6003FEDB7 /* ZYZCLiveStartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCLiveStartController.m; sourceTree = "<group>"; };
 		3931CBC31D88ED0500115F0D /* ZYLiveEndLiveVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveEndLiveVC.h; sourceTree = "<group>"; };
 		3931CBC41D88ED0500115F0D /* ZYLiveEndLiveVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveEndLiveVC.m; sourceTree = "<group>"; };
 		3931CBC51D88ED0500115F0D /* ZYLiveEndLiveVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZYLiveEndLiveVC.xib; sourceTree = "<group>"; };
@@ -4748,8 +4745,6 @@
 				392AB29F1D669CE6003FEDB7 /* Model */,
 				392AB2A21D669CE6003FEDB7 /* View */,
 				392AB2A61D669CE6003FEDB7 /* ViewModel */,
-				392AB2A91D669CE6003FEDB7 /* ZYZCLiveStartController.h */,
-				392AB2AA1D669CE6003FEDB7 /* ZYZCLiveStartController.m */,
 			);
 			path = "ShowLiveList(直播列表)";
 			sourceTree = "<group>";
@@ -5776,7 +5771,6 @@
 				04F836431CD72C3300140980 /* SDLoopProgressView.m in Sources */,
 				2CDE66DA1DA650A80066F49D /* QPPointProgress.m in Sources */,
 				3931CBC91D88ED0500115F0D /* ZYLiveEndLiveVC.m in Sources */,
-				392AB2B01D669CE6003FEDB7 /* ZYZCLiveStartController.m in Sources */,
 				394C2A5D1DB722EE00821F78 /* WaterFlowLayout.m in Sources */,
 				048DDE9C1CC229F600136C7A /* MBProgressHUD+MJ.m in Sources */,
 				04F836411CD72C3300140980 /* SDBallProgressView.m in Sources */,
