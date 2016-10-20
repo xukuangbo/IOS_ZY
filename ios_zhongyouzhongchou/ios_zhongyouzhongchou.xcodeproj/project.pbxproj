@@ -118,6 +118,7 @@
 		05977B241DB85DC5007EC20A /* ZFPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 05977B181DB85DC5007EC20A /* ZFPlayer.bundle */; };
 		05977B251DB85DC5007EC20A /* ZFPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B1B1DB85DC5007EC20A /* ZFPlayerControlView.m */; };
 		05977B261DB85DC5007EC20A /* ZFPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B1D1DB85DC5007EC20A /* ZFPlayerView.m */; };
+		05977B2A1DB8614A007EC20A /* ZYZCMoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B291DB8614A007EC20A /* ZYZCMoviePlayerViewController.m */; };
 		059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792B1DAE068800371302 /* ZYCGContextView.m */; };
 		059A792F1DAE0B8300371302 /* ZYDetailGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */; };
 		05BB94F91DA9E7BA000DA5BA /* ZYTravePayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */; };
@@ -853,6 +854,8 @@
 		05977B1B1DB85DC5007EC20A /* ZFPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerControlView.m; sourceTree = "<group>"; };
 		05977B1C1DB85DC5007EC20A /* ZFPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerView.h; sourceTree = "<group>"; };
 		05977B1D1DB85DC5007EC20A /* ZFPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerView.m; sourceTree = "<group>"; };
+		05977B281DB8614A007EC20A /* ZYZCMoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCMoviePlayerViewController.h; sourceTree = "<group>"; };
+		05977B291DB8614A007EC20A /* ZYZCMoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCMoviePlayerViewController.m; sourceTree = "<group>"; };
 		059A792A1DAE068800371302 /* ZYCGContextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCGContextView.h; sourceTree = "<group>"; };
 		059A792B1DAE068800371302 /* ZYCGContextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCGContextView.m; sourceTree = "<group>"; };
 		059A792D1DAE0B8300371302 /* ZYDetailGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailGuideView.h; sourceTree = "<group>"; };
@@ -2637,6 +2640,15 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		05977B271DB860A8007EC20A /* LiveVideo(播放录制视频) */ = {
+			isa = PBXGroup;
+			children = (
+				05977B281DB8614A007EC20A /* ZYZCMoviePlayerViewController.h */,
+				05977B291DB8614A007EC20A /* ZYZCMoviePlayerViewController.m */,
+			);
+			path = "LiveVideo(播放录制视频)";
+			sourceTree = "<group>";
+		};
 		05D887A31DACC1C40093910D /* ZYGuideView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2668,6 +2680,7 @@
 		2C0101C11D5DE5EF00D6470D /* ZYZCLive(直播) */ = {
 			isa = PBXGroup;
 			children = (
+				05977B271DB860A8007EC20A /* LiveVideo(播放录制视频) */,
 				055F684A1DB61C77005C4345 /* Scene(现场) */,
 				055F68461DB6194E005C4345 /* LiveHome(直播分为现场和直播) */,
 				05274EE21D66E663002C10A1 /* WatchLive */,
@@ -5980,6 +5993,7 @@
 				2C8B19781D0CF7EC0063097B /* JGProgressHUDRingIndicatorView.m in Sources */,
 				059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */,
 				2C8B19861D0CF7EC0063097B /* XMNAlbumCell.m in Sources */,
+				05977B2A1DB8614A007EC20A /* ZYZCMoviePlayerViewController.m in Sources */,
 				2C8E9ACA1D8FB79D00CA35DE /* ZYFootprintListModel.m in Sources */,
 				2CDC49F71CFD32FC00E7893C /* ZYZCConversationController.m in Sources */,
 				2C8B19841D0CF7EC0063097B /* XMNAssetModel.m in Sources */,

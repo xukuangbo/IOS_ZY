@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerLayerGravity) {
      ZFPlayerLayerGravityResizeAspect,     // 等比例填充，直到一个维度到达区域边界
      ZFPlayerLayerGravityResizeAspectFill  // 等比例填充，直到填充满整个视图区域，其中一个维度的部分区域会被裁剪
 };
-
+@class ZFPlayerControlView;
 @interface ZFPlayerView : UIView
 
 /** 视频URL */
@@ -58,7 +58,8 @@ typedef NS_ENUM(NSInteger, ZFPlayerLayerGravity) {
 @property (nonatomic, copy  ) NSString             *placeholderImageName;
 /** 是否被用户暂停 */
 @property (nonatomic, assign, readonly) BOOL       isPauseByUser;
-
+/** 控制层View */
+@property (nonatomic, strong) ZFPlayerControlView    *controlView;
 /**
  *  自动播放，默认不自动播放
  */

@@ -16,6 +16,7 @@
 #import "ZYLiveViewController.h"
 #import "ZYFaqiLiveViewController.h"
 #import "EntryPlaceholderView.h"
+#import "ZYZCMoviePlayerViewController.h"
 @interface ZYLiveListController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *listArray;
@@ -136,7 +137,7 @@ static NSString *ID = @"ZYLiveListCell";
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         NSMutableArray *dataArray = [ZYLiveListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        
+        ZYLiveListModel *list = dataArray[1];
         if (direction == 1) {//说明是下拉
             if (dataArray.count > 0) {
                 
@@ -220,10 +221,16 @@ static NSString *ID = @"ZYLiveListCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:self.listArray[indexPath.row]];
-    watchLiveVC.hidesBottomBarWhenPushed = YES;
-    watchLiveVC.conversationType = ConversationType_CHATROOM;
-    [self.navigationController pushViewController:watchLiveVC animated:YES];
+    ZYLiveListModel *liveModel = self.listArray[indexPath.row];
+    
+//    ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:self.listArray[indexPath.row]];
+//    watchLiveVC.hidesBottomBarWhenPushed = YES;
+//    watchLiveVC.conversationType = ConversationType_CHATROOM;
+//    [self.navigationController pushViewController:watchLiveVC animated:YES];
+    ZYZCMoviePlayerViewController *moviePlayerVC = [[ZYZCMoviePlayerViewController alloc] init];
+    moviePlayerVC.liveModel = liveModel;
+    moviePlayerVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:moviePlayerVC animated:YES];
 }
 
 @end

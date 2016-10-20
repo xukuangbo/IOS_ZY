@@ -43,7 +43,8 @@
 @property (nonatomic, copy) NSString *chatRoomId;
 /** 性别 */
 @property (nonatomic, copy) NSString *sex;
-
+/** 录制视频的地址 */
+@property (nonatomic, copy) NSString *urlHb;
 /** 关联行程的id */
 @property (nonatomic, copy) NSString *productId;
 /** 关联行程的标题 */
