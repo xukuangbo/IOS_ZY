@@ -594,6 +594,82 @@
     return showDateStr;
 }
 
+/**
+ * 图片压缩
+ * @param sourceImage 源图片
+ * @return 目标图片
+ */
++ (UIImage*)imageByScalingAndCroppingWithSourceImage:(UIImage *)sourceImage
+{
+    //控制图片的width和height
+    
+    CGFloat scale=1.0;
+    
+    UIImage *newImage = nil;
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    
+    CGFloat scale01=600.0/width;
+    CGFloat scale02=600.0/width;
+    if (scale01>1.0||scale02>1.0) {
+        scale=1.0;
+    }
+    else
+    {
+        scale=MAX(scale01, scale02);
+    }
+    CGFloat targetWidth = width*scale;
+    CGFloat targetHeight = height*scale;
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    if (CGSizeEqualToSize(imageSize, CGSizeMake(targetWidth, targetHeight)) == NO)
+    {
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        if (widthFactor > heightFactor)
+            scaleFactor = widthFactor; // scale to fit height
+        else
+            scaleFactor = heightFactor; // scale to fit width
+        scaledWidth= width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        // center the image
+        if (widthFactor > heightFactor)
+        {
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        }
+        else if (widthFactor < heightFactor)
+        {
+            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+    }
+    UIGraphicsBeginImageContext(CGSizeMake(targetWidth, targetHeight)); // this will crop
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width= scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    
+    [sourceImage drawInRect:thumbnailRect];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    if(newImage == nil)
+    {
+        DDLog(@"could not scale image");
+        return nil;
+    }
+    
+    //pop the context to get back to the default
+    UIGraphicsEndImageContext();
+    
+    //压
+    NSData *imgData=UIImageJPEGRepresentation(newImage, 0.5);
+    UIImage *jpegImg=[UIImage imageWithData:imgData];
+    return jpegImg;
+    //    return newImage;
+}
+
 
 +(UIView*)getFirstResponder
 {

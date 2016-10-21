@@ -124,8 +124,12 @@
     [_picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *> * _Nullable asset) {
         _uploadSuccess=NO;
         [weakSelf.picArr removeAllObjects];
-        [weakSelf.picArr addObjectsFromArray:images];
-        [weakSelf finishChooseWithImages:images];
+        NSMutableArray *newImgs=[NSMutableArray array];
+        for (NSInteger i=0; i<images.count; i++) {
+            [newImgs addObject:[ZYZCTool imageByScalingAndCroppingWithSourceImage:images[i]]];
+        }
+        [weakSelf.picArr addObjectsFromArray:newImgs];
+        [weakSelf finishChooseWithImages:newImgs];
         weakSelf.sureBtn.enabled=YES;
         [weakSelf.sureBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         weakSelf.sureBtn.backgroundColor=[UIColor ZYZC_MainColor];

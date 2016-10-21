@@ -7,13 +7,14 @@
 //
 
 #import "MoreFZCBaseTableViewCell.h"
-#import "ZYZCCustomTextField.h"
+//#import "ZYZCCustomTextField.h"
+#import "ZYBaseLimitTextField.h"
 #define SECONDCELLHEIGHT 65+175*KCOFFICIEMNT
 
-@interface GoalSecondCell : MoreFZCBaseTableViewCell<ZYZCCustomTextFieldDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
+@interface GoalSecondCell : MoreFZCBaseTableViewCell<ZYBaseLimitTextFieldDelegate,UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) UIImagePickerController *imagePicker;
 @property (nonatomic, strong) UIImageView *frameImg;
-@property (nonatomic, strong) ZYZCCustomTextField *textField;
+@property (nonatomic, strong) ZYBaseLimitTextField *textField;
 
 @end

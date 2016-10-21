@@ -96,8 +96,7 @@
     
 //    选择视频后回调
     [_picker setDidFinishPickingVideoBlock:^(UIImage * _Nullable image, XMNAssetModel * _Nullable asset) {
-#warning 需要 压缩处理
-        weakSelf.movImage=image;
+        weakSelf.movImage=[ZYZCTool imageByScalingAndCroppingWithSourceImage:image];
         [weakSelf compressVideo:asset.asset];
     }];
 //    点击取消
