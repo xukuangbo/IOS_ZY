@@ -118,6 +118,7 @@
 		05977B241DB85DC5007EC20A /* ZFPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 05977B181DB85DC5007EC20A /* ZFPlayer.bundle */; };
 		05977B251DB85DC5007EC20A /* ZFPlayerControlView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B1B1DB85DC5007EC20A /* ZFPlayerControlView.m */; };
 		05977B261DB85DC5007EC20A /* ZFPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B1D1DB85DC5007EC20A /* ZFPlayerView.m */; };
+		05977B2A1DB8614A007EC20A /* ZYZCMoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B291DB8614A007EC20A /* ZYZCMoviePlayerViewController.m */; };
 		059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792B1DAE068800371302 /* ZYCGContextView.m */; };
 		059A792F1DAE0B8300371302 /* ZYDetailGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */; };
 		05BB94F91DA9E7BA000DA5BA /* ZYTravePayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */; };
@@ -228,6 +229,7 @@
 		2C1ECC8A1D62B04400B91E7B /* ZYZCEditYoujiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC891D62B04400B91E7B /* ZYZCEditYoujiController.m */; };
 		2C1ECC8D1D62B08C00B91E7B /* YJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */; };
 		2C20BC971D8A4A3500574462 /* HUPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */; };
+		2C228B871DB9FA0B00ECAD69 /* ZYCustomBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C228B861DB9FA0B00ECAD69 /* ZYCustomBlurView.m */; };
 		2C2BCE2C1DB77C1F007C6E1C /* ZYBaseLimitTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BCE2B1DB77C1F007C6E1C /* ZYBaseLimitTextView.m */; };
 		2C3178481DAA41340042B5DB /* ZYDetailIUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3178471DAA41340042B5DB /* ZYDetailIUserInfoCell.m */; };
 		2C3292F11D922D890095F60E /* ZYFootprintCommentTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */; };
@@ -255,6 +257,7 @@
 		2C5159A71D8641B20048BD20 /* MLAudioRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C51599B1D8641B20048BD20 /* MLAudioRecorder.m */; };
 		2C5159A81D8641B20048BD20 /* lame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C51599D1D8641B20048BD20 /* lame.framework */; };
 		2C5159A91D8641B20048BD20 /* Mp3RecordWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */; };
+		2C5A78561DB85982003E2743 /* ZYBaseLimitTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */; };
 		2C6739981DAFA219000C7E3C /* QPSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6739971DAFA219000C7E3C /* QPSDKCore.framework */; };
 		2C79606C1D0A74940026C9F6 /* MyReturnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */; };
 		2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */; };
@@ -858,6 +861,8 @@
 		05977B1B1DB85DC5007EC20A /* ZFPlayerControlView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerControlView.m; sourceTree = "<group>"; };
 		05977B1C1DB85DC5007EC20A /* ZFPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFPlayerView.h; sourceTree = "<group>"; };
 		05977B1D1DB85DC5007EC20A /* ZFPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFPlayerView.m; sourceTree = "<group>"; };
+		05977B281DB8614A007EC20A /* ZYZCMoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCMoviePlayerViewController.h; sourceTree = "<group>"; };
+		05977B291DB8614A007EC20A /* ZYZCMoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCMoviePlayerViewController.m; sourceTree = "<group>"; };
 		059A792A1DAE068800371302 /* ZYCGContextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCGContextView.h; sourceTree = "<group>"; };
 		059A792B1DAE068800371302 /* ZYCGContextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCGContextView.m; sourceTree = "<group>"; };
 		059A792D1DAE0B8300371302 /* ZYDetailGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailGuideView.h; sourceTree = "<group>"; };
@@ -1063,6 +1068,8 @@
 		2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJTextView.m; sourceTree = "<group>"; };
 		2C20BC951D8A4A3500574462 /* HUPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowser.h; sourceTree = "<group>"; };
 		2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowser.m; sourceTree = "<group>"; };
+		2C228B851DB9FA0B00ECAD69 /* ZYCustomBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomBlurView.h; sourceTree = "<group>"; };
+		2C228B861DB9FA0B00ECAD69 /* ZYCustomBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomBlurView.m; sourceTree = "<group>"; };
 		2C2BCE2A1DB77C1F007C6E1C /* ZYBaseLimitTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBaseLimitTextView.h; sourceTree = "<group>"; };
 		2C2BCE2B1DB77C1F007C6E1C /* ZYBaseLimitTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBaseLimitTextView.m; sourceTree = "<group>"; };
 		2C3178461DAA41340042B5DB /* ZYDetailIUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailIUserInfoCell.h; sourceTree = "<group>"; };
@@ -1117,6 +1124,8 @@
 		2C51599D1D8641B20048BD20 /* lame.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = lame.framework; sourceTree = "<group>"; };
 		2C51599E1D8641B20048BD20 /* Mp3RecordWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Mp3RecordWriter.h; sourceTree = "<group>"; };
 		2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Mp3RecordWriter.m; sourceTree = "<group>"; };
+		2C5A78541DB85982003E2743 /* ZYBaseLimitTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBaseLimitTextField.h; sourceTree = "<group>"; };
+		2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBaseLimitTextField.m; sourceTree = "<group>"; };
 		2C6739971DAFA219000C7E3C /* QPSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPSDKCore.framework; sourceTree = "<group>"; };
 		2C72BCC21CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		2C72BCC31CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
@@ -2652,6 +2661,15 @@
 			path = Category;
 			sourceTree = "<group>";
 		};
+		05977B271DB860A8007EC20A /* LiveVideo(播放录制视频) */ = {
+			isa = PBXGroup;
+			children = (
+				05977B281DB8614A007EC20A /* ZYZCMoviePlayerViewController.h */,
+				05977B291DB8614A007EC20A /* ZYZCMoviePlayerViewController.m */,
+			);
+			path = "LiveVideo(播放录制视频)";
+			sourceTree = "<group>";
+		};
 		05D887A31DACC1C40093910D /* ZYGuideView */ = {
 			isa = PBXGroup;
 			children = (
@@ -2683,6 +2701,7 @@
 		2C0101C11D5DE5EF00D6470D /* ZYZCLive(直播) */ = {
 			isa = PBXGroup;
 			children = (
+				05977B271DB860A8007EC20A /* LiveVideo(播放录制视频) */,
 				055F684A1DB61C77005C4345 /* Scene(现场) */,
 				055F68461DB6194E005C4345 /* LiveHome(直播分为现场和直播) */,
 				05274EE21D66E663002C10A1 /* WatchLive */,
@@ -3166,6 +3185,10 @@
 				2C9AA6E11D3D2BAF0030A5B4 /* ZYCustomIconView.m */,
 				2C2BCE2A1DB77C1F007C6E1C /* ZYBaseLimitTextView.h */,
 				2C2BCE2B1DB77C1F007C6E1C /* ZYBaseLimitTextView.m */,
+				2C5A78541DB85982003E2743 /* ZYBaseLimitTextField.h */,
+				2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */,
+				2C228B851DB9FA0B00ECAD69 /* ZYCustomBlurView.h */,
+				2C228B861DB9FA0B00ECAD69 /* ZYCustomBlurView.m */,
 			);
 			path = ZYZCBaseView;
 			sourceTree = "<group>";
@@ -5623,6 +5646,7 @@
 				2CD6B8FE1DA9DFEE00B7E60A /* ZCSupportReturnView.m in Sources */,
 				3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */,
 				2CDE66841DA64EB70066F49D /* JSONAPI.m in Sources */,
+				2C228B871DB9FA0B00ECAD69 /* ZYCustomBlurView.m in Sources */,
 				2C8B19801D0CF7EC0063097B /* XMNPhotoPickerController.m in Sources */,
 				39911AC91D504174007DF44B /* UIColor+ZYZCColors.m in Sources */,
 				04F8364D1CD734CD00140980 /* TacticSingleTipsController.m in Sources */,
@@ -5856,6 +5880,7 @@
 				048DDE9C1CC229F600136C7A /* MBProgressHUD+MJ.m in Sources */,
 				04F836411CD72C3300140980 /* SDBallProgressView.m in Sources */,
 				04518B4C1CE419F0001921D0 /* MineSetUpViewController.m in Sources */,
+				2C5A78561DB85982003E2743 /* ZYBaseLimitTextField.m in Sources */,
 				395B5A951D24D6AD0084264C /* LoginJudgeController.m in Sources */,
 				394C2A601DB723CE00821F78 /* ZYLiveSceneModel.m in Sources */,
 				04D9A4A81D06B9FC00753392 /* MineSaveContactInfoVC.m in Sources */,
@@ -6039,6 +6064,7 @@
 				2C8B19781D0CF7EC0063097B /* JGProgressHUDRingIndicatorView.m in Sources */,
 				059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */,
 				2C8B19861D0CF7EC0063097B /* XMNAlbumCell.m in Sources */,
+				05977B2A1DB8614A007EC20A /* ZYZCMoviePlayerViewController.m in Sources */,
 				2C8E9ACA1D8FB79D00CA35DE /* ZYFootprintListModel.m in Sources */,
 				2CDC49F71CFD32FC00E7893C /* ZYZCConversationController.m in Sources */,
 				2C8B19841D0CF7EC0063097B /* XMNAssetModel.m in Sources */,

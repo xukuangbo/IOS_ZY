@@ -207,7 +207,23 @@
     CGFloat locationView_top=_video.bottom;
     if (footprintModel.video.length) {
         _video.hidden=NO;
-        _video.height=_video.width*0.565;
+        if(footprintModel.videoimgsize>0)
+        {
+            if (footprintModel.videoimgsize<=1.0) {
+                _video.width=2*PIC_WIDTH+10;
+                _video.height=_video.width*1.0/footprintModel.videoimgsize;
+            }
+            else
+            {
+                _video.width=self.width;
+                _video.height=_video.width*1.0/footprintModel.videoimgsize;
+            }
+        }
+        else
+        {
+           _video.height=_video.width*0.565;
+        }
+        
         [ _video sd_setImageWithURL:[NSURL URLWithString:footprintModel.videoimg] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
         _video.playUrl=footprintModel.video;
         [_video changeFrame];

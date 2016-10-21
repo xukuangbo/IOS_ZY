@@ -177,6 +177,23 @@
 + (NSString *) showCusDateByTimestamp:(NSString *)timestamp;
 
 
+//压缩图片
++ (UIImage*)imageByScalingAndCroppingWithSourceImage:(UIImage *)sourceImage;
+//缩图
++ (UIImage *)reduceImageSizeFromSourceImage:(UIImage *)sourceImage andScale:(CGFloat)scale;
+
+/**
+ *  压缩图片到指定大小（kb）以内
+ *
+ *  @param length 指定的大小（kb为单位）
+ *
+ *  @param placeHolderImage 替代图（万一没达到指定大小需替代的图）
+ *
+ *  @return 日期
+ */
++ (UIImage *) compressSourceImage:(UIImage *)sourceImage underLength:(NSInteger)length  withPlaceHolderImage:(UIImage *)placeHolderImage;
+
+
 +(void)handleKeyBoardScroOn:(UIView*)view forTarget:(UIView*)targetView noti:(NSNotification*)noti state:(NSString*)state;
 
 

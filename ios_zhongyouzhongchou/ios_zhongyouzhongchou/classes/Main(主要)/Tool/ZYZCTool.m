@@ -594,6 +594,126 @@
     return showDateStr;
 }
 
+/**
+ * 图片压缩
+ * @param sourceImage 源图片
+ * @return 目标图片
+ */
++ (UIImage*)imageByScalingAndCroppingWithSourceImage:(UIImage *)sourceImage
+{
+    //控制图片的width和height
+    
+    CGFloat scale=1.0;
+    
+   
+    CGFloat scale01=600.0/sourceImage.size.width;
+    CGFloat scale02=600.0/sourceImage.size.height;
+    if (scale01>1.0||scale02>1.0) {
+        scale=1.0;
+    }
+    else
+    {
+        scale=MAX(scale01, scale02);
+    }
+    
+    //缩
+    UIImage *newImage=[self reduceImageSizeFromSourceImage:sourceImage andScale:scale];
+    if (!newImage) {
+        return nil;
+    }
+    //压
+    NSData *imgData=UIImageJPEGRepresentation(newImage, 0.5);
+    UIImage *jpegImg=[UIImage imageWithData:imgData];
+    return jpegImg;
+}
+
++ (UIImage *)reduceImageSizeFromSourceImage:(UIImage *)sourceImage andScale:(CGFloat)scale
+{
+    UIImage *newImage = nil;
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
+    CGFloat targetWidth = width*scale;
+    CGFloat targetHeight = height*scale;
+    CGFloat scaleFactor = 0.0;
+    CGFloat scaledWidth = targetWidth;
+    CGFloat scaledHeight = targetHeight;
+    CGPoint thumbnailPoint = CGPointMake(0.0,0.0);
+    if (CGSizeEqualToSize(imageSize, CGSizeMake(targetWidth, targetHeight)) == NO)
+    {
+        CGFloat widthFactor = targetWidth / width;
+        CGFloat heightFactor = targetHeight / height;
+        if (widthFactor > heightFactor)
+            scaleFactor = widthFactor; // scale to fit height
+        else
+            scaleFactor = heightFactor; // scale to fit width
+        scaledWidth= width * scaleFactor;
+        scaledHeight = height * scaleFactor;
+        // center the image
+        if (widthFactor > heightFactor)
+        {
+            thumbnailPoint.y = (targetHeight - scaledHeight) * 0.5;
+        }
+        else if (widthFactor < heightFactor)
+        {
+            thumbnailPoint.x = (targetWidth - scaledWidth) * 0.5;
+        }
+    }
+    UIGraphicsBeginImageContext(CGSizeMake(targetWidth, targetHeight)); // this will crop
+    CGRect thumbnailRect = CGRectZero;
+    thumbnailRect.origin = thumbnailPoint;
+    thumbnailRect.size.width= scaledWidth;
+    thumbnailRect.size.height = scaledHeight;
+    
+    [sourceImage drawInRect:thumbnailRect];
+    newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    if(newImage == nil)
+    {
+        DDLog(@"could not scale image");
+        return nil;
+    }
+    
+    //pop the context to get back to the default
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
+#pragma mark --- 压缩图片到指定大小（kb）以内
++ (UIImage *) compressSourceImage:(UIImage *)sourceImage underLength:(NSInteger)length  withPlaceHolderImage:(UIImage *)placeHolderImage
+{
+    if (!sourceImage) {
+        return placeHolderImage;
+    }
+    NSData *imageData = UIImageJPEGRepresentation(sourceImage, 1.0);
+    if (imageData.length>length*1024) {
+        NSData *data = UIImageJPEGRepresentation(sourceImage, 0.5);
+        UIImage *compressImage01=[UIImage imageWithData:data];
+        if (data.length>length*1024) {
+            UIImage *resultImage=nil;
+            for (int i=1; i<10; i++) {
+                UIImage *img=[self reduceImageSizeFromSourceImage:compressImage01 andScale:(10-i)*0.1];
+                NSData *data = UIImageJPEGRepresentation(img, 1.0);
+                if (data.length<length*1024) {
+                    resultImage=[UIImage imageWithData:data];
+                    break;
+                }
+            }
+            if (!resultImage) {
+                resultImage=placeHolderImage;
+            }
+            return resultImage;
+        }
+        else
+        {
+            return  compressImage01;
+        }
+    }
+    else
+    {
+        return sourceImage;
+    }
+}
 
 +(UIView*)getFirstResponder
 {

@@ -8,7 +8,7 @@
 
 #import "ZYSceneViewController.h"
 #import "WaterFlowLayout.h"
-#import "ZYLiveSceneModel.h"
+#import "ZYFootprintListModel.h"
 #import "ShopCell.h"
 #import "MBProgressHUD+MJ.h"
 #import "EntryPlaceholderView.h"
@@ -84,6 +84,13 @@ static NSString *const ShopID = @"ShopCell";
     _collectionView.backgroundColor = [UIColor whiteColor];
     _collectionView.dataSource = self;
     [self.view addSubview:_collectionView];
+    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.top.equalTo(@64);
+        make.bottom.equalTo(@49);
+    }];
+
     layout.delegate = self;
     
     [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ShopCell class]) bundle:nil] forCellWithReuseIdentifier:ShopID];
@@ -101,7 +108,7 @@ static NSString *const ShopID = @"ShopCell";
     __weak typeof(&*self) weakSelf = self;
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
-        NSMutableArray *dataArray = [ZYLiveSceneModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSMutableArray *dataArray = [ZYFootprintListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         
         if (direction == 1) {//说明是下拉
             if (dataArray.count > 0) {
@@ -166,10 +173,13 @@ static NSString *const ShopID = @"ShopCell";
 
 - (CGFloat)WaterFlowLayout:(WaterFlowLayout *)WaterFlowLayout heightForRowAtIndexPath:(NSInteger )index itemWidth:(CGFloat)itemWidth
 {
-    ZYLiveSceneModel *shop = self.scenes[index];
+    ZYFootprintListModel *shop = self.scenes[index];
     
 //    return itemWidth * shop.h / shop.w;
-    return itemWidth / shop.videoimgsize;
+//    if (shop.videoimgsize == 0) {
+//        shop.videoimgsize = 1;
+//    }
+    return itemWidth / 0.4;
 }
 
 @end

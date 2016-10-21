@@ -151,7 +151,11 @@
     __weak typeof(self) weakSelf = self;
     // 选择图片后回调
     [_picker setDidFinishPickingPhotosBlock:^(NSArray<UIImage *> * _Nullable images, NSArray<XMNAssetModel *> * _Nullable asset) {
-        [weakSelf addLocalImageInView:images];
+        NSMutableArray *newImgs=[NSMutableArray array];
+        for (NSInteger i=0; i<images.count; i++) {
+            [newImgs addObject:[ZYZCTool imageByScalingAndCroppingWithSourceImage:images[i]]];
+        }
+        [weakSelf addLocalImageInView:newImgs];
         [weakSelf.picker dismissViewControllerAnimated:YES completion:nil];
     }];
     

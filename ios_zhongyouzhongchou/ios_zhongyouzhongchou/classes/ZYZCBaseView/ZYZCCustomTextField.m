@@ -212,11 +212,6 @@
         
         [_bgView addTarget:self action:@selector(hiddenKeyboard)];
     }
-    
-//    UIView *table=[self getSuperTableView];
-//    if ([table isKindOfClass:[UITableView class]]) {
-//        [ZYZCTool handleKeyBoardScroOn:table forTarget:self noti:notify state:@"show"];
-//    }
 }
 
 //键盘收起，移除背景黑
@@ -226,10 +221,6 @@
         [_bgView removeFromSuperview];
         _bgView=nil;
     }
-//    UIView *table=[self getSuperTableView];
-//    if ([table isKindOfClass:[UITableView class]]||[table isKindOfClass:[UIScrollView class]]) {
-//        [ZYZCTool handleKeyBoardScroOn:table forTarget:self noti:notify state:@"hide"];
-//    }
 }
 
 -(void)hiddenKeyboard

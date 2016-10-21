@@ -20,11 +20,6 @@ typedef NS_ENUM(NSInteger,QupaiSDKCameraPosition){
 };
 
 //ZY需求添加
-typedef NS_ENUM(NSInteger,ZY_VideoSize){
-    ZY_VideoSize9To16, //9:16 （竖屏）(默认)
-    ZY_VideoSize16To9//16:9 （横屏）
-};
-
 typedef NS_ENUM(NSInteger,ZY_VideoHandleType){
     ZY_QupaiVideoCancle,//不作处理(默认)
     ZY_QupaiVideoPublish,//发布
@@ -53,8 +48,8 @@ typedef NS_ENUM(NSInteger,ZY_VideoHandleType){
 
 //编辑的短视频处理结果
 @property (nonatomic, assign) ZY_VideoHandleType zy_VideoHandleType;
-
-@property (nonatomic, assign) ZY_VideoSize       zy_VideoSize;
+//视频长宽比
+@property (nonatomic, assign) CGFloat       zy_VideoSizeRate;
 
 /**
  *创建录制页面，需要以 UINavigationController 为父容器

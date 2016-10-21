@@ -160,7 +160,7 @@
     _startLiveBtn.layer.masksToBounds = YES;
     [_startLiveBtn setTitle:@"开启直播" forState:UIControlStateNormal];
     [_startLiveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_startLiveBtn addTarget:self action:@selector(startLive) forControlEvents:UIControlEventTouchUpInside];
+    [_startLiveBtn addTarget:self action:@selector(clickStartLiveButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
     
     [_backView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -308,7 +308,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
    
     // 判断是否同意直播协议
-    if (![userDefaults boolForKey:CREATE_LIVE_AGREEMENT]) {
+    if ([userDefaults boolForKey:CREATE_LIVE_AGREEMENT]) {
         [self startLive];
     } else {
         UIAlertView *liveAgreementAlertview = [[UIAlertView alloc] initWithTitle:nil message:@"点击确认同意众游直播协议" delegate:self cancelButtonTitle:@"查看协议" otherButtonTitles:@"确定", nil];
@@ -428,8 +428,7 @@
             SelectImageViewController *selectImgVC=[[SelectImageViewController alloc]initWithImage:[ZYZCTool fixOrientation:[info objectForKey:UIImagePickerControllerOriginalImage]] WHScale:(20 / 9.0)];
             selectImgVC.imageBlock=^(UIImage *img)
             {
-#warning 需要 压缩处理
-                weakSelf.faceImg.image=img ;
+                weakSelf.faceImg.image=[ZYZCTool imageByScalingAndCroppingWithSourceImage:img] ;
             };
             [weakSelf.navigationController pushViewController:selectImgVC animated:YES];
         }];

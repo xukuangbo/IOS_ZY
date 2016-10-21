@@ -72,7 +72,7 @@
 {
     _listModel =listModel;
 
-    CGFloat content_top=10.0;
+    CGFloat content_top=20.0;
     
     NSString *year =nil;
     NSString *month=nil;

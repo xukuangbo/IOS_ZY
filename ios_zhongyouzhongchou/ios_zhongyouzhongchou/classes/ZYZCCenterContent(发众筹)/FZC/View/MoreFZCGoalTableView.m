@@ -76,6 +76,11 @@
     }
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self endEditing:YES];
+}
+
 -(void)dealloc
 {
     

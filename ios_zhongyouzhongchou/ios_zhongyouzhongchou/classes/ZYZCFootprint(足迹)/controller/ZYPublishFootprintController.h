@@ -36,5 +36,10 @@ typedef NS_ENUM(NSInteger, FootprintType)
  */
 @property (nonatomic, copy  ) NSString *videoPath;
 
+//视频图片长宽比
+@property (nonatomic, assign) CGFloat  videoimgsize;
+
+//视频时长
+@property (nonatomic, assign) NSInteger videoLength;
 
 @end
