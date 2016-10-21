@@ -92,8 +92,8 @@ static NSString *ID = @"ZYLiveListCell";
 //    [self.navigationController.navigationBar addSubview:navRightBtn];
 //    _navRightBtn=navRightBtn;
 
-    self.view.backgroundColor = [UIColor redColor];
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStyleGrouped];
+    self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -138,7 +138,6 @@ static NSString *ID = @"ZYLiveListCell";
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         NSMutableArray *dataArray = [ZYLiveListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        ZYLiveListModel *list = dataArray[1];
         if (direction == 1) {//说明是下拉
             if (dataArray.count > 0) {
                 
@@ -223,15 +222,17 @@ static NSString *ID = @"ZYLiveListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZYLiveListModel *liveModel = self.listArray[indexPath.row];
-    
-//    ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:self.listArray[indexPath.row]];
-//    watchLiveVC.hidesBottomBarWhenPushed = YES;
-//    watchLiveVC.conversationType = ConversationType_CHATROOM;
-//    [self.navigationController pushViewController:watchLiveVC animated:YES];
-    ZYZCMoviePlayerViewController *moviePlayerVC = [[ZYZCMoviePlayerViewController alloc] init];
-    moviePlayerVC.liveModel = liveModel;
-    moviePlayerVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:moviePlayerVC animated:YES];
+    if ([liveModel.event isEqualToString:@"publish_done"]) {
+        ZYZCMoviePlayerViewController *moviePlayerVC = [[ZYZCMoviePlayerViewController alloc] init];
+        moviePlayerVC.liveModel = liveModel;
+        moviePlayerVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:moviePlayerVC animated:YES];
+    } else if ([liveModel.event isEqualToString:@"publish"]) {
+        ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:liveModel];
+        watchLiveVC.hidesBottomBarWhenPushed = YES;
+        watchLiveVC.conversationType = ConversationType_CHATROOM;
+        [self.navigationController pushViewController:watchLiveVC animated:YES];
+    }
 }
 
 @end
