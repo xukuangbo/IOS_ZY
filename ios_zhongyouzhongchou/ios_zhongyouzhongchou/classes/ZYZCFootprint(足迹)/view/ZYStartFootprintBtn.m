@@ -17,6 +17,7 @@
 #import "PromptController.h"
 #import "MBProgressHUD+MJ.h"
 #import "FCIMChatGetImage.h"
+#import "VideoService.h"
 #define kcMaxThumbnailSize 720*1024
 
 @interface ZYStartFootprintBtn ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,QupaiSDKDelegate>
@@ -280,13 +281,16 @@
                         if (weakSelf.videoImage){
                             [UIImagePNGRepresentation(weakSelf.videoImage) writeToFile:weakSelf.thumbnailPath atomically:YES];
                         }
-                        
+                        CGFloat sizeRate=weakSelf.videoImage.size.width/weakSelf.videoImage.size.height;
+                        CGFloat videoLength=[VideoService getVideoDuration:[NSURL URLWithString:weakSelf.videoPath]];
                         [weakSelf.picker dismissViewControllerAnimated:YES completion:^{
-                            //                             [PromptManager showSuccessJPGHUDWithMessage:@"压缩成功" intView: weakSelf.view time:1];
                             ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
                             publishFootprintController.footprintType=Footprint_VideoType;
                             publishFootprintController.videoPath=weakSelf.videoPath;
                             publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
+                            publishFootprintController.videoimgsize=sizeRate;
+                            publishFootprintController.
+                            videoLength=videoLength;
                             [weakSelf.viewController presentViewController:publishFootprintController animated:YES completion:nil];
                         }];
                     }

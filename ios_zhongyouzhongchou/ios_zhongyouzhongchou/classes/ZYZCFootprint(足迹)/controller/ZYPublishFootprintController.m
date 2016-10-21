@@ -607,9 +607,10 @@
         type=@2;
     }
     
-    NSMutableDictionary *param=[NSMutableDictionary dictionaryWithDictionary:@{@"userId":[ZYZCAccountTool getUserId],
-                                   @"type"  :type,
-                                  }];
+    NSMutableDictionary *param=[NSMutableDictionary dictionaryWithDictionary:@{
+        @"userId":[ZYZCAccountTool getUserId],
+        @"type"  :type,
+    }];
     //文字
     _textView.text=[_textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     BOOL isEmptyStr=[ZYZCTool isEmpty:_textView.text];
@@ -633,10 +634,9 @@
     //视频
     if (_video) {
         [param setObject:_video forKey:@"video"];
-    }
-    //视频图片
-    if (_videoImg) {
         [param setObject:_videoImg forKey:@"videoimg"];
+        [param setObject:[NSNumber numberWithFloat:_videoimgsize] forKey:@"videoimgsize"];
+        [param setObject:[NSNumber numberWithInt:(int)_videoLength] forKey:@"videosize"];
     }
 
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Publish_Footprint andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
