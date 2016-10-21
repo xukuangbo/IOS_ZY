@@ -605,13 +605,9 @@
     
     CGFloat scale=1.0;
     
-    UIImage *newImage = nil;
-    CGSize imageSize = sourceImage.size;
-    CGFloat width = imageSize.width;
-    CGFloat height = imageSize.height;
-    
-    CGFloat scale01=600.0/width;
-    CGFloat scale02=600.0/width;
+   
+    CGFloat scale01=600.0/sourceImage.size.width;
+    CGFloat scale02=600.0/sourceImage.size.height;
     if (scale01>1.0||scale02>1.0) {
         scale=1.0;
     }
@@ -619,6 +615,24 @@
     {
         scale=MAX(scale01, scale02);
     }
+    
+    //缩
+    UIImage *newImage=[self reduceImageSizeFromSourceImage:sourceImage andScale:scale];
+    if (!newImage) {
+        return nil;
+    }
+    //压
+    NSData *imgData=UIImageJPEGRepresentation(newImage, 0.5);
+    UIImage *jpegImg=[UIImage imageWithData:imgData];
+    return jpegImg;
+}
+
++ (UIImage *)reduceImageSizeFromSourceImage:(UIImage *)sourceImage andScale:(CGFloat)scale
+{
+    UIImage *newImage = nil;
+    CGSize imageSize = sourceImage.size;
+    CGFloat width = imageSize.width;
+    CGFloat height = imageSize.height;
     CGFloat targetWidth = width*scale;
     CGFloat targetHeight = height*scale;
     CGFloat scaleFactor = 0.0;
@@ -662,14 +676,44 @@
     
     //pop the context to get back to the default
     UIGraphicsEndImageContext();
-    
-    //压
-    NSData *imgData=UIImageJPEGRepresentation(newImage, 0.5);
-    UIImage *jpegImg=[UIImage imageWithData:imgData];
-    return jpegImg;
-    //    return newImage;
+    return newImage;
 }
 
+#pragma mark --- 压缩图片到指定大小（kb）以内
++ (UIImage *) compressSourceImage:(UIImage *)sourceImage underLength:(NSInteger)length  withPlaceHolderImage:(UIImage *)placeHolderImage
+{
+    if (!sourceImage) {
+        return placeHolderImage;
+    }
+    NSData *imageData = UIImageJPEGRepresentation(sourceImage, 1.0);
+    if (imageData.length>length*1024) {
+        NSData *data = UIImageJPEGRepresentation(sourceImage, 0.5);
+        UIImage *compressImage01=[UIImage imageWithData:data];
+        if (data.length>length*1024) {
+            UIImage *resultImage=nil;
+            for (int i=1; i<10; i++) {
+                UIImage *img=[self reduceImageSizeFromSourceImage:compressImage01 andScale:(10-i)*0.1];
+                NSData *data = UIImageJPEGRepresentation(img, 1.0);
+                if (data.length<length*1024) {
+                    resultImage=[UIImage imageWithData:data];
+                    break;
+                }
+            }
+            if (!resultImage) {
+                resultImage=placeHolderImage;
+            }
+            return resultImage;
+        }
+        else
+        {
+            return  compressImage01;
+        }
+    }
+    else
+    {
+        return sourceImage;
+    }
+}
 
 +(UIView*)getFirstResponder
 {
