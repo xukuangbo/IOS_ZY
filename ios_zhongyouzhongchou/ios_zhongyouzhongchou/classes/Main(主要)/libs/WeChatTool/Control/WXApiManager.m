@@ -185,9 +185,11 @@
         }
         
         NSData *imgData=[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbImage]];
-        UIImage *image=[UIImage imageWithData:imgData];
-#warning 需做压缩处理
-        [message setThumbImage:image];
+        
+        UIImage *sourceimage=[UIImage imageWithData:imgData];
+        UIImage *compressImage=[ZYZCTool compressSourceImage:sourceimage underLength:32 withPlaceHolderImage:[UIImage imageNamed:@"Share_iocn"]];
+
+        [message setThumbImage:compressImage];
     }
     WXWebpageObject *webpageObject=[WXWebpageObject object];
     webpageObject.webpageUrl=webUrl;
@@ -216,9 +218,6 @@
     req.scene =scene;
     [WXApi sendReq:req];
 }
-
-
-
 
 #pragma mark --- 生成订单失败提示
 -(void)showSupportFailAlertWithTitle:(NSString *)title
