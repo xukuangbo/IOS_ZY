@@ -7,12 +7,14 @@
 //
 
 #import "ShopCell.h"
-#import "ZYLiveSceneModel.h"
+#import "ZYFootprintListModel.h"
 #import "UIImageView+WebCache.h"
 
 @interface ShopCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
+@property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
+@property (strong, nonatomic) IBOutlet UILabel *contentLabel;
 
 @end
 
@@ -23,11 +25,11 @@
     // Initialization code
 }
 
-- (void)setModel:(ZYLiveSceneModel *)model
+- (void)setModel:(ZYFootprintListModel *)model
 {
     _model = model;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
-    self.titleLab.text = [NSString stringWithFormat:@"%f",model.videosize];
+    self.titleLab.text = [NSString stringWithFormat:@"%@",model.gpsData];
     
 }
 @end
