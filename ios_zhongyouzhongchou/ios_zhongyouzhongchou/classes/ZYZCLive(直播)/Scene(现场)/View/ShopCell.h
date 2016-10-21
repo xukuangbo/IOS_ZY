@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class ZYLiveSceneModel;
+@class ZYFootprintListModel;
 
 @interface ShopCell : UICollectionViewCell
-@property (nonatomic, strong) ZYLiveSceneModel *model;
+@property (nonatomic, strong) ZYFootprintListModel *model;
 @end
