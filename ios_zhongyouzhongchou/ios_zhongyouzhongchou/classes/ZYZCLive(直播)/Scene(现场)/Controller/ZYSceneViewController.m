@@ -169,6 +169,9 @@ static NSString *const ShopID = @"ShopCell";
     ZYLiveSceneModel *shop = self.scenes[index];
     
 //    return itemWidth * shop.h / shop.w;
+    if (shop.videoimgsize == 0) {
+        shop.videoimgsize = 1;
+    }
     return itemWidth / shop.videoimgsize;
 }
 

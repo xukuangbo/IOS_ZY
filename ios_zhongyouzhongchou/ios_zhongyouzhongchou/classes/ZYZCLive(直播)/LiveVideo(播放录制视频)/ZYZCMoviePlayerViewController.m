@@ -66,6 +66,7 @@
     // 隐藏全屏按钮和锁屏按钮
     self.playerView.controlView.fullScreenBtn.hidden = YES;
     self.playerView.controlView.lockBtn.hidden = YES;
+    self.playerView.controlView.downLoadBtn.hidden = YES;
 
 //    [self.playerView mas_makeConstraints:^(MASConstraintMaker *make) {
 //        make.top.equalTo(self.view).offset(20);
