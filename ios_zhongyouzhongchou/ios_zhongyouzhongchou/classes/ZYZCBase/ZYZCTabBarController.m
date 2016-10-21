@@ -241,8 +241,10 @@
 {
     //创建趣拍对象
     [QupaiSDK shared].minDuration = 2.0;
-    [QupaiSDK shared].maxDuration = 15.0;
+    [QupaiSDK shared].maxDuration = 30.0;
     [QupaiSDK shared].enableBeauty=YES;
+//    [QupaiSDK shared].enableWatermark=YES;
+//    [QupaiSDK shared].watermarkImage=[UIImage imageNamed:@"LOGO"];
     [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
     UIViewController *viewController = [[QupaiSDK shared] createRecordViewController];
     [QupaiSDK shared].delegte = self;
@@ -269,22 +271,11 @@
             _videoPath=videoPath;
             UISaveVideoAtPathToSavedPhotosAlbum(videoPath, nil, nil, nil);
         }
-        if (thumbnailPath) {
-            _thumbnailPath=thumbnailPath;
-            UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
-        }
+//        if (thumbnailPath) {
+//            _thumbnailPath=thumbnailPath;
+//            UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
+//        }
         WEAKSELF;
-//        [self dismissViewControllerAnimated:YES completion:^
-//        {
-//            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-//            publishFootprintController.footprintType=Footprint_VideoType;
-//            publishFootprintController.videoPath=weakSelf.videoPath;
-//            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
-//            [weakSelf presentViewController:publishFootprintController animated:YES completion:nil];
-//        }];
-//        
-//        return;
-       
         [self dismissViewControllerAnimated:YES completion:^{
             if ([QupaiSDK shared].zy_VideoHandleType==ZY_QupaiVideoPublish) {
                 ZYShortVideoPublish *videoPublish=[ZYShortVideoPublish new];

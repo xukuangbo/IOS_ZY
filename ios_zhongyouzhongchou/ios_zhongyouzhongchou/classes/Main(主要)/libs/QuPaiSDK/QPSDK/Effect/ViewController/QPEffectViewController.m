@@ -389,7 +389,21 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     pack.videoSize = self.video.size;
     pack.audioMixType = self.audioMixType;
     pack.rotateArray = [self.video AllPointsRotate];
-    
+    //保存第一个视频方向
+    NSNumber *rotate=[pack.rotateArray firstObject];
+    if(rotate>0)
+    {
+        //横屏
+        if ([rotate isEqual:@1]||[rotate isEqual:@3]) {
+            [QupaiSDK shared].zy_VideoSizeRate=16.0/9.0;
+        }
+        //竖屏
+        else if ([rotate isEqual:@2]||[rotate isEqual:@4])
+        {
+            [QupaiSDK shared].zy_VideoSizeRate=9.0/16.0;
+        }
+    }
+
     if (self.video.preferFilterOrMV) {
         if (effectFilter.resourceLocalUrl) {
             pack.effectPath = effectFilter.resourceLocalUrl;
