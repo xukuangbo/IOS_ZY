@@ -33,6 +33,8 @@
         __weak typeof (&*self)weakSelf=self;
         //添加下拉刷新
         MJRefreshNormalHeader *normarlHeader=[MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            
+            DDLog(@"%@",weakSelf.headerRefreshingBlock);
             if (weakSelf.headerRefreshingBlock) {
                 weakSelf.headerRefreshingBlock();
             }

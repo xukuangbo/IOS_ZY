@@ -14,7 +14,8 @@
 #import "ZYZCAccountTool.h"
 #import "ZYZCAccountModel.h"
 #import "MBProgressHUD+MJ.h"
-#import "MineWalletVc.h"
+//#import "MineWalletVc.h"
+#import "WalletHomeVC.h"
 #import "MineTravelTagVC.h"
 #import "ZYFootprintController.h"
 @interface MineTableViewCell ()<UITableViewDelegate,UITableViewDataSource>
@@ -125,7 +126,7 @@
     else if (indexPath.row==2)
     {
         //我的钱包
-        [self.viewController.navigationController pushViewController:[[MineWalletVc alloc] init] animated:YES];
+        [self.viewController.navigationController pushViewController:[[WalletHomeVC alloc] init] animated:YES];
     }
     else if (indexPath.row==3)
     {
