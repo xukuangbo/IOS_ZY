@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -19,7 +19,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAY-Rd-wiU">
                         <color key="backgroundColor" red="0.74509803919999995" green="0.7725490196" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="25" id="52i-CE-S6Y"/>
+                            <constraint firstAttribute="height" constant="30" id="52i-CE-S6Y"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -31,9 +31,9 @@
                 <constraint firstAttribute="bottom" secondItem="DAY-Rd-wiU" secondAttribute="bottom" id="0CG-hc-z1T"/>
                 <constraint firstItem="t5b-Uh-EPp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="CoT-Ru-vgP"/>
                 <constraint firstItem="t5b-Uh-EPp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Jyz-rl-8bu"/>
-                <constraint firstAttribute="bottom" secondItem="t5b-Uh-EPp" secondAttribute="bottom" id="NJb-Ws-QMn"/>
+                <constraint firstAttribute="bottom" secondItem="t5b-Uh-EPp" secondAttribute="bottom" constant="30" id="NJb-Ws-QMn"/>
                 <constraint firstAttribute="trailing" secondItem="t5b-Uh-EPp" secondAttribute="trailing" id="PSK-2w-iqF"/>
-                <constraint firstItem="DAY-Rd-wiU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="aZf-jq-fZ5"/>
+                <constraint firstItem="DAY-Rd-wiU" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="40" id="aZf-jq-fZ5"/>
                 <constraint firstAttribute="trailing" secondItem="DAY-Rd-wiU" secondAttribute="trailing" id="mzJ-5N-0yZ"/>
             </constraints>
             <size key="customSize" width="150" height="226"/>
