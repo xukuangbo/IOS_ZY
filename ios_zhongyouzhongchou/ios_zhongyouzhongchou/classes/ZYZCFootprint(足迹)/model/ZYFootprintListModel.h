@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, FootprintListType)
 };
 
 #import <Foundation/Foundation.h>
-
+#import "UserModel.h"
 @class ZYFootprintDataModel;
 
 @interface ZYFootprintDataModel : NSObject
@@ -39,13 +39,17 @@ typedef NS_ENUM(NSInteger, FootprintListType)
 
 @property (nonatomic, copy  ) NSString  *creattime;
 
-@property (nonatomic, copy  ) NSString *content;
+@property (nonatomic, copy  ) NSString *content;//文字内容
 
 @property (nonatomic, copy  ) NSString *pics;
 
 @property (nonatomic, copy  ) NSString *video;
 
 @property (nonatomic, copy  ) NSString *videoimg;
+
+@property (nonatomic, assign) NSInteger videosize;//视频时长
+
+@property (nonatomic, assign) CGFloat videoimgsize;//封面长宽比
 
 @property (nonatomic, copy  ) NSString *gpsData;//jsonStr
 
@@ -67,7 +71,7 @@ typedef NS_ENUM(NSInteger, FootprintListType)
 
 @property (nonatomic, assign) FootprintListType footprintListType;
 
-
+@property (nonatomic, strong) UserModel  *user;//足迹发起者
 
 
 @property (nonatomic, assign) NSInteger totalMonth;
