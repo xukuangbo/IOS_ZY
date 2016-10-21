@@ -84,6 +84,13 @@ static NSString *const ShopID = @"ShopCell";
     _collectionView.backgroundColor = [UIColor whiteColor];
     _collectionView.dataSource = self;
     [self.view addSubview:_collectionView];
+    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.top.equalTo(@64);
+        make.bottom.equalTo(@49);
+    }];
+
     layout.delegate = self;
     
     [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ShopCell class]) bundle:nil] forCellWithReuseIdentifier:ShopID];
