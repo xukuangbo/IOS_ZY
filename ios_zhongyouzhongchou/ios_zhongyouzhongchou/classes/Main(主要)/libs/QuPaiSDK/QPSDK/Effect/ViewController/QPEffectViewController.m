@@ -99,12 +99,12 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     if ([self.video.lastEffectName isEqual:@"music"]) {
         self.selectTab = QPEffectTabMusic;
         [self.qpEffectView.viewTab selectIndex:2 withAnimation:NO];
-    }else if ([self.video.lastEffectName isEqual:@"mv"]) {
-        self.selectTab = QPEffectTabMV;
-        [self.qpEffectView.viewTab selectIndex:1 withAnimation:NO];
-    }else{
+    }else if ([self.video.lastEffectName isEqual:@"filter"]) {
         self.selectTab = QPEffectTabFilter;
         [self.qpEffectView.viewTab selectIndex:0 withAnimation:NO];
+    }else{
+        self.selectTab = QPEffectTabMV;
+        [self.qpEffectView.viewTab selectIndex:1 withAnimation:NO];
     }
     
     _endingWatermarkEnabled = NO;
@@ -202,7 +202,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectTab"]) {
-        if (_selectTab == QPEffectTabFilter || _selectTab == QPEffectTabMV) {
+        if (_selectTab == QPEffectTabFilter ) {
             self.qpEffectView.viewMix.hidden = YES;
         }else{
             self.qpEffectView.viewMix.hidden = NO;
@@ -283,11 +283,13 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
             self.audioMixType = QPMediaPackAudioMixTypeOrigin;
             self.video.mvID = effect.eid;
             self.video.preferFilterOrMV = NO;
+            self.video.mixVolume = 1.0;
         }else {
             self.audioMixType = QPMediaPackAudioMixTypeMVMusic;
             self.video.mvID = effect.eid;
             self.video.preferFilterOrMV = NO;
             [self checkMVResourceExists];
+            self.video.mixVolume = 0.5;
         }
     }else{
         effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeMusic];
@@ -676,8 +678,20 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 }
 
 - (void)onClickSliderAction:(UISlider *)sender {
-    self.video.mixVolume = 1.0 - self.qpEffectView.sliderMix.value;
-    _shouldPlay = YES;
+    if(_selectTab == QPEffectTabMV){
+        //value<0.5原声，>0.5mv音效
+        if (self.qpEffectView.sliderMix.value<0.5) {
+            self.audioMixType = QPMediaPackAudioMixTypeOrigin;
+        }
+        else {
+            self.audioMixType = QPMediaPackAudioMixTypeMVMusic;
+        }
+    }
+    else if (_selectTab ==QPEffectTabMusic)
+    {
+        self.video.mixVolume = 1.0 - self.qpEffectView.sliderMix.value;
+        _shouldPlay = YES;
+    }
     [self destroyMovie];
 }
 

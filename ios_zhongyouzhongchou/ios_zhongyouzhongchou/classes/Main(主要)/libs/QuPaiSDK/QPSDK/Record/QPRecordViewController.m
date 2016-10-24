@@ -104,7 +104,7 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
     self.qpRecordView.viewCenter.userInteractionEnabled = NO;
     self.qpRecordView.viewBottom.userInteractionEnabled = NO;
     
-    if (!QPSave.shared.recordGuide) {
+    if (!_guideView) {
         QPSave.shared.recordGuide = YES;
         _guideView = [[QPRecordGuideView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeight - [QupaiSDK shared].bottomPanelHeight)];
         _guideView.userInteractionEnabled = NO;
@@ -612,15 +612,14 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
 
 #pragma mark - Guide
 - (void)chheckAddTipGuide {
-    _tipGuideView = [[QPRecordTipGuideView alloc] initWithFrame:self.view.bounds];
-    if (!QPSave.shared.skinTipGuide) {
+    if (!_tipGuideView) {
         QPSave.shared.skinTipGuide = YES;
+        _tipGuideView = [[QPRecordTipGuideView alloc] initWithFrame:self.view.bounds];
         [_tipGuideView addSkinGuideInPoint:self.qpRecordView.buttonSkin.frame];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [_tipGuideView removeAllGuideView];
         });
-    }
-    if (!QPSave.shared.recordImportTipGuide && QupaiSDK.shared.enableImport) {
+        
         QPSave.shared.recordImportTipGuide = YES;
         [_tipGuideView addImportGuideInPoint:[self.view convertRect:self.qpRecordView.buttonLibrary.frame fromView:self.qpRecordView.viewBottom]];
     }

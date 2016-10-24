@@ -29,7 +29,7 @@ static NSString *const ShopItemStatusKeyPath = @"_effectMV.downStatus";
     
     _useButton.layer.masksToBounds = YES;
     _useButton.layer.cornerRadius = 17.5;
-    [_useButton setBackgroundColor:RGB(255, 109, 0)];
+    [_useButton setBackgroundColor:RGB(35, 182, 183)];
 }
 
 - (void)updateFrame {

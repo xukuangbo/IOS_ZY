@@ -59,6 +59,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.contentMode=UIViewContentModeScaleAspectFill;
+        self.layer.masksToBounds = YES;
         _blurEffectStyle=blurEffectStyle;
         _blurColor=blurColor;
         _blurAlpha=blurAlpha;
