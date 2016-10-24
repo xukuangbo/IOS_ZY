@@ -8,6 +8,7 @@
 
 #import "ZYStartFootprintBtn.h"
 #import "ZYPublishFootprintController.h"
+#import "ZYShortVideoPublish.h"
 
 #import "JudgeAuthorityTool.h"
 #import "QupaiSDK.h"
@@ -153,12 +154,16 @@
     [self.viewController presentViewController:alertController animated:YES completion:nil];
 }
 
+
+
 -(void)createQuPai
 {
     //创建趣拍对象
     [QupaiSDK shared].minDuration = 2.0;
-    [QupaiSDK shared].maxDuration = 15.0;
+    [QupaiSDK shared].maxDuration = 30.0;
     [QupaiSDK shared].enableBeauty=YES;
+    //    [QupaiSDK shared].enableWatermark=YES;
+    //    [QupaiSDK shared].watermarkImage=[UIImage imageNamed:@"LOGO"];
     [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
     UIViewController *viewController = [[QupaiSDK shared] createRecordViewController];
     [QupaiSDK shared].delegte = self;
@@ -167,48 +172,36 @@
     [self.viewController presentViewController:navCrl animated:YES completion:nil];
 }
 
-
 #pragma mark --- 实现短视频代理方法
 - (void)qupaiSDK:(id<QupaiSDKDelegate>)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath{
-    NSLog(@"Qupai SDK compelete:\n videoPath=%@ \n thumbnailPath=%@",videoPath,thumbnailPath);
-    
-    if (!videoPath) {
+    NSFileManager *manager=[NSFileManager defaultManager];
+    BOOL  exit= [manager fileExistsAtPath:videoPath];
+    if (!exit) {
+        if (videoPath) {
+            [MBProgressHUD showShortMessage:@"网络错误,视频导出失败"];
+        }
         [self.viewController dismissViewControllerAnimated:YES completion:nil];
         return;
     }
-    
-    if (!thumbnailPath) {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"网络错误,视频导出失败" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        return;
-    }
-    
-    if (videoPath) {
-        NSFileManager *manager=[NSFileManager defaultManager];
-        BOOL  exit= [manager fileExistsAtPath:videoPath];
-        if (!exit) {
-            DDLog(@"本地视频不存在");
-        }
-        else
-        {
+    else
+    {
+        if (videoPath) {
+            _videoPath=videoPath;
             UISaveVideoAtPathToSavedPhotosAlbum(videoPath, nil, nil, nil);
         }
-    }
-    if (thumbnailPath) {
-        DDLog(@"thumbnailPath:%@",thumbnailPath);
-        UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:thumbnailPath], nil, nil, nil);
-    }
     
-    WEAKSELF;
-    [self.viewController dismissViewControllerAnimated:YES completion:^{
-        ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-        publishFootprintController.footprintType=Footprint_VideoType;
-        publishFootprintController.videoPath=videoPath;
-        publishFootprintController.thumbnailPath=thumbnailPath;
-        [weakSelf.viewController presentViewController:publishFootprintController animated:YES completion:nil];
-    }];
-    
+        WEAKSELF;
+        [self.viewController dismissViewControllerAnimated:YES completion:^{
+            if ([QupaiSDK shared].zy_VideoHandleType==ZY_QupaiVideoPublish) {
+                ZYShortVideoPublish *videoPublish=[ZYShortVideoPublish new];
+                videoPublish.videoPath=videoPath;
+                videoPublish.img_rate=[QupaiSDK shared].zy_VideoSizeRate;
+                [weakSelf.viewController presentViewController:videoPublish animated:YES completion:nil];
+            }
+        }];
+    }
 }
+
 - (NSArray *)qupaiSDKMusics:(id<QupaiSDKDelegate>)sdk
 {
     NSMutableArray *array = [NSMutableArray array];

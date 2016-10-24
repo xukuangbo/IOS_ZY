@@ -51,7 +51,7 @@
     _colorView=[[UIView alloc]initWithFrame:self.bounds];
     _colorView.backgroundColor=_blurColor;
     _colorView.alpha=_colorAlpha;
-    [_effectView addSubview:_colorView];
+    [self addSubview:_colorView];
 }
 
 

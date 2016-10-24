@@ -61,6 +61,7 @@
 @property (nonatomic, strong) ZCDetailProductModel  *detailProductModel;
 
 @property (nonatomic, strong) MBProgressHUD *mbProgress;
+@property (nonatomic, strong) UIButton      *passBtn;//跳过按钮
 
 //@property (nonatomic, assign) BOOL stopPublish;
 // 引导页view
@@ -85,6 +86,13 @@
 //    self.title=@"发起众筹";
      self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 //    _uploadDataState=[NSMutableArray array];
+    
+    _passBtn=[ZYZCTool createBtnWithFrame:CGRectMake(0, 0, 40, 20) andNormalTitle:@"跳过" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(pass:)];
+    _passBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
+    _passBtn.hidden=YES;
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:_passBtn];
+    
+    
     [self setBackItem];
     [self createToolBar];
     [self createClearMapView];
@@ -257,10 +265,12 @@
 #pragma mark - MoreFZCToolBarDelegate
 - (void)toolBarWithButton:(NSInteger)buttonTag
 {
+     _passBtn.hidden=YES;
     //把tableview带到前面去
     UITableView *tableView=(UITableView *)[self selectdView:buttonTag];
     [self.clearMapView bringSubviewToFront:tableView];
     if (tableView.tag == MoreFZCToolBarTypeTravel) {
+        _passBtn.hidden=NO;
         if (![ZYGuideManager getGuideSkip]) {
             [self createSkipContextView];
         }
@@ -365,6 +375,7 @@
 #pragma mark --- 点击底部按钮触发事件
 -(void)clickBtn:(UIButton *)sender
 {
+    sender.enabled=NO;
     switch (sender.tag) {
         case SkimType:
             [self skimZhongchou];
@@ -380,12 +391,16 @@
     }
 }
 
+#pragma mark --- 跳过
+- (void)pass:(UIButton *)button
+{
+    UIButton *btn=[self.toolBar viewWithTag:MoreFZCToolBarTypeReturn];
+    [self.toolBar buttonClickAction:btn];
+}
+
 #pragma mark --- 浏览我的众筹
 -(void)skimZhongchou
 {
-    UIButton *skimBtn=[self.bottomView viewWithTag:SkimType];
-    skimBtn.enabled=NO;
-    
     _oneModel=[[ZCOneModel alloc]init];
     _detailProductModel=[[ZCDetailProductModel alloc]init];
     __weak typeof (&*self)weakSelf=self;
@@ -451,6 +466,10 @@
     if (chooseButton) {
         [self.toolBar buttonClickAction:chooseButton];
     }
+    
+    UIButton *nextBtn=[self.bottomView viewWithTag:NextType];
+    nextBtn.enabled=YES;
+    
     //下一步
     if (button.tag<MoreFZCToolBarTypeReturn) {
         if (lossMessage>0) {
@@ -479,6 +498,7 @@
         alert.tag=ALERT_PUBLISH;
         [alert show];
     }
+    
 }
 
 -(void)judgeFirstTimeUpload
@@ -608,7 +628,7 @@
                           successRate=(float)_uploadSuccessNumber/(float)_uploadDataNumber*100.0;
                        }
                        _mbProgress.labelText=_saveMyDraft?
-                       [NSString stringWithFormat:@"正在存储,已存储%.f％",successRate]:
+                       [NSString stringWithFormat:@"正在存储,已完成%.f％",successRate]:
                        [NSString stringWithFormat:@"正在发布,已完成%.f％",successRate];
                    });
                }
@@ -625,9 +645,14 @@
               else
               {
                   [MBProgressHUD hideHUD];
-                  UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"网络异常，发布失败，是否重新发布" message:nil delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+                  UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"网络异常，操作失败" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
                   alert.tag=ALERT_UPLOAD_TAG;
                   [alert show];
+                  
+                  UIButton *saveBtn=[self.bottomView viewWithTag:SaveType];
+                  saveBtn.enabled=YES;
+                  UIButton *nextBtn=[self.bottomView viewWithTag:NextType];
+                  nextBtn.enabled=YES;
               }
           });
        });
@@ -716,6 +741,9 @@
         if (self.toolBar.preClickBtn.tag!=MoreFZCToolBarTypeGoal) {
             [self.toolBar buttonClickAction:chooseButton];
         }
+        
+        UIButton *saveBtn=[self.bottomView viewWithTag:SaveType];
+        saveBtn.enabled=YES;
         return;
     }
     _saveMyDraft=YES;
