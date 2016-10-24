@@ -196,5 +196,7 @@
 
 +(void)handleKeyBoardScroOn:(UIView*)view forTarget:(UIView*)targetView noti:(NSNotification*)noti state:(NSString*)state;
 
+// 将NSString转换成NSDictionary
++ (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 
 @end
