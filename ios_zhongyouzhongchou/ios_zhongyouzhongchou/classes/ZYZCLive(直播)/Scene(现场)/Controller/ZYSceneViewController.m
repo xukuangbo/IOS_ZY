@@ -122,8 +122,8 @@ static NSString *const ShopID = @"ShopCell";
             }else{
                 weakSelf.scenes = nil;
                 weakSelf.entryView.hidden = NO;
-                [weakSelf.collectionView reloadData];
                 
+                [weakSelf.collectionView reloadData];
                 [MBProgressHUD hideHUD];
             }
         }else{//上啦
@@ -178,7 +178,7 @@ static NSString *const ShopID = @"ShopCell";
     cell.layer.masksToBounds = YES;
     cell.layer.cornerRadius = 4;
 
-    cell.model = self.scenes[indexPath.item];
+    cell.model = self.scenes[indexPath.row];
     
     return cell;
 }

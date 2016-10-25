@@ -57,14 +57,16 @@
 {
     _model = model;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:_model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
-    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
+    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_model.faceImg] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
     self.titleLab.text = [NSString stringWithFormat:@"%@",_model.userName];
     [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", _model.commentTotles] forState:UIControlStateNormal];
     if ([_model.content length] != 0) {
         self.contentLabel.text = [NSString stringWithFormat:@"%@",_model.content];
+    } else {
+        self.contentLabel.text = @"";
     }
 
-    if (model.hasZan) {
+    if (_model.hasZan) {
         [self.praiseButton setImage:[UIImage imageNamed:@"footprint-like-2"] forState:UIControlStateNormal];
     } else {
         [self.praiseButton setImage:[UIImage imageNamed:@"footprint-like"] forState:UIControlStateNormal];
