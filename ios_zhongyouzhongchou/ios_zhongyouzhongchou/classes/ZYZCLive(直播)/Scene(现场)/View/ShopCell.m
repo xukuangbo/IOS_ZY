@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet UIImageView *locationImage;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *commentButtonTopLayout;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *praiseButtonTopLayout;
+@property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
 
 @end
 
@@ -34,18 +35,23 @@
     // Initialization code
     self.headerImageView.layer.masksToBounds = YES;
     self.headerImageView.layer.cornerRadius = 4;
+    CGColorRef cgColor = [UIColor whiteColor].CGColor;
+    [self.headerImageView.layer setBorderColor:cgColor];
+    [self.headerImageView.layer setBorderWidth:1];
+    
+    self.backgroundImage.image = KPULLIMG(@"scene_cell_background_image", 0, 0, 5, 0);
     
     self.imageView.layer.masksToBounds = YES;
-    self.imageView.layer.cornerRadius = 4;
-
-    self.commentButton.titleEdgeInsets = UIEdgeInsetsMake(0,4, 0, 0);
-    self.commentButton.imageEdgeInsets = UIEdgeInsetsMake(0,5, 0, 9);//
+    self.imageView.layer.cornerRadius = 5;
     
-    self.praiseButton.titleEdgeInsets = UIEdgeInsetsMake(0,4, 0, 0);
-    self.praiseButton.imageEdgeInsets = UIEdgeInsetsMake(0,5, 0, 9);
+    self.commentButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
+    self.commentButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);//
+    
+    self.praiseButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
+    self.praiseButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);
     
     self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.playBtn setImage:[UIImage imageNamed:@"videoImg-1"] forState:UIControlStateNormal];
+    [self.playBtn setImage:[UIImage imageNamed:@"scene_play"] forState:UIControlStateNormal];
 //    [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     [self.imageView addSubview:self.playBtn];
     [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -57,7 +63,7 @@
 {
     _model = model;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:_model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
-    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_model.faceImg] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
+    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_model.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
     self.titleLab.text = [NSString stringWithFormat:@"%@",_model.userName];
     [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", _model.commentTotles] forState:UIControlStateNormal];
     if ([_model.content length] != 0) {

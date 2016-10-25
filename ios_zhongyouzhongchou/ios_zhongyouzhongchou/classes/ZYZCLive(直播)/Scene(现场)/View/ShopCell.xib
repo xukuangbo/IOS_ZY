@@ -15,14 +15,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="145" height="480"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rwf-YQ-msK"/>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t5b-Uh-EPp"/>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="川口志红" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAY-Rd-wiU">
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="52i-CE-S6Y"/>
                         </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" red="0.050980392159999999" green="0.050980392159999999" blue="0.050980392159999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.32941176470588235" green="0.32941176470588235" blue="0.32941176470588235" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="highlightedColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_mxc_cy" translatesAutoresizingMaskIntoConstraints="NO" id="hdj-s3-zA6">
@@ -87,20 +88,25 @@
                 <constraint firstItem="Ltq-ED-6B7" firstAttribute="top" secondItem="Pa9-bt-TfT" secondAttribute="bottom" constant="5" id="Wnl-xH-Zt8"/>
                 <constraint firstAttribute="trailing" secondItem="Pa9-bt-TfT" secondAttribute="trailing" constant="10" id="XIu-qv-Xvq"/>
                 <constraint firstItem="DAY-Rd-wiU" firstAttribute="top" secondItem="t5b-Uh-EPp" secondAttribute="bottom" id="XJh-jv-C3M"/>
+                <constraint firstAttribute="trailing" secondItem="Rwf-YQ-msK" secondAttribute="trailing" id="YQ0-m1-VnO"/>
                 <constraint firstItem="lcz-co-HiC" firstAttribute="top" secondItem="DAY-Rd-wiU" secondAttribute="bottom" constant="5" id="amI-wO-2N7"/>
                 <constraint firstItem="hdj-s3-zA6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="bIu-4a-ucF"/>
                 <constraint firstItem="Pa9-bt-TfT" firstAttribute="leading" secondItem="epG-0w-9Dg" secondAttribute="trailing" constant="10" id="dPQ-Mu-gMf"/>
+                <constraint firstItem="Rwf-YQ-msK" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gbU-Dg-Uah"/>
                 <constraint firstItem="epG-0w-9Dg" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="js6-Ns-Njx"/>
-                <constraint firstAttribute="trailing" secondItem="DAY-Rd-wiU" secondAttribute="trailing" id="mzJ-5N-0yZ"/>
+                <constraint firstAttribute="trailing" secondItem="DAY-Rd-wiU" secondAttribute="trailing" constant="1" id="mzJ-5N-0yZ"/>
+                <constraint firstItem="Rwf-YQ-msK" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="o4B-1d-Q3k"/>
                 <constraint firstItem="UKo-mo-J0r" firstAttribute="width" secondItem="Ltq-ED-6B7" secondAttribute="width" id="pfz-R9-0q9"/>
                 <constraint firstAttribute="trailing" secondItem="Ltq-ED-6B7" secondAttribute="trailing" constant="10" id="rKS-lE-rom"/>
                 <constraint firstItem="hdj-s3-zA6" firstAttribute="bottom" secondItem="DAY-Rd-wiU" secondAttribute="bottom" id="rpg-VX-uCb"/>
                 <constraint firstAttribute="bottom" secondItem="UKo-mo-J0r" secondAttribute="bottom" id="vui-Hi-Oao"/>
                 <constraint firstAttribute="trailing" secondItem="lcz-co-HiC" secondAttribute="trailing" constant="10" id="wDp-Dw-Nkb"/>
+                <constraint firstAttribute="bottom" secondItem="Rwf-YQ-msK" secondAttribute="bottom" id="xct-sK-8CT"/>
                 <constraint firstItem="lcz-co-HiC" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="xeI-Fx-GP4"/>
             </constraints>
             <size key="customSize" width="150" height="226"/>
             <connections>
+                <outlet property="backgroundImage" destination="Rwf-YQ-msK" id="NPy-1t-CKJ"/>
                 <outlet property="commentButton" destination="UKo-mo-J0r" id="AKp-1b-DeZ"/>
                 <outlet property="commentButtonTopLayout" destination="CfW-YX-ntJ" id="VPD-Y7-XSB"/>
                 <outlet property="contentLabel" destination="lcz-co-HiC" id="vgQ-u3-ItY"/>
@@ -112,7 +118,7 @@
                 <outlet property="praiseButtonTopLayout" destination="Wnl-xH-Zt8" id="Txx-bb-CXg"/>
                 <outlet property="titleLab" destination="DAY-Rd-wiU" id="X3i-bY-1zD"/>
             </connections>
-            <point key="canvasLocation" x="355" y="521"/>
+            <point key="canvasLocation" x="82.5" y="508"/>
         </collectionViewCell>
     </objects>
     <resources>
