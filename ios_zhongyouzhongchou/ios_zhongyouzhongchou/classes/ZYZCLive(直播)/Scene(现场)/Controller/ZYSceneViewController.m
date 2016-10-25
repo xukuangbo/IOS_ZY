@@ -12,7 +12,8 @@
 #import "ShopCell.h"
 #import "MBProgressHUD+MJ.h"
 #import "EntryPlaceholderView.h"
-@interface ZYSceneViewController () <UICollectionViewDataSource,WaterFlowLayoutDelegate>
+#import "ZYCommentFootprintController.h"
+@interface ZYSceneViewController () <UICollectionViewDelegate, UICollectionViewDataSource,WaterFlowLayoutDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *scenes;
 @property (nonatomic, assign) NSInteger pageNo;
@@ -35,6 +36,7 @@ static NSString *const ShopID = @"ShopCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     //    _navRightBtn.hidden=NO;
     //    self.tabBarController.tabBar.hidden = NO;
     //    self.navigationController.navigationBar.hidden = NO;
@@ -80,11 +82,12 @@ static NSString *const ShopID = @"ShopCell";
 {
     self.view.backgroundColor = [UIColor whiteColor];
     WaterFlowLayout *layout = [[WaterFlowLayout alloc]init];
-    _collectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:layout];
-    _collectionView.backgroundColor = [UIColor whiteColor];
-    _collectionView.dataSource = self;
+    self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+    self.collectionView.backgroundColor = [UIColor ZYZC_BgGrayColor];
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
     [self.view addSubview:_collectionView];
-    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.top.equalTo(@64);
@@ -93,7 +96,7 @@ static NSString *const ShopID = @"ShopCell";
 
     layout.delegate = self;
     
-    [_collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ShopCell class]) bundle:nil] forCellWithReuseIdentifier:ShopID];
+    [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ShopCell class]) bundle:nil] forCellWithReuseIdentifier:ShopID];
 
 }
 #pragma mark - network
@@ -155,7 +158,15 @@ static NSString *const ShopID = @"ShopCell";
     }];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    ZYFootprintListModel *footprintModel = self.scenes[indexPath.item];
+    ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
+    commentFootprintVC.footprintModel = footprintModel;
+    [self.navigationController pushViewController:commentFootprintVC animated:YES];
+}
 
+#pragma mark - UICollectionViewDataSource
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     _collectionView.mj_footer.hidden = self.scenes.count == 0;
@@ -165,21 +176,37 @@ static NSString *const ShopID = @"ShopCell";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     ShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ShopID forIndexPath:indexPath];
-    
+    cell.backgroundColor = [UIColor whiteColor];
+    cell.layer.masksToBounds = YES;
+    cell.layer.cornerRadius = 4;
+
     cell.model = self.scenes[indexPath.item];
     
     return cell;
 }
 
-- (CGFloat)WaterFlowLayout:(WaterFlowLayout *)WaterFlowLayout heightForRowAtIndexPath:(NSInteger )index itemWidth:(CGFloat)itemWidth
+
+#pragma mark - WaterFlowLayoutDelegate
+- (CGFloat)WaterFlowLayout:(WaterFlowLayout *)WaterFlowLayout heightForRowAtIndexPath:(NSInteger)index itemWidth:(CGFloat)itemWidth
 {
-    ZYFootprintListModel *shop = self.scenes[index];
+    ZYFootprintListModel *model = self.scenes[index];
     
-//    return itemWidth * shop.h / shop.w;
-//    if (shop.videoimgsize == 0) {
-//        shop.videoimgsize = 1;
-//    }
-    return itemWidth / 0.4;
+    if (model.videoimgsize == 0) {
+        model.videoimgsize = 9/16.0;
+    }
+//    CGSize sceneSize = [ZYZCTool calculateStrLengthByText:shop.content andFont:[UIFont systemFontOfSize:12.0] andMaxWidth:KSCREEN_W / 2.0 - 10];
+    CGFloat cellWidth = (KSCREEN_W - 30) / 2.0 - 20.0;
+    CGSize sceneSize = [model.content boundingRectWithSize:CGSizeMake(cellWidth, 1000.0f)
+                                                          options:NSStringDrawingUsesLineFragmentOrigin
+                                                       attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0]}
+                                                          context:nil].size;
+    NSDictionary *dict = [ZYZCTool dictionaryWithJsonString:model.gpsData];
+    if ([dict[@"GPS_Address"] length] == 0) {
+        return itemWidth / model.videoimgsize + sceneSize.height + 50;
+    }
+    return itemWidth / model.videoimgsize + sceneSize.height + 80;
 }
+
+
 
 @end

@@ -128,7 +128,7 @@
     [_otherViews addSubview:_morePeopleBtn];
     
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-    btn=[ZYZCTool getCustomBtnByTilte:@"更多" andImageName:@"btn_xxd" andtitleFont:[UIFont systemFontOfSize:15]];
+    btn=[ZYZCTool getCustomBtnByTilte:@"更多" andImageName:@"btn_xxd" andtitleFont:[UIFont systemFontOfSize:15] andTextColor:nil andSpacing:2];
     [btn addTarget:self action:@selector(morePeople) forControlEvents:UIControlEventTouchUpInside];
     btn.frame=CGRectMake(30, 0, 50 ,30);
     [_morePeopleBtn addSubview:btn];

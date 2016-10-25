@@ -100,7 +100,7 @@ static NSString *ID = @"ZYLiveListCell";
     self.tableView.tableFooterView = [UIView new];
 
     [self.view addSubview:self.tableView];
-    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.top.equalTo(@64);
