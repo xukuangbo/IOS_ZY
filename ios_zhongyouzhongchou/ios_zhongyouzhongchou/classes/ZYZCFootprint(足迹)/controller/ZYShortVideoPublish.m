@@ -26,8 +26,9 @@
 #import "MediaUtils.h"
 #import "WXApiManager.h"
 #import "ZYBaseLimitTextView.h"
+#import "ZYCustomBlurView.h"
 @interface ZYShortVideoPublish ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource,UIScrollViewDelegate>
-@property (nonatomic, strong) UIImageView         *backImgView;
+@property (nonatomic, strong) ZYCustomBlurView    *backImgView;
 @property (nonatomic, strong) UILabel             *pageLab;
 @property (nonatomic, strong) UIImageView         *cardImg;
 @property (nonatomic, strong) ZYBaseLimitTextView *textView;
@@ -69,8 +70,7 @@
     [self configNavUI];
     [_textView becomeFirstResponder];
     [self switchAction:_switchView];
-   self.videoLen = [NSNumber numberWithFloat:[VideoService getVideoDuration:[NSURL fileURLWithPath:self.videoPath]]];
-    DDLog(@"%@",self.videoLen);
+   self.videoLen = [NSNumber numberWithInt:(int)[VideoService getVideoDuration:[NSURL fileURLWithPath:self.videoPath]]];
 }
 
 -(void )getImageData
@@ -239,21 +239,7 @@
 {
     if (!_backImgView) {
         //背景图
-        _backImgView=[[UIImageView alloc]initWithFrame:self.view.bounds];
-        _backImgView.contentMode=UIViewContentModeScaleAspectFill;
-        _backImgView.layer.masksToBounds = YES;
-        
-        //毛玻璃
-        UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-        UIVisualEffectView *backView = [[UIVisualEffectView alloc] initWithEffect:blur];
-        backView.frame = CGRectMake(0, 0, KSCREEN_W, KSCREEN_H);
-        [_backImgView addSubview:backView];
-        
-        //调色图层
-        UIView *blackView=[[UIView alloc]initWithFrame:backView.bounds];
-        blackView.backgroundColor=[UIColor blackColor];
-        blackView.alpha=0.3;
-        [backView addSubview:blackView];
+        _backImgView=[[ZYCustomBlurView alloc]initWithFrame:self.view.bounds andBlurEffectStyle:UIBlurEffectStyleLight andBlurColor:[UIColor blackColor] andBlurAlpha:1.0 andColorAlpha:0.3];
     }
     return _backImgView;
 }

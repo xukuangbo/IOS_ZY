@@ -229,6 +229,7 @@
 		2C1ECC8A1D62B04400B91E7B /* ZYZCEditYoujiController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC891D62B04400B91E7B /* ZYZCEditYoujiController.m */; };
 		2C1ECC8D1D62B08C00B91E7B /* YJTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */; };
 		2C20BC971D8A4A3500574462 /* HUPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */; };
+		2C228B871DB9FA0B00ECAD69 /* ZYCustomBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C228B861DB9FA0B00ECAD69 /* ZYCustomBlurView.m */; };
 		2C2BCE2C1DB77C1F007C6E1C /* ZYBaseLimitTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C2BCE2B1DB77C1F007C6E1C /* ZYBaseLimitTextView.m */; };
 		2C3178481DAA41340042B5DB /* ZYDetailIUserInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3178471DAA41340042B5DB /* ZYDetailIUserInfoCell.m */; };
 		2C3292F11D922D890095F60E /* ZYFootprintCommentTable.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292F01D922D890095F60E /* ZYFootprintCommentTable.m */; };
@@ -556,6 +557,12 @@
 		394C2A601DB723CE00821F78 /* ZYLiveSceneModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 394C2A5F1DB723CE00821F78 /* ZYLiveSceneModel.m */; };
 		394C2A641DB7246100821F78 /* ShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 394C2A621DB7246100821F78 /* ShopCell.m */; };
 		394C2A651DB7246100821F78 /* ShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 394C2A631DB7246100821F78 /* ShopCell.xib */; };
+		394C2A6F1DB9A8C700821F78 /* WalletHomeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 394C2A6E1DB9A8C700821F78 /* WalletHomeVC.m */; };
+		394C2A721DB9B4E100821F78 /* WalletHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 394C2A711DB9B4E100821F78 /* WalletHeadView.m */; };
+		394C2A751DB9B56300821F78 /* WalletSelectToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 394C2A741DB9B56300821F78 /* WalletSelectToolBar.m */; };
+		394C2A791DB9C63600821F78 /* WalletSelectToolBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 394C2A781DB9C63600821F78 /* WalletSelectToolBar.xib */; };
+		394C2A7C1DB9EDF000821F78 /* WalletKtxTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 394C2A7B1DB9EDF000821F78 /* WalletKtxTableView.m */; };
+		394C2A7F1DB9EE1500821F78 /* WalletYbjTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 394C2A7E1DB9EE1500821F78 /* WalletYbjTableView.m */; };
 		394D53481D62CAF800E7F595 /* Foundation+ZYLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D53471D62CAF800E7F595 /* Foundation+ZYLog.m */; };
 		394D53721D62D76B00E7F595 /* ZYFaqiLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D53711D62D76B00E7F595 /* ZYFaqiLiveViewController.m */; };
 		394D537B1D62F45500E7F595 /* UIView+ZYLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */; };
@@ -1061,6 +1068,8 @@
 		2C1ECC8C1D62B08C00B91E7B /* YJTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YJTextView.m; sourceTree = "<group>"; };
 		2C20BC951D8A4A3500574462 /* HUPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowser.h; sourceTree = "<group>"; };
 		2C20BC961D8A4A3500574462 /* HUPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowser.m; sourceTree = "<group>"; };
+		2C228B851DB9FA0B00ECAD69 /* ZYCustomBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYCustomBlurView.h; sourceTree = "<group>"; };
+		2C228B861DB9FA0B00ECAD69 /* ZYCustomBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCustomBlurView.m; sourceTree = "<group>"; };
 		2C2BCE2A1DB77C1F007C6E1C /* ZYBaseLimitTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBaseLimitTextView.h; sourceTree = "<group>"; };
 		2C2BCE2B1DB77C1F007C6E1C /* ZYBaseLimitTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBaseLimitTextView.m; sourceTree = "<group>"; };
 		2C3178461DAA41340042B5DB /* ZYDetailIUserInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailIUserInfoCell.h; sourceTree = "<group>"; };
@@ -1699,6 +1708,17 @@
 		394C2A611DB7246100821F78 /* ShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCell.h; sourceTree = "<group>"; };
 		394C2A621DB7246100821F78 /* ShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCell.m; sourceTree = "<group>"; };
 		394C2A631DB7246100821F78 /* ShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCell.xib; sourceTree = "<group>"; };
+		394C2A6D1DB9A8C700821F78 /* WalletHomeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHomeVC.h; sourceTree = "<group>"; };
+		394C2A6E1DB9A8C700821F78 /* WalletHomeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHomeVC.m; sourceTree = "<group>"; };
+		394C2A701DB9B4E100821F78 /* WalletHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHeadView.h; sourceTree = "<group>"; };
+		394C2A711DB9B4E100821F78 /* WalletHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHeadView.m; sourceTree = "<group>"; };
+		394C2A731DB9B56300821F78 /* WalletSelectToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletSelectToolBar.h; sourceTree = "<group>"; };
+		394C2A741DB9B56300821F78 /* WalletSelectToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletSelectToolBar.m; sourceTree = "<group>"; };
+		394C2A781DB9C63600821F78 /* WalletSelectToolBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletSelectToolBar.xib; sourceTree = "<group>"; };
+		394C2A7A1DB9EDF000821F78 /* WalletKtxTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletKtxTableView.h; sourceTree = "<group>"; };
+		394C2A7B1DB9EDF000821F78 /* WalletKtxTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletKtxTableView.m; sourceTree = "<group>"; };
+		394C2A7D1DB9EE1500821F78 /* WalletYbjTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjTableView.h; sourceTree = "<group>"; };
+		394C2A7E1DB9EE1500821F78 /* WalletYbjTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjTableView.m; sourceTree = "<group>"; };
 		394D53471D62CAF800E7F595 /* Foundation+ZYLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+ZYLog.m"; sourceTree = "<group>"; };
 		394D53701D62D76B00E7F595 /* ZYFaqiLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFaqiLiveViewController.h; sourceTree = "<group>"; };
 		394D53711D62D76B00E7F595 /* ZYFaqiLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFaqiLiveViewController.m; sourceTree = "<group>"; };
@@ -2421,6 +2441,7 @@
 		04D9A4A91D06CBAC00753392 /* MyWallet(钱包) */ = {
 			isa = PBXGroup;
 			children = (
+				394C2A691DB8EB5700821F78 /* WalletHome */,
 				392635021D5D7C29006A90BE /* Main */,
 				39E4EC491D2E554500305F73 /* WalletMingXi(筹钱明细) */,
 			);
@@ -3166,6 +3187,8 @@
 				2C2BCE2B1DB77C1F007C6E1C /* ZYBaseLimitTextView.m */,
 				2C5A78541DB85982003E2743 /* ZYBaseLimitTextField.h */,
 				2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */,
+				2C228B851DB9FA0B00ECAD69 /* ZYCustomBlurView.h */,
+				2C228B861DB9FA0B00ECAD69 /* ZYCustomBlurView.m */,
 			);
 			path = ZYZCBaseView;
 			sourceTree = "<group>";
@@ -4743,6 +4766,48 @@
 			path = Other;
 			sourceTree = "<group>";
 		};
+		394C2A691DB8EB5700821F78 /* WalletHome */ = {
+			isa = PBXGroup;
+			children = (
+				394C2A6A1DB9A6F900821F78 /* Controller */,
+				394C2A6B1DB9A6F900821F78 /* Model */,
+				394C2A6C1DB9A6F900821F78 /* View */,
+			);
+			path = WalletHome;
+			sourceTree = "<group>";
+		};
+		394C2A6A1DB9A6F900821F78 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				394C2A6D1DB9A8C700821F78 /* WalletHomeVC.h */,
+				394C2A6E1DB9A8C700821F78 /* WalletHomeVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		394C2A6B1DB9A6F900821F78 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		394C2A6C1DB9A6F900821F78 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				394C2A701DB9B4E100821F78 /* WalletHeadView.h */,
+				394C2A711DB9B4E100821F78 /* WalletHeadView.m */,
+				394C2A731DB9B56300821F78 /* WalletSelectToolBar.h */,
+				394C2A741DB9B56300821F78 /* WalletSelectToolBar.m */,
+				394C2A781DB9C63600821F78 /* WalletSelectToolBar.xib */,
+				394C2A7A1DB9EDF000821F78 /* WalletKtxTableView.h */,
+				394C2A7B1DB9EDF000821F78 /* WalletKtxTableView.m */,
+				394C2A7D1DB9EE1500821F78 /* WalletYbjTableView.h */,
+				394C2A7E1DB9EE1500821F78 /* WalletYbjTableView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		394D53571D62D64500E7F595 /* DoLive(做直播) */ = {
 			isa = PBXGroup;
 			children = (
@@ -5433,6 +5498,7 @@
 				39F7D1A81D45BD60001DEAF4 /* Assets.xcassets in Resources */,
 				2C8B19871D0CF7EC0063097B /* XMNAlbumCell.xib in Resources */,
 				04518B4B1CE419F0001921D0 /* MineSetUpVC.storyboard in Resources */,
+				394C2A791DB9C63600821F78 /* WalletSelectToolBar.xib in Resources */,
 				05BB94FB1DA9E7CE000DA5BA /* ZYTravePayVIew.xib in Resources */,
 				2CDE67061DA651070066F49D /* more_preview_ico_close@2x.png in Resources */,
 				2C066A6B1D87937B0048FAE4 /* ReceiverVoiceNodePlaying002@2x.png in Resources */,
@@ -5580,6 +5646,7 @@
 				2CD6B8FE1DA9DFEE00B7E60A /* ZCSupportReturnView.m in Sources */,
 				3967ADB41D6C29BD008A7F81 /* ZYDoLiveVC.m in Sources */,
 				2CDE66841DA64EB70066F49D /* JSONAPI.m in Sources */,
+				2C228B871DB9FA0B00ECAD69 /* ZYCustomBlurView.m in Sources */,
 				2C8B19801D0CF7EC0063097B /* XMNPhotoPickerController.m in Sources */,
 				39911AC91D504174007DF44B /* UIColor+ZYZCColors.m in Sources */,
 				04F8364D1CD734CD00140980 /* TacticSingleTipsController.m in Sources */,
@@ -5655,6 +5722,7 @@
 				040651301CC635A9003FD539 /* TacticTableView.m in Sources */,
 				2C1B60F01D6D3CF900E3C25B /* AddDetailView.m in Sources */,
 				39F2AA181D3F9BA100023CC4 /* ZYZoomImageVIew.m in Sources */,
+				394C2A751DB9B56300821F78 /* WalletSelectToolBar.m in Sources */,
 				2C1B60DC1D6D3CF900E3C25B /* GoalPeoplePickerView.m in Sources */,
 				2CDE67421DA652380066F49D /* QPEffect.m in Sources */,
 				2CDE67461DA652380066F49D /* QPEffectMVAspect.m in Sources */,
@@ -5690,6 +5758,7 @@
 				3910CE701D35D6F4004D7578 /* TacticMoreJieshaoVC.m in Sources */,
 				2C1B60D91D6D3CF900E3C25B /* FZCContentEntryView.m in Sources */,
 				2CDE66C01DA650690066F49D /* QPPickerPreviewCell.m in Sources */,
+				394C2A7C1DB9EDF000821F78 /* WalletKtxTableView.m in Sources */,
 				056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */,
 				39911ACC1D504174007DF44B /* UIView+ZYZCLineView.m in Sources */,
 				2C91B6691D9155140091EC79 /* ZYCommentFootprintController.m in Sources */,
@@ -5844,6 +5913,7 @@
 				2C8E9AB51D8F917100CA35DE /* ZYFootprintListView.m in Sources */,
 				399E942A1D3A2226006E1B68 /* OpenSetTool.m in Sources */,
 				2C1B60E61D6D3CF900E3C25B /* NecessaryView.m in Sources */,
+				394C2A7F1DB9EE1500821F78 /* WalletYbjTableView.m in Sources */,
 				39E52FDD1D50815A00D0ED83 /* TacticMainVC.m in Sources */,
 				2CDE674A1DA652380066F49D /* QPEffectViewCell.m in Sources */,
 				04F8362D1CD7225200140980 /* TacticSingleLongPicture.m in Sources */,
@@ -5890,6 +5960,7 @@
 				2CDE66831DA64EB70066F49D /* JSONModelError.m in Sources */,
 				2CD209021D6D3E27005EB62E /* ZCCommentModel.m in Sources */,
 				2C3293061D9276110095F60E /* ZYFootprintOneCommentCell.m in Sources */,
+				394C2A6F1DB9A8C700821F78 /* WalletHomeVC.m in Sources */,
 				2CD6B90F1DA9E02C00B7E60A /* ZCDetailFirstCell.m in Sources */,
 				39809D1F1D5888F400CB9EE3 /* TacticMainCityCustomView.m in Sources */,
 				2C3178481DAA41340042B5DB /* ZYDetailIUserInfoCell.m in Sources */,
@@ -6021,6 +6092,7 @@
 				2C1B60D31D6D3CF900E3C25B /* NecessoryAlertManager.m in Sources */,
 				2CD6B8CC1DA9DDB700B7E60A /* ZCDetailReturnFirstCell.m in Sources */,
 				392AB28C1D669C26003FEDB7 /* RCDLiveInputBar.m in Sources */,
+				394C2A721DB9B4E100821F78 /* WalletHeadView.m in Sources */,
 				39911ADD1D5044A8007DF44B /* ZYZCOSSManager.m in Sources */,
 				2C1ECC8D1D62B08C00B91E7B /* YJTextView.m in Sources */,
 				2CDE67411DA652380066F49D /* QPSSZipArchive.m in Sources */,
@@ -6140,7 +6212,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
@@ -6181,7 +6253,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;

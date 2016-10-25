@@ -209,13 +209,14 @@
         _video.hidden=NO;
         if(footprintModel.videoimgsize>0)
         {
-            if (footprintModel.videoimgsize<1.0) {
-                _video.height=_video.width*footprintModel.videoimgsize;
+            if (footprintModel.videoimgsize<=1.0) {
+                _video.width=2*PIC_WIDTH+10;
+                _video.height=_video.width*1.0/footprintModel.videoimgsize;
             }
             else
             {
-                _video.width=_contentLab.width/2;
-                _video.height=_video.width*footprintModel.videoimgsize;
+                _video.width=self.width;
+                _video.height=_video.width*1.0/footprintModel.videoimgsize;
             }
         }
         else

@@ -216,14 +216,14 @@
     [self.viewMix addSubview:viewMixImage];
     
     self.labelMixLeft = [[UILabel alloc] initWithFrame:(CGRectMake(0, 0, 45, CGRectGetHeight(self.viewMix.frame)))];
-    self.labelMixLeft.text = @"音乐";
+    self.labelMixLeft.text = @"原音";
     self.labelMixLeft.textColor = RGB(2, 204, 269);
     self.labelMixLeft.font = [UIFont systemFontOfSize:11.f];
     self.labelMixLeft.textAlignment = NSTextAlignmentCenter;
     [self.viewMix addSubview:self.labelMixLeft];
     
     self.labelMixRight = [[UILabel alloc] initWithFrame:(CGRectMake(CGRectGetWidth(self.viewMix.frame) - 45, 0, 45, CGRectGetHeight(self.viewMix.frame)))];
-    self.labelMixRight.text = @"原音";
+    self.labelMixRight.text = @"音乐";
     self.labelMixRight.textColor = RGB(255, 204, 2);
     self.labelMixRight.font = [UIFont systemFontOfSize:11.f];
     self.labelMixRight.textAlignment = NSTextAlignmentCenter;
