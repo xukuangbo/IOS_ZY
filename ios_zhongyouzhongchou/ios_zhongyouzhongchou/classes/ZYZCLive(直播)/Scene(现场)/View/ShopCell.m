@@ -45,7 +45,7 @@
     self.praiseButton.imageEdgeInsets = UIEdgeInsetsMake(0,5, 0, 9);
     
     self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.playBtn setImage:[UIImage imageNamed:@"footprint-play"] forState:UIControlStateNormal];
+    [self.playBtn setImage:[UIImage imageNamed:@"videoImg-1"] forState:UIControlStateNormal];
     [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     [self.imageView addSubview:self.playBtn];
     [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
