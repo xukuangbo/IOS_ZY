@@ -71,7 +71,7 @@
     generalTitleLab.textColor=[UIColor ZYZC_TextBlackColor];
     [self.contentView addSubview:generalTitleLab];
     
-    UIButton *moreBtn=[ZYZCTool getCustomBtnByTilte:@"更多" andImageName:@"btn_rig_mor" andtitleFont:[UIFont systemFontOfSize:15]];
+    UIButton *moreBtn = [ZYZCTool getCustomBtnByTilte:@"更多" andImageName:@"btn_rig_mor" andtitleFont:[UIFont systemFontOfSize:15] andTextColor:[UIColor ZYZC_TextGrayColor04] andSpacing:2];
     moreBtn.frame=CGRectMake(KSCREEN_W-2*KEDGE_DISTANCE-50, _oneGoalImg.bottom+KEDGE_DISTANCE, 50, 20) ;
     [moreBtn setTitleColor:[UIColor ZYZC_TextGrayColor04] forState:UIControlStateNormal];
     [moreBtn addTarget:self action:@selector(gotoViewSpot) forControlEvents:UIControlEventTouchUpInside];

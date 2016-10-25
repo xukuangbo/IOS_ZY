@@ -1,0 +1,120 @@
+{
+  "musicName": "coco banana", 
+  "name": "桑巴", 
+  "animations": [
+    {
+      "frames": [
+        {
+          "a": 0.0, 
+          "fx": 0.0, 
+          "fw": 640.0, 
+          "track": "a", 
+          "h": 1.0, 
+          "fh": 360.0, 
+          "cy": 180.0, 
+          "cx": 320.0, 
+          "t": 0, 
+          "w": 1.0, 
+          "fy": 0.0, 
+          "y": 180.0, 
+          "x": 320.0
+        }, 
+        {
+          "a": 0.0, 
+          "fx": 0.0, 
+          "fw": 640.0, 
+          "track": "a", 
+          "h": 1.0, 
+          "fh": 360.0, 
+          "cy": 180.0, 
+          "cx": 320.0, 
+          "t": 449, 
+          "w": 1.0, 
+          "fy": 0.0, 
+          "y": 180.0, 
+          "x": 320.0
+        }
+      ], 
+      "name": "main"
+    }
+  ], 
+  "music": "music.mp3", 
+  "effects": [
+    {
+      "src": "", 
+      "range": "", 
+      "video": "main", 
+      "eid": 1
+    }, 
+    {
+      "src": "", 
+      "range": "", 
+      "video": "screen.mp4", 
+      "eid": 3
+    }, 
+    {
+      "src": "", 
+      "range": "", 
+      "video": "screen2.mp4", 
+      "eid": 4
+    }, 
+    {
+      "info": {
+        "animation": "main"
+      }, 
+      "filterName": "Animation", 
+      "range": "", 
+      "eid": 5, 
+      "src": "8"
+    }, 
+    {
+      "filterName": "Screen", 
+      "range": "", 
+      "eid": 7, 
+      "src": "5,4"
+    }, 
+    {
+      "filterName": "LookColor", 
+      "range": "", 
+      "eid": 8, 
+      "src": "1"
+    }, 
+    {
+      "filterName": "Screen", 
+      "range": "", 
+      "eid": 9, 
+      "src": "7,3"
+    }
+  ], 
+  "filters": [
+    {
+      "images": [
+        ""
+      ], 
+      "fragment": " \nprecision highp float;\nuniform sampler2D inputImageTexture; //video\nuniform sampler2D inputImageTexture2; //screen\nvarying vec2 textureCoordinate;\nvoid main()\n{\nvec4 video = texture2D(inputImageTexture, textureCoordinate);\nvec4 screen = texture2D(inputImageTexture2, textureCoordinate);\nmediump vec4 whiteColor = vec4(1.0);\ngl_FragColor = whiteColor - ((whiteColor - screen) * (whiteColor - video));\n}", 
+      "name": "Screen"
+    }, 
+    {
+      "images": [
+        "color.png"
+      ], 
+      "fragment": " \nprecision highp float;\nvarying highp vec2 textureCoordinate; \nuniform sampler2D inputImageTexture;\nuniform sampler2D inputImageTexture2;\nvoid main()\n{\n vec4 value = texture2D(inputImageTexture, textureCoordinate);\n float r = texture2D(inputImageTexture2, vec2(value.r, 0.5)).r;\n float g = texture2D(inputImageTexture2, vec2(value.g, 0.5)).g;\n float b = texture2D(inputImageTexture2, vec2(value.b, 0.5)).b;\n gl_FragColor = vec4(r,g,b,1.0);\n} ", 
+      "name": "LookColor"
+    }, 
+    {
+      "images": [
+        ""
+      ], 
+      "fragment": " \nprecision highp float;\nuniform sampler2D inputImageTexture; //video\nuniform sampler2D inputImageTexture2; //screen\nvarying vec2 textureCoordinate;\nvoid main()\n{\nvec4 video = texture2D(inputImageTexture, textureCoordinate);\nvec4 screen = texture2D(inputImageTexture2, textureCoordinate);\nmediump vec4 whiteColor = vec4(1.0);\ngl_FragColor = whiteColor - ((whiteColor - screen) * (whiteColor - video));\n}", 
+      "name": "Screen"
+    }
+  ], 
+  "time": [
+    130, 
+    210, 
+    239,
+	449
+  ], 
+  "icon": "icon.png", 
+  "musicIcon": "icon_music.png"
+}

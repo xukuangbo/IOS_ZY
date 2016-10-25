@@ -26,6 +26,11 @@ typedef NS_ENUM(NSInteger,ZY_VideoHandleType){
     ZY_QupaiVideoSaveLocal//保存本地
 };
 
+typedef NS_ENUM(NSInteger,ZY_VideoSceneType){
+    ZY_GetFootprint,//用于足迹
+    ZY_GetProduct//用于发众筹
+};
+
 @protocol QupaiSDKDelegate;
 
 @interface QupaiSDK : NSObject
@@ -46,10 +51,17 @@ typedef NS_ENUM(NSInteger,ZY_VideoHandleType){
 @property (nonatomic, assign) QupaiSDKCameraPosition   cameraPosition;     /* 默认摄像头位置，only Back or Front */
 @property (nonatomic, assign) CGFloat bottomPanelHeight;
 
+
+//=========================众游需求参数=================================
+
 //编辑的短视频处理结果
 @property (nonatomic, assign) ZY_VideoHandleType zy_VideoHandleType;
 //视频长宽比
-@property (nonatomic, assign) CGFloat       zy_VideoSizeRate;
+@property (nonatomic, assign) CGFloat            zy_VideoSizeRate;
+//短视频应用场景
+@property (nonatomic, assign) ZY_VideoSceneType  zy_VideoSceneType;
+
+//====================================================================
 
 /**
  *创建录制页面，需要以 UINavigationController 为父容器

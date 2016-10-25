@@ -1,0 +1,70 @@
+{
+	"musicName": "萤火虫之舞",
+	"name": "萤火虫",
+	"animations": [{
+		"frames": [{
+			"a": 0.0,
+			"fx": 0.0,
+			"fw": 360.0,
+			"track": "a",
+			"h": 1.0,
+			"fh": 640.0,
+			"cy": 320.0,
+			"cx": 180.0,
+			"t": 0,
+			"w": 1.0,
+			"fy": 0.0,
+			"y": 320.0,
+			"x": 180.0
+		}, {
+			"a": 0.0,
+			"fx": 0.0,
+			"fw": 360.0,
+			"track": "a",
+			"h": 1.0,
+			"fh": 640.0,
+			"cy": 320.0,
+			"cx": 180.0,
+			"t": 449,
+			"w": 1.0,
+			"fy": 0.0,
+			"y": 320.0,
+			"x": 180.0
+		}],
+		"name": "main"
+	}],
+	"music": "music.mp3",
+	"effects": [{
+		"src": "",
+		"range": "",
+		"video": "main",
+		"eid": 1
+	}, {
+		"src": "",
+		"range": "",
+		"video": "screen.mp4",
+		"eid": 2
+	}, {
+		"filterName": "Screen",
+		"range": "",
+		"eid": 3,
+		"src": "4,2"
+	}, {
+		"filterName": "WenYi",
+		"range": "",
+		"eid": 4,
+		"src": "1"
+	}],
+	"filters": [{
+		"images": [""],
+		"fragment": " \nprecision highp float;\nuniform sampler2D inputImageTexture; //video\nuniform sampler2D inputImageTexture2; //screen\nvarying vec2 textureCoordinate;\nvoid main()\n{\nvec4 video = texture2D(inputImageTexture, textureCoordinate);\nvec4 screen = texture2D(inputImageTexture2, textureCoordinate);\nmediump vec4 whiteColor = vec4(1.0);\ngl_FragColor = whiteColor - ((whiteColor - screen) * (whiteColor - video));\n}",
+		"name": "Screen"
+	}, {
+		"images": ["blackboard1024.png", "overlayMap.png", "amaroMap.png"],
+		"fragment": " \nprecision lowp float;\n varying highp vec2 textureCoordinate;\n \n uniform sampler2D inputImageTexture;\n uniform sampler2D inputImageTexture2; //blowout;\n uniform sampler2D inputImageTexture3; //overlay;\n uniform sampler2D inputImageTexture4; //map\n \n void main()\n{\n    vec4 texel = texture2D(inputImageTexture, textureCoordinate);\n    vec3 bbTexel = texture2D(inputImageTexture2, textureCoordinate).rgb;\n    \n    texel.r = texture2D(inputImageTexture3, vec2(bbTexel.r, texel.r)).r;\n    texel.g = texture2D(inputImageTexture3, vec2(bbTexel.g, texel.g)).g;\n    texel.b = texture2D(inputImageTexture3, vec2(bbTexel.b, texel.b)).b;\n    \n    vec4 mapped;\n    mapped.r = texture2D(inputImageTexture4, vec2(texel.r, .16666)).r;\n    mapped.g = texture2D(inputImageTexture4, vec2(texel.g, .5)).g;\n    mapped.b = texture2D(inputImageTexture4, vec2(texel.b, .83333)).b;\n    mapped.a = 1.0;\n    \n    gl_FragColor = mapped;\n}\n",
+		"name": "WenYi"
+	}],
+	"time": [0],
+	"icon": "icon.png",
+	"musicIcon": "icon_music.png"
+}
