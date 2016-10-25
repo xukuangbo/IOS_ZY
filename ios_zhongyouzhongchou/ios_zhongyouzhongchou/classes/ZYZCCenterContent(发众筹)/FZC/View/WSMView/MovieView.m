@@ -19,6 +19,7 @@
 
 #import "QupaiSDK.h"
 #import "QPEffectMusic.h"
+#import "ChooseThumbController.h"
 
 @interface MovieView ()<QupaiSDKDelegate>
 @property (nonatomic, assign) BOOL isRecordResoure;
@@ -96,6 +97,8 @@
     [self enterShortVideo];
     return;
     
+    /*
+    
     _picker = [[XMNPhotoPickerController alloc] initWithMaxCount:1 delegate:nil];
     _picker.autoPushToPhotoCollection=NO;
     _picker.autoPushToVideoCollection=YES;
@@ -112,6 +115,8 @@
     }];
     
     [self.viewController presentViewController:_picker animated:YES completion:nil];
+     
+     */
 }
 
 //#pragma mark --- 压缩image
@@ -328,6 +333,20 @@
                     WEAKSELF
                     [self.viewController dismissViewControllerAnimated:YES completion:^{
                         [weakSelf saveDataInDataManager];
+                        //进入图片编辑页
+                        ChooseThumbController *chooseThumbController = [[ChooseThumbController alloc]initWithVideoPath:weakSelf.movieFileName andImgSizeRate:[QupaiSDK shared].zy_VideoSizeRate WHScale:(16.0 / 10.0)];
+                        [self.viewController presentViewController:chooseThumbController animated:YES completion:nil];
+                        //选择切图后操作
+                        chooseThumbController.imageBlock=^(UIImage *chooseImg)
+                        {
+                            self.movieImg.image=chooseImg;
+                            UIImage *compressImg=[ZYZCTool imageByScalingAndCroppingWithSourceImage:chooseImg];
+                            // 将图片保存为png格式到documents中
+                            [MediaUtils deleteFileByPath:weakSelf.movieImgFileName];
+                            [UIImagePNGRepresentation(compressImg)
+                             writeToFile:weakSelf.movieImgFileName atomically:YES];
+                            [weakSelf saveDataInDataManager];
+                        } ;
                     }];
                 }
                 else{
@@ -357,7 +376,5 @@
     
     return array;
 }
-
-
 
 @end
