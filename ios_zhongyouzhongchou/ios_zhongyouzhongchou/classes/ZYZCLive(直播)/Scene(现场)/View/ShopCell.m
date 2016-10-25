@@ -46,7 +46,7 @@
     
     self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.playBtn setImage:[UIImage imageNamed:@"videoImg-1"] forState:UIControlStateNormal];
-    [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     [self.imageView addSubview:self.playBtn];
     [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.imageView);
@@ -56,9 +56,6 @@
 - (void)setModel:(ZYFootprintListModel *)model
 {
     _model = model;
-//    [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.width.mas_equalTo(self.imageView.mas_width).multipliedBy(model.videoimgsize);
-//    }];
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:_model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
     self.titleLab.text = [NSString stringWithFormat:@"%@",_model.userName];
@@ -89,10 +86,10 @@
 }
 
 #pragma mark - event
-- (void)play:(UIButton *)sender {
-    if (self.playBlock) {
-        self.playBlock(sender);
-    }
-}
+//- (void)play:(UIButton *)sender {
+//    if (self.playBlock) {
+//        self.playBlock(sender);
+//    }
+//}
 
 @end

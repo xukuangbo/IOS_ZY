@@ -996,11 +996,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/Scene(&#x73b0;&#x573a;)/View/ShopCell.m"
-            timestampString = "499068658.046974"
+            timestampString = "499069720.786867"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "88"
-            endingLineNumber = "88"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
             landmarkName = "-setModel:"
             landmarkType = "7">
          </BreakpointContent>
