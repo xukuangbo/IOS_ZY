@@ -40,6 +40,7 @@
     [_tableView registerNib:[UINib nibWithNibName:@"QPMVMoreViewCell" bundle:nil] forCellReuseIdentifier:@"QPMVMoreViewCell"];
     _tableView.delegate = self;
     _tableView.dataSource = self;
+     _tableView.tableFooterView=[[UIView alloc]initWithFrame:CGRectZero];
     [self addSubview:_tableView];
 }
 

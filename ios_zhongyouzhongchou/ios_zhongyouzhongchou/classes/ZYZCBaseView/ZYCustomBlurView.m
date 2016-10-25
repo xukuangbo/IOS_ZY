@@ -51,7 +51,7 @@
     _colorView=[[UIView alloc]initWithFrame:self.bounds];
     _colorView.backgroundColor=_blurColor;
     _colorView.alpha=_colorAlpha;
-    [_effectView addSubview:_colorView];
+    [self addSubview:_colorView];
 }
 
 
@@ -59,6 +59,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.contentMode=UIViewContentModeScaleAspectFill;
+        self.layer.masksToBounds = YES;
         _blurEffectStyle=blurEffectStyle;
         _blurColor=blurColor;
         _blurAlpha=blurAlpha;

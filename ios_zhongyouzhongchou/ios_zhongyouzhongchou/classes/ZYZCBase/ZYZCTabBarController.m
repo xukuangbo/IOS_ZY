@@ -241,10 +241,10 @@
 {
     //创建趣拍对象
     [QupaiSDK shared].minDuration = 2.0;
-    [QupaiSDK shared].maxDuration = 30.0;
+    [QupaiSDK shared].maxDuration = 5*60.0;
     [QupaiSDK shared].enableBeauty=YES;
 //    [QupaiSDK shared].enableWatermark=YES;
-//    [QupaiSDK shared].watermarkImage=[UIImage imageNamed:@"LOGO"];
+//    [QupaiSDK shared].watermarkImage=[UIImage imageNamed:@"watermark"];
     [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
     UIViewController *viewController = [[QupaiSDK shared] createRecordViewController];
     [QupaiSDK shared].delegte = self;
