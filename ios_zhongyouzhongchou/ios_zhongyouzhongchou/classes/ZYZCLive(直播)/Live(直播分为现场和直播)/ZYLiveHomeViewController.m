@@ -30,6 +30,13 @@
     
     // Do any additional setup after loading the view.
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc] initWithCustomView:self.navRightBtn];
+    [self setRightBarButtonItem:rightItem];
+}
 #pragma mark - setup
 - (void)setupData
 {
@@ -43,13 +50,12 @@
 - (void)setupView
 {
     UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
+    navRightBtn.frame=CGRectMake(KSCREEN_W - 40, 10, 60, 30);
     [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
     navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
     [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [navRightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.navigationBar addSubview:navRightBtn];
-    _navRightBtn=navRightBtn;
+    self.navRightBtn=navRightBtn;
 
     GRKPageViewController *pageViewController = [[GRKPageViewController alloc] init];
     pageViewController.view.backgroundColor = [UIColor whiteColor];

@@ -30,6 +30,21 @@
     self.navigationItem.leftBarButtonItem=[self customItemByImgName:@"btn_back_new" andAction:@selector(pressBack)];
 }
 
+- (void)setRightBarButtonItem:(UIBarButtonItem *)rightBarItem {
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                   target:nil action:nil];
+    negativeSpacer.width = -15;//这个数值可以根据情况自由变化
+    self.navigationItem.rightBarButtonItems = @[negativeSpacer, rightBarItem];
+}
+
+- (void)setLeftBarButtonItem:(UIBarButtonItem *)leftBarItem {
+    UIBarButtonItem *negativeSpacer = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                                                   target:nil action:nil];
+    negativeSpacer.width = -15;//这个数值可以根据情况自由变化
+    self.navigationItem.leftBarButtonItems = @[negativeSpacer, leftBarItem];
+}
+
+
 -(void)customNavWithLeftBtnImgName:(NSString *)leftName andRightImgName:(NSString *)rightName andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction
 {
     self.navigationItem.leftBarButtonItem=[self customItemByImgName:leftName andAction:leftAction];
