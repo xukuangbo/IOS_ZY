@@ -6,7 +6,7 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 #define TEXT_01 @"点击上传美美的自拍更能吸引人哦"
-#define TEXT_02 @"提示：视频文件请小于20M"
+#define TEXT_02 @"提示：视频文件请小于5分钟"
 
 #define TEXT_01_01 @"点击上传手机视频"
 
@@ -16,7 +16,11 @@
 #import "PromptController.h"
 #import "MBProgressHUD+MJ.h"
 #import "JudgeAuthorityTool.h"
-@interface MovieView ()
+
+#import "QupaiSDK.h"
+#import "QPEffectMusic.h"
+
+@interface MovieView ()<QupaiSDKDelegate>
 @property (nonatomic, assign) BOOL isRecordResoure;
 @property (nonatomic, strong) UIImage *preMovImg;
 @property (nonatomic, assign) BOOL isBigFile;
@@ -88,6 +92,9 @@
     if (!canChooseAlbum) {
         return;
     }
+    
+    [self enterShortVideo];
+    return;
     
     _picker = [[XMNPhotoPickerController alloc] initWithMaxCount:1 delegate:nil];
     _picker.autoPushToPhotoCollection=NO;
@@ -232,6 +239,125 @@
     _alertLab01.text=TEXT_01_01;
     
 }
+
+
+
+
+#pragma mark --- 短视频
+-(void)enterShortVideo
+{
+    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+    NSString *auth_result=[user objectForKey:Auth_QuPai_Result];
+    if ([auth_result isEqualToString:@"no"]) {
+        if ([ZYZCAccountTool getUserId]) {
+            //鉴权
+            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
+                //鉴权成功
+                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+                [user setObject:@"yes" forKey:Auth_QuPai_Result];
+                [user synchronize];
+                dispatch_async(dispatch_get_main_queue(), ^
+                               {
+                                   [self createQuPai];
+                               });
+            } failure:^(NSError *error) {
+                //鉴权失败
+                dispatch_async(dispatch_get_main_queue(), ^
+                               {
+                                   [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
+                               });
+            }];
+        }
+    }
+    else if ([auth_result isEqualToString:@"yes"])
+    {
+        [self createQuPai];
+    }
+}
+
+-(void)createQuPai
+{
+    //创建趣拍对象
+    [QupaiSDK shared].minDuration = 2.0;
+    [QupaiSDK shared].maxDuration = 5*60.0;
+    [QupaiSDK shared].enableBeauty=YES;
+    [QupaiSDK shared].zy_VideoSceneType=ZY_GetProduct;
+    //    [QupaiSDK shared].enableWatermark=YES;
+    //    [QupaiSDK shared].watermarkImage=[UIImage imageNamed:@"watermark"];
+    [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
+    UIViewController *viewController = [[QupaiSDK shared] createRecordViewController];
+    [QupaiSDK shared].delegte = self;
+    [QupaiSDK shared].videoSize = CGSizeMake(KSCREEN_W, KSCREEN_H);
+    UINavigationController *navCrl = [[UINavigationController alloc] initWithRootViewController:viewController];
+    [self.viewController presentViewController:navCrl animated:YES completion:nil];
+}
+
+#pragma mark --- 实现短视频代理方法
+- (void)qupaiSDK:(id<QupaiSDKDelegate>)sdk compeleteVideoPath:(NSString *)videoPath thumbnailPath:(NSString *)thumbnailPath{
+    NSLog(@"Qupai SDK compelete %@----thumbnailPath:%@",videoPath,thumbnailPath);
+    NSFileManager *manager=[NSFileManager defaultManager];
+    BOOL  exit= [manager fileExistsAtPath:videoPath];
+    if (!exit) {
+        if (videoPath) {
+            [MBProgressHUD showShortMessage:@"网络错误,视频导出失败"];
+        }
+        [self.viewController dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    else
+    {
+        if (videoPath) {
+            UISaveVideoAtPathToSavedPhotosAlbum(videoPath, nil, nil, nil);
+        }
+            //复制视频文件
+            self.movieFileName= [NSString stringWithFormat:@"%@.mp4",KMY_ZC_FILE_PATH(self.contentBelong)];
+            [MediaUtils deleteFileByPath:self.movieFileName];
+            NSFileManager *fileManager=[NSFileManager defaultManager];
+            BOOL copyVideo=
+            [fileManager copyItemAtPath:videoPath  toPath:self.movieFileName error:nil];
+            if (copyVideo) {
+                [MediaUtils deleteFileByPath:videoPath];
+                //复制图片
+                self.movieImgFileName=[NSString stringWithFormat:@"%@.png",KMY_ZC_FILE_PATH(self.contentBelong)];
+                [MediaUtils deleteFileByPath:self.movieImgFileName];
+                 BOOL copyImg = [fileManager copyItemAtPath:thumbnailPath  toPath:self.movieImgFileName error:nil];
+                if (copyImg) {
+                    [MediaUtils deleteFileByPath:thumbnailPath];
+                    self.movieImg.image=[UIImage imageWithContentsOfFile:self.movieImgFileName];
+                    self.turnImageView.hidden=NO;
+                    WEAKSELF
+                    [self.viewController dismissViewControllerAnimated:YES completion:^{
+                        [weakSelf saveDataInDataManager];
+                    }];
+                }
+                else{
+                    [self.viewController dismissViewControllerAnimated:YES completion:^{
+                        [MBProgressHUD showShortMessage:@"视频保存失败"];
+                    }];
+                }
+            }
+            else
+            {
+                [self.viewController dismissViewControllerAnimated:YES completion:^{
+                    [MBProgressHUD showShortMessage:@"视频保存失败"];
+                }];
+            }
+    }
+}
+
+- (NSArray *)qupaiSDKMusics:(id<QupaiSDKDelegate>)sdk
+{
+    NSMutableArray *array = [NSMutableArray array];
+    QPEffectMusic *effect = [[QPEffectMusic alloc] init];
+    effect.name = @"audio";
+    effect.eid = 1;
+    effect.musicName = [[NSBundle mainBundle] pathForResource:@"audio" ofType:@"mp3"];
+    effect.icon = [[NSBundle mainBundle] pathForResource:@"icon" ofType:@"png"];
+    [array addObject:effect];
+    
+    return array;
+}
+
 
 
 @end
