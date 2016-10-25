@@ -1847,6 +1847,7 @@
 		39F2AA1E1D40ED3100023CC4 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		39F7D1A71D45BD60001DEAF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39FF314C1DBEFB2E00123393 /* WalletHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletHeadView.xib; sourceTree = "<group>"; };
+		39FF314E1DBF361600123393 /* 众游.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "众游.entitlements"; sourceTree = "<group>"; };
 		5F74EDEB5AED9D3FE531BA3F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		75DC679E6EF03FA415FEEF7D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A975BB3FB47993D61E1FF732 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -3472,6 +3473,7 @@
 		2C901DBA1C89788C004B844B /* ios_zhongyouzhongchou */ = {
 			isa = PBXGroup;
 			children = (
+				39FF314E1DBF361600123393 /* 众游.entitlements */,
 				04A99BCC1CBF848C00C6F5F0 /* classes */,
 				2C901DC11C89788C004B844B /* ViewController.h */,
 				2C901DC21C89788C004B844B /* ViewController.m */,
@@ -5422,6 +5424,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					2C901DD01C89788C004B844B = {
@@ -6272,6 +6277,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "ios_zhongyouzhongchou/众游.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -6387,6 +6393,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "ios_zhongyouzhongchou/众游.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;

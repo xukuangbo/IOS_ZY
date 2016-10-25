@@ -13,9 +13,6 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VTp-oU-VPO" userLabel="项目待提现">
-                    <constraints>
-                        <constraint firstAttribute="width" constant="267" id="96L-S4-oDu"/>
-                    </constraints>
                     <state key="normal" title="项目待提现"/>
                     <connections>
                         <action selector="selectBtnAction:" destination="Jn9-od-USg" eventType="touchUpInside" id="Dzj-L5-Jfc"/>
@@ -39,7 +36,6 @@
                 <constraint firstItem="MYa-Xp-wn5" firstAttribute="leading" secondItem="VTp-oU-VPO" secondAttribute="trailing" id="qLg-9t-Tqm"/>
                 <constraint firstItem="VTp-oU-VPO" firstAttribute="leading" secondItem="Jn9-od-USg" secondAttribute="leading" id="sfJ-ut-OIp"/>
                 <constraint firstAttribute="trailing" secondItem="MYa-Xp-wn5" secondAttribute="trailing" id="tVi-VE-pdA"/>
-                <constraint firstAttribute="trailing" secondItem="MYa-Xp-wn5" secondAttribute="trailing" id="xXR-y7-JdL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
