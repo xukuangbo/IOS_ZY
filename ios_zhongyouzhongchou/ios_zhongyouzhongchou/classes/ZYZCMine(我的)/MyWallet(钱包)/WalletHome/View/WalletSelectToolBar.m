@@ -7,10 +7,7 @@
 //
 
 #import "WalletSelectToolBar.h"
-#import "Masonry.h"
 @interface WalletSelectToolBar ()
-//@property (nonatomic, strong) UIButton  *ktxBtn;//可提现
-//@property (nonatomic, strong) UIButton  *ybjBtn;      //预备金
 @property (weak, nonatomic) IBOutlet UIButton *ktxBtn;
 @property (weak, nonatomic) IBOutlet UIButton *ybjBtn;
 - (IBAction)selectBtnAction:(UIButton *)sender;

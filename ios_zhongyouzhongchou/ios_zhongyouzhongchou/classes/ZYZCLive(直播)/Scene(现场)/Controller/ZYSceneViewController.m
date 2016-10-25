@@ -36,15 +36,13 @@ static NSString *const ShopID = @"ShopCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-    //    _navRightBtn.hidden=NO;
-    //    self.tabBarController.tabBar.hidden = NO;
-    //    self.navigationController.navigationBar.hidden = NO;
     
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        self.pageNo = 1;
-//        [self requestListDataWithPage:self.pageNo direction:1];
-//    });
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
 }
 
 - (void)viewDidLoad {
@@ -86,14 +84,13 @@ static NSString *const ShopID = @"ShopCell";
     self.collectionView.backgroundColor = [UIColor ZYZC_BgGrayColor];
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
-    [self.view addSubview:_collectionView];
+    [self.view addSubview:self.collectionView];
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
         make.top.equalTo(@64);
         make.bottom.equalTo(@49);
     }];
-
     layout.delegate = self;
     
     [self.collectionView registerNib:[UINib nibWithNibName:NSStringFromClass([ShopCell class]) bundle:nil] forCellWithReuseIdentifier:ShopID];
@@ -125,8 +122,8 @@ static NSString *const ShopID = @"ShopCell";
             }else{
                 weakSelf.scenes = nil;
                 weakSelf.entryView.hidden = NO;
-                [weakSelf.collectionView reloadData];
                 
+                [weakSelf.collectionView reloadData];
                 [MBProgressHUD hideHUD];
             }
         }else{//上啦
@@ -162,6 +159,7 @@ static NSString *const ShopID = @"ShopCell";
 {
     ZYFootprintListModel *footprintModel = self.scenes[indexPath.item];
     ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
+    commentFootprintVC.hidesBottomBarWhenPushed = YES;
     commentFootprintVC.footprintModel = footprintModel;
     [self.navigationController pushViewController:commentFootprintVC animated:YES];
 }
@@ -180,7 +178,7 @@ static NSString *const ShopID = @"ShopCell";
     cell.layer.masksToBounds = YES;
     cell.layer.cornerRadius = 4;
 
-    cell.model = self.scenes[indexPath.item];
+    cell.model = self.scenes[indexPath.row];
     
     return cell;
 }
