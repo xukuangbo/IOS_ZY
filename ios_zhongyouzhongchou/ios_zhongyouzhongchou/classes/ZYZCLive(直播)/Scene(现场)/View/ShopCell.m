@@ -48,9 +48,9 @@
     [self.playBtn setImage:[UIImage imageNamed:@"videoImg-1"] forState:UIControlStateNormal];
     [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     [self.imageView addSubview:self.playBtn];
-//    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.center.equalTo(self.imageView);
-//    }];
+    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.imageView);
+    }];
 }
 
 - (void)setModel:(ZYFootprintListModel *)model
@@ -63,7 +63,9 @@
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
     self.titleLab.text = [NSString stringWithFormat:@"%@",_model.userName];
     [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", _model.commentTotles] forState:UIControlStateNormal];
-    self.contentLabel.text = [NSString stringWithFormat:@"%@",_model.content];
+    if ([_model.content length] != 0) {
+        self.contentLabel.text = [NSString stringWithFormat:@"%@",_model.content];
+    }
 
     if (model.hasZan) {
         [self.praiseButton setImage:[UIImage imageNamed:@"footprint-like-2"] forState:UIControlStateNormal];
