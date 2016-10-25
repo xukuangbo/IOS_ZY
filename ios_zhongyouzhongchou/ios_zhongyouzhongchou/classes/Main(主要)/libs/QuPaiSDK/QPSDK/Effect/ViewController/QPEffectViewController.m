@@ -649,9 +649,21 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 }
 
 - (void)onClickButtonFinishAction:(UIButton *)sender {
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择下一步操作" delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:@"发布足迹"
-        otherButtonTitles:@"保存本地", nil];
-    [actionSheet showInView:self.view];
+    if ([QupaiSDK shared].zy_VideoSceneType==ZY_GetFootprint) {
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"选择下一步操作" delegate:(id<UIActionSheetDelegate>)self cancelButtonTitle:@"取消" destructiveButtonTitle:@"发布足迹" otherButtonTitles:@"保存本地", nil];
+        [actionSheet showInView:self.view];
+    }
+    else if ([QupaiSDK shared].zy_VideoSceneType==ZY_GetProduct)
+    {
+        [self.qpEffectView.activityIndicator startAnimating];
+        self.qpEffectView.buttonFinish.hidden = YES;
+        self.qpEffectView.buttonClose.enabled = NO;
+        self.qpEffectView.viewBottom.userInteractionEnabled = NO;
+        _shouldSave = YES;
+        [self destroyMovie];
+        [[QPEventManager shared] event:QPEventEditNext];
+        _startEncodingTime = [[NSDate date] timeIntervalSince1970];
+    }
 }
 
 - (void)onCLickButtonPlayOrPauseAction:(UIButton *)sender {
@@ -699,27 +711,28 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     
-    if (buttonIndex==0) {
-        [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoPublish;
-    }
-    else if (buttonIndex==1)
-    {
-        [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoSaveLocal;
-    }
-    else if(buttonIndex==2)
-    {
-        [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoCancle;
-    }
-    
-    if (buttonIndex==0||buttonIndex==1) {
-        [self.qpEffectView.activityIndicator startAnimating];
-        self.qpEffectView.buttonFinish.hidden = YES;
-        self.qpEffectView.buttonClose.enabled = NO;
-        self.qpEffectView.viewBottom.userInteractionEnabled = NO;
-        _shouldSave = YES;
-        [self destroyMovie];
-        [[QPEventManager shared] event:QPEventEditNext];
-        _startEncodingTime = [[NSDate date] timeIntervalSince1970];
+    if ([QupaiSDK shared].zy_VideoSceneType==ZY_GetFootprint) {
+        if (buttonIndex==0) {
+            [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoPublish;
+        }
+        else if (buttonIndex==1)
+        {
+            [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoSaveLocal;
+        }
+        else if(buttonIndex==2)
+        {
+            [QupaiSDK shared].zy_VideoHandleType=ZY_QupaiVideoCancle;
+        }
+        if (buttonIndex==0||buttonIndex==1) {
+            [self.qpEffectView.activityIndicator startAnimating];
+            self.qpEffectView.buttonFinish.hidden = YES;
+            self.qpEffectView.buttonClose.enabled = NO;
+            self.qpEffectView.viewBottom.userInteractionEnabled = NO;
+            _shouldSave = YES;
+            [self destroyMovie];
+            [[QPEventManager shared] event:QPEventEditNext];
+            _startEncodingTime = [[NSDate date] timeIntervalSince1970];
+        }
     }
 }
 
