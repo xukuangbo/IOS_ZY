@@ -45,7 +45,7 @@
  *  创建btn（文字在左图片在右）
  *
  */
-+ (UIButton *)getCustomBtnByTilte:(NSString *)title andImageName:(NSString *)imageName andtitleFont:(UIFont *)titleFont;
++ (UIButton *)getCustomBtnByTilte:(NSString *)title andImageName:(NSString *)imageName andtitleFont:(UIFont *)titleFont andTextColor:(UIColor *)textColor andSpacing:(CGFloat )spacing;
 
 /**
  *  获取日期时间

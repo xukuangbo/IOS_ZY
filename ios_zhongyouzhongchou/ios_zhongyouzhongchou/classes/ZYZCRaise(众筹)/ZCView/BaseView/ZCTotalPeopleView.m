@@ -44,7 +44,7 @@
     topView.backgroundColor=[UIColor whiteColor];
     [self addSubview:topView];
     
-    UIButton *downBtn =[ZYZCTool getCustomBtnByTilte:@"收起" andImageName:@"btn_up" andtitleFont:[UIFont systemFontOfSize:17]];
+    UIButton *downBtn =[ZYZCTool getCustomBtnByTilte:@"收起" andImageName:@"btn_up" andtitleFont:[UIFont systemFontOfSize:17] andTextColor:nil andSpacing:2];
     downBtn.frame=CGRectMake(self.width-60, 0, 50, topView.height);
      [downBtn addTarget:self action:@selector(down) forControlEvents:UIControlEventTouchUpInside];
     [topView addSubview:downBtn];
