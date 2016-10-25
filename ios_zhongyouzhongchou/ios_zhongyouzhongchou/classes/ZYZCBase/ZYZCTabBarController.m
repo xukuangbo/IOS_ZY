@@ -249,7 +249,7 @@
     [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
     UIViewController *viewController = [[QupaiSDK shared] createRecordViewController];
     [QupaiSDK shared].delegte = self;
-    [QupaiSDK shared].videoSize = CGSizeMake(KSCREEN_W, KSCREEN_H);
+    [QupaiSDK shared].videoSize = CGSizeMake(360, 640);
     UINavigationController *navCrl = [[UINavigationController alloc] initWithRootViewController:viewController];
     [self.selectedViewController presentViewController:navCrl animated:YES completion:nil];
 }
