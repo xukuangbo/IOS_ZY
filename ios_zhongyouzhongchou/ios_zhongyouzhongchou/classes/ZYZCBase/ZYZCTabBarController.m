@@ -243,6 +243,7 @@
     [QupaiSDK shared].minDuration = 2.0;
     [QupaiSDK shared].maxDuration = 5*60.0;
     [QupaiSDK shared].enableBeauty=YES;
+    [QupaiSDK shared].zy_VideoSceneType=ZY_GetFootprint;
 //    [QupaiSDK shared].enableWatermark=YES;
 //    [QupaiSDK shared].watermarkImage=[UIImage imageNamed:@"watermark"];
     [QupaiSDK shared].cameraPosition=QupaiSDKCameraPositionFront;
