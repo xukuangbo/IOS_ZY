@@ -1,38 +1,60 @@
 //
-//  SelectImageViewController.m
+//  ChooseThumbController.m
 //  ios_zhongyouzhongchou
 //
-//  Created by mac on 16/3/14.
+//  Created by liuliang on 16/10/25.
 //  Copyright © 2016年 liuliang. All rights reserved.
+//
+#define img_height         100*KCOFFICIEMNT
+#define page_text(page)    [NSString stringWithFormat:@"封面%ld",page]
 
-
-#import "SelectImageViewController.h"
-#import "UINavigationBar+Background.h"
-
-//#define selectImagescrollViewH (KSCREEN_W / 16.0 * 10)
 #define selectImageTabbarH 88
 
-@interface SelectImageViewController ()<UIScrollViewDelegate>
-@property (nonatomic, weak) UIScrollView *scrollView;
+#import "ChooseThumbController.h"
+#import "ZYCustomBlurView.h"
+#import "NewPagedFlowView.h"
+#import "PGIndexBannerSubiew.h"
+#import "VideoService.h"
+#import "UINavigationBar+Background.h"
+@interface ChooseThumbController ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource,UIScrollViewDelegate>
+@property (nonatomic, strong) ZYCustomBlurView    *backImgView;
+@property (nonatomic, strong) UILabel             *pageLab;
+@property (nonatomic, strong) UIImageView         *cardImg;
+@property (nonatomic, strong) NSMutableArray      *imageArray;
 
+@property (nonatomic, weak) UIScrollView *scrollView;
+@property (nonatomic, strong) UIImageView *targetImageView;
 @property (nonatomic, assign) BOOL isVertical;
 @property (nonatomic, assign) CGFloat scale;
 @end
 
-@implementation SelectImageViewController
+@implementation ChooseThumbController
+
 #pragma mark - 系统方法
-- (instancetype)initWithImage:(UIImage *)image WHScale:(CGFloat)WHScale
+- (instancetype)initWithVideoPath:(NSString *)videoPath andImgSizeRate:(CGFloat)sizeRate WHScale:(CGFloat)WHScale
 {
     self = [super init];
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
         self.automaticallyAdjustsScrollViewInsets = NO;
-        self.WHScale = WHScale;
-        [self setBackItem];
-//        self.title = @"编辑封面图片";
-        _selectImage = image;
+        self.WHScale  = WHScale;
+        self.videoPath= videoPath;
+        self.img_rate = sizeRate;
+        [self getImageData];
     }
     return self;
+}
+
+-(void )getImageData
+{
+    NSFileManager *manager=[NSFileManager defaultManager];
+    BOOL exist=[manager fileExistsAtPath:self.videoPath];
+    if(exist)
+    {
+        NSArray *images=[VideoService thumbnailImagesForVideo:[NSURL fileURLWithPath:self.videoPath] withImageCount:20];
+        self.imageArray=[NSMutableArray arrayWithArray:images];
+        _selectImage=self.imageArray.count>0?[self.imageArray firstObject]:nil;
+    }
 }
 
 - (void)viewDidLoad {
@@ -40,18 +62,38 @@
     
     //系统的一些基本设置
     self.view.backgroundColor = [UIColor blackColor];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor blackColor]];
-    
-    /**
-     *  创建scroll
-     */
     [self createScrollView];
-    
-    /**
-     *  创建6个角的小图标
-     */
     [self createAngle];
+    [self createScrollThumbs];
+    [self configNavUI];
 }
+
+-(void)configNavUI
+{
+    UILabel *titleLab=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 44)];
+    titleLab.text=@"编辑封面图片";
+    titleLab.textColor=[UIColor whiteColor];
+    titleLab.font=[UIFont systemFontOfSize:20];
+    titleLab.centerX=self.view.centerX;
+    titleLab.textAlignment=NSTextAlignmentCenter;
+    [self.view addSubview:titleLab];
+    
+    //退出按钮
+    UIButton *backBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame=CGRectMake(0, 0, 60, 44);
+    [backBtn setTitle:@"取消" forState:UIControlStateNormal];
+    [backBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    backBtn.titleLabel.font=[UIFont systemFontOfSize:17];
+    [backBtn  addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:backBtn];
+}
+
+#pragma mark --- 取消
+- (void)backClick
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 /**
  *  创建scrollView,滑动的
  */
@@ -109,6 +151,7 @@
     //    imageView.backgroundColor = [UIColor redColor];
     imageView.contentMode=UIViewContentModeScaleAspectFit;
     [scrollView addSubview:imageView];
+    _targetImageView=imageView;
     imageView.userInteractionEnabled = YES;
     
 }
@@ -242,8 +285,38 @@
     if (self.imageBlock) {
         self.imageBlock(newImgview.image);
         //让自己的视图消失
-        [self.navigationController popViewControllerAnimated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+#pragma mark --- 创建滚动视图
+-(void)createScrollThumbs
+{
+    //轮播封面
+    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 44, KSCREEN_W, img_height)];
+    pageFlowView.backgroundColor = [UIColor clearColor];
+    pageFlowView.delegate = self;
+    pageFlowView.dataSource = self;
+    pageFlowView.minimumPageAlpha = 0.5;
+    pageFlowView.minimumPageScale = 0.85;
+    pageFlowView.orientation = NewPagedFlowViewOrientationHorizontal;
+    
+    //提前告诉有多少页
+    pageFlowView.orginPageCount = self.imageArray.count;
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    scrollView.backgroundColor=[UIColor blackColor];
+    scrollView.height=self.scrollView.top;
+    scrollView.delegate=self;
+    [scrollView addSubview:pageFlowView];
+    [pageFlowView reloadData];
+    
+    [self.view addSubview:scrollView];
+    
+    _pageLab=[ZYZCTool createLabWithFrame:CGRectMake((self.view.width-40)/2, pageFlowView.bottom-20, 40, 15) andFont:[UIFont systemFontOfSize:11.f] andTitleColor:[UIColor whiteColor]];
+    _pageLab.textAlignment=NSTextAlignmentCenter;
+    _pageLab.text=page_text((NSInteger)1);
+    [scrollView addSubview:_pageLab];
 }
 
 #pragma mark - UIScrollViewDelegate
@@ -260,21 +333,87 @@
     return  nil;
 }
 
-- (void)scrollViewDidZoom:(UIScrollView *)scrollView
-{
-    
+
+#pragma mark NewPagedFlowView Delegate
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    // Return YES for supported orientations
+    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
 }
+
+- (CGSize)sizeForPageInFlowView:(NewPagedFlowView *)flowView {
+    return CGSizeMake(img_height*_img_rate, img_height);
+}
+
+- (void)didSelectCell:(UIView *)subView withSubViewIndex:(NSInteger)subIndex {
+    
+    //    NSLog(@"点击了第%ld张图",(long)subIndex + 1);
+}
+
+#pragma mark NewPagedFlowView Datasource
+- (NSInteger)numberOfPagesInFlowView:(NewPagedFlowView *)flowView {
+    return self.imageArray.count;
+}
+
+- (UIView *)flowView:(NewPagedFlowView *)flowView cellForPageAtIndex:(NSInteger)index{
+    PGIndexBannerSubiew *bannerView = (PGIndexBannerSubiew *)[flowView dequeueReusableCell];
+    if (!bannerView) {
+        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, img_height*_img_rate, img_height)];
+        bannerView.layer.cornerRadius = 4;
+        bannerView.layer.masksToBounds = YES;
+    }
+    bannerView.mainImageView.image = self.imageArray[index];
+    return bannerView;
+}
+
+- (void)didScrollToPage:(NSInteger)pageNumber inFlowView:(NewPagedFlowView *)flowView {
+    _pageLab.text=page_text(pageNumber+1);
+    _selectImage=self.imageArray[pageNumber];
+    _targetImageView.image=_selectImage;
+}
+
+#pragma mark --懒加载
+- (NSMutableArray *)imageArray {
+    if (_imageArray == nil) {
+        _imageArray = [NSMutableArray array];
+    }
+    return _imageArray;
+}
+
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title = @"编辑封面图片";
-    [self setBackItem];
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
+
+-(void) dealloc
+{
+    DDLog(@"dealloc:%@",[self class]);
+}
+
+
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

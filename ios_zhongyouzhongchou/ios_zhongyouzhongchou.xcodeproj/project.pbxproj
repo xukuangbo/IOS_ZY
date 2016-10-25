@@ -465,6 +465,7 @@
 		2CDE67581DA652C30066F49D /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE67521DA652C30066F49D /* unzip.c */; };
 		2CDE67591DA652C30066F49D /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 2CDE67541DA652C30066F49D /* zip.c */; };
 		2CE074C31CCF7ECC006D312D /* ZYZCTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE074C21CCF7ECC006D312D /* ZYZCTabBarController.m */; };
+		2CE60CB11DBF3C1A005B4D7E /* ChooseThumbController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE60CB01DBF3C1A005B4D7E /* ChooseThumbController.m */; };
 		2CE6176C1D657DD100962163 /* HUPhotoBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE617491D657DD100962163 /* HUPhotoBrowserCell.m */; };
 		2CE6176D1D657DD100962163 /* HUAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6174C1D657DD100962163 /* HUAlbum.m */; };
 		2CE6176E1D657DD100962163 /* HUAlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE6174E1D657DD100962163 /* HUAlbumCell.m */; };
@@ -1526,6 +1527,8 @@
 		2CDE67541DA652C30066F49D /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
 		2CDE67551DA652C30066F49D /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		2CE074C21CCF7ECC006D312D /* ZYZCTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCTabBarController.m; sourceTree = "<group>"; };
+		2CE60CAF1DBF3C1A005B4D7E /* ChooseThumbController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseThumbController.h; sourceTree = "<group>"; };
+		2CE60CB01DBF3C1A005B4D7E /* ChooseThumbController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseThumbController.m; sourceTree = "<group>"; };
 		2CE617451D657DD100962163 /* hu_const.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hu_const.h; sourceTree = "<group>"; };
 		2CE617481D657DD100962163 /* HUPhotoBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUPhotoBrowserCell.h; sourceTree = "<group>"; };
 		2CE617491D657DD100962163 /* HUPhotoBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUPhotoBrowserCell.m; sourceTree = "<group>"; };
@@ -1847,6 +1850,7 @@
 		39F2AA1E1D40ED3100023CC4 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		39F7D1A71D45BD60001DEAF4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39FF314C1DBEFB2E00123393 /* WalletHeadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletHeadView.xib; sourceTree = "<group>"; };
+		39FF314E1DBF361600123393 /* 众游.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "众游.entitlements"; sourceTree = "<group>"; };
 		5F74EDEB5AED9D3FE531BA3F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		75DC679E6EF03FA415FEEF7D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A975BB3FB47993D61E1FF732 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -2986,6 +2990,8 @@
 				2C1B60A41D6D3CF900E3C25B /* ZYDescImage.m */,
 				2C1B609D1D6D3CF900E3C25B /* WordEditViewController.h */,
 				2C1B609E1D6D3CF900E3C25B /* WordEditViewController.m */,
+				2CE60CAF1DBF3C1A005B4D7E /* ChooseThumbController.h */,
+				2CE60CB01DBF3C1A005B4D7E /* ChooseThumbController.m */,
 			);
 			path = WSMView;
 			sourceTree = "<group>";
@@ -3472,6 +3478,7 @@
 		2C901DBA1C89788C004B844B /* ios_zhongyouzhongchou */ = {
 			isa = PBXGroup;
 			children = (
+				39FF314E1DBF361600123393 /* 众游.entitlements */,
 				04A99BCC1CBF848C00C6F5F0 /* classes */,
 				2C901DC11C89788C004B844B /* ViewController.h */,
 				2C901DC21C89788C004B844B /* ViewController.m */,
@@ -5422,6 +5429,9 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 						};
 					};
 					2C901DD01C89788C004B844B = {
@@ -5874,6 +5884,7 @@
 				2C8D46111D1A269200C47893 /* ZYZCCustomTextField.m in Sources */,
 				2C920D991DB0E0520038C3E1 /* PGIndexBannerSubiew.m in Sources */,
 				04A99D2A1CC0926400C6F5F0 /* ZYZCAccountTool.m in Sources */,
+				2CE60CB11DBF3C1A005B4D7E /* ChooseThumbController.m in Sources */,
 				0432ADA51D0966F9005D789E /* UIView+ST.m in Sources */,
 				3941CD6B1D41FCB7009224BC /* ComplainTypeController.m in Sources */,
 				2CD6B8CD1DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m in Sources */,
@@ -6272,6 +6283,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "ios_zhongyouzhongchou/众游.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
@@ -6387,6 +6399,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = "ios_zhongyouzhongchou/众游.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
