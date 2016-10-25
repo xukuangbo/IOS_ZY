@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define WalletHeadViewH  200
+#define WalletHeadViewH  208
 
 @interface WalletHeadView : UIView
 

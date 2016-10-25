@@ -37,7 +37,7 @@
         
         [self setUpSubviews];
         
-        [self setUpConstraints];
+//        [self setUpConstraints];
     }
     return self;
 }
@@ -62,12 +62,26 @@
     
     _balanceLabel = [[UILabel alloc] init];
     _balanceLabel.text = @"¥0.00";
-    _balanceLabel.font = [UIFont systemFontOfSize:12];
+    _balanceLabel.font = [UIFont boldSystemFontOfSize:45];
     _balanceLabel.textColor = [UIColor whiteColor];
     
     _lineView = [[UIView alloc] init];
+    _lineView.backgroundColor = [UIColor ZYZC_LineGrayColor];
+    
     _UBTitleLabel = [[UILabel alloc] init];
+    _UBTitleLabel.font = [UIFont systemFontOfSize:12];
+    _UBTitleLabel.textAlignment = NSTextAlignmentCenter;
+    _UBTitleLabel.textColor = [UIColor whiteColor];
+    _UBTitleLabel.text = @"U币";
+    _UBTitleLabel.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
+    
     _UBLabel = [[UILabel alloc] init];
+    _UBLabel.font = [UIFont systemFontOfSize:15];
+    _UBLabel.textAlignment = NSTextAlignmentCenter;
+    _UBLabel.textColor = [UIColor whiteColor];
+    _UBLabel.text = @"0.00";
+    _UBLabel.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
+    
     
     
     [self addSubview:_ZCMoneyButton];
@@ -80,28 +94,53 @@
     //转出
     [_ZCMoneyButton mas_makeConstraints:^(MASConstraintMaker *make) {
         //        make.width.mas_equalTo(50);
-        make.height.equalTo(@18);
+//        make.height.equalTo(@18);
         make.top.equalTo(self.mas_top).offset(KEDGE_DISTANCE);
         make.right.equalTo(self.mas_right).offset(-KEDGE_DISTANCE);
     }];
     
     //余额
     [_balanceLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(18);
+//        make.height.mas_equalTo(18);
         make.centerX.equalTo(self.mas_centerX);
         make.centerY.equalTo(self.mas_centerY);
     }];
 
     //余额标题
     [_balanceTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.height.mas_equalTo(18);
+//        make.height.mas_equalTo(18);
         make.centerX.equalTo(self.mas_centerX);
         make.bottom.equalTo(_balanceLabel.mas_top).offset(-KEDGE_DISTANCE);
     }];
-}
-
-- (void)setUpConstraints
-{
+    
+    [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(20);
+        make.right.equalTo(self.mas_right).offset(-20);
+        make.height.equalTo(@1);
+        make.top.equalTo(_balanceLabel.mas_bottom).offset(16);
+    }];
+    
+    [_UBLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_centerX);
+        make.bottom.equalTo(self.mas_bottom).offset(-5);
+    }];
+    
+    [_UBTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.mas_centerX);
+        make.bottom.mas_equalTo(_UBLabel.mas_top).offset(-5);
+    }];
     
 }
+
+#warning 需要一个方法,传进一个金钱,获取一个属性文本字典
+//- (NSMutableAttributedString)getAttributesString:(CGFloat )number
+//{
+//    NSString *tempString = [NSString stringWithFormat:@"¥%.2f",number];
+//    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:tempString];
+//    
+//    
+//    
+//    
+//    return attrString;
+//}
 @end
