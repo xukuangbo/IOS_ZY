@@ -48,9 +48,9 @@
     [self.playBtn setImage:[UIImage imageNamed:@"videoImg-1"] forState:UIControlStateNormal];
     [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     [self.imageView addSubview:self.playBtn];
-    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.center.equalTo(self.imageView);
-    }];
+//    [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.center.equalTo(self.imageView);
+//    }];
 }
 
 - (void)setModel:(ZYFootprintListModel *)model
@@ -59,27 +59,31 @@
 //    [self.imageView mas_updateConstraints:^(MASConstraintMaker *make) {
 //        make.width.mas_equalTo(self.imageView.mas_width).multipliedBy(model.videoimgsize);
 //    }];
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:_model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
-    self.titleLab.text = [NSString stringWithFormat:@"%@",model.userName];
-    self.contentLabel.text = model.content;
-    [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", model.commentTotles] forState:UIControlStateNormal];
+    self.titleLab.text = [NSString stringWithFormat:@"%@",_model.userName];
+    [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", _model.commentTotles] forState:UIControlStateNormal];
+    self.contentLabel.text = [NSString stringWithFormat:@"%@",_model.content];
+
     if (model.hasZan) {
         [self.praiseButton setImage:[UIImage imageNamed:@"footprint-like-2"] forState:UIControlStateNormal];
     } else {
         [self.praiseButton setImage:[UIImage imageNamed:@"footprint-like"] forState:UIControlStateNormal];
     }
-    NSDictionary *dict = [ZYZCTool dictionaryWithJsonString:model.gpsData];
+    NSDictionary *dict = [ZYZCTool dictionaryWithJsonString:_model.gpsData];
     if ([dict[@"GPS_Address"] length] == 0) {
         self.locationLabel.hidden = YES;
         self.locationImage.hidden = YES;
         self.commentButtonTopLayout.constant = -25;
         self.praiseButtonTopLayout.constant = -25;
     } else {
+        self.locationLabel.hidden = NO;
+        self.locationImage.hidden = NO;
+        self.commentButtonTopLayout.constant = 5;
+        self.praiseButtonTopLayout.constant = 5;
         self.locationLabel.text = dict[@"GPS_Address"];
     }
-    
-    [self.praiseButton setTitle:[NSString stringWithFormat:@"%zd", model.zanTotles] forState:UIControlStateNormal];
+    [self.praiseButton setTitle:[NSString stringWithFormat:@"%zd", _model.zanTotles] forState:UIControlStateNormal];
 }
 
 #pragma mark - event
