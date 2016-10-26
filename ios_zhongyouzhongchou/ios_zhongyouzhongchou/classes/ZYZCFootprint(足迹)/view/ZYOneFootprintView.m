@@ -210,7 +210,7 @@
         if(footprintModel.videoimgsize>0)
         {
             if (footprintModel.videoimgsize<=1.0) {
-                _video.width=2*PIC_WIDTH+10;
+                _video.width = KSCREEN_W - 40;
                 _video.height=_video.width*1.0/footprintModel.videoimgsize;
             }
             else
