@@ -7,7 +7,7 @@
 //
 
 #import "WalletKtxTableView.h"
-
+#import "MineWalletTableViewCell.h"
 static NSString *cellID = @"WalletKtxTableViewCell";
 
 @implementation WalletKtxTableView
@@ -19,7 +19,7 @@ static NSString *cellID = @"WalletKtxTableViewCell";
         
         self.backgroundColor = [UIColor clearColor];
         
-        [self registerClass:[UITableViewCell class] forCellReuseIdentifier:cellID
+        [self registerClass:[MineWalletTableViewCell class] forCellReuseIdentifier:cellID
          ];
     }
     return self;
@@ -27,31 +27,23 @@ static NSString *cellID = @"WalletKtxTableViewCell";
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    if (self.dataArr.count) {
-//        return self.dataArr.count*2+1;
-//    }
-//    return 0;
-    return 20;
+    if (self.dataArr.count) {
+        return self.dataArr.count;
+    }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
-    if (indexPath.row == 0) {
-        cell.backgroundColor = [UIColor redColor  ];
-        cell.contentView.backgroundColor = [UIColor redColor];
-        
-    }else{
-        cell.backgroundColor = [UIColor clearColor  ];
-        cell.contentView.backgroundColor = [UIColor clearColor];
-    }
-//    cell.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
+    MineWalletTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    cell.mineWalletModel = self.dataArr[indexPath.row];
+    
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return 100;
 }
 
 #pragma mark --- 置顶按钮状态变化
