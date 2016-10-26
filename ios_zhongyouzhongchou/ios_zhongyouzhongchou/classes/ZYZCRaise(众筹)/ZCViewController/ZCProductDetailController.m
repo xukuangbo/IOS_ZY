@@ -263,11 +263,13 @@
         //如果目的地是地名库中的目的地，则保存下来
         ZYZCDataBase *dataBase=[ZYZCDataBase sharedDBManager];
         NSMutableArray *viewSpots=[NSMutableArray array];
-        for (NSString *dest in destArr) {
+        for (NSInteger i = 1; i<destArr.count; i++) {
+            NSString *dest=destArr[i];
             OneSpotModel *oneSportModel=[dataBase searchOneDataWithName:dest];
             if (oneSportModel) {
                 [viewSpots addObject:oneSportModel];
             }
+
         }
         _table.viewSpots=viewSpots;
     }
