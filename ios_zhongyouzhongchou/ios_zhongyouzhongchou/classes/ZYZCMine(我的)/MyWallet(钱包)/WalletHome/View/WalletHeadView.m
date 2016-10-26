@@ -73,14 +73,14 @@
     _UBTitleLabel.textAlignment = NSTextAlignmentCenter;
     _UBTitleLabel.textColor = [UIColor whiteColor];
     _UBTitleLabel.text = @"U币";
-    _UBTitleLabel.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
+//    _UBTitleLabel.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
     
     _UBLabel = [[UILabel alloc] init];
     _UBLabel.font = [UIFont systemFontOfSize:15];
     _UBLabel.textAlignment = NSTextAlignmentCenter;
     _UBLabel.textColor = [UIColor whiteColor];
     _UBLabel.text = @"0.00";
-    _UBLabel.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
+//    _UBLabel.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
     
     
     
@@ -113,12 +113,6 @@
         make.bottom.equalTo(_balanceLabel.mas_top).offset(-KEDGE_DISTANCE);
     }];
     
-    [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(20);
-        make.right.equalTo(self.mas_right).offset(-20);
-        make.height.equalTo(@1);
-        make.top.equalTo(_balanceLabel.mas_bottom).offset(16);
-    }];
     
     [_UBLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
@@ -127,12 +121,19 @@
     
     [_UBTitleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.mas_centerX);
-        make.bottom.mas_equalTo(_UBLabel.mas_top).offset(-5);
+        make.bottom.equalTo(_UBLabel.mas_top).offset(-5);
+    }];
+    
+    [_lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left).offset(20);
+        make.right.equalTo(self.mas_right).offset(-20);
+        make.height.equalTo(@1);
+        make.bottom.equalTo(self.mas_bottom).offset(-53);
     }];
     
 }
 
-#warning 需要一个方法,传进一个金钱,获取一个属性文本字典
+/* 获取属性文本格式 */
 + (NSMutableAttributedString *)getAttributesString:(CGFloat )number
 {
     //2.53

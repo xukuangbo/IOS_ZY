@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define WalletSelectToolBarH 44
+#define WalletSelectToolBarH 47
 typedef NS_ENUM(NSInteger, WalletSelectType)
 {
     WalletSelectTypeKTX=1,

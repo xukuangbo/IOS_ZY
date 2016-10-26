@@ -12,6 +12,8 @@
 #import "WalletKtxTableView.h"
 #import "WalletYbjTableView.h"
 #import "MJRefresh.h"
+#import "MBProgressHUD+MJ.h"
+#import "MineWalletModel.h"
 @interface WalletHomeVC ()
 
 @property (nonatomic, strong) WalletHeadView *headView;
@@ -34,6 +36,8 @@
     [self setUpSubviews];
     
     [self setUpTouchUpAction];
+    
+    [self requestProductList];
 }
 
 /* 设置子视图 */
@@ -65,6 +69,29 @@
     _selectToolBar.frame = (CGRect){0, _headView.height, selectToolBarSize};
     [self.view addSubview:_selectToolBar];
 
+}
+#pragma mark - network
+- (void)requestProductList
+{
+    __weak typeof(&*self) weakSelf = self;
+//    [MBProgressHUD showMessage:@"正在加载"];
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%d&pageSize=%d",Get_MyTxProducts_List,userId,1,10000];
+    
+    [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        weakSelf.ktxTableView.dataArr = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        
+        [weakSelf.ktxTableView reloadData];
+        
+//        [MBProgressHUD hideHUD];
+    } andFailBlock:^(id failResult) {
+        
+//        [MBProgressHUD hideHUD];
+        
+        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        
+    }];
 }
 
 /* 设置点击动作 */
