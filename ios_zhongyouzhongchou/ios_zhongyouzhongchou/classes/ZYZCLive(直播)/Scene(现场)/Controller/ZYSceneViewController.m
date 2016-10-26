@@ -189,8 +189,8 @@ static NSString *const ShopID = @"ShopCell";
 {
     ZYFootprintListModel *model = self.scenes[index];
     
-    if (model.videoimgsize == 0) {
-        model.videoimgsize = 9/16.0;
+    if (model.videoimgsize >= 1 || model.videoimgsize == 0) {
+        model.videoimgsize = 4 / 3.0;
     }
 //    CGSize sceneSize = [ZYZCTool calculateStrLengthByText:shop.content andFont:[UIFont systemFontOfSize:12.0] andMaxWidth:KSCREEN_W / 2.0 - 10];
     CGFloat cellWidth = (KSCREEN_W - 30) / 2.0 - 20.0;
