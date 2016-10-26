@@ -113,6 +113,9 @@
 - (void)configBodyUI {
     
     self.backImgView.image=self.imageArray.count>0?[self.imageArray firstObject]:nil;
+    //视频长宽比
+    CGFloat sizeRate=_backImgView.image.size.width/_backImgView.image.size.height;
+    _videoImgSize=[NSNumber numberWithFloat:sizeRate];
     [self.view addSubview:self.backImgView];
     
     //轮播封面

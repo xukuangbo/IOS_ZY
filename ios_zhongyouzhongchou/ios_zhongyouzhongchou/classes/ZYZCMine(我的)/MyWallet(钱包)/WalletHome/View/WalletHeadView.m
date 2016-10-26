@@ -61,9 +61,9 @@
     _balanceTitleLabel.textColor = [UIColor whiteColor];
     
     _balanceLabel = [[UILabel alloc] init];
-    _balanceLabel.text = @"¥0.00";
-    _balanceLabel.font = [UIFont boldSystemFontOfSize:45];
+//    _balanceLabel.font = [UIFont boldSystemFontOfSize:45];
     _balanceLabel.textColor = [UIColor whiteColor];
+    _balanceLabel.attributedText = [WalletHeadView getAttributesString:200.35];
     
     _lineView = [[UIView alloc] init];
     _lineView.backgroundColor = [UIColor ZYZC_LineGrayColor];
@@ -133,14 +133,21 @@
 }
 
 #warning 需要一个方法,传进一个金钱,获取一个属性文本字典
-//- (NSMutableAttributedString)getAttributesString:(CGFloat )number
-//{
-//    NSString *tempString = [NSString stringWithFormat:@"¥%.2f",number];
-//    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:tempString];
-//    
-//    
-//    
-//    
-//    return attrString;
-//}
++ (NSMutableAttributedString *)getAttributesString:(CGFloat )number
+{
+    //2.53
+    NSString *numberString = [NSString stringWithFormat:@"%.2f",number];
+    //¥2.53
+    NSString *totalString = [NSString stringWithFormat:@"¥%@",numberString];
+    //¥2.53
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:totalString];
+    //[2,53]
+    NSArray *strArray = [numberString componentsSeparatedByString:@"."];
+    
+    [attrString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:30] range:NSMakeRange(0, 1)];
+    [attrString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:45] range:[totalString rangeOfString:strArray[0]]];
+    [attrString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:[totalString rangeOfString:[NSString stringWithFormat:@".%@",strArray[1]] options:NSBackwardsSearch]];
+    
+    return attrString;
+}
 @end
