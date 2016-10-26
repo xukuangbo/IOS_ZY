@@ -52,11 +52,21 @@
     self.navigationItem.rightBarButtonItem=[self customItemByImgName:rightName andAction:rightAction];
 }
 
+-(void)customNavWithLeftBtnTitle:(NSString *)leftTitle andRightTitle:(NSString *)rightTitle andLeftTarget:(id)leftTarget andRightTarget:(id)rightTarget andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction
+{
+    
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:leftTitle style:UIBarButtonItemStyleDone target:leftTarget action:leftAction];
+    
+    
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:rightTitle style:UIBarButtonItemStylePlain target:rightTitle action:rightAction];
+}
+
 
 -(UIBarButtonItem *)customItemByImgName:(NSString *)imgName andAction:(SEL)action
 {
     return [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:imgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:action];
 }
+
 
 - (void)setClearNavigationBar:(BOOL)isClear {
     if (isClear) {

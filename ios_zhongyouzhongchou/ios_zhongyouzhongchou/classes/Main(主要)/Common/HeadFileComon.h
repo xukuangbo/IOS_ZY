@@ -43,8 +43,4 @@
 
 #include "QPPrefixHead.h"
 
-#define  kQPAppKey     @"20a9a463ed1796c"
-#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
-
-
 #endif /* HeadFileComon_h */
