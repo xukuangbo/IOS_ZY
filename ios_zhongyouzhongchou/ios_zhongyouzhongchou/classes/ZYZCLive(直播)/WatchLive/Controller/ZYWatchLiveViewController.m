@@ -142,7 +142,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if (self) {
         self.liveModel = liveModel;
         _targetId = liveModel.chatRoomId;
-        self.liveModel.pullUrl = @"http://play.lss.qupai.me/zhongyoulive/zhongyoulive-20GGU.flv?auth_key=1476777600-0-2156-aaf1f1d4e0a3fe79bc7a1de83aded3b9";
     }
     return self;
 }
