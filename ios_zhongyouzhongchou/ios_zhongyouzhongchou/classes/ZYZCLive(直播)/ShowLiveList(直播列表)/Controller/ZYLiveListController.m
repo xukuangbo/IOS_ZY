@@ -128,13 +128,14 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - network
 - (void)requestListDataWithPage:(NSInteger )pageNO direction:(NSInteger )direction{
     
-    NSString *url = Post_Live_List;
+    NSString *url1 = Post_Live_List;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_onlineList"];
+
     NSDictionary *parameters = @{
                                  @"pageNo" : @(pageNO),
                                  @"pageSize" : @"10"
                                  };
-    
-    __weak typeof(&*self) weakSelf = self;
+    WEAKSELF
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         NSMutableArray *dataArray = [ZYLiveListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];

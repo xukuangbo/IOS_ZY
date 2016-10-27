@@ -106,6 +106,8 @@
 		051666BC1D9504BF001ED976 /* ZYLiveViewController+EVENT.m in Sources */ = {isa = PBXBuildFile; fileRef = 051666BB1D9504BF001ED976 /* ZYLiveViewController+EVENT.m */; };
 		05222EEA1D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05222EE91D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m */; };
 		05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */; };
+		0527D88E1DC1E3F00064E354 /* ZhongYouAPIConfig.json in Resources */ = {isa = PBXBuildFile; fileRef = 0527D88D1DC1E3F00064E354 /* ZhongYouAPIConfig.json */; };
+		0527D8961DC1F0050064E354 /* ZYZCAPIGenerate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0527D8951DC1F0050064E354 /* ZYZCAPIGenerate.m */; };
 		055F68501DB62098005C4345 /* ZYLiveHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055F684F1DB62098005C4345 /* ZYLiveHomeViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
 		056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */; };
@@ -146,8 +148,6 @@
 		2C066A6F1D87937B0048FAE4 /* SenderVoiceNodePlaying002@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A631D87937B0048FAE4 /* SenderVoiceNodePlaying002@2x.png */; };
 		2C066A701D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A641D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png */; };
 		2C066A741D87938B0048FAE4 /* MLAudioRealTimePlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C066A731D87938B0048FAE4 /* MLAudioRealTimePlayer.m */; };
-		2C066A781D87D6240048FAE4 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C066A761D87D6240048FAE4 /* TestViewController.m */; };
-		2C066A791D87D6240048FAE4 /* TestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C066A771D87D6240048FAE4 /* TestViewController.xib */; };
 		2C0A20C91D585D7700E6CE40 /* ChatUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A20C81D585D7700E6CE40 /* ChatUserModel.m */; };
 		2C0A20CC1D585DF100E6CE40 /* ChatUserInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A20CB1D585DF100E6CE40 /* ChatUserInfoModel.m */; };
 		2C18C7CA1D9B96B500CCE330 /* ZYMineZoomController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C18C7C91D9B96B500CCE330 /* ZYMineZoomController.m */; };
@@ -841,6 +841,9 @@
 		05222EE91D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ZYWatchLiveViewController+LivePersonView.m"; sourceTree = "<group>"; };
 		05274EE61D66E750002C10A1 /* ZYWatchLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveViewController.h; sourceTree = "<group>"; };
 		05274EE71D66E750002C10A1 /* ZYWatchLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveViewController.m; sourceTree = "<group>"; };
+		0527D88D1DC1E3F00064E354 /* ZhongYouAPIConfig.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ZhongYouAPIConfig.json; sourceTree = "<group>"; };
+		0527D8941DC1F0050064E354 /* ZYZCAPIGenerate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCAPIGenerate.h; sourceTree = "<group>"; };
+		0527D8951DC1F0050064E354 /* ZYZCAPIGenerate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCAPIGenerate.m; sourceTree = "<group>"; };
 		055F684E1DB62098005C4345 /* ZYLiveHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLiveHomeViewController.h; sourceTree = "<group>"; };
 		055F684F1DB62098005C4345 /* ZYLiveHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveHomeViewController.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
@@ -909,9 +912,6 @@
 		2C066A641D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SenderVoiceNodePlaying003@2x.png"; sourceTree = "<group>"; };
 		2C066A721D87938B0048FAE4 /* MLAudioRealTimePlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLAudioRealTimePlayer.h; sourceTree = "<group>"; };
 		2C066A731D87938B0048FAE4 /* MLAudioRealTimePlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLAudioRealTimePlayer.m; sourceTree = "<group>"; };
-		2C066A751D87D6240048FAE4 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
-		2C066A761D87D6240048FAE4 /* TestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
-		2C066A771D87D6240048FAE4 /* TestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TestViewController.xib; sourceTree = "<group>"; };
 		2C0A20C71D585D7700E6CE40 /* ChatUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUserModel.h; sourceTree = "<group>"; };
 		2C0A20C81D585D7700E6CE40 /* ChatUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatUserModel.m; sourceTree = "<group>"; };
 		2C0A20CA1D585DF100E6CE40 /* ChatUserInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatUserInfoModel.h; sourceTree = "<group>"; };
@@ -2200,6 +2200,7 @@
 				04A99C591CBF848D00C6F5F0 /* ZYZCMine(我的) */,
 				04A99C871CBF848D00C6F5F0 /* ZYZCTactic(攻略) */,
 				2C179FEC1D8191F400BBAC53 /* ZYZCFootprint(足迹) */,
+				0527D88C1DC1E3F00064E354 /* Resources */,
 			);
 			path = classes;
 			sourceTree = "<group>";
@@ -2207,6 +2208,7 @@
 		04A99BCD1CBF848C00C6F5F0 /* Main(主要) */ = {
 			isa = PBXGroup;
 			children = (
+				0527D8931DC1F0050064E354 /* IOSCommonModule */,
 				39911AC01D504174007DF44B /* Category */,
 				39F2AA101D3F135B00023CC4 /* Common */,
 				39F2AA0F1D3F135500023CC4 /* Other */,
@@ -2616,6 +2618,23 @@
 				05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		0527D88C1DC1E3F00064E354 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				0527D88D1DC1E3F00064E354 /* ZhongYouAPIConfig.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		0527D8931DC1F0050064E354 /* IOSCommonModule */ = {
+			isa = PBXGroup;
+			children = (
+				0527D8941DC1F0050064E354 /* ZYZCAPIGenerate.h */,
+				0527D8951DC1F0050064E354 /* ZYZCAPIGenerate.m */,
+			);
+			path = IOSCommonModule;
 			sourceTree = "<group>";
 		};
 		055F68461DB6194E005C4345 /* LiveHome(直播分为现场和直播) */ = {
@@ -3487,9 +3506,6 @@
 				04A99BCC1CBF848C00C6F5F0 /* classes */,
 				2C901DC11C89788C004B844B /* ViewController.h */,
 				2C901DC21C89788C004B844B /* ViewController.m */,
-				2C066A751D87D6240048FAE4 /* TestViewController.h */,
-				2C066A761D87D6240048FAE4 /* TestViewController.m */,
-				2C066A771D87D6240048FAE4 /* TestViewController.xib */,
 				2C901DC41C89788C004B844B /* Main.storyboard */,
 				39F7D1A71D45BD60001DEAF4 /* Assets.xcassets */,
 				2C901DC91C89788C004B844B /* LaunchScreen.storyboard */,
@@ -5501,7 +5517,6 @@
 				2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */,
 				2CD1E5FF1DA735BA008E4203 /* QPSDK.bundle in Resources */,
 				2C8B198D1D0CF7EC0063097B /* XMNPhotoPicker.xib in Resources */,
-				2C066A791D87D6240048FAE4 /* TestViewController.xib in Resources */,
 				2C8B19851D0CF7EC0063097B /* PhotoPickerKit.xcassets in Resources */,
 				2C1A7CBB1DB769C3004C3440 /* QPMVMoreViewController.xib in Resources */,
 				04A99CFB1CBF897A00C6F5F0 /* read_me.txt in Resources */,
@@ -5514,6 +5529,7 @@
 				2C066A6C1D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
 				2CE617761D657DD100962163 /* pick_checked@2x.png in Resources */,
 				2CDE66201DA64C3E0066F49D /* icon.png in Resources */,
+				0527D88E1DC1E3F00064E354 /* ZhongYouAPIConfig.json in Resources */,
 				2C8B19891D0CF7EC0063097B /* XMNAssetCell.xib in Resources */,
 				39F2AA1F1D40ED3100023CC4 /* MBProgressHUD.bundle in Resources */,
 				2CE6176F1D657DD100962163 /* HUAlbumCell.xib in Resources */,
@@ -5608,7 +5624,6 @@
 			files = (
 				2C1B61051D6D3CF900E3C25B /* RMCalendarLogic.m in Sources */,
 				2CD6B8F61DA9DFEE00B7E60A /* ZCDetailTableHeadView.m in Sources */,
-				2C066A781D87D6240048FAE4 /* TestViewController.m in Sources */,
 				2CD6B8FF1DA9DFEE00B7E60A /* ZCSupportTogetherView.m in Sources */,
 				0406513E1CC76B4F003FD539 /* TacticThreeMapView.m in Sources */,
 				2CC5FD791D5990EE0001AC95 /* UITabBarItem+WZLBadge.m in Sources */,
@@ -5641,6 +5656,7 @@
 				2CDE673E1DA652380066F49D /* QPEffectManager.m in Sources */,
 				2C3292FA1D9258F40095F60E /* ZYSupportListModel.m in Sources */,
 				39E4EC5A1D2FB9B200305F73 /* AboutZhongyouVC.m in Sources */,
+				0527D8961DC1F0050064E354 /* ZYZCAPIGenerate.m in Sources */,
 				050261971D879D800090C717 /* ZYBottomPayView.m in Sources */,
 				395FAD191D9BCF340075FED5 /* FCIMChatGetImage.m in Sources */,
 				2CE6176C1D657DD100962163 /* HUPhotoBrowserCell.m in Sources */,

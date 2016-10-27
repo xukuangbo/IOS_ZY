@@ -14,6 +14,7 @@
 #import "MJRefresh.h"
 #import "MBProgressHUD+MJ.h"
 #import "MineWalletModel.h"
+
 @interface WalletHomeVC ()
 
 @property (nonatomic, strong) WalletHeadView *headView;
@@ -23,6 +24,12 @@
 @property (nonatomic, strong) WalletKtxTableView *ktxTableView;
 
 @property (nonatomic, strong) WalletYbjTableView *ybjTableView;
+
+/* 钱包当前选择页面 */
+@property (nonatomic, assign) WalletSelectType selectType;
+
+@property (nonatomic, assign) NSInteger ktxPageNo;
+@property (nonatomic, assign) NSInteger ybjPageNo;
 @end
 
 @implementation WalletHomeVC
@@ -37,7 +44,9 @@
     
     [self setUpTouchUpAction];
     
-    [self requestProductList];
+    [self.ktxTableView.mj_header beginRefreshing];
+    
+    [self loadNewKtxData];
 }
 
 /* 设置子视图 */
@@ -70,7 +79,7 @@
     [self.view addSubview:_selectToolBar];
 
 }
-#pragma mark - network
+#pragma mark - RequestData
 - (void)requestProductList
 {
     __weak typeof(&*self) weakSelf = self;
@@ -80,7 +89,11 @@
     
     [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
         
-        weakSelf.ktxTableView.dataArr = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        NSArray *tempArr = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+//        [weakSelf.ktxArray removeAllObjects];
+//        [weakSelf.ktxArray addObjectsFromArray:tempArr];
+//        weakSelf.ktxTableView.dataArr = weakSelf.ktxArray;
+        weakSelf.ktxPageNo++;
         
         [weakSelf.ktxTableView reloadData];
         
@@ -94,7 +107,79 @@
     }];
 }
 
-/* 设置点击动作 */
+- (void)loadNewKtxData
+{
+    _ktxPageNo = 1;
+    __weak typeof(&*self) weakSelf = self;
+    //    [MBProgressHUD showMessage:@"正在加载"];
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%d",Get_MyTxProducts_List,userId,_ktxPageNo,10];
+    
+    [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        
+        NSArray *tempArray = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (tempArray.count > 0) {
+            [weakSelf.ktxTableView.dataArr removeAllObjects];
+            [weakSelf.ktxTableView.dataArr addObjectsFromArray:tempArray];
+            [weakSelf.ktxTableView reloadData];
+            weakSelf.ktxPageNo++;
+        }else{
+            
+            
+        }
+        [weakSelf.ktxTableView.mj_header endRefreshing];
+        [weakSelf.ktxTableView.mj_footer endRefreshing];
+        
+        //        [MBProgressHUD hideHUD];
+    } andFailBlock:^(id failResult) {
+        
+        //        [MBProgressHUD hideHUD];
+        
+        [weakSelf.ktxTableView.mj_header endRefreshing];
+        [weakSelf.ktxTableView.mj_footer endRefreshing];
+        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        
+    }];
+}
+
+- (void)loadMoreKtxData
+{
+    __weak typeof(&*self) weakSelf = self;
+    //    [MBProgressHUD showMessage:@"正在加载"];
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%d",Get_MyTxProducts_List,userId,_ktxPageNo,10];
+    
+    [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.ktxTableView.mj_footer ;
+        
+        NSArray *tempArray = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (tempArray.count > 0) {
+            [weakSelf.ktxTableView.dataArr addObjectsFromArray:tempArray];
+            [weakSelf.ktxTableView reloadData];
+            weakSelf.ktxPageNo++;
+            [autoFooter setTitle:@"正在加载更多" forState:MJRefreshStateRefreshing];
+        }else{
+            [autoFooter setTitle:@"没有更多数据了.." forState:MJRefreshStateRefreshing];
+        }
+        [weakSelf.ktxTableView.mj_header endRefreshing];
+        [weakSelf.ktxTableView.mj_footer endRefreshing];
+        
+        //        [MBProgressHUD hideHUD];
+    } andFailBlock:^(id failResult) {
+        
+        //        [MBProgressHUD hideHUD];
+        
+        [weakSelf.ktxTableView.mj_header endRefreshing];
+        [weakSelf.ktxTableView.mj_footer endRefreshing];
+        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        
+    }];
+
+}
+
+/* 设置手势动作 */
 - (void)setUpTouchUpAction
 {
     WEAKSELF
@@ -107,24 +192,18 @@
         }else{
             weakSelf.ktxTableView.hidden = YES;
             weakSelf.ybjTableView.hidden = NO;
-            
         }
-        
         //然后请求数据
     };
     
     
     //ktxTableview
     _ktxTableView.headerRefreshingBlock = ^(){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakSelf.ktxTableView.mj_header endRefreshing];
-        });
+        [weakSelf loadNewKtxData];
     };
     
     _ktxTableView.footerRefreshingBlock = ^(){
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakSelf.ktxTableView.mj_footer endRefreshing];
-        });
+        [weakSelf loadMoreKtxData];
     };
     
     _ktxTableView.scrollDidScrollBlock=^(CGFloat offsetY)
@@ -156,9 +235,24 @@
             [weakSelf.ybjTableView.mj_footer endRefreshing];
         });
     };
+    
+    _ybjTableView.scrollDidScrollBlock=^(CGFloat offsetY)
+    {
+        [weakSelf productTableScrollDidScroll:offsetY];
+    };
+    
+    _ybjTableView.scrollWillBeginDraggingBlock=^()
+    {
+        weakSelf.headView.userInteractionEnabled=NO;
+    };
+    
+    _ybjTableView.scrollDidEndDeceleratingBlock=^()
+    {
+        weakSelf.headView.userInteractionEnabled=YES;
+    };
 }
 
-#pragma mark --- 项目的table滑动
+#pragma mark - 项目的table滑动
 -(void)productTableScrollDidScroll:(CGFloat) offsetY
 {
 //    DDLog(@"%f",offsetY);

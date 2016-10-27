@@ -17,6 +17,7 @@
 #import "HttpCommon.h"
 
 #import "DefineCommon.h"
+#import "ZYZCAPIGenerate.h"
 
 #import "HeadFileComon.h"
 

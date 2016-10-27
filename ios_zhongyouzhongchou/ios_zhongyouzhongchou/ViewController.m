@@ -17,7 +17,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
- 
     self.view.backgroundColor=[UIColor whiteColor];
     ZYDetailUserInfoView *infoView= [[[NSBundle mainBundle] loadNibNamed:@"ZYDetailUserInfoView" owner:nil options:nil] objectAtIndex:0];
     [self.view addSubview:infoView];

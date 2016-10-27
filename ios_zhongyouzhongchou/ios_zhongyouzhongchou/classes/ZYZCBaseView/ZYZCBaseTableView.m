@@ -55,8 +55,11 @@
 }
 
 
--(void)setDataArr:(NSArray *)dataArr
+-(void)setDataArr:(NSMutableArray *)dataArr
 {
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
     _dataArr=dataArr;
 }
 
