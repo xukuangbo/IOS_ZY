@@ -509,6 +509,8 @@
 		390D2FD71DAC8B1000D44E90 /* showDashangView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD41DAC8B1000D44E90 /* showDashangView.m */; };
 		390D2FDA1DAC8D8300D44E90 /* XTLoveHeartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */; };
 		3910CE701D35D6F4004D7578 /* TacticMoreJieshaoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */; };
+		391872141DC08CBE00484711 /* WalletKtxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 391872121DC08CBE00484711 /* WalletKtxCell.m */; };
+		391872151DC08CBE00484711 /* WalletKtxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 391872131DC08CBE00484711 /* WalletKtxCell.xib */; };
 		3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 392635051D5D7C29006A90BE /* MineWalletVc.m */; };
 		3926350D1D5D7C29006A90BE /* MineWalletModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 392635081D5D7C29006A90BE /* MineWalletModel.m */; };
 		3926350E1D5D7C29006A90BE /* MineWalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3926350B1D5D7C29006A90BE /* MineWalletTableViewCell.m */; };
@@ -1616,6 +1618,9 @@
 		390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTLoveHeartView.m; sourceTree = "<group>"; };
 		3910CE6E1D35D6F4004D7578 /* TacticMoreJieshaoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreJieshaoVC.h; sourceTree = "<group>"; };
 		3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreJieshaoVC.m; sourceTree = "<group>"; };
+		391872111DC08CBE00484711 /* WalletKtxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletKtxCell.h; sourceTree = "<group>"; };
+		391872121DC08CBE00484711 /* WalletKtxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletKtxCell.m; sourceTree = "<group>"; };
+		391872131DC08CBE00484711 /* WalletKtxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletKtxCell.xib; sourceTree = "<group>"; };
 		392635041D5D7C29006A90BE /* MineWalletVc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineWalletVc.h; sourceTree = "<group>"; };
 		392635051D5D7C29006A90BE /* MineWalletVc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineWalletVc.m; sourceTree = "<group>"; };
 		392635071D5D7C29006A90BE /* MineWalletModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineWalletModel.h; sourceTree = "<group>"; };
@@ -4812,6 +4817,9 @@
 				394C2A781DB9C63600821F78 /* WalletSelectToolBar.xib */,
 				394C2A7A1DB9EDF000821F78 /* WalletKtxTableView.h */,
 				394C2A7B1DB9EDF000821F78 /* WalletKtxTableView.m */,
+				391872111DC08CBE00484711 /* WalletKtxCell.h */,
+				391872121DC08CBE00484711 /* WalletKtxCell.m */,
+				391872131DC08CBE00484711 /* WalletKtxCell.xib */,
 				394C2A7D1DB9EE1500821F78 /* WalletYbjTableView.h */,
 				394C2A7E1DB9EE1500821F78 /* WalletYbjTableView.m */,
 			);
@@ -5487,6 +5495,7 @@
 				3931CBCA1D88ED0500115F0D /* ZYLiveEndLiveVC.xib in Resources */,
 				050261991D879E1F0090C717 /* BottomPayView.xib in Resources */,
 				2C901DC61C89788C004B844B /* Main.storyboard in Resources */,
+				391872151DC08CBE00484711 /* WalletKtxCell.xib in Resources */,
 				2CD6B9171DA9E34500B7E60A /* ZYDetailUserInfoView.xib in Resources */,
 				2CDE67031DA651070066F49D /* more_ico_download@2x.png in Resources */,
 				2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */,
@@ -5621,6 +5630,7 @@
 				39911ABE1D5038E2007DF44B /* TacticGeneralVC.m in Sources */,
 				39AABC971D717B3E00D25B16 /* LiveDetailHeadView.m in Sources */,
 				2CDE662E1DA64D7A0066F49D /* QPCutBarView.m in Sources */,
+				391872141DC08CBE00484711 /* WalletKtxCell.m in Sources */,
 				392AB2981D669C26003FEDB7 /* RCDLiveMessageModel.m in Sources */,
 				2CB05D071D93E34100A1B731 /* ZYStartPublishFootprintCell.m in Sources */,
 				2CC5FD781D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m in Sources */,

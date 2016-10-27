@@ -14,7 +14,6 @@
 //down = 0;
 //headImage = "http://zyzc-bucket01.oss-cn-hangzhou.aliyuncs.com/oQGFKxNqnb9zIq2XG2mK5m7sowx4/20160703210830/themeImage.png";//项目背景图
 @property (nonatomic, copy) NSString *headImage;
-//productDest = "[\"\U676d\U5dde\",\"\U590f\U5a01\U5937\",\"\U6fb3\U95e8\",\"\U9a6c\U5fb7\U671b\"]";
 //productEndTime = "2016-07-06";//项目结束时间
 @property (nonatomic, copy) NSString *productEndTime;
 //productId = 79;//项目id
@@ -31,5 +30,8 @@
 //txtotles = 12000;//总共筹到的钱
 @property (nonatomic, assign) CGFloat txtotles;
 //up = 0;
+
+//productDest = "[\"\U676d\U5dde\",\"\U590f\U5a01\U5937\",\"\U6fb3\U95e8\",\"\U9a6c\U5fb7\U671b\"]";
+@property (nonatomic, copy) NSString *productDest;
 
 @end
