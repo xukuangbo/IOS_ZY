@@ -131,6 +131,7 @@
             NSNumber *viewId=oneSportModel.ID;
             [ZYZCHTTPTool getHttpDataByURL:[NSString stringWithFormat:@"%@viewId=%@",GET_SPOT_VIDEO,viewId] withSuccessGetBlock:^(id result, BOOL isSuccess)
              {
+                 DDLog(@"%@",result);
                  if (isSuccess) {
                      ZCSpotVideoModel *spotVideo=[[ZCSpotVideoModel alloc]mj_setKeyValues:result[@"data"]];
                      if (spotVideo.videoUrl.length) {

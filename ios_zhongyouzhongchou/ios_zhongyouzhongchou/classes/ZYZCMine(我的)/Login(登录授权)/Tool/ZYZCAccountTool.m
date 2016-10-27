@@ -16,9 +16,6 @@
 #import "JPUSHService.h"
 #import  <QPSDKCore/QPSDKCore.h>
 
-#define  kQPAppKey     @"20a9a463ed1796c"
-#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
-
 @implementation ZYZCAccountTool
 /**
  *  存储账号信息
@@ -31,20 +28,9 @@
     [NSKeyedArchiver archiveRootObject:account toFile:HWAccountPath];
     
     if (account.userId) {
-        //注册趣拍
-        if ([ZYZCAccountTool getUserId]) {
-            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
-                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-                [user setObject:@"yes" forKey:Auth_QuPai_Result];
-                [user synchronize];
-                DDLog(@"access token : %@", accessToken);
-            } failure:^(NSError *error) {
-                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-                [user setObject:@"no" forKey:Auth_QuPai_Result];
-                [user synchronize];
-                DDLog(@"failed : %@", error.description);
-            }];
-        }    
+        //趣拍鉴权
+        [ZYZCAccountTool getQuPaiAuthWithResultBlock:nil];
+        
         //注册成功,获取融云token
         ZYZCRCManager *RCManager=[ZYZCRCManager defaultManager];
         RCManager.hasLogin=NO;
@@ -147,14 +133,18 @@
     //删除个人信息
     [MediaUtils deleteFileByPath:HWAccountPath];
     
-    //删除融云token
+   
     NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+    //删除融云token
     [user setObject:nil forKey:KCHAT_TOKEN];
+     //删除趣拍鉴权结果
+    [user setObject:nil forKey:Auth_QuPai_Result];
     [user synchronize];
     
     //将融云的登录标记设置为no
     ZYZCRCManager *rcManager=[ZYZCRCManager defaultManager];
     rcManager.hasLogin=NO;
+    
     
 }
 
@@ -177,5 +167,54 @@
                                  
      }];
 }
+
+#pragma mark --- 趣拍鉴权
++ ( void)getQuPaiAuthWithResultBlock:(void(^)(BOOL result))resultBlock
+{
+    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+    NSString *auth_result=[user objectForKey:Auth_QuPai_Result];
+    //已鉴权成功
+    if ([auth_result isEqualToString:@"yes"])
+    {
+        resultBlock(YES);
+    }
+    else
+    {
+        NSString *userId=[ZYZCAccountTool getUserId];
+        if (!userId) {
+            if (resultBlock) {
+                resultBlock(NO);
+            }
+        }
+        else{
+            //鉴权
+            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:userId success:^(NSString *accessToken) {
+                DDLog(@"qupai_accessToken:%@",accessToken);
+                //鉴权成功
+                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+                [user setObject:@"yes" forKey:Auth_QuPai_Result];
+                [user synchronize];
+                dispatch_async(dispatch_get_main_queue(), ^
+                               {
+                                   if (resultBlock) {
+                                        resultBlock(YES);
+                                   }
+                               });
+            } failure:^(NSError *error) {
+                //鉴权失败
+                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+                [user setObject:@"no" forKey:Auth_QuPai_Result];
+                [user synchronize];
+                dispatch_async(dispatch_get_main_queue(), ^
+                               {
+                                   if (resultBlock) {
+                                        resultBlock(NO);
+                                   }
+                               });
+            }];
+        }
+    }
+}
+
 
 @end

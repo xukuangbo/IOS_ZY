@@ -185,9 +185,7 @@
     if (!_fitersView) {
         _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(5,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*(2+_filterItems.count))];
         _fitersView.hidden=YES;
-        UIImage * image = [UIImage imageNamed:@"bg_sxleft"] ;
-        image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(15, 0, 15, 0) resizingMode:UIImageResizingModeStretch];
-        _fitersView.image=image;
+        _fitersView.image=KPULLIMG(@"bg_sxleft", 15, 0, 15, 0);
         _fitersView.userInteractionEnabled=YES;
         [self.view addSubview:_fitersView];
         

@@ -55,33 +55,16 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     // 拍摄视频
     UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"拍摄视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action){
-        NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-        NSString *auth_result=[user objectForKey:Auth_QuPai_Result];
-        if ([auth_result isEqualToString:@"no"]) {
-            if ([ZYZCAccountTool getUserId]) {
-                //鉴权
-                [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
-                    //鉴权成功
-                    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-                    [user setObject:@"yes" forKey:Auth_QuPai_Result];
-                    [user synchronize];
-                    dispatch_async(dispatch_get_main_queue(), ^
-                    {
-                        [self createQuPai];
-                    });
-                } failure:^(NSError *error) {
-                    //鉴权失败
-                    dispatch_async(dispatch_get_main_queue(), ^
-                    {
-                        [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
-                    });
-                }];
+        [ZYZCAccountTool getQuPaiAuthWithResultBlock:^(BOOL result) {
+            if (result==YES) {
+                [self createQuPai];
             }
-        }
-        else if ([auth_result isEqualToString:@"yes"])
-        {
-            [self createQuPai];
-        }
+            else
+            {
+                [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
+            }
+        }];
+        
     }];
     //选择本地相册
     UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"手机相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

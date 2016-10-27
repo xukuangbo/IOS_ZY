@@ -444,6 +444,7 @@ static const CGFloat UpNeedleAdjust = 0.03;
         if (rect.size.width != rect.size.height) {
             _guideDragVideo = [QPGuideFactory createDragVideo];
             _guideDragVideo.center = CGPointMake(CGRectGetWidth(self.qpCutView.viewCenter.bounds)/2.0, CGRectGetHeight(self.qpCutView.viewCenter.bounds)/2.0);
+            _guideDragVideo.hidden = YES;
             [self.qpCutView.viewCenter addSubview:_guideDragVideo];
             //            _guideDragTextView = [QPGuideFactory createDragText];
             //            _guideDragTextView.center = CGPointMake(CGRectGetWidth(_viewCenter.bounds)/2.0, CGRectGetHeight(_guideDragTextView.bounds)/2.0);

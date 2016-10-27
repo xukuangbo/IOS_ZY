@@ -33,9 +33,10 @@
     
     layout.itemSize = CGSizeMake(ScreenWidth, layout.itemSize.height);
     _constraintsViewLineHeight.constant = 1.0/[[UIScreen mainScreen] scale];
-    [self updateEmptyViewIndex:1];
+    [self updateEmptyViewIndex:2];
     [[QPEffectManager sharedManager] updateMVEffect];
     _array = [[QPEffectManager sharedManager] getLocalMVEffects];
+    _labelEmpty.hidden=_array.count>0;
 }
 
 
