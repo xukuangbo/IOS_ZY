@@ -288,14 +288,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 - (void)initChatroomMemberInfo{
-    UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(15, 30, 135, 35)];
-    livePersonNumberView.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.6];
-    livePersonNumberView.layer.cornerRadius = 35/2;
-//    livePersonNumberView.alpha = 0.5;
+    UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(10, 30, 135, 40)];
+    livePersonNumberView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
+    livePersonNumberView.layer.cornerRadius = 40/2;
     [self.view addSubview:livePersonNumberView];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(1, 1, 34, 34)];
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(2.5, 2.5, 35, 35)];
     [imageView sd_setImageWithURL:[NSURL URLWithString:self.liveModel.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
-    imageView.layer.cornerRadius = 34/2;
+    imageView.layer.cornerRadius = 35/2;
     imageView.layer.masksToBounds = YES;
     [livePersonNumberView addSubview:imageView];
     //添加头像点击事件
@@ -304,20 +303,21 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //左上角总金额
     _liveMoneyView = [[LiveMoneyView alloc] init];
     _liveMoneyView.frame = CGRectMake(KEDGE_DISTANCE, livePersonNumberView.bottom + KEDGE_DISTANCE, 110, LiveMoneyViewH);
+    _liveMoneyView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
     [self.view addSubview:_liveMoneyView];
     _liveMoneyView.moneyLabel.text = @"打赏:0";
     
-    self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(37, 0, 45, 35)];
+    self.chatroomlabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 5, 45, 35)];
     self.chatroomlabel.numberOfLines = 2;
     self.chatroomlabel.textColor = [UIColor whiteColor];
     self.chatroomlabel.font = [UIFont systemFontOfSize:12.f];
     [livePersonNumberView addSubview:self.chatroomlabel];
     
     self.attentionButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.attentionButton.frame = CGRectMake(77, 2, 50, 31);
+    self.attentionButton.frame = CGRectMake(85, 5, 45, 30);
     [self.attentionButton setTitle:@"关注" forState:UIControlStateNormal];
     [self.attentionButton addTarget:self action:@selector(attentionButtonAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.attentionButton.backgroundColor = [UIColor ZYZC_MainColor];
+    self.attentionButton.backgroundColor = [UIColor ZYZC_TextMainColor];
     [self.attentionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.attentionButton.layer.cornerRadius = 15;
     [livePersonNumberView addSubview:self.attentionButton];
@@ -417,7 +417,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 - (void)updateLivePersonNumberViewFrame
 {
-    self.livePersonNumberView.frame = CGRectMake(15, 30, 85, 35);
+    self.livePersonNumberView.frame = CGRectMake(10, 30, 85, 40);
     self.attentionButton.hidden = YES;
     [self.portraitsCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.livePersonNumberView).offset(80);

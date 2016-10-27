@@ -161,7 +161,7 @@
 #pragma mark --- 项目的table滑动
 -(void)productTableScrollDidScroll:(CGFloat) offsetY
 {
-    DDLog(@"%f",offsetY);
+//    DDLog(@"%f",offsetY);
     CGFloat TotalViewHeight = WalletHeadViewH + WalletSelectToolBarH;
     CGFloat min_offsetY= -WalletSelectToolBarH;//
     
