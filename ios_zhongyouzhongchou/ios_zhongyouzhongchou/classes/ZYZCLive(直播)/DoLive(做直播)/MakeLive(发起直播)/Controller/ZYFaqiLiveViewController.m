@@ -351,8 +351,9 @@
     }
     
     QPLiveRequest *request = [[QPLiveRequest alloc] init];
+    // 
     WEAKSELF
-    [request requestCreateLiveWithDomain:@"http://zhongyoulive.s.qupai.me" success:^(NSString *pushUrl, NSString *pullUrl) {
+    [request requestCreateLiveWithDomain:kQPZhouYouLiveHttpHost success:^(NSString *pushUrl, NSString *pullUrl) {
         
         weakSelf.pushUrl = pushUrl;
         weakSelf.pullUrl = pullUrl;

@@ -45,10 +45,12 @@
     self.imageView.layer.cornerRadius = 5;
     
     self.commentButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
-    self.commentButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);//
+    self.commentButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);
     
     self.praiseButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
     self.praiseButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);
+    [self.commentButton addTarget:self action:@selector(comment:) forControlEvents:UIControlEventTouchUpInside];
+    [self.praiseButton addTarget:self action:@selector(praise:) forControlEvents:UIControlEventTouchUpInside];
     
     self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.playBtn setImage:[UIImage imageNamed:@"scene_play"] forState:UIControlStateNormal];
@@ -64,7 +66,11 @@
     _model = model;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:_model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_model.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
-    self.titleLab.text = [NSString stringWithFormat:@"%@",_model.userName];
+    if ([_model.userName length] != 0) {
+        self.titleLab.text = [NSString stringWithFormat:@"%@",_model.userName];
+    } else {
+        self.titleLab.text = @"";
+    }
     [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", _model.commentTotles] forState:UIControlStateNormal];
     if ([_model.content length] != 0) {
         self.contentLabel.text = [NSString stringWithFormat:@"%@",_model.content];
@@ -77,6 +83,7 @@
     } else {
         [self.praiseButton setImage:[UIImage imageNamed:@"footprint-like"] forState:UIControlStateNormal];
     }
+    self.praiseButton.tag = [_model.userId integerValue];
     NSDictionary *dict = [ZYZCTool dictionaryWithJsonString:_model.gpsData];
     if ([dict[@"GPS_Address"] length] == 0) {
         self.locationLabel.hidden = YES;
@@ -99,5 +106,20 @@
 //        self.playBlock(sender);
 //    }
 //}
+
+- (void)comment:(UIButton *)sender
+{
+    if (self.commentBlock) {
+        self.commentBlock();
+    }
+}
+
+-(void)praise:(UIButton *)sender
+{
+    NSString *tag = [NSString stringWithFormat:@"%ld", sender.tag];
+    if (self.praiseBlock) {
+        self.praiseBlock(tag);
+    }
+}
 
 @end
