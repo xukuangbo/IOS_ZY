@@ -208,33 +208,15 @@
 #pragma mark --- 短视频
 -(void)enterShortVideo
 {
-    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-    NSString *auth_result=[user objectForKey:Auth_QuPai_Result];
-    if ([auth_result isEqualToString:@"no"]) {
-        if ([ZYZCAccountTool getUserId]) {
-            //鉴权
-            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
-                //鉴权成功
-                NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-                [user setObject:@"yes" forKey:Auth_QuPai_Result];
-                [user synchronize];
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    [self createQuPai];
-                });
-            } failure:^(NSError *error) {
-                //鉴权失败
-                dispatch_async(dispatch_get_main_queue(), ^
-                {
-                    [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
-                });
-            }];
+    [ZYZCAccountTool getQuPaiAuthWithResultBlock:^(BOOL result) {
+        if (result==YES) {
+            [self createQuPai];
         }
-    }
-    else if ([auth_result isEqualToString:@"yes"])
-    {
-        [self createQuPai];
-    }
+        else
+        {
+            [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
+        }
+    }];
 }
 
 -(void)createQuPai

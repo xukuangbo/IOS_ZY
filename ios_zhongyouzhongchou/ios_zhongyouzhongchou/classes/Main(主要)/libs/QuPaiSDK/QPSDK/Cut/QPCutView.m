@@ -79,6 +79,7 @@
     self.scrollViewPlayer.backgroundColor = [UIColor blackColor];
     self.scrollViewPlayer.showsVerticalScrollIndicator = NO;
     self.scrollViewPlayer.showsHorizontalScrollIndicator = NO;
+    self.scrollViewPlayer.scrollEnabled = NO;
     [self.viewCenter addSubview:self.scrollViewPlayer];
     
     self.imageViewPlayFlag = [[UIImageView alloc] initWithFrame:(CGRectMake(13, CGRectGetHeight(self.viewCenter.frame) - 13 - 40, 40, 40))];
