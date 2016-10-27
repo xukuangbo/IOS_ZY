@@ -707,6 +707,13 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
     [self destroyMovie];
 }
 
+-(void)tapEffectView:(UITapGestureRecognizer *)tap
+{
+    if ( self.selectTab != QPEffectTabFilter) {
+        self.qpEffectView.viewMix.hidden=!self.qpEffectView.viewMix.hidden;
+    }
+}
+
 #pragma mark - UIActionSheet Delegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

@@ -13,6 +13,7 @@ typedef void (^DeleteFootprint)(ZYFootprintListModel *oneFootprintModel);
 
 typedef void (^SupportChangeBlock)(BOOL isAdd);
 
+//点击评论按钮的不同操作
 typedef NS_ENUM(NSInteger, CommentEnterType)
 {
     enterCommentPage=1,

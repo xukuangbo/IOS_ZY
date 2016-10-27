@@ -1,0 +1,87 @@
+{
+  "time": [
+    0
+  ],
+  "musicIcon": "icon_music.png",
+  "filters": [
+    {
+      "images": [
+        ""
+      ],
+      "fragment": " \nprecision highp float;\nuniform sampler2D inputImageTexture; //video\nuniform sampler2D inputImageTexture2; //screen\nvarying vec2 textureCoordinate;\nvoid main()\n{\nvec4 video = texture2D(inputImageTexture, textureCoordinate);\nvec4 screen = texture2D(inputImageTexture2, textureCoordinate);\nmediump vec4 whiteColor = vec4(1.0);\ngl_FragColor = whiteColor - ((whiteColor - screen) * (whiteColor - video));\n}",
+      "name": "Screen"
+    }
+  ],
+  "animations": [
+    {
+      "frames": [
+        {
+          "fy": 0.0,
+          "x": 180.0,
+          "w": 1.0,
+          "alpha": 100.0,
+          "fh": 640.0,
+          "fw": 360.0,
+          "a": 0.0,
+          "track": "a",
+          "cy": 320.0,
+          "y": 320.0,
+          "h": 1.0,
+          "cx": 180.0,
+          "t": 0,
+          "fx": 0.0
+        },
+        {
+          "fy": 0.0,
+          "x": 180.0,
+          "w": 1.0,
+          "alpha": 100.0,
+          "fh": 640.0,
+          "fw": 360.0,
+          "a": 0.0,
+          "track": "a",
+          "cy": 320.0,
+          "y": 320.0,
+          "h": 1.0,
+          "cx": 180.0,
+          "t": 449,
+          "fx": 0.0
+        }
+      ],
+      "name": "main"
+    }
+  ],
+  "icon": "icon.png",
+  "effects": [
+    {
+      "eid": 1,
+      "video": "main",
+      "range": "",
+      "src": ""
+    },
+    {
+      "eid": 2,
+      "range": "",
+      "src": "1",
+      "info": {
+        "animation": "main"
+      },
+      "filterName": "Animation"
+    },
+    {
+      "eid": 3,
+      "video": "screen.mp4",
+      "range": "",
+      "src": ""
+    },
+    {
+      "eid": 4,
+      "range": "",
+      "src": "2,3",
+      "filterName": "Screen"
+    }
+  ],
+  "musicName": "黑色柳丁",
+  "name": "加州阳光",
+  "music": "music.mp3"
+}
