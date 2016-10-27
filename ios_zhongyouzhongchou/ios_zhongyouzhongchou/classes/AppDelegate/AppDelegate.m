@@ -52,6 +52,9 @@
     
     //将是否第一次进app置为0
     [VersionTool version];
+    kLinkServerType linkServerType = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"APIModeSwitch"] integerValue];
+    
+    [ZYZCAPIGenerate sharedInstance].serverType = linkServerType;
     
     //获取app版本号，判断app是否是下载或更新后第一次进入
     [self getAppVersion];

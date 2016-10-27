@@ -1,0 +1,7 @@
+{
+    "zhibo_onlineList": {
+        "control": "zhibo",
+        "action": "onlineList.action",
+        "protocol": "http"
+    },
+}
