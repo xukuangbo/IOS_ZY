@@ -72,7 +72,10 @@
     //直播状态
     _liveStatusLabel = [UILabel new];
     [_bgView addSubview:_liveStatusLabel];
-    CGFloat liveStatusLabelH = 20;
+    CGFloat liveStatusLabelH = 23;
+    _liveStatusLabel.font = [UIFont systemFontOfSize:13.0];
+    _liveStatusLabel.backgroundColor = [UIColor blackColor];
+    _liveStatusLabel.alpha = 0.3;
     [_liveStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_bgView).offset(10);
         make.right.equalTo(_bgView).offset(-10);
@@ -168,9 +171,9 @@
     //状态
     if (model.event.length > 0) {
         if ([model.event isEqualToString:@"publish"]) {
-            _liveStatusLabel.text = @"直播";
+            _liveStatusLabel.text = @"看直播";
         }else{//publish_done
-            _liveStatusLabel.text = @"回放";
+            _liveStatusLabel.text = @"看回放";
         }
     }
     

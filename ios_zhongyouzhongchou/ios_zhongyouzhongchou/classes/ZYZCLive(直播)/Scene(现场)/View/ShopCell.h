@@ -9,11 +9,18 @@
 #import <UIKit/UIKit.h>
 @class ZYFootprintListModel;
 typedef void(^PlayBtnCallBackBlock)(UIButton *);
+typedef void(^CommentBtnBlock)(void);
+typedef void(^PraiseBtnBlock)(NSString *);
 
 @interface ShopCell : UICollectionViewCell
 @property (nonatomic, strong) ZYFootprintListModel *model;
 /** 播放按钮block */
 @property (nonatomic, copy  ) PlayBtnCallBackBlock playBlock;
+// 评论按钮
+@property (nonatomic, copy  ) CommentBtnBlock commentBlock;
+// 点赞按钮
+@property (nonatomic, copy  ) PraiseBtnBlock praiseBlock;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @end

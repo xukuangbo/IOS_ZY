@@ -222,12 +222,12 @@ static NSString *ID = @"ZYLiveListCell";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZYLiveListModel *liveModel = self.listArray[indexPath.row];
-    if ([liveModel.event isEqualToString:@"publish_done"]) {
+    if ([liveModel.event isEqualToString:@"publsh_done"]) {
         ZYZCMoviePlayerViewController *moviePlayerVC = [[ZYZCMoviePlayerViewController alloc] init];
         moviePlayerVC.liveModel = liveModel;
         moviePlayerVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:moviePlayerVC animated:YES];
-    } else if ([liveModel.event isEqualToString:@"publish"]) {
+    } else if ([liveModel.event isEqualToString:@"publish_done"]) {
         ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:liveModel];
         watchLiveVC.hidesBottomBarWhenPushed = YES;
         watchLiveVC.conversationType = ConversationType_CHATROOM;
