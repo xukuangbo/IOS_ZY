@@ -61,6 +61,7 @@ typedef void (^UnReadMsgBlock)(NSInteger count);
  */
 + (void)getUserUnReadMsgCount:(UnReadMsgBlock ) unReadMsgBlock;
 
-
+// 趣拍鉴权
++ (void) getQuPaiAuthWithResultBlock:(void(^)(BOOL result))resultBlock;
 
 @end

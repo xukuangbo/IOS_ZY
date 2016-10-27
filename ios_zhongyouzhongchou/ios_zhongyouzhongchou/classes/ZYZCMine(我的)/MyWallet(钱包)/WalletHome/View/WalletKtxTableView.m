@@ -7,8 +7,9 @@
 //
 
 #import "WalletKtxTableView.h"
-#import "MineWalletTableViewCell.h"
-static NSString *cellID = @"WalletKtxTableViewCell";
+//#import "MineWalletTableViewCell.h"
+#import "WalletKtxCell.h"
+static NSString *cellID = @"WalletKtxCell";
 
 @implementation WalletKtxTableView
 
@@ -19,8 +20,9 @@ static NSString *cellID = @"WalletKtxTableViewCell";
         
         self.backgroundColor = [UIColor clearColor];
         
-        [self registerClass:[MineWalletTableViewCell class] forCellReuseIdentifier:cellID
-         ];
+        self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        [self registerNib:[UINib nibWithNibName:@"WalletKtxCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellID];
     }
     return self;
 }
@@ -35,7 +37,7 @@ static NSString *cellID = @"WalletKtxTableViewCell";
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    MineWalletTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    WalletKtxCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
     cell.mineWalletModel = self.dataArr[indexPath.row];
     
     return cell;
@@ -43,7 +45,7 @@ static NSString *cellID = @"WalletKtxTableViewCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 100;
+    return WalletKtxCellH;
 }
 
 #pragma mark --- 置顶按钮状态变化

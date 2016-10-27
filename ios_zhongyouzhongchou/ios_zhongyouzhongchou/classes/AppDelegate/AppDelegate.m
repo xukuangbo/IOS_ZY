@@ -116,20 +116,12 @@
 #pragma mark --- 初始化趣拍
 -(void)initQPLive
 {
-    if ([ZYZCAccountTool getUserId]) {
-        [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
-            NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-            [user setObject:@"yes" forKey:Auth_QuPai_Result];
-            [user synchronize];
-            DDLog(@"access token : %@", accessToken);
-        } failure:^(NSError *error) {
-            NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-            [user setObject:@"no" forKey:Auth_QuPai_Result];
-            [user synchronize];
-            DDLog(@"failed : %@", error.description);
-        }];
-    }
+    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+    [user setObject:@"no" forKey:Auth_QuPai_Result];
+    [user synchronize];
+    [ZYZCAccountTool getQuPaiAuthWithResultBlock:nil];
 }
+
 // 初始化bugTags
 - (void)addBugTags
 {

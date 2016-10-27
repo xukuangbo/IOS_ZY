@@ -36,7 +36,7 @@
 {
     if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _dataArr=[NSMutableArray array];
-        NSArray *iconNames=@[@"icon_trip",@"icon_reture",@"icon_wallet",@"icon_message",@"draft",@"icon_destination",@"icon_man",@"icon_man",@"tag"];
+        NSArray *iconNames=@[@"icon_trip",@"icon_reture",@"icon_wallet",@"icon_message",@"draft",@"icon_destination",@"icon_man",@"tag"];
         NSArray *titles=@[@"我的行程",@"我的回报",@"我的钱包",@"私信",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人",@"我的旅行标签"];
 
         for (int i=0; i<CELL_NUMBER; i++) {

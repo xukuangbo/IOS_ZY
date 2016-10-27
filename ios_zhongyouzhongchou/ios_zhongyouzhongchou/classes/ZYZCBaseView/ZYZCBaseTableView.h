@@ -12,7 +12,7 @@ typedef void(^FooterRefreshingBlock)();
 typedef void (^ScrollDidScrollBlock)(CGFloat offSetY);//滑动要实现的block
 @interface ZYZCBaseTableView : UITableView<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic, strong) NSArray *dataArr;//数据源
+@property (nonatomic, strong) NSMutableArray *dataArr;//数据源
 
 //下拉刷新
 @property (nonatomic, copy  ) HeaderRefreshingBlock headerRefreshingBlock;
