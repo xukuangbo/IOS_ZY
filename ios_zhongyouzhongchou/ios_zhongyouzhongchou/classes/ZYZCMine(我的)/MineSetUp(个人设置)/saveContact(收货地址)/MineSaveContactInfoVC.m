@@ -238,18 +238,19 @@
     //能进这里肯定是存在账号的
     NSString *userId = [ZYZCAccountTool getUserId];
     
-    NSString *getUserInfoURL  = Get_UserInfo_AddressInfo(userId);
-    __weak typeof(&*self) weakSelf = self;
-    NSLog(@"%@",getUserInfoURL);
+//    NSString *getUserInfoURL  = Get_UserInfo_AddressInfo(userId);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_getUserInfo_action"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userId forKey:@"userId"];
     [MBProgressHUD showMessage:nil];
-    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        //        NSLog(@"%@",result);
+
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         MinePersonAddressModel *model = [MinePersonAddressModel mj_objectWithKeyValues:result[@"data"][@"userbyaddress"]];
         weakSelf.addressModel = model;
         
         [MBProgressHUD hideHUD];
     } andFailBlock:^(id failResult) {
-//        NSLog(@"请求个人信息错误，errror：%@",failResult);
         [MBProgressHUD hideHUD];
         [MBProgressHUD showError:@"请求数据失败"];
     }];

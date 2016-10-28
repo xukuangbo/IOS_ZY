@@ -85,20 +85,33 @@
     //能进这里肯定是存在账号的
     NSString *userId = [ZYZCAccountTool getUserId];
     
-    NSString *getUserInfoURL  = Get_SelfInfo(userId, userId);
-    __weak typeof(&*self) weakSelf = self;
-//    NSLog(@"%@",getUserInfoURL);
+//    NSString *getUserInfoURL  = Get_SelfInfo(userId, userId);
+    NSString *getUserInfoURL = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail_action"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userId forKey:@"selfUserId"];
+    [parameter setValue:userId forKey:@"userId"];
+
+    WEAKSELF
     [MBProgressHUD showMessage:nil];
-    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+    [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [weakSelf reloadUIData:result];
         
         [MBProgressHUD hideHUD];
     } andFailBlock:^(id failResult) {
-//        NSLog(@"请求个人信息错误，errror：%@",failResult);
+        //        NSLog(@"请求个人信息错误，errror：%@",failResult);
         [MBProgressHUD hideHUD];
         [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
     }];
+//    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        
+//        [weakSelf reloadUIData:result];
+//        
+//        [MBProgressHUD hideHUD];
+//    } andFailBlock:^(id failResult) {
+////        NSLog(@"请求个人信息错误，errror：%@",failResult);
+//        [MBProgressHUD hideHUD];
+//        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+//    }];
 }
 
 - (void)createUI

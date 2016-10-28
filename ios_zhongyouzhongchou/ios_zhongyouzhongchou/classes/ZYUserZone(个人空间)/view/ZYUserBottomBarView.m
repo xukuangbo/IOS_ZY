@@ -94,8 +94,10 @@
     
     NSDictionary *params=@{@"userId":selfUserId,@"friendsId":_friendID};
     if (_friendship) {
+        NSString *unfollowUser = [[ZYZCAPIGenerate sharedInstance] API:@"friends_unfollowUser"];
+
         //取消关注
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:UNFOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess)
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:unfollowUser andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess)
          {
             _friendShipBtn.enabled=YES;
              if (isSuccess) {
@@ -117,7 +119,9 @@
     //添加关注
     else
     {
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_followUser"];
+
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
             _friendShipBtn.enabled=YES;
             if (isSuccess) {
                 [MBProgressHUD showShortMessage:@"关注成功"];

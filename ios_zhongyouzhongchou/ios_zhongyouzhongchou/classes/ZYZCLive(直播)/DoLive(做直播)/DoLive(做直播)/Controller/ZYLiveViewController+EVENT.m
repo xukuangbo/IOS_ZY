@@ -269,8 +269,9 @@
     WEAKSELF
     NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":self.personDataView.minePersonModel.userId};
     if ([self.personDataView.attentionButton.titleLabel.text isEqualToString:@"取消关注"]) {
+        NSString *unfollowUser = [[ZYZCAPIGenerate sharedInstance] API:@"friends_unfollowUser"];
         //取消关注
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:UNFOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess)
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:unfollowUser andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess)
          {
              if (isSuccess) {
                  [MBProgressHUD showSuccess:@"取消成功"];
@@ -284,7 +285,8 @@
         
     } else {
         //添加关注
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_followUser"];
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
             //            NSLog(@"%@",result);
             if (isSuccess) {
                 [MBProgressHUD showSuccess:@"关注成功"];
@@ -346,9 +348,13 @@
 - (void)requestData:(NSString *)otherUserId
 {
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *getUserInfoURL = Get_SelfInfo(userId, otherUserId);
+//    NSString *getUserInfoURL = Get_SelfInfo(userId, otherUserId);
+    NSString *getUserInfoURL = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail_action"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userId forKey:@"selfUserId"];
+    [parameter setValue:userId forKey:@"userId"];
     WEAKSELF
-    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             NSDictionary *dic = (NSDictionary *)result;
             NSDictionary *data = dic[@"data"];
@@ -365,5 +371,24 @@
     } andFailBlock:^(id failResult) {
         NSLog(@"aaaaaaa");
     }];
+
+//    WEAKSELF
+//    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        if (isSuccess) {
+//            NSDictionary *dic = (NSDictionary *)result;
+//            NSDictionary *data = dic[@"data"];
+//            if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]){
+//                [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
+//            }
+//            MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
+//            minePersonModel.gzMeAll = data[@"gzMeAll"];
+//            minePersonModel.meGzAll = data[@"meGzAll"];
+//            weakSelf.personDataView.minePersonModel = minePersonModel;
+//        } else {
+//            NSLog(@"bbbbbbb");
+//        }
+//    } andFailBlock:^(id failResult) {
+//        NSLog(@"aaaaaaa");
+//    }];
 }
 @end

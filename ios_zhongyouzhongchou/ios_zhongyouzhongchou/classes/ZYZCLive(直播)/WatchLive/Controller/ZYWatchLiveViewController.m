@@ -527,9 +527,14 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)requestData
 {
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *getUserInfoURL = Get_SelfInfo(userId, self.liveModel.userId);
+//    NSString *getUserInfoURL = Get_SelfInfo(userId, self.liveModel.userId);
+    NSString *getUserInfoURL = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail_action"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userId forKey:@"selfUserId"];
+    [parameter setValue:self.liveModel.userId forKey:@"userId"];
+    
     WEAKSELF
-    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSDictionary *dic = (NSDictionary *)result;
         NSDictionary *data = dic[@"data"];
         if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]) {
@@ -541,6 +546,19 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     } andFailBlock:^(id failResult) {
         weakSelf.livePersonNumberView.hidden = NO;
     }];
+//    WEAKSELF
+//    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        NSDictionary *dic = (NSDictionary *)result;
+//        NSDictionary *data = dic[@"data"];
+//        if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]) {
+//            [weakSelf updateLivePersonNumberViewFrame];
+//            weakSelf.livePersonNumberView.hidden = NO;
+//        } else{
+//            weakSelf.livePersonNumberView.hidden = NO;
+//        }
+//    } andFailBlock:^(id failResult) {
+//        weakSelf.livePersonNumberView.hidden = NO;
+//    }];
 }
 
 /** 请求总金额数据 */
@@ -609,8 +627,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)attentionButtonAction:(UIButton *)sender
 {
     WEAKSELF
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_followUser"];
     NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":self.liveModel.userId};
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
         //            NSLog(@"%@",result);
         if (isSuccess) {
             [MBProgressHUD showSuccess:@"关注成功"];

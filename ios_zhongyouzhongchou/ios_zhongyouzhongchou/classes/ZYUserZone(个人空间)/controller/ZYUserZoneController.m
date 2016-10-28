@@ -260,36 +260,66 @@
 #pragma mark --- 获取用户信息
 -(void)getUserInfoData
 {
-    NSString *url=Get_SelfInfo([ZYZCAccountTool getUserId],_friendID);
-    
+//    NSString *url=Get_SelfInfo([ZYZCAccountTool getUserId],_friendID);
+    NSString *getUserInfoURL = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail_action"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:_friendID forKey:@"selfUserId"];
+    [parameter setValue:_friendID forKey:@"userId"];
     [MBProgressHUD showMessage:nil];
-    
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         [NetWorkManager hideFailViewForView:self.view];
-         
-         if (isSuccess) {
-             self.friendship  = [result[@"data"][@"friend"] boolValue];
-             self.friendNumber= [result[@"data"][@"meGzAll"] integerValue];
-             self.fansNumber  = [result[@"data"][@"gzMeAll"] integerValue];
-              self.userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
+
+    WEAKSELF
+    STRONGSELF
+    [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [NetWorkManager hideFailViewForView:self.view];
+        
+        if (isSuccess) {
+            self.friendship  = [result[@"data"][@"friend"] boolValue];
+            self.friendNumber= [result[@"data"][@"meGzAll"] integerValue];
+            self.fansNumber  = [result[@"data"][@"gzMeAll"] integerValue];
+            self.userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
             [self getProductsData];
-         }
-         else
-         {
-             [MBProgressHUD hideHUD];
-             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-         }
-     }
-    andFailBlock:^(id failResult) {
-         [MBProgressHUD hideHUD];
-         [NetWorkManager showMBWithFailResult:failResult];
-         [NetWorkManager hideFailViewForView:self.view];
-         __weak typeof (&*self)weakSelf=self;
-         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-             [weakSelf getUserInfoData];
-         }];
-     }];
+        }
+        else
+        {
+            [MBProgressHUD hideHUD];
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+        }
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUD];
+        [NetWorkManager showMBWithFailResult:failResult];
+        [NetWorkManager hideFailViewForView:self.view];
+        
+        [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
+            [strongSelf getUserInfoData];
+        }];
+    }];
+    
+//    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
+//     {
+//         [NetWorkManager hideFailViewForView:self.view];
+//         
+//         if (isSuccess) {
+//             self.friendship  = [result[@"data"][@"friend"] boolValue];
+//             self.friendNumber= [result[@"data"][@"meGzAll"] integerValue];
+//             self.fansNumber  = [result[@"data"][@"gzMeAll"] integerValue];
+//              self.userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
+//            [self getProductsData];
+//         }
+//         else
+//         {
+//             [MBProgressHUD hideHUD];
+//             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+//         }
+//     }
+//    andFailBlock:^(id failResult) {
+//         [MBProgressHUD hideHUD];
+//         [NetWorkManager showMBWithFailResult:failResult];
+//         [NetWorkManager hideFailViewForView:self.view];
+//         __weak typeof (&*self)weakSelf=self;
+//         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
+//             [weakSelf getUserInfoData];
+//         }];
+//     }];
 }
 
 #pragma mark --- 获取TA的众筹

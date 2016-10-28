@@ -7,8 +7,11 @@
 //
 
 #import "WalletYbjTableView.h"
+//#import "MineWalletTableViewCell.h"
+#import "WalletYbjCell.h"
+#import "WalletYbjModel.h"
+static NSString *cellID = @"WalletYbjCell";
 
-static NSString *cellID = @"WalletYbjTableViewCell";
 @implementation WalletYbjTableView
 
 
@@ -16,33 +19,34 @@ static NSString *cellID = @"WalletYbjTableViewCell";
 {
     if (self=[super initWithFrame:frame style:style]) {
         
-        self.backgroundColor = [UIColor yellowColor];
+        self.backgroundColor = [UIColor clearColor];
         
-        [self registerClass:[UITableViewCell class] forCellReuseIdentifier:cellID
-         ];
+        self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
+        [self registerNib:[UINib nibWithNibName:@"WalletKtxCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellID];
     }
     return self;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //    if (self.dataArr.count) {
-    //        return self.dataArr.count*2+1;
-    //    }
-    //    return 0;
-    return 20;
+    if (self.dataArr.count) {
+        return self.dataArr.count;
+    }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    WalletYbjCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    cell.walletYbjModel = self.dataArr[indexPath.row];
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 80;
+    return WalletYbjCellH;
 }
 
 #pragma mark --- 置顶按钮状态变化
@@ -69,4 +73,5 @@ static NSString *cellID = @"WalletYbjTableViewCell";
         self.scrollDidEndDeceleratingBlock();
     }
 }
+
 @end

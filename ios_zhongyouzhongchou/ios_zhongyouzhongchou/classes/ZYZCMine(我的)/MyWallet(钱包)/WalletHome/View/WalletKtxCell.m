@@ -6,7 +6,7 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 #import "WalletKtxCell.h"
-#import "MineWalletModel.h"
+#import "WalletKtxModel.h"
 #import "UIView+ZYLayer.h"
 @interface WalletKtxCell ()
 @property (weak, nonatomic) IBOutlet UIView *mapView;
@@ -83,7 +83,7 @@
 }
 
 
-- (void)setMineWalletModel:(MineWalletModel *)mineWalletModel
+- (void)setMineWalletModel:(WalletKtxModel *)mineWalletModel
 {
     _mineWalletModel = mineWalletModel;
     

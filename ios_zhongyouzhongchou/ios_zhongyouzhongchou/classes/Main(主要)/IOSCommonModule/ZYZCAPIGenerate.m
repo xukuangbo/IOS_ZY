@@ -84,6 +84,14 @@ static NSString* const apiFileExtension = @"json";
     NSString* apiUrl = [NSString stringWithFormat:@"%@://%@/%@/%@?",apiProtocol,host,control,action];
     return apiUrl;
 }
+// 获取baseUrl
+- (NSString *)APIBaseUrl
+{
+    NSString *apiProtocol = @"http";
+    const NSString* host = [self serverHostWithType:self.serverType];
+    NSString* baseUrl = [NSString stringWithFormat:@"%@://%@",apiProtocol,host];
+    return baseUrl;
+}
 
 - (const NSString *)serverHostWithType:(kLinkServerType)type {
     switch (type) {
@@ -109,4 +117,7 @@ static NSString* const apiFileExtension = @"json";
             break;
     }
 }
+
+
+
 @end

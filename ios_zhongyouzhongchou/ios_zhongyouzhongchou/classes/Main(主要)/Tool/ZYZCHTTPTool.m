@@ -62,6 +62,51 @@
         fail(error.localizedDescription);
     }];
 }
+#pragma mark - 统一规范，get请求传参数
++ (void)GET:(NSString *)URLString parameters:(id)parameters withSuccessGetBlock:(SuccessGetBlock)successGet  andFailBlock:(FailBlock)fail
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
+    manager.responseSerializer.acceptableContentTypes =
+    [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
+    
+//    NSString *newUrl=URLString;
+//    if ([URLString hasSuffix:@".action"]) {
+//        newUrl=[URLString stringByAppendingString:@"?from=ios"];
+//    } else {
+//        newUrl=[URLString stringByAppendingString:@"&from=ios"];
+//    }
+    NSString *userId = [ZYZCAccountTool getUserId];
+    if (![parameters objectForKey:@"userId"] && userId) {
+        [parameters setValue:userId forKey:@"userId"];
+    }
+    
+    [manager GET:URLString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
+     {
+     }
+         success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
+     {
+         if (responseObject[@"code"]) {
+             if ([responseObject[@"code"] isEqual:@0]) {
+                 successGet(responseObject,YES);
+             }
+             else
+             {
+                 successGet(responseObject,NO);
+             }
+         }
+         else
+         {
+             successGet(responseObject,YES);
+         }
+     }
+         failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error)
+     {
+         fail(error.localizedDescription);
+     }];
+}
 
 #pragma mark --- post请求
 +(void)postHttpDataWithEncrypt:(BOOL)needLogin andURL:(NSString *)url andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail

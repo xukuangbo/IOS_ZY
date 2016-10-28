@@ -15,6 +15,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "MineWalletModel.h"
 
+static NSInteger pageSize = 2;
 @interface WalletHomeVC ()
 
 @property (nonatomic, strong) WalletHeadView *headView;
@@ -34,6 +35,15 @@
 
 @implementation WalletHomeVC
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.hidesBottomBarWhenPushed = YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -46,7 +56,7 @@
     
     [self.ktxTableView.mj_header beginRefreshing];
     
-    [self loadNewKtxData];
+//    [self loadNewKtxData];
 }
 
 /* 设置子视图 */
@@ -80,40 +90,49 @@
 
 }
 #pragma mark - RequestData
-- (void)requestProductList
-{
-    __weak typeof(&*self) weakSelf = self;
-//    [MBProgressHUD showMessage:@"正在加载"];
-    NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%d&pageSize=%d",Get_MyTxProducts_List,userId,1,10000];
-    
-    [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
-        NSArray *tempArr = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-//        [weakSelf.ktxArray removeAllObjects];
-//        [weakSelf.ktxArray addObjectsFromArray:tempArr];
-//        weakSelf.ktxTableView.dataArr = weakSelf.ktxArray;
-        weakSelf.ktxPageNo++;
-        
-        [weakSelf.ktxTableView reloadData];
-        
-//        [MBProgressHUD hideHUD];
-    } andFailBlock:^(id failResult) {
-        
-//        [MBProgressHUD hideHUD];
-        
-        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
-        
-    }];
-}
-
 - (void)loadNewKtxData
 {
     _ktxPageNo = 1;
     __weak typeof(&*self) weakSelf = self;
     //    [MBProgressHUD showMessage:@"正在加载"];
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%d",Get_MyTxProducts_List,userId,_ktxPageNo,10];
+    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,pageSize];
+    
+    [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        
+        NSArray *tempArray = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (tempArray.count > 0) {
+            [weakSelf.ktxTableView.dataArr removeAllObjects];
+            [weakSelf.ktxTableView.dataArr addObjectsFromArray:tempArray];
+            [weakSelf.ktxTableView reloadData];
+            weakSelf.ktxPageNo++;
+        }else{
+            
+            
+        }
+        [weakSelf.ktxTableView.mj_header endRefreshing];
+        [weakSelf.ktxTableView.mj_footer endRefreshing];
+        
+        //        [MBProgressHUD hideHUD];
+    } andFailBlock:^(id failResult) {
+        
+        //        [MBProgressHUD hideHUD];
+        
+        [weakSelf.ktxTableView.mj_header endRefreshing];
+        [weakSelf.ktxTableView.mj_footer endRefreshing];
+        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        
+    }];
+}
+
+- (void)loadNewYbjData
+{
+    _ybjPageNo = 1;
+    __weak typeof(&*self) weakSelf = self;
+    //    [MBProgressHUD showMessage:@"正在加载"];
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,pageSize];
     
     [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
         
@@ -148,8 +167,7 @@
     __weak typeof(&*self) weakSelf = self;
     //    [MBProgressHUD showMessage:@"正在加载"];
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%d",Get_MyTxProducts_List,userId,_ktxPageNo,10];
-    
+    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,pageSize];
     [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.ktxTableView.mj_footer ;
@@ -195,7 +213,6 @@
         }
         //然后请求数据
     };
-    
     
     //ktxTableview
     _ktxTableView.headerRefreshingBlock = ^(){
