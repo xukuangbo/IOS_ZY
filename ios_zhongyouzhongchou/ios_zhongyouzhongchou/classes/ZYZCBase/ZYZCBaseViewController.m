@@ -52,13 +52,20 @@
     self.navigationItem.rightBarButtonItem=[self customItemByImgName:rightName andAction:rightAction];
 }
 
--(void)customNavWithLeftBtnTitle:(NSString *)leftTitle andRightTitle:(NSString *)rightTitle andLeftTarget:(id)leftTarget andRightTarget:(id)rightTarget andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction
+-(void)customNavWithLeftBtnTitle:(NSString *)leftTitle andRightTitle:(NSString *)rightTitle  andTarget:(id)target andFont:(UIFont *)font andTitleColor:(UIColor *)titleColor andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction
 {
     
-    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:leftTitle style:UIBarButtonItemStyleDone target:leftTarget action:leftAction];
+    CGFloat leftWidth=[ZYZCTool calculateStrLengthByText:leftTitle andFont:font andMaxWidth:KSCREEN_W].width+20;
+    CGFloat rightWidth=[ZYZCTool calculateStrLengthByText:rightTitle andFont:font andMaxWidth:KSCREEN_W].width+20;
     
+    UIButton *leftBtn=[ZYZCTool createBtnWithFrame:CGRectMake(0, 0, leftWidth, 44) andNormalTitle:leftTitle andNormalTitleColor:titleColor andTarget:target andAction:leftAction];
+    leftBtn.titleLabel.font=font;
     
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:rightTitle style:UIBarButtonItemStylePlain target:rightTitle action:rightAction];
+    UIButton *rightBtn=[ZYZCTool createBtnWithFrame:CGRectMake(0, 0, rightWidth, 44) andNormalTitle:rightTitle andNormalTitleColor:titleColor andTarget:target andAction:rightAction];
+    rightBtn.titleLabel.font=font;
+    
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+     self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:rightBtn];
 }
 
 

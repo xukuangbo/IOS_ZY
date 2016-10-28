@@ -11,25 +11,24 @@
 #import "MoreFZCChooseSceneController.h"
 #import "TacticTableView.h"
 #import "ZYZCMessageListViewController.h"
-#import "UIBarButtonItem+WZLBadge.h"
+#import "UIView+WZLBadge.h"
 #import "ZYLocationManager.h"
 //#import "UploadVoucherVC.h"
 
 
 
-@interface TacticMainViewController ()<CLLocationManagerDelegate>
+@interface TacticMainViewController ()<CLLocationManagerDelegate,UISearchBarDelegate>
 /**
  *  消息按钮
  */
-@property (nonatomic, weak) UIButton *messageButton;
+@property (nonatomic, strong) UIButton *messageButton;
 /**
  *  城市选择
  */
-@property (nonatomic, weak) UIButton *cityChoseButton;
+@property (nonatomic, strong) UIButton *cityChoseButton;
 /**
  *  当地位置管理者
  */
-//@property(strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic, strong) ZYLocationManager *locationManager;
 /**
  * 当地位置
@@ -38,6 +37,8 @@
 
 
 @property (nonatomic, weak) TacticTableView *tableView;
+
+@property (nonatomic, strong) UISearchBar *searchBar;
 
 @end
 
@@ -67,46 +68,47 @@
  */
 - (void)setUpNavi
 {
-    //设置导航栏的颜色为透明
-    
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
-    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    UIButton *cityChoseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    cityChoseButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    cityChoseButton.size = CGSizeMake(40, 25);
-//    UIImageView *downBtn = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@ "ico_pla_more"]];
-//    downBtn.centerY = 0.5 * cityChoseButton.height;
-//    downBtn.right = cityChoseButton.width;
-//    [cityChoseButton addSubview:downBtn];
-    [cityChoseButton addTarget:self action:@selector(cityChoseButton:) forControlEvents:UIControlEventTouchUpInside];
-//    cityChoseButton.backgroundColor = [UIColor redColor];
-    UIBarButtonItem *cityBarbtn = [[UIBarButtonItem alloc] initWithCustomView:cityChoseButton];
-    self.navigationItem.leftBarButtonItem = cityBarbtn;
-    self.cityChoseButton = cityChoseButton;
-    
+    //设置左边所在地
+    UIButton *navLeftBtn=[ZYZCTool createBtnWithFrame:CGRectMake(0, 4, 60, 30) andNormalTitle:nil andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(cityChoseButton:)];
+    navLeftBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
+    [self.navigationController.navigationBar addSubview:navLeftBtn];
+    _cityChoseButton=navLeftBtn;
+
     //设置右边的消息
-    UIButton *messageButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    messageButton.size = CGSizeMake(25, 25);
+    UIButton *messageButton =[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-41, 9, 25, 25) andNormalTitle:nil andNormalTitleColor:nil andTarget:self andAction:@selector(messageButton:)];
     [messageButton setImage:[UIImage imageNamed:@"btn_pas_ld"] forState:UIControlStateNormal];
+//     [self.navigationController.navigationBar addSubview:messageButton];
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem  alloc]initWithCustomView:messageButton];
+    _messageButton = messageButton;
     
-    [messageButton addTarget:self action:@selector(messageButton:) forControlEvents:UIControlEventTouchUpInside];
-     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:messageButton];
-    self.messageButton = messageButton;
     
     //设置中间的搜索栏
-    UIButton *searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    CGFloat searchButtonW = self.cityChoseButton.right - self.messageButton.left - KEDGE_DISTANCE * 2;
-    searchButton.size = CGSizeMake(searchButtonW, 30);
-    [searchButton setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
-    searchButton.backgroundColor = [UIColor whiteColor];
-    searchButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    searchButton.layer.cornerRadius = 5;
-    searchButton.layer.masksToBounds = YES;
-    [searchButton setImage:[UIImage imageNamed:@"icon_search"] forState:UIControlStateNormal];
-    [searchButton setTitle:@"搜索热门城市" forState:UIControlStateNormal];
-    [searchButton addTarget:self action:@selector(searchButton:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = searchButton;
-    _tableView.searchBarBtn = searchButton;
+    CGFloat searchBar_width=KSCREEN_W-120;
+    UISearchBar *searchBar=[[UISearchBar alloc]initWithFrame:CGRectMake((KSCREEN_W-searchBar_width)/2, 4, searchBar_width, 30)];
+    searchBar.layer.cornerRadius=KCORNERRADIUS;
+    searchBar.delegate = self;
+    searchBar.layer.masksToBounds=YES;
+    searchBar.placeholder=@"搜索热门城市";
+    searchBar.returnKeyType=UIReturnKeyDone;
+    [searchBar setImage:[UIImage imageNamed:@"icon_search"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
+//    searchBar.userInteractionEnabled = NO;
+    for (UIView* subview in [[searchBar.subviews lastObject] subviews]) {
+        if ([subview isKindOfClass:[UITextField class]]) {
+            UITextField *textField = (UITextField*)subview;
+            textField.font = [UIFont systemFontOfSize:15.f];
+            //修改输入框的颜色
+            [textField setBackgroundColor:[UIColor whiteColor]];
+            //修改placeholder的颜色
+            [textField setValue:[UIColor ZYZC_TextGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
+        else if([subview isKindOfClass:
+                 NSClassFromString(@"UISearchBarBackground")])
+        {
+            [subview removeFromSuperview];
+        }
+    }
+    [self.navigationController.navigationBar addSubview:searchBar];
+    _searchBar = searchBar;
 }
 #pragma mark - 创建tableView
 - (void)createTableView
@@ -134,11 +136,16 @@
 /**
  *  中间的搜索按钮
  */
-- (void)searchButton:(UIButton *)button{
+-(BOOL) searchBarShouldBeginEditing:(UISearchBar *)searchBar
+{
     MoreFZCChooseSceneController *chooseSceneVC = [[MoreFZCChooseSceneController alloc] init];
     chooseSceneVC.isHomeSearch=YES;
     chooseSceneVC.hidesBottomBarWhenPushed=YES;
     [self.navigationController pushViewController:chooseSceneVC animated:YES];
+    return NO;
+}
+- (void)searchButton:(UIButton *)button{
+    
 }
 #pragma mark - 获取当前定位城市
 - (void)getLocation
@@ -184,23 +191,30 @@
     [super viewWillDisappear:animated];
     
     [self.locationManager stopUpdatingLocation];
+    _searchBar.hidden=YES;
+    _cityChoseButton.hidden=YES;
+//    _messageButton.hidden=YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-//    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
-    [self.tableView changeNaviAction];
+    //设置导航栏的颜色为透明
+    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-    
+    [self.tableView changeNaviAction];
+
     [ZYZCAccountTool getUserUnReadMsgCount:^(NSInteger count) {
         if (count>0) {
-            [self.navigationItem.rightBarButtonItem showBadgeWithStyle:WBadgeStyleNumber value:count animationType:WBadgeAnimTypeNone];
+            [self.messageButton showBadgeWithStyle:WBadgeStyleNumber value:count animationType:WBadgeAnimTypeNone];
         }
         else
         {
-            [self.navigationItem.rightBarButtonItem clearBadge];
+            [self.messageButton clearBadge];
         }
     }];
+    _searchBar.hidden=NO;
+    _cityChoseButton.hidden=NO;
+//    _messageButton.hidden=NO;
     
 }
 

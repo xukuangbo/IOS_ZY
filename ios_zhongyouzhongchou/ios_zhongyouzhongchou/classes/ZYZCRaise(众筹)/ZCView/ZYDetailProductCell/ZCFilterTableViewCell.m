@@ -23,14 +23,7 @@
     if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.backgroundColor=[UIColor clearColor];
         self.selectionStyle=UITableViewCellSelectionStyleNone;
-        if (indexPath.row<2) {
-           [self configCustomUI];
-        }
-        else
-        {
-            [self configUI];
-        }
-        
+        [self configUI];
         [self addSubview:[UIView lineViewWithFrame:CGRectMake(17, self.frame.size.height-6, 125-34, 1) andColor:[UIColor whiteColor]]];
     }
     return self;

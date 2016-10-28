@@ -39,7 +39,7 @@
 
 -(void)configUI
 {
-    _oneFootprintView=[[ZYOneFootprintView alloc]initWithFrame:CGRectMake(10, 0, KSCREEN_W-35, 0.1)];
+    _oneFootprintView=[[ZYOneFootprintView alloc]initWithFrame:CGRectMake(10, 0, KSCREEN_W-20, 0.1)];
     _oneFootprintView.commentEnterType=enterCommentEdit;
     _oneFootprintView.canOpenText=NO;
     [self.contentView addSubview:_oneFootprintView];

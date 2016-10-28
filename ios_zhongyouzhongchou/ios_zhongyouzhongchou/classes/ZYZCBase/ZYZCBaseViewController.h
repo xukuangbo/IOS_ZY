@@ -28,7 +28,7 @@
 
 -(void)customNavWithLeftBtnImgName:(NSString *)leftName andRightImgName:(NSString *)rightName  andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction;
 
--(void)customNavWithLeftBtnTitle:(NSString *)leftTitle andRightTitle:(NSString *)rightTitle andLeftTarget:(id)leftTarget andRightTarget:(id)rightTarget andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction;
+-(void)customNavWithLeftBtnTitle:(NSString *)leftTitle andRightTitle:(NSString *)rightTitle  andTarget:(id)target andFont:(UIFont *)font andTitleColor:(UIColor *)titleColor andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction;
 
 
 // 隐藏navigationBar

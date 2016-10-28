@@ -10,8 +10,6 @@
 @class TacticModel;
 @interface TacticTableView : UITableView
 
-@property (nonatomic, weak) UIButton *searchBarBtn;
-
 @property (nonatomic, strong) TacticModel *tacticModel;
 
 - (void)changeNaviAction;
