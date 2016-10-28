@@ -77,6 +77,7 @@
 {
     button.selected = !button.selected;
     
+    self.selectBlock();
     //发出一个通知,通知控制器去加加减减
     [ZYNSNotificationCenter postNotificationName:WalletYbjSelectNotification object:self];
 }

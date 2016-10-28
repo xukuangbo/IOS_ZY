@@ -28,6 +28,21 @@ static NSString *cellID = @"WalletYbjCell";
     return self;
 }
 
+
+- (NSMutableDictionary *)selectDic
+{
+    if (!_selectDic) {
+        _selectDic = [NSMutableDictionary dictionary];
+    }
+    return _selectDic;
+}
+
+- (void)judgeSelectAcion
+{
+    
+}
+
+#pragma mark - tableViewDelegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.dataArr.count) {
@@ -39,6 +54,7 @@ static NSString *cellID = @"WalletYbjCell";
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     WalletYbjCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID forIndexPath:indexPath];
+    
     cell.walletYbjModel = self.dataArr[indexPath.row];
     
     return cell;
@@ -48,6 +64,9 @@ static NSString *cellID = @"WalletYbjCell";
 {
     return WalletYbjCellH;
 }
+
+
+
 
 #pragma mark --- 置顶按钮状态变化
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
