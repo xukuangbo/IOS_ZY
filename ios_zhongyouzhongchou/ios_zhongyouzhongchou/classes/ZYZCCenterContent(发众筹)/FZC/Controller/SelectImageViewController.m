@@ -7,7 +7,6 @@
 
 
 #import "SelectImageViewController.h"
-#import "UINavigationBar+Background.h"
 
 //#define selectImagescrollViewH (KSCREEN_W / 16.0 * 10)
 #define selectImageTabbarH 88
@@ -40,7 +39,7 @@
     
     //系统的一些基本设置
     self.view.backgroundColor = [UIColor blackColor];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor blackColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor blackColor]];
     
     /**
      *  创建scroll
@@ -267,7 +266,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated

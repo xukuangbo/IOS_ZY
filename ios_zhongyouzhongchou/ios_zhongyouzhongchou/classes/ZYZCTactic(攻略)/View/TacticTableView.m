@@ -29,6 +29,7 @@
     if (self) {
         self.backgroundColor = [UIColor ZYZC_BgGrayColor];
         self.separatorColor = [UIColor clearColor];
+        self.showsVerticalScrollIndicator=NO;
         self.dataSource = self;
         self.delegate = self;
         
@@ -160,15 +161,10 @@
     if (offsetY <= headViewHeight) {
         CGFloat alpha = MAX(0, offsetY/headViewHeight);
         
-        [homeVC.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(alpha)];
-        
-        _searchBarBtn.backgroundColor =  [[UIColor whiteColor] colorWithAlphaComponent:(alpha + 0.3)];
-//
+        [homeVC.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(alpha)];
     }else {
         
-        [homeVC.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
-        
-        _searchBarBtn.backgroundColor =  [[UIColor whiteColor] colorWithAlphaComponent:1];
+        [homeVC.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
     }
 }
 

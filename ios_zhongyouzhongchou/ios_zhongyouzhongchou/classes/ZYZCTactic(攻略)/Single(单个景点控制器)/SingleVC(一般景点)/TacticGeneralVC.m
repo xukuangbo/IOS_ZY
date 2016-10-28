@@ -35,7 +35,6 @@
         [self setUpUI];
         [self setBackItem];
         
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
         self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
         
         self.automaticallyAdjustsScrollViewInsets = NO;
@@ -53,7 +52,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(0)];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
@@ -66,7 +65,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
     self.navigationController.navigationBar.shadowImage = nil;
 }
 
@@ -246,10 +245,10 @@
     if (offsetY <= imageViewHeight) {
         CGFloat alpha = MAX(0, offsetY/imageViewHeight);
         
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(alpha)];
+        [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(alpha)];
         self.title = @"";
     } else {
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
+        [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
         self.title = @"景点";
         
     }

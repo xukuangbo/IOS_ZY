@@ -46,7 +46,6 @@
 		0490D1531CC92BF40064844C /* TacticSingleTipsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0490D1521CC92BF40064844C /* TacticSingleTipsModel.m */; };
 		0490D1591CC9BFB60064844C /* TacticSingleModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 0490D1581CC9BFB60064844C /* TacticSingleModelFrame.m */; };
 		0490D15F1CCB6A3E0064844C /* TacticCustomMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0490D15E1CCB6A3E0064844C /* TacticCustomMapView.m */; };
-		04A99C951CBF848D00C6F5F0 /* UINavigationBar+Background.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A99BEC1CBF848C00C6F5F0 /* UINavigationBar+Background.m */; };
 		04A99C961CBF848D00C6F5F0 /* ZYZCBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A99BEE1CBF848C00C6F5F0 /* ZYZCBaseViewController.m */; };
 		04A99C971CBF848D00C6F5F0 /* ZYZCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A99BF01CBF848C00C6F5F0 /* ZYZCNavigationController.m */; };
 		04A99CFA1CBF897A00C6F5F0 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A99CF51CBF897A00C6F5F0 /* libWeChatSDK.a */; };
@@ -110,7 +109,6 @@
 		0527D8961DC1F0050064E354 /* ZYZCAPIGenerate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0527D8951DC1F0050064E354 /* ZYZCAPIGenerate.m */; };
 		055F68501DB62098005C4345 /* ZYLiveHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 055F684F1DB62098005C4345 /* ZYLiveHomeViewController.m */; };
 		056046C51D6DBDD5006906FD /* RCDLive.m in Sources */ = {isa = PBXBuildFile; fileRef = 056046C41D6DBDD5006906FD /* RCDLive.m */; };
-		056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */; };
 		05977B1E1DB85DC5007EC20A /* ASValuePopUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B0C1DB85DC5007EC20A /* ASValuePopUpView.m */; };
 		05977B1F1DB85DC5007EC20A /* ASValueTrackingSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B0E1DB85DC5007EC20A /* ASValueTrackingSlider.m */; };
 		05977B201DB85DC5007EC20A /* UINavigationController+ZFPlayerRotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B111DB85DC5007EC20A /* UINavigationController+ZFPlayerRotation.m */; };
@@ -341,6 +339,7 @@
 		2CC5FD7B1D5990EE0001AC95 /* UIView+WZLBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC5FD761D5990EE0001AC95 /* UIView+WZLBadge.m */; };
 		2CC78A831D9948E800CC04E2 /* ZYUserZoneController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC78A821D9948E800CC04E2 /* ZYUserZoneController.m */; };
 		2CC78A861D994AF300CC04E2 /* ZYUserBottomBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CC78A851D994AF300CC04E2 /* ZYUserBottomBarView.m */; };
+		2CD0EE951DC33D4400921BDD /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD0EE941DC33D4400921BDD /* UINavigationBar+Awesome.m */; };
 		2CD1E5FF1DA735BA008E4203 /* QPSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2CD1E5FE1DA735BA008E4203 /* QPSDK.bundle */; };
 		2CD1E6101DA78A5D008E4203 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1E60D1DA78A5D008E4203 /* README.md */; };
 		2CD1E6111DA78A5D008E4203 /* VideoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD1E60F1DA78A5D008E4203 /* VideoService.m */; };
@@ -735,8 +734,6 @@
 		0490D1581CC9BFB60064844C /* TacticSingleModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticSingleModelFrame.m; sourceTree = "<group>"; };
 		0490D15D1CCB6A3E0064844C /* TacticCustomMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticCustomMapView.h; sourceTree = "<group>"; };
 		0490D15E1CCB6A3E0064844C /* TacticCustomMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticCustomMapView.m; sourceTree = "<group>"; };
-		04A99BEB1CBF848C00C6F5F0 /* UINavigationBar+Background.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Background.h"; sourceTree = "<group>"; };
-		04A99BEC1CBF848C00C6F5F0 /* UINavigationBar+Background.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Background.m"; sourceTree = "<group>"; };
 		04A99BED1CBF848C00C6F5F0 /* ZYZCBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCBaseViewController.h; sourceTree = "<group>"; };
 		04A99BEE1CBF848C00C6F5F0 /* ZYZCBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCBaseViewController.m; sourceTree = "<group>"; };
 		04A99BEF1CBF848C00C6F5F0 /* ZYZCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCNavigationController.h; sourceTree = "<group>"; };
@@ -852,8 +849,6 @@
 		055F684F1DB62098005C4345 /* ZYLiveHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLiveHomeViewController.m; sourceTree = "<group>"; };
 		056046C31D6DBDD5006906FD /* RCDLive.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCDLive.h; sourceTree = "<group>"; };
 		056046C41D6DBDD5006906FD /* RCDLive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCDLive.m; sourceTree = "<group>"; };
-		056FB5C61D9A51B600BBEF03 /* UINavigationBar+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Extension.h"; sourceTree = "<group>"; };
-		056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Extension.m"; sourceTree = "<group>"; };
 		05977B0B1DB85DC5007EC20A /* ASValuePopUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValuePopUpView.h; sourceTree = "<group>"; };
 		05977B0C1DB85DC5007EC20A /* ASValuePopUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASValuePopUpView.m; sourceTree = "<group>"; };
 		05977B0D1DB85DC5007EC20A /* ASValueTrackingSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASValueTrackingSlider.h; sourceTree = "<group>"; };
@@ -1300,6 +1295,8 @@
 		2CC78A821D9948E800CC04E2 /* ZYUserZoneController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYUserZoneController.m; sourceTree = "<group>"; };
 		2CC78A841D994AF300CC04E2 /* ZYUserBottomBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYUserBottomBarView.h; sourceTree = "<group>"; };
 		2CC78A851D994AF300CC04E2 /* ZYUserBottomBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYUserBottomBarView.m; sourceTree = "<group>"; };
+		2CD0EE931DC33D4400921BDD /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
+		2CD0EE941DC33D4400921BDD /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
 		2CD1E5FE1DA735BA008E4203 /* QPSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = QPSDK.bundle; sourceTree = "<group>"; };
 		2CD1E60D1DA78A5D008E4203 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		2CD1E60E1DA78A5D008E4203 /* VideoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoService.h; sourceTree = "<group>"; };
@@ -2258,8 +2255,6 @@
 		04A99BEA1CBF848C00C6F5F0 /* ZYZCBase */ = {
 			isa = PBXGroup;
 			children = (
-				04A99BEB1CBF848C00C6F5F0 /* UINavigationBar+Background.h */,
-				04A99BEC1CBF848C00C6F5F0 /* UINavigationBar+Background.m */,
 				04A99BED1CBF848C00C6F5F0 /* ZYZCBaseViewController.h */,
 				04A99BEE1CBF848C00C6F5F0 /* ZYZCBaseViewController.m */,
 				04A99BEF1CBF848C00C6F5F0 /* ZYZCNavigationController.h */,
@@ -5129,6 +5124,8 @@
 		39911AC01D504174007DF44B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				2CD0EE931DC33D4400921BDD /* UINavigationBar+Awesome.h */,
+				2CD0EE941DC33D4400921BDD /* UINavigationBar+Awesome.m */,
 				394D53471D62CAF800E7F595 /* Foundation+ZYLog.m */,
 				39911AC11D504174007DF44B /* UIColor+ZYZCColors.h */,
 				39911AC21D504174007DF44B /* UIColor+ZYZCColors.m */,
@@ -5140,8 +5137,6 @@
 				39911AC81D504174007DF44B /* UIView+ZYZCLineView.m */,
 				394D53791D62F45500E7F595 /* UIView+ZYLayer.h */,
 				394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */,
-				056FB5C61D9A51B600BBEF03 /* UINavigationBar+Extension.h */,
-				056FB5C71D9A51B600BBEF03 /* UINavigationBar+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -5818,7 +5813,6 @@
 				2C1B60D91D6D3CF900E3C25B /* FZCContentEntryView.m in Sources */,
 				2CDE66C01DA650690066F49D /* QPPickerPreviewCell.m in Sources */,
 				394C2A7C1DB9EDF000821F78 /* WalletKtxTableView.m in Sources */,
-				056FB5C81D9A51B600BBEF03 /* UINavigationBar+Extension.m in Sources */,
 				39911ACC1D504174007DF44B /* UIView+ZYZCLineView.m in Sources */,
 				2C91B6691D9155140091EC79 /* ZYCommentFootprintController.m in Sources */,
 				2C90F6F81D533579001ABB44 /* ZYZCMsgDetailViewController.m in Sources */,
@@ -5952,7 +5946,6 @@
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
 				2C1B60D51D6D3CF900E3C25B /* FZCReturnCellModel.m in Sources */,
 				2CD6B90D1DA9E02C00B7E60A /* HotCommentCell.m in Sources */,
-				04A99C951CBF848D00C6F5F0 /* UINavigationBar+Background.m in Sources */,
 				2CDE670C1DA651070066F49D /* QPMusicMoreDownProgressView.m in Sources */,
 				2C8B19881D0CF7EC0063097B /* XMNAssetCell.m in Sources */,
 				2CDE67401DA652380066F49D /* QPEffectMVManager.m in Sources */,
@@ -6006,6 +5999,7 @@
 				2C90F6F51D532349001ABB44 /* MsgListTableViewCell.m in Sources */,
 				2C3FAA211D54793000F2B187 /* MsgDetailModel.m in Sources */,
 				2CDE67561DA652C30066F49D /* ioapi.c in Sources */,
+				2CD0EE951DC33D4400921BDD /* UINavigationBar+Awesome.m in Sources */,
 				2C7E3B541D06CC4C00F51C61 /* MineOneItemModel.m in Sources */,
 				391115F01DC228A1000C82F1 /* WalletYbjModel.m in Sources */,
 				2CD6B8CB1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.m in Sources */,

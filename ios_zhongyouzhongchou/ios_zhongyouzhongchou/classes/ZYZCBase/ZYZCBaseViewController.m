@@ -8,6 +8,7 @@
 
 #import "ZYZCBaseViewController.h"
 #import "MBProgressHUD.h"
+
 @interface ZYZCBaseViewController ()
 @property (strong, nonatomic) MBProgressHUD *hud;
 
@@ -19,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor=[UIColor ZYZC_BgGrayColor];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     self.navigationController.navigationBar.titleTextAttributes=
   @{NSForegroundColorAttributeName:[UIColor whiteColor],
     NSFontAttributeName:[UIFont boldSystemFontOfSize:20]};
@@ -51,16 +52,6 @@
    
     self.navigationItem.rightBarButtonItem=[self customItemByImgName:rightName andAction:rightAction];
 }
-
--(void)customNavWithLeftBtnTitle:(NSString *)leftTitle andRightTitle:(NSString *)rightTitle andLeftTarget:(id)leftTarget andRightTarget:(id)rightTarget andLeftAction:(SEL)leftAction andRightAction:(SEL)rightAction
-{
-    
-    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:leftTitle style:UIBarButtonItemStyleDone target:leftTarget action:leftAction];
-    
-    
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc]initWithTitle:rightTitle style:UIBarButtonItemStylePlain target:rightTitle action:rightAction];
-}
-
 
 -(UIBarButtonItem *)customItemByImgName:(NSString *)imgName andAction:(SEL)action
 {

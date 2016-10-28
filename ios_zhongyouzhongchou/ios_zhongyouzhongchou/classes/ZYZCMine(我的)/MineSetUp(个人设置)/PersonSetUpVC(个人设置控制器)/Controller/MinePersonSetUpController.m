@@ -54,7 +54,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(0)];
 
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
@@ -70,7 +70,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
     self.navigationController.navigationBar.titleTextAttributes=
     @{NSForegroundColorAttributeName:[UIColor whiteColor],
@@ -159,10 +159,10 @@
     if (offsetY <= imageHeadHeight) {
         CGFloat alpha = MAX(0, offsetY/imageHeadHeight);
         
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(alpha)];
+        [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(alpha)];
         self.title = @"";
     } else {
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
+        [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
         self.title = @"个人设置";
         
     }

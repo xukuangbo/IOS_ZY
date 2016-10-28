@@ -30,7 +30,7 @@
 {
     [super viewWillAppear:animated];
 
-    [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:1]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:1]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
@@ -47,7 +47,6 @@
     
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
     //图标
     CGFloat logoImageViewH = 70;
     CGFloat logoImageViewW = logoImageViewH * (8 / 5.0);

@@ -47,7 +47,7 @@ static NSString *picCellID = @"TacticFoodPicCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(0)];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
@@ -186,10 +186,10 @@ static NSString *picCellID = @"TacticFoodPicCell";
     if (offsetY <= imageViewHeight) {
         CGFloat alpha = MAX(0, offsetY/imageViewHeight);
         
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(alpha)];
+        [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(alpha)];
         self.title = @"";
     } else {
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
+        [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
        
         self.title = self.tacticSingleFoodModel.name;
         self.title = @"特色美食";

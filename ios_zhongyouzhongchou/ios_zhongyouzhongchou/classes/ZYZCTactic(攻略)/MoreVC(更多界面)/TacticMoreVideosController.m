@@ -105,7 +105,7 @@ static NSString *const ID = @"MoreCollectioncell";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
