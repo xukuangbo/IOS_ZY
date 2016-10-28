@@ -1,0 +1,113 @@
+{
+  "musicName": "看海", 
+  "name": "Summer", 
+  "animations": [
+    {
+      "frames": [
+        {
+          "a": 0.0, 
+          "fx": 0.0, 
+          "fw": 640.0, 
+          "track": "a", 
+          "h": 1, 
+          "alpha": 100.0, 
+          "fh": 360.0, 
+          "cy": 180.0, 
+          "cx": 320.0, 
+          "t": 0, 
+          "w": 1, 
+          "fy": 0.0, 
+          "y": 180.0, 
+          "x": 320.0
+        }, 
+        {
+          "a": 0.0, 
+          "fx": 0.0, 
+          "fw": 640.0, 
+          "track": "a", 
+          "h": 1, 
+          "alpha": 100.0, 
+          "fh": 360.0, 
+          "cy": 180.0, 
+          "cx": 320.0, 
+          "t": 449, 
+          "w": 1, 
+          "fy": 0.0, 
+          "y": 180.0, 
+          "x": 320.0
+        }
+      ], 
+      "name": "main"
+    }
+  ], 
+  "music": "music.mp3", 
+  "effects": [
+    {
+      "src": "", 
+      "range": "", 
+      "video": "main", 
+      "eid": 1
+    }, 
+    {
+      "src": "", 
+      "range": "", 
+      "video": "rose.mp4", 
+      "eid": 2
+    }, 
+    {
+      "src": "", 
+      "range": "", 
+      "video": "rose_alpha.mp4", 
+      "eid": 3
+    }, 
+    {
+      "filterName": "ColorMinusAlphaColor", 
+      "range": "", 
+      "eid": 4, 
+      "src": "6,2,3"
+    }, 
+    {
+      "info": {
+        "animation": "main"
+      }, 
+      "filterName": "Animation", 
+      "range": "", 
+      "eid": 6, 
+      "src": "1"
+    }, 
+    {
+      "src": "", 
+      "range": "", 
+      "video": "screen.mp4", 
+      "eid": 7
+    }, 
+    {
+      "filterName": "Screen", 
+      "range": "", 
+      "eid": 8, 
+      "src": "4,7"
+    }
+  ], 
+  "filters": [
+    {
+      "images": [
+        "", 
+        ""
+      ], 
+      "fragment": " \nprecision highp float;\nuniform sampler2D inputImageTexture; //video\nuniform sampler2D inputImageTexture2; //mv\nuniform sampler2D inputImageTexture3; //alpha\nvarying vec2 textureCoordinate;\nvoid main()\n{\nvec4 video = texture2D(inputImageTexture, textureCoordinate);\nvec4 mv    = texture2D(inputImageTexture2, textureCoordinate);\nvec4 alpha = texture2D(inputImageTexture3, textureCoordinate);\ngl_FragColor = video * (1.0 - alpha.r) + mv;\n}", 
+      "name": "ColorMinusAlphaColor"
+    }, 
+    {
+      "images": [
+        ""
+      ], 
+      "fragment": " \nprecision highp float;\nuniform sampler2D inputImageTexture; //video\nuniform sampler2D inputImageTexture2; //screen\nvarying vec2 textureCoordinate;\nvoid main()\n{\nvec4 video = texture2D(inputImageTexture, textureCoordinate);\nvec4 screen = texture2D(inputImageTexture2, textureCoordinate);\nmediump vec4 whiteColor = vec4(1.0);\ngl_FragColor = whiteColor - ((whiteColor - screen) * (whiteColor - video));\n}", 
+      "name": "Screen"
+    }
+  ], 
+  "time": [
+    0
+  ], 
+  "icon": "icon.png", 
+  "musicIcon": "icon_music.png"
+}

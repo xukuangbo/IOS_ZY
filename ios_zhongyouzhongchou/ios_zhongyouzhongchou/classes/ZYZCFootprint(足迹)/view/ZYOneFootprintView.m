@@ -210,7 +210,14 @@
         if(footprintModel.videoimgsize>0)
         {
             if (footprintModel.videoimgsize<=1.0) {
-                _video.width = self.width;
+                if(_commentEnterType==enterCommentPage)
+                {
+                    _video.width = 2*PIC_WIDTH+10;
+                }
+                else if (_commentEnterType==enterCommentEdit)
+                {
+                    _video.width = self.width;
+                }
                 _video.height=_video.width*1.0/footprintModel.videoimgsize;
             }
             else

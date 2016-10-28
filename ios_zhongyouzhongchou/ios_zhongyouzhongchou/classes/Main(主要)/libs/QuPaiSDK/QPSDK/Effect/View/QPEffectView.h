@@ -23,6 +23,8 @@
 
 - (void)onClickSliderAction:(UISlider *)sender;
 
+- (void)tapEffectView:(UITapGestureRecognizer *)tap;
+
 @end
 
 @interface QPEffectView : UIView
