@@ -58,9 +58,7 @@
         _totalMoneyLabel.size = [ZYZCTool calculateStrLengthByText:_totalMoneyLabel.text andFont:_totalMoneyLabel.font andMaxWidth:MAXFLOAT];
     }
     if (walletYbjModel.status == 0) {//未使用
-        _walletYbjModel.img = nil;
-//        [UIImage imageNamed:@"Butttn_support"];
-        
+
         
     }else if(walletYbjModel.status == 1){//已使用
         
@@ -69,6 +67,8 @@
         
     }
     
+    _selectButton.hidden = NO;
+    [_selectButton setImage:[UIImage imageNamed:@"Butttn_support"] forState:UIControlStateNormal];
     
 }
 @end

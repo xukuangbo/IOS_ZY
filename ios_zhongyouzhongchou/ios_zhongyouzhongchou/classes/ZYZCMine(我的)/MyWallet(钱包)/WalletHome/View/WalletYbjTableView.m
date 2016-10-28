@@ -46,7 +46,7 @@ static NSString *cellID = @"WalletYbjCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 110;
+    return WalletYbjCellH;
 }
 
 #pragma mark --- 置顶按钮状态变化
