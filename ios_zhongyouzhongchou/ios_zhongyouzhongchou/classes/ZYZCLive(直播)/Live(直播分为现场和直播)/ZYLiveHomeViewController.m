@@ -90,11 +90,8 @@
     CGColorRef cgColor = [UIColor whiteColor].CGColor;
     [segmentControl.layer setBorderColor:cgColor];
     segmentControl.tintColor = [UIColor whiteColor];
-//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica-Light" size:14],nil];
-//    
-//
-//    [segmentControl setTitleTextAttributes:dic forState:UIControlStateNormal];
-//    
+    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica-Light" size:15.0f],nil];
+    [segmentControl setTitleTextAttributes:dic forState:UIControlStateNormal];
 //    NSDictionary *selecteddic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica-Light" size:14], [UIColor whiteColor],nil];
 //
 //    [segmentControl setTitleTextAttributes:selecteddic forState:UIControlStateSelected];

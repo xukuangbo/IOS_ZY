@@ -67,9 +67,13 @@
 - (void)requestData:(NSString *)otherUserId
 {
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *getUserInfoURL = Get_SelfInfo(userId, otherUserId);
+    NSString *getUserInfoURL = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail_action"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:otherUserId forKey:@"selfUserId"];
+    [parameter setValue:userId forKey:@"userId"];
+    
     WEAKSELF
-    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             NSDictionary *dic = (NSDictionary *)result;
             NSDictionary *data = dic[@"data"];
@@ -86,6 +90,25 @@
     } andFailBlock:^(id failResult) {
         NSLog(@"aaaaaaa");
     }];
+//    NSString *getUserInfoURL = Get_SelfInfo(userId, otherUserId);
+//    WEAKSELF
+//    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        if (isSuccess) {
+//            NSDictionary *dic = (NSDictionary *)result;
+//            NSDictionary *data = dic[@"data"];
+//            if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]){
+//                [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
+//            }
+//            MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
+//            minePersonModel.gzMeAll = data[@"gzMeAll"];
+//            minePersonModel.meGzAll = data[@"meGzAll"];
+//            weakSelf.personDataView.minePersonModel = minePersonModel;
+//        } else {
+//            NSLog(@"bbbbbbb");
+//        }
+//    } andFailBlock:^(id failResult) {
+//        NSLog(@"aaaaaaa");
+//    }];
 }
 
 #pragma mark - event

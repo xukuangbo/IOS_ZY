@@ -13,7 +13,8 @@
 
 @implementation VersionTool
 + (void)version{
-    [ZYZCHTTPTool getHttpDataByURL:GetNewVersion withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    NSString *versionUrl = [[ZYZCAPIGenerate sharedInstance] API:@"register_getAppVersion"];
+    [ZYZCHTTPTool getHttpDataByURL:versionUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
         //        NSLog(@"%@",result);
         //拿到版本号进行一系列判断
         [[self class] versionWithDic:result[@"data"]];

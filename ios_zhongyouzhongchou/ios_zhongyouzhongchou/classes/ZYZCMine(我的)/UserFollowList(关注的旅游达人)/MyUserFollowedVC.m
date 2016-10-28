@@ -75,13 +75,14 @@
 - (void)requestData
 {
     
-    NSString *url = Get_UserFollowed_List([ZYZCAccountTool getUserId]);
+//    NSString *url = Get_UserFollowed_List([ZYZCAccountTool getUserId]);
 //    NSLog(@"%@",url);
-    //访问网络
-    __weak typeof(&*self) weakSelf = self;
+//    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_listUserFollowed"];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_listUserFollowed"];
     [MBProgressHUD showMessage:nil];
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+    WEAKSELF
+    STRONGSELF
+    [ZYZCHTTPTool GET:url parameters:nil withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [NetWorkManager hideFailViewForView:self.view];
         if (isSuccess) {
             //请求成功，转化为数组
@@ -89,26 +90,54 @@
             
             
             if (weakSelf.userFollowedArray.count <= 0) {//没有数据，就显示占位图
-//                dispatch_async(dispatch_get_main_queue(), ^{
-                    [EntryPlaceholderView viewWithSuperView:weakSelf.view type:EntryTypeGuanzhuDaren];
-//                });
+                //                dispatch_async(dispatch_get_main_queue(), ^{
+                [EntryPlaceholderView viewWithSuperView:weakSelf.view type:EntryTypeGuanzhuDaren];
+                //                });
             }else{//如果有数据，就刷新
                 [weakSelf.tableView reloadData];
             }
         }
         [MBProgressHUD hideHUD];
-        
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+        NSLog(@"%@",failResult);
         [MBProgressHUD hideHUD];
         
         [NetWorkManager showMBWithFailResult:failResult];
         [NetWorkManager hideFailViewForView:self.view];
         __weak typeof (&*self)weakSelf=self;
         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-            [weakSelf requestData];
+            [strongSelf requestData];
         }];
     }];
+//    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        
+//        [NetWorkManager hideFailViewForView:self.view];
+//        if (isSuccess) {
+//            //请求成功，转化为数组
+//            weakSelf.userFollowedArray = [MyUserFollowedModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+//            
+//            
+//            if (weakSelf.userFollowedArray.count <= 0) {//没有数据，就显示占位图
+////                dispatch_async(dispatch_get_main_queue(), ^{
+//                    [EntryPlaceholderView viewWithSuperView:weakSelf.view type:EntryTypeGuanzhuDaren];
+////                });
+//            }else{//如果有数据，就刷新
+//                [weakSelf.tableView reloadData];
+//            }
+//        }
+//        [MBProgressHUD hideHUD];
+//        
+//    } andFailBlock:^(id failResult) {
+////        NSLog(@"%@",failResult);
+//        [MBProgressHUD hideHUD];
+//        
+//        [NetWorkManager showMBWithFailResult:failResult];
+//        [NetWorkManager hideFailViewForView:self.view];
+//        __weak typeof (&*self)weakSelf=self;
+//        [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
+//            [weakSelf requestData];
+//        }];
+//    }];
 }
 #pragma mark - set方法
 

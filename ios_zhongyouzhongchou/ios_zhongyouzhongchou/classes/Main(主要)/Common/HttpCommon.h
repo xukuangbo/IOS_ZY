@@ -30,6 +30,8 @@
 #define GETUSERDETAIL      HTTPURL(@"u/getUserDetail")
 //获取我关注的人
 #define Get_UserFollowed_List(userId)  [NSString stringWithFormat:@"%@friends/listUserFollowed.action?userId=%@",BASE_URL,userId]
+
+
 //获取个人信息（需带userId）
 #define Get_SelfInfo(selfUserId,userId)  [NSString stringWithFormat:@"%@u/getUserDetail.action?selfUserId=%@&userId=%@",BASE_URL,selfUserId,userId]
 //获取个人信息（带地址）
@@ -268,10 +270,10 @@
 #define Post_GetNetImg [NSString stringWithFormat:@"%@admin/viewSpotManage/getViewSpotImages.action",BASE_URL]
 
 
-//获取在线直播列表
+//获取在线直播列表和回放
 #define Post_Live_List [NSString stringWithFormat:@"%@zhibo/onlineList.action",BASE_URL]
 
-//获取直播和回放列表
+//获取现场列表
 #define Post_Scene_List [NSString stringWithFormat:@"%@youji/getXCPageList.action",BASE_URL]
 
 //创建直播

@@ -527,9 +527,14 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)requestData
 {
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *getUserInfoURL = Get_SelfInfo(userId, self.liveModel.userId);
+//    NSString *getUserInfoURL = Get_SelfInfo(userId, self.liveModel.userId);
+    NSString *getUserInfoURL = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail_action"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userId forKey:@"selfUserId"];
+    [parameter setValue:self.liveModel.userId forKey:@"userId"];
+    
     WEAKSELF
-    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSDictionary *dic = (NSDictionary *)result;
         NSDictionary *data = dic[@"data"];
         if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]) {
@@ -541,6 +546,19 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     } andFailBlock:^(id failResult) {
         weakSelf.livePersonNumberView.hidden = NO;
     }];
+//    WEAKSELF
+//    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        NSDictionary *dic = (NSDictionary *)result;
+//        NSDictionary *data = dic[@"data"];
+//        if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]) {
+//            [weakSelf updateLivePersonNumberViewFrame];
+//            weakSelf.livePersonNumberView.hidden = NO;
+//        } else{
+//            weakSelf.livePersonNumberView.hidden = NO;
+//        }
+//    } andFailBlock:^(id failResult) {
+//        weakSelf.livePersonNumberView.hidden = NO;
+//    }];
 }
 
 /** 请求总金额数据 */
