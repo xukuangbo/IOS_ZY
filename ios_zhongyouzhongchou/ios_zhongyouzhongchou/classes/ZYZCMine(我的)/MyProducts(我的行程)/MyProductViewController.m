@@ -177,59 +177,63 @@
 #pragma mark --- 获取我的众筹列表
 -(void)getHttpData
 {
-    NSString *httpUrl=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS,GET_MY_LIST([ZYZCAccountTool getUserId],_myProductType,_pageNo)];
-    
-//    NSLog(@"httpUrl:%@",httpUrl);
+//    NSString *httpUrl=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS,GET_MY_LIST([ZYZCAccountTool getUserId],_myProductType,_pageNo)];
+
+    NSString *httpUrl = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyProducts"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"false" forKey:@"cache"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", _myProductType] forKey:@"self"];
+    [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+    [parameter setValue:@"0" forKey:@"status_not"];
+    [parameter setValue:@"10" forKey:@"pageSize"];
+    WEAKSELF
+    STRONGSELF
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        [NetWorkManager hideFailViewForView:self.view];
-        [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"%@",result);
+    [ZYZCHTTPTool GET:httpUrl parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
-             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_myProductTable.mj_footer ;
-            if (_pageNo==1&&_listArr.count) {
-                [_listArr removeAllObjects];
-                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
+            MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_myProductTable.mj_footer ;
+            if (weakSelf.pageNo==1 && weakSelf.listArr.count) {
+                [weakSelf.listArr removeAllObjects];
+                [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
             }
-            _listModel=[[ZCListModel alloc]mj_setKeyValues:result];
+            weakSelf.listModel=[[ZCListModel alloc]mj_setKeyValues:result];
             for(ZCOneModel *oneModel in _listModel.data)
             {
-                [_listArr addObject:oneModel];
+                [weakSelf.listArr addObject:oneModel];
             }
             
-            if (!_listModel.data.count) {
-                _pageNo--;
+            if (!weakSelf.listModel.data.count) {
+                weakSelf.pageNo--;
                 [autoFooter setTitle:@"没有更多数据了" forState:MJRefreshStateRefreshing];
             }
             else
             {
-                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
+                [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
             }
             
             //没有数据，展示数据为空界面提示
             if (!_listArr.count) {
-                _noneDataView.hidden=NO;
-                _noneDataView.myZCType=_myProductType-MyPublishType;
+                weakSelf.noneDataView.hidden=NO;
+                weakSelf.noneDataView.myZCType=_myProductType-MyPublishType;
             }
             else
             {
-                _noneDataView.hidden=YES;
+                weakSelf.noneDataView.hidden=YES;
             }
-            _myProductTable.dataArr=_listArr;
-            [_myProductTable reloadData];
+            weakSelf.myProductTable.dataArr=_listArr;
+            [weakSelf.myProductTable reloadData];
         }
-        [_myProductTable.mj_header endRefreshing];
-        [_myProductTable.mj_footer endRefreshing];
-        
+        [weakSelf.myProductTable.mj_header endRefreshing];
+        [weakSelf.myProductTable.mj_footer endRefreshing];
     } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:self.view];
-        [_myProductTable.mj_header endRefreshing];
-        [_myProductTable.mj_footer endRefreshing];
+        [weakSelf.myProductTable.mj_header endRefreshing];
+        [weakSelf.myProductTable.mj_footer endRefreshing];
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
-        __weak typeof (&*self)weakSelf=self;
         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-            [weakSelf getHttpData];
+            [strongSelf getHttpData];
         }];
     }];
 }

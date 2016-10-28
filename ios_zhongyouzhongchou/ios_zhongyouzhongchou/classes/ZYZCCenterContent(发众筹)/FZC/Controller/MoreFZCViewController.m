@@ -343,28 +343,30 @@
             if (_editFromDraft) {
                 //判断众筹项目时间是否有冲突
                 MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
-                NSString *httpUrl=JUDGE_MY_PRODUCT_TIME([ZYZCAccountTool getUserId],manager.goal_startDate,manager.goal_backDate);
-                //            NSLog(@"%@",httpUrl);
+//                NSString *httpUrl=JUDGE_MY_PRODUCT_TIME([ZYZCAccountTool getUserId],manager.goal_startDate,manager.goal_backDate);
+                NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_checkMyProductsTime"];
+                NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+                [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+                [parameter setValue:manager.goal_backDate forKey:@"startTime"];
+                [parameter setValue:manager.goal_backDate forKey:@"endTime"];
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-                 {
-                     [MBProgressHUD hideHUDForView:self.view];
-                     //                 NSLog(@"%@",result);
-                     if([result[@"data"] isEqual:@0])
-                     {
-                         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"旅行时间与已有行程时间冲突,请修改" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                         [alert show];
-                     }
-                     else if([result[@"data"] isEqual:@1])
-                     {
-                         [self uploadDataToOSS];
-                     }
-                 } andFailBlock:^(id failResult) {
-                     [MBProgressHUD hideHUDForView:self.view];
-                     [MBProgressHUD showShortMessage:@"网络错误,发布失败"];
-                 }];
-            }
-            else{
+                [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+                    [MBProgressHUD hideHUDForView:self.view];
+                    //                 NSLog(@"%@",result);
+                    if([result[@"data"] isEqual:@0])
+                    {
+                        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"旅行时间与已有行程时间冲突,请修改" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                        [alert show];
+                    }
+                    else if([result[@"data"] isEqual:@1])
+                    {
+                        [self uploadDataToOSS];
+                    }
+                } andFailBlock:^(id failResult) {
+                    [MBProgressHUD hideHUDForView:self.view];
+                    [MBProgressHUD showShortMessage:@"网络错误,发布失败"];
+                }];
+            } else {
                 [self uploadDataToOSS];
             }
         }
@@ -686,7 +688,7 @@
 {
     DDLog(@"param:%@",[self turnJson:_dataDic]);
     
-    NSString *httpUrl=_editFromDraft?UPDATA_PRODUCT:ADDPRODUCT;
+    NSString *httpUrl=_editFromDraft?[[ZYZCAPIGenerate sharedInstance] API:@"product_updateproduct"]:[[ZYZCAPIGenerate sharedInstance] API:@"product_addProduct"];
 //    NSLog(@"httpUrl:%@",httpUrl);
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl  andParameters:_dataDic andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"result:%@",result);

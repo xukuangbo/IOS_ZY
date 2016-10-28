@@ -330,52 +330,59 @@
         return;
     }
 
-    NSString *url=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS, Get_Uer_List(_userModel.userId,_productType-Travel_PublishType+1,_travel_pageNo)];
-    
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         [MBProgressHUD hideHUD];
-         [NetWorkManager hideFailViewForView:self.view];
-         if (isSuccess) {
-             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_userProductTable.mj_footer ;
-             if (_travel_pageNo==1&&_productArr.count) {
-                 [_productArr removeAllObjects];
-                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
-             }
-             ZCListModel *listModel=[[ZCListModel alloc]mj_setKeyValues:result];
-             if (listModel.data.count) {
-                 for(ZCOneModel *oneModel in listModel.data)
-                 {
-                     [_productArr addObject:oneModel];
-                 }
-                 [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
-             }
-             else {
+//    NSString *url=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS, Get_Uer_List(_userModel.userId,_productType-Travel_PublishType+1,_travel_pageNo)];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyProducts"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"false" forKey:@"cache"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", _productType-Travel_PublishType+1] forKey:@"self"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%d", _travel_pageNo] forKey:@"pageNo"];
+    [parameter setValue:@"0,2" forKey:@"status_not"];
+    [parameter setValue:@"10" forKey:@"pageSize"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUD];
+        [NetWorkManager hideFailViewForView:self.view];
+        if (isSuccess) {
+            MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_userProductTable.mj_footer ;
+            if (_travel_pageNo==1&&_productArr.count) {
+                [_productArr removeAllObjects];
+                [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
+            }
+            ZCListModel *listModel=[[ZCListModel alloc]mj_setKeyValues:result];
+            if (listModel.data.count) {
+                for(ZCOneModel *oneModel in listModel.data)
+                {
+                    [_productArr addObject:oneModel];
+                }
+                [autoFooter setTitle:@"正在加载更多的数据..." forState:MJRefreshStateRefreshing];
+            }
+            else {
                 [autoFooter setTitle:@"没有更多数据了" forState:MJRefreshStateRefreshing];
-                 _travel_pageNo--;
-             }
-             _noneProductView.hidden=_productArr.count;
-             
-             _userProductTable.dataArr=_productArr;
-             [_userProductTable reloadData];
-         } else {
-             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-         }
-         //停止上拉刷新
-         [_userProductTable.mj_footer endRefreshing];
-         [_userProductTable.mj_header endRefreshing];
-     } andFailBlock:^(id failResult) {
-         [MBProgressHUD hideHUD];
-         //停止上拉刷新
-         [_userProductTable.mj_footer endRefreshing];
-         [_userProductTable.mj_header endRefreshing];
-         [NetWorkManager hideFailViewForView:self.view];
-         [NetWorkManager showMBWithFailResult:failResult];
-         __weak typeof (&*self)weakSelf=self;
-         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-             [weakSelf getProductsData];
-         }];
-     }];
+                _travel_pageNo--;
+            }
+            _noneProductView.hidden=_productArr.count;
+            
+            _userProductTable.dataArr=_productArr;
+            [_userProductTable reloadData];
+        } else {
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+        }
+        //停止上拉刷新
+        [_userProductTable.mj_footer endRefreshing];
+        [_userProductTable.mj_header endRefreshing];
+
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUD];
+        //停止上拉刷新
+        [_userProductTable.mj_footer endRefreshing];
+        [_userProductTable.mj_header endRefreshing];
+        [NetWorkManager hideFailViewForView:self.view];
+        [NetWorkManager showMBWithFailResult:failResult];
+        __weak typeof (&*self)weakSelf=self;
+        [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
+            [weakSelf getProductsData];
+        }];
+    }];
 }
 
 #pragma mark --- 获取足迹数据

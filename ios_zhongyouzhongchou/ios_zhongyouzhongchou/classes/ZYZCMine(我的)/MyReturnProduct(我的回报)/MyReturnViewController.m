@@ -117,13 +117,28 @@
 -(void)getHttpData
 {
     NSString *httpUrl=nil;
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     if(_productType==MyReturnProduct)
     {
-        httpUrl=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS,GET_MY_RETURN_LIST([ZYZCAccountTool getUserId],_pageNo)];
+//        httpUrl=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS,GET_MY_RETURN_LIST([ZYZCAccountTool getUserId],_pageNo)];
+        httpUrl = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyProducts"];
+        [parameter setValue:@"false" forKey:@"cache"];
+        [parameter setValue:@"4" forKey:@"self"];
+        [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+        [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+        [parameter setValue:@"0" forKey:@"status_not"];
+        [parameter setValue:@"10" forKey:@"pageSize"];
     }
     else if(_productType ==MyDraftProduct)
     {
-        httpUrl=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS,GET_MY_DRAFT_LIST([ZYZCAccountTool getUserId],_pageNo)];
+//        httpUrl=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS,GET_MY_DRAFT_LIST([ZYZCAccountTool getUserId],_pageNo)];
+        httpUrl = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyProducts"];
+        [parameter setValue:@"false" forKey:@"cache"];
+        [parameter setValue:@"1" forKey:@"self"];
+        [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+        [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+        [parameter setValue:@"0" forKey:@"status_not"];
+        [parameter setValue:@"10" forKey:@"pageSize"];
     }
     
      _table.productType=_productType;
@@ -135,7 +150,7 @@
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         _hasEnterView=YES;
     }
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool GET:httpUrl parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         [EntryPlaceholderView hidePlaceholderForView:self.view];
@@ -178,9 +193,8 @@
         
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
-        
     } andFailBlock:^(id failResult) {
-       [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD hideHUDForView:self.view];
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
         [EntryPlaceholderView hidePlaceholderForView:self.view];
@@ -191,6 +205,7 @@
             [weakSelf getHttpData];
         }];
     }];
+   
 }
 
 -(void)viewWillDisappear:(BOOL)animated

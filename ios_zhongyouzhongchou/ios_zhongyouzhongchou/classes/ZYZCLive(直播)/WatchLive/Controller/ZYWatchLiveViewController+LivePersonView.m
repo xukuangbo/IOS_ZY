@@ -232,27 +232,29 @@
     NSDictionary *params=@{@"productId":[NSString stringWithFormat:@"%@", self.liveModel.productId],@"style4":[NSString stringWithFormat:@"%.1lf", self.journeyLiveModel.togetherGoMoney / 10000.0]};
 
     //判断时间是否有冲突，如果有则不可支持
-    [ZYZCHTTPTool getHttpDataByURL:JUDGE_TIME_CONFLICT([ZYZCAccountTool getUserId],self.liveModel.productId) withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         //没有冲突
-         if ([result[@"data"] isEqual:@1]) {
-             WXApiManager *wxManager=[WXApiManager sharedManager];
-             [wxManager payForWeChat:params payUrl:GET_WX_ORDER withSuccessBolck:nil andFailBlock:nil];
-         }
-         else if ([result[@"data"] isEqual:@0])
-         {
-             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"此行程与已有行程时间冲突,不可支持一起游" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-             [alert show];
-         }
-         else
-         {
-             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-         }
-     }
-                      andFailBlock:^(id failResult)
-     {
-         [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-     }];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_checkMyProductsTime"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:self.liveModel.productId forKey:@"productId"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        //没有冲突
+        if ([result[@"data"] isEqual:@1]) {
+            WXApiManager *wxManager=[WXApiManager sharedManager];
+            [wxManager payForWeChat:params payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
+        }
+        else if ([result[@"data"] isEqual:@0])
+        {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"此行程与已有行程时间冲突,不可支持一起游" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else
+        {
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+        }
+
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+    }];
 }
 
 // 点击打赏回报
@@ -261,7 +263,7 @@
     NSDictionary *params=@{@"productId":[NSString stringWithFormat:@"%@", self.liveModel.productId],@"style3":[NSString stringWithFormat:@"%.1lf", self.journeyLiveModel.rewardMoney / 10000.0]};
     
     WXApiManager *wxManager=[WXApiManager sharedManager];
-    [wxManager payForWeChat:params payUrl:GET_WX_ORDER withSuccessBolck:nil andFailBlock:nil];
+    [wxManager payForWeChat:params payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
 }
 
 // 获取关联行程打赏结果

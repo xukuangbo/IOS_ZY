@@ -113,24 +113,24 @@
 {
 //    获取已报名参加一起游的信息
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *httpUrl=TOGTHER_INFO([ZYZCAccountTool getUserId], _productId);
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-    {
+//    NSString *httpUrl=TOGTHER_INFO([ZYZCAccountTool getUserId], _productId);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getStyle4Users"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
-//        NSLog(@"%@",result);
+        //        NSLog(@"%@",result);
         if (isSuccess) {
-          TogetherUersModel  *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
+            TogetherUersModel  *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
             self.togetherUersModel=togetherUersModel;
         }
         else
         {
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
         }
-    }
-    andFailBlock:^(id failResult)
-    {
-//        NSLog(@"%@",failResult);
+    } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
@@ -138,7 +138,6 @@
         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
             [weakSelf getHttpData];
         }];
-        
     }];
 }
 

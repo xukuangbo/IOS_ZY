@@ -50,30 +50,25 @@
  */
 - (void)reloadRefreshData
 {
-    NSString *url = GET_TACTIC;
-    //访问网络
-    __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//    NSString *url = GET_TACTIC;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_getIndexHot"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [NetWorkManager hideFailViewForView:weakSelf.viewController.view];
         if (isSuccess) {
             //请求成功，转化为数组
             TacticModel *tacticModel = [TacticModel mj_objectWithKeyValues:result[@"data"]];
             weakSelf.tacticModel = tacticModel;
-            
             [weakSelf reloadData];
         }
-        
     } andFailBlock:^(id failResult) {
         [NetWorkManager hideFailViewForView:weakSelf.viewController.view];
-//        NSLog(@"%@",failResult);
-        
-        __weak typeof (&*self)weakSelf=self;
         [NetWorkManager showMBWithFailResult:failResult];
         [NetWorkManager getFailViewForView:weakSelf.viewController.view andFailResult:failResult andReFrashBlock:^{
             [weakSelf reloadRefreshData];
         }];
     }];
-    
 }
 
 #pragma mark - UITableDelegate和Datasource

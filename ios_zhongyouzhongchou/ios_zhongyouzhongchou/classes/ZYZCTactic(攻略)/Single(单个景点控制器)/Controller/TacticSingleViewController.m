@@ -309,17 +309,19 @@
 {
 
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *url = Get_Tactic_Status_WantGo(userId, self.viewId);
-//    NSLog(@"%@",url);
-    __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//    NSString *url = Get_Tactic_Status_WantGo(userId, self.viewId);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_checkMySpotStatus"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%zd", self.viewId] forKey:@"viewId"];
+    [parameter setValue:userId forKey:@"userId"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess){
         if (isSuccess) {
             weakSelf.isWantGo = [result[@"data"] intValue];
         }
     } andFailBlock:^(id failResult) {
-        
+        [MBProgressHUD showError:ZYLocalizedString(@"del_spot_fail")];
     }];
-    
 }
 
 - (void)wantToGoAction:(UIButton *)button
@@ -331,29 +333,32 @@
         [MBProgressHUD showError:@"请登录后再点击"];
     }else{
         if(_isWantGo == NO){//加关注
-            NSString *wantGoUrl = Add_Tactic_WantGo(userId, self.viewId);
-//            NSLog(@"%@",wantGoUrl);
-            [ZYZCHTTPTool getHttpDataByURL:wantGoUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//            NSString *wantGoUrl = Add_Tactic_WantGo(userId, self.viewId);
+            NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_addMySpot"];
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+            [parameter setValue:[NSString stringWithFormat:@"%zd", self.viewId] forKey:@"viewId"];
+            [parameter setValue:userId forKey:@"userId"];
+            WEAKSELF
+            [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess){
                 [MBProgressHUD showSuccess:ZYLocalizedString(@"add_spot_success")];
                 //改文字
                 weakSelf.isWantGo = YES;
-                
             } andFailBlock:^(id failResult) {
                 [MBProgressHUD showError:ZYLocalizedString(@"add_spot_fail")];
             }];
-            
         }else{//取关
-            NSString *wantGoUrl = Del_Tactic__WantGo(userId, self.viewId);
-            [ZYZCHTTPTool getHttpDataByURL:wantGoUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//            NSString *wantGoUrl = Del_Tactic__WantGo(userId, self.viewId);
+            NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_delMySpot"];
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+            [parameter setValue:[NSString stringWithFormat:@"%zd", self.viewId] forKey:@"viewId"];
+            [parameter setValue:userId forKey:@"userId"];
+            WEAKSELF
+            [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess){
                 [MBProgressHUD showSuccess:ZYLocalizedString(@"del_spot_success")];
-                //改文字
-//                [self.sureButton setTitle:@"想去" forState:UIControlStateNormal];
-                
                 weakSelf.isWantGo = NO;
             } andFailBlock:^(id failResult) {
                 [MBProgressHUD showError:ZYLocalizedString(@"del_spot_fail")];
             }];
-            
         }
     }
 }
