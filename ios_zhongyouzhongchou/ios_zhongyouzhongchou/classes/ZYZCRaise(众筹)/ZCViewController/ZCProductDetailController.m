@@ -323,8 +323,8 @@
 -(void)collection
 {
     NSDictionary *parameters=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":_productId};
-    NSString *url=_getCollection?FOLLOWPRODUCT:UNFOLLOWPRODUCT;
-    
+    NSString *url=_getCollection?[[ZYZCAPIGenerate sharedInstance] API:@"friends_followProduct"]:[[ZYZCAPIGenerate sharedInstance] API:@"friends_unfollowProduct"];
+
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
 //        NSLog(@"%@",result);
         if(isSuccess)

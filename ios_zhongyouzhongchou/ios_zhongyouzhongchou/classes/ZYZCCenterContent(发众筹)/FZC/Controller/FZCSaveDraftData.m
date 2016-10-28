@@ -109,23 +109,22 @@
     
     detailProductModel.schedule=dataManager.travelDetailDays;
     
-    [ZYZCHTTPTool getHttpDataByURL:[NSString stringWithFormat:@"%@userId=%@",GETUSERINFO,[ZYZCAccountTool getUserId]] withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         if (isSuccess) {
-             UserModel *user=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
-             oneModel.user=user;
-             detailProductModel.user=user;
-             if (doBlock) {
-                 doBlock();
-             }
-         }
-    }
-      andFailBlock:^(id failResult)
-     {
-         
-     }];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_getUserInfo"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            UserModel *user=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
+            oneModel.user=user;
+            detailProductModel.user=user;
+            if (doBlock) {
+                doBlock();
+            }
+        }
+    } andFailBlock:^(id failResult) {
+        
+    }];
 }
-
-
 
 @end

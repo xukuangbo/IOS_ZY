@@ -36,7 +36,6 @@
 #define Get_UserInfo_AddressInfo(userId) [NSString stringWithFormat:@"%@register/getUserInfo.action?userId=%@",BASE_URL,userId]
 //获取label信息
 #define LISTLABLE          HTTPURL(@"user/listLabel")
-
 //关注个人
 #define FOLLOWUSER         HTTPURL(@"friends/followUser")
 //取消关注个人
@@ -47,6 +46,7 @@
 #define UNFOLLOWPRODUCT    HTTPURL(@"friends/unfollowProduct")
 //获取用户信息
 #define GETUSERINFO        HTTPURL(@"register/getUserInfo")
+
 //注册微信用户信息
 #define REGISTERWEICHAT    HTTPURL(@"register/saveWeixinInfo")
 //注册个人信息（总）
@@ -268,10 +268,10 @@
 #define Post_GetNetImg [NSString stringWithFormat:@"%@admin/viewSpotManage/getViewSpotImages.action",BASE_URL]
 
 
-//获取在线直播列表
+//获取在线直播列表和回放
 #define Post_Live_List [NSString stringWithFormat:@"%@zhibo/onlineList.action",BASE_URL]
 
-//获取直播和回放列表
+//获取现场列表
 #define Post_Scene_List [NSString stringWithFormat:@"%@youji/getXCPageList.action",BASE_URL]
 
 //创建直播

@@ -1,7 +1,579 @@
 {
+    "register_getAppVersion": {
+        "control": "register",
+        "action": "getAppVersion.action",
+        "protocol": "http"
+    },
+    
+    "u_getUserDetail": {
+        "control": "u",
+        "action": "getUserDetail",
+        "protocol": "http"
+    },
+    
+    "friends_listUserFollowed": {
+        "control": "friends",
+        "action": "listUserFollowed",
+        "protocol": "http"
+    },
+    
+    "u_getUserDetail_action": {
+        "control": "u",
+        "action": "getUserDetail.action",
+        "protocol": "http"
+    },
+    
+    "register_getUserInfo_action": {
+        "control": "register",
+        "action": "getUserInfo.action",
+        "protocol": "http"
+    },
+    
+    "user_listLabel": {
+        "control": "user",
+        "action": "listLabel",
+        "protocol": "http"
+    },
+    
+    "friends_followUser": {
+        "control": "friends",
+        "action": "followUser",
+        "protocol": "http"
+    },
+    
+    "friends_unfollowUser": {
+        "control": "friends",
+        "action": "unfollowUser",
+        "protocol": "http"
+    },
+    
+    "friends_followProduct": {
+        "control": "friends",
+        "action": "followProduct",
+        "protocol": "http"
+    },
+    
+    "friends_unfollowProduct": {
+        "control": "friends",
+        "action": "unfollowProduct",
+        "protocol": "http"
+    },
+    
+    "register_getUserInfo": {
+        "control": "register",
+        "action": "getUserInfo",
+        "protocol": "http"
+    },
+    
+    "register_saveWeixinInfo": {
+        "control": "register",
+        "action": "saveWeixinInfo",
+        "protocol": "http"
+    },
+    
+    "register_updateUserInfo": {
+        "control": "register",
+        "action": "updateUserInfo.action",
+        "protocol": "http"
+    },
+    
+    "register_saveDeliveryAddress": {
+        "control": "register",
+        "action": "saveDeliveryAddress.action",
+        "protocol": "http"
+    },
+    
+    "list_listMyTxProductsTotles": {
+        "control": "list",
+        "action": "listMyTxProductsTotles.action",
+        "protocol": "http"
+    },
+    
+    "register_saveBaseInfo": {
+        "control": "register",
+        "action": "saveBaseInfo",
+        "protocol": "http"
+    },
+    
+    "register_saveAuthInfo": {
+        "control": "register",
+        "action": "saveAuthInfo",
+        "protocol": "http"
+    },
+    
+    "register_saveContactInfo": {
+        "control": "register",
+        "action": "saveContactInfo",
+        "protocol": "http"
+    },
+    
+    "register_saveCareerInfo": {
+        "control": "register",
+        "action": "saveCareerInfo",
+        "protocol": "http"
+    },
+    
+    "register_saveEduInfo": {
+        "control": "register",
+        "action": "saveEduInfo",
+        "protocol": "http"
+    },
+    
+    "register_saveTagInfo": {
+        "control": "register",
+        "action": "saveTagInfo",
+        "protocol": "http"
+    },
+    
+    "register_saveDeliveryAddress": {
+        "control": "register",
+        "action": "saveDeliveryAddress",
+        "protocol": "http"
+    },
+    
+    "product_addProduct": {
+        "control": "product",
+        "action": "addProduct",
+        "protocol": "http"
+    },
+    
+    "product_updateproduct": {
+        "control": "product",
+        "action": "updateproduct",
+        "protocol": "http"
+    },
+    
+    "productInfo_getProductDetail": {
+        "control": "productInfo",
+        "action": "getProductDetail",
+        "protocol": "http"
+    },
+    "comment_addZhongchouComment": {
+        "control": "comment",
+        "action": "addZhongchouComment",
+        "protocol": "http"
+    },
+    "comment_listZhongchouComment": {
+        "control": "comment",
+        "action": "listZhongchouComment",
+        "protocol": "http"
+    },
+    "wallet_getMyWallet": {
+        "control": "wallet",
+        "action": "getMyWallet",
+        "protocol": "http"
+    },
+    "weixinpay_generateAppOrder": {
+        "control": "weixinpay",
+        "action": "generateAppOrder",
+        "protocol": "http"
+    },
+    "list_listAllProductsApp": {
+        "control": "list",
+        "action": "listAllProductsApp",
+        "protocol": "http"
+    },
+    "list_listMyProducts": {
+        "control": "list",
+        "action": "listMyProducts",
+        "protocol": "http"
+    },
+    "user_listCountry": {
+        "control": "user",
+        "action": "listCountry",
+        "protocol": "http"
+    },
+    "viewSpot_getAllViews": {
+        "control": "viewSpot",
+        "action": "getAllViews",
+        "protocol": "http"
+    },
+     
+    "list_listMyProductsTime": {
+        "control": "list",
+        "action": "listMyProductsTime",
+        "protocol": "http"
+    },
+    "viewSpot_getViewSpot": {
+        "control": "viewSpot",
+        "action": "getViewSpot",
+        "protocol": "http"
+    },
+    "viewSpot_getViewSpotVideo": {
+        "control": "viewSpot",
+        "action": "getViewSpotVideo",
+        "protocol": "http"
+    },
+    "viewSpot_getIndexHot": {
+        "control": "viewSpot",
+        "action": "getIndexHot.action",
+        "protocol": "http"
+    },
+    "viewSpot_getViewSpotAction": {
+        "control": "viewSpot",
+        "action": "getViewSpot.action",
+        "protocol": "http"
+    },
+    "adminback_getViewList": {
+        "control": "admin_back",
+        "action": "getViewList.action",
+        "protocol": "http"
+    },
+    
+    "adminback_getViewVideoList": {
+        "control": "admin_back",
+        "action": "getViewVideoList.action",
+        "protocol": "http"
+    },
+    "adminback_getViewVideoList2": {
+        "control": "admin_back",
+        "action": "getViewVideoList2.action",
+        "protocol": "http"
+    },
+    "viewSpot_addMySpot": {
+        "control": "viewSpot",
+        "action": "addMySpot.action",
+        "protocol": "http"
+    },
+    "viewSpot_delMySpot": {
+        "control": "viewSpot",
+        "action": "delMySpot.action",
+        "protocol": "http"
+    },
+    "viewSpot_getMySpots": {
+        "control": "viewSpot",
+        "action": "getMySpots.action",
+        "protocol": "http"
+    },
+    "viewSpot_checkMySpotStatus": {
+        "control": "viewSpot",
+        "action": "checkMySpotStatus.action",
+        "protocol": "http"
+    },
+    "user_listLabelAction": {
+        "control": "user",
+        "action": "listLabel.action",
+        "protocol": "http"
+    },
+    "register_saveTagInfo": {
+        "control": "register",
+        "action": "saveTagInfo.action",
+        "protocol": "http"
+    },
+    "u_getUserById": {
+        "control": "u",
+        "action": "getUserById",
+        "protocol": "http"
+    },
+    "u_getUserByOpenId": {
+        "control": "u",
+        "action": "getUserByOpenId.action",
+        "protocol": "http"
+    },
+    "rongAPI_getToken": {
+        "control": "rongAPI",
+        "action": "getToken.action",
+        "protocol": "http"
+    },
+    "rongAPI_getTokenTest": {
+        "control": "rongAPI",
+        "action": "getTokenTest.action",
+        "protocol": "http"
+    },
+    "weixinpay_generateAppOrder": {
+        "control": "weixinpay",
+        "action": "generateAppOrder.action",
+        "protocol": "http"
+    },
+    "wxAPI_getToken": {
+        "control": "wxAPI",
+        "action": "getToken.action",
+        "protocol": "http"
+    },
+    "product_deleteProduct": {
+        "control": "product",
+        "action": "deleteProduct.action",
+        "protocol": "http"
+    },
+    "product_updateproduct": {
+        "control": "product",
+        "action": "updateproduct.action",
+        "protocol": "http"
+    },
+    "list_checkMyProductsTime": {
+        "control": "list",
+        "action": "checkMyProductsTime.action",
+        "protocol": "http"
+    },
+    
+    "productInfo_getStyle4Users": {
+        "control": "productInfo",
+        "action": "getStyle4Users.action",
+        "protocol": "http"
+    },
+    "productInfo_savaProductUserStatus": {
+        "control": "productInfo",
+        "action": "savaProductUserStatus.action",
+        "protocol": "http"
+    },
+    "productInfo_getProductUserStatusList": {
+        "control": "productInfo",
+        "action": "getProductUserStatusList.action",
+        "protocol": "http"
+    },
+    "productInfo_delProductUserStatus": {
+        "control": "productInfo",
+        "action": "delProductUserStatus.action",
+        "protocol": "http"
+    },
+    "productInfo_sendInvitation": {
+        "control": "productInfo",
+        "action": "sendInvitation.action",
+        "protocol": "http"
+    },
+    "productInfo_sendBackpay": {
+        "control": "productInfo",
+        "action": "sendBackpay.action",
+        "protocol": "http"
+    },
+    "productInfo_acceptInvitation": {
+        "control": "productInfo",
+        "action": "acceptInvitation.action",
+        "protocol": "http"
+    },
+    "productInfo_acceptBackpay": {
+        "control": "productInfo",
+        "action": "acceptBackpay.action",
+        "protocol": "http"
+    },
+    "productInfo_delMyStyle4": {
+        "control": "productInfo",
+        "action": "delMyStyle4.action",
+        "protocol": "http"
+    },
+    "productInfo_savaProductComment11": {
+        "control": "productInfo",
+        "action": "savaProductComment11.action",
+        "protocol": "http"
+    },
+    "productInfo_savaProductComment12": {
+        "control": "productInfo",
+        "action": "savaProductComment12.action",
+        "protocol": "http"
+    },
+    "productInfo_savaProductComment21": {
+        "control": "productInfo",
+        "action": "savaProductComment21.action",
+        "protocol": "http"
+    },
+    "productInfo_savaProductComment22": {
+        "control": "productInfo",
+        "action": "savaProductComment22.action",
+        "protocol": "http"
+    },
+    "productInfo_productVoucher": {
+        "control": "productInfo",
+        "action": "productVoucher.action",
+        "protocol": "http"
+    },
+    "productInfo_getCanCommonUserStatusList": {
+        "control": "productInfo",
+        "action": "getCanCommonUserStatusList.action",
+        "protocol": "http"
+    },
+    "productInfo_productComplaint": {
+        "control": "productInfo",
+        "action": "productComplaint.action",
+        "protocol": "http"
+    },
+    "productInfo_getMyStylePayStatus": {
+        "control": "productInfo",
+        "action": "getMyStylePayStatus.action",
+        "protocol": "http"
+    },
+    "productInfo_getOrderPayStatus": {
+        "control": "productInfo",
+        "action": "getOrderPayStatus.action",
+        "protocol": "http"
+    },
+    "list_listAllProducts": {
+        "control": "list",
+        "action": "listAllProducts.action",
+        "protocol": "http"
+    },
+    "register_checkUserInfoIntegrality": {
+        "control": "register",
+        "action": "checkUserInfoIntegrality.action",
+        "protocol": "http"
+    },
+    
+    "productInfo_checkMyProduct": {
+        "control": "productInfo",
+        "action": "checkMyProduct.action",
+        "protocol": "http"
+    },
+    "list_recordDetail": {
+        "control": "list",
+        "action": "recordDetail.action",
+        "protocol": "http"
+    },
+    "register_saveAdvice": {
+        "control": "register",
+        "action": "saveAdvice.action",
+        "protocol": "http"
+    },
+    "register_getXieyi": {
+        "control": "register",
+        "action": "getXieyi.action",
+        "protocol": "http"
+    },
+    
+    "u_getUserBaseInfo": {
+        "control": "u",
+        "action": "getUserBaseInfo.action",
+        "protocol": "http"
+    },
+    "systemMsg_unReadTotles": {
+        "control": "systemMsg",
+        "action": "unReadTotles.action",
+        "protocol": "http"
+    },
+    "systemMsg_getMsgList": {
+        "control": "systemMsg",
+        "action": "getMsgList.action",
+        "protocol": "http"
+    },
+    "systemMsg_deleteMsg": {
+        "control": "systemMsg",
+        "action": "deleteMsg.action",
+        "protocol": "http"
+    },
+    "systemMsg_viewMsg": {
+        "control": "systemMsg",
+        "action": "viewMsg.action",
+        "protocol": "http"
+    },
+    "admin_viewSpotManage_getViewSpotImages": {
+        "control": "admin/viewSpotManage",
+        "action": "getViewSpotImages.action",
+        "protocol": "http"
+    },
     "zhibo_onlineList": {
         "control": "zhibo",
         "action": "onlineList.action",
         "protocol": "http"
     },
+    "youji_getXCPageList": {
+        "control": "youji",
+        "action": "getXCPageList.action",
+        "protocol": "http"
+    },
+    "zhibo_creatZhibo": {
+        "control": "zhibo",
+        "action": "creatZhibo.action",
+        "protocol": "http"
+    },
+    "zhibo_zanZhibo": {
+        "control": "zhibo",
+        "action": "zanZhibo.action",
+        "protocol": "http"
+    },
+    "weixinpay_zhiboAppOrder": {
+        "control": "weixinpay",
+        "action": "zhiboAppOrder.action",
+        "protocol": "http"
+    },
+    "zhibo_zhiboOrderTotle": {
+        "control": "zhibo",
+        "action": "zhiboOrderTotle.action",
+        "protocol": "http"
+    },
+    "youji_addYouji": {
+        "control": "youji",
+        "action": "addYouji.action",
+        "protocol": "http"
+    },
+    "youji_getPageList": {
+        "control": "youji",
+        "action": "getPageList.action",
+        "protocol": "http"
+    },
+    "youji_addZan": {
+        "control": "youji",
+        "action": "addZan.action",
+        "protocol": "http"
+    },
+    "youji_delZan": {
+        "control": "youji",
+        "action": "delZan.action",
+        "protocol": "http"
+    },
+    "youji_getCommentPageList": {
+        "control": "youji",
+        "action": "getCommentPageList.action",
+        "protocol": "http"
+    },
+    "youji_addComment": {
+        "control": "youji",
+        "action": "addComment.action",
+        "protocol": "http"
+    },
+    "youji_delComment": {
+        "control": "youji",
+        "action": "delComment.action",
+        "protocol": "http"
+    },
+    "youji_getZanList": {
+        "control": "youji",
+        "action": "getZanList.action",
+        "protocol": "http"
+    },
+    "youji_deleteYouji": {
+        "control": "youji",
+        "action": "deleteYouji.action",
+        "protocol": "http"
+    },
+    "zhibo_getOrderPayStatus": {
+        "control": "zhibo",
+        "action": "getOrderPayStatus.action",
+        "protocol": "http"
+    },
+    "systemMsg_msgSetRead": {
+        "control": "systemMsg",
+        "action": "msgSetRead.action",
+        "protocol": "http"
+    },
+    "zhibo_getZHibo": {
+        "control": "zhibo",
+        "action": "getZHibo.action",
+        "protocol": "http"
+    },
+    "productInfo_getMyLastProduct": {
+        "control": "productInfo",
+        "action": "getMyLastProduct.action",
+        "protocol": "http"
+    },
+    "zhibo_delZhibo": {
+        "control": "zhibo",
+        "action": "delZhibo.action",
+        "protocol": "http"
+    },
+    "zhibo_zhiboOrderList": {
+        "control": "zhibo",
+        "action": "zhiboOrderList.action",
+        "protocol": "http"
+    },
+    
+    "list_listMyTxProducts": {
+        "control": "list",
+        "action": "listMyTxProducts.action",
+        "protocol": "http"
+    },
+    
+    "productInfo_getProductMinInfo": {
+        "control": "productInfo",
+        "action": "getProductMinInfo.action",
+        "protocol": "http"
+    }
 }
+

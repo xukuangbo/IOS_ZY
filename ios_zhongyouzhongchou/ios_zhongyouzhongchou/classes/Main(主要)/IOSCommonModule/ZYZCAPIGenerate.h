@@ -26,6 +26,6 @@ typedef NS_ENUM(NSUInteger, kLinkServerType) {
 
 +(ZYZCAPIGenerate*)sharedInstance;
 -(NSString*)API:(NSString*)apiName;
-
+- (NSString *)APIBaseUrl;
 
 @end

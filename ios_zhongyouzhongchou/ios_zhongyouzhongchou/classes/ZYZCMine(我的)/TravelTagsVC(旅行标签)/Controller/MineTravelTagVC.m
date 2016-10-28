@@ -124,27 +124,25 @@
 - (void)requestPersonTagData
 {
     NSString *userId = [ZYZCAccountTool getUserId];
-    __weak typeof(&*self) weakSelf = self;
-//    NSLog(@"%@",Get_UserInfo_AddressInfo(userId));
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_getUserInfo_action"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userId forKey:@"userId"];
     [MBProgressHUD showMessage:@"正在加载"];
-    [ZYZCHTTPTool getHttpDataByURL:Get_UserInfo_AddressInfo(userId) withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSString *tagstring = result[@"data"][@"user"][@"tags"];
         if (tagstring) {
-            
             weakSelf.personTagArray = [tagstring componentsSeparatedByString:@","];
-            
             [self requestDataOne];
-            
         }else{
-            
             [self requestDataOne];
-            
         }
-        
     } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUD];
         [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
     }];
+
 }
 
 - (void)requestDataOne{

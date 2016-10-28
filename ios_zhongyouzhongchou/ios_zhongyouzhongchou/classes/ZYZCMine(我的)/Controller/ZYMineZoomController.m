@@ -259,9 +259,10 @@
 #pragma mark --- 获取个人信息
 -(void)getUserInfoData
 {
-    NSString *userId=[ZYZCAccountTool getUserId];
+//    NSString *userId=[ZYZCAccountTool getUserId];
     [MBProgressHUD showMessage:nil];
-    NSString *url=[NSString stringWithFormat:@"%@selfUserId=%@&userId=%@",GETUSERDETAIL,[ZYZCAccountTool getUserId],userId];
+//    NSString *url=[NSString stringWithFormat:@"%@selfUserId=%@&userId=%@",GETUSERDETAIL,[ZYZCAccountTool getUserId],userId];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail"];
     [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          [MBProgressHUD hideHUD];
