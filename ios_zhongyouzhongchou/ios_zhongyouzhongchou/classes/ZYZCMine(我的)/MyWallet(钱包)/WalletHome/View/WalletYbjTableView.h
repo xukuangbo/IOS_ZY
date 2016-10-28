@@ -10,9 +10,13 @@
 
 typedef void (^ScrollWillBeginDraggingBlock)();
 typedef void (^ScrollDidEndDeceleratingBlock)();
+
+typedef void (^FirstRefreshBlock)();
 @interface WalletYbjTableView : ZYZCBaseTableView
 
 @property (nonatomic, copy  ) ScrollWillBeginDraggingBlock scrollWillBeginDraggingBlock;
 
 @property (nonatomic, copy  ) ScrollDidEndDeceleratingBlock scrollDidEndDeceleratingBlock;
+
+@property (nonatomic, copy) FirstRefreshBlock firstRefreshBlock;
 @end

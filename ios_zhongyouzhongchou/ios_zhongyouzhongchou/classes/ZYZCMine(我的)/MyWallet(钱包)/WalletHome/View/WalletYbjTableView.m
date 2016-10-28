@@ -23,7 +23,7 @@ static NSString *cellID = @"WalletYbjCell";
         
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
         
-        [self registerNib:[UINib nibWithNibName:@"WalletKtxCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellID];
+        [self registerNib:[UINib nibWithNibName:@"WalletYbjCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellID];
     }
     return self;
 }
@@ -46,7 +46,7 @@ static NSString *cellID = @"WalletYbjCell";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 110;
+    return WalletYbjCellH;
 }
 
 #pragma mark --- 置顶按钮状态变化

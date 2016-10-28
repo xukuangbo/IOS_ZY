@@ -33,8 +33,6 @@
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
-    
     //正文
     _writeTextView = [[WriteTextView alloc] init];
     _writeTextView.delegate = self;
@@ -71,7 +69,6 @@
     
     [_writeTextView becomeFirstResponder];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_MainColor] colorWithAlphaComponent:1]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 

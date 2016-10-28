@@ -451,18 +451,18 @@
     CGFloat height=BGIMAGEHEIGHT;
     if (offsetY >= -height) {
         CGFloat alpha = MIN(1, (height + offsetY)/height);
-        [self.navigationController.navigationBar cnSetBackgroundColor:[_navColor colorWithAlphaComponent:alpha]];
+        [self.navigationController.navigationBar lt_setBackgroundColor:[_navColor colorWithAlphaComponent:alpha]];
     }
     else
     {
-        [self.navigationController.navigationBar cnSetBackgroundColor:[_navColor colorWithAlphaComponent:0]];
+        [self.navigationController.navigationBar lt_setBackgroundColor:[_navColor colorWithAlphaComponent:0]];
     }
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[_navColor colorWithAlphaComponent:0]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[_navColor colorWithAlphaComponent:0]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     _viewDidappear=YES;
     _shareBtn.hidden=NO;

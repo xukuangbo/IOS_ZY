@@ -34,7 +34,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:1]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:1]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
@@ -48,7 +48,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:0]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[[UIColor ZYZC_NavColor] colorWithAlphaComponent:0]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 - (void)configUI
@@ -65,7 +65,7 @@
     self.navigationItem.titleView = titleLabel;
     
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
     //正文
     //    _textView = [[UITextView alloc] init];

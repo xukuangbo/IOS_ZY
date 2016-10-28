@@ -15,7 +15,6 @@
 #import "NewPagedFlowView.h"
 #import "PGIndexBannerSubiew.h"
 #import "VideoService.h"
-#import "UINavigationBar+Background.h"
 @interface ChooseThumbController ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource,UIScrollViewDelegate>
 @property (nonatomic, strong) ZYCustomBlurView    *backImgView;
 @property (nonatomic, strong) UILabel             *pageLab;

@@ -32,7 +32,6 @@
 @property (nonatomic, strong) UISegmentedControl *segmentedView;
 @property (nonatomic, strong) ZCMainTableView    *table;
 @property (nonatomic, strong) UIImageView        *fitersView;
-@property (nonatomic, strong) NSMutableArray     *filterArr;
 @property (nonatomic, strong) ZCListModel        *listModel;
 @property (nonatomic, strong) NSMutableArray     *listArr;
 @property (nonatomic, strong) UIButton           *scrollTop;
@@ -66,8 +65,8 @@
     _listArr=[NSMutableArray array];
     _pageNo=1;
     _isFirstEntry=YES;
-    _filterItems=@[@"看成功",@"看最新",@"看全部",@"默认"];
-    _filterType=2+_filterItems.count;//默认
+    _filterItems=@[@"只看女",@"只看男",@"看成功",@"看最新",@"看全部",@"默认"];
+    _filterType=_filterItems.count;//默认
     [self setNavBar];
     [self configUI];
     if (![ZYGuideManager getGuideStartZhongchou]) {
@@ -78,32 +77,13 @@
 
 -(void)setNavBar
 {
-    //nav左右两边按钮创建
-//    [self customNavWithLeftBtnImgName:@"nav_r"
-//                      andRightImgName:nil
-//                        andLeftAction:@selector(clickLeftNavBtn)
-//                       andRightAction:nil];
-    
-    UIButton *navLeftBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    navLeftBtn.frame=CGRectMake(0, 4, 60, 30);
-    //    navRightBtn.backgroundColor=[UIColor orangeColor];
-    [navLeftBtn setTitle:@"筛选" forState:UIControlStateNormal];
-    navLeftBtn.titleLabel.font=[UIFont systemFontOfSize:13];
-    //    navRightBtn.titleLabel.textAlignment=NSTextAlignmentRight;
-    [navLeftBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [navLeftBtn addTarget:self action:@selector(clickLeftNavBtn) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *navLeftBtn=[ZYZCTool createBtnWithFrame:CGRectMake(0, 4, 60, 30) andNormalTitle:@"筛选" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(clickLeftNavBtn)];
+    navLeftBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
     [self.navigationController.navigationBar addSubview:navLeftBtn];
     _navLeftBtn=navLeftBtn;
 
-    
-    UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
-//    navRightBtn.backgroundColor=[UIColor orangeColor];
-    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
-    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
-//    navRightBtn.titleLabel.textAlignment=NSTextAlignmentRight;
-    [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [navRightBtn addTarget:self action:@selector(clickRightNavBtn) forControlEvents:UIControlEventTouchUpInside];
+    UIButton *navRightBtn=[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-60, 4, 60, 30) andNormalTitle:@"发起" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(clickLeftNavBtn)];
+    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
     [self.navigationController.navigationBar addSubview:navRightBtn];
     _navRightBtn=navRightBtn;
     
@@ -116,16 +96,18 @@
     _searchBar.layer.masksToBounds=YES;
     _searchBar.placeholder=@"请输关键词搜索";
     _searchBar.returnKeyType=UIReturnKeyDone;
+    [_searchBar setImage:[UIImage imageNamed:@"icon_search"] forSearchBarIcon:UISearchBarIconSearch state:UIControlStateNormal];
     for (UIView* subview in [[_searchBar.subviews lastObject] subviews]) {
         if ([subview isKindOfClass:[UITextField class]]) {
             UITextField *textField = (UITextField*)subview;
             //修改输入字体的颜色
-            //textField.textColor = [UIColor redColor];
+            textField.textColor = [UIColor ZYZC_TextBlackColor];
+            textField.font = [UIFont systemFontOfSize:15.f];
             //修改输入框的颜色
             [textField setBackgroundColor:[UIColor whiteColor]];
             //修改placeholder的颜色
-            [textField setValue:[UIColor ZYZC_TextGrayColor01] forKeyPath:@"_placeholderLabel.textColor"];
-            }
+            [textField setValue:[UIColor ZYZC_TextGrayColor] forKeyPath:@"_placeholderLabel.textColor"];
+        }
         else if([subview isKindOfClass:
                  NSClassFromString(@"UISearchBarBackground")])
         {
@@ -171,19 +153,9 @@
     if (self.searchBar.isFirstResponder) {
         [self.searchBar resignFirstResponder];
     }
-    
-    _filterArr=[NSMutableArray array];
-    NSArray *titleArr=@[@"只看女",@"只看男"];
-    NSArray *imgNameArr=@[@"btn_sex_fem",@"btn_sex_mal"];
-    for (int i=0; i<2; i++) {
-        ZCFilterModel *filterModel=[[ZCFilterModel alloc]init];
-        filterModel.title=titleArr[i];
-        filterModel.imgName=imgNameArr[i];
-        [_filterArr addObject:filterModel];
-    }
-    
+
     if (!_fitersView) {
-        _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(5,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*(2+_filterItems.count))];
+        _fitersView=[[UIImageView alloc]initWithFrame:CGRectMake(5,2.5+KNAV_HEIGHT, 125, 12.5+FILTER_CELL_HEIGHT*_filterItems.count)];
         _fitersView.hidden=YES;
         _fitersView.image=KPULLIMG(@"bg_sxleft", 15, 0, 15, 0);
         _fitersView.userInteractionEnabled=YES;
@@ -204,19 +176,13 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return (2+_filterItems.count);
+    return _filterItems.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ZCFilterTableViewCell *fiterCell=[[ZCFilterTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil andRowAtIndexPath:indexPath];
-    if (indexPath.row<2) {
-        fiterCell.model=_filterArr[indexPath.row];
-    }
-    else
-    {
-        fiterCell.textLabel.text=_filterItems[indexPath.row-2];
-    }
+    fiterCell.textLabel.text=_filterItems[indexPath.row];
     return fiterCell;
 }
 
@@ -594,7 +560,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     _titleView.hidden   = YES ;
     _searchBar.hidden   = NO  ;
     _navRightBtn.hidden = NO  ;

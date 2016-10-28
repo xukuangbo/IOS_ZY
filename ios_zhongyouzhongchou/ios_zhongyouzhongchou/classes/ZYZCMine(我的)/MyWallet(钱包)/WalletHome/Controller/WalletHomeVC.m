@@ -14,8 +14,10 @@
 #import "MJRefresh.h"
 #import "MBProgressHUD+MJ.h"
 #import "MineWalletModel.h"
-
-static NSInteger pageSize = 2;
+#import "WalletYbjModel.h"
+#import "WalletYbjCell.h"
+static NSInteger KtxPageSize = 2;
+static NSInteger YbjPageSize = 2;
 @interface WalletHomeVC ()
 
 @property (nonatomic, strong) WalletHeadView *headView;
@@ -40,6 +42,10 @@ static NSInteger pageSize = 2;
     self = [super init];
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
+        
+        
+        //添加通知
+        [ZYNSNotificationCenter addObserver:self selector:@selector(WalletYbjSelectAction:) name:WalletYbjSelectNotification object:nil];
     }
     return self;
 }
@@ -96,7 +102,7 @@ static NSInteger pageSize = 2;
     __weak typeof(&*self) weakSelf = self;
     //    [MBProgressHUD showMessage:@"正在加载"];
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,pageSize];
+    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,KtxPageSize];
     
     [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
         
@@ -131,7 +137,7 @@ static NSInteger pageSize = 2;
     __weak typeof(&*self) weakSelf = self;
     //    [MBProgressHUD showMessage:@"正在加载"];
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,pageSize];
+    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,KtxPageSize];
     [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.ktxTableView.mj_footer ;
@@ -152,13 +158,90 @@ static NSInteger pageSize = 2;
     } andFailBlock:^(id failResult) {
         
         //        [MBProgressHUD hideHUD];
-        
+
         [weakSelf.ktxTableView.mj_header endRefreshing];
         [weakSelf.ktxTableView.mj_footer endRefreshing];
         [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
         
     }];
 
+}
+
+
+- (void)loadNewYbjData
+{
+    _ybjPageNo = 1;
+    __weak typeof(&*self) weakSelf = self;
+    //    [MBProgressHUD showMessage:@"正在加载"];
+    NSString *ybjProducts_Url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_reserveListJson"];
+    //    NSString *userId = [ZYZCAccountTool getUserId];
+    NSDictionary *parameters = @{
+                                 @"pageNo" : @(_ybjPageNo),
+                                 @"pageSize" : @(YbjPageSize)
+                                 };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:ybjProducts_Url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSArray *tempArray = [WalletYbjModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (tempArray.count > 0) {
+            [weakSelf.ybjTableView.dataArr removeAllObjects];
+            [weakSelf.ybjTableView.dataArr addObjectsFromArray:tempArray];
+            [weakSelf.ybjTableView reloadData];
+            weakSelf.ybjPageNo++;
+        }else{
+            
+            
+        }
+        [weakSelf.ybjTableView.mj_header endRefreshing];
+        [weakSelf.ybjTableView.mj_footer endRefreshing];
+        
+        //        [MBProgressHUD hideHUD];
+    } andFailBlock:^(id failResult) {
+        //        [MBProgressHUD hideHUD];
+        
+        [weakSelf.ybjTableView.mj_header endRefreshing];
+        [weakSelf.ybjTableView.mj_footer endRefreshing];
+        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+    }];
+    
+}
+
+- (void)loadMoreYbjData
+{
+//    _ybjPageNo = 1;
+    __weak typeof(&*self) weakSelf = self;
+    //    [MBProgressHUD showMessage:@"正在加载"];
+    NSString *txProducts_Url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_reserveListJson"];
+    //    NSString *userId = [ZYZCAccountTool getUserId];
+    NSDictionary *parameters = @{
+                                 @"pageNo" : @(_ybjPageNo),
+                                 @"pageSize" : @(YbjPageSize)
+                                 };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:txProducts_Url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.ybjTableView.mj_footer;
+        
+        NSArray *tempArray = [WalletYbjModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (tempArray.count > 0) {
+            [weakSelf.ybjTableView.dataArr addObjectsFromArray:tempArray];
+            [weakSelf.ybjTableView reloadData];
+            weakSelf.ybjPageNo++;
+            [autoFooter setTitle:@"正在加载更多" forState:MJRefreshStateRefreshing];
+        }else{
+            [autoFooter setTitle:@"没有更多数据了.." forState:MJRefreshStateRefreshing];
+        }
+        [weakSelf.ybjTableView.mj_header endRefreshing];
+        [weakSelf.ybjTableView.mj_footer endRefreshing];
+        
+        //        [MBProgressHUD hideHUD];
+    } andFailBlock:^(id failResult) {
+        
+        //        [MBProgressHUD hideHUD];
+        
+        [weakSelf.ybjTableView.mj_header endRefreshing];
+        [weakSelf.ybjTableView.mj_footer endRefreshing];
+        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        
+    }];
+    
 }
 
 /* 设置手势动作 */
@@ -205,16 +288,12 @@ static NSInteger pageSize = 2;
     //ybjTableview
     _ybjTableView.headerRefreshingBlock = ^(){
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakSelf.ybjTableView.mj_header endRefreshing];
-        });
+        [weakSelf loadNewYbjData];
     };
     
     _ybjTableView.footerRefreshingBlock = ^(){
         
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakSelf.ybjTableView.mj_footer endRefreshing];
-        });
+        [weakSelf loadMoreYbjData];
     };
     
     _ybjTableView.scrollDidScrollBlock=^(CGFloat offsetY)
@@ -231,6 +310,11 @@ static NSInteger pageSize = 2;
     {
         weakSelf.headView.userInteractionEnabled=YES;
     };
+}
+#pragma mark - 通知
+- (void)WalletYbjSelectAction:(NSNotification *)noti
+{
+    DDLog(@"%@",((WalletYbjCell *)noti).walletYbjModel);
 }
 
 #pragma mark - 项目的table滑动

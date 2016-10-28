@@ -112,7 +112,7 @@
 - (void)setUpNavi
 {
     //设置导航栏的颜色为透明
-    [self.navigationController.navigationBar cnSetBackgroundColor:kHome_navi_bgcolor(0)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:kHome_navi_bgcolor(0)];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     UIButton *cityChoseButton = [UIButton buttonWithType:UIButtonTypeCustom];
     cityChoseButton.titleLabel.font = [UIFont systemFontOfSize:15];

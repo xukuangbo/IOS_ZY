@@ -33,7 +33,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[[UIColor ZYZC_MainColor] colorWithAlphaComponent:1]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[[UIColor ZYZC_MainColor] colorWithAlphaComponent:1]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
@@ -59,7 +59,7 @@
     // 设置导航默认标题的颜色及字体大小
 //    self.navigationController.navigationBar.titleTextAttributes = @{NSForegroundColorAttributeName: [UIColor whiteColor]
 //                                                                    };
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:Get_About_Us]];
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];

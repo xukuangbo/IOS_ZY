@@ -46,7 +46,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
     
     [self requestData];
 }
