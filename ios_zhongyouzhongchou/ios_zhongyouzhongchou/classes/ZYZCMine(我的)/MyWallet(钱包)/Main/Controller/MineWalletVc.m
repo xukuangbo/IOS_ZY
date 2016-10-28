@@ -58,8 +58,6 @@
         
         [self configUI];
         
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
-        
         //请求数据
         [self requsetData];
         
@@ -79,7 +77,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
 }
 
 - (void)viewDidAppear:(BOOL)animated

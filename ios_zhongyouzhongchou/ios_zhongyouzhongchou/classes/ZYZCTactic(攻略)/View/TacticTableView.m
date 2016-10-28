@@ -161,10 +161,10 @@
     if (offsetY <= headViewHeight) {
         CGFloat alpha = MAX(0, offsetY/headViewHeight);
         
-        [homeVC.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(alpha)];
+        [homeVC.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(alpha)];
     }else {
         
-        [homeVC.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
+        [homeVC.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
     }
 }
 

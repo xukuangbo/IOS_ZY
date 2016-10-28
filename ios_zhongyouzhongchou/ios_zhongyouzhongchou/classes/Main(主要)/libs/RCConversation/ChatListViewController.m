@@ -8,7 +8,6 @@
 
 #import "ChatListViewController.h"
 #import "ZYZCConversationController.h"
-#import "UINavigationBar+Background.h"
 #import "ChatBlackListVC.h"
 #import "EntryPlaceholderView.h"
 #import "AppDelegate.h"
@@ -81,7 +80,7 @@
 {
     [super viewWillAppear:animated];
     self.tabBarController.navigationItem.title = @"会话";
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
     //处于聊天列表中
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;

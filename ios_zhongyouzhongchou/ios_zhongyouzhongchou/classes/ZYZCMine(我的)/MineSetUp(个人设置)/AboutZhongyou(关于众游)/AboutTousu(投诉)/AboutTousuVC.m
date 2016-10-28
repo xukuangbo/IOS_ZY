@@ -56,7 +56,7 @@
     self.navigationItem.titleView = titleLabel;
     
     
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:Get_Tousu]];

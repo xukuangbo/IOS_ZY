@@ -121,7 +121,7 @@
  */
 - (void)setUpNavi
 {
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(0)];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     
     
@@ -583,10 +583,10 @@
     if (offsetY <= oneViewMapHeight) {
         CGFloat alpha = MAX(0, offsetY/oneViewMapHeight);
         
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(alpha)];
+        [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(alpha)];
         self.title = @"";
     } else {
-        [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(1)];
+        [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(1)];
         if (self.tacticSingleModelFrame) {
             self.title = self.tacticSingleModelFrame.tacticSingleModel.name;
         }

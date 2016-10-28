@@ -244,7 +244,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     if (_myProductType==MyRecommendType) {
         _pageNo=1;
         [self getHttpData];

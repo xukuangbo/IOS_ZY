@@ -7,7 +7,6 @@
 //
 
 #import "ZYZCConversationController.h"
-#import "UINavigationBar+Background.h"
 #import "ComplainTypeController.h"
 #import "MBProgressHUD+MJ.h"
 #import "AppDelegate.h"
@@ -86,7 +85,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar cnSetBackgroundColor:[UIColor ZYZC_NavColor]];
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
     //处于聊天列表中
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;

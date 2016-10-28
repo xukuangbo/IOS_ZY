@@ -199,7 +199,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     //设置导航栏的颜色为透明
-    [self.navigationController.navigationBar cnSetBackgroundColor:home_navi_bgcolor(0)];
+    [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(0)];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     [self.tableView changeNaviAction];
 
