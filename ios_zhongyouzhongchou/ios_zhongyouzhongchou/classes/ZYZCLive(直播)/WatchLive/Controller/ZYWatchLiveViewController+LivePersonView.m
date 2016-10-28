@@ -193,8 +193,9 @@
     WEAKSELF
     NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":self.personDataView.minePersonModel.userId};
     if ([self.personDataView.attentionButton.titleLabel.text isEqualToString:@"取消关注"]) {
+        NSString *unfollowUser = [[ZYZCAPIGenerate sharedInstance] API:@"friends_unfollowUser"];
         //取消关注
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:UNFOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess)
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:unfollowUser andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess)
          {
              if (isSuccess) {
                  [MBProgressHUD showSuccess:@"取消成功"];
@@ -208,7 +209,9 @@
         
     } else {
         //添加关注
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_followUser"];
+
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
             //            NSLog(@"%@",result);
             if (isSuccess) {
                 [MBProgressHUD showSuccess:@"关注成功"];

@@ -91,8 +91,7 @@
     [parameter setValue:userId forKey:@"selfUserId"];
     [parameter setValue:userId forKey:@"userId"];
 
-    __weak typeof(&*self) weakSelf = self;
-//    NSLog(@"%@",getUserInfoURL);
+    WEAKSELF
     [MBProgressHUD showMessage:nil];
     [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [weakSelf reloadUIData:result];

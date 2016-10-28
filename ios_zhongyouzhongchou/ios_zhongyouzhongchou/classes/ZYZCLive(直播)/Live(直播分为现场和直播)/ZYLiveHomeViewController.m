@@ -57,7 +57,7 @@
     UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     navRightBtn.frame=CGRectMake(KSCREEN_W - 40, 10, 60, 30);
     [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
-    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
+    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:15.0f];
     [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [navRightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
     self.navRightBtn=navRightBtn;
@@ -90,8 +90,8 @@
     CGColorRef cgColor = [UIColor whiteColor].CGColor;
     [segmentControl.layer setBorderColor:cgColor];
     segmentControl.tintColor = [UIColor whiteColor];
-    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica-Light" size:15.0f],nil];
-    [segmentControl setTitleTextAttributes:dic forState:UIControlStateNormal];
+//    NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica-Light" size:15.0f],nil];
+//    [segmentControl setTitleTextAttributes:dic forState:UIControlStateNormal];
 //    NSDictionary *selecteddic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont fontWithName:@"Helvetica-Light" size:14], [UIColor whiteColor],nil];
 //
 //    [segmentControl setTitleTextAttributes:selecteddic forState:UIControlStateSelected];

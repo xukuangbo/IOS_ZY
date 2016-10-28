@@ -23,6 +23,12 @@
         "protocol": "http"
     },
     
+    "register_getUserInfo_action": {
+        "control": "register",
+        "action": "getUserInfo.action",
+        "protocol": "http"
+    },
+    
     "user_listLabel": {
         "control": "user",
         "action": "listLabel",

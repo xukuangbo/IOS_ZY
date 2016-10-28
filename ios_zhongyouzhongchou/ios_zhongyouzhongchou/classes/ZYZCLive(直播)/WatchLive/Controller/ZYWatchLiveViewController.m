@@ -627,8 +627,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)attentionButtonAction:(UIButton *)sender
 {
     WEAKSELF
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_followUser"];
     NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":self.liveModel.userId};
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:FOLLOWUSER andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
         //            NSLog(@"%@",result);
         if (isSuccess) {
             [MBProgressHUD showSuccess:@"关注成功"];

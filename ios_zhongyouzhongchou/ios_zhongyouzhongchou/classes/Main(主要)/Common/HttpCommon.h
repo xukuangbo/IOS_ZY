@@ -30,15 +30,12 @@
 #define GETUSERDETAIL      HTTPURL(@"u/getUserDetail")
 //获取我关注的人
 #define Get_UserFollowed_List(userId)  [NSString stringWithFormat:@"%@friends/listUserFollowed.action?userId=%@",BASE_URL,userId]
-
-
 //获取个人信息（需带userId）
 #define Get_SelfInfo(selfUserId,userId)  [NSString stringWithFormat:@"%@u/getUserDetail.action?selfUserId=%@&userId=%@",BASE_URL,selfUserId,userId]
 //获取个人信息（带地址）
 #define Get_UserInfo_AddressInfo(userId) [NSString stringWithFormat:@"%@register/getUserInfo.action?userId=%@",BASE_URL,userId]
 //获取label信息
 #define LISTLABLE          HTTPURL(@"user/listLabel")
-
 //关注个人
 #define FOLLOWUSER         HTTPURL(@"friends/followUser")
 //取消关注个人
@@ -49,6 +46,7 @@
 #define UNFOLLOWPRODUCT    HTTPURL(@"friends/unfollowProduct")
 //获取用户信息
 #define GETUSERINFO        HTTPURL(@"register/getUserInfo")
+
 //注册微信用户信息
 #define REGISTERWEICHAT    HTTPURL(@"register/saveWeixinInfo")
 //注册个人信息（总）
