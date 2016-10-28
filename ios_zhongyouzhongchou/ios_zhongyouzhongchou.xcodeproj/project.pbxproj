@@ -509,6 +509,10 @@
 		390D2FD71DAC8B1000D44E90 /* showDashangView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD41DAC8B1000D44E90 /* showDashangView.m */; };
 		390D2FDA1DAC8D8300D44E90 /* XTLoveHeartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */; };
 		3910CE701D35D6F4004D7578 /* TacticMoreJieshaoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */; };
+		391115E91DC21B44000C82F1 /* WalletYbjCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115E71DC21B44000C82F1 /* WalletYbjCell.m */; };
+		391115EA1DC21B44000C82F1 /* WalletYbjCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 391115E81DC21B44000C82F1 /* WalletYbjCell.xib */; };
+		391115ED1DC227BD000C82F1 /* WalletKtxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115EC1DC227BD000C82F1 /* WalletKtxModel.m */; };
+		391115F01DC228A1000C82F1 /* WalletYbjModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115EF1DC228A1000C82F1 /* WalletYbjModel.m */; };
 		391872141DC08CBE00484711 /* WalletKtxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 391872121DC08CBE00484711 /* WalletKtxCell.m */; };
 		391872151DC08CBE00484711 /* WalletKtxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 391872131DC08CBE00484711 /* WalletKtxCell.xib */; };
 		3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 392635051D5D7C29006A90BE /* MineWalletVc.m */; };
@@ -1618,6 +1622,13 @@
 		390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTLoveHeartView.m; sourceTree = "<group>"; };
 		3910CE6E1D35D6F4004D7578 /* TacticMoreJieshaoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreJieshaoVC.h; sourceTree = "<group>"; };
 		3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreJieshaoVC.m; sourceTree = "<group>"; };
+		391115E61DC21B43000C82F1 /* WalletYbjCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjCell.h; sourceTree = "<group>"; };
+		391115E71DC21B44000C82F1 /* WalletYbjCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjCell.m; sourceTree = "<group>"; };
+		391115E81DC21B44000C82F1 /* WalletYbjCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletYbjCell.xib; sourceTree = "<group>"; };
+		391115EB1DC227BD000C82F1 /* WalletKtxModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletKtxModel.h; sourceTree = "<group>"; };
+		391115EC1DC227BD000C82F1 /* WalletKtxModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletKtxModel.m; sourceTree = "<group>"; };
+		391115EE1DC228A1000C82F1 /* WalletYbjModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjModel.h; sourceTree = "<group>"; };
+		391115EF1DC228A1000C82F1 /* WalletYbjModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjModel.m; sourceTree = "<group>"; };
 		391872111DC08CBE00484711 /* WalletKtxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletKtxCell.h; sourceTree = "<group>"; };
 		391872121DC08CBE00484711 /* WalletKtxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletKtxCell.m; sourceTree = "<group>"; };
 		391872131DC08CBE00484711 /* WalletKtxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletKtxCell.xib; sourceTree = "<group>"; };
@@ -4818,6 +4829,10 @@
 		394C2A6B1DB9A6F900821F78 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				391115EB1DC227BD000C82F1 /* WalletKtxModel.h */,
+				391115EC1DC227BD000C82F1 /* WalletKtxModel.m */,
+				391115EE1DC228A1000C82F1 /* WalletYbjModel.h */,
+				391115EF1DC228A1000C82F1 /* WalletYbjModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4838,6 +4853,9 @@
 				391872131DC08CBE00484711 /* WalletKtxCell.xib */,
 				394C2A7D1DB9EE1500821F78 /* WalletYbjTableView.h */,
 				394C2A7E1DB9EE1500821F78 /* WalletYbjTableView.m */,
+				391115E61DC21B43000C82F1 /* WalletYbjCell.h */,
+				391115E71DC21B44000C82F1 /* WalletYbjCell.m */,
+				391115E81DC21B44000C82F1 /* WalletYbjCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5535,6 +5553,7 @@
 				2CE6176F1D657DD100962163 /* HUAlbumCell.xib in Resources */,
 				2CDE67081DA651070066F49D /* title_ico_back@2x.png in Resources */,
 				39F7D1A81D45BD60001DEAF4 /* Assets.xcassets in Resources */,
+				391115EA1DC21B44000C82F1 /* WalletYbjCell.xib in Resources */,
 				2C8B19871D0CF7EC0063097B /* XMNAlbumCell.xib in Resources */,
 				04518B4B1CE419F0001921D0 /* MineSetUpVC.storyboard in Resources */,
 				394C2A791DB9C63600821F78 /* WalletSelectToolBar.xib in Resources */,
@@ -5920,6 +5939,7 @@
 				394C2A5D1DB722EE00821F78 /* WaterFlowLayout.m in Sources */,
 				048DDE9C1CC229F600136C7A /* MBProgressHUD+MJ.m in Sources */,
 				04F836411CD72C3300140980 /* SDBallProgressView.m in Sources */,
+				391115ED1DC227BD000C82F1 /* WalletKtxModel.m in Sources */,
 				04518B4C1CE419F0001921D0 /* MineSetUpViewController.m in Sources */,
 				2C5A78561DB85982003E2743 /* ZYBaseLimitTextField.m in Sources */,
 				395B5A951D24D6AD0084264C /* LoginJudgeController.m in Sources */,
@@ -5987,6 +6007,7 @@
 				2C3FAA211D54793000F2B187 /* MsgDetailModel.m in Sources */,
 				2CDE67561DA652C30066F49D /* ioapi.c in Sources */,
 				2C7E3B541D06CC4C00F51C61 /* MineOneItemModel.m in Sources */,
+				391115F01DC228A1000C82F1 /* WalletYbjModel.m in Sources */,
 				2CD6B8CB1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.m in Sources */,
 				2C90F6E41D530E73001ABB44 /* ZYZCMessageListViewController.m in Sources */,
 				2CD209051D6D3E27005EB62E /* ZCListModel.m in Sources */,
@@ -6152,6 +6173,7 @@
 				05CAE7041DAB362300CE6D4B /* ZYJourneyLiveModel.m in Sources */,
 				2C1B60CC1D6D3CF900E3C25B /* ChooseSceneImgController.m in Sources */,
 				2CAD97991D1D0DCB000E4ED8 /* UserIconButton.m in Sources */,
+				391115E91DC21B44000C82F1 /* WalletYbjCell.m in Sources */,
 				3931CBD61D88F9E400115F0D /* WatchEndLiveModel.m in Sources */,
 				2CFC7D0A1DA648B900A28D74 /* QPLocalization.m in Sources */,
 				3941CD641D41FC60009224BC /* ChatBlackListVC.m in Sources */,

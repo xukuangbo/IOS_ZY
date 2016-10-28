@@ -55,13 +55,14 @@
 }
 
 
--(void)setDataArr:(NSMutableArray *)dataArr
+- (NSMutableArray *)dataArr
 {
     if (!_dataArr) {
         _dataArr = [NSMutableArray array];
     }
-    _dataArr=dataArr;
+    return _dataArr;
 }
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {

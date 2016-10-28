@@ -90,10 +90,12 @@
 
 // centerView
 - (void)setupCenterSubViews {
-    
+
+
     self.viewCenter = [[UIView alloc] initWithFrame:(CGRectMake(0, CGRectGetMaxY(self.viewTop.frame), ScreenWidth,ScreenHeight - kViewBottomViewtapHeight-kViewTopHeight-kCollectionViewHeight-20))];
     self.viewCenter.backgroundColor = [UIColor blackColor];
     [self addSubview:self.viewCenter];
+    [self.viewCenter addTarget:self action:@selector(tapEffectView:)];
     
     self.viewVideoContainer = [[UIView alloc] initWithFrame: self.viewCenter.bounds];
     [self.viewCenter addSubview:self.viewVideoContainer];
@@ -125,7 +127,6 @@
     self.labelVideoTime.hidden = YES;
     
 }
-
 
 // bottomView
 - (void)setupBottomSubViews {
@@ -279,6 +280,13 @@
     
     if (_delegate && [_delegate respondsToSelector:@selector(onClickSliderAction:)]) {
         [_delegate onClickSliderAction:sender];
+    }
+}
+
+-(void)tapEffectView:(UITapGestureRecognizer *)tap
+{
+    if (_delegate && [_delegate respondsToSelector:@selector(tapEffectView:)]) {
+        [_delegate tapEffectView:tap];
     }
 }
 

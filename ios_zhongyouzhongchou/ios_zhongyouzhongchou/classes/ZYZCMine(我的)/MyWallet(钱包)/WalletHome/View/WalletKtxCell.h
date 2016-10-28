@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class MineWalletModel;
+@class WalletKtxModel;
 #define WalletKtxCellH ((KSCREEN_W - 20) * 9 / 16 + 80)
 @interface WalletKtxCell : UITableViewCell
 
-@property (nonatomic, strong) MineWalletModel *mineWalletModel;
+@property (nonatomic, strong) WalletKtxModel *mineWalletModel;
 @end
