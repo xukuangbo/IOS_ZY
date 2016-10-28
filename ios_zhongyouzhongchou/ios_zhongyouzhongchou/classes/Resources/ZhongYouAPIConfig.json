@@ -574,6 +574,12 @@
         "control": "productInfo",
         "action": "getProductMinInfo.action",
         "protocol": "http"
+    },
+    
+    "zhibo_reserveListJson": {
+        "control": "zhibo",
+        "action": "reserveListJson.action",
+        "protocol": "http"
     }
 }
 
