@@ -52,9 +52,11 @@
     
     //将是否第一次进app置为0
     [VersionTool version];
-    kLinkServerType linkServerType = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"APIModeSwitch"] integerValue];
-    
-    [ZYZCAPIGenerate sharedInstance].serverType = linkServerType;
+    // 设置APP连接的服务器
+    if (![[ZYZCAPIGenerate sharedInstance] isTestMode]) {
+        kLinkServerType linkServerType = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"APIModeSwitch"] integerValue];
+        [ZYZCAPIGenerate sharedInstance].serverType = linkServerType;
+    }
     
     //获取app版本号，判断app是否是下载或更新后第一次进入
     [self getAppVersion];
@@ -129,7 +131,7 @@
     options.trackingCrashes = YES;
     
     BTGInvocationEvent btgEvent = BTGInvocationEventNone;
-    if ([BASE_URL isEqualToString:@"http://121.40.225.119:8080/"]) {
+    if ([[[ZYZCAPIGenerate sharedInstance] APIBaseUrl] isEqualToString:@"http://121.40.225.119:8080/"]) {
         btgEvent = BTGInvocationEventShake;
     }
     [Bugtags startWithAppKey:kBugTagsAppKey invocationEvent:btgEvent];

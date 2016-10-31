@@ -118,6 +118,10 @@ static NSString* const apiFileExtension = @"json";
     }
 }
 
-
+#pragma mark - 是否开启内测模式模式
+- (BOOL)isTestMode {     // 内测模式？ 如果开启，默认正式服务器，需要自己手动设置服务器
+    BOOL isTestMode = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"IS_TEST_MODE"] boolValue];
+    return isTestMode;
+}
 
 @end

@@ -52,6 +52,9 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row==1) {
+        if ([[ZYZCAPIGenerate sharedInstance] isTestMode]) {
+            return MINE_CELL_HEIGHT + 60;
+        }
         return MINE_CELL_HEIGHT;
     }
     else

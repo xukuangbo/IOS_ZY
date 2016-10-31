@@ -121,6 +121,7 @@
 		05977B2A1DB8614A007EC20A /* ZYZCMoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05977B291DB8614A007EC20A /* ZYZCMoviePlayerViewController.m */; };
 		059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792B1DAE068800371302 /* ZYCGContextView.m */; };
 		059A792F1DAE0B8300371302 /* ZYDetailGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */; };
+		05B7A8411DC71AD200F38127 /* ZYZCTestModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B7A8401DC71AD200F38127 /* ZYZCTestModeViewController.m */; };
 		05BB94F91DA9E7BA000DA5BA /* ZYTravePayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */; };
 		05BB94FB1DA9E7CE000DA5BA /* ZYTravePayVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */; };
 		05CAE7041DAB362300CE6D4B /* ZYJourneyLiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */; };
@@ -873,6 +874,8 @@
 		059A792B1DAE068800371302 /* ZYCGContextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYCGContextView.m; sourceTree = "<group>"; };
 		059A792D1DAE0B8300371302 /* ZYDetailGuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailGuideView.h; sourceTree = "<group>"; };
 		059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDetailGuideView.m; sourceTree = "<group>"; };
+		05B7A83F1DC71AD200F38127 /* ZYZCTestModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCTestModeViewController.h; sourceTree = "<group>"; };
+		05B7A8401DC71AD200F38127 /* ZYZCTestModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCTestModeViewController.m; sourceTree = "<group>"; };
 		05BB94F71DA9E7BA000DA5BA /* ZYTravePayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYTravePayView.h; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.h"; sourceTree = SOURCE_ROOT; };
 		05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYTravePayView.m; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.m"; sourceTree = SOURCE_ROOT; };
 		05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZYTravePayVIew.xib; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayVIew.xib"; sourceTree = SOURCE_ROOT; };
@@ -2268,6 +2271,7 @@
 		04A99C591CBF848D00C6F5F0 /* ZYZCMine(我的) */ = {
 			isa = PBXGroup;
 			children = (
+				05B7A83E1DC71AC000F38127 /* TestMode(切换服务器) */,
 				05130FE61D828C93001023B1 /* WebBaseViewCotroller(web界面) */,
 				2C7960691D0A740F0026C9F6 /* MyReturnProduct(我的回报／草稿) */,
 				2C3777E91D07BBE0004FDA9D /* MyProducts(我的行程) */,
@@ -2704,6 +2708,15 @@
 				05977B291DB8614A007EC20A /* ZYZCMoviePlayerViewController.m */,
 			);
 			path = "LiveVideo(播放录制视频)";
+			sourceTree = "<group>";
+		};
+		05B7A83E1DC71AC000F38127 /* TestMode(切换服务器) */ = {
+			isa = PBXGroup;
+			children = (
+				05B7A83F1DC71AD200F38127 /* ZYZCTestModeViewController.h */,
+				05B7A8401DC71AD200F38127 /* ZYZCTestModeViewController.m */,
+			);
+			path = "TestMode(切换服务器)";
 			sourceTree = "<group>";
 		};
 		05D887A31DACC1C40093910D /* ZYGuideView */ = {
@@ -5919,6 +5932,7 @@
 				04A99D271CC0924E00C6F5F0 /* ZYZCAccountModel.m in Sources */,
 				392AB28F1D669C26003FEDB7 /* RCDLiveCollectionViewHeader.m in Sources */,
 				2C1B60F81D6D3CF900E3C25B /* WordEditViewController.m in Sources */,
+				05B7A8411DC71AD200F38127 /* ZYZCTestModeViewController.m in Sources */,
 				2CE617711D657DD100962163 /* HUImagePickerCell.m in Sources */,
 				2C8D46111D1A269200C47893 /* ZYZCCustomTextField.m in Sources */,
 				2C920D991DB0E0520038C3E1 /* PGIndexBannerSubiew.m in Sources */,

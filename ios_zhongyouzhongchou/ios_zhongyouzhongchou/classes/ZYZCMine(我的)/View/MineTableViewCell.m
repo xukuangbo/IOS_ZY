@@ -18,6 +18,7 @@
 #import "WalletHomeVC.h"
 #import "MineTravelTagVC.h"
 #import "ZYFootprintController.h"
+#import "ZYZCTestModeViewController.h"
 @interface MineTableViewCell ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIImageView *iconImg;
 @property (nonatomic, strong) UILabel     *textLab;
@@ -29,6 +30,7 @@
 @implementation MineTableViewCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
 }
 
@@ -36,10 +38,15 @@
 {
     if (self=[super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         _dataArr=[NSMutableArray array];
-        NSArray *iconNames=@[@"icon_trip",@"icon_reture",@"icon_wallet",@"icon_message",@"draft",@"icon_destination",@"icon_man",@"tag"];
-        NSArray *titles=@[@"我的行程",@"我的回报",@"我的钱包",@"私信",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人",@"我的旅行标签"];
-
-        for (int i=0; i<CELL_NUMBER; i++) {
+        NSArray *iconNames=@[@"icon_trip",@"icon_reture",@"icon_wallet",@"icon_message",@"draft",@"icon_destination",@"icon_man",@"tag", @"tag"];
+        NSArray *titles=@[@"我的行程",@"我的回报",@"我的钱包",@"私信",@"我的草稿",@"我想去的目的地",@"我关注的旅行达人",@"我的旅行标签", @"切换服务器"];
+        int itemNumber;
+        if ([[ZYZCAPIGenerate sharedInstance] isTestMode]) {
+            itemNumber = CELL_NUMBER + 1;
+        } else {
+            itemNumber = CELL_NUMBER;
+        }
+        for (int i=0; i < itemNumber; i++) {
             MineOneItemModel *itemModel=[[MineOneItemModel alloc]init];
             itemModel.iconImg=iconNames[i];
             itemModel.title=titles[i];
@@ -51,7 +58,13 @@
 }
 -(void)configUI
 {
-    UIImageView *bgImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, KSCREEN_W-2*KEDGE_DISTANCE, MINE_CELL_HEIGHT)];
+    CGFloat bgImgHeight;
+    if ([[ZYZCAPIGenerate sharedInstance] isTestMode]) {
+        bgImgHeight = MINE_CELL_HEIGHT + 60;
+    } else {
+        bgImgHeight = MINE_CELL_HEIGHT;
+    }
+    UIImageView *bgImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, KSCREEN_W-2*KEDGE_DISTANCE, bgImgHeight)];
     bgImg.image=KPULLIMG(@"tab_bg_boss0", 5, 0, 5, 0);
     [self.contentView addSubview:bgImg];
     bgImg.userInteractionEnabled=YES;
@@ -70,6 +83,9 @@
 
 -(NSInteger )tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    if ([[ZYZCAPIGenerate sharedInstance] isTestMode]) {
+        return CELL_NUMBER + 1;
+    }
     return CELL_NUMBER;
 }
 
@@ -82,7 +98,7 @@
         cell.itemModel=_dataArr[indexPath.row];
     }
     
-    if (indexPath.row==CELL_NUMBER-1) {
+    if (indexPath.row==CELL_NUMBER-1 && ![[ZYZCAPIGenerate sharedInstance] isTestMode]) {
         cell.hiddenLine=YES;
     }
     
@@ -159,6 +175,9 @@
     {
         //标签
         [self.viewController.navigationController pushViewController:[[MineTravelTagVC alloc] init] animated:YES];
+    } else if (indexPath.row == 8) {
+        // 切换服务器
+        [self.viewController.navigationController pushViewController:[[ZYZCTestModeViewController alloc] init] animated:YES];
     }
 }
 
