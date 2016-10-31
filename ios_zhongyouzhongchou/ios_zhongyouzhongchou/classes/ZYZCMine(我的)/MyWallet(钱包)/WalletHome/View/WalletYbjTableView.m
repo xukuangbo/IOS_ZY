@@ -10,6 +10,8 @@
 //#import "MineWalletTableViewCell.h"
 #import "WalletYbjCell.h"
 #import "WalletYbjModel.h"
+#import "WalletHomeVC.h"
+#import "WalletYbjBottomBar.h"
 static NSString *cellID = @"WalletYbjCell";
 
 @implementation WalletYbjTableView
@@ -24,8 +26,18 @@ static NSString *cellID = @"WalletYbjCell";
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
         
         [self registerNib:[UINib nibWithNibName:@"WalletYbjCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellID];
+        
+        //注册通知
+        [ZYNSNotificationCenter addObserver:self selector:@selector(selectCellAction:) name:WalletYbjSelectNotification object:nil];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [ZYNSNotificationCenter removeObserver:self];
+    
+    DDLog(@"%@已经被移除", [self class]);
 }
 
 
@@ -35,11 +47,6 @@ static NSString *cellID = @"WalletYbjCell";
         _selectDic = [NSMutableDictionary dictionary];
     }
     return _selectDic;
-}
-
-- (void)judgeSelectAcion
-{
-    
 }
 
 #pragma mark - tableViewDelegate
@@ -91,6 +98,31 @@ static NSString *cellID = @"WalletYbjCell";
     if (self.scrollDidEndDeceleratingBlock) {
         self.scrollDidEndDeceleratingBlock();
     }
+}
+
+
+#pragma mark - 点击事件
+- (void)selectCellAction:(NSNotification *)noti
+{
+    WalletYbjCell *cell = (WalletYbjCell *)noti.object;
+    NSIndexPath *indexPath = [self indexPathForCell:cell];
+    NSString *key = [NSString stringWithFormat:@"%zd",indexPath.row];
+    
+    //1.需要修改model的yes或者no值
+    WalletYbjModel *model = self.dataArr[indexPath.row];
+    model.status = cell.selectButton.selected == YES? 3:0;
+    
+    //2.增加或者删除key
+    if (cell.selectButton.selected == YES) {//选中
+        //赋值
+        [self.selectDic setValue:cell.totalMoney forKey:key];
+    }else{//取消
+        [self.selectDic removeObjectForKey:key];
+    }
+    
+    //3.判断是否有key来设置颜色
+    WalletHomeVC *homeVC = (WalletHomeVC *)self.viewController;
+    [homeVC.ybjBottomBar changeUIWithDic:self.selectDic];
 }
 
 @end

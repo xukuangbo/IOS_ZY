@@ -44,16 +44,23 @@
                                 </constraints>
                                 <state key="normal" image="Butttn_support"/>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已使用" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mxq-c3-Dwg" userLabel="已使用">
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="TfK-SW-3ux" firstAttribute="leading" secondItem="k8o-eL-dA1" secondAttribute="leading" id="0H1-F8-MVI"/>
                             <constraint firstAttribute="trailing" secondItem="TfK-SW-3ux" secondAttribute="trailing" id="AFq-wa-WyF"/>
+                            <constraint firstAttribute="bottom" secondItem="Mxq-c3-Dwg" secondAttribute="bottom" constant="10" id="AyA-40-tvY"/>
                             <constraint firstItem="nlu-aj-Z44" firstAttribute="top" secondItem="k8o-eL-dA1" secondAttribute="top" id="Ch7-uS-jUD"/>
                             <constraint firstItem="TfK-SW-3ux" firstAttribute="top" secondItem="k8o-eL-dA1" secondAttribute="top" id="Doj-xF-Wlp"/>
                             <constraint firstAttribute="bottom" secondItem="nlu-aj-Z44" secondAttribute="bottom" id="I5z-RK-rkl"/>
                             <constraint firstItem="dAe-Sh-azs" firstAttribute="top" secondItem="TfK-SW-3ux" secondAttribute="bottom" constant="10" id="RIR-Ix-Fyg"/>
                             <constraint firstAttribute="bottom" secondItem="cm5-vj-uMT" secondAttribute="bottom" constant="10" id="Wh8-T8-IQY"/>
+                            <constraint firstAttribute="trailing" secondItem="Mxq-c3-Dwg" secondAttribute="trailing" constant="10" id="aff-bT-H3j"/>
                             <constraint firstItem="2K7-im-EXh" firstAttribute="top" secondItem="dAe-Sh-azs" secondAttribute="bottom" constant="10" id="hbb-Pc-CoY"/>
                             <constraint firstItem="2K7-im-EXh" firstAttribute="leading" secondItem="k8o-eL-dA1" secondAttribute="leading" constant="10" id="jm8-Qh-uW9"/>
                             <constraint firstItem="dAe-Sh-azs" firstAttribute="leading" secondItem="k8o-eL-dA1" secondAttribute="leading" constant="10" id="ngl-X1-EjT"/>
@@ -77,6 +84,7 @@
                 <outlet property="selectButton" destination="cm5-vj-uMT" id="3Uf-O1-mw1"/>
                 <outlet property="titleLabel" destination="dAe-Sh-azs" id="a3o-6O-8m6"/>
                 <outlet property="totalMoneyLabel" destination="2K7-im-EXh" id="ilw-c1-FYS"/>
+                <outlet property="usedLabel" destination="Mxq-c3-Dwg" id="HhE-WQ-edx"/>
             </connections>
             <point key="canvasLocation" x="-235" y="-1"/>
         </tableViewCell>

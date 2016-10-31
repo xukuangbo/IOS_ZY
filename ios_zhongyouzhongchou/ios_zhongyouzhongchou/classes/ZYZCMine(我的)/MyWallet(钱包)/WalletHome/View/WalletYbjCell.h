@@ -17,4 +17,14 @@ typedef void(^SelctBlock)();
 @property (nonatomic, strong) WalletYbjModel *walletYbjModel;
 
 @property (nonatomic, copy) SelctBlock selectBlock;
+
+@property (weak, nonatomic) IBOutlet UIView *mapView;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *faceImageView;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *totalMoneyLabel;
+@property (nonatomic, copy) NSString *totalMoney;
+@property (weak, nonatomic) IBOutlet UIButton *selectButton;
+@property (weak, nonatomic) IBOutlet UILabel *usedLabel;
+
 @end

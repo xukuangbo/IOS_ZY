@@ -193,4 +193,5 @@
 #define kPaySucceed @"打赏成功"
 //钱包预备金选择通知
 #define WalletYbjSelectNotification @"WalletYbjSelectNotification"
+#define WalletYbjSelectHomeNotification @"WalletYbjSelectHomeNotification"
 #endif /* DefineCommon_h */
