@@ -18,7 +18,7 @@
 - (void)headRefreshData
 {
     self.refreshType = RefreshTypeHead;
-    NSString *url = Post_Live_List;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_onlineList"];
     NSDictionary *parameters = @{
                              @"pageNo" : @"1",
                              @"pageSize" : @"10"
@@ -62,7 +62,7 @@
 {
     self.refreshType = RefreshTypeFoot;
     
-    NSString *url = Post_Live_List;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_onlineList"];
     NSDictionary *parameters = @{
                                  @"pageNo" : @(pageNO),
                                  @"pageSize" : @"10"

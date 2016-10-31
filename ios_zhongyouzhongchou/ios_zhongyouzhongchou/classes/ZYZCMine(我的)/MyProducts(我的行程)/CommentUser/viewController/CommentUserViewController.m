@@ -265,22 +265,30 @@
     
     NSString *httpUrl=nil;
     if (_commentType==CommentToghterPartner) {
-        httpUrl=COMMENT_TOGETHER;
+//        httpUrl=COMMENT_TOGETHER;
+        httpUrl=[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_savaProductComment21"];
+
         userId=_userModel.userId;
     }
     else if (_commentType==CommentReturnPerson)
     {
-        httpUrl=COMMENT_RETURN;
+//        httpUrl=COMMENT_RETURN;
+        httpUrl=[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_savaProductComment22"];
+
         userId=_userModel.userId;
     }
     else if (_commentType==CommentProductPerson)
     {
-        httpUrl=COMMENT_MYJOIN_PRODUCT;
+//        httpUrl=COMMENT_MYJOIN_PRODUCT;
+        httpUrl=[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_savaProductComment11"];
+
         userId=(NSNumber *)myUserId;
     }
     else if (_commentType==CommentMyReturnProduct)
     {
-        httpUrl=COMMENT_MYRETURN_PRODUCT;
+//        httpUrl=COMMENT_MYRETURN_PRODUCT;
+        httpUrl=[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_savaProductComment12"];
+
         userId=(NSNumber *)myUserId;
     }
     

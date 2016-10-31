@@ -84,22 +84,26 @@
      UserModel *model=self.myListArr[(indexPath.row-1)/2];
     //
     [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-    NSString *httpUrl=DELETE_TOGETHER_PARTNER([ZYZCAccountTool getUserId],_productId,model.userId);
-    [ZYZCHTTPTool  getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-    {
-        [MBProgressHUD hideHUDForView:self.viewController.view];
-//        NSLog(@"%@",result);
-        if (isSuccess) {
-            [self.myListArr removeObjectAtIndex:(indexPath.row-1)/2];
-            [self reloadData];
-        }
-    } andFailBlock:^(id failResult)
-    {
-        [MBProgressHUD hideHUDForView:self.viewController.view];
-        [MBProgressHUD showError:@"删除失败!"];
-//        NSLog(@"%@",failResult);
-    }];
     
+//    NSString *httpUrl=DELETE_TOGETHER_PARTNER([ZYZCAccountTool getUserId],_productId,model.userId);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_delProductUserStatus"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"selfUserId"];
+    [parameter setValue:model.userId forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUDForView:self.viewController.view];
+        //        NSLog(@"%@",result);
+        if (isSuccess) {
+            [weakSelf.myListArr removeObjectAtIndex:(indexPath.row-1)/2];
+            [weakSelf reloadData];
+        }
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUDForView:weakSelf.viewController.view];
+        [MBProgressHUD showError:@"删除失败!"];
+    }];
 }
 
 //设置删除键的宽度，根据字数来

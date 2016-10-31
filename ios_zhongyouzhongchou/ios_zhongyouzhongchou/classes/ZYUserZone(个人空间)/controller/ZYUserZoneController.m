@@ -389,7 +389,7 @@
 -(void)getFootprintData
 {
     [MBProgressHUD showMessage:nil];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:List_Footprint andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_footprint_pageNo],@"targetId":_friendID
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_getPageList"] andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_footprint_pageNo],@"targetId":_friendID
      } andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);
         [MBProgressHUD hideHUD];

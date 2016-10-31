@@ -82,7 +82,7 @@
     [self.navigationController.navigationBar addSubview:navLeftBtn];
     _navLeftBtn=navLeftBtn;
 
-    UIButton *navRightBtn=[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-60, 4, 60, 30) andNormalTitle:@"发起" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(clickLeftNavBtn)];
+    UIButton *navRightBtn=[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-60, 4, 60, 30) andNormalTitle:@"发起" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(clickRightNavBtn)];
     navRightBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
     [self.navigationController.navigationBar addSubview:navRightBtn];
     _navRightBtn=navRightBtn;
@@ -475,7 +475,7 @@
     }
     //判断是否完善个人信息
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:CHECK_USERINFO  andParameters:@{@"userId":[ZYZCAccountTool getUserId]} andSuccessGetBlock:^(id result, BOOL isSuccess)
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"register_checkUserInfoIntegrality"]  andParameters:@{@"userId":[ZYZCAccountTool getUserId]} andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          [MBProgressHUD hideHUDForView:self.view];
          if (isSuccess) {
@@ -561,6 +561,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
+     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     _titleView.hidden   = YES ;
     _searchBar.hidden   = NO  ;
     _navRightBtn.hidden = NO  ;

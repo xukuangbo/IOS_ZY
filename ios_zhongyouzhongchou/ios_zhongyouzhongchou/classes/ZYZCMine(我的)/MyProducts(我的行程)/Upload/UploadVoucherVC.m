@@ -246,7 +246,7 @@
                                  @"productId":self.productID,
                                  @"attachment":attachmentString
                                  };
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Upload_Voucher andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_productVoucher"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
 //        NSLog(@"%@",result);
         //隐藏菊花
         dispatch_async(dispatch_get_main_queue(), ^{

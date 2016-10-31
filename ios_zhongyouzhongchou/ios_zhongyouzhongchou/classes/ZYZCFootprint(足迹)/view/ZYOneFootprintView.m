@@ -279,7 +279,7 @@
 {
     if (alertView.tag==100&&buttonIndex==0) {
         [MBProgressHUD showMessage:nil];
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_DeleteFootprint andParameters:@{@"id":[NSNumber numberWithInteger:self.footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess)
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_deleteYouji"] andParameters:@{@"id":[NSNumber numberWithInteger:self.footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess)
          {
              [MBProgressHUD hideHUD];
              if (isSuccess) {
@@ -328,7 +328,7 @@
     [self.viewController.view endEditing:YES];
     //点赞
     if (!_footprintModel.hasZan) {
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_AddSupport andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
             sender.enabled=YES;
             if (isSuccess) {
                 _supportImg.image=[UIImage imageNamed:@"footprint-like-2"];
@@ -348,7 +348,7 @@
     //取消点赞
     else
     {
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_DeleteSupport andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_delZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
             sender.enabled=YES;
             if (isSuccess) {
                 _supportImg.image=[UIImage imageNamed:@"footprint-like"];

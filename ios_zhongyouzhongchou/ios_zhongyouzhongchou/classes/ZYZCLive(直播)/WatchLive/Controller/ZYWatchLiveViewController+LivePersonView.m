@@ -52,7 +52,7 @@
     NSDictionary *params=@{@"productId":self.liveModel.productId};
 
     WEAKSELF
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:PRODUCT_INFO_MONEY andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getProductMinInfo"] andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
         ZYJourneyLiveModel *journeyLiveModel=[[ZYJourneyLiveModel alloc] mj_setKeyValues:result[@"data"]];
         weakSelf.journeyLiveModel = journeyLiveModel;
         [weakSelf.personDataView.zhongchouButton setTitle:weakSelf.journeyLiveModel.journeyTitle forState:UIControlStateNormal];
@@ -267,44 +267,46 @@
 }
 
 // 获取关联行程打赏结果
-- (void)getUserContributionResultHttpUrl:(NSString *)httpUrl
+- (void)getUserContributionResultHttpUrl
 {
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getOrderPayStatus"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:appDelegate.out_trade_no forKey:@"outTradeNo"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
     WEAKSELF
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         NSLog(@"%@",result);
-         appDelegate.out_trade_no=nil;
-         NSArray *arr=result[@"data"];
-         NSDictionary *dic=nil;
-         if (arr.count) {
-             dic=[arr firstObject];
-         }
-         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
-         //支付成功
-         if(payResult){
-             NSDictionary *payDict = @{
-                                       @"payHeaderUrl":[ZYZCAccountTool account].faceImg,
-                                       @"payName":[ZYZCAccountTool account].realName,
-                                       @"extra":[NSString stringWithFormat:@"打赏主播%@元", weakSelf.payMoney]
-                                       };
-             
-             NSString *localizedMessage = [ZYZCTool turnJson:payDict];
-             RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
-             rcTextMessage.extra = kPaySucceed;
-             [weakSelf sendMessage:rcTextMessage pushContent:nil];
-             [MBProgressHUD showSuccess:@"打赏成功!"];
-             //展示支付成功动画
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
-             });
-         } else {
-             [MBProgressHUD showError:@"打赏失败!"];
-             appDelegate.out_trade_no=nil;
-         }
-     } andFailBlock:^(id failResult) {
-         [MBProgressHUD showError:@"网络出错,支付失败!"];
-     }];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        appDelegate.out_trade_no=nil;
+        NSArray *arr=result[@"data"];
+        NSDictionary *dic=nil;
+        if (arr.count) {
+            dic=[arr firstObject];
+        }
+        BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
+        //支付成功
+        if(payResult){
+            NSDictionary *payDict = @{
+                                      @"payHeaderUrl":[ZYZCAccountTool account].faceImg,
+                                      @"payName":[ZYZCAccountTool account].realName,
+                                      @"extra":[NSString stringWithFormat:@"打赏主播%@元", weakSelf.payMoney]
+                                      };
+            
+            NSString *localizedMessage = [ZYZCTool turnJson:payDict];
+            RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
+            rcTextMessage.extra = kPaySucceed;
+            [weakSelf sendMessage:rcTextMessage pushContent:nil];
+            [MBProgressHUD showSuccess:@"打赏成功!"];
+            //展示支付成功动画
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
+            });
+        } else {
+            [MBProgressHUD showError:@"打赏失败!"];
+            appDelegate.out_trade_no=nil;
+        }
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD showError:@"网络出错,支付失败!"];
+    }];
 }
 
 @end

@@ -99,7 +99,7 @@ static NSString *const ShopID = @"ShopCell";
 #pragma mark - network
 - (void)requestListDataWithPage:(NSInteger )pageNO direction:(NSInteger )direction{
     
-    NSString *url = Post_Scene_List;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"youji_getXCPageList"];
     NSDictionary *parameters = @{
                                  @"pageNo" : @(pageNO),
                                  @"pageSize" : @"10"

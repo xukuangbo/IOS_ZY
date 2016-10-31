@@ -478,35 +478,35 @@
     NSString *userId=[ZYZCAccountTool getUserId];
     
     //判断支付是否成功
-    NSString *httpUrl=GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
-    
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         NSLog(@"%@",result);
-         appDelegate.out_trade_no=nil;
-         NSArray *arr=result[@"data"];
-         NSDictionary *dic=nil;
-         if (arr.count) {
-             dic=[arr firstObject];
-         }
-         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
-         //支付成功
-         if(payResult){
-             [MBProgressHUD showSuccess:@"支付成功!"];
-             [self addMyselfInStyles:arr];
-         }
-         else{
-             [MBProgressHUD showError:@"支付失败!"];
-             appDelegate.out_trade_no=nil;
-         }
-         //发出支付结果的通知
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:payResult]];
-     }
-     andFailBlock:^(id failResult)
-     {
-         [MBProgressHUD showError:@"网络出错,支付失败!"];
-         [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:NO]];
-     }];
+//    NSString *httpUrl=GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getOrderPayStatus"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:appDelegate.out_trade_no forKey:@"outTradeNo"];
+    [parameter setValue:userId forKey:@"userId"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        appDelegate.out_trade_no=nil;
+        NSArray *arr=result[@"data"];
+        NSDictionary *dic=nil;
+        if (arr.count) {
+            dic=[arr firstObject];
+        }
+        BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
+        //支付成功
+        if(payResult){
+            [MBProgressHUD showSuccess:@"支付成功!"];
+            [weakSelf addMyselfInStyles:arr];
+        }
+        else{
+            [MBProgressHUD showError:@"支付失败!"];
+            appDelegate.out_trade_no=nil;
+        }
+        //发出支付结果的通知
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:payResult]];
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD showError:@"网络出错,支付失败!"];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:NO]];
+    }];
 }
 
 #pragma mark --- 支持后添加个人头像到对应支持栏中

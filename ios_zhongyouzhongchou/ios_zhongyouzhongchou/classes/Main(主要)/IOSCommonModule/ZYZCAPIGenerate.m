@@ -89,7 +89,7 @@ static NSString* const apiFileExtension = @"json";
 {
     NSString *apiProtocol = @"http";
     const NSString* host = [self serverHostWithType:self.serverType];
-    NSString* baseUrl = [NSString stringWithFormat:@"%@://%@",apiProtocol,host];
+    NSString* baseUrl = [NSString stringWithFormat:@"%@://%@/",apiProtocol,host];
     return baseUrl;
 }
 

@@ -199,24 +199,24 @@
 #pragma mark ---请求提现列表数据数据
 - (void)requestProductList
 {
-    __weak typeof(&*self) weakSelf = self;
     [MBProgressHUD showMessage:@"正在加载"];
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%d&pageSize=%d",Get_MyTxProducts_List,userId,1,10000];
+//    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%d&pageSize=%d",Get_MyTxProducts_List,userId,1,10000];
     
-    [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProducts"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"fause" forKey:@"cache"];
+    [parameter setValue:userId forKey:@"userId"];
+    [parameter setValue:@"1" forKey:@"pageNo"];
+    [parameter setValue:@"10000" forKey:@"pageSize"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         weakSelf.productArray = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        
         [weakSelf.tableView reloadData];
-        
         [MBProgressHUD hideHUD];
     } andFailBlock:^(id failResult) {
-        
         [MBProgressHUD hideHUD];
-        
         [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
-            
     }];
 }
 

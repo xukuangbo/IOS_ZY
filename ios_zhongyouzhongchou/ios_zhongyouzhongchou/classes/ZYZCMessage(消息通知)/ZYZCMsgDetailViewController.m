@@ -39,7 +39,7 @@
 -(void)getHttpData
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Detail_Msg andParameters:@{@"id":[NSNumber numberWithInteger:_msgListModel.ID],
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"systemMsg_viewMsg"] andParameters:@{@"id":[NSNumber numberWithInteger:_msgListModel.ID],
                         @"productId":_msgListModel.productId
                         }
     andSuccessGetBlock:^(id result, BOOL isSuccess)

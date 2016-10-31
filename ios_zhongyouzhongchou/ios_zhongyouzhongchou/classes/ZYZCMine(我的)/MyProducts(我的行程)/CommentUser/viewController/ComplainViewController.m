@@ -132,7 +132,7 @@
                           @"role"      :_role //1：参与人投诉发起人；2发起人投诉参与人
                           };
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:COMPLAIN andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess)
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_productComplaint"] andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess)
     {
         [MBProgressHUD hideHUDForView:self.view];
 //        NSLog(@"%@",result);

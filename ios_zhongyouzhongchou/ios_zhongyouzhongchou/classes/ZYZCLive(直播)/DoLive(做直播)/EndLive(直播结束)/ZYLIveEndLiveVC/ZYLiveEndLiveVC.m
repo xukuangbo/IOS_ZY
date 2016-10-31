@@ -109,7 +109,7 @@
                                  @"streamName" : self.liveEndLiveModel.streamName
                                  };
     
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Del_Live andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_delZhibo"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         [MBProgressHUD showSuccess:@"删除成功"];
     } andFailBlock:^(id failResult) {

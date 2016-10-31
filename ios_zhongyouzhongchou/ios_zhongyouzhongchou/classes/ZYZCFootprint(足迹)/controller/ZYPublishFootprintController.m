@@ -639,7 +639,7 @@
         [param setObject:[NSNumber numberWithInt:(int)_videoLength] forKey:@"videosize"];
     }
 
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Publish_Footprint andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addYouji"] andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUD];
         _publishBtn.enabled=YES;
         if (isSuccess) {

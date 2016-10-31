@@ -123,7 +123,7 @@
     
     MsgListModel *msgModel=self.dataArr[indexPath.row];
     [MBProgressHUD showHUDAddedTo:self animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Delete_Msg andParameters:@{@"id":[NSNumber numberWithInteger:msgModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"systemMsg_deleteMsg"] andParameters:@{@"id":[NSNumber numberWithInteger:msgModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self];
         DDLog(@"%@",result);
         if (isSuccess) {

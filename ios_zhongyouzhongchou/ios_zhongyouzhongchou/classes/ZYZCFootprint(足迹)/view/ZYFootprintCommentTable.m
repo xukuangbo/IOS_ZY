@@ -133,7 +133,7 @@
 #pragma mark --- 删除评论
 -(void)deleteCommentWithComment:(ZYOneCommentModel *)oneCommentModel
 {
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_deleteComment andParameters:@{@"id":[NSNumber numberWithInteger:oneCommentModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_delComment"] andParameters:@{@"id":[NSNumber numberWithInteger:oneCommentModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             [MBProgressHUD showShortMessage:@"删除成功"];
             NSMutableArray *newCommentList=[NSMutableArray arrayWithArray:self.dataArr];

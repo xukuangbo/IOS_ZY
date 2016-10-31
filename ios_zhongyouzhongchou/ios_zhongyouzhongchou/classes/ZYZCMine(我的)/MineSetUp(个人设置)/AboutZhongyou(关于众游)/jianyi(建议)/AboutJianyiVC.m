@@ -124,7 +124,7 @@
                                      @"content" : _writeTextView.text
                                      };
         __weak typeof(&*self) weakSelf = self;
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Jianyi andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"register_saveAdvice"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
 //            NSLog(@"%@",result);
             
             [weakSelf successAction];

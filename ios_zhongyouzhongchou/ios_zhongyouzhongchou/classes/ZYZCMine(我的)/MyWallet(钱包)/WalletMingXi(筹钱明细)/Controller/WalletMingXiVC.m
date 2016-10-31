@@ -52,11 +52,16 @@
 - (void)requestListDataWithPage:(NSInteger )pageNO direction:(NSInteger )direction{
     //direction 方向:1为下拉刷新 2为上拉加载更多
     
-    NSString *url = Get_RecordDetail([ZYZCAccountTool getUserId], self.productId, pageNO);
-    
-    __weak typeof(&*self) weakSelf = self;
+//    NSString *url = Get_RecordDetail([ZYZCAccountTool getUserId], self.productId, pageNO);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_recordDetail"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%@", self.productId] forKey:@"productId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", pageNO] forKey:@"pageNo"];
+    [parameter setValue:@"10" forKey:@"pageSize"];
     [MBProgressHUD showMessage:@"正在加载"];
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             
             NSMutableArray *dataArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
@@ -75,26 +80,18 @@
                     [MBProgressHUD hideHUD];
                     [MBProgressHUD showShortMessage:@"没有更多数据"];
                 }
-                
-                
             }else{//上啦
                 if (dataArray.count > 0) {
-                    
                     [weakSelf.moneyListArray addObjectsFromArray:dataArray];
                     weakSelf.pageNo++;
                     [weakSelf.tableView reloadData];
-                    
-                    
                     [MBProgressHUD hideHUD];
                 }else{
                     [MBProgressHUD hideHUD];
                     [MBProgressHUD showShortMessage:@"没有更多数据"];
                 }
             }
-            
-            
         }else{
-            
             [MBProgressHUD hideHUD];
             [MBProgressHUD showShortMessage:@"连接服务器失败,请检查你的网络"];
         }
@@ -103,7 +100,6 @@
         [weakSelf.tableView.mj_footer endRefreshing];
         [weakSelf.tableView.mj_header endRefreshing];
     } andFailBlock:^(id failResult) {
-        
         [MBProgressHUD hideHUD];
         [MBProgressHUD showShortMessage:@"连接服务器失败,请检查你的网络"];
         
@@ -111,7 +107,6 @@
         [weakSelf.tableView.mj_footer endRefreshing];
         [weakSelf.tableView.mj_header endRefreshing];
     }];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

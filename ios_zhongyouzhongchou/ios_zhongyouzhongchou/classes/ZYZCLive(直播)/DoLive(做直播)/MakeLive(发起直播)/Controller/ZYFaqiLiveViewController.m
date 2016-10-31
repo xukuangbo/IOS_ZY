@@ -224,7 +224,7 @@
 #pragma mark ---请求行程数据
 - (void)requestXCData
 {
-    NSString *url = Get_Live_FaqiXC;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getMyLastProduct"];
     MJWeakSelf
 //    data = {
 //        productTitle = Hehe,
