@@ -289,6 +289,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
             self.video.mvID = effect.eid;
             self.video.preferFilterOrMV = NO;
             [self checkMVResourceExists];
+            self.qpEffectView.viewMix.hidden = NO;
             self.video.mixVolume = 0.5;
         }
     }else{
@@ -304,6 +305,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
             self.video.musicID = effect.eid;
             self.audioMixType = QPMediaPackAudioMixTypeOrigin;
         }else {
+            self.qpEffectView.viewMix.hidden = NO;
             self.video.mixVolume = 0.5;
             self.video.musicID = effect.eid;
             self.audioMixType = QPMediaPackAudioMixTypeMusic;

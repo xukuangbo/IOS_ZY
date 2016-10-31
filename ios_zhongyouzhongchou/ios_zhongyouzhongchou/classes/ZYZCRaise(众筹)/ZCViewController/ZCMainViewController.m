@@ -82,7 +82,7 @@
     [self.navigationController.navigationBar addSubview:navLeftBtn];
     _navLeftBtn=navLeftBtn;
 
-    UIButton *navRightBtn=[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-60, 4, 60, 30) andNormalTitle:@"发起" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(clickLeftNavBtn)];
+    UIButton *navRightBtn=[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-60, 4, 60, 30) andNormalTitle:@"发起" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(clickRightNavBtn)];
     navRightBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
     [self.navigationController.navigationBar addSubview:navRightBtn];
     _navRightBtn=navRightBtn;
@@ -514,6 +514,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
+     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     _titleView.hidden   = YES ;
     _searchBar.hidden   = NO  ;
     _navRightBtn.hidden = NO  ;

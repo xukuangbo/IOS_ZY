@@ -238,7 +238,7 @@
     //获取验证码
     [ZYZCHTTPTool getHttpDataByURL:GET_PHONE_CODE(_textField.text) withSuccessGetBlock:^(id result, BOOL isSuccess)
     {
-//        NSLog(@"%@",result);
+        NSLog(@"result：%@",result);
         if (isSuccess) {
             
         }
@@ -254,7 +254,7 @@
     }
     andFailBlock:^(id failResult)
     {
-//        NSLog(@"%@",failResult);
+        NSLog(@"failResult：%@",failResult);
         [MBProgressHUD showError:@"网络错误,获取失败"];
         [self prepareGetCodeBtn];
         //停掉定时器

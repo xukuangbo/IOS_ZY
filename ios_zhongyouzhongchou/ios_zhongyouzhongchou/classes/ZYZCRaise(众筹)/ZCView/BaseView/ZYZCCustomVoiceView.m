@@ -129,7 +129,7 @@
 -(void)setVoiceLen:(float)voiceLen
 {
     _voiceLen=voiceLen;
-    CGFloat totalLength=self.width-self.iconImg.right-2*KEDGE_DISTANCE-80;
+    CGFloat totalLength=self.width-self.iconImg.right-2*KEDGE_DISTANCE-100;
     CGFloat time_left=0.0;
     if (self.voiceView) {
          self.voiceView.width=50+((CGFloat)voiceLen/60.0)*totalLength;
