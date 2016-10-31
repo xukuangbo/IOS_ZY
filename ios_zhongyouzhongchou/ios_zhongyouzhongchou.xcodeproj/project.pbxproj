@@ -122,6 +122,7 @@
 		059A792C1DAE068800371302 /* ZYCGContextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792B1DAE068800371302 /* ZYCGContextView.m */; };
 		059A792F1DAE0B8300371302 /* ZYDetailGuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = 059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */; };
 		05B7A8411DC71AD200F38127 /* ZYZCTestModeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B7A8401DC71AD200F38127 /* ZYZCTestModeViewController.m */; };
+		05B7A8441DC7341600F38127 /* ZYZCTestModeManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 05B7A8431DC7341600F38127 /* ZYZCTestModeManager.m */; };
 		05BB94F91DA9E7BA000DA5BA /* ZYTravePayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */; };
 		05BB94FB1DA9E7CE000DA5BA /* ZYTravePayVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */; };
 		05CAE7041DAB362300CE6D4B /* ZYJourneyLiveModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 05CAE7031DAB362300CE6D4B /* ZYJourneyLiveModel.m */; };
@@ -878,6 +879,8 @@
 		059A792E1DAE0B8300371302 /* ZYDetailGuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDetailGuideView.m; sourceTree = "<group>"; };
 		05B7A83F1DC71AD200F38127 /* ZYZCTestModeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCTestModeViewController.h; sourceTree = "<group>"; };
 		05B7A8401DC71AD200F38127 /* ZYZCTestModeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCTestModeViewController.m; sourceTree = "<group>"; };
+		05B7A8421DC7341600F38127 /* ZYZCTestModeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCTestModeManager.h; sourceTree = "<group>"; };
+		05B7A8431DC7341600F38127 /* ZYZCTestModeManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCTestModeManager.m; sourceTree = "<group>"; };
 		05BB94F71DA9E7BA000DA5BA /* ZYTravePayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ZYTravePayView.h; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.h"; sourceTree = SOURCE_ROOT; };
 		05BB94F81DA9E7BA000DA5BA /* ZYTravePayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ZYTravePayView.m; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayView.m"; sourceTree = SOURCE_ROOT; };
 		05BB94FA1DA9E7CE000DA5BA /* ZYTravePayVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ZYTravePayVIew.xib; path = "ios_zhongyouzhongchou/classes/Main(主要)/Category/ZYTravePayVIew.xib"; sourceTree = SOURCE_ROOT; };
@@ -2721,6 +2724,8 @@
 			children = (
 				05B7A83F1DC71AD200F38127 /* ZYZCTestModeViewController.h */,
 				05B7A8401DC71AD200F38127 /* ZYZCTestModeViewController.m */,
+				05B7A8421DC7341600F38127 /* ZYZCTestModeManager.h */,
+				05B7A8431DC7341600F38127 /* ZYZCTestModeManager.m */,
 			);
 			path = "TestMode(切换服务器)";
 			sourceTree = "<group>";
@@ -5838,6 +5843,7 @@
 				2C1B60D91D6D3CF900E3C25B /* FZCContentEntryView.m in Sources */,
 				2CDE66C01DA650690066F49D /* QPPickerPreviewCell.m in Sources */,
 				394C2A7C1DB9EDF000821F78 /* WalletKtxTableView.m in Sources */,
+				05B7A8441DC7341600F38127 /* ZYZCTestModeManager.m in Sources */,
 				39911ACC1D504174007DF44B /* UIView+ZYZCLineView.m in Sources */,
 				2C91B6691D9155140091EC79 /* ZYCommentFootprintController.m in Sources */,
 				2C90F6F81D533579001ABB44 /* ZYZCMsgDetailViewController.m in Sources */,

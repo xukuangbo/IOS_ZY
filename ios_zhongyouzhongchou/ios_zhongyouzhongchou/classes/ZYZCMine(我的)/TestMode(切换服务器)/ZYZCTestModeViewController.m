@@ -8,6 +8,7 @@
 
 #import "ZYZCTestModeViewController.h"
 #import "LoginJudgeTool.h"
+#import "ZYZCTestModeManager.h"
 @interface ZYZCTestModeViewController ()
 
 @end
@@ -50,6 +51,7 @@
 #pragma mark - event
 - (void)testServerButtonEvent:(UIButton *)sender
 {
+    [ZYZCTestModeManager setServerStatus:sender.tag - 100];
     [ZYZCAPIGenerate sharedInstance].serverType = sender.tag - 100;
     [ZYZCAccountTool deleteAccount];
     [LoginJudgeTool judgeLogin];
