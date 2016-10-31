@@ -28,7 +28,7 @@
 #import "MBProgressHUD+MJ.h"
 #import  <QPSDKCore/QPSDKCore.h>
 #import <Bugtags/Bugtags.h>
-
+#import "ZYZCTestModeManager.h"
 #define JPushAppKey    @"0d84e54275eeab85eac5baf6"
 #define JPushChabbel   @"Publish channel"
 
@@ -56,6 +56,8 @@
     if (![[ZYZCAPIGenerate sharedInstance] isTestMode]) {
         kLinkServerType linkServerType = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"APIModeSwitch"] integerValue];
         [ZYZCAPIGenerate sharedInstance].serverType = linkServerType;
+    } else {
+        [ZYZCAPIGenerate sharedInstance].serverType = [ZYZCTestModeManager getServerStatus];
     }
     
     //获取app版本号，判断app是否是下载或更新后第一次进入
