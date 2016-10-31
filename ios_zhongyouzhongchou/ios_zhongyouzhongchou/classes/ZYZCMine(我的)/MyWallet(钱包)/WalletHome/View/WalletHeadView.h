@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class WalletHeadModel;
 #define WalletHeadViewH  208
 
 @interface WalletHeadView : UIView
 
+@property (nonatomic, strong) WalletHeadModel *model;
 @end

@@ -17,6 +17,7 @@
 #import "WalletYbjModel.h"
 #import "WalletYbjCell.h"
 #import "WalletYbjBottomBar.h"
+#import "WalletHeadModel.h"
 static NSInteger KtxPageSize = 2;
 static NSInteger YbjPageSize = 2;
 @interface WalletHomeVC ()
@@ -58,17 +59,19 @@ static NSInteger YbjPageSize = 2;
     
     [self setUpTouchUpAction];
     
+    [self loadHeadViewData];
     [self.ktxTableView.mj_header beginRefreshing];
     [self.ybjTableView.mj_header beginRefreshing];
-    
-    [self loadHeadViewData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
+    self.navigationController.navigationBar.translucent = YES;
 }
+
+
 
 /* 设置子视图 */
 - (void)setUpSubviews
@@ -106,6 +109,11 @@ static NSInteger YbjPageSize = 2;
     [self.view addSubview:_ybjBottomBar];
     
 }
+
+- (void)dealloc
+{
+    DDLog(@"%@被移除了",[self class]);
+}
 #pragma mark - RequestData
 - (void)loadHeadViewData
 {
@@ -117,11 +125,16 @@ static NSInteger YbjPageSize = 2;
     WEAKSELF
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
-        
+//        data =     {
+//            cash = 10100;
+//            uCash = 100;
+//        };
+        WalletHeadModel *model = [WalletHeadModel mj_objectWithKeyValues:result[@"data"]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.headView.model = model;
+        });
     } andFailBlock:^(id failResult) {
         
-        
-        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
     }];
 
 }

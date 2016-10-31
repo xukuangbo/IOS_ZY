@@ -629,6 +629,7 @@
 		39AABC8D1D6EC9D500D25B16 /* MZTimerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8C1D6EC9D500D25B16 /* MZTimerLabel.m */; };
 		39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */; };
 		39AABC971D717B3E00D25B16 /* LiveDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC961D717B3E00D25B16 /* LiveDetailHeadView.m */; };
+		39E0A98B1DC737B800FE6B6C /* WalletHeadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E0A98A1DC737B800FE6B6C /* WalletHeadModel.m */; };
 		39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */; };
 		39E4EC5A1D2FB9B200305F73 /* AboutZhongyouVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC591D2FB9B200305F73 /* AboutZhongyouVC.m */; };
 		39E52FDD1D50815A00D0ED83 /* TacticMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E52FDC1D50815A00D0ED83 /* TacticMainVC.m */; };
@@ -1854,6 +1855,8 @@
 		39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionViewButton.m; sourceTree = "<group>"; };
 		39AABC951D717B3E00D25B16 /* LiveDetailHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveDetailHeadView.h; sourceTree = "<group>"; };
 		39AABC961D717B3E00D25B16 /* LiveDetailHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveDetailHeadView.m; sourceTree = "<group>"; };
+		39E0A9891DC737B800FE6B6C /* WalletHeadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHeadModel.h; sourceTree = "<group>"; };
+		39E0A98A1DC737B800FE6B6C /* WalletHeadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHeadModel.m; sourceTree = "<group>"; };
 		39E4EC531D2F9C1800305F73 /* TacticMoreCitiesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreCitiesModel.h; sourceTree = "<group>"; };
 		39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreCitiesModel.m; sourceTree = "<group>"; };
 		39E4EC581D2FB9B200305F73 /* AboutZhongyouVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutZhongyouVC.h; sourceTree = "<group>"; };
@@ -4844,6 +4847,8 @@
 				391115EC1DC227BD000C82F1 /* WalletKtxModel.m */,
 				391115EE1DC228A1000C82F1 /* WalletYbjModel.h */,
 				391115EF1DC228A1000C82F1 /* WalletYbjModel.m */,
+				39E0A9891DC737B800FE6B6C /* WalletHeadModel.h */,
+				39E0A98A1DC737B800FE6B6C /* WalletHeadModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5762,6 +5767,7 @@
 				2C7E3B4E1D06C92100F51C61 /* MineOneItemCell.m in Sources */,
 				390D2FC31DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m in Sources */,
 				2CDE670A1DA651070066F49D /* QPPlayerManager.m in Sources */,
+				39E0A98B1DC737B800FE6B6C /* WalletHeadModel.m in Sources */,
 				3987D55F1D46FE5300556E41 /* TacticGoXXTravelCell.m in Sources */,
 				2CD6B8F41DA9DFEE00B7E60A /* ZCDetailBottomView.m in Sources */,
 				2CFC7D0F1DA648B900A28D74 /* QupaiSDK.m in Sources */,
