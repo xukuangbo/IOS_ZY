@@ -28,4 +28,7 @@ typedef NS_ENUM(NSUInteger, kLinkServerType) {
 -(NSString*)API:(NSString*)apiName;
 - (NSString *)APIBaseUrl;
 
+// 是否开启内测模式
+- (BOOL)isTestMode;
+
 @end
