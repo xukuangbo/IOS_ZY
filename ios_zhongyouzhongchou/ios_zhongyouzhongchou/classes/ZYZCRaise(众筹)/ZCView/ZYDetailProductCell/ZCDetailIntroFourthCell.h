@@ -7,7 +7,10 @@
 //
 
 #import "MoreFZCBaseTableViewCell.h"
+#import "ZCDetailModel.h"
 
 @interface ZCDetailIntroFourthCell : MoreFZCBaseTableViewCell
+
+@property (nonatomic, strong) ReportModel *togtherModel;
 
 @end
