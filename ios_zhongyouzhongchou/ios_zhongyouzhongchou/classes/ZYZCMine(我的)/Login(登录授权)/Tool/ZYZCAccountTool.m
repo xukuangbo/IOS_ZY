@@ -46,7 +46,7 @@
 #pragma mark --- 取我的userId
 + (NSString *)getUserId
 {
-    ZYZCAccountModel  *accountModel=[self account];
+    ZYZCAccountModel  *accountModel=[[self class] account];
     return [accountModel.userId stringValue] ;
 }
 
@@ -133,7 +133,7 @@
     //删除个人信息
     [MediaUtils deleteFileByPath:HWAccountPath];
     
-   
+    [ZYZCAccountTool getUserId];
     NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
     //删除融云token
     [user setObject:nil forKey:KCHAT_TOKEN];
