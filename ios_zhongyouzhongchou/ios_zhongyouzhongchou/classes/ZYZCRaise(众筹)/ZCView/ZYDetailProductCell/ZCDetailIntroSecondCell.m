@@ -203,14 +203,17 @@
 #pragma mark --- 获取单个目的地数据
 -(void)getHttpDataByViewId:(NSNumber *)viewId
 {
-    NSString *url=[NSString stringWithFormat:@"%@viewId=%@",GET_VIEWSPOT,viewId];
-    __weak typeof (&*self)weakSelf=self;
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-//        NSLog(@"%@",result);
+//    NSString *url=[NSString stringWithFormat:@"%@viewId=%@",GET_VIEWSPOT,viewId];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_getViewSpot"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:viewId forKey:@"viewId"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         _tacticSingleModel = [TacticSingleModel mj_objectWithKeyValues:result[@"data"]];
         [weakSelf reloadData];
+
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+        
     }];
 }
 

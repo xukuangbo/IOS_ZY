@@ -109,12 +109,15 @@
         if (style4) {
         #pragma mark ----------- 
             //判断时间是否有冲突，如果有则不可支持
-            [ZYZCHTTPTool getHttpDataByURL:JUDGE_TIME_CONFLICT([ZYZCAccountTool getUserId],productId) withSuccessGetBlock:^(id result, BOOL isSuccess)
-            {
+            NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_checkMyProductsTime"];
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+            [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+            [parameter setValue:[NSString stringWithFormat:@"%@", productId] forKey:@"productId"];
+            [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
                 //没有冲突
                 if ([result[@"data"] isEqual:@1]) {
                     WXApiManager *wxManager=[WXApiManager sharedManager];
-                    [wxManager payForWeChat:mutDic payUrl:GET_WX_ORDER withSuccessBolck:nil andFailBlock:nil];
+                    [wxManager payForWeChat:mutDic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
                 }
                 else if ([result[@"data"] isEqual:@0])
                 {
@@ -125,16 +128,12 @@
                 {
                     [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
                 }
-            }
-            andFailBlock:^(id failResult)
-            {
+            } andFailBlock:^(id failResult) {
                 [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
             }];
-        }
-        else
-        {
+        } else {
             WXApiManager *wxManager=[WXApiManager sharedManager];
-            [wxManager payForWeChat:mutDic payUrl:GET_WX_ORDER withSuccessBolck:nil andFailBlock:nil];
+            [wxManager payForWeChat:mutDic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
         }
         
         

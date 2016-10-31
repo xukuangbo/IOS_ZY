@@ -65,26 +65,25 @@ static NSString *const ID = @"MineWantGoCollectionViewCell";
 {
     
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *url = Get_Tactic_List_WantGo(userId);
-//    NSLog(@"%@",url);
+//    NSString *url = Get_Tactic_List_WantGo(userId);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_getMySpots"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userId forKey:@"userId"];
+    WEAKSELF
     //访问网络
-    __weak typeof(&*self) weakSelf = self;
     [MBProgressHUD showMessage:nil];
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [NetWorkManager hideFailViewForView:self.view];
         if (isSuccess) {
             //请求成功，转化为数组
             weakSelf.mineWantGoModelArray = [MineWantGoModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-//            [weakSelf.collectionView reloadData];
+            //            [weakSelf.collectionView reloadData];
             if (weakSelf.mineWantGoModelArray.count <= 0) {//没有数据，就显示占位图
                 [EntryPlaceholderView viewWithSuperView:weakSelf.view type:EntryTypeXiangquDest];
             }else{//如果有数据，就刷新
                 [weakSelf.collectionView reloadData];
-                
             }
-            
         }
-        
         [MBProgressHUD hideHUD];
     } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUD];

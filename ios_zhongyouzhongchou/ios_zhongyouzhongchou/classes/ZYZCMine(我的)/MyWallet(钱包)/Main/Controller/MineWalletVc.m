@@ -184,18 +184,16 @@
 #pragma mark - requsetData方法
 - (void)requsetData
 {
-    NSString *url = Get_MyTXTotles([ZYZCAccountTool getUserId]);
-    __weak typeof(&*self) weakSelf = self;
-//    NSLog(@"%@",url);
-    
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+//    NSString *url = Get_MyTXTotles([ZYZCAccountTool getUserId]);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProductsTotles"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [weakSelf changeMoneyByMoney:result];
-        
     } andFailBlock:^(id failResult) {
         
     }];
-    
 }
 
 #pragma mark ---请求提现列表数据数据

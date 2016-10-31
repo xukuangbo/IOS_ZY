@@ -46,7 +46,6 @@
 #define UNFOLLOWPRODUCT    HTTPURL(@"friends/unfollowProduct")
 //获取用户信息
 #define GETUSERINFO        HTTPURL(@"register/getUserInfo")
-
 //注册微信用户信息
 #define REGISTERWEICHAT    HTTPURL(@"register/saveWeixinInfo")
 //注册个人信息（总）
@@ -55,7 +54,6 @@
 #define Regist_SaveContactInfo [NSString stringWithFormat:@"%@register/saveDeliveryAddress.action",BASE_URL]
 //获取可提现总额
 #define Get_MyTXTotles(userId) [NSString stringWithFormat:@"%@list/listMyTxProductsTotles.action?userId=%@",BASE_URL,userId]
-
 //用户基本信息
 #define BASEINFO           HTTPURL(@"register/saveBaseInfo")
 //实名认证
@@ -69,7 +67,7 @@
 //兴趣标签
 #define TAGINFO            HTTPURL(@"register/saveTagInfo")
 //收货地址
-#define DELIVERYADDRESS    HTTPURL(@"register/saveDeliveryAddress")
+//#define DELIVERYADDRESS    HTTPURL(@"register/saveDeliveryAddress")
 //发布众筹
 #define ADDPRODUCT         HTTPURL(@"product/addProduct")
 //编辑众筹
@@ -82,10 +80,8 @@
 #define GET_COMMENT        HTTPURL(@"comment/listZhongchouComment")
 //获取我的钱包
 #define GET_MYWALLET       HTTPURL(@"wallet/getMyWallet")
-
 //获取prepay_id
 #define GET_ORDER          HTTPURL(@"weixinpay/generateAppOrder")
-
 //获取所有众筹列表
 //#define LISTALLPRODUCTS    HTTPURL(@"list/listAllProducts")
 #define LISTALLPRODUCTS    HTTPURL(@"list/listAllProductsApp")
@@ -101,7 +97,6 @@
 #define GET_VIEWSPOT       HTTPURL(@"viewSpot/getViewSpot")
 //获取景点视屏
 #define GET_SPOT_VIDEO     HTTPURL(@"viewSpot/getViewSpotVideo")
-
 //获取攻略首页数据
 #define GET_TACTIC         [NSString stringWithFormat:@"%@viewSpot/getIndexHot.action",BASE_URL]
 //获取单个景点的数据，一般，国家，城市
@@ -112,7 +107,6 @@
 #define GET_TACTIC_More_Countries [NSString stringWithFormat:@"%@admin_back/getViewList.action?viewType=1",BASE_URL]
 //获取更多视频
 #define GET_TACTIC_More_Videos [NSString stringWithFormat:@"%@admin_back/getViewVideoList.action?viewType=2",BASE_URL]
-
 //获取主页视频（原来直播的内容）
 #define GET_Tab_Videos [NSString stringWithFormat:@"%@admin_back/getViewVideoList2.action?viewType=2",BASE_URL]
 //添加想去的目的地
@@ -127,39 +121,29 @@
 #define Get_TravelTag_List(tag) [NSString stringWithFormat:@"%@user/listLabel.action?tag=%zd",BASE_URL,tag]
 //提交旅行标签
 #define Post_TravelTag [NSString stringWithFormat:@"%@register/saveTagInfo.action",BASE_URL]
-
 //通过userid获取用户基本信息
 #define GET_USERINFO_BYUSERID    HTTPURL(@"u/getUserById")
-
 //通过openid获取用户基本信息(改成userId了)
 #define GET_USERINFO_BYOPENID(userId)  [NSString stringWithFormat:@"%@u/getUserByOpenId.action?userId=%@",BASE_URL,userId]
-
 //获取聊天的token(正式)
 //#define GET_CHAT_TOKEN(userId,name,headImg)   [NSString stringWithFormat:@"%@rongAPI/getToken.action?userId=%@&userName=%@&portraitUri=%@",BASE_URL,userId,name,headImg]
-
 //获取聊天的token(测试)
 #define GET_CHAT_TOKEN(userId,name,headImg)   [NSString stringWithFormat:@"%@rongAPI/getTokenTest.action?userId=%@&userName=%@&portraitUri=%@",BASE_URL,userId,name,headImg]
-
 //生成微信支付订单
 #define  GET_WX_ORDER          [NSString stringWithFormat:@"%@weixinpay/generateAppOrder.action",BASE_URL]
-
 //获取微信token
 #define  GET_WX_TOKEN(code)    [NSString stringWithFormat:@"%@wxAPI/getToken.action?code=%@",BASE_URL,code]
-
 //删除众筹项目
 #define  DELETE_PRODUCT       [NSString stringWithFormat:@"%@product/deleteProduct.action",BASE_URL]
-
 //编辑项目
 #define  UPDATA_PRODUCT       [NSString stringWithFormat:@"%@product/updateproduct.action",BASE_URL]
-
 //判断项目时间是否有冲突
 #define JUDGE_MY_PRODUCT_TIME(userId,startTime,endTime)  [NSString stringWithFormat:@"%@list/checkMyProductsTime.action?userId=%@&startTime=%@&endTime=%@",BASE_URL,userId,startTime,endTime]
-
 //判断项目时间是否有冲突2
 #define JUDGE_TIME_CONFLICT(userId,productId)  [NSString stringWithFormat:@"%@list/checkMyProductsTime.action?userId=%@&productId=%@",BASE_URL,userId,productId]
-
 //获取已报名参加一起游的信息
 #define TOGTHER_INFO(userId,productId)  [NSString stringWithFormat:@"%@productInfo/getStyle4Users.action?userId=%@&productId=%@",BASE_URL,userId,productId]
+
 
 //加入一起游意向列表
 #define ADD_TOGETHER_PARTNER(userId,productId,userIds)   [NSString stringWithFormat:@"%@productInfo/savaProductUserStatus.action?userId=%@&productId=%@&userIds=%@",BASE_URL,userId,productId,userIds]

@@ -309,56 +309,103 @@
     _entryView.hidden = YES;
     //获取所有众筹详情
     NSString *httpUrl=nil;
-    
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+
     if (searchKey.length) {
         //搜索关键词
         NSString *keyword= [_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-        httpUrl=[NSString stringWithFormat:@"%@%@&querytype=6&keyword=%@",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo),keyword];
+//        httpUrl=[NSString stringWithFormat:@"%@%@&querytype=6&keyword=%@",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo),keyword];
+        httpUrl =[[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProductsApp"];
+        [parameter setValue:@"false" forKey:@"cache"];
+        [parameter setValue:@"4" forKey:@"orderType"];
+        [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+        [parameter setValue:@"10" forKey:@"pageSize"];
+        [parameter setValue:@"6" forKey:@"querytype"];
+        [parameter setValue:keyword forKey:@"keyword"];
+        
     }
     else
     {
         //只看女
         if (_filterType==1) {
-            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=1&sex=2",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+//            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=1&sex=2",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+            httpUrl =[[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProductsApp"];
+            [parameter setValue:@"false" forKey:@"cache"];
+            [parameter setValue:@"4" forKey:@"orderType"];
+            [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+            [parameter setValue:@"10" forKey:@"pageSize"];
+            [parameter setValue:@"1" forKey:@"querytype"];
+            [parameter setValue:@"2" forKey:@"sex"];
         }
         //只看男
         else if(_filterType==2)
         {
-             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=1&sex=1",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+//             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=1&sex=1",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+            httpUrl =[[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProductsApp"];
+            [parameter setValue:@"false" forKey:@"cache"];
+            [parameter setValue:@"4" forKey:@"orderType"];
+            [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+            [parameter setValue:@"10" forKey:@"pageSize"];
+            [parameter setValue:@"1" forKey:@"querytype"];
+            [parameter setValue:@"1" forKey:@"sex"];
         }
         //看成功
         else if (_filterType==3)
         {
-            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=2",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+//            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=2",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+            httpUrl =[[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProductsApp"];
+            [parameter setValue:@"false" forKey:@"cache"];
+            [parameter setValue:@"4" forKey:@"orderType"];
+            [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+            [parameter setValue:@"10" forKey:@"pageSize"];
+            [parameter setValue:@"2" forKey:@"querytype"];
         }
         //看最近
         else if (_filterType==4)
         {
-            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=5",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+//            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=5",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+            httpUrl =[[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProductsApp"];
+            [parameter setValue:@"false" forKey:@"cache"];
+            [parameter setValue:@"4" forKey:@"orderType"];
+            [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+            [parameter setValue:@"10" forKey:@"pageSize"];
+            [parameter setValue:@"5" forKey:@"querytype"];
         }
         //看全部
         else if (_filterType==5)
         {
-            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=3",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+//            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=3",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+            httpUrl =[[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProductsApp"];
+            [parameter setValue:@"false" forKey:@"cache"];
+            [parameter setValue:@"4" forKey:@"orderType"];
+            [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+            [parameter setValue:@"10" forKey:@"pageSize"];
+            [parameter setValue:@"3" forKey:@"querytype"];
         }
         //默认
         else if (_filterType==6)
         {
-             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=98",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+//             httpUrl=[NSString stringWithFormat:@"%@%@&querytype=98",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];
+            httpUrl =[[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProductsApp"];
+            [parameter setValue:@"false" forKey:@"cache"];
+            [parameter setValue:@"4" forKey:@"orderType"];
+            [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+            [parameter setValue:@"10" forKey:@"pageSize"];
+            [parameter setValue:@"98" forKey:@"querytype"];
         }
     }
 //    DDLog(@"httpUrl:%@",httpUrl);
     if (_isFirstEntry) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     }
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    STRONGSELF
+    [ZYZCHTTPTool GET:httpUrl parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (_isFirstEntry) {
             [MBProgressHUD hideHUDForView:self.view];
             _isFirstEntry=NO;
         }
         [NetWorkManager hideFailViewForView:self.view];
-//        DDLog(@"result：%@",result);
+        //        DDLog(@"result：%@",result);
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_table.mj_footer ;
             if (_pageNo==1&&_listArr.count) {
@@ -393,7 +440,7 @@
         }
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
-        
+
     } andFailBlock:^(id failResult) {
         if (_isFirstEntry) {
             [MBProgressHUD hideHUDForView:self.view];
@@ -406,7 +453,7 @@
         [NetWorkManager showMBWithFailResult:failResult];
         __weak typeof (&*self)weakSelf=self;
         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-            [weakSelf getHttpDataByFilterType:weakSelf.filterType andSeachKey:weakSelf.searchBar.text];
+            [strongSelf getHttpDataByFilterType:strongSelf.filterType andSeachKey:strongSelf.searchBar.text];
         }];
     }];
 }

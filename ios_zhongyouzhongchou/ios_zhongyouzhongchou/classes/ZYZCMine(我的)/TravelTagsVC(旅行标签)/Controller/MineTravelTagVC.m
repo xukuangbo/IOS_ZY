@@ -147,34 +147,29 @@
 
 - (void)requestDataOne{
     
-    __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool getHttpDataByURL:Get_TravelTag_List(1) withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"user_listLabelAction"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"1" forKey:@"tag"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         weakSelf.titleArrayOne = [MineTravelTagsModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        
-        
         [self requestDataTwo];
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+        
     }];
-    
 }
 
 - (void)requestDataTwo{
-    __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool getHttpDataByURL:Get_TravelTag_List(2) withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"user_listLabelAction"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"2" forKey:@"tag"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         weakSelf.titleArrayTwo = [MineTravelTagsModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        
         [weakSelf reloadUIFrame];
-        
         _scrollView.hidden = NO;
-        
         [MBProgressHUD hideHUD];
-        
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
-        
         [MBProgressHUD hideHUD];
     }];
 }
@@ -295,10 +290,8 @@
                                  @"tags":string
                                  };
     __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_TravelTag andParameters:parameters    andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"register_saveTagInfo"] andParameters:parameters    andSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD showSuccess:@"旅行标签设置成功"];
-        
         [weakSelf.navigationController popViewControllerAnimated:YES];
     } andFailBlock:^(id failResult) {
 //        NSLog(@"%@",failResult);

@@ -129,24 +129,24 @@
         _spotVideos=[NSMutableArray array];
         for(OneSpotModel *oneSportModel in _viewSpots){
             NSNumber *viewId=oneSportModel.ID;
-            [ZYZCHTTPTool getHttpDataByURL:[NSString stringWithFormat:@"%@viewId=%@",GET_SPOT_VIDEO,viewId] withSuccessGetBlock:^(id result, BOOL isSuccess)
-             {
-                 DDLog(@"%@",result);
-                 if (isSuccess) {
-                     ZCSpotVideoModel *spotVideo=[[ZCSpotVideoModel alloc]mj_setKeyValues:result[@"data"]];
-                     if (spotVideo.videoUrl.length) {
-                         spotVideo.spotName=oneSportModel.name;
-                         [_spotVideos addObject:spotVideo];
-                     } ;
-                     if (_spotVideos.count) {
-                         _hasIntroMovie=YES;
-                         [self reloadData];
-                     }
-                 }
-             }
-             andFailBlock:^(id failResult)
-             {
-             }];
+            NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_getViewSpotVideo"];
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+            [parameter setValue:[NSString stringWithFormat:@"%@", viewId] forKey:@"viewId"];
+            [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+                if (isSuccess) {
+                    ZCSpotVideoModel *spotVideo=[[ZCSpotVideoModel alloc]mj_setKeyValues:result[@"data"]];
+                    if (spotVideo.videoUrl.length) {
+                        spotVideo.spotName=oneSportModel.name;
+                        [_spotVideos addObject:spotVideo];
+                    } ;
+                    if (_spotVideos.count) {
+                        _hasIntroMovie=YES;
+                        [self reloadData];
+                    }
+                }
+            } andFailBlock:^(id failResult) {
+                
+            }];
         }
     }
 }
@@ -447,7 +447,8 @@
                                 @"pageNO":@1,
                                 @"pageSize":@5
                                 };
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:GET_COMMENT andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"comment_listZhongchouComment"];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSLog(@"%@",result);
         [_commentArr removeAllObjects];
         if (isSuccess) {
@@ -514,38 +515,40 @@
     
     [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
     //获取用户的user
-    [ZYZCHTTPTool getHttpDataByURL:GET_USERINFO_BYOPENID([ZYZCAccountTool getUserId]) withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         [MBProgressHUD hideHUDForView:self.viewController.view];
-//         NSLog(@"%@",result);
-         if (isSuccess) {
-             UserModel *myUser=[[UserModel alloc]mj_setKeyValues:result[@"data"]];
-             
-             for (int i=0; i<styles.count; i++) {
-                 NSDictionary *dic=styles[i];
-                 for (ReportModel *reportModel in _detailModel.detailProductModel.report) {
-                     if ([reportModel.style isEqual:dic[@"style"]]) {
-                         BOOL hasMyUser=NO;
-                         for (UserModel *user in reportModel.users) {
-                             if ([myUser.userId isEqual:user.userId]) {
-                                 hasMyUser=YES;
-                                 break;
-                             }
-                         }
-                         if (!hasMyUser) {
-                             NSMutableArray *mutArr=[NSMutableArray arrayWithArray:reportModel.users];
-                             [mutArr addObject:myUser];
-                             reportModel.users=mutArr;
-                         }
-                     }
-                 }
-             }
-              [self reloadData];
-         }
-         
-     } andFailBlock:^(id failResult) {
-         [MBProgressHUD hideHUDForView:self.viewController.view];
-     }];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserByOpenId"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUDForView:self.viewController.view];
+        //         NSLog(@"%@",result);
+        if (isSuccess) {
+            UserModel *myUser=[[UserModel alloc]mj_setKeyValues:result[@"data"]];
+            
+            for (int i=0; i<styles.count; i++) {
+                NSDictionary *dic=styles[i];
+                for (ReportModel *reportModel in _detailModel.detailProductModel.report) {
+                    if ([reportModel.style isEqual:dic[@"style"]]) {
+                        BOOL hasMyUser=NO;
+                        for (UserModel *user in reportModel.users) {
+                            if ([myUser.userId isEqual:user.userId]) {
+                                hasMyUser=YES;
+                                break;
+                            }
+                        }
+                        if (!hasMyUser) {
+                            NSMutableArray *mutArr=[NSMutableArray arrayWithArray:reportModel.users];
+                            [mutArr addObject:myUser];
+                            reportModel.users=mutArr;
+                        }
+                    }
+                }
+            }
+            [self reloadData];
+        }
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUDForView:self.viewController.view];
+    }];
 }
 
 #pragma mark --- (一起游为零元)支持一起游成功
@@ -553,35 +556,38 @@
 {
     [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
     //获取用户的user
-    [ZYZCHTTPTool getHttpDataByURL:GET_USERINFO_BYOPENID([ZYZCAccountTool getUserId]) withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         [MBProgressHUD hideHUDForView:self.viewController.view];
-//         NSLog(@"%@",result);
-         if (isSuccess) {
-             UserModel *myUser=[[UserModel alloc]mj_setKeyValues:result[@"data"]];
-             
-             for (ReportModel *reportModel in _detailModel.detailProductModel.report) {
-                 if ([reportModel.style isEqual:@4]) {
-                     BOOL hasMyUser=NO;
-                     for (UserModel *user in reportModel.users) {
-                         if ([myUser.userId isEqual:user.userId]) {
-                             hasMyUser=YES;
-                             break;
-                         }
-                     }
-                     if (!hasMyUser) {
-                         NSMutableArray *mutArr=[NSMutableArray arrayWithArray:reportModel.users];
-                         [mutArr addObject:myUser];
-                         reportModel.users=mutArr;
-                         [self reloadData];
-                     }
-                 }
-             }
-         }
-         
-     } andFailBlock:^(id failResult) {
-         [MBProgressHUD hideHUDForView:self.viewController.view];
-     }];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserByOpenId"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUDForView:self.viewController.view];
+        [MBProgressHUD hideHUDForView:self.viewController.view];
+        //         NSLog(@"%@",result);
+        if (isSuccess) {
+            UserModel *myUser=[[UserModel alloc]mj_setKeyValues:result[@"data"]];
+            
+            for (ReportModel *reportModel in _detailModel.detailProductModel.report) {
+                if ([reportModel.style isEqual:@4]) {
+                    BOOL hasMyUser=NO;
+                    for (UserModel *user in reportModel.users) {
+                        if ([myUser.userId isEqual:user.userId]) {
+                            hasMyUser=YES;
+                            break;
+                        }
+                    }
+                    if (!hasMyUser) {
+                        NSMutableArray *mutArr=[NSMutableArray arrayWithArray:reportModel.users];
+                        [mutArr addObject:myUser];
+                        reportModel.users=mutArr;
+                        [self reloadData];
+                    }
+                }
+            }
+        }
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUDForView:self.viewController.view];
+    }];
 }
 
 -(void)dealloc

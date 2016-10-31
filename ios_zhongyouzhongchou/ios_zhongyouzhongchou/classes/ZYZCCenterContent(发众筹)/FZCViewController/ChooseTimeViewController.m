@@ -166,10 +166,17 @@ static NSString *DayCell = @"DayCell";
 -(void )getMyOccupyDays
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *url=[NSString stringWithFormat:@"%@cache=false&orderType=1&pageNo=1&pageSize=100&userId=%@&status_not=0,2",GET_MY_OCCUPY_TIME,[ZYZCAccountTool getUserId]];
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"%@",result);
+//    NSString *url=[NSString stringWithFormat:@"%@cache=false&orderType=1&pageNo=1&pageSize=100&userId=%@&status_not=0,2",GET_MY_OCCUPY_TIME,[ZYZCAccountTool getUserId]];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyProductsTime"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"false" forKey:@"cache"];
+    [parameter setValue:@"1" forKey:@"orderType"];
+    [parameter setValue:@"1" forKey:@"pageNo"];
+    [parameter setValue:@"100" forKey:@"pageSize"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:@"0,2" forKey:@"status_not"];
+    
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             NSDictionary *dateDic=result[@"data"];
             NSMutableArray *datesArr=[NSMutableArray array];
@@ -201,10 +208,9 @@ static NSString *DayCell = @"DayCell";
             self.calendarMonth = [self getMonthArrayOfDays:self.days showType:self.type isEnable:self.isEnable modelArr:self.modelArr];
             [_collectionView reloadData];
         }
-    }
-    andFailBlock:^(id failResult){
+    } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUD];
-//        NSLog(@"failResult:%@",failResult);
+
     }];
 }
 

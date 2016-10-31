@@ -209,20 +209,20 @@
 #pragma mark --- 从微信返回的回调方法，获取微信token
 -(void)managerDidRecvAuthResponse:(SendAuthResp *)response
 {
-    NSString *url = GET_WX_TOKEN(response.code);
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+//    NSString *url = GET_WX_TOKEN(response.code);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"wxAPI_getToken"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:response.code forKey:@"code"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (result[@"data"][@"errcode"]) {//获取失败，比如
             return ;
-        }
-        else
-        {
+        } else {
             //获取成功，获取微信信息，并注册我们的平台
             ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"]];
             [self requstPersonalData:accountModel];
         }
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+        
     }];
 }
 
@@ -275,7 +275,9 @@
                                 @"headimgurl":weakAccount.headimgurl
                                 };
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:NO andURL:REGISTERWEICHAT andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_saveWeixinInfo"];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:NO andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
          DDLog(@"%@",result);
         if (isSuccess) {
             ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"]];

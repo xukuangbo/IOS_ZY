@@ -107,23 +107,21 @@
 -(void)gerHttpData
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *httpUrl=TOGTHER_INFO([ZYZCAccountTool getUserId], _productId);
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-//         NSLog(@"%@",result);
-         [MBProgressHUD hideHUDForView:self.view];
-         if (isSuccess) {
-             TogetherUersModel  *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
-             self.togetherUersModel=togetherUersModel;
-             [self createBottomBtn];
-         }
-     }
-    andFailBlock:^(id failResult)
-     {
-//         NSLog(@"%@",failResult);
-         [MBProgressHUD hideHUDForView:self.view];
-         
-     }];
+//    NSString *httpUrl=TOGTHER_INFO([ZYZCAccountTool getUserId], _productId);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getStyle4Users"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUDForView:self.view];
+        if (isSuccess) {
+            TogetherUersModel  *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
+            self.togetherUersModel=togetherUersModel;
+            [self createBottomBtn];
+        }
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUDForView:self.view];
+    }];
 }
 
 #pragma mark --- 更新数据
@@ -242,30 +240,32 @@
     WEAKSELF
     //判断时间是否有冲突，如果有则不可支持
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool getHttpDataByURL:JUDGE_TIME_CONFLICT([ZYZCAccountTool getUserId],_productId) withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         [MBProgressHUD hideHUDForView:self.view];
-         //没有冲突
-         if ([result[@"data"] isEqual:@1]) {
-             //可以支持
-             [weakSelf getPayOrder];
+    
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_checkMyProductsTime"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUDForView:self.view];
+        //没有冲突
+        if ([result[@"data"] isEqual:@1]) {
+            //可以支持
+            [weakSelf getPayOrder];
         }
-         else if ([result[@"data"] isEqual:@0])
-         {
-             UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"此行程与已有行程时间冲突,不可支持一起游" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-             [alert show];
-         }
-         else
-         {
-             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-         }
-     }
-      andFailBlock:^(id failResult)
-     {
-         [MBProgressHUD hideHUDForView:self.view];
-         [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-     }];
-
+        else if ([result[@"data"] isEqual:@0])
+        {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"此行程与已有行程时间冲突,不可支持一起游" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        else
+        {
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+        }
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+    }];
 }
 
 #pragma mark --- 生成订单
@@ -276,7 +276,7 @@
     __weak typeof (&*self)weakSelf=self;
     [wxManager payForWeChat:@{@"productId":_productId,
                               @"style4"   :[NSNumber numberWithFloat:[_togetherUersModel.price floatValue]/100.0]
-                              } payUrl:GET_WX_ORDER withSuccessBolck:^{
+                              } payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:^{
                                   [weakSelf.navigationController popViewControllerAnimated:YES];
                               } andFailBlock:^{
                                   

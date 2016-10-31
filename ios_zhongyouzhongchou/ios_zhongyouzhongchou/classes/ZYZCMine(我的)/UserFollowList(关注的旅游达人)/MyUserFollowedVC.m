@@ -79,10 +79,12 @@
 //    NSLog(@"%@",url);
 //    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_listUserFollowed"];
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"friends_listUserFollowed"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
     [MBProgressHUD showMessage:nil];
     WEAKSELF
     STRONGSELF
-    [ZYZCHTTPTool GET:url parameters:nil withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [NetWorkManager hideFailViewForView:self.view];
         if (isSuccess) {
             //请求成功，转化为数组

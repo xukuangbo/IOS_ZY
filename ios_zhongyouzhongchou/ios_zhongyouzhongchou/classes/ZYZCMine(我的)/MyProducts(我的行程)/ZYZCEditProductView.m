@@ -686,15 +686,18 @@
 -(void)editDraft
 {
     [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-    [ZYZCHTTPTool getHttpDataByURL:KGET_DRAFT_PRODUCT([ZYZCAccountTool getUserId],_productId) withSuccessGetBlock:^(id result, BOOL isSuccess)
-    {
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getProductDetail"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:_productId forKey:@"productId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.viewController.view];
         DDLog(@"draft:%@",result);
         if (isSuccess) {
             ZCDetailModel *detailModel=[[ZCDetailModel alloc]mj_setKeyValues:result];
             MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
             
-            __weak typeof (&*self)weakSelf=self;
             [manager getDataFromDraft:detailModel andDoFinish:^{
                 MoreFZCViewController *fzcViewController=[[MoreFZCViewController alloc]init];
                 fzcViewController.editFromDraft=YES;
@@ -706,10 +709,8 @@
         {
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
         }
-        
-    } andFailBlock:^(id failResult)
-    {
-//         NSLog(@"%@",failResult);
+
+    } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:self.viewController.view];
         [NetWorkManager showMBWithFailResult:failResult];
     }];
@@ -867,7 +868,7 @@
         @"productId":_productId
         };
         [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];;
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:DELETE_PRODUCT andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"product_deleteProduct"] andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
             [MBProgressHUD hideHUDForView:self.viewController.view];
 //            NSLog(@"%@",result);
             if (isSuccess) {
@@ -892,7 +893,7 @@
                             @"productId":_productId
                             };
         [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:DELETE_PRODUCT andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"product_deleteProduct"] andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
             [MBProgressHUD hideHUDForView:self.viewController.view];
 //            NSLog(@"%@",result);
             if (isSuccess) {
@@ -938,51 +939,50 @@
         //判断时间是否有冲突
         
         [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-        
-        [ZYZCHTTPTool getHttpDataByURL:JUDGE_TIME_CONFLICT([ZYZCAccountTool getUserId],_productId) withSuccessGetBlock:^(id result, BOOL isSuccess)
-         {
-             if ([result[@"data"] isEqual:@0]) {
-                 
-                 [MBProgressHUD hideHUDForView:self.viewController.view];
-                 
-                 UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"此行程与已有行程时间有冲突,确认失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                 [alert show];
-             }
-             else
-             {
-                 //求情确认同游
-                 __weak typeof (&*self)weakSelf=self;
-                 [ZYZCHTTPTool getHttpDataByURL:ACCEPT_INVITATION(_productId, userId) withSuccessGetBlock:^(id result, BOOL isSuccess) {
-                     [MBProgressHUD hideHUDForView:weakSelf.viewController.view];
-//                     NSLog(@"%@",result);
-                     if(isSuccess)
-                     {
-                         [MBProgressHUD showSuccess:@"确认成功"];
-                         weakSelf.joinProductState=@3;
-                         weakSelf.btnTitleArr=@[@"评价",@"延时出发",@""];
-                         weakSelf.commentStatus =@0;//未评论
-                         //延时出发状态
-                         //上传凭证状态
-                     }
-                     else
-                     {
-                         [MBProgressHUD showShortMessage:result[@"errorMsg"]];
-                         weakSelf.joinProductState=@0;
-                         weakSelf.btnTitleArr=@[@"等待确认",@"取消行程",@"评价"];
-                     }
-                 } andFailBlock:^(id failResult) {
-                     // NSLog(@"%@",failResult);
-                     [MBProgressHUD hideHUDForView:weakSelf.viewController.view];
-                     [NetWorkManager showMBWithFailResult:failResult];
-                 }];
-             }
-        }
-        andFailBlock:^(id failResult)
-        {
-            // NSLog(@"%@",failResult);
+        //判断时间是否有冲突，如果有则不可支持
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_checkMyProductsTime"];
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+        [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+        [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+        [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+            if ([result[@"data"] isEqual:@0]) {
+                
+                [MBProgressHUD hideHUDForView:self.viewController.view];
+                
+                UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"此行程与已有行程时间有冲突,确认失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alert show];
+            }
+            else
+            {
+                //求情确认同游
+                __weak typeof (&*self)weakSelf=self;
+                [ZYZCHTTPTool getHttpDataByURL:ACCEPT_INVITATION(_productId, userId) withSuccessGetBlock:^(id result, BOOL isSuccess) {
+                    [MBProgressHUD hideHUDForView:weakSelf.viewController.view];
+                    //                     NSLog(@"%@",result);
+                    if(isSuccess)
+                    {
+                        [MBProgressHUD showSuccess:@"确认成功"];
+                        weakSelf.joinProductState=@3;
+                        weakSelf.btnTitleArr=@[@"评价",@"延时出发",@""];
+                        weakSelf.commentStatus =@0;//未评论
+                        //延时出发状态
+                        //上传凭证状态
+                    }
+                    else
+                    {
+                        [MBProgressHUD showShortMessage:result[@"errorMsg"]];
+                        weakSelf.joinProductState=@0;
+                        weakSelf.btnTitleArr=@[@"等待确认",@"取消行程",@"评价"];
+                    }
+                } andFailBlock:^(id failResult) {
+                    // NSLog(@"%@",failResult);
+                    [MBProgressHUD hideHUDForView:weakSelf.viewController.view];
+                    [NetWorkManager showMBWithFailResult:failResult];
+                }];
+            }
+        } andFailBlock:^(id failResult) {
             [MBProgressHUD hideHUDForView:self.viewController.view];
             [NetWorkManager showMBWithFailResult:failResult];
-            
         }];
     }
     //确认收货

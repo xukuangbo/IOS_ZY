@@ -7,13 +7,13 @@
     
     "u_getUserDetail": {
         "control": "u",
-        "action": "getUserDetail",
+        "action": "getUserDetail.action",
         "protocol": "http"
     },
     
     "friends_listUserFollowed": {
         "control": "friends",
-        "action": "listUserFollowed",
+        "action": "listUserFollowed.action",
         "protocol": "http"
     },
     
@@ -29,45 +29,39 @@
         "protocol": "http"
     },
     
-    "user_listLabel": {
-        "control": "user",
-        "action": "listLabel",
-        "protocol": "http"
-    },
-    
     "friends_followUser": {
         "control": "friends",
-        "action": "followUser",
+        "action": "followUser.action",
         "protocol": "http"
     },
     
     "friends_unfollowUser": {
         "control": "friends",
-        "action": "unfollowUser",
+        "action": "unfollowUser.action",
         "protocol": "http"
     },
     
     "friends_followProduct": {
         "control": "friends",
-        "action": "followProduct",
+        "action": "followProduct.action",
         "protocol": "http"
     },
     
     "friends_unfollowProduct": {
         "control": "friends",
-        "action": "unfollowProduct",
+        "action": "unfollowProduct.action",
         "protocol": "http"
     },
     
     "register_getUserInfo": {
         "control": "register",
-        "action": "getUserInfo",
+        "action": "getUserInfo.action",
         "protocol": "http"
     },
     
     "register_saveWeixinInfo": {
         "control": "register",
-        "action": "saveWeixinInfo",
+        "action": "saveWeixinInfo.action",
         "protocol": "http"
     },
     
@@ -91,119 +85,114 @@
     
     "register_saveBaseInfo": {
         "control": "register",
-        "action": "saveBaseInfo",
+        "action": "saveBaseInfo.action",
         "protocol": "http"
     },
     
     "register_saveAuthInfo": {
         "control": "register",
-        "action": "saveAuthInfo",
+        "action": "saveAuthInfo.action",
         "protocol": "http"
     },
     
     "register_saveContactInfo": {
         "control": "register",
-        "action": "saveContactInfo",
+        "action": "saveContactInfo.action",
         "protocol": "http"
     },
     
     "register_saveCareerInfo": {
         "control": "register",
-        "action": "saveCareerInfo",
+        "action": "saveCareerInfo.action",
         "protocol": "http"
     },
     
     "register_saveEduInfo": {
         "control": "register",
-        "action": "saveEduInfo",
+        "action": "saveEduInfo.action",
         "protocol": "http"
     },
     
     "register_saveTagInfo": {
         "control": "register",
-        "action": "saveTagInfo",
-        "protocol": "http"
-    },
-    
-    "register_saveDeliveryAddress": {
-        "control": "register",
-        "action": "saveDeliveryAddress",
+        "action": "saveTagInfo.action",
         "protocol": "http"
     },
     
     "product_addProduct": {
         "control": "product",
-        "action": "addProduct",
+        "action": "addProduct.action",
         "protocol": "http"
     },
     
     "product_updateproduct": {
         "control": "product",
-        "action": "updateproduct",
+        "action": "updateproduct.action",
         "protocol": "http"
     },
     
     "productInfo_getProductDetail": {
         "control": "productInfo",
-        "action": "getProductDetail",
+        "action": "getProductDetail.action",
         "protocol": "http"
     },
     "comment_addZhongchouComment": {
         "control": "comment",
-        "action": "addZhongchouComment",
+        "action": "addZhongchouComment.action",
         "protocol": "http"
     },
     "comment_listZhongchouComment": {
         "control": "comment",
-        "action": "listZhongchouComment",
+        "action": "listZhongchouComment.action",
         "protocol": "http"
     },
     "wallet_getMyWallet": {
         "control": "wallet",
-        "action": "getMyWallet",
+        "action": "getMyWallet.action",
         "protocol": "http"
     },
     "weixinpay_generateAppOrder": {
         "control": "weixinpay",
-        "action": "generateAppOrder",
+        "action": "generateAppOrder.action",
         "protocol": "http"
     },
     "list_listAllProductsApp": {
         "control": "list",
-        "action": "listAllProductsApp",
+        "action": "listAllProductsApp.action",
         "protocol": "http"
     },
     "list_listMyProducts": {
         "control": "list",
-        "action": "listMyProducts",
+        "action": "listMyProducts.action",
         "protocol": "http"
     },
     "user_listCountry": {
         "control": "user",
-        "action": "listCountry",
+        "action": "listCountry.action",
         "protocol": "http"
     },
     "viewSpot_getAllViews": {
         "control": "viewSpot",
-        "action": "getAllViews",
+        "action": "getAllViews.action",
         "protocol": "http"
     },
-     
+    
     "list_listMyProductsTime": {
         "control": "list",
-        "action": "listMyProductsTime",
+        "action": "listMyProductsTime.action",
         "protocol": "http"
     },
     "viewSpot_getViewSpot": {
         "control": "viewSpot",
-        "action": "getViewSpot",
+        "action": "getViewSpot.action",
         "protocol": "http"
     },
     "viewSpot_getViewSpotVideo": {
         "control": "viewSpot",
-        "action": "getViewSpotVideo",
+        "action": "getViewSpotVideo.action",
         "protocol": "http"
     },
+    
     "viewSpot_getIndexHot": {
         "control": "viewSpot",
         "action": "getIndexHot.action",

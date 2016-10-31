@@ -259,24 +259,25 @@
 #pragma mark --- 获取个人信息
 -(void)getUserInfoData
 {
-//    NSString *userId=[ZYZCAccountTool getUserId];
+    NSString *userId=[ZYZCAccountTool getUserId];
     [MBProgressHUD showMessage:nil];
 //    NSString *url=[NSString stringWithFormat:@"%@selfUserId=%@&userId=%@",GETUSERDETAIL,[ZYZCAccountTool getUserId],userId];
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail"];
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         [MBProgressHUD hideHUD];
-         if (isSuccess) {
-             _hasGetUserData=YES;
-              _userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
-             _mineHeadView.userModel=_userModel;
-             _mineHeadView.friendNumber=[result[@"data"][@"meGzAll"] integerValue];
-             _mineHeadView.fansNumber=[result[@"data"][@"gzMeAll"] integerValue];
-             
-         }
-     } andFailBlock:^(id failResult) {
-         [MBProgressHUD hideHUD];
-     }];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"selfUserId"];
+    [parameter setValue:userId forKey:@"userId"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUD];
+        if (isSuccess) {
+            _hasGetUserData=YES;
+            _userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
+            _mineHeadView.userModel=_userModel;
+            _mineHeadView.friendNumber=[result[@"data"][@"meGzAll"] integerValue];
+            _mineHeadView.fansNumber=[result[@"data"][@"gzMeAll"] integerValue];
+        }
+    } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUD];
+    }];
 }
 
 #pragma mark --- 获取足迹数据

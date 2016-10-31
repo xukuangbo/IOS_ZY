@@ -207,29 +207,32 @@ static ZYZCDataBase *_db;
     }
     
 //    NSLog(@"spotsUrl:%@",GETVIEWSPOT);
-    NSString *httpUrl=[NSString stringWithFormat:@"%@viewType=2",GETVIEWSPOT];
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-         if (isSuccess) {
-              ZYZCViewSpotModel *viewSpotModel=[[ZYZCViewSpotModel alloc]mj_setKeyValues:result];
-             hasGetSpotData=YES;
-              dispatch_async(dispatch_get_global_queue(0, 0), ^{
-                 for (OneSpotModel *oneSpotModel in viewSpotModel.data) {
-                     NSString *pinyin=[LanguageTool chineseChangeToPinYin:oneSpotModel.name];
-                     [self insertDataWithId:oneSpotModel.ID andType:oneSpotModel.viewType andName:oneSpotModel.name andCountry:oneSpotModel.country  andPinyin:pinyin];
-                 }
-                 dispatch_async(dispatch_get_main_queue(), ^{
-                     hasSaveSpotData=YES;
-                     [[NSNotificationCenter defaultCenter]postNotificationName:KSAVE_SPOT_FINISH object:nil];
-                     if (doFinish) {
-                         doFinish(isSuccess);
-                     }
-                 });
-             });
+    
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_getAllViews"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"2" forKey:@"viewType"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            ZYZCViewSpotModel *viewSpotModel=[[ZYZCViewSpotModel alloc]mj_setKeyValues:result];
+            hasGetSpotData=YES;
+            dispatch_async(dispatch_get_global_queue(0, 0), ^{
+                for (OneSpotModel *oneSpotModel in viewSpotModel.data) {
+                    NSString *pinyin=[LanguageTool chineseChangeToPinYin:oneSpotModel.name];
+                    [self insertDataWithId:oneSpotModel.ID andType:oneSpotModel.viewType andName:oneSpotModel.name andCountry:oneSpotModel.country  andPinyin:pinyin];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    hasSaveSpotData=YES;
+                    [[NSNotificationCenter defaultCenter]postNotificationName:KSAVE_SPOT_FINISH object:nil];
+                    if (doFinish) {
+                        doFinish(isSuccess);
+                    }
+                });
+            });
         }
     } andFailBlock:^(id failResult) {
-//         NSLog(@"%@",failResult);
+        
     }];
+//    NSString *httpUrl=[NSString stringWithFormat:@"%@viewType=2",GETVIEWSPOT];
 }
 
 
