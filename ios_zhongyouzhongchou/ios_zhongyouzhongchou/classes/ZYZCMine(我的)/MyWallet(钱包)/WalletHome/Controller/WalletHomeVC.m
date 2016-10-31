@@ -45,8 +45,6 @@ static NSInteger YbjPageSize = 2;
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
         
-        //添加通知
-        [ZYNSNotificationCenter addObserver:self selector:@selector(WalletYbjSelectAction:) name:WalletYbjSelectHomeNotification object:nil];
     }
     return self;
 }
@@ -62,6 +60,7 @@ static NSInteger YbjPageSize = 2;
     [self setUpTouchUpAction];
     
     [self.ktxTableView.mj_header beginRefreshing];
+    [self.ybjTableView.mj_header beginRefreshing];
     
 //    [self loadNewKtxData];
 }
