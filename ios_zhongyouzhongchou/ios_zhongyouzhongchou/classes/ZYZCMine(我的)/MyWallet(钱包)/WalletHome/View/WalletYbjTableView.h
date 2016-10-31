@@ -19,4 +19,6 @@ typedef void (^FirstRefreshBlock)();
 @property (nonatomic, copy  ) ScrollDidEndDeceleratingBlock scrollDidEndDeceleratingBlock;
 
 @property (nonatomic, copy) FirstRefreshBlock firstRefreshBlock;
+
+@property (nonatomic, strong) NSMutableDictionary *selectDic;
 @end

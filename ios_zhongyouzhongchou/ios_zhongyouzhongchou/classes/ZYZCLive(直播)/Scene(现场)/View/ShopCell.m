@@ -43,6 +43,7 @@
     
     self.imageView.layer.masksToBounds = YES;
     self.imageView.layer.cornerRadius = 5;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
     self.commentButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
     self.commentButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);

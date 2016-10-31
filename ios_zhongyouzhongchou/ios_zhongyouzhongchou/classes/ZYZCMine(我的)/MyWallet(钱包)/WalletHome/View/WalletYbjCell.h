@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 @class WalletYbjModel;
+typedef void(^SelctBlock)();
 #define WalletYbjCellH ((KSCREEN_W - 20) * 9 / 16 + 80)
+
+
 @interface WalletYbjCell : UITableViewCell
 
 @property (nonatomic, strong) WalletYbjModel *walletYbjModel;
+
+@property (nonatomic, copy) SelctBlock selectBlock;
 @end
