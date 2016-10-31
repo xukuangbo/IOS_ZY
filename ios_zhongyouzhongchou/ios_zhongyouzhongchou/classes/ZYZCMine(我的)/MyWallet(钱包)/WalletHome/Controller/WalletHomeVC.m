@@ -44,9 +44,6 @@ static NSInteger YbjPageSize = 2;
     self = [super init];
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
-        
-        //添加通知
-        [ZYNSNotificationCenter addObserver:self selector:@selector(WalletYbjSelectAction:) name:WalletYbjSelectHomeNotification object:nil];
     }
     return self;
 }
@@ -62,8 +59,9 @@ static NSInteger YbjPageSize = 2;
     [self setUpTouchUpAction];
     
     [self.ktxTableView.mj_header beginRefreshing];
+    [self.ybjTableView.mj_header beginRefreshing];
     
-//    [self loadNewKtxData];
+    [self loadHeadViewData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -109,6 +107,25 @@ static NSInteger YbjPageSize = 2;
     
 }
 #pragma mark - RequestData
+- (void)loadHeadViewData
+{
+    //    wallet_getMyWallet.action
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"wallet_getMyWallet.action"];
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userId forKey:@"userId"];
+    WEAKSELF
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        
+    } andFailBlock:^(id failResult) {
+        
+        
+        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+    }];
+
+}
+
 - (void)loadNewKtxData
 {
     _ktxPageNo = 1;

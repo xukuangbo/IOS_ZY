@@ -146,7 +146,7 @@
         "action": "listZhongchouComment.action",
         "protocol": "http"
     },
-    "wallet_getMyWallet": {
+    "wallet_getMyWallet.action": {
         "control": "wallet",
         "action": "getMyWallet.action",
         "protocol": "http"
