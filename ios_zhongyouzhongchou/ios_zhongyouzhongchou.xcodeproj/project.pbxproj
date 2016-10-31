@@ -631,6 +631,8 @@
 		39AABC901D716FF600D25B16 /* LiveFunctionViewButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC8F1D716FF600D25B16 /* LiveFunctionViewButton.m */; };
 		39AABC971D717B3E00D25B16 /* LiveDetailHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39AABC961D717B3E00D25B16 /* LiveDetailHeadView.m */; };
 		39E0A98B1DC737B800FE6B6C /* WalletHeadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E0A98A1DC737B800FE6B6C /* WalletHeadModel.m */; };
+		39E0A9931DC7457000FE6B6C /* WalletUserYbjVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E0A9921DC7457000FE6B6C /* WalletUserYbjVC.m */; };
+		39E0A99C1DC749C500FE6B6C /* WalletProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E0A99B1DC749C500FE6B6C /* WalletProductView.m */; };
 		39E4EC551D2F9C1800305F73 /* TacticMoreCitiesModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */; };
 		39E4EC5A1D2FB9B200305F73 /* AboutZhongyouVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E4EC591D2FB9B200305F73 /* AboutZhongyouVC.m */; };
 		39E52FDD1D50815A00D0ED83 /* TacticMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39E52FDC1D50815A00D0ED83 /* TacticMainVC.m */; };
@@ -1860,6 +1862,10 @@
 		39AABC961D717B3E00D25B16 /* LiveDetailHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveDetailHeadView.m; sourceTree = "<group>"; };
 		39E0A9891DC737B800FE6B6C /* WalletHeadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletHeadModel.h; sourceTree = "<group>"; };
 		39E0A98A1DC737B800FE6B6C /* WalletHeadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletHeadModel.m; sourceTree = "<group>"; };
+		39E0A9911DC7457000FE6B6C /* WalletUserYbjVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletUserYbjVC.h; sourceTree = "<group>"; };
+		39E0A9921DC7457000FE6B6C /* WalletUserYbjVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletUserYbjVC.m; sourceTree = "<group>"; };
+		39E0A99A1DC749C500FE6B6C /* WalletProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletProductView.h; sourceTree = "<group>"; };
+		39E0A99B1DC749C500FE6B6C /* WalletProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletProductView.m; sourceTree = "<group>"; };
 		39E4EC531D2F9C1800305F73 /* TacticMoreCitiesModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreCitiesModel.h; sourceTree = "<group>"; };
 		39E4EC541D2F9C1800305F73 /* TacticMoreCitiesModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreCitiesModel.m; sourceTree = "<group>"; };
 		39E4EC581D2FB9B200305F73 /* AboutZhongyouVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutZhongyouVC.h; sourceTree = "<group>"; };
@@ -4829,6 +4835,7 @@
 		394C2A691DB8EB5700821F78 /* WalletHome */ = {
 			isa = PBXGroup;
 			children = (
+				39E0A98C1DC7450100FE6B6C /* DetailVC */,
 				394C2A6A1DB9A6F900821F78 /* Controller */,
 				394C2A6B1DB9A6F900821F78 /* Model */,
 				394C2A6C1DB9A6F900821F78 /* View */,
@@ -5262,6 +5269,49 @@
 				39AABC961D717B3E00D25B16 /* LiveDetailHeadView.m */,
 			);
 			path = LiveDetailHeadView;
+			sourceTree = "<group>";
+		};
+		39E0A98C1DC7450100FE6B6C /* DetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				39E0A98D1DC7450100FE6B6C /* WalletUseYbjVC */,
+			);
+			path = DetailVC;
+			sourceTree = "<group>";
+		};
+		39E0A98D1DC7450100FE6B6C /* WalletUseYbjVC */ = {
+			isa = PBXGroup;
+			children = (
+				39E0A98E1DC7450100FE6B6C /* Controller */,
+				39E0A98F1DC7450100FE6B6C /* Model */,
+				39E0A9901DC7450100FE6B6C /* View */,
+			);
+			path = WalletUseYbjVC;
+			sourceTree = "<group>";
+		};
+		39E0A98E1DC7450100FE6B6C /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				39E0A9911DC7457000FE6B6C /* WalletUserYbjVC.h */,
+				39E0A9921DC7457000FE6B6C /* WalletUserYbjVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		39E0A98F1DC7450100FE6B6C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		39E0A9901DC7450100FE6B6C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				39E0A99A1DC749C500FE6B6C /* WalletProductView.h */,
+				39E0A99B1DC749C500FE6B6C /* WalletProductView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		39E4EC491D2E554500305F73 /* WalletMingXi(筹钱明细) */ = {
@@ -5779,6 +5829,7 @@
 				2CDE67111DA651070066F49D /* QPResourcesManagerCell.m in Sources */,
 				2CFC7D0B1DA648B900A28D74 /* QPString.m in Sources */,
 				2CE6176D1D657DD100962163 /* HUAlbum.m in Sources */,
+				39E0A99C1DC749C500FE6B6C /* WalletProductView.m in Sources */,
 				2C18C7CD1D9B9C6000CCE330 /* ZYMineBusinessTable.m in Sources */,
 				2CD6B9011DA9DFEE00B7E60A /* ZCWSMView.m in Sources */,
 				2CE617781D657DD100962163 /* HUToast.m in Sources */,
@@ -6162,6 +6213,7 @@
 				2C1B60E91D6D3CF900E3C25B /* RaiseMoneyFirstModel.m in Sources */,
 				2C1A7CB21DB75A61004C3440 /* QPEffectViewController.m in Sources */,
 				2CDE67581DA652C30066F49D /* unzip.c in Sources */,
+				39E0A9931DC7457000FE6B6C /* WalletUserYbjVC.m in Sources */,
 				390D2FD71DAC8B1000D44E90 /* showDashangView.m in Sources */,
 				2CDE66D61DA650A80066F49D /* QPCountDownView.m in Sources */,
 				2C8B196F1D0CF7EC0063097B /* JGProgressHUD.m in Sources */,

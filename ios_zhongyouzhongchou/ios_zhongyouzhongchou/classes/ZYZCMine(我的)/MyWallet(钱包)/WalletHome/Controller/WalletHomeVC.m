@@ -18,8 +18,9 @@
 #import "WalletYbjCell.h"
 #import "WalletYbjBottomBar.h"
 #import "WalletHeadModel.h"
-static NSInteger KtxPageSize = 2;
-static NSInteger YbjPageSize = 2;
+#import "FXBlurView.h"
+static NSInteger KtxPageSize = 10;
+static NSInteger YbjPageSize = 10;
 @interface WalletHomeVC ()
 
 @property (nonatomic, strong) WalletHeadView *headView;
@@ -130,9 +131,7 @@ static NSInteger YbjPageSize = 2;
 //            uCash = 100;
 //        };
         WalletHeadModel *model = [WalletHeadModel mj_objectWithKeyValues:result[@"data"]];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            weakSelf.headView.model = model;
-        });
+        weakSelf.headView.model = model;
     } andFailBlock:^(id failResult) {
         
     }];
@@ -315,11 +314,13 @@ static NSInteger YbjPageSize = 2;
     _ktxTableView.scrollWillBeginDraggingBlock=^()
     {
         weakSelf.headView.userInteractionEnabled=NO;
+        weakSelf.selectToolBar.userInteractionEnabled = NO;
     };
     
     _ktxTableView.scrollDidEndDeceleratingBlock=^()
     {
         weakSelf.headView.userInteractionEnabled=YES;
+        weakSelf.selectToolBar.userInteractionEnabled = YES;
     };
     
     //ybjTableview
@@ -341,11 +342,13 @@ static NSInteger YbjPageSize = 2;
     _ybjTableView.scrollWillBeginDraggingBlock=^()
     {
         weakSelf.headView.userInteractionEnabled=NO;
+        weakSelf.selectToolBar.userInteractionEnabled = NO;
     };
     
     _ybjTableView.scrollDidEndDeceleratingBlock=^()
     {
         weakSelf.headView.userInteractionEnabled=YES;
+        weakSelf.selectToolBar.userInteractionEnabled = YES;
     };
 }
 #pragma mark - 通知

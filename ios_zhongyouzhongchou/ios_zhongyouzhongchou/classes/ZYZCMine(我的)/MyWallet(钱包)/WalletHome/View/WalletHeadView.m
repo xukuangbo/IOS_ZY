@@ -137,7 +137,7 @@
     
     _balanceLabel.attributedText = [WalletHeadView getAttributesString:model.cash * 0.01];
     
-    _UBLabel.text = @(model.uCash);
+    _UBLabel.text = [NSString stringWithFormat:@"%zd",model.uCash];
     
 }
 

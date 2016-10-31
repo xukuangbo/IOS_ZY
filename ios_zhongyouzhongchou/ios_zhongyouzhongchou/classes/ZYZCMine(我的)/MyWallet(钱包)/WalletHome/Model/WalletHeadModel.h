@@ -11,5 +11,5 @@
 @interface WalletHeadModel : NSObject
 
 @property (nonatomic, assign) CGFloat cash;
-@property (nonatomic, assign) CGFloat uCash;
+@property (nonatomic, assign) NSInteger uCash;
 @end
