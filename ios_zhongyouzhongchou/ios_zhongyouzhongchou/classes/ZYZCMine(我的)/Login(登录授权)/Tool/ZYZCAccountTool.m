@@ -154,7 +154,7 @@
     if (![ZYZCAccountTool getUserId]) {
         return;
     }
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_UnRead_Msg andParameters:@{@"userId":[ZYZCAccountTool getUserId]} andSuccessGetBlock:^(id result, BOOL isSuccess)
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"systemMsg_unReadTotles"] andParameters:@{@"userId":[ZYZCAccountTool getUserId]} andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          DDLog(@"%@",result);
          if (isSuccess )

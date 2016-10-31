@@ -147,7 +147,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 - (void)createLiveSession
 {
     WEAKSELF
-    NSString *url = Post_Create_Live;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_creatZhibo"];
     NSDictionary *parameters;
     if (self.productID) {
         parameters = @{
@@ -181,7 +181,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 - (void)requestTotalMoneyDataParameters:(NSDictionary *)parameters {
 //    zhibo/zhiboOrderTotle.action   streamName,spaceName  ，权限认证参数
     WEAKSELF
-    NSString *url = Post_TotalMoney_Live;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_zhiboOrderTotle"];
     
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (parameters.count == 0) {
@@ -1113,8 +1113,11 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 - (void)refreshUserList:(NSString *)userID
 {
     WEAKSELF
-    NSString *url = Get_UserInfo_List(userID);
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//    NSString *url = Get_UserInfo_List(userID);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserBaseInfo"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userID forKey:@"userIds"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSArray *dataArray = [ChatBlackListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         if ([dataArray count] > 0) {
             NSMutableArray *shouldDeleteArray = [NSMutableArray array];

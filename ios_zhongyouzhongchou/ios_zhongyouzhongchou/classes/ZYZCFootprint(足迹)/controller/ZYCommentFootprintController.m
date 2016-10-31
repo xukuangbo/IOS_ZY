@@ -106,7 +106,7 @@
 //    }
 
     WEAKSELF;
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_AddComment andParameters:newParms andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addComment"] andParameters:newParms andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         DDLog(@"%@",result);
         if (isSuccess) {
@@ -152,7 +152,7 @@
 -(void)getSupportData
 {
     
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_GetZanList andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_getZanList"] andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);
         if (isSuccess) {
             ZYSupportListModel *supportListModel=[[ZYSupportListModel alloc]mj_setKeyValues:result];
@@ -165,7 +165,7 @@
 
 -(void)getCommentData
 {
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Footprint_GetCommentList andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID],
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_getCommentPageList"] andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID],
                         @"pageNo":[NSNumber numberWithInteger:_pageNo]}
         andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);

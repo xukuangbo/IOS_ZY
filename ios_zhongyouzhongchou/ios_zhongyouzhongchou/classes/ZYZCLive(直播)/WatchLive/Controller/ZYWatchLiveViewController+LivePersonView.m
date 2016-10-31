@@ -52,7 +52,7 @@
     NSDictionary *params=@{@"productId":self.liveModel.productId};
 
     WEAKSELF
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:PRODUCT_INFO_MONEY andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getProductMinInfo"] andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
         ZYJourneyLiveModel *journeyLiveModel=[[ZYJourneyLiveModel alloc] mj_setKeyValues:result[@"data"]];
         weakSelf.journeyLiveModel = journeyLiveModel;
         [weakSelf.personDataView.zhongchouButton setTitle:weakSelf.journeyLiveModel.journeyTitle forState:UIControlStateNormal];

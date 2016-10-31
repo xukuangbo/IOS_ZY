@@ -283,7 +283,7 @@
 -(void)getFootprintData
 {
     [MBProgressHUD showMessage:nil];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:List_Footprint andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_footprint_pageNo],@"targetId":[ZYZCAccountTool getUserId]}
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_getPageList"] andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_footprint_pageNo],@"targetId":[ZYZCAccountTool getUserId]}
     andSuccessGetBlock:^(id result, BOOL isSuccess)
     {
         DDLog(@"%@",result);

@@ -77,7 +77,7 @@
 {
 //    DDLog(@"%@",Post_List_Msg);
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_List_Msg andParameters:@{@"userId":[ZYZCAccountTool getUserId],
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"systemMsg_getMsgList"] andParameters:@{@"userId":[ZYZCAccountTool getUserId],
                         @"pageNo":[NSNumber numberWithInt:_pageNo]}
     andSuccessGetBlock:^(id result, BOOL isSuccess)
     {

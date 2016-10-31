@@ -15,7 +15,7 @@
     NSDictionary *parameters= @{
                                 @"id":systemID
                                 };
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:SYSTEM_MSG_READ andParameters:parameters
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"systemMsg_msgSetRead"] andParameters:parameters
                        andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          DDLog(@"%@",result);
@@ -28,7 +28,7 @@
 
 - (void)getLiveContent:(NSDictionary *)parameters
 {
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:GET_LIVE_CONTENT andParameters:parameters
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_getZHibo"] andParameters:parameters
                        andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          DDLog(@"%@",result);

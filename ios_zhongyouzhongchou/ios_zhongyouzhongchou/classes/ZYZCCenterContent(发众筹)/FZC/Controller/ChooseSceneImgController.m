@@ -268,7 +268,7 @@
     _contentViewId=viewId;
     
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:NO andURL:Post_GetNetImg andParameters:@{@"viewspotId":viewId,
+    [ZYZCHTTPTool postHttpDataWithEncrypt:NO andURL:[[ZYZCAPIGenerate sharedInstance] API:@"admin_viewSpotManage_getViewSpotImages"] andParameters:@{@"viewspotId":viewId,
           @"pageSize":@"20",
           @"pageNo":[NSNumber numberWithInteger:_pageNo]
         }

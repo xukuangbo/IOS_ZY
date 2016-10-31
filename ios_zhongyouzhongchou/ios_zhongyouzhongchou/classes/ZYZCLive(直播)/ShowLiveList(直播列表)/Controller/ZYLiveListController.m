@@ -128,7 +128,7 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - network
 - (void)requestListDataWithPage:(NSInteger )pageNO direction:(NSInteger )direction{
     
-    NSString *url1 = Post_Live_List;
+//    NSString *url1 = Post_Live_List;
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_onlineList"];
 
     NSDictionary *parameters = @{

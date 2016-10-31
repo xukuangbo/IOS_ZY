@@ -444,7 +444,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
                                 };
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Post_Clap_Live andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_zanZhibo"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSLog(@"resultresult");
     } andFailBlock:^(id failResult) {
         
@@ -467,8 +467,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)Get_UserInfo_List:(NSString *)userIdString
 {
     WEAKSELF
-    NSString *url = Get_UserInfo_List(userIdString);
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserBaseInfo"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userIdString forKey:@"userIds"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         weakSelf.userList = [ChatBlackListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         [weakSelf.portraitsCollectionView reloadData];
     } andFailBlock:^(id failResult) {
@@ -479,8 +481,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)refreshUserList:(NSString *)userID
 {
     WEAKSELF
-    NSString *url = Get_UserInfo_List(userID);
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//    NSString *url = Get_UserInfo_List(userID);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserBaseInfo"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:userID forKey:@"userIds"];
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSArray *dataArray = [ChatBlackListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         if ([dataArray count] > 0 && weakSelf.userList.count > 0) {
             NSMutableArray *shouldDeleteArray = [NSMutableArray array];
@@ -500,7 +505,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
             weakSelf.chatroomlabel.text = [NSString stringWithFormat:@"直播\n%zd人", weakSelf.userList.count];
         }
     } andFailBlock:^(id failResult) {
-        
+        [MBProgressHUD showError:@"请求数据失败"];
     }];
 }
 
@@ -565,7 +570,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)requestTotalMoneyDataParameters:(NSDictionary *)parameters {
     //    zhibo/zhiboOrderTotle.action   streamName,spaceName  ，权限认证参数
     WEAKSELF
-    NSString *url = Post_TotalMoney_Live;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_zhiboOrderTotle"];
     
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
@@ -920,7 +925,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         [self getUserContributionResultHttpUrl];
         return;
     } else {
-        httpUrl=GET_LIVE_PAY_STATUS;
+        httpUrl=[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_getOrderPayStatus"];
     }
     NSDictionary *parameters = @{
                                  @"userId" : userId,
@@ -1555,7 +1560,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                 @"price":@"0.1",
                                 };
     self.payMoney = payMoney;
-    [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
+    [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] withSuccessBolck:^{
         weakSelf.payView.hidden = YES;
     } andFailBlock:^{
         
@@ -1575,7 +1580,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                 };
     self.payMoney = payMoney;
     if (style == kCommonLiveUserContributionStyle) {
-        [self.wxApiManger payForWeChat:parameters payUrl:Post_Flower_Live withSuccessBolck:^{
+        [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] withSuccessBolck:^{
             weakSelf.payView.hidden = YES;
         } andFailBlock:^{
             

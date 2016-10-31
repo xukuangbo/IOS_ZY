@@ -201,37 +201,24 @@
 #define Get_About_Us [NSString stringWithFormat:@"%@about_us.jsp",BASE_URL]
 //获取投诉建议
 #define Get_Tousu [NSString stringWithFormat:@"%@complaint_notes.jsp",BASE_URL]
-
-
-
 //获取拉黑名单列表的个人数据
 #define Get_LaHei_List_Info(userIds) [NSString stringWithFormat:@"%@u/getUserBaseInfo.action?userIds=%@",BASE_URL,userIds]
-
 //传入用户id,获取用户列表
 #define Get_UserInfo_List(userIds) [NSString stringWithFormat:@"%@u/getUserBaseInfo.action?userIds=%@",BASE_URL,userIds]
-
 //未读消息数
 #define Post_UnRead_Msg  [NSString stringWithFormat:@"%@systemMsg/unReadTotles.action",BASE_URL]
-
 //通知列表
 #define Post_List_Msg    [NSString stringWithFormat:@"%@systemMsg/getMsgList.action",BASE_URL]
-
 //删除通知
 #define Post_Delete_Msg  [NSString stringWithFormat:@"%@systemMsg/deleteMsg.action",BASE_URL]
-
 //通知详情
 #define Post_Detail_Msg  [NSString stringWithFormat:@"%@systemMsg/viewMsg.action",BASE_URL]
-
 //获取网络图片库
 #define Post_GetNetImg [NSString stringWithFormat:@"%@admin/viewSpotManage/getViewSpotImages.action",BASE_URL]
-
-
 //获取在线直播列表和回放
 #define Post_Live_List [NSString stringWithFormat:@"%@zhibo/onlineList.action",BASE_URL]
-
 //获取现场列表
 #define Post_Scene_List [NSString stringWithFormat:@"%@youji/getXCPageList.action",BASE_URL]
-
 //创建直播
 #define Post_Create_Live [NSString stringWithFormat:@"%@zhibo/creatZhibo.action",BASE_URL]
 // 点赞
@@ -242,35 +229,24 @@
 #define Post_TotalMoney_Live [NSString stringWithFormat:@"%@zhibo/zhiboOrderTotle.action",BASE_URL]
 //发足迹
 #define Publish_Footprint [NSString stringWithFormat:@"%@youji/addYouji.action",BASE_URL]
-
 //游记列表
 #define List_Footprint [NSString stringWithFormat:@"%@youji/getPageList.action",BASE_URL]
-
 //点赞
 #define Footprint_AddSupport [NSString stringWithFormat:@"%@youji/addZan.action",BASE_URL]
-
 //取消点赞
 #define Footprint_DeleteSupport [NSString stringWithFormat:@"%@youji/delZan.action",BASE_URL]
-
 //评论列表
 #define Footprint_GetCommentList [NSString stringWithFormat:@"%@youji/getCommentPageList.action",BASE_URL]
-
 //评论足迹
 #define Footprint_AddComment [NSString stringWithFormat:@"%@youji/addComment.action",BASE_URL]
-
 //删除足迹评论
 #define Footprint_deleteComment  [NSString stringWithFormat:@"%@youji/delComment.action",BASE_URL]
-
 //点赞详情
 #define Footprint_GetZanList [NSString stringWithFormat:@"%@youji/getZanList.action",BASE_URL]
-
 //删除足迹
 #define Footprint_DeleteFootprint [NSString stringWithFormat:@"%@youji/deleteYouji.action",BASE_URL]
-
-
 //判断直播是否打赏成功
 #define GET_LIVE_PAY_STATUS   [NSString stringWithFormat:@"%@zhibo/getOrderPayStatus.action",BASE_URL]
-
 // 设置消息已读 (参数ID)
 #define SYSTEM_MSG_READ  [NSString stringWithFormat:@"%@systemMsg/msgSetRead.action",BASE_URL]
 // 拉取直播内容 (参数 spaceName，streamName)
@@ -279,15 +255,10 @@
 #define Get_Live_FaqiXC   [NSString stringWithFormat:@"%@productInfo/getMyLastProduct.action",BASE_URL]
 // 删除视频
 #define Post_Del_Live   [NSString stringWithFormat:@"%@zhibo/delZhibo.action",BASE_URL]
-
 // 打赏明细
 #define PLAY_TOUR_DETAIL   [NSString stringWithFormat:@"%@zhibo/zhiboOrderList.action",BASE_URL]
-
 // 请求众游详情的回报和一起游金额
 #define PRODUCT_INFO_MONEY   [NSString stringWithFormat:@"%@productInfo/getProductMinInfo.action",BASE_URL]
-
-// 请求现场数据
-#define GET_SCENE_LIST   [NSString stringWithFormat:@"%@youji/getXCPageList.action",BASE_URL]
 
 
 #endif /* HttpCommon_h */
