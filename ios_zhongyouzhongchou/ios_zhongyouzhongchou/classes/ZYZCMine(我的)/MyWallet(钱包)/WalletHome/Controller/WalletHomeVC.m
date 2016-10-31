@@ -16,6 +16,7 @@
 #import "MineWalletModel.h"
 #import "WalletYbjModel.h"
 #import "WalletYbjCell.h"
+#import "WalletYbjBottomBar.h"
 static NSInteger KtxPageSize = 2;
 static NSInteger YbjPageSize = 2;
 @interface WalletHomeVC ()
@@ -27,6 +28,7 @@ static NSInteger YbjPageSize = 2;
 @property (nonatomic, strong) WalletKtxTableView *ktxTableView;
 
 @property (nonatomic, strong) WalletYbjTableView *ybjTableView;
+
 
 /* 钱包当前选择页面 */
 @property (nonatomic, assign) WalletSelectType selectType;
@@ -43,9 +45,8 @@ static NSInteger YbjPageSize = 2;
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
         
-        
         //添加通知
-        [ZYNSNotificationCenter addObserver:self selector:@selector(WalletYbjSelectAction:) name:WalletYbjSelectNotification object:nil];
+        [ZYNSNotificationCenter addObserver:self selector:@selector(WalletYbjSelectAction:) name:WalletYbjSelectHomeNotification object:nil];
     }
     return self;
 }
@@ -63,6 +64,12 @@ static NSInteger YbjPageSize = 2;
     [self.ktxTableView.mj_header beginRefreshing];
     
 //    [self loadNewKtxData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
 }
 
 /* 设置子视图 */
@@ -93,13 +100,18 @@ static NSInteger YbjPageSize = 2;
     CGSize selectToolBarSize = (CGSize){ KSCREEN_W, WalletSelectToolBarH };
     _selectToolBar.frame = (CGRect){0, _headView.height, selectToolBarSize};
     [self.view addSubview:_selectToolBar];
-
+    
+    //预备金底部视图
+    _ybjBottomBar = [[WalletYbjBottomBar alloc] init];
+    _ybjBottomBar.frame = CGRectMake(0, KSCREEN_H - KNAV_HEIGHT - WalletYbjBottomBarH, KSCREEN_W, WalletYbjBottomBarH);
+    _ybjBottomBar.hidden = YES;
+    [self.view addSubview:_ybjBottomBar];
+    
 }
 #pragma mark - RequestData
 - (void)loadNewKtxData
 {
     _ktxPageNo = 1;
-    //    [MBProgressHUD showMessage:@"正在加载"];
     NSString *userId = [ZYZCAccountTool getUserId];
 //    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,KtxPageSize];
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProducts"];
@@ -179,6 +191,8 @@ static NSInteger YbjPageSize = 2;
             [weakSelf.ybjTableView.dataArr addObjectsFromArray:tempArray];
             [weakSelf.ybjTableView reloadData];
             weakSelf.ybjPageNo++;
+            
+            [weakSelf.ybjBottomBar clearData];
         }else{
             
             
@@ -246,10 +260,10 @@ static NSInteger YbjPageSize = 2;
     _selectToolBar.selectBlock = ^(WalletSelectType type){
         if (type == WalletSelectTypeKTX) {
             weakSelf.ktxTableView.hidden = NO;
-            weakSelf.ybjTableView.hidden = YES;
+            weakSelf.ybjTableView.hidden = weakSelf.ybjBottomBar.hidden = YES;
         }else{
             weakSelf.ktxTableView.hidden = YES;
-            weakSelf.ybjTableView.hidden = NO;
+            weakSelf.ybjTableView.hidden = weakSelf.ybjBottomBar.hidden = NO;
         }
         //然后请求数据
     };
@@ -307,7 +321,7 @@ static NSInteger YbjPageSize = 2;
 #pragma mark - 通知
 - (void)WalletYbjSelectAction:(NSNotification *)noti
 {
-    DDLog(@"%@",((WalletYbjCell *)noti).walletYbjModel);
+//    DDLog(@"%@",((WalletYbjCell *)noti).walletYbjModel);
 }
 
 #pragma mark - 项目的table滑动
@@ -354,6 +368,7 @@ static NSInteger YbjPageSize = 2;
         self.title=nil;
     }
     if (offsetY<=-(TotalViewHeight) + KEDGE_DISTANCE) {
+        
     }
     else {
         _ybjTableView.bounces=YES;

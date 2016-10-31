@@ -513,6 +513,7 @@
 		391115EA1DC21B44000C82F1 /* WalletYbjCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 391115E81DC21B44000C82F1 /* WalletYbjCell.xib */; };
 		391115ED1DC227BD000C82F1 /* WalletKtxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115EC1DC227BD000C82F1 /* WalletKtxModel.m */; };
 		391115F01DC228A1000C82F1 /* WalletYbjModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115EF1DC228A1000C82F1 /* WalletYbjModel.m */; };
+		391115F31DC6DB72000C82F1 /* WalletYbjBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115F21DC6DB72000C82F1 /* WalletYbjBottomBar.m */; };
 		391872141DC08CBE00484711 /* WalletKtxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 391872121DC08CBE00484711 /* WalletKtxCell.m */; };
 		391872151DC08CBE00484711 /* WalletKtxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 391872131DC08CBE00484711 /* WalletKtxCell.xib */; };
 		3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 392635051D5D7C29006A90BE /* MineWalletVc.m */; };
@@ -1629,6 +1630,8 @@
 		391115EC1DC227BD000C82F1 /* WalletKtxModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletKtxModel.m; sourceTree = "<group>"; };
 		391115EE1DC228A1000C82F1 /* WalletYbjModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjModel.h; sourceTree = "<group>"; };
 		391115EF1DC228A1000C82F1 /* WalletYbjModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjModel.m; sourceTree = "<group>"; };
+		391115F11DC6DB72000C82F1 /* WalletYbjBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjBottomBar.h; sourceTree = "<group>"; };
+		391115F21DC6DB72000C82F1 /* WalletYbjBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjBottomBar.m; sourceTree = "<group>"; };
 		391872111DC08CBE00484711 /* WalletKtxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletKtxCell.h; sourceTree = "<group>"; };
 		391872121DC08CBE00484711 /* WalletKtxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletKtxCell.m; sourceTree = "<group>"; };
 		391872131DC08CBE00484711 /* WalletKtxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletKtxCell.xib; sourceTree = "<group>"; };
@@ -4854,6 +4857,8 @@
 				394C2A731DB9B56300821F78 /* WalletSelectToolBar.h */,
 				394C2A741DB9B56300821F78 /* WalletSelectToolBar.m */,
 				394C2A781DB9C63600821F78 /* WalletSelectToolBar.xib */,
+				391115F11DC6DB72000C82F1 /* WalletYbjBottomBar.h */,
+				391115F21DC6DB72000C82F1 /* WalletYbjBottomBar.m */,
 				394C2A7A1DB9EDF000821F78 /* WalletKtxTableView.h */,
 				394C2A7B1DB9EDF000821F78 /* WalletKtxTableView.m */,
 				391872111DC08CBE00484711 /* WalletKtxCell.h */,
@@ -5744,6 +5749,7 @@
 				392AB2861D669C26003FEDB7 /* RCDLiveTextMessageCell.m in Sources */,
 				2CD2091A1D6D3E27005EB62E /* ZCMainTableView.m in Sources */,
 				39809D251D588EE000CB9EE3 /* TacticMainVideoCustomView.m in Sources */,
+				391115F31DC6DB72000C82F1 /* WalletYbjBottomBar.m in Sources */,
 				2C1B60DD1D6D3CF900E3C25B /* GoalScheduleView.m in Sources */,
 				2CDE67471DA652380066F49D /* QPEffectLoadMoreCell.m in Sources */,
 				2CDE66851DA64EB70066F49D /* JSONHTTPClient.m in Sources */,

@@ -7,7 +7,8 @@
 //
 
 #import "ZYZCBaseViewController.h"
-
+@class WalletYbjBottomBar;
 @interface WalletHomeVC : ZYZCBaseViewController
 
+@property (nonatomic, strong) WalletYbjBottomBar *ybjBottomBar;
 @end

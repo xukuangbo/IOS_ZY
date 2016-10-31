@@ -26,7 +26,7 @@
 @property (nonatomic, copy) NSString *zhibotitle;
 //totles 总额（分为单位）
 @property (nonatomic, assign) NSInteger totles;
-//status 状态(0是未使用,1是已使用,2是已锁定)
+//status 状态(0是未使用,1是已使用,2是已锁定,3是自己已选择)
 @property (nonatomic, assign) NSInteger status;
 
 
