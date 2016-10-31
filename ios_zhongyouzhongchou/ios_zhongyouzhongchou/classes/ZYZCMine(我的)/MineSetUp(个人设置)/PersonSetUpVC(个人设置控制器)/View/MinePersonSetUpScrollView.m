@@ -586,8 +586,9 @@
         if (_phoneButton.text.length > 0) {
             [parameter setValue:_phoneButton.text forKey:@"qq"];
         }
-//        NSLog(@"%@",Regist_UpdateUserInfo);
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Regist_UpdateUserInfo andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_updateUserInfo"];
+
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
             DDLog(@"%@",result);
             [MBProgressHUD showSuccess:@"保存成功"];
             [MBProgressHUD setAnimationDelay:2];

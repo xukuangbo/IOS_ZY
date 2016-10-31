@@ -167,9 +167,13 @@
 {
     //获取众筹详情
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSString *urlStr=KGET_DETAIL_PRODUCT([ZYZCAccountTool getUserId],_productId);
-//     NSLog(@"%@",urlStr);
-    [ZYZCHTTPTool getHttpDataByURL:urlStr withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getProductDetail"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:_productId forKey:@"productId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    WEAKSELF
+    STRONGSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         DDLog(@"productDetail:%@",result);
@@ -190,14 +194,14 @@
             //判断是不是自己的项目，并更改底部按钮展示
             BOOL mySelf=[_detailModel.detailProductModel.mySelf boolValue];
             
-//            _oneModel.mySelf=mySelf;
+            //            _oneModel.mySelf=mySelf;
             
             _bottomView.detailProductType=mySelf?MineDetailProduct:PersonDetailProduct;
             //判断是否已推荐
             _getCollection=[_detailModel.detailProductModel.Friend isEqual:@0];
             if (_bottomView.detailProductType==PersonDetailProduct) {
                 _collectionBtn=(UIButton *)[_bottomView viewWithTag:RecommendType];
-                 [_collectionBtn setTitle:_getCollection?@"推荐":@"已推荐" forState:UIControlStateNormal];
+                [_collectionBtn setTitle:_getCollection?@"推荐":@"已推荐" forState:UIControlStateNormal];
             }
             //判断项目众筹是否已截止
             //剩余天数
@@ -223,18 +227,85 @@
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
             _bottomView.userInteractionEnabled=NO;
         }
+        
     } andFailBlock:^(id failResult) {
-//         NSLog(@"failResult:%@",failResult);
         [MBProgressHUD hideHUDForView:self.view];
         _bottomView.userInteractionEnabled=NO;
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
-        __weak typeof (&*self)weakSelf=self;
         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-            [weakSelf getHttpData];
+            [strongSelf getHttpData];
         }];
-
     }];
+//    NSString *urlStr=KGET_DETAIL_PRODUCT([ZYZCAccountTool getUserId],_productId);
+//    //     NSLog(@"%@",urlStr);
+//    [ZYZCHTTPTool getHttpDataByURL:urlStr withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//        [MBProgressHUD hideHUDForView:self.view];
+//        [NetWorkManager hideFailViewForView:self.view];
+//        DDLog(@"productDetail:%@",result);
+//        if (isSuccess) {
+//            _table.hidden=NO;
+//            _detailModel=[[ZCDetailModel alloc]mj_setKeyValues:result];
+//            
+//            NSArray *detailDays=_detailModel.detailProductModel.schedule;
+//            for (NSString *jsonStr in detailDays) {
+//                NSDictionary *dict=[ZYZCTool turnJsonStrToDictionary:jsonStr];
+//                MoreFZCTravelOneDayDetailMdel *oneSchedule=[MoreFZCTravelOneDayDetailMdel mj_objectWithKeyValues:dict];
+//                [_detailDays addObject:oneSchedule];
+//            }
+//            //获取数据，给table赋值
+//            _table.detailDays=_detailDays;
+//            _table.detailModel=_detailModel;
+//            
+//            //判断是不是自己的项目，并更改底部按钮展示
+//            BOOL mySelf=[_detailModel.detailProductModel.mySelf boolValue];
+//            
+//            //            _oneModel.mySelf=mySelf;
+//            
+//            _bottomView.detailProductType=mySelf?MineDetailProduct:PersonDetailProduct;
+//            //判断是否已推荐
+//            _getCollection=[_detailModel.detailProductModel.Friend isEqual:@0];
+//            if (_bottomView.detailProductType==PersonDetailProduct) {
+//                _collectionBtn=(UIButton *)[_bottomView viewWithTag:RecommendType];
+//                [_collectionBtn setTitle:_getCollection?@"推荐":@"已推荐" forState:UIControlStateNormal];
+//            }
+//            //判断项目众筹是否已截止
+//            //剩余天数
+//            int leftDays=0;
+//            if (_detailModel.detailProductModel.spell_end_time.length>8) {
+//                NSString *productEndStr=[NSDate changStrToDateStr:_detailModel.detailProductModel.spell_end_time];
+//                NSDate *productEndDate=[NSDate dateFromString:productEndStr];
+//                leftDays=[NSDate getDayNumbertoDay:[NSDate date] beforDay:productEndDate]+1;
+//                if (leftDays<0) {
+//                    leftDays=0;
+//                }
+//            }
+//            if (leftDays==0) {
+//                _bottomView.productEndTime=YES;
+//            }
+//            
+//            //获取目的地介绍和对应的视屏
+//            self.productDest=_detailModel.detailProductModel.dest;
+//            [self getHeadImg];
+//        }
+//        else
+//        {
+//            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+//            _bottomView.userInteractionEnabled=NO;
+//        }
+//    } andFailBlock:^(id failResult) {
+//        //         NSLog(@"failResult:%@",failResult);
+//        [MBProgressHUD hideHUDForView:self.view];
+//        _bottomView.userInteractionEnabled=NO;
+//        [NetWorkManager hideFailViewForView:self.view];
+//        [NetWorkManager showMBWithFailResult:failResult];
+//        __weak typeof (&*self)weakSelf=self;
+//        [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
+//            [weakSelf getHttpData];
+//        }];
+//        
+//    }];
+
 }
 
 #pragma mark --- 加载封面图
@@ -421,24 +492,45 @@
 #pragma mark ---刷新部分数据
 -(void)reloadPartInfo
 {
-    NSString *httpUrl=[NSString stringWithFormat:@"%@cache=false&orderType=4&status_not=0,2&productId=%@",LISTALLPRODUCTS,_productId];
-//    NSLog(@"%@",httpUrl);
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-     {
-//         NSLog(@"%@",result);
-         if(isSuccess)
-         {
-             ZCListModel *listModel=[[ZCListModel alloc]mj_setKeyValues:result];
-             ZCOneModel *oneModel=listModel.data.firstObject;
-             ReportModel *report=[_detailModel.detailProductModel.report firstObject];
-             report.realzjeNew = [oneModel.spellbuyproduct.realzjeNew floatValue];
-             _oneModel.spellbuyproduct.realzjeNew=oneModel.spellbuyproduct.realzjeNew;
-             [_table reloadData];
-         }
-     }
-      andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
-      }];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProductsApp"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"false" forKey:@"cache"];
+    [parameter setValue:@"4" forKey:@"orderType"];
+    [parameter setValue:@"0,2" forKey:@"status_not"];
+    [parameter setValue:_productId forKey:@"productId"];
+
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if(isSuccess)
+        {
+            ZCListModel *listModel=[[ZCListModel alloc]mj_setKeyValues:result];
+            ZCOneModel *oneModel=listModel.data.firstObject;
+            ReportModel *report=[weakSelf.detailModel.detailProductModel.report firstObject];
+            report.realzjeNew = [oneModel.spellbuyproduct.realzjeNew floatValue];
+            weakSelf.oneModel.spellbuyproduct.realzjeNew=oneModel.spellbuyproduct.realzjeNew;
+            [weakSelf.table reloadData];
+        }
+    } andFailBlock:^(id failResult) {
+        
+    }];
+//    NSString *httpUrl=[NSString stringWithFormat:@"%@cache=false&orderType=4&status_not=0,2&productId=%@",LISTALLPRODUCTS,_productId];
+////    NSLog(@"%@",httpUrl);
+//    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
+//     {
+////         NSLog(@"%@",result);
+//         if(isSuccess)
+//         {
+//             ZCListModel *listModel=[[ZCListModel alloc]mj_setKeyValues:result];
+//             ZCOneModel *oneModel=listModel.data.firstObject;
+//             ReportModel *report=[_detailModel.detailProductModel.report firstObject];
+//             report.realzjeNew = [oneModel.spellbuyproduct.realzjeNew floatValue];
+//             _oneModel.spellbuyproduct.realzjeNew=oneModel.spellbuyproduct.realzjeNew;
+//             [_table reloadData];
+//         }
+//     }
+//      andFailBlock:^(id failResult) {
+////        NSLog(@"%@",failResult);
+//      }];
 }
 
 

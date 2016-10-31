@@ -167,20 +167,22 @@
  */
 - (void)refreshDataWithViewId:(NSInteger)viewId
 {
-    NSString *url= GET_TACTIC_VIEW(viewId);
-    __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//    NSString *url= GET_TACTIC_VIEW(viewId);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_getViewSpot"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", viewId] forKey:@"viewId"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             //请求成功，转化为数组
-//            NSDictionary *dic = (NSDictionary *)result;
-//            NSLog(@"%@",dic[@"foods"]);
+            //            NSDictionary *dic = (NSDictionary *)result;
+            //            NSLog(@"%@",dic[@"foods"]);
             //先判断是那种类型
             TacticGeneralModel *tacticGeneralModel = [TacticGeneralModel mj_objectWithKeyValues:result[@"data"]];
             weakSelf.tacticGeneralModel = tacticGeneralModel;
         }
-        
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+        
     }];
 }
 

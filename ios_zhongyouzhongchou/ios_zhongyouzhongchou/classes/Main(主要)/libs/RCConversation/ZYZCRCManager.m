@@ -51,12 +51,14 @@ static ZYZCRCManager *_RCManager;
     ZYZCAccountModel *model = [ZYZCAccountTool account];
     if (model.userId) {
         NSString *utf8Str=[model.realName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString *url=GET_CHAT_TOKEN(model.userId,utf8Str,model.faceImg);
-//      NSString *url=GET_CHAT_TOKEN02(model.userId,utf8Str,model.headimgurl);
+//        NSString *url=GET_CHAT_TOKEN(model.userId,utf8Str,model.faceImg);
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"rongAPI_getTokenTest"];
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+        [parameter setValue:utf8Str forKey:@"userName"];
+        [parameter setValue:model.userId forKey:@"userId"];
+        [parameter setValue:model.faceImg forKey:@"portraitUri"];
 
-//        NSLog(@"获取token的url：%@",url);
-        [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-            DDLog(@"chatToken:%@",result);
+        [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
             if (isSuccess) {
                 NSDictionary *dic=[ZYZCTool turnJsonStrToDictionary:result[@"data"][@"result"]];
                 if ([dic[@"code"] isEqual:@200])
@@ -146,10 +148,12 @@ static ZYZCRCManager *_RCManager;
     {
         
         //根据userId获取用户信息
-        NSString *url=GET_USERINFO_BYOPENID(userId);
-        [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
-        {
-//            NSLog(@"%@",result);
+//        NSString *url=GET_USERINFO_BYOPENID(userId);
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserByOpenId"];
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+        [parameter setValue:userId forKey:@"userId"];
+        
+        [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
             if(isSuccess)
             {
                 UserModel *userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"]];
@@ -160,10 +164,7 @@ static ZYZCRCManager *_RCManager;
                 newUser.portraitUri = userModel.faceImg;
                 return completion(newUser);
             }
-        }
-        andFailBlock:^(id failResult)
-        {
-            
+        } andFailBlock:^(id failResult) {
         }];
     }
 }

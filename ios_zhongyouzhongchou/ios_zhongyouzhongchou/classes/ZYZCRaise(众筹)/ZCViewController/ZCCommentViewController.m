@@ -46,7 +46,9 @@
                                @"pageSize":[NSNumber numberWithInt:_pageSize],
                                };
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:GET_COMMENT andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"comment_listZhongchouComment"];
+
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
 //        NSLog(@"%@",result);
@@ -153,8 +155,10 @@
                                 @"productId":self.productId,
                                 @"content":content
                                 };
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"comment_addZhongchouComment"];
+
     WEAKSELF;
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:COMMENT_PRODUCT andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_success")];
             if (weakSelf.addCommentView.commentSuccess) {

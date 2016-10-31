@@ -62,24 +62,22 @@ static NSString *const ID = @"TacticMoreCitiesCell";
 
 - (void)requestData
 {
-    NSString *url = nil;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"adminback_getViewList"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     if (_viewType == 1) {
-        url = GET_TACTIC_More_Countries;
+        [parameter setValue:@"1" forKey:@"viewType"];
     }else if (_viewType == 2){
-        url = GET_TACTIC_More_Cities;
+        [parameter setValue:@"2" forKey:@"viewType"];
     }
-//    NSLog(@"%@",url);
-    //访问网络
-    __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             //请求成功，转化为数组
             weakSelf.moreCitiesModelArray = [TacticMoreCitiesModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
             [weakSelf.collectionView reloadData];
         }
-        
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+        
     }];
 }
 

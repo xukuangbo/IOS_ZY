@@ -18,7 +18,7 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k8o-eL-dA1">
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nlu-aj-Z44"/>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nlu-aj-Z44"/>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TfK-SW-3ux">
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="TfK-SW-3ux" secondAttribute="height" multiplier="16:9" id="hng-J0-K1b"/>
@@ -37,11 +37,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cm5-vj-uMT">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cm5-vj-uMT">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="32" id="cmD-cY-9QA"/>
                                     <constraint firstAttribute="height" constant="32" id="gPt-iW-M9U"/>
                                 </constraints>
+                                <state key="normal" image="Butttn_support"/>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,7 +78,10 @@
                 <outlet property="titleLabel" destination="dAe-Sh-azs" id="a3o-6O-8m6"/>
                 <outlet property="totalMoneyLabel" destination="2K7-im-EXh" id="ilw-c1-FYS"/>
             </connections>
-            <point key="canvasLocation" x="-72" y="6"/>
+            <point key="canvasLocation" x="-235" y="-1"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="Butttn_support" width="32" height="32"/>
+    </resources>
 </document>

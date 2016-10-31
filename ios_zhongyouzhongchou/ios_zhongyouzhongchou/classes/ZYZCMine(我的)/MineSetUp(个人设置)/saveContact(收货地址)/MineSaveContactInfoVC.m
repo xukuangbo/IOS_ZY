@@ -332,7 +332,9 @@
         }
         
 //        NSLog(@"%@",Regist_SaveContactInfo);
-        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:Regist_SaveContactInfo andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_saveDeliveryAddress"];
+
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
             [MBProgressHUD showSuccess:@"保存成功"];
             [MBProgressHUD setAnimationDelay:2];
             [self.navigationController popViewControllerAnimated:YES];
