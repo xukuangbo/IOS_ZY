@@ -18,10 +18,14 @@
 
 //融云appKey（测试）
 #define RC_APPKEY @"lmxuhwagxqfzd"
-//趣拍（测试）
-#define  kQPZhouYouLiveHttpHost  @"http://zhongyoutest01.s.qupai.me"
-#define  kQPAppKey     @"20be31eb2ca1669"
-#define  kQPAppSecret  @"ae7f1c0525644c7a85b7f9a844cfc0e7"
+////趣拍（测试）
+//#define  kQPZhouYouLiveHttpHost  @"http://zhongyoutest01.s.qupai.me"
+//#define  kQPAppKey     @"20be31eb2ca1669"
+//#define  kQPAppSecret  @"ae7f1c0525644c7a85b7f9a844cfc0e7"
+//趣拍（正式）
+#define  kQPZhouYouLiveHttpHost  @"http://zhongyoulive.s.qupai.me"
+#define  kQPAppKey     @"20a9a463ed1796c"
+#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
 
 #else
 #define ZYLog(FORMAT, ...) nil

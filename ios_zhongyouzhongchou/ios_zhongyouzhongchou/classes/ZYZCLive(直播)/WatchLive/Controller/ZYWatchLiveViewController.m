@@ -587,6 +587,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.navigationController.navigationBar.hidden = NO;
     [self removeMovieNotificationObservers];
     if ([self.player isPlaying]) {
+        [self.player stop];
         [self.player pause];
     }
     [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
@@ -602,6 +603,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     [self removeMovieNotificationObservers];
     if ([self.player isPlaying]) {
+        [self.player stop];
         [self.player pause];
     }
     [[RCIMClient sharedRCIMClient] quitChatRoom:self.targetId
@@ -914,8 +916,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSString *httpUrl;
     //判断支付是否成功
     if (self.userContributionStyle == kRewardLiveUserContributionStyle || self.userContributionStyle == kTogetherGoLiveUserContributionStyle) {
-        httpUrl = GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
-        [self getUserContributionResultHttpUrl:httpUrl];
+//        httpUrl = GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
+        [self getUserContributionResultHttpUrl];
         return;
     } else {
         httpUrl=GET_LIVE_PAY_STATUS;

@@ -177,15 +177,19 @@
 - (void)requestHadFZCData
 {
     
-    [ZYZCHTTPTool getHttpDataByURL:Get_Judge_HadFZC([ZYZCAccountTool getUserId]) withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_checkMyProduct"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         //data为0表示没有发过众筹，1表示发过
         if ([result[@"data"] integerValue] == 0) {
-            _hasFZC = NO;
+            weakSelf.hasFZC = NO;
         }else{
-            _hasFZC = YES;
+            weakSelf.hasFZC = YES;
         }
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+        
     }];
 }
 

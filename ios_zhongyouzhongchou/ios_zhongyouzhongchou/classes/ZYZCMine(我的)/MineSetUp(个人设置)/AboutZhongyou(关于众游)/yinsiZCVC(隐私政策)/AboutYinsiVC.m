@@ -79,7 +79,7 @@
     //    _textView.textAlignment = NSTextAlignmentLeft;
     //    _textView.font = [UIFont systemFontOfSize:17];
     //    [self.view addSubview:_textView];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:Get_Yinsi_ZhengChe]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@privacy_statement.jsp", [[ZYZCAPIGenerate sharedInstance] APIBaseUrl]]]];
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [_webView loadRequest:request];
     

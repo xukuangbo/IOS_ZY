@@ -99,14 +99,17 @@ static NSInteger YbjPageSize = 2;
 - (void)loadNewKtxData
 {
     _ktxPageNo = 1;
-    __weak typeof(&*self) weakSelf = self;
     //    [MBProgressHUD showMessage:@"正在加载"];
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,KtxPageSize];
-    
-    [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
-        
+//    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,KtxPageSize];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProducts"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"fause" forKey:@"cache"];
+    [parameter setValue:userId forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", _ktxPageNo] forKey:@"pageNo"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", KtxPageSize] forKey:@"pageSize"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSArray *tempArray = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         if (tempArray.count > 0) {
             [weakSelf.ktxTableView.dataArr removeAllObjects];
@@ -115,31 +118,28 @@ static NSInteger YbjPageSize = 2;
             weakSelf.ktxPageNo++;
         }else{
             
-            
         }
         [weakSelf.ktxTableView.mj_header endRefreshing];
         [weakSelf.ktxTableView.mj_footer endRefreshing];
-        
-        //        [MBProgressHUD hideHUD];
     } andFailBlock:^(id failResult) {
-        
-        //        [MBProgressHUD hideHUD];
-        
         [weakSelf.ktxTableView.mj_header endRefreshing];
         [weakSelf.ktxTableView.mj_footer endRefreshing];
         [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
-        
     }];
 }
 
 - (void)loadMoreKtxData
 {
-    __weak typeof(&*self) weakSelf = self;
-    //    [MBProgressHUD showMessage:@"正在加载"];
     NSString *userId = [ZYZCAccountTool getUserId];
-    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,KtxPageSize];
-    [ZYZCHTTPTool getHttpDataByURL:txProducts_Url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
+//    NSString *txProducts_Url = [NSString stringWithFormat:@"%@?userId=%@&cache=fause&pageNo=%zd&pageSize=%zd",Get_MyTxProducts_List,userId,_ktxPageNo,KtxPageSize];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProducts"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"fause" forKey:@"cache"];
+    [parameter setValue:userId forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", _ktxPageNo] forKey:@"pageNo"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", KtxPageSize] forKey:@"pageSize"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.ktxTableView.mj_footer ;
         
         NSArray *tempArray = [MineWalletModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
@@ -153,18 +153,11 @@ static NSInteger YbjPageSize = 2;
         }
         [weakSelf.ktxTableView.mj_header endRefreshing];
         [weakSelf.ktxTableView.mj_footer endRefreshing];
-        
-        //        [MBProgressHUD hideHUD];
     } andFailBlock:^(id failResult) {
-        
-        //        [MBProgressHUD hideHUD];
-
         [weakSelf.ktxTableView.mj_header endRefreshing];
         [weakSelf.ktxTableView.mj_footer endRefreshing];
         [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
-        
     }];
-
 }
 
 

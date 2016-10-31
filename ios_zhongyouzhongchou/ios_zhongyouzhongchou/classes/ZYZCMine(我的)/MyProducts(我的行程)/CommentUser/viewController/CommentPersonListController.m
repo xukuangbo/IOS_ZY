@@ -47,16 +47,22 @@
 {
     //一起游的人
     NSInteger type=1;
-    NSString *httpUrl01=GET_MY_COMMENTER([ZYZCAccountTool getUserId], _productId, type);
-//    NSLog(@"%@",httpUrl01);
-    __weak typeof(&*self)weakSelf=self;
+//    NSString *httpUrl01=GET_MY_COMMENTER([ZYZCAccountTool getUserId], _productId, type);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getCanCommonUserStatusList"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", type] forKey:@"type"];
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl01 withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    WEAKSELF
+    STRONGSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [NetWorkManager hideFailViewForView:self.view];
         DDLog(@"一起游：%@",result);
         if (isSuccess) {
             TogetherUersModel *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
-              weakSelf.table.myTogetherList=togetherUersModel.users;
+            weakSelf.table.myTogetherList=togetherUersModel.users;
             [weakSelf  getReturnData];
         }
         else
@@ -64,15 +70,12 @@
             [MBProgressHUD hideHUDForView:self.view];
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
         }
-        
     } andFailBlock:^(id failResult) {
-        //NSLog(@"%@",failResult);
         [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
-        __weak typeof (&*self)weakSelf=self;
         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-            [weakSelf getToghterData];
+            [strongSelf getToghterData];
         }];
     }];
 }
@@ -86,26 +89,32 @@
     }
     //回报的人
     NSInteger type=2;
-    NSString *httpUrl02=GET_MY_COMMENTER([ZYZCAccountTool getUserId], _productId, type);
-//    NSLog(@"%@",httpUrl02);
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl02 withSuccessGetBlock:^(id result, BOOL isSuccess) {
+//    NSString *httpUrl02=GET_MY_COMMENTER([ZYZCAccountTool getUserId], _productId, type);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getCanCommonUserStatusList"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", type] forKey:@"type"];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
+        [NetWorkManager hideFailViewForView:self.view];
         DDLog(@"回报：%@",result);
         if (isSuccess) {
             TogetherUersModel *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
-            _table.myReturnList=togetherUersModel.users;
+            weakSelf.table.myReturnList=togetherUersModel.users;
         }
         else
         {
-             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
         }
         
-        [_table reloadData];
-        
+        [weakSelf.table reloadData];
     } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
-//        NSLog(@"%@",failResult);
     }];
 }
 

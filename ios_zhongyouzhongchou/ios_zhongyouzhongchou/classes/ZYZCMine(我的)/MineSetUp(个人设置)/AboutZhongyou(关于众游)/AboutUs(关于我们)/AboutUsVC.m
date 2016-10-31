@@ -61,7 +61,7 @@
 //                                                                    };
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:Get_About_Us]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@about_us.jsp", [[ZYZCAPIGenerate sharedInstance] APIBaseUrl]]]];
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [_webView loadRequest:request];
     

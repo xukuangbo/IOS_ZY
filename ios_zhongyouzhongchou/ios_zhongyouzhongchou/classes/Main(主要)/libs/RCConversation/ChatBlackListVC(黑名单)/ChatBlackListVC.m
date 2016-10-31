@@ -88,15 +88,16 @@
 
 - (void)requestBlackListUserData:(NSString *)blockUserIds
 {
-    NSString *url = Get_LaHei_List_Info(blockUserIds);
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
-        _dataArray = [ChatBlackListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        
-        
-        [_tableView reloadData];
-    } andFailBlock:^(id failResult) {
+//    NSString *url = Get_LaHei_List_Info(blockUserIds);
     
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserBaseInfo"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:blockUserIds forKey:@"userIds"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        weakSelf.dataArray = [ChatBlackListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        [weakSelf.tableView reloadData];
+    } andFailBlock:^(id failResult) {
         [MBProgressHUD showError:@"请求数据失败"];
     }];
 }

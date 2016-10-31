@@ -277,11 +277,17 @@
     }
     
     NSString *httpUrl=ADD_TOGETHER_PARTNER([ZYZCAccountTool getUserId],_productId,mutStr);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_savaProductUserStatus"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:mutStr forKey:@"userIds"];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-    {
+
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"%@",result);
+        //        NSLog(@"%@",result);
         if (isSuccess) {
             if (_addPartnerSuccess) {
                 _addPartnerSuccess();
@@ -292,8 +298,7 @@
         {
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
         }
-    } andFailBlock:^(id failResult)
-    {
+    } andFailBlock:^(id failResult) {
         [NetWorkManager showMBWithFailResult:failResult];
     }];
 }

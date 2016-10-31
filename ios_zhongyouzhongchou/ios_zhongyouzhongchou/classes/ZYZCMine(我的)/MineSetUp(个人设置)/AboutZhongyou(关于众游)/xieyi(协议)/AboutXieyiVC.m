@@ -78,7 +78,7 @@
 //    _textView.textAlignment = NSTextAlignmentLeft;
 //    _textView.font = [UIFont systemFontOfSize:17];
 //    [self.view addSubview:_textView];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:Get_Xieyi]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@xieyi.jsp", [[ZYZCAPIGenerate sharedInstance] APIBaseUrl]]]];
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [_webView loadRequest:request];
     

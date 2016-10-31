@@ -914,13 +914,18 @@
     else if (alertView.tag==ALERT_DELETE_MYJOINPRODUCT_TAG&&buttonIndex==1)
     {
         [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-        [ZYZCHTTPTool getHttpDataByURL:DELETE_MYJOIN_PRODUCT(_productId, userId) withSuccessGetBlock:^(id result, BOOL isSuccess) {
-//            result;
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_delMyStyle4"];
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+        [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+        [parameter setValue:userId forKey:@"userId"];
+        WEAKSELF
+        [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
             [MBProgressHUD hideHUDForView:self.viewController.view];
-//            NSLog(@"%@",result);
+            [MBProgressHUD hideHUDForView:self.viewController.view];
+            //            NSLog(@"%@",result);
             if (isSuccess) {
                 [MBProgressHUD showSuccess:@"取消成功!"];
-                MyProductViewController *myProductViewController=(MyProductViewController *)self.viewController;
+                MyProductViewController *myProductViewController=(MyProductViewController *)weakSelf.viewController;
                 [myProductViewController reloadData];
             }
             else
@@ -928,9 +933,9 @@
                 [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
             }
         } andFailBlock:^(id failResult) {
-//            NSLog(@"%@",failResult);
             [MBProgressHUD hideHUDForView:self.viewController.view];
             [NetWorkManager showMBWithFailResult:failResult];
+            
         }];
     }
     //确认同游
@@ -955,10 +960,12 @@
             else
             {
                 //求情确认同游
-                __weak typeof (&*self)weakSelf=self;
-                [ZYZCHTTPTool getHttpDataByURL:ACCEPT_INVITATION(_productId, userId) withSuccessGetBlock:^(id result, BOOL isSuccess) {
-                    [MBProgressHUD hideHUDForView:weakSelf.viewController.view];
-                    //                     NSLog(@"%@",result);
+                NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_acceptInvitation"];
+                NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+                [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+                [parameter setValue:userId forKey:@"userId"];
+                WEAKSELF
+                [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
                     if(isSuccess)
                     {
                         [MBProgressHUD showSuccess:@"确认成功"];
@@ -967,15 +974,12 @@
                         weakSelf.commentStatus =@0;//未评论
                         //延时出发状态
                         //上传凭证状态
-                    }
-                    else
-                    {
+                    } else {
                         [MBProgressHUD showShortMessage:result[@"errorMsg"]];
                         weakSelf.joinProductState=@0;
                         weakSelf.btnTitleArr=@[@"等待确认",@"取消行程",@"评价"];
                     }
                 } andFailBlock:^(id failResult) {
-                    // NSLog(@"%@",failResult);
                     [MBProgressHUD hideHUDForView:weakSelf.viewController.view];
                     [NetWorkManager showMBWithFailResult:failResult];
                 }];
@@ -989,13 +993,18 @@
     else if (alertView.tag==ALERT_GETRETURN_TAG&&buttonIndex==1)
     {
         [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-        [ZYZCHTTPTool getHttpDataByURL:ACCEPT_RETURN(_productId ,userId) withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_acceptBackpay"];
+        NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+        [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+        [parameter setValue:userId forKey:@"userId"];
+        WEAKSELF
+        [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
             [MBProgressHUD hideHUDForView:self.viewController.view];
-//            NSLog(@"%@",result);
+            //            NSLog(@"%@",result);
             if (isSuccess) {
-                _returnProductState=@3;
-                [_secondEditBtn setTitle:@"已收货" forState:UIControlStateNormal];
-                [_secondEditBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+                weakSelf.returnProductState=@3;
+                [weakSelf.secondEditBtn setTitle:@"已收货" forState:UIControlStateNormal];
+                [weakSelf.secondEditBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
             }
             else
             {
@@ -1004,8 +1013,8 @@
         } andFailBlock:^(id failResult) {
             [MBProgressHUD hideHUDForView:self.viewController.view];
             [NetWorkManager showMBWithFailResult:failResult];
+
         }];
-        
     }
     //确认旅行结束
     else if(alertView.tag==ALERT_SURE_END_TRAVEL_TAG&&buttonIndex==1)

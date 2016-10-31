@@ -367,12 +367,16 @@
 - (void)Get_Country_ZhongChou_List:(NSString *)country
 {
     NSString *destStr = [country stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    //    NSLog(@"%@",Get_Dest_ZhongChou_List(1,destStr));
-    __weak typeof(&*self) weakSelf = self;
-    ;
-    NSLog(@"%@",Get_Country_ZhongChou_List(_pageNo,destStr));
-    [ZYZCHTTPTool getHttpDataByURL:Get_Country_ZhongChou_List(_pageNo,destStr) withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        //
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProducts"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"false" forKey:@"cache"];
+    [parameter setValue:@"4" forKey:@"orderType"];
+    [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+    [parameter setValue:@"0,2" forKey:@"status_not"];
+    [parameter setValue:@"10" forKey:@"pageSize"];
+    [parameter setValue:destStr forKey:@"countryName"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         if (isSuccess) {
             if (weakSelf.pageNo==1&&weakSelf.zhongchouArray.count) {
                 [_zhongchouArray removeAllObjects];
@@ -391,14 +395,9 @@
         //回主线程更新UI
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];
-        
-        
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
         //如果请求不到照样更新UI
         [weakSelf.tableView.mj_footer endRefreshing];
-        
-        
     }];
 }
 
@@ -406,36 +405,37 @@
 - (void)Get_Dest_ZhongChou_List:(NSString *)dest
 {
     NSString *destStr = [dest stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    NSLog(@"%@",Get_Dest_ZhongChou_List(1,destStr));
-    __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool getHttpDataByURL:Get_Dest_ZhongChou_List((long)_pageNo,destStr) withSuccessGetBlock:^(id result, BOOL isSuccess) {
-//        
-            if (isSuccess) {
-                if (weakSelf.pageNo==1&&weakSelf.zhongchouArray.count) {
-                    [_zhongchouArray removeAllObjects];
-                }
-                ZCListModel *listModel = [ZCListModel mj_objectWithKeyValues:result];
-                for(ZCOneModel *oneModel in listModel.data)
-                {
-                    oneModel.productType=ZCListProduct;
-                    [weakSelf.zhongchouArray addObject:oneModel];
-                }
-                
-                if (listModel.data.count==0) {
-                    weakSelf.pageNo--;
-                }
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listAllProducts"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:@"false" forKey:@"cache"];
+    [parameter setValue:@"4" forKey:@"orderType"];
+    [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
+    [parameter setValue:@"0,2" forKey:@"status_not"];
+    [parameter setValue:@"10" forKey:@"pageSize"];
+    [parameter setValue:destStr forKey:@"dest"];
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            if (weakSelf.pageNo==1&&weakSelf.zhongchouArray.count) {
+                [_zhongchouArray removeAllObjects];
             }
+            ZCListModel *listModel = [ZCListModel mj_objectWithKeyValues:result];
+            for(ZCOneModel *oneModel in listModel.data)
+            {
+                oneModel.productType=ZCListProduct;
+                [weakSelf.zhongchouArray addObject:oneModel];
+            }
+            
+            if (listModel.data.count==0) {
+                weakSelf.pageNo--;
+            }
+        }
         //回主线程更新UI
         [weakSelf.tableView reloadData];
         [weakSelf.tableView.mj_footer endRefreshing];
-        
-
     } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
         //如果请求不到照样更新UI
         [weakSelf.tableView.mj_footer endRefreshing];
-        
-        
     }];
 }
 

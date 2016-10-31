@@ -14,11 +14,11 @@
 //正式
 //#define BASE_URL @"http://www.sosona.com:8080/"
 //测试
-#define BASE_URL @"http://121.40.225.119:8080/"
+//#define BASE_URL @"http://121.40.225.119:8080/"
 //华子
 //#define BASE_URL @"http://192.168.11.132:8086/"
 //海外服务器
-//#define BASE_URL @"http://47.88.148.208:8080/"
+#define BASE_URL @"http://47.88.148.208:8080/"
 
 #define HTTPURL(APPEND_URL) [NSString stringWithFormat:@"%@%@.action?",BASE_URL,APPEND_URL]
 
@@ -143,88 +143,62 @@
 #define JUDGE_TIME_CONFLICT(userId,productId)  [NSString stringWithFormat:@"%@list/checkMyProductsTime.action?userId=%@&productId=%@",BASE_URL,userId,productId]
 //获取已报名参加一起游的信息
 #define TOGTHER_INFO(userId,productId)  [NSString stringWithFormat:@"%@productInfo/getStyle4Users.action?userId=%@&productId=%@",BASE_URL,userId,productId]
-
-
 //加入一起游意向列表
 #define ADD_TOGETHER_PARTNER(userId,productId,userIds)   [NSString stringWithFormat:@"%@productInfo/savaProductUserStatus.action?userId=%@&productId=%@&userIds=%@",BASE_URL,userId,productId,userIds]
-
 //获取一起游意向列表/回报的人列表
 #define GET_SELECTED_TOGETHER_PARTNERS(userId,productId,type)[NSString stringWithFormat:@"%@productInfo/getProductUserStatusList.action?userId=%@&productId=%@&type=%ld",BASE_URL,userId,productId,type]
-
 //删除意向列表中的报名人
 #define DELETE_TOGETHER_PARTNER(selfUserId,productId,userId)  [NSString stringWithFormat:@"%@productInfo/delProductUserStatus.action?selfUserId=%@&productId=%@&userId=%@",BASE_URL,selfUserId,productId,userId]
-
 //发起邀约
 #define SEND_INVITAION(selfUserId,productId,userId)  [NSString stringWithFormat:@"%@productInfo/sendInvitation.action?selfUserId=%@&productId=%@&userId=%@",BASE_URL,selfUserId,productId,userId]
-
 //点击回报
 #define SEND_BACKPAY(selfUserId,productId,userId) [NSString stringWithFormat:@"%@productInfo/sendBackpay.action?selfUserId=%@&productId=%@&userId=%@",BASE_URL,selfUserId,productId,userId]
-
 //接受邀请(参与人操作)
 #define ACCEPT_INVITATION(productId,userId)  [NSString stringWithFormat:@"%@productInfo/acceptInvitation.action?productId=%@&userId=%@",BASE_URL,productId,userId]
-
 //确认收货
 #define ACCEPT_RETURN(productId,userId)   [NSString stringWithFormat:@"%@productInfo/acceptBackpay.action?productId=%@&userId=%@",BASE_URL,productId,userId]
-
 //删除我报名的项目
 #define  DELETE_MYJOIN_PRODUCT(productId,userId)  [NSString stringWithFormat:@"%@productInfo/delMyStyle4.action?productId=%@&userId=%@",BASE_URL,productId,userId]
-
 //评价我参与行程的发起人
 #define  COMMENT_MYJOIN_PRODUCT   [NSString stringWithFormat:@"%@productInfo/savaProductComment11.action",BASE_URL]
-
 //评价回报我的人
 #define  COMMENT_MYRETURN_PRODUCT  [NSString stringWithFormat:@"%@productInfo/savaProductComment12.action",BASE_URL]
-
 //评价参与我一起游的人
 #define  COMMENT_TOGETHER   [NSString stringWithFormat:@"%@productInfo/savaProductComment21.action",BASE_URL]
-
 //评价我回报的人
 #define  COMMENT_RETURN   [NSString stringWithFormat:@"%@productInfo/savaProductComment22.action",BASE_URL]
-
 //上传凭证
 #define Upload_Voucher [NSString stringWithFormat:@"%@productInfo/productVoucher.action",BASE_URL]
-
 //获取我一起游的人或回报的人（评价用）
 #define GET_MY_COMMENTER(userId,productId,type)  [NSString stringWithFormat:@"%@productInfo/getCanCommonUserStatusList.action?userId=%@&productId=%@&type=%ld",BASE_URL,userId,productId,type]
 //投诉
 #define COMPLAIN  [NSString stringWithFormat:@"%@productInfo/productComplaint.action",BASE_URL]
-
 //判断某项目是否有支持的记录
 #define GET_MY_STYLEPAY_STATUS(userId,productId)  [NSString stringWithFormat:@"%@productInfo/getMyStylePayStatus.action?userId=%@&productId=%@",BASE_URL,userId,productId]
-
 //判断是否支付成功
 #define GET_ORDERPAY_STATUS(userId,outTradeNo)   [NSString stringWithFormat:@"%@productInfo/getOrderPayStatus.action?userId=%@&outTradeNo=%@",BASE_URL,userId,outTradeNo]
-
 //攻略目的地详情添加众筹项目详情
 #define Get_Dest_ZhongChou_List(pageNo,dest) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%ld&status_not=0,2&pageSize=10&dest=%@",BASE_URL,pageNo,dest]
 //国家级目的地详情添加众筹项目详情
 #define Get_Country_ZhongChou_List(pageNo,countryName) [NSString stringWithFormat:@"%@list/listAllProducts.action?cache=false&orderType=4&pageNo=%d&&status_not=0,2&pageSize=10&countryName=%@",BASE_URL,pageNo,countryName]
 //发众筹时判断用户信息是否完善
 #define CHECK_USERINFO [NSString stringWithFormat:@"%@register/checkUserInfoIntegrality.action",BASE_URL]
-
 //获取我的提现众筹列表
 #define Get_MyTxProducts_List [NSString stringWithFormat:@"%@list/listMyTxProducts.action",BASE_URL]
-
 //判断是否发布过众筹
 #define Get_Judge_HadFZC(userId) [NSString stringWithFormat:@"%@productInfo/checkMyProduct.action?userId=%@",BASE_URL,userId]
-
 //获取该众筹金额明细
 #define Get_RecordDetail(userId,productId,pageNo) [NSString stringWithFormat:@"%@list/recordDetail.action?userId=%@&productId=%@&pageNo=%zd&pageSize=10",BASE_URL,userId,productId,pageNo]
-
 //提交建议
 #define Post_Jianyi [NSString stringWithFormat:@"%@register/saveAdvice.action",BASE_URL]
-
 //获取协议，（待废除）
 //#define Get_Xieyi [NSString stringWithFormat:@"%@register/getXieyi.action",BASE_URL]
 //获取协议
 #define Get_Xieyi [NSString stringWithFormat:@"%@xieyi.jsp",BASE_URL]
-
 //获取隐私政策
 #define Get_Yinsi_ZhengChe [NSString stringWithFormat:@"%@privacy_statement.jsp",BASE_URL]
-
 //获取关于我们
 #define Get_About_Us [NSString stringWithFormat:@"%@about_us.jsp",BASE_URL]
-
 //获取投诉建议
 #define Get_Tousu [NSString stringWithFormat:@"%@complaint_notes.jsp",BASE_URL]
 

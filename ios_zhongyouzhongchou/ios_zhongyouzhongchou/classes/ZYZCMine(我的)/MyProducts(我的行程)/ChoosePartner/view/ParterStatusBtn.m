@@ -173,48 +173,54 @@
     //邀约
     if (alertView.tag==ALERT_SEND_INVITAYION_TAG) {
         if (buttonIndex==1) {
-            [ZYZCHTTPTool getHttpDataByURL:SEND_INVITAION([ZYZCAccountTool getUserId], _productId, _userModel.userId) withSuccessGetBlock:^(id result, BOOL isSuccess)
-             {
-//                 NSLog(@"%@",result);
-                 if (isSuccess) {
-                     [MBProgressHUD showSuccess:@"邀约成功!"];
-                     self.status=@1;
-                 }
-                 else
-                 {
-                     [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-                 }
-                 
-             } andFailBlock:^(id failResult) {
-//                 NSLog(@"%@",failResult);
-                 [NetWorkManager showMBWithFailResult:failResult];
-             }];
+            NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_sendInvitation"];
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+            [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"selfUserId"];
+            [parameter setValue:[NSString stringWithFormat:@"%@", _userModel.userId] forKey:@"userId"];
+            [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+
+            WEAKSELF
+            [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+                if (isSuccess) {
+                    [MBProgressHUD showSuccess:@"邀约成功!"];
+                    weakSelf.status=@1;
+                }
+                else
+                {
+                    [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+                }
+            } andFailBlock:^(id failResult) {
+                [NetWorkManager showMBWithFailResult:failResult];
+
+            }];
         }
     }
     else if (alertView.tag==ALERT_RETURN_TAG)
     {
         if (buttonIndex==1) {
             //已确认回报
-            NSString *httpUrl=SEND_BACKPAY([ZYZCAccountTool getUserId],_productId,_userModel.userId);
-            
-//            NSLog(@"%@",httpUrl);
+//            NSString *httpUrl=SEND_BACKPAY([ZYZCAccountTool getUserId],_productId,_userModel.userId);
+            NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_sendBackpay"];
+            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+            [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"selfUserId"];
+            [parameter setValue:[NSString stringWithFormat:@"%@", _userModel.userId] forKey:@"userId"];
+            [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
+            WEAKSELF
             [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-            [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-             {
-                 [MBProgressHUD hideHUDForView:self.viewController.view];
-//                 NSLog(@"%@",result);
-                 if (isSuccess) {
-                     self.returnState=@1;
-                 }
-                 else
-                 {
-                      [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-                 }
-             } andFailBlock:^(id failResult) {
-                 [MBProgressHUD hideHUDForView:self.viewController.view];
-                 [NetWorkManager showMBWithFailResult:failResult];
-//                 NSLog(@"%@",failResult);
-             }];
+            [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+                [MBProgressHUD hideHUDForView:self.viewController.view];
+                //                 NSLog(@"%@",result);
+                if (isSuccess) {
+                    weakSelf.returnState=@1;
+                }
+                else
+                {
+                    [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+                }
+            } andFailBlock:^(id failResult) {
+                [MBProgressHUD hideHUDForView:self.viewController.view];
+                [NetWorkManager showMBWithFailResult:failResult];
+            }];
         }
     }
     self.enabled=YES;

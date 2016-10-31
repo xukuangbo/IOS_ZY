@@ -85,40 +85,42 @@
 
 -(void)getHttpData
 {
-    NSString *httpUrl=GET_SELECTED_TOGETHER_PARTNERS([ZYZCAccountTool getUserId], _productId, _myPartnerType);
-//    NSLog(@"httpUrl:%@",httpUrl);
+//    NSString *httpUrl=GET_SELECTED_TOGETHER_PARTNERS([ZYZCAccountTool getUserId], _productId, _myPartnerType);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getProductUserStatusList"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", _myPartnerType] forKey:@"type"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool getHttpDataByURL:httpUrl withSuccessGetBlock:^(id result, BOOL isSuccess)
-    {
+    WEAKSELF
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
-//        NSLog(@"%@",result);
+        //        NSLog(@"%@",result);
         if (isSuccess) {
             TogetherUersModel *togetherUersModel=[[TogetherUersModel alloc]mj_setKeyValues:result[@"data"]];
-//            _users=togetherUersModel.users;
-            _table.myListArr=[NSMutableArray arrayWithArray:togetherUersModel.users];
-            _table.myPartnerType=_myPartnerType;
-            _table.fromMyReturn=_fromMyReturn;
-            [_table reloadData];
+            //            _users=togetherUersModel.users;
+            weakSelf.table.myListArr=[NSMutableArray arrayWithArray:togetherUersModel.users];
+            weakSelf.table.myPartnerType=_myPartnerType;
+            weakSelf.table.fromMyReturn=_fromMyReturn;
+            [weakSelf.table reloadData];
             
             if (!togetherUersModel.users.count) {
-                _noneProductView.hidden=NO;
+                weakSelf.noneProductView.hidden=NO;
             }
             else
             {
-               _noneProductView.hidden=YES;
+                weakSelf.noneProductView.hidden=YES;
             }
         }
         else
         {
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
         }
-        [_table.mj_header endRefreshing];
-    } andFailBlock:^(id failResult)
-    {
+        [weakSelf.table.mj_header endRefreshing];
+    } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:self.view];
-        [_table.mj_header endRefreshing];
+        [weakSelf.table.mj_header endRefreshing];
         [NetWorkManager showMBWithFailResult:failResult];
-//        NSLog(@"%@",failResult);
     }];
 }
 
