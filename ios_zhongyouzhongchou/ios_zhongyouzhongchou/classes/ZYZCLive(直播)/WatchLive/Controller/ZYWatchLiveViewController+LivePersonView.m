@@ -50,7 +50,7 @@
 - (void)initPersonData
 {
     NSDictionary *params=@{@"productId":self.liveModel.productId};
-
+   
     WEAKSELF
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getProductMinInfo"] andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
         ZYJourneyLiveModel *journeyLiveModel=[[ZYJourneyLiveModel alloc] mj_setKeyValues:result[@"data"]];
@@ -69,8 +69,8 @@
     NSString *userId = [ZYZCAccountTool getUserId];
     NSString *getUserInfoURL = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail_action"];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-    [parameter setValue:otherUserId forKey:@"selfUserId"];
-    [parameter setValue:userId forKey:@"userId"];
+    [parameter setValue:userId forKey:@"selfUserId"];
+    [parameter setValue:otherUserId forKey:@"userId"];
     
     WEAKSELF
     [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {

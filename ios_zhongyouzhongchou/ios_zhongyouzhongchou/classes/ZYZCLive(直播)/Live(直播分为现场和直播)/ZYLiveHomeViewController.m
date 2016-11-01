@@ -46,10 +46,10 @@
 - (void)setupData
 {
     self.viewControllers = [NSMutableArray array];
-    ZYSceneViewController *sceneVC = [[ZYSceneViewController alloc] init];
     ZYLiveListController *liveListVC = [[ZYLiveListController alloc] init];
-    [self.viewControllers addObject:sceneVC];
+    ZYSceneViewController *sceneVC = [[ZYSceneViewController alloc] init];
     [self.viewControllers addObject:liveListVC];
+    [self.viewControllers addObject:sceneVC];
 }
 
 - (void)setupView
@@ -81,7 +81,7 @@
 
 - (void)customNavigationView
 {
-    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"现场",@"直播"]];
+    UISegmentedControl *segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"直播", @"现场"]];
 
     segmentControl.frame = CGRectMake(110, 7, 158, 30);
     segmentControl.selectedSegmentIndex = 0;
@@ -154,6 +154,11 @@
 - (void)changedIndex:(NSUInteger)index forPageViewController:(GRKPageViewController *)controller {
     
     [self.segmentControl setSelectedSegmentIndex:index];
+    if (index == 1) {
+        self.navRightBtn.hidden = YES;
+    } else {
+        self.navRightBtn.hidden = NO;
+    }
 }
 
 - (void)changedIndexOffset:(CGFloat)indexOffset forPageViewController:(GRKPageViewController *)controller {
