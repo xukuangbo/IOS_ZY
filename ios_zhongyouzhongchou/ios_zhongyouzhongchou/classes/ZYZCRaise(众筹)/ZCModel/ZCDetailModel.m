@@ -21,8 +21,9 @@
 {
     self = [super init];
     if (self) {
-        _introFirstCellHeight=1.0;
-        _returnFirtCellHeight=1.0;
+        _introFirstCellHeight = 0.1;
+        _returnFirtCellHeight = 0.1;
+        _introFourthCellHeight= 0.1;
     }
     return self;
 }
@@ -46,10 +47,10 @@
 {
     self = [super init];
     if (self) {
-        _detailIntroFourthCellHeight=0.1;
     }
     return self;
 }
+
 + (NSDictionary *)mj_objectClassInArray{
     
     return @{@"users":@"UserModel"};

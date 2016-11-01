@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 @interface MoreFZCBaseTableViewCell : UITableViewCell
-@property(nonatomic,strong)UIImageView *bgImg;
-@property(nonatomic,strong)UILabel *titleLab;
-@property(nonatomic,strong)UIView *topLineView;
+@property (nonatomic, strong) UIImageView   *bgImg;
+@property (nonatomic, strong) UILabel       *titleLab;
+@property (nonatomic, strong) UIView        *topLineView;
+@property (nonatomic, strong) UIImageView   *vertical;
 /**
  *  将视图创建在此方法中
  */

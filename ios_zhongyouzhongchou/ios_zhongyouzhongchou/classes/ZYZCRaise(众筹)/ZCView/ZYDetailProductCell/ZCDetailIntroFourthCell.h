@@ -11,6 +11,6 @@
 
 @interface ZCDetailIntroFourthCell : MoreFZCBaseTableViewCell
 
-@property (nonatomic, strong) ReportModel *togtherModel;
+@property (nonatomic, strong) ZCDetailProductModel *detailModel;
 
 @end

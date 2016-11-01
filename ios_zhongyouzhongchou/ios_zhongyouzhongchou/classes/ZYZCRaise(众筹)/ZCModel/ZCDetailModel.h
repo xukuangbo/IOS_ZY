@@ -43,8 +43,8 @@
 @property (nonatomic, strong) NSArray  *report;
 
 @property (nonatomic, assign) CGFloat introFirstCellHeight;
+@property (nonatomic, assign) CGFloat introFourthCellHeight;
 @property (nonatomic, assign) CGFloat returnFirtCellHeight;
-
 
 @end
 
@@ -64,7 +64,6 @@
 @property (nonatomic, strong) NSNumber *sumPrice;
 @property (nonatomic, strong) NSArray  *users;
 @property (nonatomic, assign) float    realzjeNew;
-@property (nonatomic, assign) float    detailIntroFourthCellHeight;
 @end
 
 

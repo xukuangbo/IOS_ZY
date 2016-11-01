@@ -38,17 +38,17 @@
     [self.bgImg addSubview:_wsmView];
     
     
-    CGFloat btnWidth=self.bgImg.width;
-   _supportTogther=[UIButton buttonWithType:UIButtonTypeCustom];
-    _supportTogther.frame=CGRectMake(KEDGE_DISTANCE, _wsmView.bottom+KEDGE_DISTANCE, btnWidth, 40);
-    [_supportTogther setTitle:@"报名一起去" forState:UIControlStateNormal];
-    [_supportTogther setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    _supportTogther.backgroundColor=[UIColor ZYZC_MainColor];
-    _supportTogther.layer.cornerRadius=KCORNERRADIUS;
-    _supportTogther.layer.masksToBounds=YES;
-    [_supportTogther addTarget:self action:@selector(supportTogtherClick) forControlEvents:UIControlEventTouchUpInside];
-    [self.contentView addSubview:_supportTogther];
-    _supportTogther.hidden=YES;
+//    CGFloat btnWidth=self.bgImg.width;
+//   _supportTogther=[UIButton buttonWithType:UIButtonTypeCustom];
+//    _supportTogther.frame=CGRectMake(KEDGE_DISTANCE, _wsmView.bottom+KEDGE_DISTANCE, btnWidth, 40);
+//    [_supportTogther setTitle:@"报名一起去" forState:UIControlStateNormal];
+//    [_supportTogther setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    _supportTogther.backgroundColor=[UIColor ZYZC_MainColor];
+//    _supportTogther.layer.cornerRadius=KCORNERRADIUS;
+//    _supportTogther.layer.masksToBounds=YES;
+//    [_supportTogther addTarget:self action:@selector(supportTogtherClick) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:_supportTogther];
+//    _supportTogther.hidden=YES;
 }
 
 -(void)supportTogtherClick
@@ -76,16 +76,17 @@
     [_wsmView reloadDataByVideoImgUrl:cellModel.productVideoImg andPlayUrl:cellModel.productVideo andVoiceUrl:cellModel.productVoice andVoiceLen:cellModel.productVoiceLen  andFaceImg:cellModel.user.faceImg andDesc:cellModel.desc andImgUrlStr:cellModel.descImgs];
     self.bgImg.height   = _wsmView.bottom+KEDGE_DISTANCE;
     cellModel.introFirstCellHeight= self.bgImg.height;
-    if ([cellModel.mySelf isEqual:@0]) {
-        _supportTogther.hidden=NO;
-        _supportTogther.top = self.bgImg.height+KEDGE_DISTANCE;
-        cellModel.introFirstCellHeight= _supportTogther.bottom;
-    }
-    else
-    {
-        [_supportTogther removeFromSuperview];
-         cellModel.introFirstCellHeight= self.bgImg.height;
-    }
+//    if ([cellModel.mySelf isEqual:@0]) {
+//        _supportTogther.hidden=NO;
+//        _supportTogther.top = self.bgImg.height+KEDGE_DISTANCE;
+//        cellModel.introFirstCellHeight= _supportTogther.bottom;
+//    }
+//    else
+//    {
+//        [_supportTogther removeFromSuperview];
+//         cellModel.introFirstCellHeight= self.bgImg.height;
+//    }
+     cellModel.introFirstCellHeight= self.bgImg.height;
 }
 
 @end

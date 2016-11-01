@@ -14,6 +14,7 @@
 #import "ZCDetailIntroFirstCell.h"
 #import "ZCDetailIntroSecondCell.h"
 #import "ZCDetailIntroThirdCell.h"
+#import "ZCDetailIntroFourthCell.h"
 //行程部分cells
 #import "ZCDetailArrangeFirstCell.h"
 //回报部分cells
@@ -163,7 +164,7 @@
 //    days=4;
     //第二组的cell数量
     NSInteger secondSectionCellNumber=
-    (2*_hasIntroGoal+2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count)*(self.contentType==IntroType?1:0)
+    (4*_hasIntroGoal+2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count)*(self.contentType==IntroType?1:0)
     +2*days*(self.contentType==ArrangeType?1:0)
     +_hasSupportView*(2*_hasSupportView+2*_hasHotComment)*(self.contentType==ReturnType?1:0);
     
@@ -212,18 +213,26 @@
                 introFirstCell.cellModel=_detailModel.detailProductModel;
                 return  introFirstCell;
             }
-            else if (indexPath.row == 0+2*_hasIntroGoal && _hasIntroGeneral)
+            else if (indexPath.row == 0+2*_hasIntroGoal)
+            {
+                NSString *introFourthCellId=@"introFourthCell";
+                ZCDetailIntroFourthCell *introFourthCell=(ZCDetailIntroFourthCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introFourthCellId andCellClass:[ZCDetailIntroFourthCell class]];
+                introFourthCell.detailModel =_detailModel.detailProductModel;
+                return  introFourthCell;
+
+            }
+            else if (indexPath.row == 0+4*_hasIntroGoal && _hasIntroGeneral)
             {
                 NSString *introSecondCellId=@"introSecondCell";
                 ZCDetailIntroSecondCell *introSecondCell=(ZCDetailIntroSecondCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introSecondCellId andCellClass:[ZCDetailIntroSecondCell class]];
                 introSecondCell.goals=_viewSpots;
                 return introSecondCell;
             }
-            else if (indexPath.row >=2*_hasIntroGoal +2*_hasIntroGeneral &&indexPath.row <=2*_hasIntroGoal +2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count&&(indexPath.row-(2*_hasIntroGoal +2*_hasIntroGeneral))%2==0&& _hasIntroMovie)
+            else if (indexPath.row >=4*_hasIntroGoal +2*_hasIntroGeneral &&indexPath.row <=4*_hasIntroGoal +2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count&&(indexPath.row-(4*_hasIntroGoal +2*_hasIntroGeneral))%2==0&& _hasIntroMovie)
             {
                 NSString *introThirdCellId=@"introThirdCell";
                 ZCDetailIntroThirdCell *introThirdCell=(ZCDetailIntroThirdCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introThirdCellId andCellClass:[ZCDetailIntroThirdCell class]];
-                ZCSpotVideoModel *spotVideoModel=_spotVideos[(indexPath.row-2*_hasIntroGoal -2*_hasIntroGeneral)/2];
+                ZCSpotVideoModel *spotVideoModel=_spotVideos[(indexPath.row-4*_hasIntroGoal -2*_hasIntroGeneral)/2];
                 introThirdCell.spotVideoModel=spotVideoModel;
                 introThirdCell.subDesLab.text=SUBDES_FORMOVIE(spotVideoModel.spotName);
                 return introThirdCell;
@@ -303,11 +312,15 @@
             if (indexPath.row==0 && _hasIntroGoal) {
                 return _detailModel.detailProductModel.introFirstCellHeight;
             }
-            else if (indexPath.row == 0+2*_hasIntroGoal && _hasIntroGeneral)
+            else if (indexPath.row == 2*_hasIntroGoal)
+            {
+                return  _detailModel.detailProductModel.introFourthCellHeight;
+            }
+            else if (indexPath.row == 0+4*_hasIntroGoal && _hasIntroGeneral)
             {
                 return ZCDETAILINTRO_SECONDCELL_HEIGHT;
             }
-            else if (_hasIntroMovie&&indexPath.row >=2*_hasIntroGoal +2*_hasIntroGeneral &&indexPath.row <=2*_hasIntroGoal +2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count&&(indexPath.row-(2*_hasIntroGoal +2*_hasIntroGeneral))%2==0)
+            else if (_hasIntroMovie&&indexPath.row >=4*_hasIntroGoal +2*_hasIntroGeneral &&indexPath.row <=4*_hasIntroGoal +2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count&&(indexPath.row-(4*_hasIntroGoal +2*_hasIntroGeneral))%2==0)
             {
                 return ZCDETAILINTRO_THIRDCELL_HEIGHT;
             }
