@@ -18,14 +18,10 @@
 
 //融云appKey（测试）
 #define RC_APPKEY @"lmxuhwagxqfzd"
-////趣拍（测试）
-//#define  kQPZhouYouLiveHttpHost  @"http://zhongyoutest01.s.qupai.me"
-//#define  kQPAppKey     @"20be31eb2ca1669"
-//#define  kQPAppSecret  @"ae7f1c0525644c7a85b7f9a844cfc0e7"
 //趣拍（正式）
-#define  kQPZhouYouLiveHttpHost  @"http://zhongyoulive.s.qupai.me"
-#define  kQPAppKey     @"20a9a463ed1796c"
-#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
+//#define  kQPZhouYouLiveHttpHost  @"http://zhongyoulive.s.qupai.me"
+//#define  kQPAppKey     @"20a9a463ed1796c"
+//#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
 
 #else
 #define ZYLog(FORMAT, ...) nil
@@ -34,12 +30,17 @@
 //融云appKey（正式）
 #define RC_APPKEY @"z3v5yqkbvp960"
 // bugTags appKey
-//趣拍（正式）
-#define  kQPZhouYouLiveHttpHost  @"http://zhongyoulive.s.qupai.me"
-#define  kQPAppKey     @"20a9a463ed1796c"
-#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
+////趣拍（正式）
+//#define  kQPZhouYouLiveHttpHost  @"http://zhongyoulive.s.qupai.me"
+//#define  kQPAppKey     @"20a9a463ed1796c"
+//#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
 
 #endif
+
+////趣拍（测试和正式） serverStatus为1为测试服务器，否则为趣拍的正式服务器
+#define  kQPZhouYouLiveHttpHost(serverStatus)  serverStatus == 1 ? @"http://zhongyoutest01.s.qupai.me" : @"http://zhongyoulive.s.qupai.me"
+#define  kQPAppKey(serverStatus)  serverStatus == 1 ? @"20be31eb2ca1669" : @"20a9a463ed1796c"
+#define  kQPAppSecret(serverStatus)  serverStatus == 1 ? @"ae7f1c0525644c7a85b7f9a844cfc0e7" : @"b39015e4f733445290c63b4de7b603cd"
 
 #define kBugTagsAppKey @"d84d834d54831f523e30df3a7d050e21"
 #define ZYString(name) [NSString stringWithFormat:@"%@",name]

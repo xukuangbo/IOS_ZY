@@ -114,7 +114,7 @@
 }
 #pragma mark - 添加关注／取消关注
 - (IBAction)guanzhuButtonAction:(UIButton *)sender {
-    
+    WEAKSELF
     NSDictionary *params=@{@"userId":[ZYZCAccountTool getUserId],@"friendsId":self.watchEndLiveModel.userId};
     //    NSLog(@"params:%@",params);
     if (_friendship) {
@@ -126,10 +126,10 @@
              //            NSLog(@"%@",result);
              if (isSuccess) {
                  [MBProgressHUD showSuccess:@"取消成功"];
-                 [_guanzhuButton setTitle:@"关注" forState:UIControlStateNormal];
-                 _guanzhuButton.backgroundColor = [UIColor ZYZC_MainColor];
+                 [weakSelf.guanzhuButton setTitle:@"关注" forState:UIControlStateNormal];
+                 weakSelf.guanzhuButton.backgroundColor = [UIColor ZYZC_MainColor];
                  
-                 _friendship=!_friendship;
+                 weakSelf.friendship = !weakSelf.friendship;
              }
              else
              {
@@ -150,26 +150,28 @@
             //            NSLog(@"%@",result);
             if (isSuccess) {
                 [MBProgressHUD showSuccess:@"关注成功"];
-                [_guanzhuButton setTitle:@"已关注" forState:UIControlStateNormal];
-                _guanzhuButton.backgroundColor = [UIColor lightGrayColor];
-                _friendship=!_friendship;
+                [weakSelf.guanzhuButton setTitle:@"已关注" forState:UIControlStateNormal];
+                weakSelf.guanzhuButton.backgroundColor = [UIColor lightGrayColor];
+                weakSelf.friendship = !weakSelf.friendship;
             }
             else
             {
                 [MBProgressHUD showSuccess:@"关注失败"];
             }
-            
         } andFailBlock:^(id failResult) {
             [MBProgressHUD showSuccess:@"关注成功"];
-            
         }];
     }
-    
 }
 
 - (IBAction)backButtonAction:(UIButton *)sender {
     self.tabBarController.tabBar.hidden = NO;
     self.navigationController.navigationBar.hidden = NO;
     [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+- (void)dealloc
+{
+    
 }
 @end

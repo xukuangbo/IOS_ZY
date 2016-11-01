@@ -188,7 +188,10 @@
         }
         else{
             //鉴权
-            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:userId success:^(NSString *accessToken) {
+            NSString *QPAppSecret = kQPAppSecret([ZYZCAPIGenerate sharedInstance].serverType);
+            NSString *QPAppKey = kQPAppKey([ZYZCAPIGenerate sharedInstance].serverType);
+
+            [[QPAuth shared] registerAppWithKey:QPAppKey secret:QPAppSecret space:userId success:^(NSString *accessToken) {
                 DDLog(@"qupai_accessToken:%@",accessToken);
                 //鉴权成功
                 NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
