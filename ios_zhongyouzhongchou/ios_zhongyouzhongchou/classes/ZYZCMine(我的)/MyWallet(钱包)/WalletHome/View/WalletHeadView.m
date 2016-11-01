@@ -9,6 +9,7 @@
 #import "WalletHeadView.h"
 #import "Masonry.h"
 #import "ZYCustomBlurView.h"
+#import "WalletHeadModel.h"
 @interface WalletHeadView ()
 
 /* 模糊背景图*/
@@ -63,7 +64,7 @@
     _balanceLabel = [[UILabel alloc] init];
 //    _balanceLabel.font = [UIFont boldSystemFontOfSize:45];
     _balanceLabel.textColor = [UIColor whiteColor];
-    _balanceLabel.attributedText = [WalletHeadView getAttributesString:200.35];
+    _balanceLabel.attributedText = [WalletHeadView getAttributesString:0.00];
     
     _lineView = [[UIView alloc] init];
     _lineView.backgroundColor = [UIColor ZYZC_LineGrayColor];
@@ -73,16 +74,13 @@
     _UBTitleLabel.textAlignment = NSTextAlignmentCenter;
     _UBTitleLabel.textColor = [UIColor whiteColor];
     _UBTitleLabel.text = @"U币";
-//    _UBTitleLabel.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
-    
+
     _UBLabel = [[UILabel alloc] init];
     _UBLabel.font = [UIFont systemFontOfSize:15];
     _UBLabel.textAlignment = NSTextAlignmentCenter;
     _UBLabel.textColor = [UIColor whiteColor];
     _UBLabel.text = @"0.00";
-//    _UBLabel.backgroundColor = [UIColor colorWithRed:arc4random_uniform(256) / 256.0 green:arc4random_uniform(256) / 256.0 blue:arc4random_uniform(256) / 256.0 alpha:1];
-    
-    
+
     
     [self addSubview:_ZCMoneyButton];
     [self addSubview:_balanceTitleLabel];
@@ -130,6 +128,16 @@
         make.height.equalTo(@1);
         make.bottom.equalTo(self.mas_bottom).offset(-53);
     }];
+    
+}
+
+- (void)setModel:(WalletHeadModel *)model
+{
+    _model = model;
+    
+    _balanceLabel.attributedText = [WalletHeadView getAttributesString:model.cash * 0.01];
+    
+    _UBLabel.text = [NSString stringWithFormat:@"%zd",model.uCash];
     
 }
 

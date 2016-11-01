@@ -177,6 +177,7 @@ static NSString *DayCell = @"DayCell";
     [parameter setValue:@"0,2" forKey:@"status_not"];
     
     [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUDForView:self.view];
         if (isSuccess) {
             NSDictionary *dateDic=result[@"data"];
             NSMutableArray *datesArr=[NSMutableArray array];
@@ -209,8 +210,7 @@ static NSString *DayCell = @"DayCell";
             [_collectionView reloadData];
         }
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD hideHUD];
-
+       [MBProgressHUD hideHUDForView:self.view];
     }];
 }
 

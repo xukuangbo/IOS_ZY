@@ -26,6 +26,7 @@ typedef void (^SupportBlock)();
 @property (nonatomic, strong) UILabel  *hasSupportLab;//已支持标签
 @property (nonatomic, strong) UILabel  *limitLab;   //限额标签
 @property (nonatomic, strong) UIView   *supportPeople;//支持的人
+@property (nonatomic, strong) UIView   *separateView; 
 @property (nonatomic, strong) UIButton *morePeopleBtn;//更多支持的人
 
 @property (nonatomic, assign) CGFloat  textNormalHeight;//文字为正常高度

@@ -109,6 +109,8 @@ static ZYZCRCManager *_RCManager;
     }
     
 //    NSLog(@"myToken:%@",myToken);
+    //连接前先断开连接
+    [[RCIM sharedRCIM] disconnect:YES];
     [[RCIM sharedRCIM] connectWithToken:myToken success:^(NSString *userId) {
         //设置用户信息提供者,页面展现的用户头像及昵称都会从此代理取
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
@@ -116,10 +118,7 @@ static ZYZCRCManager *_RCManager;
         if (loginSuccess) {
             loginSuccess();
         }
-        
-        
         DDLog(@"Login successfully with userId: %@.", userId);
-        
     } error:^(RCConnectErrorCode status) {
 //        NSLog(@"login error status: %ld.", (long)status);
     } tokenIncorrect:^{

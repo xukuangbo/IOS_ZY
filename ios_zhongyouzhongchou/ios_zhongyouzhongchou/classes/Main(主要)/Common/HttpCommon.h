@@ -14,11 +14,11 @@
 //正式
 //#define BASE_URL @"http://www.sosona.com:8080/"
 //测试
-//#define BASE_URL @"http://121.40.225.119:8080/"
+#define BASE_URL @"http://121.40.225.119:8080/"
 //华子
 //#define BASE_URL @"http://192.168.11.132:8086/"
 //海外服务器
-#define BASE_URL @"http://47.88.148.208:8080/"
+//#define BASE_URL @"http://47.88.148.208:8080/"
 
 #define HTTPURL(APPEND_URL) [NSString stringWithFormat:@"%@%@.action?",BASE_URL,APPEND_URL]
 
