@@ -35,6 +35,7 @@
     _commitButton.titleLabel.font = [UIFont systemFontOfSize:20];
     [_commitButton setTitleColor:[UIColor ZYZC_TextGrayColor04] forState:UIControlStateNormal];
     [_commitButton setBackgroundColor:[UIColor ZYZC_LineGrayColor]];
+    [_commitButton addTarget:self action:@selector(commitAction) forControlEvents:UIControlEventTouchUpInside];
     _commitButton.layerCornerRadius = 5;
     
     [self addSubview:_moneyNumberLabel];
@@ -81,5 +82,11 @@
     _moneyNumberLabel.text = @"0.00";
     [_commitButton setTitleColor:[UIColor ZYZC_TextGrayColor04] forState:UIControlStateNormal];
     [_commitButton setBackgroundColor:[UIColor ZYZC_LineGrayColor]];
+}
+
+#pragma mark - clickAction
+- (void)commitAction
+{
+    self.walletYbjBottomBarSelectBlock();
 }
 @end

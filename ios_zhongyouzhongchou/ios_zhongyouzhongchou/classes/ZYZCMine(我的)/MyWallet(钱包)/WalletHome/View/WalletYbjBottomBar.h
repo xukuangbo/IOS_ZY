@@ -7,13 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #define WalletYbjBottomBarH 50
+
+typedef void(^WalletYbjBottomBarSelectBlock)();
 
 @interface WalletYbjBottomBar : UIView
 
 @property (nonatomic, strong) UILabel *moneyNumberLabel;
 
 @property (nonatomic, strong) UIButton *commitButton;
+
+@property (nonatomic, copy) WalletYbjBottomBarSelectBlock walletYbjBottomBarSelectBlock;
 
 - (void)changeUIWithDic:(NSMutableDictionary *)dic;
 
