@@ -19,6 +19,7 @@
 #import "WalletYbjBottomBar.h"
 #import "WalletHeadModel.h"
 #import "FXBlurView.h"
+#import "WalletUserYbjVC.h"
 static NSInteger KtxPageSize = 10;
 static NSInteger YbjPageSize = 10;
 @interface WalletHomeVC ()
@@ -30,8 +31,6 @@ static NSInteger YbjPageSize = 10;
 @property (nonatomic, strong) WalletKtxTableView *ktxTableView;
 
 @property (nonatomic, strong) WalletYbjTableView *ybjTableView;
-
-
 /* 钱包当前选择页面 */
 @property (nonatomic, assign) WalletSelectType selectType;
 
@@ -60,18 +59,19 @@ static NSInteger YbjPageSize = 10;
     
     [self setUpTouchUpAction];
     
+    
     [self loadHeadViewData];
     [self.ktxTableView.mj_header beginRefreshing];
     [self.ybjTableView.mj_header beginRefreshing];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.translucent = YES;
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
+    
 }
-
 
 
 /* 设置子视图 */
@@ -105,7 +105,7 @@ static NSInteger YbjPageSize = 10;
     
     //预备金底部视图
     _ybjBottomBar = [[WalletYbjBottomBar alloc] init];
-    _ybjBottomBar.frame = CGRectMake(0, KSCREEN_H - KNAV_HEIGHT - WalletYbjBottomBarH, KSCREEN_W, WalletYbjBottomBarH);
+    _ybjBottomBar.frame = CGRectMake(0, KSCREEN_H - WalletYbjBottomBarH - KNAV_HEIGHT, KSCREEN_W, WalletYbjBottomBarH);
     _ybjBottomBar.hidden = YES;
     [self.view addSubview:_ybjBottomBar];
     
@@ -279,7 +279,7 @@ static NSInteger YbjPageSize = 10;
     }];
     
 }
-
+#pragma mark - ClickAction
 /* 设置手势动作 */
 - (void)setUpTouchUpAction
 {
@@ -350,12 +350,14 @@ static NSInteger YbjPageSize = 10;
         weakSelf.headView.userInteractionEnabled=YES;
         weakSelf.selectToolBar.userInteractionEnabled = YES;
     };
+    
+    _ybjBottomBar.walletYbjBottomBarSelectBlock = ^(){
+        WalletUserYbjVC *userYbjVC = [[WalletUserYbjVC alloc] init];
+        [weakSelf.navigationController pushViewController:userYbjVC animated:YES];
+    };
 }
 #pragma mark - 通知
-- (void)WalletYbjSelectAction:(NSNotification *)noti
-{
-//    DDLog(@"%@",((WalletYbjCell *)noti).walletYbjModel);
-}
+
 
 #pragma mark - 项目的table滑动
 -(void)productTableScrollDidScroll:(CGFloat) offsetY

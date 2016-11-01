@@ -10,10 +10,11 @@
 #import "Masonry.h"
 #import "ZYCustomBlurView.h"
 #import "WalletHeadModel.h"
+#import "FXBlurView.h"
 @interface WalletHeadView ()
 
 /* 模糊背景图*/
-@property (nonatomic, strong) ZYCustomBlurView *blurImageView;
+@property (nonatomic, strong) FXBlurView *blurImageView;
 /* 转出余额 */
 @property (nonatomic, strong) UIButton *ZCMoneyButton;
 /* 钱包余额标题 */
@@ -48,9 +49,21 @@
 {
     
     //模糊背景
-    _blurImageView = [[ZYCustomBlurView alloc] initWithFrame:self.bounds andBlurEffectStyle:UIBlurEffectStyleExtraLight andBlurColor:[UIColor ZYZC_MainColor] andBlurAlpha:0.2 andColorAlpha:0.8];
-    _blurImageView.image = [UIImage imageNamed:@"head"];
-    [self addSubview:_blurImageView];
+    UIImage *im = [UIImage imageNamed:@"head"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:im];
+    imageView.frame = self.bounds;
+    [self addSubview:imageView];
+    
+    FXBlurView *fxView = [[FXBlurView alloc] initWithFrame:self.bounds];
+    fxView.dynamic = NO;
+    fxView.blurRadius = 10;
+    fxView.tintColor = [UIColor clearColor];
+    [self addSubview:fxView];
+    
+    
+//    _blurImageView = [[ZYCustomBlurView alloc] initWithFrame:self.bounds andBlurEffectStyle:UIBlurEffectStyleExtraLight andBlurColor:[UIColor ZYZC_MainColor] andBlurAlpha:0.2 andColorAlpha:0.8];
+//    _blurImageView.image = [UIImage imageNamed:@"head"];
+//    [self addSubview:_blurImageView];
     
     //转出按钮
     _ZCMoneyButton = [ZYZCTool getCustomBtnByTilte:@"转出余额" andImageName:@"btn_rig_mor" andtitleFont:[UIFont systemFontOfSize:15] andTextColor:[UIColor whiteColor] andSpacing:2];

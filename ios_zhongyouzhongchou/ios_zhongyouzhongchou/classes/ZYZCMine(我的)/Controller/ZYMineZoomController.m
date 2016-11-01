@@ -331,6 +331,7 @@
 {
     [super viewWillAppear:animated];
     _titleLab.hidden=NO;
+    self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"Background"]]];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
     if (!_hasGetUserData) {
