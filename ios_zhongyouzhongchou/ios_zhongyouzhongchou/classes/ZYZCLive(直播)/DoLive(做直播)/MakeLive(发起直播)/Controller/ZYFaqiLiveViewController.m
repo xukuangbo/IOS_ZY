@@ -351,9 +351,10 @@
     }
     
     QPLiveRequest *request = [[QPLiveRequest alloc] init];
+    NSString *liveHost = kQPZhouYouLiveHttpHost([ZYZCAPIGenerate sharedInstance].serverType);
     // 
     WEAKSELF
-    [request requestCreateLiveWithDomain:kQPZhouYouLiveHttpHost success:^(NSString *pushUrl, NSString *pullUrl) {
+    [request requestCreateLiveWithDomain:liveHost success:^(NSString *pushUrl, NSString *pullUrl) {
         
         weakSelf.pushUrl = pushUrl;
         weakSelf.pullUrl = pullUrl;

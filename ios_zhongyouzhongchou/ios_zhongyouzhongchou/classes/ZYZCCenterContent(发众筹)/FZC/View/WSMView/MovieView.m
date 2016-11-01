@@ -255,8 +255,10 @@
     NSString *auth_result=[user objectForKey:Auth_QuPai_Result];
     if ([auth_result isEqualToString:@"no"]) {
         if ([ZYZCAccountTool getUserId]) {
+            NSString *QPAppSecret = kQPAppSecret([ZYZCAPIGenerate sharedInstance].serverType);
+            NSString *QPAppKey = kQPAppKey([ZYZCAPIGenerate sharedInstance].serverType);
             //鉴权
-            [[QPAuth shared] registerAppWithKey:kQPAppKey secret:kQPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
+            [[QPAuth shared] registerAppWithKey:QPAppKey secret:QPAppSecret space:[ZYZCAccountTool getUserId] success:^(NSString *accessToken) {
                 //鉴权成功
                 NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
                 [user setObject:@"yes" forKey:Auth_QuPai_Result];

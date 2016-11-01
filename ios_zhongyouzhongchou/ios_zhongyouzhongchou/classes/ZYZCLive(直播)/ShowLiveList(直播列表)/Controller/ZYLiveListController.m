@@ -67,12 +67,6 @@ static NSString *ID = @"ZYLiveListCell";
     });
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-//    _navRightBtn.hidden=YES;
-}
-
 - (void)rightBtnAction
 {
     ZYFaqiLiveViewController *liveController=[[ZYFaqiLiveViewController alloc]init];
@@ -83,15 +77,6 @@ static NSString *ID = @"ZYLiveListCell";
 #pragma mark - setup
 - (void)setupView
 {
-//    UIButton *navRightBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-//    navRightBtn.frame=CGRectMake(self.view.width-60, 4, 60, 30);
-//    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
-//    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:13];
-//    [navRightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    [navRightBtn addTarget:self action:@selector(rightBtnAction) forControlEvents:UIControlEventTouchUpInside];
-//    [self.navigationController.navigationBar addSubview:navRightBtn];
-//    _navRightBtn=navRightBtn;
-
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -111,9 +96,11 @@ static NSString *ID = @"ZYLiveListCell";
     self.entryView.hidden = YES;
     
     WEAKSELF
+    
+    STRONGSELF
     //上啦加载更多
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [weakSelf requestListDataWithPage:weakSelf.pageNo direction:2];
+        [strongSelf requestListDataWithPage:weakSelf.pageNo direction:2];
     }];
     
     //下拉刷新
@@ -121,7 +108,7 @@ static NSString *ID = @"ZYLiveListCell";
         //移除占位view
         weakSelf.entryView.hidden = YES;
         weakSelf.pageNo = 1;
-        [weakSelf requestListDataWithPage:weakSelf.pageNo direction:1];
+        [strongSelf requestListDataWithPage:weakSelf.pageNo direction:1];
     }];
 }
 
@@ -234,6 +221,11 @@ static NSString *ID = @"ZYLiveListCell";
         watchLiveVC.conversationType = ConversationType_CHATROOM;
         [self.navigationController pushViewController:watchLiveVC animated:YES];
     }
+}
+
+- (void)dealloc
+{
+    
 }
 
 @end

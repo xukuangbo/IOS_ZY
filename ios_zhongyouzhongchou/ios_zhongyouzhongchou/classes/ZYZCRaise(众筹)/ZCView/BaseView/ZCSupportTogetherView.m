@@ -25,7 +25,6 @@
     self.otherViews.top=self.textLab.bottom+KEDGE_DISTANCE;
     [self.otherViews addSubview:_wsmView];
     [self.lineView removeFromSuperview];
-    [self changViewFrame];
 }
 
 -(void)reloadDataByVideoImgUrl:(NSString *)videoImgUrl andPlayUrl:(NSString *)playUrl andVoiceUrl:(NSString *)voiceUrl andVoiceLen:(CGFloat)voiceLen  andFaceImg:(NSString *)faceImg andDesc:(NSString *)desc andImgUrlStr:(NSString *)imgUrlStr
@@ -37,11 +36,12 @@
 
 -(void)changViewFrame
 {
-    self.limitLab.frame=CGRectMake(0, _wsmView.bottom+KEDGE_DISTANCE, 80, 20);
-    self.hasSupportLab.frame=CGRectMake(self.limitLab.right+30, self.limitLab.top, 80, 20) ;
-    self.morePeopleBtn.frame=CGRectMake(self.width-80, self.hasSupportLab.top, 80, 30) ;
-    self.otherViews.height=self.hasSupportLab.bottom;
-    self.height=self.otherViews.bottom+KEDGE_DISTANCE;
+    self.limitLab.top = _wsmView.bottom+KEDGE_DISTANCE;
+    self.hasSupportLab.top = self.limitLab.top;
+    self.morePeopleBtn.top = self.limitLab.top;
+    self.separateView.top=self.limitLab.top+2.5;
+    self.otherViews.height = self.hasSupportLab.bottom;
+    self.height = self.otherViews.bottom+KEDGE_DISTANCE;
     
 }
 

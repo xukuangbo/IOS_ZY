@@ -42,6 +42,14 @@
 
 @implementation ReportModel
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _detailIntroFourthCellHeight=0.1;
+    }
+    return self;
+}
 + (NSDictionary *)mj_objectClassInArray{
     
     return @{@"users":@"UserModel"};

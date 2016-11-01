@@ -112,9 +112,12 @@
     _limitLab.font=[UIFont systemFontOfSize:13];
     _limitLab.textColor=[UIColor ZYZC_TextBlackColor];
     _limitLab.attributedText=[self customStringByString:LIMIT_SUPPORT_PEOPLE(0)];
-    [self.otherViews addSubview:_limitLab];
+    [_otherViews addSubview:_limitLab];
     
-    [_limitLab addSubview:[UIView lineViewWithFrame:CGRectMake(_limitLab.right-1, 2.5, 1, 15) andColor:nil]];
+    //分割线
+    _separateView = [UIView lineViewWithFrame:CGRectMake(0, 2.5, 1.0, 15) andColor:nil];
+    [_otherViews addSubview:_separateView];
+    _separateView.hidden=YES;
     
     //展示已支持的人
     _supportPeople=[[UIView alloc]init];
@@ -122,7 +125,7 @@
     
     //更多按钮
     _morePeopleBtn=[UIButton buttonWithType:UIButtonTypeCustom];
-    _morePeopleBtn.frame=CGRectMake(self.width-80, _hasSupportLab.top, 80, 30) ;
+    _morePeopleBtn.frame=CGRectMake(self.width-80, _hasSupportLab.top, 80, 20) ;
     [_morePeopleBtn addTarget:self action:@selector(morePeople) forControlEvents:UIControlEventTouchUpInside];
     _morePeopleBtn.hidden=YES;
     [_otherViews addSubview:_morePeopleBtn];
@@ -130,7 +133,7 @@
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
     btn=[ZYZCTool getCustomBtnByTilte:@"更多" andImageName:@"btn_xxd" andtitleFont:[UIFont systemFontOfSize:15] andTextColor:nil andSpacing:2];
     [btn addTarget:self action:@selector(morePeople) forControlEvents:UIControlEventTouchUpInside];
-    btn.frame=CGRectMake(30, 0, 50 ,30);
+    btn.frame=CGRectMake(30, 0, 50 ,20);
     [_morePeopleBtn addSubview:btn];
 
     self.height=_otherViews.bottom+KEDGE_DISTANCE;
@@ -176,13 +179,23 @@
 -(void)setLimitNumber:(int)limitNumber
 {
     _limitLab.attributedText=[self customStringByString:LIMIT_SUPPORT_PEOPLE(limitNumber)];
+    CGFloat width01=[ZYZCTool calculateStrLengthByText:@"限额:位" andFont:_limitLab.font andMaxWidth:self.width].width;
+    CGFloat width02=[ZYZCTool calculateStrLengthByText:[NSString stringWithFormat:@"%d",limitNumber] andFont:[UIFont boldSystemFontOfSize:15.f] andMaxWidth:self.width].width;
+    _limitLab.width=MIN(width01+width02, 120.f);
+    _separateView.hidden=NO;
+    _separateView.left=_limitLab.right+20.f;
+    _hasSupportLab.left=_separateView.right+20.f;
 }
 
 #pragma mark --- 支持的人
 -(void)setUsers:(NSArray *)users
 {
     _users=users;
-     self.hasSupportLab.attributedText=[self customStringByString:HAS_SUPPORT_PEOPLE((int)users.count)];
+    _hasSupportLab.attributedText=[self customStringByString:HAS_SUPPORT_PEOPLE((int)users.count)];
+    CGFloat width01=[ZYZCTool calculateStrLengthByText:@"已支持:位" andFont: _hasSupportLab.font andMaxWidth:self.width].width+5.f;
+    CGFloat width02=[ZYZCTool calculateStrLengthByText:[NSString stringWithFormat:@"%ld",users.count] andFont:[UIFont boldSystemFontOfSize:15.f] andMaxWidth:self.width].width;
+    _hasSupportLab.width=MIN(width01+width02, 120.f);
+
     if (users.count>0) {
         //_supportPeople frame赋值
         _supportPeople.frame=CGRectMake(0, _hasSupportLab.bottom+KEDGE_DISTANCE, self.width, 40*KCOFFICIEMNT);

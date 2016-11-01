@@ -191,6 +191,9 @@
     STRONGSELF
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool GET:httpUrl parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+         [MBProgressHUD hideHUDForView:self.view];
+        [weakSelf.myProductTable.mj_header endRefreshing];
+        [weakSelf.myProductTable.mj_footer endRefreshing];
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_myProductTable.mj_footer ;
             if (weakSelf.pageNo==1 && weakSelf.listArr.count) {
@@ -224,8 +227,6 @@
             weakSelf.myProductTable.dataArr=_listArr;
             [weakSelf.myProductTable reloadData];
         }
-        [weakSelf.myProductTable.mj_header endRefreshing];
-        [weakSelf.myProductTable.mj_footer endRefreshing];
     } andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:self.view];
         [weakSelf.myProductTable.mj_header endRefreshing];

@@ -259,6 +259,7 @@
 		2C5159A91D8641B20048BD20 /* Mp3RecordWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */; };
 		2C5A78561DB85982003E2743 /* ZYBaseLimitTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */; };
 		2C6739981DAFA219000C7E3C /* QPSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6739971DAFA219000C7E3C /* QPSDKCore.framework */; };
+		2C6EDE9D1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EDE9C1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m */; };
 		2C79606C1D0A74940026C9F6 /* MyReturnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */; };
 		2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */; };
 		2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E3B4A1D06B34D00F51C61 /* MineTableViewCell.m */; };
@@ -1140,6 +1141,8 @@
 		2C5A78541DB85982003E2743 /* ZYBaseLimitTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBaseLimitTextField.h; sourceTree = "<group>"; };
 		2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBaseLimitTextField.m; sourceTree = "<group>"; };
 		2C6739971DAFA219000C7E3C /* QPSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPSDKCore.framework; sourceTree = "<group>"; };
+		2C6EDE9B1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailIntroFourthCell.h; sourceTree = "<group>"; };
+		2C6EDE9C1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailIntroFourthCell.m; sourceTree = "<group>"; };
 		2C72BCC21CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		2C72BCC31CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		2C79606A1D0A74940026C9F6 /* MyReturnViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyReturnViewController.h; sourceTree = "<group>"; };
@@ -3903,6 +3906,8 @@
 				2CD6B8BD1DA9DDB700B7E60A /* ZCDetailIntroSecondCell.m */,
 				2CD6B8BE1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.h */,
 				2CD6B8BF1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.m */,
+				2C6EDE9B1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.h */,
+				2C6EDE9C1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m */,
 				2CD6B8B81DA9DDB700B7E60A /* ZCDetailArrangeFirstCell.h */,
 				2CD6B8B91DA9DDB700B7E60A /* ZCDetailArrangeFirstCell.m */,
 				2CD6B8C01DA9DDB700B7E60A /* ZCDetailReturnFirstCell.h */,
@@ -3936,12 +3941,12 @@
 				2CD6B8DC1DA9DFEE00B7E60A /* ZCNoneDataView.h */,
 				2CD6B8DD1DA9DFEE00B7E60A /* ZCNoneDataView.m */,
 				2CD6B8DE1DA9DFEE00B7E60A /* ZCNoneDataView.xib */,
-				2CD6B8DF1DA9DFEE00B7E60A /* ZCSupportAnyYuanView.h */,
-				2CD6B8E01DA9DFEE00B7E60A /* ZCSupportAnyYuanView.m */,
 				2CD6B8E11DA9DFEE00B7E60A /* ZCSupportBaseView.h */,
 				2CD6B8E21DA9DFEE00B7E60A /* ZCSupportBaseView.m */,
 				2CD6B8E31DA9DFEE00B7E60A /* ZCSupportOneYuanView.h */,
 				2CD6B8E41DA9DFEE00B7E60A /* ZCSupportOneYuanView.m */,
+				2CD6B8DF1DA9DFEE00B7E60A /* ZCSupportAnyYuanView.h */,
+				2CD6B8E01DA9DFEE00B7E60A /* ZCSupportAnyYuanView.m */,
 				2CD6B8E51DA9DFEE00B7E60A /* ZCSupportReturnView.h */,
 				2CD6B8E61DA9DFEE00B7E60A /* ZCSupportReturnView.m */,
 				2CD6B8E71DA9DFEE00B7E60A /* ZCSupportTogetherView.h */,
@@ -5750,6 +5755,7 @@
 				39E4EC5A1D2FB9B200305F73 /* AboutZhongyouVC.m in Sources */,
 				0527D8961DC1F0050064E354 /* ZYZCAPIGenerate.m in Sources */,
 				050261971D879D800090C717 /* ZYBottomPayView.m in Sources */,
+				2C6EDE9D1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m in Sources */,
 				395FAD191D9BCF340075FED5 /* FCIMChatGetImage.m in Sources */,
 				2CE6176C1D657DD100962163 /* HUPhotoBrowserCell.m in Sources */,
 				395B5A7E1D227B5D0084264C /* AppDelegate.m in Sources */,

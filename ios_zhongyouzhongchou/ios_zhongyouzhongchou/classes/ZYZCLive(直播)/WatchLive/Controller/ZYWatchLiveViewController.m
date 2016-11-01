@@ -152,8 +152,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     //初始化UI
     [self setupView];
     [self getIntoLive:self.liveModel.pullUrl];
-    [self setupConstraints];
     [self initChatroomMemberInfo];
+    [self setupConstraints];
     [self enterInfoLiveRoom];
     // 初始化直播个人中心
     [self initLivePersonDataView];
