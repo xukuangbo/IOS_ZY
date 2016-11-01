@@ -24,6 +24,7 @@
         _introFirstCellHeight = 0.1;
         _returnFirtCellHeight = 0.1;
         _introFourthCellHeight= 0.1;
+        _introFifthCellHeight = 0.1;
     }
     return self;
 }

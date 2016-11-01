@@ -44,6 +44,7 @@
 
 @property (nonatomic, assign) CGFloat introFirstCellHeight;
 @property (nonatomic, assign) CGFloat introFourthCellHeight;
+@property (nonatomic, assign) CGFloat introFifthCellHeight;
 @property (nonatomic, assign) CGFloat returnFirtCellHeight;
 
 @end

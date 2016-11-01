@@ -266,7 +266,6 @@
     [parameter setValue:_friendID forKey:@"selfUserId"];
     [parameter setValue:_friendID forKey:@"userId"];
     [MBProgressHUD showMessage:nil];
-
     WEAKSELF
     STRONGSELF
     [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {

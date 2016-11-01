@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) ZYFootprintListModel *footprintModel;
 
+@property (nonatomic, assign) BOOL                 showWithKeyboard;
+
 -(void)startEditComment;
 
 @end

@@ -33,7 +33,10 @@
     [self configUI];
     [self getSupportData];
     [self getCommentData];
-    [_addCommentView textFieldBecomeFirstResponse];
+    if(_showWithKeyboard)
+    {
+        [_addCommentView textFieldBecomeFirstResponse];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated

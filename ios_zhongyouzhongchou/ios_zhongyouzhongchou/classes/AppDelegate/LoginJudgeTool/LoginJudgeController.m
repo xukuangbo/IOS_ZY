@@ -219,7 +219,9 @@
         } else {
             //获取成功，获取微信信息，并注册我们的平台
             ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"]];
-            [self requstPersonalData:accountModel];
+            if (accountModel.access_token) {
+                 [self requstPersonalData:accountModel];
+            }
         }
     } andFailBlock:^(id failResult) {
         
