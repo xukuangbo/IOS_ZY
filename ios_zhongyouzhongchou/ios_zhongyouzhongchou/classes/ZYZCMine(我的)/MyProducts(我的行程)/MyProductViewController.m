@@ -45,7 +45,7 @@
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets=NO;
      self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
-//    self.title=@"我的行程";
+    self.title=@"我的行程";
     _listArr=[NSMutableArray array];
     _pageNo=1;
     
@@ -69,8 +69,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title = @"我的行程";
-    [self setBackItem];
 }
 
 -(void)configUI

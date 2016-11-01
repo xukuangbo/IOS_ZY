@@ -245,7 +245,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self setBackItem];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

@@ -64,7 +64,6 @@
 {
     [super viewDidAppear:animated];
     self.title = @"收货地址";
-    [self setBackItem];
 }
 
 #pragma mark - setUI方法

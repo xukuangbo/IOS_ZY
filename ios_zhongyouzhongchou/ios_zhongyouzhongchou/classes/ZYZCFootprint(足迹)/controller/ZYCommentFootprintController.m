@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.title=@"评论";
+    self.title=@"评论";
     _pageNo=1;
     _commentArr=[NSMutableArray array];
 //    self.automaticallyAdjustsScrollViewInsets=NO;
@@ -42,8 +42,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title=@"评论";
-    [self setBackItem];
 }
 
 -(void)configUI

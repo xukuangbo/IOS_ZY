@@ -111,6 +111,5 @@ static NSString *const ID = @"MoreCollectioncell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self setBackItem];
 }
 @end

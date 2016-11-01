@@ -36,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.title=@"报名一起去";
+    self.title=@"报名一起去";
     _chooseArr=[NSMutableArray array];
     _NewChooseArr=[NSMutableArray array];
     [self setBackItem];
@@ -313,8 +313,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title=@"报名一起去";
-    [self setBackItem];
 }
 
 - (void)didReceiveMemoryWarning {
