@@ -309,4 +309,37 @@
     }];
 }
 
+#pragma mark - animtion
+- (void)showAnimtion
+{
+    int arc4randomNumber = arc4random() % 270 + 100;
+    int arc4randomWidth = arc4random() % 50;
+
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(arc4randomWidth, KSCREEN_H - arc4randomNumber * 16 / 9, arc4randomNumber, arc4randomNumber * 16 / 9)];
+    [self.view addSubview:imageView];
+    
+    //创建一个数组，数组中按顺序添加要播放的图片（图片为静态的图片）
+    int j;
+    NSMutableArray *imgArray = [NSMutableArray array];
+    for (int i=1; i < 18; i++) {
+        j = i;
+        if (i > 13) {
+            j = 13;
+        }
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"1yuan_%d", j]];
+        [imgArray addObject:image];
+    }
+    //把存有UIImage的数组赋给动画图片数组
+    imageView.animationImages = imgArray;
+    //设置执行一次完整动画的时长
+    imageView.animationDuration = 13*0.12;
+    //动画重复次数 （0为重复播放）
+    imageView.animationRepeatCount = 1;
+    //开始播放动画
+    [imageView startAnimating];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self showAnimtion];
+    });
+}
 @end

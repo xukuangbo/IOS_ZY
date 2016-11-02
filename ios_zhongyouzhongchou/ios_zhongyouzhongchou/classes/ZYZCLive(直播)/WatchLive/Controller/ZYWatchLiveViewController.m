@@ -656,18 +656,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 分享
 - (void)shareBtnAction:(UIButton *)sender
 {
-    MPMoviePlayerViewController *movie = [[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL URLWithString:self.liveModel.pullUrl]];
-    [movie.moviePlayer prepareToPlay];
-    [self presentMoviePlayerViewControllerAnimated:movie];
-    [movie.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
-    [movie.view setBackgroundColor:[UIColor clearColor]];
-    [movie.view setFrame:self.view.bounds];
+    [self showAnimtion];
    
 }
 
 - (void)messageBtnAction:(UIButton *)sender
 {
-    
+    [self showAnimtion];
 }
 
 -(void)showInputBar:(id)sender{
@@ -703,30 +698,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 - (void)praiseHeart{
-//    UIImageView *imageView = [[UIImageView alloc] init];
-//    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , ScreenHeight - 90, 35, 35);
-//    imageView.backgroundColor = [UIColor clearColor];
-//    imageView.clipsToBounds = YES;
-//    [self.view addSubview:imageView];
-//    
-//    CGFloat startX = round(random() % (int)(kBounds.width * 0.5)) + 20;
-//    CGFloat scale = round(random() % 2) + 0.5;
-//    //    CGFloat speed = 1 / round(random() % 900) + 0.6;
-//    int imageName = round(random() % 7);
-//    NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
-//    
-//    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
-//    [UIView animateKeyframesWithDuration:1.5 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
-//        imageView.frame = CGRectMake((kBounds.width - startX), kBounds.height * 0.5 , 35 * scale, 35 * scale);
-//    } completion:^(BOOL finished) {
-//        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
-//            imageView.top = kBounds.height * 0.25;
-//            imageView.alpha = 0;
-//            
-//        } completion:^(BOOL finished) {
-//            [imageView removeFromSuperview];
-//        }];
-//    }];
     XTLoveHeartView *heart = [[XTLoveHeartView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     int imageName = round(random() % 7);
     heart.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
@@ -1044,6 +1015,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         if ([textMessage.extra isEqualToString:@"打赏成功"]) {
             [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
             dispatch_async(dispatch_get_main_queue(), ^{
+                [self showAnimtion];
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
             return ;

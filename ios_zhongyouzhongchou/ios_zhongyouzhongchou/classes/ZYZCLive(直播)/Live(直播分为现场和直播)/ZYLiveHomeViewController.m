@@ -12,6 +12,7 @@
 #import "ZYSceneViewController.h"
 #import "ZYLiveListController.h"
 #import "ZYFaqiLiveViewController.h"
+#import "UINavigationBar+Awesome.h"
 @interface ZYLiveHomeViewController () <GRKPageViewControllerDataSource, GRKPageViewControllerDelegate>
 @property (strong, nonatomic) GRKPageViewController *pageViewController;
 @property (strong, nonatomic) NSMutableArray *viewControllers;

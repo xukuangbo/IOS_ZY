@@ -9,7 +9,6 @@
 #import "ShopCell.h"
 #import "ZYFootprintListModel.h"
 #import "UIImageView+WebCache.h"
-
 @interface ShopCell ()
 //@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLab;
@@ -64,28 +63,28 @@
 
 - (void)setModel:(ZYFootprintListModel *)model
 {
-    _model = model;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:_model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
-    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:_model.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
-    if ([_model.userName length] != 0) {
-        self.titleLab.text = [NSString stringWithFormat:@"%@",_model.userName];
+//    _model = model;
+    [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
+    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
+    if ([model.userName length] != 0) {
+        self.titleLab.text = [NSString stringWithFormat:@"%@",model.userName];
     } else {
         self.titleLab.text = @"";
     }
-    [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", _model.commentTotles] forState:UIControlStateNormal];
-    if ([_model.content length] != 0) {
-        self.contentLabel.text = [NSString stringWithFormat:@"%@",_model.content];
+    [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", model.commentTotles] forState:UIControlStateNormal];
+    if ([model.content length] != 0) {
+        self.contentLabel.text = [NSString stringWithFormat:@"%@",model.content];
     } else {
         self.contentLabel.text = @"";
     }
 
-    if (_model.hasZan) {
+    if (model.hasZan) {
         [self.praiseButton setImage:[UIImage imageNamed:@"footprint-like-2"] forState:UIControlStateNormal];
     } else {
         [self.praiseButton setImage:[UIImage imageNamed:@"footprint-like"] forState:UIControlStateNormal];
     }
-    self.praiseButton.tag = [_model.userId integerValue];
-    NSDictionary *dict = [ZYZCTool dictionaryWithJsonString:_model.gpsData];
+    self.praiseButton.tag = [model.userId integerValue];
+    NSDictionary *dict = [ZYZCTool dictionaryWithJsonString:model.gpsData];
     if ([dict[@"GPS_Address"] length] == 0) {
         self.locationLabel.hidden = YES;
         self.locationImage.hidden = YES;
@@ -98,7 +97,7 @@
         self.praiseButtonTopLayout.constant = 5;
         self.locationLabel.text = dict[@"GPS_Address"];
     }
-    [self.praiseButton setTitle:[NSString stringWithFormat:@"%zd", _model.zanTotles] forState:UIControlStateNormal];
+    [self.praiseButton setTitle:[NSString stringWithFormat:@"%zd", model.zanTotles] forState:UIControlStateNormal];
 }
 
 #pragma mark - event

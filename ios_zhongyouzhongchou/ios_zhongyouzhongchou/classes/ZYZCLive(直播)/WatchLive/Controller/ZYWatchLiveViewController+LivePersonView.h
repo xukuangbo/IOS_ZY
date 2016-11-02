@@ -26,4 +26,7 @@
 - (void)rewardUserContribution;
 // 获取关联行程打赏结果
 - (void)getUserContributionResultHttpUrl;
+
+// 显示动画
+- (void)showAnimtion;
 @end
