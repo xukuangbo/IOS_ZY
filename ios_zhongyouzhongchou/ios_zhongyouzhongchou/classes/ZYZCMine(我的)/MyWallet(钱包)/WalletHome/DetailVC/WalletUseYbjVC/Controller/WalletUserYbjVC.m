@@ -12,7 +12,10 @@
 #import "RACEXTScope.h"
 #import "Masonry.h"
 #import "UIView+ZYLayer.h"
+#import "MBProgressHUD+MJ.h"
+#import "WalletYbjSelectXcVC.h"
 @interface WalletUserYbjVC ()
+@property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) WalletUserYbjModel *ybjModel;
 @property (nonatomic, strong) WalletProductView *productView;
 /* 预备金金额标题 */
@@ -106,6 +109,7 @@
     _changeProductLabel.text = @"更换";
     _changeProductLabel.font = [UIFont systemFontOfSize:17];
     _changeProductLabel.textColor = [UIColor ZYZC_MainColor];
+    [_changeProductLabel addTarget:self action:@selector(changeProductAction)];
 
     //7.确定使用按钮
     _userYbjLabel = [[UILabel alloc] init];
@@ -176,11 +180,12 @@
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:nil andSuccessGetBlock:^(id result, BOOL isSuccess) {
         //    data = {productTitle = Hehe, productId = 121},
         @strongify(self);
-        self.ybjModel = [WalletUserYbjModel mj_objectWithKeyValues:result[@"data"]];
-        if (!self.ybjModel) {
+        self.dataArray = [WalletUserYbjModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (!self.dataArray) {
             //显示空界面
             
         }else{
+            self.ybjModel = self.dataArray[0];
             @weakify(self);
             dispatch_async(dispatch_get_main_queue(), ^{
                 @strongify(self);
@@ -189,16 +194,12 @@
                 self.productId = [NSString stringWithFormat:@"%zd",self.ybjModel.productId];
             });
         }
-        
     } andFailBlock:^(id failResult) {
         
     }];
 }
 
-- (void)backAction
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 
 - (void)setDic:(NSDictionary *)dic
 {
@@ -217,13 +218,37 @@
         if (i == 0) {
             tempString = ybjIdArray[i];
         }else{
-            tempString = [NSString stringWithFormat:@",%@",ybjIdArray[i]];
+            tempString = [NSString stringWithFormat:@"%@,%@",tempString,ybjIdArray[i]];
         }
     }
     _selectString = tempString;
 }
 
-#pragma mark - 点击事件
+#pragma mark - ClickAction
+- (void)backAction{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)changeProductAction{
+    WalletYbjSelectXcVC *walletYbjSelectXcVC = [[WalletYbjSelectXcVC alloc] init];
+    @weakify(self);
+    walletYbjSelectXcVC.didChangeProductBlock = ^(NSInteger row){
+        @strongify(self);
+        
+        @weakify(self);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            @strongify(self);
+            self.ybjModel = self.dataArray[row];
+            self.productView.ybjModel = self.ybjModel;
+            self.changeProductTitleLabel.text = [NSString stringWithFormat:@"\"%@\"",self.ybjModel.productTitle];
+            self.productId = [NSString stringWithFormat:@"%zd",self.ybjModel.productId];
+        });
+        
+    };
+    walletYbjSelectXcVC.dataArr = self.dataArray;
+    [self.navigationController pushViewController:walletYbjSelectXcVC animated:YES];
+}
+
 - (void)userYbjAction
 {
     if(!self.productId || !self.totalMoney || !self.selectString){
@@ -236,14 +261,37 @@
     [parameter setValue:self.productId forKey:@"productId"];
     [parameter setValue:self.selectString forKey:@"reserveIds"];
     [parameter setValue:[NSString stringWithFormat:@"%zd",(NSInteger)(self.totalMoney * 100)] forKey:@"totles"];
+    [MBProgressHUD showMessage:@"正在提交使用.." toView:self.view];
     @weakify(self);
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
         @strongify(self);
+        if (isSuccess) {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showSuccess:@"使用成功" toView:self.view];
+            [ZYNSNotificationCenter postNotificationName:WalletUseYbjSuccessNoti object:nil];
+        }else{
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showSuccess:@"使用失败" toView:self.view];
+            [ZYNSNotificationCenter postNotificationName:WalletUseYbjFailNoti object:nil];
+        }
         
-        DDLog(@"%@",result);
+        @weakify(self);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            @strongify(self);
+            [self.navigationController popViewControllerAnimated:YES];
+        });
         
     } andFailBlock:^(id failResult) {
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showSuccess:@"使用失败" toView:self.view];
         
+        @weakify(self);
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            @strongify(self);
+            [self.navigationController popViewControllerAnimated:YES];
+        });
     }];
 }
+
 @end

@@ -199,4 +199,7 @@
 //钱包预备金选择通知
 #define WalletYbjSelectNotification @"WalletYbjSelectNotification"
 #define WalletYbjSelectHomeNotification @"WalletYbjSelectHomeNotification"
+//钱包预备金使用成功与否通知
+#define WalletUseYbjFailNoti @"WalletUseYbjFailNoti"
+#define WalletUseYbjSuccessNoti @"WalletUseYbjSuccessNoti"
 #endif /* DefineCommon_h */

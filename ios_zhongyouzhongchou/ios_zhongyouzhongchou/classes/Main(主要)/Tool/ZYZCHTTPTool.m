@@ -36,7 +36,7 @@
     if (!range.length) {
         newUrl=[newUrl stringByAppendingString:[NSString stringWithFormat:@"&userId=%@",[ZYZCAccountTool getUserId]]];
     }
-    DDLog(@"newGetUrl:%@",newUrl);
+//    DDLog(@"newGetUrl:%@",newUrl);
     
     [manager GET:newUrl parameters:nil progress:^(NSProgress * _Nonnull downloadProgress)
     {
@@ -285,24 +285,24 @@
     NSMutableDictionary *strDic=[NSMutableDictionary dictionary];
     //时间戳
     NSString *timeStamp=[self getTimeStamp];
-    DDLog(@"timeStamp:%@",timeStamp);
+//    DDLog(@"timeStamp:%@",timeStamp);
     DDLog(@"time:%@",[ZYZCTool turnTimeStampToDate:timeStamp]);
-    [strDic setObject:timeStamp forKey:@"timestamp"];
+//    [strDic setObject:timeStamp forKey:@"timestamp"];
     //随机数
     NSString *nonceStr=[NSString stringWithFormat:@"%d",100000+ arc4random_uniform(899999)];
-    DDLog(@"nonceStr:%@",nonceStr);
+//    DDLog(@"nonceStr:%@",nonceStr);
     [strDic setObject:nonceStr forKey:@"nonceStr"];
     //fix
     NSArray *FIX =@[@"<",@">",@"(",@")",@"|",@"_",@"{",@"}",@"*",@"!"];
     int fixNum=arc4random_uniform((int)FIX.count-1);
     NSString *fix=FIX[fixNum];
-    DDLog(@"fix:%@,fixNum:%d",fix,fixNum);
+//    DDLog(@"fix:%@,fixNum:%d",fix,fixNum);
     [strDic setObject:[NSNumber numberWithInt:fixNum] forKey:@"fix"];
     //signature
     NSString *signature=[NSString stringWithFormat:@"%@%@%@%@%@%@%@",timeStamp,fix,nonceStr,fix,[ZYZCAccountTool getUserScret],fix,[self getTime]];
-    DDLog(@"signature:%@",signature);
+//    DDLog(@"signature:%@",signature);
     NSString *signature_md5=[self turnStrToMD5:signature];
-     DDLog(@"signature_md5:%@",signature_md5);
+//     DDLog(@"signature_md5:%@",signature_md5);
     [strDic setObject:signature_md5 forKey:@"signature"];
 
     if ([ZYZCAccountTool getUserId]) {
