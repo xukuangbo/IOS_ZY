@@ -39,7 +39,7 @@ typedef NS_ENUM(NSInteger, FootprintListType)
 
 @property (nonatomic, copy  ) NSString  *creattime;
 
-@property (nonatomic, copy  ) NSString *content;//文字内容
+@property (nonatomic, strong  ) NSString *content;//文字内容
 
 @property (nonatomic, copy  ) NSString *pics;
 
