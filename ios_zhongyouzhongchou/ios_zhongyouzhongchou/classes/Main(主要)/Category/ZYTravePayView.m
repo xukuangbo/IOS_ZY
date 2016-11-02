@@ -31,10 +31,13 @@
     [self.journeyDetailButton setImage:[UIImage imageNamed:@"btn_rightin"] forState:UIControlStateNormal];
     
     self.frame = CGRectMake(10,[UIScreen mainScreen].bounds.size.height/2 - self.frame.size.width/2, [UIScreen mainScreen].bounds.size.width-20, self.frame.size.height);
-    for (UIView *tmpView in self.subviews)
+    self.backgroundColor = [UIColor blackColor];
+    self.alpha = 0.9;
+   /** for (UIView *tmpView in self.subviews)
     {
         if(tmpView.userInteractionEnabled && [tmpView isMemberOfClass:[UIButton class]])
         {
+            
             UIButton *btn = (UIButton *)tmpView;
             if ([btn.currentTitle isEqualToString:@"报名回报50元"]) {
                 [tmpView.layer setMasksToBounds:YES];
@@ -76,6 +79,7 @@
             [btn setTitleColor:[UIColor colorWithHexString:@"439cf4"] forState:UIControlStateSelected];
         }
     }
+    */
 }
 
 - (IBAction)journeyDetailButtonAction:(UIButton *)sender {

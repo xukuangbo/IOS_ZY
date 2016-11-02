@@ -224,7 +224,7 @@
             }
         }
     } andFailBlock:^(id failResult) {
-        
+        NSLog(@"");
     }];
 }
 
