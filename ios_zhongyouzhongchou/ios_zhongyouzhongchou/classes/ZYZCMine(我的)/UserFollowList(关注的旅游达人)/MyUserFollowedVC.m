@@ -30,7 +30,7 @@
     self = [super init];
     if (self) {
         [self setBackItem];
-//        self.title = @"我关注的旅行达人";
+        self.title = @"我关注的旅行达人";
         self.hidesBottomBarWhenPushed = YES;
         [self configUI];
     }
@@ -54,9 +54,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title = @"我关注的旅行达人";
-    
-    [self setBackItem];
 }
 
 #pragma mark - setUI方法

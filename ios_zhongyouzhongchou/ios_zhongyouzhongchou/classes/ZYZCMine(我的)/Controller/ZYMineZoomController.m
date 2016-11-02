@@ -260,10 +260,17 @@
 -(void)getUserInfoData
 {
     NSString *userId=[ZYZCAccountTool getUserId];
+    if (!userId) {
+        return;
+    }
     [MBProgressHUD showMessage:nil];
-    NSString *url=[NSString stringWithFormat:@"%@selfUserId=%@&userId=%@",GETUSERDETAIL,[ZYZCAccountTool getUserId],userId];
-//    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail"];
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
+//    NSString *url=[NSString stringWithFormat:@"%@selfUserId=%@&userId=%@",GETUSERDETAIL,[ZYZCAccountTool getUserId],userId];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail"];
+    [parameter setValue:userId forKey:@"selfUserId"];
+    [parameter setValue:userId forKey:@"userId"];
+
+    [ZYZCHTTPTool GET:url parameters:parameter  withSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          [MBProgressHUD hideHUD];
          if (isSuccess) {

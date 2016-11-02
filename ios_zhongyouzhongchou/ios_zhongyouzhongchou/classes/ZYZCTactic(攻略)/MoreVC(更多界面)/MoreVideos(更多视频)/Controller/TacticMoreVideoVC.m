@@ -40,7 +40,7 @@
 - (void)configUI
 {
     [self setBackItem];
-//    self.title = @"更多攻略视频";
+    self.title = @"更多攻略视频";
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
     
@@ -55,8 +55,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title = @"更多攻略视频";
-    [self setBackItem];
 }
 
 #pragma mark - requsetData方法

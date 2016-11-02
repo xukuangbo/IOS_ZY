@@ -246,6 +246,7 @@
 		2C3FAA211D54793000F2B187 /* MsgDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FAA201D54793000F2B187 /* MsgDetailModel.m */; };
 		2C41A8121D8A9D2100AD9437 /* ZYLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C41A8111D8A9D2100AD9437 /* ZYLocationManager.m */; };
 		2C44698C1D1671C8000639EB /* ZYZCEditProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */; };
+		2C46C1A61DC8734E006C613A /* ZCDetailIntroFifthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46C1A51DC8734E006C613A /* ZCDetailIntroFifthCell.m */; };
 		2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C4EEFB81CC6087D00AA99F6 /* outboundCity.plist */; };
 		2C5159A01D8641B20048BD20 /* AmrPlayerReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159851D8641B20048BD20 /* AmrPlayerReader.m */; };
 		2C5159A11D8641B20048BD20 /* MLAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159871D8641B20048BD20 /* MLAudioPlayer.m */; };
@@ -1118,6 +1119,8 @@
 		2C41A8111D8A9D2100AD9437 /* ZYLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLocationManager.m; sourceTree = "<group>"; };
 		2C44698A1D1671C8000639EB /* ZYZCEditProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCEditProductView.h; sourceTree = "<group>"; };
 		2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCEditProductView.m; sourceTree = "<group>"; };
+		2C46C1A41DC8734E006C613A /* ZCDetailIntroFifthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailIntroFifthCell.h; sourceTree = "<group>"; };
+		2C46C1A51DC8734E006C613A /* ZCDetailIntroFifthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailIntroFifthCell.m; sourceTree = "<group>"; };
 		2C4EEFB81CC6087D00AA99F6 /* outboundCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = outboundCity.plist; sourceTree = "<group>"; };
 		2C5159841D8641B20048BD20 /* AmrPlayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmrPlayerReader.h; sourceTree = "<group>"; };
 		2C5159851D8641B20048BD20 /* AmrPlayerReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmrPlayerReader.m; sourceTree = "<group>"; };
@@ -3913,6 +3916,8 @@
 				2CD6B8BF1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.m */,
 				2C6EDE9B1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.h */,
 				2C6EDE9C1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m */,
+				2C46C1A41DC8734E006C613A /* ZCDetailIntroFifthCell.h */,
+				2C46C1A51DC8734E006C613A /* ZCDetailIntroFifthCell.m */,
 				2CD6B8B81DA9DDB700B7E60A /* ZCDetailArrangeFirstCell.h */,
 				2CD6B8B91DA9DDB700B7E60A /* ZCDetailArrangeFirstCell.m */,
 				2CD6B8C01DA9DDB700B7E60A /* ZCDetailReturnFirstCell.h */,
@@ -6025,6 +6030,7 @@
 				2CE60CB11DBF3C1A005B4D7E /* ChooseThumbController.m in Sources */,
 				0432ADA51D0966F9005D789E /* UIView+ST.m in Sources */,
 				3941CD6B1D41FCB7009224BC /* ComplainTypeController.m in Sources */,
+				2C46C1A61DC8734E006C613A /* ZCDetailIntroFifthCell.m in Sources */,
 				2CD6B8CD1DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m in Sources */,
 				04F836431CD72C3300140980 /* SDLoopProgressView.m in Sources */,
 				2CDE66DA1DA650A80066F49D /* QPPointProgress.m in Sources */,

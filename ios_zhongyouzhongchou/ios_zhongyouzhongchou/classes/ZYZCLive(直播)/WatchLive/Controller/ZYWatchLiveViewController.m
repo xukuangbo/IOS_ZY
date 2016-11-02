@@ -420,7 +420,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.livePersonNumberView.frame = CGRectMake(10, 30, 85, 40);
     self.attentionButton.hidden = YES;
     [self.portraitsCollectionView mas_updateConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.livePersonNumberView).offset(80);
+        make.left.equalTo(self.view).offset(95);
         make.top.equalTo(self.view).offset(30);
         make.width.equalTo(@(KSCREEN_W - 135));
         make.height.equalTo(@35);

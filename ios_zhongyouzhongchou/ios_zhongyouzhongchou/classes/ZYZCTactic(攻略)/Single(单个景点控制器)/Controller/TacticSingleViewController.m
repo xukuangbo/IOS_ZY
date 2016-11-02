@@ -93,7 +93,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self setBackItem];
 }
 
 #pragma mark - set方法

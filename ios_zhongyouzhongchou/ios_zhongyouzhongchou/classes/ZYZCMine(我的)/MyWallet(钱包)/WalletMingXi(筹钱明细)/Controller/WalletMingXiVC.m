@@ -34,7 +34,7 @@
         
         
         self.productId = productId;
-//        self.title=@"众筹明细";
+        self.title=@"众筹明细";
         self.hidesBottomBarWhenPushed = YES;
         self.pageNo = 1;
         
@@ -120,8 +120,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title=@"众筹明细";
-    [self setBackItem];
 }
 
 #pragma mark - configUI方法

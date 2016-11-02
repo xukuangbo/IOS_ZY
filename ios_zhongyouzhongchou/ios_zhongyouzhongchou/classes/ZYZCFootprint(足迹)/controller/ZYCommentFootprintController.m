@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-//    self.title=@"评论";
+    self.title=@"评论";
     _pageNo=1;
     _commentArr=[NSMutableArray array];
 //    self.automaticallyAdjustsScrollViewInsets=NO;
@@ -33,14 +33,15 @@
     [self configUI];
     [self getSupportData];
     [self getCommentData];
-    [_addCommentView textFieldBecomeFirstResponse];
+    if(_showWithKeyboard)
+    {
+        [_addCommentView textFieldBecomeFirstResponse];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title=@"评论";
-    [self setBackItem];
 }
 
 -(void)configUI

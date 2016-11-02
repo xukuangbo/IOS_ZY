@@ -176,7 +176,9 @@
     //已鉴权成功
     if ([auth_result isEqualToString:@"yes"])
     {
-        resultBlock(YES);
+        if (resultBlock) {
+            resultBlock(YES);
+        }
     }
     else
     {
@@ -190,7 +192,7 @@
             //鉴权
             NSString *QPAppSecret = kQPAppSecret([ZYZCAPIGenerate sharedInstance].serverType);
             NSString *QPAppKey = kQPAppKey([ZYZCAPIGenerate sharedInstance].serverType);
-
+           
             [[QPAuth shared] registerAppWithKey:QPAppKey secret:QPAppSecret space:userId success:^(NSString *accessToken) {
                 DDLog(@"qupai_accessToken:%@",accessToken);
                 //鉴权成功
