@@ -109,7 +109,7 @@ static NSString* const apiFileExtension = @"json";
         }
             break;
         case kLinkServerTypeOfHuaZi: {
-            return @"192.168.11.132:8086";
+            return @"192.168.1.112:8086";
         }
             break;
             

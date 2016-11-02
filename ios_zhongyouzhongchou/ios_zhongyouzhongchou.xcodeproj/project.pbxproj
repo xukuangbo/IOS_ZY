@@ -505,6 +505,8 @@
 		2CFC7D141DA648B900A28D74 /* QPVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC7D051DA648B900A28D74 /* QPVideo.m */; };
 		2CFC7D151DA648B900A28D74 /* QPVideoPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC7D071DA648B900A28D74 /* QPVideoPoint.m */; };
 		2CFC7D191DA648D900A28D74 /* QPProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CFC7D181DA648D900A28D74 /* QPProgressHUD.m */; };
+		3909F41F1DC84534005D3AF3 /* WalletUserYbjModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3909F41E1DC84534005D3AF3 /* WalletUserYbjModel.m */; };
+		3909F4211DC86926005D3AF3 /* WalletProductView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3909F4201DC86926005D3AF3 /* WalletProductView.xib */; };
 		390D2FC31DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FC21DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m */; };
 		390D2FD51DAC8B1000D44E90 /* LiveShowDashangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD01DAC8B1000D44E90 /* LiveShowDashangModel.m */; };
 		390D2FD61DAC8B1000D44E90 /* showDashangMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD21DAC8B1000D44E90 /* showDashangMapView.m */; };
@@ -1620,6 +1622,9 @@
 		2CFC7D071DA648B900A28D74 /* QPVideoPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPVideoPoint.m; sourceTree = "<group>"; };
 		2CFC7D171DA648D900A28D74 /* QPProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QPProgressHUD.h; sourceTree = "<group>"; };
 		2CFC7D181DA648D900A28D74 /* QPProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QPProgressHUD.m; sourceTree = "<group>"; };
+		3909F41D1DC84534005D3AF3 /* WalletUserYbjModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletUserYbjModel.h; sourceTree = "<group>"; };
+		3909F41E1DC84534005D3AF3 /* WalletUserYbjModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletUserYbjModel.m; sourceTree = "<group>"; };
+		3909F4201DC86926005D3AF3 /* WalletProductView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletProductView.xib; sourceTree = "<group>"; };
 		390D2FC11DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYFaqiGuanlianXCView.h; sourceTree = "<group>"; };
 		390D2FC21DAC8AC700D44E90 /* ZYFaqiGuanlianXCView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFaqiGuanlianXCView.m; sourceTree = "<group>"; };
 		390D2FCF1DAC8B1000D44E90 /* LiveShowDashangModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveShowDashangModel.h; sourceTree = "<group>"; };
@@ -5306,6 +5311,8 @@
 		39E0A98F1DC7450100FE6B6C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3909F41D1DC84534005D3AF3 /* WalletUserYbjModel.h */,
+				3909F41E1DC84534005D3AF3 /* WalletUserYbjModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -5315,6 +5322,7 @@
 			children = (
 				39E0A99A1DC749C500FE6B6C /* WalletProductView.h */,
 				39E0A99B1DC749C500FE6B6C /* WalletProductView.m */,
+				3909F4201DC86926005D3AF3 /* WalletProductView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5645,6 +5653,7 @@
 				2CD6B8FA1DA9DFEE00B7E60A /* ZCNoneDataView.xib in Resources */,
 				2C066A701D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png in Resources */,
 				2C8288311CD87F7A004873B6 /* Localizable.strings in Resources */,
+				3909F4211DC86926005D3AF3 /* WalletProductView.xib in Resources */,
 				2CDE67071DA651070066F49D /* record_ico_close@2x.png in Resources */,
 				05977B241DB85DC5007EC20A /* ZFPlayer.bundle in Resources */,
 			);
@@ -5847,6 +5856,7 @@
 				0469C5731D0E472900A34A03 /* MineTravelTagButton.m in Sources */,
 				39911ACB1D504174007DF44B /* UIView+ViewController.m in Sources */,
 				392AB28B1D669C26003FEDB7 /* RCDLiveEmojiPageControl.m in Sources */,
+				3909F41F1DC84534005D3AF3 /* WalletUserYbjModel.m in Sources */,
 				2CDE66DC1DA650A80066F49D /* QPRecordTipGuideView.m in Sources */,
 				2C1B60CD1D6D3CF900E3C25B /* ChooseSiteImgController.m in Sources */,
 				2CC78A831D9948E800CC04E2 /* ZYUserZoneController.m in Sources */,

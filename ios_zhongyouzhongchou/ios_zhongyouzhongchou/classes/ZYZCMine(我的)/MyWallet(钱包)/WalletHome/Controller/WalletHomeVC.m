@@ -71,6 +71,8 @@ static NSInteger YbjPageSize = 10;
     
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
+    self.navigationController.navigationBar.translucent = NO;
+    
 }
 
 
@@ -353,6 +355,7 @@ static NSInteger YbjPageSize = 10;
     
     _ybjBottomBar.walletYbjBottomBarSelectBlock = ^(){
         WalletUserYbjVC *userYbjVC = [[WalletUserYbjVC alloc] init];
+        userYbjVC.dic = weakSelf.ybjTableView.selectDic;
         [weakSelf.navigationController pushViewController:userYbjVC animated:YES];
     };
 }
