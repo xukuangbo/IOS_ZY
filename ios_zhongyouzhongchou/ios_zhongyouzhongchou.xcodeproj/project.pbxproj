@@ -580,6 +580,9 @@
 		394D53721D62D76B00E7F595 /* ZYFaqiLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D53711D62D76B00E7F595 /* ZYFaqiLiveViewController.m */; };
 		394D537B1D62F45500E7F595 /* UIView+ZYLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */; };
 		3951296C1D8658CD00760405 /* LivePersonDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3951296B1D8658CD00760405 /* LivePersonDataView.m */; };
+		395260CA1DC9BF9A00BA7C55 /* WalletYbjSelectXcCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 395260C91DC9BF9A00BA7C55 /* WalletYbjSelectXcCell.m */; };
+		395260CD1DC9BFBE00BA7C55 /* WalletYbjSelectXcVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395260CC1DC9BFBE00BA7C55 /* WalletYbjSelectXcVC.m */; };
+		395260D11DC9CD4800BA7C55 /* FaqiGuanlianXCModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 395260D01DC9CD4800BA7C55 /* FaqiGuanlianXCModel.m */; };
 		395B5A6C1D1FC3910084264C /* jpush-ios-2.1.8.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6A1D1FC3910084264C /* jpush-ios-2.1.8.a */; };
 		395B5A6E1D1FC4020084264C /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6D1D1FC4020084264C /* CFNetwork.framework */; };
 		395B5A701D1FC4110084264C /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 395B5A6F1D1FC4110084264C /* CoreFoundation.framework */; };
@@ -1766,6 +1769,12 @@
 		394D537A1D62F45500E7F595 /* UIView+ZYLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ZYLayer.m"; sourceTree = "<group>"; };
 		3951296A1D8658CD00760405 /* LivePersonDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LivePersonDataView.h; sourceTree = "<group>"; };
 		3951296B1D8658CD00760405 /* LivePersonDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LivePersonDataView.m; sourceTree = "<group>"; };
+		395260C81DC9BF9A00BA7C55 /* WalletYbjSelectXcCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjSelectXcCell.h; sourceTree = "<group>"; };
+		395260C91DC9BF9A00BA7C55 /* WalletYbjSelectXcCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjSelectXcCell.m; sourceTree = "<group>"; };
+		395260CB1DC9BFBE00BA7C55 /* WalletYbjSelectXcVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjSelectXcVC.h; sourceTree = "<group>"; };
+		395260CC1DC9BFBE00BA7C55 /* WalletYbjSelectXcVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjSelectXcVC.m; sourceTree = "<group>"; };
+		395260CF1DC9CD4800BA7C55 /* FaqiGuanlianXCModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FaqiGuanlianXCModel.h; sourceTree = "<group>"; };
+		395260D01DC9CD4800BA7C55 /* FaqiGuanlianXCModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FaqiGuanlianXCModel.m; sourceTree = "<group>"; };
 		395B5A6A1D1FC3910084264C /* jpush-ios-2.1.8.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "jpush-ios-2.1.8.a"; sourceTree = "<group>"; };
 		395B5A6B1D1FC3910084264C /* JPUSHService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPUSHService.h; sourceTree = "<group>"; };
 		395B5A6D1D1FC4020084264C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -4918,6 +4927,7 @@
 		394D53581D62D64500E7F595 /* MakeLive(发起直播) */ = {
 			isa = PBXGroup;
 			children = (
+				395260CE1DC9CD2E00BA7C55 /* Model */,
 				390D2FC01DAC8AC700D44E90 /* View */,
 				394D53591D62D64500E7F595 /* Controller */,
 			);
@@ -4966,6 +4976,50 @@
 				3951296B1D8658CD00760405 /* LivePersonDataView.m */,
 			);
 			path = LivePesonDataView;
+			sourceTree = "<group>";
+		};
+		395260C11DC9BB7600BA7C55 /* WalletYbjChangeXC */ = {
+			isa = PBXGroup;
+			children = (
+				395260C21DC9BB7600BA7C55 /* Controller */,
+				395260C31DC9BB7600BA7C55 /* Model */,
+				395260C41DC9BB7600BA7C55 /* View */,
+			);
+			path = WalletYbjChangeXC;
+			sourceTree = "<group>";
+		};
+		395260C21DC9BB7600BA7C55 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				395260CB1DC9BFBE00BA7C55 /* WalletYbjSelectXcVC.h */,
+				395260CC1DC9BFBE00BA7C55 /* WalletYbjSelectXcVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		395260C31DC9BB7600BA7C55 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		395260C41DC9BB7600BA7C55 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				395260C81DC9BF9A00BA7C55 /* WalletYbjSelectXcCell.h */,
+				395260C91DC9BF9A00BA7C55 /* WalletYbjSelectXcCell.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		395260CE1DC9CD2E00BA7C55 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				395260CF1DC9CD4800BA7C55 /* FaqiGuanlianXCModel.h */,
+				395260D01DC9CD4800BA7C55 /* FaqiGuanlianXCModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		3957376D1D87D9FC009CEFAC /* EndLive(直播结束) */ = {
@@ -5289,6 +5343,7 @@
 		39E0A98C1DC7450100FE6B6C /* DetailVC */ = {
 			isa = PBXGroup;
 			children = (
+				395260C11DC9BB7600BA7C55 /* WalletYbjChangeXC */,
 				39E0A98D1DC7450100FE6B6C /* WalletUseYbjVC */,
 			);
 			path = DetailVC;
@@ -6026,6 +6081,7 @@
 				2CE617711D657DD100962163 /* HUImagePickerCell.m in Sources */,
 				2C8D46111D1A269200C47893 /* ZYZCCustomTextField.m in Sources */,
 				2C920D991DB0E0520038C3E1 /* PGIndexBannerSubiew.m in Sources */,
+				395260CA1DC9BF9A00BA7C55 /* WalletYbjSelectXcCell.m in Sources */,
 				04A99D2A1CC0926400C6F5F0 /* ZYZCAccountTool.m in Sources */,
 				2CE60CB11DBF3C1A005B4D7E /* ChooseThumbController.m in Sources */,
 				0432ADA51D0966F9005D789E /* UIView+ST.m in Sources */,
@@ -6050,6 +6106,7 @@
 				2C8E9AC41D8F978200CA35DE /* ZYfootprintListCell.m in Sources */,
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
 				2C1B60D51D6D3CF900E3C25B /* FZCReturnCellModel.m in Sources */,
+				395260CD1DC9BFBE00BA7C55 /* WalletYbjSelectXcVC.m in Sources */,
 				2CD6B90D1DA9E02C00B7E60A /* HotCommentCell.m in Sources */,
 				2CDE670C1DA651070066F49D /* QPMusicMoreDownProgressView.m in Sources */,
 				2C8B19881D0CF7EC0063097B /* XMNAssetCell.m in Sources */,
@@ -6280,6 +6337,7 @@
 				2CFC7D091DA648B900A28D74 /* QPImage.m in Sources */,
 				2C3292F11D922D890095F60E /* ZYFootprintCommentTable.m in Sources */,
 				2C920D9A1DB0E0520038C3E1 /* NewPagedFlowView.m in Sources */,
+				395260D11DC9CD4800BA7C55 /* FaqiGuanlianXCModel.m in Sources */,
 				2C1B61011D6D3CF900E3C25B /* ChooseTimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -20,6 +20,7 @@
 #import "WalletHeadModel.h"
 #import "FXBlurView.h"
 #import "WalletUserYbjVC.h"
+#import <ReactiveCocoa.h>
 static NSInteger KtxPageSize = 10;
 static NSInteger YbjPageSize = 10;
 @interface WalletHomeVC ()
@@ -40,6 +41,7 @@ static NSInteger YbjPageSize = 10;
 
 @implementation WalletHomeVC
 
+#pragma mark - System Func
 - (instancetype)init
 {
     self = [super init];
@@ -55,31 +57,53 @@ static NSInteger YbjPageSize = 10;
     
     self.navigationController.navigationBar.translucent = NO;
     
+    [self addNotis];
+    
     [self setUpSubviews];
     
     [self setUpTouchUpAction];
-    
     
     [self loadHeadViewData];
     [self.ktxTableView.mj_header beginRefreshing];
     [self.ybjTableView.mj_header beginRefreshing];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
-    
     self.navigationController.navigationBar.translucent = NO;
-    
 }
 
+- (void)dealloc
+{
+    [ZYNSNotificationCenter removeObserver:self];
+    
+    DDLog(@"%@被移除了",[self class]);
+}
 
+#pragma mark - Noti
+- (void)addNotis{
+    
+    //使用预备金成功
+    @weakify(self);
+    [[ZYNSNotificationCenter rac_addObserverForName:WalletUseYbjSuccessNoti object:nil] subscribeNext:^(NSNotification *noti) {
+        @strongify(self);
+        [self.ybjTableView scrollsToTop];
+        [self.ybjTableView.mj_header beginRefreshing];
+    }];
+    
+    //使用预备金失败
+    [[ZYNSNotificationCenter rac_addObserverForName:WalletUseYbjFailNoti object:nil] subscribeNext:^(NSNotification *noti) {
+        @strongify(self);
+        [self.ybjTableView scrollsToTop];
+        [self.ybjTableView.mj_header beginRefreshing];
+    }];
+}
+
+#pragma mark - SetUp UI
 /* 设置子视图 */
 - (void)setUpSubviews
 {
-    
     [self setBackItem];
     
     //两个tableview
@@ -113,10 +137,6 @@ static NSInteger YbjPageSize = 10;
     
 }
 
-- (void)dealloc
-{
-    DDLog(@"%@被移除了",[self class]);
-}
 #pragma mark - RequestData
 - (void)loadHeadViewData
 {
@@ -359,7 +379,6 @@ static NSInteger YbjPageSize = 10;
         [weakSelf.navigationController pushViewController:userYbjVC animated:YES];
     };
 }
-#pragma mark - 通知
 
 
 #pragma mark - 项目的table滑动

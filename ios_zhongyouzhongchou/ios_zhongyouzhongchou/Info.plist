@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>APIModeSwitch</key>
-	<integer>2</integer>
+	<integer>1</integer>
 	<key>IS_TEST_MODE</key>
 	<true/>
 	<key>CFBundleIdentifier</key>

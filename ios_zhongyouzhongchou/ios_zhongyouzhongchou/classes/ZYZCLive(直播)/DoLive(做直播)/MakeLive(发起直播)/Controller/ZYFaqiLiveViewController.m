@@ -21,6 +21,8 @@
 #import "SelectImageViewController.h"
 #import "ZYZCWebViewController.h"
 #import "ZYFaqiGuanlianXCView.h"
+#import "FaqiGuanlianXCModel.h"
+
 @interface ZYFaqiLiveViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate, UIAlertViewDelegate, ZYLiveViewControllerDelegate>
 /** 模糊效果 */
 @property (nonatomic, strong) UIVisualEffectView *backView;
@@ -51,7 +53,8 @@
 /** 录像url */
 @property(nonatomic, copy) NSString* recordUrl;
 
-
+/* 关联行程数组*/
+@property (nonatomic, strong) NSArray *guanlianXCArray;
 @end
 
 @implementation ZYFaqiLiveViewController
@@ -232,12 +235,15 @@
 //    },
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:nil andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
-        NSString *title = result[@"data"][@"productTitle"];
-        NSString *productID = result[@"data"][@"productId"];
-        if (title) {
+        weakSelf.guanlianXCArray = [FaqiGuanlianXCModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (weakSelf.guanlianXCArray.count <= 0) {
+            return ;
+        }
+        FaqiGuanlianXCModel *model = weakSelf.guanlianXCArray[0];
+        if (model.productTitle) {
             weakSelf.guanlianView.hidden = NO;
-            weakSelf.guanlianProductID = productID;
-            weakSelf.guanlianView.travelLabel.text = title;
+            weakSelf.guanlianProductID = [NSString stringWithFormat:@"%zd",model.productId];
+            weakSelf.guanlianView.travelLabel.text = model.productTitle;
         }else{
             weakSelf.guanlianView.hidden = YES;
         }
