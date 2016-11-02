@@ -266,7 +266,6 @@
     [parameter setValue:_friendID forKey:@"selfUserId"];
     [parameter setValue:_friendID forKey:@"userId"];
     [MBProgressHUD showMessage:nil];
-
     WEAKSELF
     STRONGSELF
     [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
@@ -335,11 +334,13 @@
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     [parameter setValue:@"false" forKey:@"cache"];
     [parameter setValue:[NSString stringWithFormat:@"%ld", _productType-Travel_PublishType+1] forKey:@"self"];
-    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
+    [parameter setValue:_userModel.userId forKey:@"userId"];
     [parameter setValue:[NSString stringWithFormat:@"%d", _travel_pageNo] forKey:@"pageNo"];
     [parameter setValue:@"0,2" forKey:@"status_not"];
     [parameter setValue:@"10" forKey:@"pageSize"];
+    DDLog(@"++++++%@",url);
     [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        DDLog(@"%@",result);
         [MBProgressHUD hideHUD];
         [NetWorkManager hideFailViewForView:self.view];
         if (isSuccess) {

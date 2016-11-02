@@ -83,7 +83,7 @@
     NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
     [user setObject:[NSNumber numberWithInteger:0] forKey:KMOREFZC_RETURN_SUPPORTTYPE];
     [user synchronize];
-//    self.title=@"发起众筹";
+    self.title=@"发起众筹";
      self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 //    _uploadDataState=[NSMutableArray array];
     
@@ -800,8 +800,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title=@"发起众筹";
-    [self setBackItem];
 }
 
 

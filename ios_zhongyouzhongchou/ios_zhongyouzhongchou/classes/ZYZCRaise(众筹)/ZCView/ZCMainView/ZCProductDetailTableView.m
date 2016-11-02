@@ -14,6 +14,8 @@
 #import "ZCDetailIntroFirstCell.h"
 #import "ZCDetailIntroSecondCell.h"
 #import "ZCDetailIntroThirdCell.h"
+#import "ZCDetailIntroFourthCell.h"
+#import "ZCDetailIntroFifthCell.h"
 //行程部分cells
 #import "ZCDetailArrangeFirstCell.h"
 //回报部分cells
@@ -39,7 +41,8 @@
 @property (nonatomic, assign) ZCDetailContentType   contentType;
 
 @property (nonatomic, assign) BOOL hasCosponsor;//标记是否有联合发起人
-@property (nonatomic, assign) BOOL hasIntroGoal;//标记是否有众筹目的
+//@property (nonatomic, assign) BOOL hasIntroGoal;//标记是否有众筹目的
+@property (nonatomic, assign) BOOL hasReturnSupport;//标记是否有众筹目的
 @property (nonatomic, assign) BOOL hasIntroGeneral;//标记是否有目的地介绍
 @property (nonatomic, assign) BOOL hasIntroMovie;//标记是否有动画攻略
 @property (nonatomic, assign) BOOL hasSupportView;//标记是否有支持界面
@@ -105,13 +108,22 @@
 -(void)setDetailModel:(ZCDetailModel *)detailModel
 {
     _detailModel=detailModel;
-    _hasIntroGoal=YES;
+//    _hasIntroGoal=YES;
     _hasSupportView=YES;
     _hasInterestTravel=NO;
     if (!detailModel.detailProductModel.title) {
         _blurView.hidden=YES;
     }
     _travelThemeLab.text=detailModel.detailProductModel.title;
+    
+    //判断是否有回报支持
+    for (NSInteger i=0; i< detailModel.detailProductModel.report.count; i++) {
+        ReportModel *report = detailModel.detailProductModel.report[i];
+        if ([report.style isEqual:@3]) {
+            _hasReturnSupport=YES;
+            break;
+        }
+    }
     [self reloadData];
 }
 
@@ -163,7 +175,7 @@
 //    days=4;
     //第二组的cell数量
     NSInteger secondSectionCellNumber=
-    (2*_hasIntroGoal+2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count)*(self.contentType==IntroType?1:0)
+    (4+2*_hasReturnSupport+2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count)*(self.contentType==IntroType?1:0)
     +2*days*(self.contentType==ArrangeType?1:0)
     +_hasSupportView*(2*_hasSupportView+2*_hasHotComment)*(self.contentType==ReturnType?1:0);
     
@@ -205,25 +217,39 @@
     {
         ////查看介绍内容
         if (self.contentType==IntroType) {
-            if(indexPath.row==0 && _hasIntroGoal)
+            if(indexPath.row==0)
             {
                 NSString *introFirstCellId=@"introFirstCell";
                 ZCDetailIntroFirstCell *introFirstCell=(ZCDetailIntroFirstCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introFirstCellId andCellClass:[ZCDetailIntroFirstCell class]];
                 introFirstCell.cellModel=_detailModel.detailProductModel;
                 return  introFirstCell;
             }
-            else if (indexPath.row == 0+2*_hasIntroGoal && _hasIntroGeneral)
+            else if (indexPath.row == 2)
+            {
+                NSString *introFourthCellId=@"introFourthCell";
+                ZCDetailIntroFourthCell *introFourthCell=(ZCDetailIntroFourthCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introFourthCellId andCellClass:[ZCDetailIntroFourthCell class]];
+                introFourthCell.detailModel =_detailModel.detailProductModel;
+                return  introFourthCell;
+            }
+            else if (indexPath.row == 4 && _hasReturnSupport)
+            {
+                NSString *introFifthCellId=@"introFifthCell";
+                ZCDetailIntroFifthCell *introFifthCell=(ZCDetailIntroFifthCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introFifthCellId andCellClass:[ZCDetailIntroFifthCell class]];
+                introFifthCell.detailModel =_detailModel.detailProductModel;
+                return  introFifthCell;
+            }
+            else if (indexPath.row == 4+2*_hasReturnSupport && _hasIntroGeneral)
             {
                 NSString *introSecondCellId=@"introSecondCell";
                 ZCDetailIntroSecondCell *introSecondCell=(ZCDetailIntroSecondCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introSecondCellId andCellClass:[ZCDetailIntroSecondCell class]];
                 introSecondCell.goals=_viewSpots;
                 return introSecondCell;
             }
-            else if (indexPath.row >=2*_hasIntroGoal +2*_hasIntroGeneral &&indexPath.row <=2*_hasIntroGoal +2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count&&(indexPath.row-(2*_hasIntroGoal +2*_hasIntroGeneral))%2==0&& _hasIntroMovie)
+            else if (indexPath.row >=4+2*_hasReturnSupport +2*_hasIntroGeneral &&indexPath.row <=4+2*_hasReturnSupport +2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count&&(indexPath.row-(4+2*_hasReturnSupport +2*_hasIntroGeneral))%2==0&& _hasIntroMovie)
             {
                 NSString *introThirdCellId=@"introThirdCell";
                 ZCDetailIntroThirdCell *introThirdCell=(ZCDetailIntroThirdCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introThirdCellId andCellClass:[ZCDetailIntroThirdCell class]];
-                ZCSpotVideoModel *spotVideoModel=_spotVideos[(indexPath.row-2*_hasIntroGoal -2*_hasIntroGeneral)/2];
+                ZCSpotVideoModel *spotVideoModel=_spotVideos[(indexPath.row-4-2*_hasReturnSupport -2*_hasIntroGeneral)/2];
                 introThirdCell.spotVideoModel=spotVideoModel;
                 introThirdCell.subDesLab.text=SUBDES_FORMOVIE(spotVideoModel.spotName);
                 return introThirdCell;
@@ -300,14 +326,22 @@
     {
         //介绍部分cells高度
         if (self.contentType == IntroType) {
-            if (indexPath.row==0 && _hasIntroGoal) {
+            if (indexPath.row==0) {
                 return _detailModel.detailProductModel.introFirstCellHeight;
             }
-            else if (indexPath.row == 0+2*_hasIntroGoal && _hasIntroGeneral)
+            else if (indexPath.row == 2)
+            {
+                return  _detailModel.detailProductModel.introFourthCellHeight;
+            }
+            else if (indexPath.row == 4&&_hasReturnSupport)
+            {
+                return _detailModel.detailProductModel.introFifthCellHeight;
+            }
+            else if (indexPath.row == 4+2*_hasReturnSupport && _hasIntroGeneral)
             {
                 return ZCDETAILINTRO_SECONDCELL_HEIGHT;
             }
-            else if (_hasIntroMovie&&indexPath.row >=2*_hasIntroGoal +2*_hasIntroGeneral &&indexPath.row <=2*_hasIntroGoal +2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count&&(indexPath.row-(2*_hasIntroGoal +2*_hasIntroGeneral))%2==0)
+            else if (_hasIntroMovie&&indexPath.row >=4+2*_hasReturnSupport +2*_hasIntroGeneral &&indexPath.row <=4+2*_hasReturnSupport +2*_hasIntroGeneral+2*_hasIntroMovie*_spotVideos.count&&(indexPath.row-(4+2*_hasReturnSupport +2*_hasIntroGeneral))%2==0)
             {
                 return ZCDETAILINTRO_THIRDCELL_HEIGHT;
             }

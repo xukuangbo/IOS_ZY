@@ -46,6 +46,7 @@
     UIImageView *vertical=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"ico_bq"]];
     vertical.frame=CGRectMake(-10, 2.5, 2, self.titleLab.height-5);
     [self.titleLab addSubview:vertical];
+    self.vertical=vertical;
 
     //创建灰线条
     _topLineView=[UIView lineViewWithFrame:CGRectMake(KEDGE_DISTANCE, CGRectGetMaxY(_titleLab.frame)+10, KSCREEN_W-4*KEDGE_DISTANCE, 1) andColor:nil];

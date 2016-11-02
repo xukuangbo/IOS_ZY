@@ -161,6 +161,7 @@ static NSString *const ShopID = @"ShopCell";
     ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
     commentFootprintVC.hidesBottomBarWhenPushed = YES;
     commentFootprintVC.footprintModel = footprintModel;
+    commentFootprintVC.showWithKeyboard = NO;
     [self.navigationController pushViewController:commentFootprintVC animated:YES];
 }
 

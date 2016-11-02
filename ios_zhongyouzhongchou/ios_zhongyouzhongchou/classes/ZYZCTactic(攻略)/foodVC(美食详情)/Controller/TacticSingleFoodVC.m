@@ -203,7 +203,6 @@ static NSString *picCellID = @"TacticFoodPicCell";
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self setBackItem];
 }
 
 - (void)didReceiveMemoryWarning {

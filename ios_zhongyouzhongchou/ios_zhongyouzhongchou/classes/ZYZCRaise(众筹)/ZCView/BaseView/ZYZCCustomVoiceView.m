@@ -38,7 +38,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.height=40;
-        _iconImg=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
+        _iconImg=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.height, self.height)];
         _iconImg.image=[UIImage imageNamed:@"icon_placeholder"];
         _iconImg.layer.cornerRadius=KCORNERRADIUS;
         _iconImg.layer.masksToBounds=YES;
@@ -144,6 +144,9 @@
         _timeLab.text=[NSString stringWithFormat:@"%.zd''",voiceLen];
         _timeLab.text=[NSString stringWithFormat:@"%.2f\"",voiceLen];
     }
+    
+    self.voiceView.top = self.height-self.voiceView.height;
+    self.timeLab.top   = self.height-self.timeLab.height;
 }
 
 

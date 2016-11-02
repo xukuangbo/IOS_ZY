@@ -83,8 +83,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title = @"我的钱包";
-    [self setBackItem];
+  
 }
 
 #pragma mark - setUI方法
@@ -92,7 +91,7 @@
 {
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
-//    self.title = @"我的钱包";
+    self.title = @"我的钱包";
     
     [self setBackItem];
     

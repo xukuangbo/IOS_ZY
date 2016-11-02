@@ -176,7 +176,9 @@
     //已鉴权成功
     if ([auth_result isEqualToString:@"yes"])
     {
-        resultBlock(YES);
+        if (resultBlock) {
+            resultBlock(YES);
+        }
     }
     else
     {

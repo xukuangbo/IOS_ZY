@@ -42,6 +42,10 @@
 + (CGSize)calculateStrByLineSpace:(CGFloat)lineSpace andString:(NSString *)str andFont:(UIFont *)font andMaxWidth:(CGFloat )maxW;
 
 /**
+ *  获取大小写属性文本格式
+ */
++ (NSMutableAttributedString *)getAttributesString:(CGFloat )number withRMBFont:(NSInteger)RMBFont withBigFont:(NSInteger)BigFont withSmallFont:(NSInteger)SmallFont withTextColor:(UIColor *)Color;
+/**
  *  创建btn（文字在左图片在右）
  *
  */

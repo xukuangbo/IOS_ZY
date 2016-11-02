@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-//    self.title=@"写游记";
+    self.title=@"写游记";
     self.automaticallyAdjustsScrollViewInsets=NO;
     [self configUI];
     [self setBackItem];
@@ -40,8 +40,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title=@"写游记";
-    [self setBackItem];
 }
 
 -(void)configUI

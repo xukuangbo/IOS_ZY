@@ -28,7 +28,7 @@
         self.automaticallyAdjustsScrollViewInsets = NO;
         self.WHScale = WHScale;
         [self setBackItem];
-//        self.title = @"编辑封面图片";
+        self.title = @"编辑封面图片";
         _selectImage = image;
     }
     return self;
@@ -272,8 +272,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.title = @"编辑封面图片";
-    [self setBackItem];
 }
 
 @end

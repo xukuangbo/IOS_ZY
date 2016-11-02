@@ -10,4 +10,5 @@
 
 @interface WalletUserYbjVC : ZYZCBaseViewController
 
+@property (nonatomic, strong) NSDictionary *dic;
 @end

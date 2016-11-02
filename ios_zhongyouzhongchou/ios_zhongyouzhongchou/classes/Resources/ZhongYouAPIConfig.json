@@ -569,6 +569,12 @@
         "control": "zhibo",
         "action": "reserveListJson.action",
         "protocol": "http"
+    },
+    
+    "zhibo_userReserve.action": {
+        "control": "zhibo",
+        "action": "userReserve.action",
+        "protocol": "http"
     }
 }
 

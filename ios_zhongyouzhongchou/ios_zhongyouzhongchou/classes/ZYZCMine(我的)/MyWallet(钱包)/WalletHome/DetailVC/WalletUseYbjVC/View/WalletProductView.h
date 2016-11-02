@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class WalletUserYbjModel;
 @interface WalletProductView : UIView
-
+@property (nonatomic, strong) WalletUserYbjModel *ybjModel;
 @end

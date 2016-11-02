@@ -106,10 +106,10 @@ static NSString *cellID = @"WalletYbjCell";
 {
     WalletYbjCell *cell = (WalletYbjCell *)noti.object;
     NSIndexPath *indexPath = [self indexPathForCell:cell];
-    NSString *key = [NSString stringWithFormat:@"%zd",indexPath.row];
+    WalletYbjModel *model = self.dataArr[indexPath.row];
+    NSString *key = model.id;
     
     //1.需要修改model的yes或者no值
-    WalletYbjModel *model = self.dataArr[indexPath.row];
     model.status = cell.selectButton.selected == YES? 3:0;
     
     //2.增加或者删除key

@@ -10,6 +10,7 @@
 #import "ComplainTypeController.h"
 #import "MBProgressHUD+MJ.h"
 #import "AppDelegate.h"
+#import "UINavigationBar+Awesome.h"
 @interface ZYZCConversationController ()
 
 @end
@@ -20,6 +21,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.conversationMessageCollectionView.backgroundColor=[UIColor whiteColor];
+    self.navigationItem.leftBarButtonItem= [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_back_new"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(pressBack)];
+    
+    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"nav_r"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(showGerenCaozuoAlert)];
 }
 
 #pragma mark --- 进入投诉页面
@@ -130,9 +134,6 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.navigationItem.leftBarButtonItem= [[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"btn_back_new"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(pressBack)];
-    
-    self.navigationItem.rightBarButtonItem=[[UIBarButtonItem alloc] initWithImage:[[UIImage imageNamed:@"nav_r"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] style:UIBarButtonItemStylePlain target:self action:@selector(showGerenCaozuoAlert)];
 }
 
 

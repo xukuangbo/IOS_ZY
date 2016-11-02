@@ -308,6 +308,7 @@
         ZYCommentFootprintController *commentFootprintController=[[ZYCommentFootprintController alloc]init];
         commentFootprintController.footprintModel=_footprintModel;
         commentFootprintController.hidesBottomBarWhenPushed=YES;
+        commentFootprintController.showWithKeyboard = YES;
         [self.viewController.navigationController pushViewController:commentFootprintController animated:YES];
     }
     //点击评论编辑
