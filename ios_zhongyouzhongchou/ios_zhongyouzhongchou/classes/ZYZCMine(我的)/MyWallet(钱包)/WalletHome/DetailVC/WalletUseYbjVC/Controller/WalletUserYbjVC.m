@@ -224,8 +224,6 @@
     }];
 }
 
-
-
 - (void)setDic:(NSDictionary *)dic
 {
     _dic = dic;
