@@ -338,8 +338,8 @@
     //开始播放动画
     [imageView startAnimating];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showAnimtion:payType imageNumber:number];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self showAnimtion:payType imageNumber:number];
+//    });
 }
 @end
