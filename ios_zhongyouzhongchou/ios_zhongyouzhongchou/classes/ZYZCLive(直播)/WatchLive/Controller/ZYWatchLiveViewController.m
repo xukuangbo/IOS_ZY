@@ -665,13 +665,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 分享
 - (void)shareBtnAction:(UIButton *)sender
 {
-    [self showAnimtion];
-   
+//    [self showAnimtion:@"5.0" imageNumber:37];
 }
 
 - (void)messageBtnAction:(UIButton *)sender
 {
-    [self showAnimtion];
+    
 }
 
 -(void)showInputBar:(id)sender{
@@ -926,6 +925,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              NSDictionary *payDict = @{
                                        @"payHeaderUrl":[ZYZCAccountTool account].faceImg,
                                        @"payName":[ZYZCAccountTool account].realName,
+                                       @"payType":weakSelf.payMoney,
                                        @"extra":[NSString stringWithFormat:@"打赏主播%@元", weakSelf.payMoney]
                                        };
              
@@ -937,7 +937,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              
              //展示支付成功动画
              dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
+                 [weakSelf.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
              });
          }else{
              [MBProgressHUD showError:@"支付失败!"];
@@ -1024,7 +1024,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         if ([textMessage.extra isEqualToString:@"打赏成功"]) {
             [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self showAnimtion];
+                NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:content];
+                if ([dict[@"payType"] intValue] == 1) {
+                    [self showAnimtion:dict[@"payType"] imageNumber:11];
+                } else {
+                    [self showAnimtion:dict[@"payType"] imageNumber:37];
+                }
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
             return ;
