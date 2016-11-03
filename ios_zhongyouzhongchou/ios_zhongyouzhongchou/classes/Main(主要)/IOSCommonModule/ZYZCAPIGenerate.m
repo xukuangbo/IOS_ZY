@@ -81,7 +81,7 @@ static NSString* const apiFileExtension = @"json";
     
     control  =  [dic objectForKey:@"control"] ? [dic objectForKey:@"control"] : @" ";
     action   =  [dic objectForKey:@"action"] ? [dic objectForKey:@"action"] : @" ";
-    NSString* apiUrl = [NSString stringWithFormat:@"%@://%@/%@/%@?",apiProtocol,host,control,action];
+    NSString* apiUrl = [NSString stringWithFormat:@"%@://%@/%@/%@",apiProtocol,host,control,action];
     return apiUrl;
 }
 // 获取baseUrl
