@@ -10,7 +10,7 @@
 #define WalletSelectToolBarH 47
 typedef NS_ENUM(NSInteger, WalletSelectType)
 {
-    WalletSelectTypeKTX=1,
+    WalletSelectTypeKTX=200,
     WalletSelectTypeYBJ
 };
 
@@ -18,6 +18,9 @@ typedef NS_ENUM(NSInteger, WalletSelectType)
 typedef void (^ChangeWalletSelectBlock)(WalletSelectType type) ;
 @interface WalletSelectToolBar : UIView
 
+@property (nonatomic, strong) UIView *lineView;
 //@property (nonatomic, strong) NSArray         *items;//按钮标题
 @property (nonatomic, copy  ) ChangeWalletSelectBlock selectBlock;//可提现旅行预备金切换
+
+@property (nonatomic, assign) WalletSelectType selectType;
 @end

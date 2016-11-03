@@ -37,7 +37,6 @@
 
 + (BOOL)rootJudgeLogin
 {
-    
     NSString *userid = [ZYZCAccountTool getUserId];
     if (userid) {
         //如果有账号,就设置跟控制器为tabbar

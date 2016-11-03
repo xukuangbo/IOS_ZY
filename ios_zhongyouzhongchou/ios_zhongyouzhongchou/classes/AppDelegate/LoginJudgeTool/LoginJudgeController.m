@@ -224,7 +224,7 @@
             }
         }
     } andFailBlock:^(id failResult) {
-        NSLog(@"");
+//        NSLog(@"");
     }];
 }
 
@@ -237,7 +237,7 @@
         NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",account.access_token,account.openidapp];
         [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
 //            NSLog(@"%@",result);
-            ZYZCAccountModel  *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result];
+            ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result];
             //            有微信的数据后可以向我们的服务器发送注册信息
             [self regisPersonalMessageWith:accountModel];
         } andFailBlock:^(id failResult) {
@@ -338,7 +338,7 @@
             
             [self.navigationController pushViewController:yinsi animated:YES];
         }else{
-            
+
             [self presentViewController:yinsi animated:YES completion:nil];
         }
         
