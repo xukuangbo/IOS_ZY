@@ -33,7 +33,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.5)
   - ReactiveCocoa/UI (2.5):
     - ReactiveCocoa/Core
-  - RongCloudIMKit (2.5.1)
+  - RongCloudIMKit (2.7.3)
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
@@ -51,7 +51,7 @@ DEPENDENCIES:
   - MJRefresh (= 3.1.0)
   - Reachability (= 3.2)
   - ReactiveCocoa (~> 2.5)
-  - RongCloudIMKit (= 2.5.1)
+  - RongCloudIMKit
   - SDWebImage (= 3.7.6)
 
 SPEC CHECKSUMS:
@@ -67,7 +67,7 @@ SPEC CHECKSUMS:
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
-  RongCloudIMKit: d7b234005ed139f03081ca87d48ad9a8ee7dd766
+  RongCloudIMKit: 0b93700b17d224c7c213815b8a23a9c356fe20e2
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
 
 COCOAPODS: 0.39.0
