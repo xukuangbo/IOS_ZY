@@ -72,18 +72,18 @@
     manager.responseSerializer.acceptableContentTypes =
     [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
     
-//    NSString *newUrl=URLString;
-//    if ([URLString hasSuffix:@".action"]) {
-//        newUrl=[URLString stringByAppendingString:@"?from=ios"];
-//    } else {
-//        newUrl=[URLString stringByAppendingString:@"&from=ios"];
-//    }
+    NSString *newUrl=URLString;
+    if ([URLString hasSuffix:@".action"]) {
+        newUrl=[URLString stringByAppendingString:@"?from=ios"];
+    } else {
+        newUrl=[URLString stringByAppendingString:@"&from=ios"];
+    }
     NSString *userId = [ZYZCAccountTool getUserId];
     if (![parameters objectForKey:@"userId"] && userId) {
         [parameters setValue:userId forKey:@"userId"];
     }
     
-    [manager GET:URLString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
+    [manager GET:newUrl parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
      {
      }
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
