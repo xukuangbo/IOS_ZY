@@ -1054,6 +1054,12 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
         if ([textMessage.extra isEqualToString:kPaySucceed]) {
             [self requestTotalMoneyDataParameters:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:content];
+                if ([dict[@"payType"] intValue] == 1) {
+                    [self showAnimtion:dict[@"payType"] imageNumber:11];
+                } else {
+                    [self showAnimtion:dict[@"payType"] imageNumber:37];
+                }
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
             return ;

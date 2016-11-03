@@ -15,4 +15,5 @@
 @property (nonatomic, copy) NSString *nameLabel;
 
 @property (nonatomic, copy) NSString *numberPeople;
+@property (nonatomic, copy) NSString *payType;
 @end

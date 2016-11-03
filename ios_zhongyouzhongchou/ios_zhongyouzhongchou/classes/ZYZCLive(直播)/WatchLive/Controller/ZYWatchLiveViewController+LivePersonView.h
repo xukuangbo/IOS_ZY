@@ -28,5 +28,5 @@
 - (void)getUserContributionResultHttpUrl;
 
 // 显示动画
-- (void)showAnimtion;
+- (void)showAnimtion:(NSString *)payType imageNumber:(NSInteger)number;
 @end

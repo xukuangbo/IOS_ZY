@@ -310,7 +310,7 @@
 }
 
 #pragma mark - animtion
-- (void)showAnimtion
+- (void)showAnimtion:(NSString *)payType imageNumber:(NSInteger)number
 {
     int arc4randomNumber = arc4random() % 270 + 100;
     int arc4randomWidth = arc4random() % 50;
@@ -319,27 +319,27 @@
     [self.view addSubview:imageView];
     
     //创建一个数组，数组中按顺序添加要播放的图片（图片为静态的图片）
-    int j;
+    NSInteger j;
     NSMutableArray *imgArray = [NSMutableArray array];
-    for (int i=1; i < 18; i++) {
+    for (int i=1; i < number + 5; i++) {
         j = i;
-        if (i > 13) {
-            j = 13;
+        if (i > number) {
+            j = number;
         }
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"1yuan_%d", j]];
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%dyuan_%ld", [payType intValue], j]];
         [imgArray addObject:image];
     }
     //把存有UIImage的数组赋给动画图片数组
     imageView.animationImages = imgArray;
     //设置执行一次完整动画的时长
-    imageView.animationDuration = 13*0.12;
+    imageView.animationDuration = 13*0.1;
     //动画重复次数 （0为重复播放）
     imageView.animationRepeatCount = 1;
     //开始播放动画
     [imageView startAnimating];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self showAnimtion];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self showAnimtion:payType imageNumber:number];
+//    });
 }
 @end
