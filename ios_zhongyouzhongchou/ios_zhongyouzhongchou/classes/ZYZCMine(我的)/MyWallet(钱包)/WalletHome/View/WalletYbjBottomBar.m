@@ -62,6 +62,7 @@
         self.moneyNumberLabel.text = @"0.00";
         [_commitButton setTitleColor:[UIColor ZYZC_TextGrayColor04] forState:UIControlStateNormal];
         [_commitButton setBackgroundColor:[UIColor ZYZC_LineGrayColor]];
+        _commitButton.enabled = NO;
         
     }else{
         NSArray *moneyArray = [dic allValues];
@@ -73,6 +74,7 @@
         self.moneyNumberLabel.text = [NSString stringWithFormat:@"%.2f",floatMoney];
         [_commitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_commitButton setBackgroundColor:[UIColor ZYZC_MainColor]];
+        _commitButton.enabled = YES;
     }
 }
 

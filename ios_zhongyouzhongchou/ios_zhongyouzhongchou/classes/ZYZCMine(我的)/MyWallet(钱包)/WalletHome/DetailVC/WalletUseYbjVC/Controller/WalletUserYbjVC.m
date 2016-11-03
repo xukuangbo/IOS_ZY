@@ -17,7 +17,10 @@
 @interface WalletUserYbjVC ()
 @property (nonatomic, strong) NSArray *dataArray;
 @property (nonatomic, strong) WalletUserYbjModel *ybjModel;
+/* 最近一次的项目 */
 @property (nonatomic, strong) WalletProductView *productView;
+/* 没有项目时候显示的label */
+@property (nonatomic, strong) UILabel *entryLabel;
 /* 预备金金额标题 */
 @property (nonatomic, strong) UILabel *ybjTitleMonenLabel;
 /* 预备金金额 */
@@ -121,6 +124,15 @@
     _userYbjLabel.textAlignment = NSTextAlignmentCenter;
     [_userYbjLabel addTarget:self action:@selector(userYbjAction)];
     
+    //8.没有项目时候显示的label
+    _entryLabel = [[UILabel alloc] init];
+    _entryLabel.text = @"没有众筹项目\n请去发起众筹后再选择";
+    _entryLabel.font = [UIFont systemFontOfSize:25];
+    _entryLabel.textColor = [UIColor ZYZC_TextGrayColor];
+    _entryLabel.numberOfLines = 0;
+    _entryLabel.textAlignment = NSTextAlignmentCenter;
+    _entryLabel.hidden = YES;
+    
     [self.view addSubview:_ybjTitleMonenLabel];
     [self.view addSubview:_ybjMonenLabel];
     [self.view addSubview:_productView];
@@ -128,6 +140,7 @@
     [self.view addSubview:_changeProductLabel];
     [self.view addSubview:_changeProductTitleLeftLabel];
     [self.view addSubview:_userYbjLabel];
+    [self.view addSubview:_entryLabel];
     
     [_ybjTitleMonenLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
@@ -169,6 +182,11 @@
         make.height.equalTo(@48);
     }];
     
+    [_entryLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.centerY.equalTo(self.view.mas_centerY);
+    }];
+    
     
 }
 
@@ -176,26 +194,33 @@
 - (void)requestData
 {
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getMyLastProduct"];
+    [MBProgressHUD showMessage:@"正在加载众筹项目" toView:self.view];
     @weakify(self);
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:nil andSuccessGetBlock:^(id result, BOOL isSuccess) {
         //    data = {productTitle = Hehe, productId = 121},
+        [MBProgressHUD hideHUDForView:self.view];
         @strongify(self);
         self.dataArray = [WalletUserYbjModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        if (!self.dataArray) {
+        if (self.dataArray.count <= 0) {
             //显示空界面
-            
+            self.entryLabel.hidden = NO;
+            self.changeProductTitleLabel.text = @"最近进行中的项目";
+            self.productView.hidden = self.changeProductTitleLeftLabel.hidden = self.changeProductTitleLabel.hidden = self.changeProductLabel.hidden = self.userYbjLabel.hidden = YES;
         }else{
+            
             self.ybjModel = self.dataArray[0];
             @weakify(self);
             dispatch_async(dispatch_get_main_queue(), ^{
                 @strongify(self);
-                self.productView.ybjModel = self.ybjModel;
+                self.entryLabel.hidden = YES;
                 self.changeProductTitleLabel.text = [NSString stringWithFormat:@"\"%@\"",self.ybjModel.productTitle];
+                self.productView.hidden = self.changeProductTitleLeftLabel.hidden = self.changeProductTitleLabel.hidden = self.changeProductLabel.hidden = self.userYbjLabel.hidden = NO;
+                self.productView.ybjModel = self.ybjModel;
                 self.productId = [NSString stringWithFormat:@"%zd",self.ybjModel.productId];
             });
         }
     } andFailBlock:^(id failResult) {
-        
+        [MBProgressHUD hideHUDForView:self.view];
     }];
 }
 

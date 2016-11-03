@@ -36,7 +36,7 @@
     if (!range.length) {
         newUrl=[newUrl stringByAppendingString:[NSString stringWithFormat:@"&userId=%@",[ZYZCAccountTool getUserId]]];
     }
-//    DDLog(@"newGetUrl:%@",newUrl);
+    DDLog(@"newGetUrl:%@",newUrl);
     
     [manager GET:newUrl parameters:nil progress:^(NSProgress * _Nonnull downloadProgress)
     {
@@ -287,7 +287,7 @@
     NSString *timeStamp=[self getTimeStamp];
 //    DDLog(@"timeStamp:%@",timeStamp);
     DDLog(@"time:%@",[ZYZCTool turnTimeStampToDate:timeStamp]);
-//    [strDic setObject:timeStamp forKey:@"timestamp"];
+    [strDic setObject:timeStamp forKey:@"timestamp"];
     //随机数
     NSString *nonceStr=[NSString stringWithFormat:@"%d",100000+ arc4random_uniform(899999)];
 //    DDLog(@"nonceStr:%@",nonceStr);

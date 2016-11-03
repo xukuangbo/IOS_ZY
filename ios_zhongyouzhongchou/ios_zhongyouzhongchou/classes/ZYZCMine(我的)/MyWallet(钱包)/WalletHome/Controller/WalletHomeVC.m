@@ -56,6 +56,7 @@ static NSInteger YbjPageSize = 10;
     // Do any additional setup after loading the view.
     
     self.navigationController.navigationBar.translucent = NO;
+    NSString *string = [ZYZCAccountTool getUserScret];
     
     [self addNotis];
     
