@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -12,73 +16,56 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOn-dX-nDJ">
+                <button opaque="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOn-dX-nDJ">
+                    <rect key="frame" x="14" y="15" width="76" height="70"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="H1r-xe-kAY"/>
+                        <constraint firstAttribute="width" secondItem="FOn-dX-nDJ" secondAttribute="height" multiplier="13:12" id="M3D-Eq-fae"/>
                     </constraints>
-                    <state key="normal" title="1元">
+                    <state key="normal" image="1RMB">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="f5j-7k-6X0"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-RP-fWv">
+                <button opaque="NO" tag="50" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OjJ-RP-fWv">
+                    <rect key="frame" x="103" y="15" width="76" height="70"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="QQ5-1C-8h6"/>
+                        <constraint firstAttribute="width" secondItem="OjJ-RP-fWv" secondAttribute="height" multiplier="13:12" id="MZe-Tk-LXV"/>
                     </constraints>
-                    <state key="normal" title="5元">
+                    <state key="normal" image="5RMB">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="iuW-DP-7z9"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v51-Ih-6Fs">
+                <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v51-Ih-6Fs">
+                    <rect key="frame" x="192" y="15" width="76" height="70"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="257-cK-IlX"/>
+                        <constraint firstAttribute="width" secondItem="v51-Ih-6Fs" secondAttribute="height" multiplier="13:12" id="opg-LN-1qz"/>
                     </constraints>
-                    <state key="normal" title="10元">
+                    <state key="normal" image="20RMB">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="oxO-p9-gea"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="500" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjP-XO-E5J">
+                <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjP-XO-E5J">
+                    <rect key="frame" x="281" y="15" width="76" height="70"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="40" id="Hua-Mt-lrd"/>
+                        <constraint firstAttribute="width" secondItem="pjP-XO-E5J" secondAttribute="height" multiplier="13:12" id="cxi-39-LKJ"/>
                     </constraints>
-                    <state key="normal" title="50元">
+                    <state key="normal" image="100RMB">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="onSelect:" destination="iN0-l3-epB" eventType="touchUpInside" id="ZCh-An-OzH"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SuN-6c-paR">
-                    <constraints>
-                        <constraint firstAttribute="height" constant="80" id="VQA-Qx-ED5"/>
-                    </constraints>
-                    <state key="normal" title="报名回报50元">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="rewardButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="LnS-4a-NMj"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6i3-bQ-Ocw">
-                    <constraints>
-                        <constraint firstAttribute="height" constant="80" id="Ol1-zR-aJb"/>
-                    </constraints>
-                    <state key="normal" title="报名一起去500元">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="togetherGoButtonAction:" destination="iN0-l3-epB" eventType="touchUpInside" id="CKs-32-Hd1"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqH-3y-eEn">
+                    <rect key="frame" x="225" y="95" width="132" height="30"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="POd-2e-twg"/>
                         <constraint firstAttribute="width" constant="132" id="tFU-yU-Jab"/>
@@ -97,25 +84,19 @@
             <color key="backgroundColor" red="0.4549019608" green="0.4549019608" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="OjJ-RP-fWv" firstAttribute="width" secondItem="FOn-dX-nDJ" secondAttribute="width" id="3k5-tU-kag"/>
-                <constraint firstItem="SuN-6c-paR" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="18" id="6HX-hS-3wK"/>
-                <constraint firstItem="6i3-bQ-Ocw" firstAttribute="leading" secondItem="SuN-6c-paR" secondAttribute="trailing" constant="5" id="889-xn-brf"/>
+                <constraint firstItem="sqH-3y-eEn" firstAttribute="top" secondItem="pjP-XO-E5J" secondAttribute="bottom" constant="10" id="5k3-F8-2Kf"/>
                 <constraint firstItem="pjP-XO-E5J" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="B5Y-98-YBW"/>
-                <constraint firstItem="OjJ-RP-fWv" firstAttribute="leading" secondItem="FOn-dX-nDJ" secondAttribute="trailing" constant="5" id="BDg-Bm-76w"/>
+                <constraint firstItem="OjJ-RP-fWv" firstAttribute="leading" secondItem="FOn-dX-nDJ" secondAttribute="trailing" constant="13" id="BDg-Bm-76w"/>
                 <constraint firstItem="pjP-XO-E5J" firstAttribute="width" secondItem="v51-Ih-6Fs" secondAttribute="width" id="E18-nz-XEq"/>
                 <constraint firstItem="OjJ-RP-fWv" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="N9j-qF-Xar"/>
-                <constraint firstItem="6i3-bQ-Ocw" firstAttribute="width" secondItem="SuN-6c-paR" secondAttribute="width" id="W1c-Rb-mH0"/>
-                <constraint firstAttribute="trailing" secondItem="6i3-bQ-Ocw" secondAttribute="trailing" constant="18" id="XgC-Sm-Va4"/>
-                <constraint firstItem="v51-Ih-6Fs" firstAttribute="leading" secondItem="OjJ-RP-fWv" secondAttribute="trailing" constant="5" id="YfG-hx-ec3"/>
-                <constraint firstItem="FOn-dX-nDJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="18" id="ZfM-lk-mTR"/>
+                <constraint firstItem="FOn-dX-nDJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="14" id="ZfM-lk-mTR"/>
                 <constraint firstItem="FOn-dX-nDJ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="ajI-ch-OuJ"/>
-                <constraint firstItem="6i3-bQ-Ocw" firstAttribute="top" secondItem="pjP-XO-E5J" secondAttribute="bottom" constant="10" id="eoh-G7-gPH"/>
-                <constraint firstItem="sqH-3y-eEn" firstAttribute="top" secondItem="6i3-bQ-Ocw" secondAttribute="bottom" constant="10" id="jW1-fw-97I"/>
+                <constraint firstItem="pjP-XO-E5J" firstAttribute="leading" secondItem="v51-Ih-6Fs" secondAttribute="trailing" constant="13" id="cFA-np-KGj"/>
+                <constraint firstItem="v51-Ih-6Fs" firstAttribute="leading" secondItem="OjJ-RP-fWv" secondAttribute="trailing" constant="13" id="fZr-u5-UVw"/>
                 <constraint firstItem="v51-Ih-6Fs" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="lFg-3x-hsl"/>
                 <constraint firstAttribute="trailing" secondItem="pjP-XO-E5J" secondAttribute="trailing" constant="18" id="leP-Dh-ztz"/>
                 <constraint firstItem="v51-Ih-6Fs" firstAttribute="width" secondItem="OjJ-RP-fWv" secondAttribute="width" id="thL-Mn-3WM"/>
                 <constraint firstAttribute="trailing" secondItem="sqH-3y-eEn" secondAttribute="trailing" constant="18" id="vYu-F6-74h"/>
-                <constraint firstItem="pjP-XO-E5J" firstAttribute="leading" secondItem="v51-Ih-6Fs" secondAttribute="trailing" constant="5" id="xm6-Td-w5E"/>
-                <constraint firstItem="SuN-6c-paR" firstAttribute="top" secondItem="FOn-dX-nDJ" secondAttribute="bottom" constant="10" id="znB-6S-BmA"/>
             </constraints>
             <connections>
                 <outlet property="journeyDetailButton" destination="sqH-3y-eEn" id="NME-rl-MUa"/>
@@ -123,4 +104,10 @@
             <point key="canvasLocation" x="-84" y="69"/>
         </view>
     </objects>
+    <resources>
+        <image name="100RMB" width="65" height="60"/>
+        <image name="1RMB" width="65" height="60"/>
+        <image name="20RMB" width="65" height="60"/>
+        <image name="5RMB" width="65" height="60"/>
+    </resources>
 </document>

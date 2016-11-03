@@ -340,19 +340,28 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 创建打赏界面
 - (void)initPayView:(ZYJourneyLiveModel *)model {
     if (!self.payView && [self.liveModel.productId length] == 0) {
-        ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
-        payView.delegate = self;
+      //  ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
+      // payView.delegate = self;
+       // CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
+       // payView.frame = rect;
+     // [payView.layer setCornerRadius:10];
+        // [self.view addSubview:payView];
+        //self.payView = payView;
+        
+        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.journeyLiveModel];
+        travePayView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
-        payView.frame = rect;
-        [payView.layer setCornerRadius:10];
-        [self.view addSubview:payView];
-        self.payView = payView;
+        travePayView.frame = rect;
+        [travePayView.layer setCornerRadius:10];
+        travePayView.journeyDetailButton.hidden = YES;
+        [self.view addSubview:travePayView];
+        self.travePayView = travePayView;
     } else if (self.payView && [self.liveModel.productId length] == 0) {
         self.payView.hidden = NO;
     } else if (!self.travePayView && [self.liveModel.productId length] != 0) {
         ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.journeyLiveModel];
         travePayView.delegate = self;
-        CGRect rect = CGRectMake(0, KSCREEN_H - 200, KSCREEN_W, 200);
+        CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
         travePayView.frame = rect;
         [travePayView.layer setCornerRadius:10];
         [self.view addSubview:travePayView];
@@ -1543,6 +1552,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)clickTravePayBtnUKey:(NSInteger)moneyNumber style:(kLiveUserContributionStyle)style
 {
     WEAKSELF
+    self.travePayView.hidden = YES;
     NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
     self.payMoney = payMoney;
     NSDictionary *parameters= @{

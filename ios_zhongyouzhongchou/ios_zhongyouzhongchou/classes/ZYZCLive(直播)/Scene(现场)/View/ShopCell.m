@@ -63,7 +63,7 @@
 
 - (void)setModel:(ZYFootprintListModel *)model
 {
-//    _model = model;
+    _model = model;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
     if ([model.userName length] != 0) {
