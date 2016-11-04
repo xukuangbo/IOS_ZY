@@ -11,10 +11,9 @@
 #import "ZYCustomBlurView.h"
 #import "WalletHeadModel.h"
 #import "FXBlurView.h"
+#import "RACEXTScope.h"
 @interface WalletHeadView ()
 
-/* 模糊背景图*/
-@property (nonatomic, strong) FXBlurView *blurImageView;
 /* 转出余额 */
 @property (nonatomic, strong) UIButton *ZCMoneyButton;
 /* 钱包余额标题 */
@@ -28,6 +27,10 @@
 /* U币 */
 @property (nonatomic, strong) UILabel *UBLabel;
 
+//背景图三剑客
+@property (nonatomic, strong) UIImageView *blurImageView;
+@property (nonatomic, strong) UIView *blurColorView;
+@property (nonatomic, strong) FXBlurView *blurView;
 @end
 
 @implementation WalletHeadView
@@ -49,18 +52,9 @@
 {
     
     //模糊背景
-    UIImage *im = [UIImage imageNamed:@"head"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:im];
-    imageView.frame = self.bounds;
-    [self addSubview:imageView];
-    
-    FXBlurView *fxView = [[FXBlurView alloc] initWithFrame:self.bounds];
-    fxView.dynamic = NO;
-    fxView.blurRadius = 10;
-    fxView.tintColor = [UIColor clearColor];
-    [self addSubview:fxView];
-    
-    
+    _blurImageView = [[UIImageView alloc] init];
+    [_blurImageView sd_setImageWithURL:[NSURL URLWithString:[ZYZCAccountTool account].faceImg] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
+    [self addFXBlurView];
 //    _blurImageView = [[ZYCustomBlurView alloc] initWithFrame:self.bounds andBlurEffectStyle:UIBlurEffectStyleExtraLight andBlurColor:[UIColor ZYZC_MainColor] andBlurAlpha:0.2 andColorAlpha:0.8];
 //    _blurImageView.image = [UIImage imageNamed:@"head"];
 //    [self addSubview:_blurImageView];
@@ -94,13 +88,18 @@
     _UBLabel.textColor = [UIColor whiteColor];
     _UBLabel.text = @"0.00";
 
-    
+    [self addSubview:_blurImageView];
     [self addSubview:_ZCMoneyButton];
     [self addSubview:_balanceTitleLabel];
     [self addSubview:_balanceLabel];
     [self addSubview:_lineView];
     [self addSubview:_UBTitleLabel];
     [self addSubview:_UBLabel];
+    
+    //模糊背景图
+    [_blurImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self);
+    }];
     
     //转出
     [_ZCMoneyButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,6 +142,33 @@
     }];
     
 }
+
+-(void)addFXBlurView
+{
+    if (_blurView) {
+        [_blurView removeFromSuperview];
+        [_blurColorView removeFromSuperview];
+    }
+    //创建毛玻璃
+    _blurView = [[FXBlurView alloc] init];
+    [_blurView setDynamic:NO];
+    _blurView.blurRadius=10;
+    _blurColorView=[[UIView alloc] init];
+    _blurColorView.backgroundColor=[UIColor ZYZC_MainColor];
+    _blurColorView.alpha=0.7;
+    
+    [_blurImageView addSubview:_blurView];
+    [_blurImageView addSubview:_blurColorView];
+    
+    [_blurView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_blurImageView);
+    }];
+    
+    [_blurColorView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(_blurImageView);
+    }];
+}
+
 
 - (void)setModel:(WalletHeadModel *)model
 {
