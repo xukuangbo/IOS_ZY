@@ -340,19 +340,28 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 创建打赏界面
 - (void)initPayView:(ZYJourneyLiveModel *)model {
     if (!self.payView && [self.liveModel.productId length] == 0) {
-        ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
-        payView.delegate = self;
+      //  ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
+      // payView.delegate = self;
+       // CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
+       // payView.frame = rect;
+     // [payView.layer setCornerRadius:10];
+        // [self.view addSubview:payView];
+        //self.payView = payView;
+        
+        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.journeyLiveModel];
+        travePayView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
-        payView.frame = rect;
-        [payView.layer setCornerRadius:10];
-        [self.view addSubview:payView];
-        self.payView = payView;
+        travePayView.frame = rect;
+        [travePayView.layer setCornerRadius:10];
+        travePayView.journeyDetailButton.hidden = YES;
+        [self.view addSubview:travePayView];
+        self.travePayView = travePayView;
     } else if (self.payView && [self.liveModel.productId length] == 0) {
         self.payView.hidden = NO;
     } else if (!self.travePayView && [self.liveModel.productId length] != 0) {
         ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.journeyLiveModel];
         travePayView.delegate = self;
-        CGRect rect = CGRectMake(0, KSCREEN_H - 200, KSCREEN_W, 200);
+        CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
         travePayView.frame = rect;
         [travePayView.layer setCornerRadius:10];
         [self.view addSubview:travePayView];
@@ -656,13 +665,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 分享
 - (void)shareBtnAction:(UIButton *)sender
 {
-    MPMoviePlayerViewController *movie = [[MPMoviePlayerViewController alloc]initWithContentURL:[NSURL URLWithString:self.liveModel.pullUrl]];
-    [movie.moviePlayer prepareToPlay];
-    [self presentMoviePlayerViewControllerAnimated:movie];
-    [movie.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
-    [movie.view setBackgroundColor:[UIColor clearColor]];
-    [movie.view setFrame:self.view.bounds];
-   
+//    [self showAnimtion:@"5.0" imageNumber:37];
 }
 
 - (void)messageBtnAction:(UIButton *)sender
@@ -703,30 +706,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 - (void)praiseHeart{
-//    UIImageView *imageView = [[UIImageView alloc] init];
-//    imageView.frame = CGRectMake(self.watchLiveView.closeLiveButton.frame.origin.x , ScreenHeight - 90, 35, 35);
-//    imageView.backgroundColor = [UIColor clearColor];
-//    imageView.clipsToBounds = YES;
-//    [self.view addSubview:imageView];
-//    
-//    CGFloat startX = round(random() % (int)(kBounds.width * 0.5)) + 20;
-//    CGFloat scale = round(random() % 2) + 0.5;
-//    //    CGFloat speed = 1 / round(random() % 900) + 0.6;
-//    int imageName = round(random() % 7);
-//    NSLog(@"%.2f - %.2f -- %d",startX,scale,imageName);
-//    
-//    imageView.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
-//    [UIView animateKeyframesWithDuration:1.5 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
-//        imageView.frame = CGRectMake((kBounds.width - startX), kBounds.height * 0.5 , 35 * scale, 35 * scale);
-//    } completion:^(BOOL finished) {
-//        [UIView animateKeyframesWithDuration:1 delay:0 options:UIViewKeyframeAnimationOptionCalculationModeLinear | UIViewAnimationOptionCurveLinear animations:^{
-//            imageView.top = kBounds.height * 0.25;
-//            imageView.alpha = 0;
-//            
-//        } completion:^(BOOL finished) {
-//            [imageView removeFromSuperview];
-//        }];
-//    }];
     XTLoveHeartView *heart = [[XTLoveHeartView alloc]initWithFrame:CGRectMake(0, 0, 40, 40)];
     int imageName = round(random() % 7);
     heart.image = [UIImage imageNamed:[NSString stringWithFormat:@"heart%d.png",imageName]];
@@ -946,6 +925,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              NSDictionary *payDict = @{
                                        @"payHeaderUrl":[ZYZCAccountTool account].faceImg,
                                        @"payName":[ZYZCAccountTool account].realName,
+                                       @"payType":weakSelf.payMoney,
                                        @"extra":[NSString stringWithFormat:@"打赏主播%@元", weakSelf.payMoney]
                                        };
              
@@ -957,7 +937,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              
              //展示支付成功动画
              dispatch_async(dispatch_get_main_queue(), ^{
-                 [self.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
+                 [weakSelf.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
              });
          }else{
              [MBProgressHUD showError:@"支付失败!"];
@@ -1044,6 +1024,12 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         if ([textMessage.extra isEqualToString:@"打赏成功"]) {
             [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
             dispatch_async(dispatch_get_main_queue(), ^{
+                NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:content];
+                if ([dict[@"payType"] intValue] == 1) {
+                    [self showAnimtion:dict[@"payType"] imageNumber:11];
+                } else {
+                    [self showAnimtion:dict[@"payType"] imageNumber:37];
+                }
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
             return ;
@@ -1571,6 +1557,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)clickTravePayBtnUKey:(NSInteger)moneyNumber style:(kLiveUserContributionStyle)style
 {
     WEAKSELF
+    self.travePayView.hidden = YES;
     NSString *payMoney = [NSString stringWithFormat:@"%.1lf", moneyNumber / 10.0];
     self.payMoney = payMoney;
     NSDictionary *parameters= @{

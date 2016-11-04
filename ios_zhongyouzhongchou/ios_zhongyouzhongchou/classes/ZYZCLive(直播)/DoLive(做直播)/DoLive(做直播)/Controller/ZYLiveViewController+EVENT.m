@@ -371,24 +371,40 @@
     } andFailBlock:^(id failResult) {
         NSLog(@"aaaaaaa");
     }];
-
-//    WEAKSELF
-//    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
-//        if (isSuccess) {
-//            NSDictionary *dic = (NSDictionary *)result;
-//            NSDictionary *data = dic[@"data"];
-//            if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]){
-//                [weakSelf.personDataView.attentionButton setTitle:@"取消关注" forState:UIControlStateNormal];
-//            }
-//            MinePersonSetUpModel  *minePersonModel=[[MinePersonSetUpModel alloc] mj_setKeyValues:data[@"user"]];
-//            minePersonModel.gzMeAll = data[@"gzMeAll"];
-//            minePersonModel.meGzAll = data[@"meGzAll"];
-//            weakSelf.personDataView.minePersonModel = minePersonModel;
-//        } else {
-//            NSLog(@"bbbbbbb");
-//        }
-//    } andFailBlock:^(id failResult) {
-//        NSLog(@"aaaaaaa");
-//    }];
 }
+
+#pragma mark - animtion
+- (void)showAnimtion:(NSString *)payType imageNumber:(NSInteger)number
+{
+    int arc4randomNumber = arc4random() % 270 + 100;
+    int arc4randomWidth = arc4random() % 50;
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(arc4randomWidth, KSCREEN_H - arc4randomNumber * 16 / 9, arc4randomNumber, arc4randomNumber * 16 / 9)];
+    [self.view addSubview:imageView];
+    
+    //创建一个数组，数组中按顺序添加要播放的图片（图片为静态的图片）
+    NSInteger j;
+    NSMutableArray *imgArray = [NSMutableArray array];
+    for (int i=1; i < number + 5; i++) {
+        j = i;
+        if (i > number) {
+            j = number;
+        }
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%dyuan_%ld", [payType intValue], j]];
+        [imgArray addObject:image];
+    }
+    //把存有UIImage的数组赋给动画图片数组
+    imageView.animationImages = imgArray;
+    //设置执行一次完整动画的时长
+    imageView.animationDuration = 13*0.1;
+    //动画重复次数 （0为重复播放）
+    imageView.animationRepeatCount = 1;
+    //开始播放动画
+    [imageView startAnimating];
+    
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [self showAnimtion:payType imageNumber:number];
+//    });
+}
+
 @end

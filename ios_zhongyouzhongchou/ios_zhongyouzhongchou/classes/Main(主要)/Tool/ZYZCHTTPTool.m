@@ -72,18 +72,18 @@
     manager.responseSerializer.acceptableContentTypes =
     [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
     
-//    NSString *newUrl=URLString;
-//    if ([URLString hasSuffix:@".action"]) {
-//        newUrl=[URLString stringByAppendingString:@"?from=ios"];
-//    } else {
-//        newUrl=[URLString stringByAppendingString:@"&from=ios"];
-//    }
+    NSString *newUrl=URLString;
+    if ([URLString hasSuffix:@".action"]) {
+        newUrl=[URLString stringByAppendingString:@"?from=ios"];
+    } else {
+        newUrl=[URLString stringByAppendingString:@"&from=ios"];
+    }
     NSString *userId = [ZYZCAccountTool getUserId];
     if (![parameters objectForKey:@"userId"] && userId) {
         [parameters setValue:userId forKey:@"userId"];
     }
     
-    [manager GET:URLString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
+    [manager GET:newUrl parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
      {
      }
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
@@ -285,24 +285,24 @@
     NSMutableDictionary *strDic=[NSMutableDictionary dictionary];
     //时间戳
     NSString *timeStamp=[self getTimeStamp];
-    DDLog(@"timeStamp:%@",timeStamp);
+//    DDLog(@"timeStamp:%@",timeStamp);
     DDLog(@"time:%@",[ZYZCTool turnTimeStampToDate:timeStamp]);
     [strDic setObject:timeStamp forKey:@"timestamp"];
     //随机数
     NSString *nonceStr=[NSString stringWithFormat:@"%d",100000+ arc4random_uniform(899999)];
-    DDLog(@"nonceStr:%@",nonceStr);
+//    DDLog(@"nonceStr:%@",nonceStr);
     [strDic setObject:nonceStr forKey:@"nonceStr"];
     //fix
     NSArray *FIX =@[@"<",@">",@"(",@")",@"|",@"_",@"{",@"}",@"*",@"!"];
     int fixNum=arc4random_uniform((int)FIX.count-1);
     NSString *fix=FIX[fixNum];
-    DDLog(@"fix:%@,fixNum:%d",fix,fixNum);
+//    DDLog(@"fix:%@,fixNum:%d",fix,fixNum);
     [strDic setObject:[NSNumber numberWithInt:fixNum] forKey:@"fix"];
     //signature
     NSString *signature=[NSString stringWithFormat:@"%@%@%@%@%@%@%@",timeStamp,fix,nonceStr,fix,[ZYZCAccountTool getUserScret],fix,[self getTime]];
-    DDLog(@"signature:%@",signature);
+//    DDLog(@"signature:%@",signature);
     NSString *signature_md5=[self turnStrToMD5:signature];
-     DDLog(@"signature_md5:%@",signature_md5);
+//     DDLog(@"signature_md5:%@",signature_md5);
     [strDic setObject:signature_md5 forKey:@"signature"];
 
     if ([ZYZCAccountTool getUserId]) {

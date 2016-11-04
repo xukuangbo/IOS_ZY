@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '38E62801F31A903C015F4426'
+               BlueprintIdentifier = '23892203969FD3949031AD67'
                BlueprintName = 'GRKPageViewController'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libGRKPageViewController.a'>

@@ -20,9 +20,11 @@
 #import "WalletHeadModel.h"
 #import "FXBlurView.h"
 #import "WalletUserYbjVC.h"
+#import <ReactiveCocoa.h>
 static NSInteger KtxPageSize = 10;
 static NSInteger YbjPageSize = 10;
-@interface WalletHomeVC ()
+@interface WalletHomeVC ()<UIScrollViewDelegate>
+@property (nonatomic, strong) UIScrollView *scrollView;
 
 @property (nonatomic, strong) WalletHeadView *headView;
 
@@ -40,6 +42,7 @@ static NSInteger YbjPageSize = 10;
 
 @implementation WalletHomeVC
 
+#pragma mark - System Func
 - (instancetype)init
 {
     self = [super init];
@@ -49,49 +52,93 @@ static NSInteger YbjPageSize = 10;
     return self;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.navigationController.navigationBar.translucent = NO;
     
+    [self addNotis];
+    
     [self setUpSubviews];
     
     [self setUpTouchUpAction];
-    
     
     [self loadHeadViewData];
     [self.ktxTableView.mj_header beginRefreshing];
     [self.ybjTableView.mj_header beginRefreshing];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
-    
+    self.navigationController.navigationBar.translucent = NO;
 }
 
+- (void)dealloc
+{
+    [ZYNSNotificationCenter removeObserver:self];
+    
+    DDLog(@"%@被移除了",[self class]);
+}
 
+#pragma mark - Noti
+- (void)addNotis{
+    
+    //使用预备金成功
+    @weakify(self);
+    [[ZYNSNotificationCenter rac_addObserverForName:WalletUseYbjSuccessNoti object:nil] subscribeNext:^(NSNotification *noti) {
+        @strongify(self);
+        [self.ybjTableView scrollsToTop];
+        [self.ybjTableView.mj_header beginRefreshing];
+    }];
+    
+    //使用预备金失败
+    [[ZYNSNotificationCenter rac_addObserverForName:WalletUseYbjFailNoti object:nil] subscribeNext:^(NSNotification *noti) {
+        @strongify(self);
+        [self.ybjTableView scrollsToTop];
+        [self.ybjTableView.mj_header beginRefreshing];
+    }];
+}
+
+#pragma mark - SetUp UI
 /* 设置子视图 */
 - (void)setUpSubviews
 {
-    
     [self setBackItem];
+    
+    //    UIScrollView *view = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    scrollView.contentSize = CGSizeMake(KSCREEN_W * 2, 0);
+    scrollView.backgroundColor = [UIColor clearColor];
+    // 去掉滚动条
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.showsHorizontalScrollIndicator = NO;
+    // 设置分页
+    scrollView.pagingEnabled = YES;
+    // 设置代理
+    scrollView.delegate = self;
+    // 去掉弹簧效果
+    scrollView.bounces = NO;
+    [self.view addSubview:scrollView];
+    self.scrollView = scrollView;
     
     //两个tableview
     _ktxTableView=[[WalletKtxTableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     _ktxTableView.contentInset=UIEdgeInsetsMake(WalletHeadViewH + WalletSelectToolBarH, 0, KTABBAR_HEIGHT, 0);
     _ktxTableView.contentOffset = CGPointMake(0,- (WalletHeadViewH + WalletSelectToolBarH));
-    [self.view addSubview:_ktxTableView];
+    [self.scrollView addSubview:_ktxTableView];
     
-    _ybjTableView=[[WalletYbjTableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    CGFloat ybjTableViewX = KSCREEN_W;
+    CGFloat ybjTableViewY = 0;
+    CGFloat ybjTableViewW = KSCREEN_W;
+    CGFloat ybjTableViewH = self.view.height - WalletYbjBottomBarH;
+    _ybjTableView=[[WalletYbjTableView alloc] initWithFrame:CGRectMake(ybjTableViewX, ybjTableViewY, ybjTableViewW, ybjTableViewH) style:UITableViewStylePlain];
     _ybjTableView.contentInset=UIEdgeInsetsMake(WalletHeadViewH + WalletSelectToolBarH, 0, KTABBAR_HEIGHT, 0);
     _ybjTableView.contentOffset = CGPointMake(0,- (WalletHeadViewH + WalletSelectToolBarH));
-    [self.view addSubview:_ybjTableView];
-    _ybjTableView.hidden = YES;
-    
+    [self.scrollView addSubview:_ybjTableView];
     
     //头视图
     _headView = [[WalletHeadView alloc] initWithFrame:CGRectMake(0, 0, KSCREEN_W, WalletHeadViewH)];
@@ -105,16 +152,11 @@ static NSInteger YbjPageSize = 10;
     
     //预备金底部视图
     _ybjBottomBar = [[WalletYbjBottomBar alloc] init];
-    _ybjBottomBar.frame = CGRectMake(0, KSCREEN_H - WalletYbjBottomBarH - KNAV_HEIGHT, KSCREEN_W, WalletYbjBottomBarH);
-    _ybjBottomBar.hidden = YES;
-    [self.view addSubview:_ybjBottomBar];
+    _ybjBottomBar.frame = CGRectMake(KSCREEN_W, KSCREEN_H - WalletYbjBottomBarH - KNAV_HEIGHT, KSCREEN_W, WalletYbjBottomBarH);
+    [self.scrollView addSubview:_ybjBottomBar];
     
 }
 
-- (void)dealloc
-{
-    DDLog(@"%@被移除了",[self class]);
-}
 #pragma mark - RequestData
 - (void)loadHeadViewData
 {
@@ -287,14 +329,8 @@ static NSInteger YbjPageSize = 10;
     
     //切换视图
     _selectToolBar.selectBlock = ^(WalletSelectType type){
-        if (type == WalletSelectTypeKTX) {
-            weakSelf.ktxTableView.hidden = NO;
-            weakSelf.ybjTableView.hidden = weakSelf.ybjBottomBar.hidden = YES;
-        }else{
-            weakSelf.ktxTableView.hidden = YES;
-            weakSelf.ybjTableView.hidden = weakSelf.ybjBottomBar.hidden = NO;
-        }
-        //然后请求数据
+        
+        [weakSelf.scrollView setContentOffset:CGPointMake((type - 200) * KSCREEN_W, 0) animated:YES];
     };
     
     //ktxTableview
@@ -353,10 +389,10 @@ static NSInteger YbjPageSize = 10;
     
     _ybjBottomBar.walletYbjBottomBarSelectBlock = ^(){
         WalletUserYbjVC *userYbjVC = [[WalletUserYbjVC alloc] init];
+        userYbjVC.dic = weakSelf.ybjTableView.selectDic;
         [weakSelf.navigationController pushViewController:userYbjVC animated:YES];
     };
 }
-#pragma mark - 通知
 
 
 #pragma mark - 项目的table滑动
@@ -411,4 +447,15 @@ static NSInteger YbjPageSize = 10;
     }
 }
 
+
+#pragma mark - ScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat page = scrollView.contentOffset.x / KSCREEN_W;
+    CGFloat offsetX = scrollView.contentOffset.x / KSCREEN_W * (self.selectToolBar.width * 0.5)  + self.selectToolBar.width * 0.25;
+    
+    self.selectToolBar.lineView.centerX = offsetX;
+    
+    self.selectToolBar.selectType = (int)(page + 0.5 + 200);
+}
 @end

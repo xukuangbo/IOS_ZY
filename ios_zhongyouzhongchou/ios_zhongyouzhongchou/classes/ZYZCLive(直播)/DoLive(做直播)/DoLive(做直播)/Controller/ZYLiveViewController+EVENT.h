@@ -24,4 +24,6 @@
 - (void)shareBtnAction:(UIButton *)sender;
 
 -(void)showInputBar:(id)sender;
+// 显示动画
+- (void)showAnimtion:(NSString *)payType imageNumber:(NSInteger)number;
 @end

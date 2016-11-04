@@ -12,6 +12,7 @@
 #import "WalletYbjModel.h"
 #import "WalletHomeVC.h"
 #import "WalletYbjBottomBar.h"
+#import <ReactiveCocoa.h>
 static NSString *cellID = @"WalletYbjCell";
 
 @implementation WalletYbjTableView
@@ -27,8 +28,7 @@ static NSString *cellID = @"WalletYbjCell";
         
         [self registerNib:[UINib nibWithNibName:@"WalletYbjCell" bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellID];
         
-        //注册通知
-        [ZYNSNotificationCenter addObserver:self selector:@selector(selectCellAction:) name:WalletYbjSelectNotification object:nil];
+        [self addNotis];
     }
     return self;
 }
@@ -38,6 +38,34 @@ static NSString *cellID = @"WalletYbjCell";
     [ZYNSNotificationCenter removeObserver:self];
     
     DDLog(@"%@已经被移除", [self class]);
+}
+
+- (void)addNotis{
+    
+    //选择了预备金
+    [[ZYNSNotificationCenter rac_addObserverForName:WalletYbjSelectNotification object:nil] subscribeNext:^(NSNotification *noti) {
+        
+        WalletYbjCell *cell = (WalletYbjCell *)noti.object;
+        NSIndexPath *indexPath = [self indexPathForCell:cell];
+        WalletYbjModel *model = self.dataArr[indexPath.row];
+        NSString *key = model.id;
+        
+        //1.需要修改model的yes或者no值
+        model.status = cell.selectButton.selected == YES? 3:0;
+        
+        //2.增加或者删除key
+        if (cell.selectButton.selected == YES) {//选中
+            //赋值
+            [self.selectDic setValue:cell.totalMoney forKey:key];
+        }else{//取消
+            [self.selectDic removeObjectForKey:key];
+        }
+        
+        //3.判断是否有key来设置颜色
+        WalletHomeVC *homeVC = (WalletHomeVC *)self.viewController;
+        [homeVC.ybjBottomBar changeUIWithDic:self.selectDic];
+    }];
+    
 }
 
 
@@ -72,9 +100,6 @@ static NSString *cellID = @"WalletYbjCell";
     return WalletYbjCellH;
 }
 
-
-
-
 #pragma mark --- 置顶按钮状态变化
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
@@ -106,10 +131,10 @@ static NSString *cellID = @"WalletYbjCell";
 {
     WalletYbjCell *cell = (WalletYbjCell *)noti.object;
     NSIndexPath *indexPath = [self indexPathForCell:cell];
-    NSString *key = [NSString stringWithFormat:@"%zd",indexPath.row];
+    WalletYbjModel *model = self.dataArr[indexPath.row];
+    NSString *key = model.id;
     
     //1.需要修改model的yes或者no值
-    WalletYbjModel *model = self.dataArr[indexPath.row];
     model.status = cell.selectButton.selected == YES? 3:0;
     
     //2.增加或者删除key

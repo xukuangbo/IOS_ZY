@@ -41,6 +41,25 @@
     CGSize maxSize = CGSizeMake(maxW, MAXFLOAT);
     return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
 }
+#pragma mark - 获取大小写属性文本格式
++ (NSMutableAttributedString *)getAttributesString:(CGFloat )number withRMBFont:(NSInteger)RMBFont withBigFont:(NSInteger)BigFont withSmallFont:(NSInteger)SmallFont withTextColor:(UIColor *)Color{
+    //2.53
+    NSString *numberString = [NSString stringWithFormat:@"%.2f",number];
+    //¥2.53
+    NSString *totalString = [NSString stringWithFormat:@"¥%@",numberString];
+    //¥2.53
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:totalString];
+    //[2,53]
+    NSArray *strArray = [numberString componentsSeparatedByString:@"."];
+    
+    [attrString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:RMBFont] range:NSMakeRange(0, 1)];
+    [attrString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:BigFont] range:[totalString rangeOfString:strArray[0]]];
+    [attrString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:SmallFont] range:[totalString rangeOfString:[NSString stringWithFormat:@".%@",strArray[1]] options:NSBackwardsSearch]];
+    if (Color) {
+        [attrString addAttribute:NSForegroundColorAttributeName value:Color range:NSMakeRange(0, totalString.length)];
+    }
+    return attrString;
+}
 
 #pragma mark --- 设置文字间距
 +(NSMutableAttributedString *)setLineDistenceInText:(NSString *)text

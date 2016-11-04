@@ -8,7 +8,6 @@
 
 #import "WalletSelectToolBar.h"
 @interface WalletSelectToolBar ()
-@property (nonatomic, strong) UIView *lineView;
 @property (weak, nonatomic) IBOutlet UIButton *ktxBtn;
 @property (weak, nonatomic) IBOutlet UIButton *ybjBtn;
 - (IBAction)selectBtnAction:(UIButton *)sender;
@@ -79,15 +78,32 @@
             _selectBlock(sender.tag);
         }
         
-        
-        
-        [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            
-            _lineView.centerX = sender.centerX;
-            
-        } completion:nil];
+//        使下划线具有弹簧效果
+//        [UIView animateWithDuration:0.8 delay:0 usingSpringWithDamping:0.5 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//            
+//            _lineView.centerX = sender.centerX;
+//            
+//        } completion:nil];
         
     }
+    
+}
+
+- (void)setSelectType:(WalletSelectType)selectType{
+    _selectType = selectType;
+    
+    if (selectType == WalletSelectTypeKTX) {
+        _pressBtn = _ktxBtn;
+        //改颜色
+        [_ktxBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
+        [_ybjBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    }else{
+        _pressBtn = _ybjBtn;
+        [_ybjBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
+        [_ktxBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    }
+    
+    
     
 }
 

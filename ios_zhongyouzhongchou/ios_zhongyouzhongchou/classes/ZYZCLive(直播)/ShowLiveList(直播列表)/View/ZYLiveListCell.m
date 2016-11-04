@@ -17,7 +17,7 @@
 {
     UIImageView *_bgView;//背景
     UIImageView *_viewImg;//封面
-    UILabel *_liveStatusLabel;//直播状态
+    UIImageView *_liveStatusImage;//直播状态
     
     UIView *_bottomBar;//底部容器
     ZCDetailCustomButton *_iconImageView;//头像
@@ -70,24 +70,20 @@
     _viewImg.image = [UIImage imageNamed:@"image_placeholder"];
     
     //直播状态
-    _liveStatusLabel = [UILabel new];
-    [_bgView addSubview:_liveStatusLabel];
-    CGFloat liveStatusLabelH = 23;
-    _liveStatusLabel.font = [UIFont systemFontOfSize:13.0];
-    _liveStatusLabel.backgroundColor = [UIColor blackColor];
-    _liveStatusLabel.alpha = 0.3;
-    [_liveStatusLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+    _liveStatusImage = [UIImageView new];
+    [_bgView addSubview:_liveStatusImage];
+    [_liveStatusImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(_bgView).offset(10);
         make.right.equalTo(_bgView).offset(-10);
-        make.height.mas_equalTo(liveStatusLabelH);
-        make.width.mas_equalTo(60);
+        make.height.mas_equalTo(15.5);
+        make.width.mas_equalTo(40);
     }];
-    _liveStatusLabel.layerBorderWidth = 1;
-    _liveStatusLabel.font = [UIFont systemFontOfSize:15];
-    _liveStatusLabel.textColor = [UIColor whiteColor];
-    _liveStatusLabel.layerCornerRadius = liveStatusLabelH * 0.5;
-    _liveStatusLabel.layerBorderColor = [UIColor whiteColor];
-    _liveStatusLabel.textAlignment = NSTextAlignmentCenter;
+    // _liveStatusLabel.layerBorderWidth = 1;
+    // _liveStatusLabel.font = [UIFont systemFontOfSize:15];
+    // _liveStatusLabel.textColor = [UIColor whiteColor];
+    // _liveStatusLabel.layerCornerRadius = liveStatusLabelH * 0.5;
+    // _liveStatusLabel.layerBorderColor = [UIColor whiteColor];
+    // _liveStatusLabel.textAlignment = NSTextAlignmentCenter;
     
     //底部容器
     _bottomBar = [UIView new];
@@ -171,9 +167,9 @@
     //状态
     if (model.event.length > 0) {
         if ([model.event isEqualToString:@"publish"]) {
-            _liveStatusLabel.text = @"看直播";
+            _liveStatusImage.image = [UIImage imageNamed:@"look_live"];
         }else{//publish_done
-            _liveStatusLabel.text = @"看回放";
+            _liveStatusImage.image = [UIImage imageNamed:@"look_playback"];
         }
     }
     

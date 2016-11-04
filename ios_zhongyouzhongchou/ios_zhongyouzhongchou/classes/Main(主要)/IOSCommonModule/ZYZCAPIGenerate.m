@@ -81,7 +81,7 @@ static NSString* const apiFileExtension = @"json";
     
     control  =  [dic objectForKey:@"control"] ? [dic objectForKey:@"control"] : @" ";
     action   =  [dic objectForKey:@"action"] ? [dic objectForKey:@"action"] : @" ";
-    NSString* apiUrl = [NSString stringWithFormat:@"%@://%@/%@/%@?",apiProtocol,host,control,action];
+    NSString* apiUrl = [NSString stringWithFormat:@"%@://%@/%@/%@",apiProtocol,host,control,action];
     return apiUrl;
 }
 // 获取baseUrl
@@ -109,7 +109,8 @@ static NSString* const apiFileExtension = @"json";
         }
             break;
         case kLinkServerTypeOfHuaZi: {
-            return @"192.168.11.132:8086";
+//            return @"121.40.225.119:8080";
+            return @"192.168.1.112:8086";
         }
             break;
             
