@@ -21,19 +21,7 @@
 -(void)configUI
 {
     [super configUI];
-//    [self.lineView removeFromSuperview];
-    [self.limitLab removeFromSuperview];
+    self.limitLab.hidden=YES;
 }
-
--(void)supportMoney
-{
-    if (!self.chooseSupport) {
-        [MBProgressHUD showError:@"此选项只能支持一次"];
-        return;
-    }
-    
-    [super supportMoney];
-}
-
 
 @end

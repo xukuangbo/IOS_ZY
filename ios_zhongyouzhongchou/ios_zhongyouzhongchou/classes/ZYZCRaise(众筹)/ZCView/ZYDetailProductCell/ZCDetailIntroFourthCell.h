@@ -8,9 +8,11 @@
 
 #import "MoreFZCBaseTableViewCell.h"
 #import "ZCDetailModel.h"
-
+#import "ZCListModel.h"
 @interface ZCDetailIntroFourthCell : MoreFZCBaseTableViewCell
 
 @property (nonatomic, strong) ZCDetailProductModel *detailModel;
+//记录众筹详情是从哪里来的
+@property (nonatomic, assign) DetailProductType     detailProductType;
 
 @end
