@@ -263,6 +263,8 @@
 		2C5159A91D8641B20048BD20 /* Mp3RecordWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C51599F1D8641B20048BD20 /* Mp3RecordWriter.m */; };
 		2C5A78561DB85982003E2743 /* ZYBaseLimitTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */; };
 		2C6739981DAFA219000C7E3C /* QPSDKCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C6739971DAFA219000C7E3C /* QPSDKCore.framework */; };
+		2C6CD4391DC9BFF4005BE284 /* SupportStateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6CD4381DC9BFF4005BE284 /* SupportStateModel.m */; };
+		2C6CD43C1DC9EF64005BE284 /* ZCSupportMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6CD43B1DC9EF64005BE284 /* ZCSupportMoneyView.m */; };
 		2C6EDE9D1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EDE9C1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m */; };
 		2C79606C1D0A74940026C9F6 /* MyReturnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */; };
 		2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */; };
@@ -371,7 +373,6 @@
 		2CD6B8C91DA9DDB700B7E60A /* ZCDetailIntroFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B8BB1DA9DDB700B7E60A /* ZCDetailIntroFirstCell.m */; };
 		2CD6B8CA1DA9DDB700B7E60A /* ZCDetailIntroSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B8BD1DA9DDB700B7E60A /* ZCDetailIntroSecondCell.m */; };
 		2CD6B8CB1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B8BF1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.m */; };
-		2CD6B8CC1DA9DDB700B7E60A /* ZCDetailReturnFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B8C11DA9DDB700B7E60A /* ZCDetailReturnFirstCell.m */; };
 		2CD6B8CD1DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B8C31DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m */; };
 		2CD6B8CE1DA9DDB700B7E60A /* ZCDetailReturnSecondCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B8C51DA9DDB700B7E60A /* ZCDetailReturnSecondCell.m */; };
 		2CD6B8CF1DA9DDB700B7E60A /* ZCDetailReturnThridCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B8C71DA9DDB700B7E60A /* ZCDetailReturnThridCell.m */; };
@@ -490,6 +491,8 @@
 		2CE6177B1D657DD100962163 /* UIImage+HUExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE617661D657DD100962163 /* UIImage+HUExtension.m */; };
 		2CE6177C1D657DD100962163 /* UIImageView+HUWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE617681D657DD100962163 /* UIImageView+HUWebImage.m */; };
 		2CE852961D20BE1D00820FF1 /* CommentUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE852951D20BE1D00820FF1 /* CommentUserCell.m */; };
+		2CE8E2101DCAD1F2008F317B /* ZCDetailReturnFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8E20F1DCAD1F2008F317B /* ZCDetailReturnFirstCell.m */; };
+		2CE8E2131DCAD447008F317B /* ZYDetailReturnFirstCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CE8E2121DCAD447008F317B /* ZYDetailReturnFirstCell.m */; };
 		2CEBE5521D631A0700E423C7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CEBE46F1D6315A100E423C7 /* AVFoundation.framework */; };
 		2CF305101D3DC716008296EC /* JudgeAuthorityTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF3050F1D3DC716008296EC /* JudgeAuthorityTool.m */; };
 		2CF6832A1D2383D300447349 /* ComplainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CF683291D2383D300447349 /* ComplainViewController.m */; };
@@ -1158,6 +1161,10 @@
 		2C5A78541DB85982003E2743 /* ZYBaseLimitTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYBaseLimitTextField.h; sourceTree = "<group>"; };
 		2C5A78551DB85982003E2743 /* ZYBaseLimitTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBaseLimitTextField.m; sourceTree = "<group>"; };
 		2C6739971DAFA219000C7E3C /* QPSDKCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QPSDKCore.framework; sourceTree = "<group>"; };
+		2C6CD4371DC9BFF4005BE284 /* SupportStateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SupportStateModel.h; sourceTree = "<group>"; };
+		2C6CD4381DC9BFF4005BE284 /* SupportStateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SupportStateModel.m; sourceTree = "<group>"; };
+		2C6CD43A1DC9EF64005BE284 /* ZCSupportMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCSupportMoneyView.h; sourceTree = "<group>"; };
+		2C6CD43B1DC9EF64005BE284 /* ZCSupportMoneyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCSupportMoneyView.m; sourceTree = "<group>"; };
 		2C6EDE9B1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailIntroFourthCell.h; sourceTree = "<group>"; };
 		2C6EDE9C1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailIntroFourthCell.m; sourceTree = "<group>"; };
 		2C72BCC21CB7A36300E733F2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
@@ -1372,8 +1379,6 @@
 		2CD6B8BD1DA9DDB700B7E60A /* ZCDetailIntroSecondCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailIntroSecondCell.m; sourceTree = "<group>"; };
 		2CD6B8BE1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailIntroThirdCell.h; sourceTree = "<group>"; };
 		2CD6B8BF1DA9DDB700B7E60A /* ZCDetailIntroThirdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailIntroThirdCell.m; sourceTree = "<group>"; };
-		2CD6B8C01DA9DDB700B7E60A /* ZCDetailReturnFirstCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailReturnFirstCell.h; sourceTree = "<group>"; };
-		2CD6B8C11DA9DDB700B7E60A /* ZCDetailReturnFirstCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailReturnFirstCell.m; sourceTree = "<group>"; };
 		2CD6B8C21DA9DDB700B7E60A /* ZCDetailReturnFourthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailReturnFourthCell.h; sourceTree = "<group>"; };
 		2CD6B8C31DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailReturnFourthCell.m; sourceTree = "<group>"; };
 		2CD6B8C41DA9DDB700B7E60A /* ZCDetailReturnSecondCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailReturnSecondCell.h; sourceTree = "<group>"; };
@@ -1596,6 +1601,10 @@
 		2CE617681D657DD100962163 /* UIImageView+HUWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+HUWebImage.m"; sourceTree = "<group>"; };
 		2CE852941D20BE1D00820FF1 /* CommentUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentUserCell.h; sourceTree = "<group>"; };
 		2CE852951D20BE1D00820FF1 /* CommentUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentUserCell.m; sourceTree = "<group>"; };
+		2CE8E20E1DCAD1F2008F317B /* ZCDetailReturnFirstCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailReturnFirstCell.h; sourceTree = "<group>"; };
+		2CE8E20F1DCAD1F2008F317B /* ZCDetailReturnFirstCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailReturnFirstCell.m; sourceTree = "<group>"; };
+		2CE8E2111DCAD447008F317B /* ZYDetailReturnFirstCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDetailReturnFirstCell.h; sourceTree = "<group>"; };
+		2CE8E2121DCAD447008F317B /* ZYDetailReturnFirstCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDetailReturnFirstCell.m; sourceTree = "<group>"; };
 		2CEBE46F1D6315A100E423C7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2CF3050E1D3DC716008296EC /* JudgeAuthorityTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JudgeAuthorityTool.h; sourceTree = "<group>"; };
 		2CF3050F1D3DC716008296EC /* JudgeAuthorityTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JudgeAuthorityTool.m; sourceTree = "<group>"; };
@@ -3863,6 +3872,8 @@
 				2CD208B21D6D3E26005EB62E /* ZCSpotVideoModel.m */,
 				2CD208B31D6D3E26005EB62E /* ZYZCViewSpotModel.h */,
 				2CD208B41D6D3E26005EB62E /* ZYZCViewSpotModel.m */,
+				2C6CD4371DC9BFF4005BE284 /* SupportStateModel.h */,
+				2C6CD4381DC9BFF4005BE284 /* SupportStateModel.m */,
 			);
 			path = ZCModel;
 			sourceTree = "<group>";
@@ -3944,8 +3955,8 @@
 				2C46C1A51DC8734E006C613A /* ZCDetailIntroFifthCell.m */,
 				2CD6B8B81DA9DDB700B7E60A /* ZCDetailArrangeFirstCell.h */,
 				2CD6B8B91DA9DDB700B7E60A /* ZCDetailArrangeFirstCell.m */,
-				2CD6B8C01DA9DDB700B7E60A /* ZCDetailReturnFirstCell.h */,
-				2CD6B8C11DA9DDB700B7E60A /* ZCDetailReturnFirstCell.m */,
+				2CE8E20E1DCAD1F2008F317B /* ZCDetailReturnFirstCell.h */,
+				2CE8E20F1DCAD1F2008F317B /* ZCDetailReturnFirstCell.m */,
 				2CD6B8C41DA9DDB700B7E60A /* ZCDetailReturnSecondCell.h */,
 				2CD6B8C51DA9DDB700B7E60A /* ZCDetailReturnSecondCell.m */,
 				2CD6B8C61DA9DDB700B7E60A /* ZCDetailReturnThridCell.h */,
@@ -3954,6 +3965,8 @@
 				2CD6B8C31DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m */,
 				2C3178461DAA41340042B5DB /* ZYDetailIUserInfoCell.h */,
 				2C3178471DAA41340042B5DB /* ZYDetailIUserInfoCell.m */,
+				2CE8E2111DCAD447008F317B /* ZYDetailReturnFirstCell.h */,
+				2CE8E2121DCAD447008F317B /* ZYDetailReturnFirstCell.m */,
 			);
 			path = ZYDetailProductCell;
 			sourceTree = "<group>";
@@ -3998,6 +4011,8 @@
 				2CD6B9111DA9E2D900B7E60A /* ZYDetailUserInfoView.h */,
 				2CD6B9121DA9E2D900B7E60A /* ZYDetailUserInfoView.m */,
 				2CD6B9161DA9E34500B7E60A /* ZYDetailUserInfoView.xib */,
+				2C6CD43A1DC9EF64005BE284 /* ZCSupportMoneyView.h */,
+				2C6CD43B1DC9EF64005BE284 /* ZCSupportMoneyView.m */,
 			);
 			path = BaseView;
 			sourceTree = "<group>";
@@ -5827,6 +5842,7 @@
 				39AABC971D717B3E00D25B16 /* LiveDetailHeadView.m in Sources */,
 				2CDE662E1DA64D7A0066F49D /* QPCutBarView.m in Sources */,
 				391872141DC08CBE00484711 /* WalletKtxCell.m in Sources */,
+				2CE8E2131DCAD447008F317B /* ZYDetailReturnFirstCell.m in Sources */,
 				392AB2981D669C26003FEDB7 /* RCDLiveMessageModel.m in Sources */,
 				2CB05D071D93E34100A1B731 /* ZYStartPublishFootprintCell.m in Sources */,
 				2CC5FD781D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m in Sources */,
@@ -5904,6 +5920,7 @@
 				2CDE67471DA652380066F49D /* QPEffectLoadMoreCell.m in Sources */,
 				2CDE66851DA64EB70066F49D /* JSONHTTPClient.m in Sources */,
 				2C5159A41D8641B20048BD20 /* AmrRecordWriter.m in Sources */,
+				2C6CD4391DC9BFF4005BE284 /* SupportStateModel.m in Sources */,
 				2CD2092C1D6D3E27005EB62E /* ZCWebViewController.m in Sources */,
 				2CD6B8CA1DA9DDB700B7E60A /* ZCDetailIntroSecondCell.m in Sources */,
 				2C1B60E41D6D3CF900E3C25B /* MoreFZCToolBar.m in Sources */,
@@ -5980,6 +5997,7 @@
 				04F6854F1CF57CD900E1A98E /* MinePersonSetUpModel.m in Sources */,
 				2C7FC2AF1D229706000FDFDE /* CommentPersonListController.m in Sources */,
 				399E94261D38E20C006E1B68 /* NetWorkManager.m in Sources */,
+				2C6CD43C1DC9EF64005BE284 /* ZCSupportMoneyView.m in Sources */,
 				2CE852961D20BE1D00820FF1 /* CommentUserCell.m in Sources */,
 				393C29381D45A0EA00B64551 /* AboutTousuVC.m in Sources */,
 				3910CE701D35D6F4004D7578 /* TacticMoreJieshaoVC.m in Sources */,
@@ -6064,6 +6082,7 @@
 				39911ABD1D5038E2007DF44B /* TacticGeneralModel.m in Sources */,
 				2CD1E6111DA78A5D008E4203 /* VideoService.m in Sources */,
 				2C066A671D87937B0048FAE4 /* MLDataResponseSerializer.m in Sources */,
+				2CE8E2101DCAD1F2008F317B /* ZCDetailReturnFirstCell.m in Sources */,
 				2CDE66D71DA650A80066F49D /* QPFocusView.m in Sources */,
 				2C8B19731D0CF7EC0063097B /* JGProgressHUDFadeZoomAnimation.m in Sources */,
 				39911AB01D5038B2007DF44B /* TacticSingleFoodVC.m in Sources */,
@@ -6328,7 +6347,6 @@
 				04FCCAAC1CDC454C00540B28 /* TacticMoreVideosController.m in Sources */,
 				0509693E1DCB0D3300128766 /* ZYWatchLiveView.m in Sources */,
 				2C1B60D31D6D3CF900E3C25B /* NecessoryAlertManager.m in Sources */,
-				2CD6B8CC1DA9DDB700B7E60A /* ZCDetailReturnFirstCell.m in Sources */,
 				392AB28C1D669C26003FEDB7 /* RCDLiveInputBar.m in Sources */,
 				394C2A721DB9B4E100821F78 /* WalletHeadView.m in Sources */,
 				39911ADD1D5044A8007DF44B /* ZYZCOSSManager.m in Sources */,

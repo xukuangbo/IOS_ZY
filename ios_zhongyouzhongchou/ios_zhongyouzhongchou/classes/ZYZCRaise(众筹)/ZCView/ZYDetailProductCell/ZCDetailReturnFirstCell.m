@@ -88,7 +88,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayResult:) name:@"getPayResult" object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanSupportUI) name:@"support_Style4_Success" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cleanSupportUI) name:@"Support_Style4_ZeroYuan_Success" object:nil];
 
  }
 

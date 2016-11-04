@@ -48,13 +48,6 @@
 
 -(void)supportMoney
 {
-    if( self.productEndTime)
-    {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:ZYLocalizedString(@"not_support_width_product_end_time") delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        return;
-    }
-
     if (!self.chooseSupport) {
         if (self.mySelf) {
             [MBProgressHUD showError:@"此选项不可参与"];
@@ -66,6 +59,5 @@
     }
     [super supportMoney];
 }
-
 
 @end

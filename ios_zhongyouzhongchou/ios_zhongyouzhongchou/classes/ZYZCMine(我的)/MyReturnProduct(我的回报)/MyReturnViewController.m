@@ -129,7 +129,7 @@
         [parameter setValue:@"1" forKey:@"self"];
         [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
         [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
-        [parameter setValue:@"0" forKey:@"status_not"];
+        [parameter setValue:@"0" forKey:@"status"];
         [parameter setValue:@"10" forKey:@"pageSize"];
     }
     
@@ -137,7 +137,7 @@
     
 //    NSLog(@"_table.productType:%ld",_table.productType);
     
-//    NSLog(@"httpUrl%@",httpUrl);
+//    NSLog(@"httpUrl：%@",httpUrl);
     if (!_hasEnterView) {
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         _hasEnterView=YES;

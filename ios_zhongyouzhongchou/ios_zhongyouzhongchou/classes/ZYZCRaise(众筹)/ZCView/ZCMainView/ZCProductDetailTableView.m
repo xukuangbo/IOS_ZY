@@ -19,6 +19,7 @@
 //行程部分cells
 #import "ZCDetailArrangeFirstCell.h"
 //回报部分cells
+#import "ZYDetailReturnFirstCell.h"
 #import "ZCDetailReturnFirstCell.h"
 #import "ZCDetailReturnSecondCell.h"
 #import "ZCDetailReturnThridCell.h"
@@ -100,7 +101,7 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPay) name:kGetPayResultNotification object:nil];
 
         //支付0元时的通知
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMySelfInStyle4) name:@"support_Style4_Success" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMySelfInStyle4) name:@"Support_Style4_ZeroYuan_Success" object:nil];
     }
     return self;
 }
@@ -228,6 +229,7 @@
             {
                 NSString *introFourthCellId=@"introFourthCell";
                 ZCDetailIntroFourthCell *introFourthCell=(ZCDetailIntroFourthCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introFourthCellId andCellClass:[ZCDetailIntroFourthCell class]];
+                introFourthCell.detailProductType=_detailProductType;
                 introFourthCell.detailModel =_detailModel.detailProductModel;
                 return  introFourthCell;
             }
@@ -235,6 +237,7 @@
             {
                 NSString *introFifthCellId=@"introFifthCell";
                 ZCDetailIntroFifthCell *introFifthCell=(ZCDetailIntroFifthCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:introFifthCellId andCellClass:[ZCDetailIntroFifthCell class]];
+                introFifthCell.detailProductType=_detailProductType;
                 introFifthCell.detailModel =_detailModel.detailProductModel;
                 return  introFifthCell;
             }
@@ -282,12 +285,9 @@
         {
             if (indexPath.row==0&&_hasSupportView) {
                 NSString *returnFirstCellId=@"returnFirstCell";
-                ZCDetailReturnFirstCell *returnFirstCell=(ZCDetailReturnFirstCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:returnFirstCellId andCellClass:[ZCDetailReturnFirstCell class]];
+                ZYDetailReturnFirstCell *returnFirstCell=(ZYDetailReturnFirstCell *)[ZYZCBaseTableViewCell customTableView:tableView cellWithIdentifier:returnFirstCellId andCellClass:[ZYDetailReturnFirstCell class]];
                 returnFirstCell.detailProductType=_detailProductType;
-                
                 returnFirstCell.cellModel=_detailModel.detailProductModel;
-                _returnFirstCell=returnFirstCell;
-
                 return returnFirstCell;
             }
             else if (indexPath.row==2*_hasHotComment &&indexPath.row !=0)

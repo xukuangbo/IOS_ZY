@@ -50,7 +50,7 @@
 -(void)configCAF_UI
 {
     _hasGetUI=YES;
-    _voiceView=[[UIImageView alloc]initWithFrame:CGRectMake(_iconImg.right +KEDGE_DISTANCE, self.height-38, 50, 38)];
+    _voiceView=[[UIImageView alloc]initWithFrame:CGRectMake(_iconImg.right +KEDGE_DISTANCE, 2, 50, 38)];
     _voiceView.image=KPULLIMG(@"voiceIcon",0,10,0,5);
     [self addSubview:_voiceView];
     _voiceView.userInteractionEnabled=YES;
@@ -72,7 +72,7 @@
     
     
     //    语音时长
-    _timeLab=[[UILabel alloc]initWithFrame:CGRectMake(_voiceView.right+KEDGE_DISTANCE, self.height-30, self.width-_voiceView.right-KEDGE_DISTANCE, 30)];
+    _timeLab=[[UILabel alloc]initWithFrame:CGRectMake(_voiceView.right+KEDGE_DISTANCE,10, self.width-_voiceView.right-KEDGE_DISTANCE, 30)];
     _timeLab.font=[UIFont systemFontOfSize:15];
     _timeLab.textColor=[UIColor ZYZC_TextGrayColor04];
     [self addSubview:_timeLab];
@@ -83,12 +83,12 @@
 -(void)configAMR_UI
 {
     _hasGetUI=YES;
-    _playVoiceBtn=[[MLPlayVoiceButton alloc]initWithFrame:CGRectMake(_iconImg.right +KEDGE_DISTANCE, self.height-38, 50, 38)];
+    _playVoiceBtn=[[MLPlayVoiceButton alloc]initWithFrame:CGRectMake(_iconImg.right +KEDGE_DISTANCE, 2, 50, 38)];
     [_playVoiceBtn setBackgroundImage:KPULLIMG(@"voiceIcon",0,10,0,5) forState:UIControlStateNormal];
     [self addSubview:_playVoiceBtn];
     
     //语音时长
-    _timeLab=[[UILabel alloc]initWithFrame:CGRectMake(_playVoiceBtn.right+KEDGE_DISTANCE, self.height-30, self.width-_playVoiceBtn.right-KEDGE_DISTANCE, 30)];
+    _timeLab=[[UILabel alloc]initWithFrame:CGRectMake(_playVoiceBtn.right+KEDGE_DISTANCE, 10, self.width-_playVoiceBtn.right-KEDGE_DISTANCE, 30)];
     _timeLab.font=[UIFont systemFontOfSize:13];
     _timeLab.textColor=[UIColor ZYZC_TextGrayColor04];
     [self addSubview:_timeLab];
@@ -144,9 +144,6 @@
         _timeLab.text=[NSString stringWithFormat:@"%.zd''",voiceLen];
         _timeLab.text=[NSString stringWithFormat:@"%.2f\"",voiceLen];
     }
-    
-    self.voiceView.top = self.height-self.voiceView.height;
-    self.timeLab.top   = self.height-self.timeLab.height;
 }
 
 
