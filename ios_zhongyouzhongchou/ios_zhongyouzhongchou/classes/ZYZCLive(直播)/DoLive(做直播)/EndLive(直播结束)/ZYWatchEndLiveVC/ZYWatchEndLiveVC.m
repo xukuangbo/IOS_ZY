@@ -169,9 +169,4 @@
     self.navigationController.navigationBar.hidden = NO;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
-
-- (void)dealloc
-{
-    
-}
 @end

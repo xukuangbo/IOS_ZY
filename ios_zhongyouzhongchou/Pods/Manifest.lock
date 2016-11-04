@@ -21,6 +21,9 @@ PODS:
   - FMDB/standard (2.6.2)
   - FXBlurView (1.6.4)
   - GRKPageViewController (1.2)
+  - Mantle (2.1.0):
+    - Mantle/extobjc (= 2.1.0)
+  - Mantle/extobjc (2.1.0)
   - Masonry (1.0.0)
   - MBProgressHUD (0.9.1)
   - MJExtension (3.0.10)
@@ -37,6 +40,7 @@ PODS:
   - SDWebImage (3.7.6):
     - SDWebImage/Core (= 3.7.6)
   - SDWebImage/Core (3.7.6)
+  - ZipArchive (1.4.0)
 
 DEPENDENCIES:
   - AFNetworking (= 3.1.0)
@@ -45,6 +49,7 @@ DEPENDENCIES:
   - FMDB (= 2.6.2)
   - FXBlurView (= 1.6.4)
   - GRKPageViewController (= 1.2)
+  - Mantle
   - Masonry (= 1.0.0)
   - MBProgressHUD (= 0.9.1)
   - MJExtension (= 3.0.10)
@@ -53,6 +58,7 @@ DEPENDENCIES:
   - ReactiveCocoa (~> 2.5)
   - RongCloudIMKit
   - SDWebImage (= 3.7.6)
+  - ZipArchive
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
@@ -61,6 +67,7 @@ SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
   GRKPageViewController: a7e5fd59370ad7b5e5eff7daef4018c929e073e2
+  Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
   Masonry: b529bb169217897b6354d4b56b1fada6d475b13d
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
@@ -69,5 +76,6 @@ SPEC CHECKSUMS:
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
   RongCloudIMKit: 0b93700b17d224c7c213815b8a23a9c356fe20e2
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
+  ZipArchive: e25a4373192673e3229ac8d6e9f64a3e5713c966
 
 COCOAPODS: 0.39.0

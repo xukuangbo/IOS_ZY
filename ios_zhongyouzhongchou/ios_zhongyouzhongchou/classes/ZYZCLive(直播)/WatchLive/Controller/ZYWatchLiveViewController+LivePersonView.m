@@ -19,6 +19,7 @@
 #import "ZYJourneyLiveModel.h"
 #import "WXApiManager.h"
 #import "AppDelegate.h"
+#import "ZYDownloadGiftImageModel.h"
 
 @implementation ZYWatchLiveViewController (LivePersonView)
 - (void)initLivePersonDataView
@@ -310,23 +311,33 @@
 }
 
 #pragma mark - animtion
-- (void)showAnimtion:(NSString *)payType imageNumber:(NSInteger)number
+- (void)showAnimtion:(NSString *)payType
 {
+    NSMutableArray *giftImageArray;
+    for (int k = 0; k < self.giftImageArray.count; k++) {
+        ZYDownloadGiftImageModel *model = self.giftImageArray[k];
+        if ([model.price integerValue] == [payType integerValue] * 100) {
+            giftImageArray = [NSMutableArray arrayWithArray:model.imageArray];
+        }
+    }
     int arc4randomNumber = arc4random() % 270 + 100;
     int arc4randomWidth = arc4random() % 50;
 
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(arc4randomWidth, KSCREEN_H - arc4randomNumber * 16 / 9, arc4randomNumber, arc4randomNumber * 16 / 9)];
     [self.view addSubview:imageView];
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentpath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    NSString *cacheImagePath = [NSString stringWithFormat:@"%@/cacheImagePath%d", documentpath, [payType intValue] * 100];
     //创建一个数组，数组中按顺序添加要播放的图片（图片为静态的图片）
     NSInteger j;
     NSMutableArray *imgArray = [NSMutableArray array];
-    for (int i=1; i < number + 5; i++) {
+    for (int i=1; i < giftImageArray.count + 5; i++) {
         j = i;
-        if (i > number) {
-            j = number;
+        if (i > giftImageArray.count) {
+            j = giftImageArray.count;
         }
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%dyuan_%ld", [payType intValue], j]];
+        UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%ld", cacheImagePath, j]];
         [imgArray addObject:image];
     }
     //把存有UIImage的数组赋给动画图片数组
