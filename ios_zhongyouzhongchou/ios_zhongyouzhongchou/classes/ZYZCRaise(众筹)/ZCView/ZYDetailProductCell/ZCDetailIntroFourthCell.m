@@ -8,6 +8,7 @@
 
 #import "ZCDetailIntroFourthCell.h"
 #import "ZCDetailCustomButton.h"
+#import "NSDate+RMCalendarLogic.h"
 @interface ZCDetailIntroFourthCell ()
 @property (nonatomic, strong) UILabel *moneyLab;       //金额
 @property (nonatomic, strong) UILabel  *rateLab;       //支持比例
@@ -17,8 +18,12 @@
 @property (nonatomic, strong) UIView   *supportUsersView; //支持的人
 @property (nonatomic, strong) UIButton *supportBtn;       //支持按钮
 
-@property (nonatomic, strong) NSArray  *users;
+@property (nonatomic, strong) NSArray     *users;
 @property (nonatomic, strong) ReportModel *togtherModel;
+@property (nonatomic, assign) BOOL        canChoose;
+@property (nonatomic, assign) BOOL        isMySelf;
+@property (nonatomic, assign) BOOL        hasSupport;
+@property (nonatomic, assign) BOOL        productEnd;
 
 @end
 
@@ -34,6 +39,10 @@
 -(void)configUI
 {
     [super configUI];
+    _canChoose=YES;
+    _isMySelf=NO;
+    _hasSupport=NO;
+    _productEnd=NO;
     [self.topLineView removeFromSuperview];
     [self.vertical removeFromSuperview];
     self.titleLab.left=KEDGE_DISTANCE;
@@ -87,6 +96,51 @@
     self.togtherModel=togtherModel;
     
     detailModel.introFourthCellHeight=self.bgImg.height;
+    
+    //判断项目是否是浏览或草稿
+    if ((_detailProductType==SkimDetailProduct)||
+        (_detailProductType==DraftDetailProduct)) {
+        _canChoose=NO;
+    }
+    //判断项目是否是自己的
+    if ([detailModel.mySelf isEqual:@1]) {
+        _isMySelf=YES;
+    }
+    
+    //判断项目是否过期
+    int leftDays=0;
+    if (detailModel.spell_end_time.length>8) {
+        NSString *productEndStr=[NSDate changStrToDateStr:detailModel.spell_end_time];
+        NSDate *productEndDate=[NSDate dateFromString:productEndStr];
+        leftDays=[NSDate getDayNumbertoDay:[NSDate date] beforDay:productEndDate]+1;
+        if (leftDays<0) {
+            leftDays=0;
+        }
+    }
+    
+    if (leftDays==0) {
+        _productEnd=YES;
+    }
+    
+    //判断是否已支持
+    for (NSInteger i=0; i<togtherModel.users.count; i++) {
+        UserModel *user=togtherModel.users[i];
+        if ([user.userId integerValue] == [[ZYZCAccountTool getUserId] integerValue]) {
+            _hasSupport=YES;
+            break;
+        }
+    }
+
+
+    if (!_canChoose||_isMySelf||_productEnd||_hasSupport) {
+        _supportBtn.backgroundColor=[UIColor ZYZC_TabBarGrayColor];
+        [_supportBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
+    }
+    else
+    {
+        _supportBtn.backgroundColor=[UIColor ZYZC_MainColor];
+        [_supportBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
 }
 
 
@@ -106,7 +160,7 @@
     //限额
     _limitLab.attributedText = [self customStringByString: [NSString stringWithFormat:@"限额:%@位",togtherModel.people]];
     
-    //以支持
+    //已支持
     _supportLab.attributedText = [self customStringByString:[NSString stringWithFormat:@"已报名:%ld位",togtherModel.users.count]];
     
     CGFloat limit_width01=[ZYZCTool calculateStrLengthByText:@"限额:位" andFont:_limitLab.font andMaxWidth:self.width].width;
@@ -132,7 +186,24 @@
 
 -(void) support:(UIButton *)button
 {
-    
+    button.enabled=NO;
+    if (!_canChoose||_isMySelf||_hasSupport) {
+       
+    }
+    else
+    {
+        if(_productEnd)
+        {
+            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:ZYLocalizedString(@"not_support_width_product_end_time") delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }
+        //可进行支持操作
+        else
+        {
+            
+        }
+    }
+    button.enabled=YES;
 }
 
 #pragma mark --- 支持的人
@@ -145,7 +216,7 @@
             [view removeFromSuperview];
         }
         CGFloat btn_width=40*KCOFFICIEMNT;
-        CGFloat btn_edg=(self.width-btn_width*6)/5;
+        CGFloat btn_edg=(self.bgImg.width-20-btn_width*6)/5;
         CGFloat last_btn_bottom=0.1;
         NSInteger number=users.count;
         for (int i=0; i<number; i++) {

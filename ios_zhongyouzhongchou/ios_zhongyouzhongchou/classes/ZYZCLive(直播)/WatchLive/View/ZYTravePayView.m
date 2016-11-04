@@ -8,20 +8,37 @@
 
 #import "ZYTravePayView.h"
 #import "ZYTravePayView.h"
-#import "ZYJourneyLiveModel.h"
+#import "ZYDownloadGiftImageModel.h"
 @implementation ZYTravePayView
 
-+ (instancetype)loadCustumView:(ZYJourneyLiveModel *)model {
++ (instancetype)loadCustumView:(NSMutableArray *)giftImageArray {
     ZYTravePayView * view = nil;
     NSArray *nibs=[[NSBundle mainBundle] loadNibNamed:@"ZYTravePayVIew" owner:self options:nil];
     view = (ZYTravePayView *)[nibs objectAtIndex:0];
-    [view initMember:model];
+    [view initMember:giftImageArray];
     
     return view;
 }
 
 
-- (void)initMember:(ZYJourneyLiveModel *)model {
+- (void)initMember:(NSMutableArray *)giftImageArray {
+    for (int i = 0; i < giftImageArray.count; i++) {
+        UIView *tmpView = self.subviews[i];
+        if(tmpView.userInteractionEnabled && [tmpView isMemberOfClass:[UIButton class]])
+        {
+            ZYDownloadGiftImageModel *model = giftImageArray[i];
+            [tmpView.layer setMasksToBounds:YES];
+            [tmpView.layer setBorderWidth:1];
+            [tmpView.layer setCornerRadius:4];
+            [tmpView.layer setBorderColor:[[UIColor colorWithHexString:@"#d6d6d6"] CGColor]];
+            
+            UIButton *btn = (UIButton *)tmpView;
+            btn.tag = [model.price integerValue] / 10;
+            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.icon]];
+            [btn setImage:[UIImage imageWithData:imageData] forState:UIControlStateNormal];
+        }
+    }
+
     self.contributionRecordButton.titleEdgeInsets = UIEdgeInsetsMake(0,-25, 0, 0);
     self.contributionRecordButton.imageEdgeInsets = UIEdgeInsetsMake(0,115, 0, 9);
     [self.contributionRecordButton setImage:[UIImage imageNamed:@"btn_rightin"] forState:UIControlStateNormal];

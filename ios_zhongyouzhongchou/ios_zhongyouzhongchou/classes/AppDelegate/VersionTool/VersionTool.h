@@ -27,4 +27,7 @@
  *  退出app的时候移除
  */
 + (void)removeHaveVersion;
+// 获取礼物版本号
++(void)setPayVersion:(NSString *)payVersion;
++(NSString *)getPayVersion;
 @end

@@ -46,13 +46,6 @@
 
 -(void)supportMoney
 {
-    if(self.productEndTime)
-    {
-        UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:ZYLocalizedString(@"not_support_width_product_end_time") delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-        [alert show];
-        return;
-    }
-    
     if (_getLimit) {
        [MBProgressHUD showError:@"不可参与回报支持,人数已达上限"];
         return;

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSUInteger, kLiveUserContributionStyle) {
 @protocol ZYTravePayViewDelegate;
 @class ZYJourneyLiveModel;
 @interface ZYTravePayView : UIView
-+ (instancetype)loadCustumView:(ZYJourneyLiveModel *)model;
++ (instancetype)loadCustumView:(NSMutableArray *)giftImageArray;
 @property (strong, nonatomic) IBOutlet UIButton *contributionRecordButton;
 @property (strong, nonatomic) IBOutlet UIButton *journeyDetailButton;
 @property (weak, nonatomic) id <ZYTravePayViewDelegate> delegate;

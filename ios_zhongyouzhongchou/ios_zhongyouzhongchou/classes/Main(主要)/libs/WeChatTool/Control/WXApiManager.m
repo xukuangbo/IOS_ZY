@@ -141,7 +141,7 @@
                 [MBProgressHUD showSuccess:@"支持成功!"];
                 
                 //通知支持一起游成功
-                [[NSNotificationCenter defaultCenter]postNotificationName:@"support_Style4_Success" object:nil];
+                [[NSNotificationCenter defaultCenter]postNotificationName:@"Support_Style4_ZeroYuan_Success" object:nil];
             }
             else
             {

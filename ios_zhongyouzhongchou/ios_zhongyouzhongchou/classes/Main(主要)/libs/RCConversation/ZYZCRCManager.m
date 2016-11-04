@@ -52,7 +52,15 @@ static ZYZCRCManager *_RCManager;
     if (model.userId) {
         NSString *utf8Str=[model.realName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //        NSString *url=GET_CHAT_TOKEN(model.userId,utf8Str,model.faceImg);
-        NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"rongAPI_getTokenTest"];
+        NSString *url;
+        if ([ZYZCAPIGenerate sharedInstance].serverType == 1||([ZYZCAPIGenerate sharedInstance].serverType==3)) {
+            url=[[ZYZCAPIGenerate sharedInstance] API:@"rongAPI_getTokenTest"];
+        }
+        else
+        {
+            url=[[ZYZCAPIGenerate sharedInstance] API:@"rongAPI_getToken"];
+
+        }
         NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
         [parameter setValue:utf8Str forKey:@"userName"];
         [parameter setValue:model.userId forKey:@"userId"];

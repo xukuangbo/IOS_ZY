@@ -24,7 +24,7 @@ typedef void (^PayMoneyBlock)(NSNumber *productId);
 
 @property (nonatomic, assign) DetailProductType detailProductType;
 
-@property (nonatomic, assign) BOOL   surePay;       //标记：是否支付
+@property (nonatomic, assign) BOOL   getPay;       //标记：是否支付
 
 @property (nonatomic, copy  ) ButtonClickBlock buttonClick;
 

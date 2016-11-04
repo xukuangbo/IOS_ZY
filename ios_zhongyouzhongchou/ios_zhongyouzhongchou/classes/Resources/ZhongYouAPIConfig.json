@@ -575,6 +575,16 @@
         "control": "zhibo",
         "action": "userReserve.action",
         "protocol": "http"
+    },
+    "zhibo_lipinVersionJson": {
+        "control": "zhibo",
+        "action": "lipinVersionJson.action",
+        "protocol": "http"
+    },
+    "zhibo_lipinJson": {
+        "control": "zhibo",
+        "action": "lipinJson.action",
+        "protocol": "http"
     }
 }
 

@@ -10,6 +10,7 @@
 #define OlVersion @"olVersion"
 #define IfFirst @"ifFirst"
 #define FirstVersion @"IfFirstSure"
+static NSString *const kPayVersion = @"kPayVersion";
 
 @implementation VersionTool
 + (void)version{
@@ -171,5 +172,19 @@
         }
     }
 
+}
+
+#pragma mark - 礼物版本号
++(void)setPayVersion:(NSString *)payVersion
+{
+    [[NSUserDefaults standardUserDefaults] setObject:payVersion forKey:kPayVersion];
+
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
++(NSString *)getPayVersion
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:kPayVersion];
 }
 @end

@@ -427,7 +427,7 @@
 -(void)support
 {
     //支付
-    if (_bottomView.surePay) {
+    if (_bottomView.getPay) {
         if (_bottomView.payMoneyBlock) {
             _bottomView.payMoneyBlock(_productId);
         }
