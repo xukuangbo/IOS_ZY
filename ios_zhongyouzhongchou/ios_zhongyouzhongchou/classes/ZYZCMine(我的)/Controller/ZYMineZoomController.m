@@ -289,12 +289,12 @@
 #pragma mark --- 获取足迹数据
 -(void)getFootprintData
 {
-    [MBProgressHUD showMessage:nil];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_getPageList"] andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_footprint_pageNo],@"targetId":[ZYZCAccountTool getUserId]}
     andSuccessGetBlock:^(id result, BOOL isSuccess)
     {
         DDLog(@"%@",result);
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view];
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_footprintListView.mj_footer ;
             if (_footprint_pageNo==1&&_footprintArr.count) {
@@ -327,7 +327,7 @@
         
     }
      andFailBlock:^(id failResult) {
-         [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view];
          [_footprintListView.mj_header endRefreshing];
          [_footprintListView.mj_footer endRefreshing];
      }];

@@ -190,7 +190,8 @@
     CGFloat support_width02=[ZYZCTool calculateStrLengthByText:[NSString stringWithFormat:@"%ld",togtherModel.users.count] andFont:[UIFont boldSystemFontOfSize:15.f] andMaxWidth:self.width].width;
     _supportLab.width=MIN(support_width01+support_width02, 120.f);
     
-    _limitLab.top=_wsmView.bottom+KEDGE_DISTANCE;
+    
+    _limitLab.top=_wsmView.bottom+(_wsmView.height>10)*KEDGE_DISTANCE;
     _supportLab.top=_limitLab.top;
     _separateView.top=_limitLab.top;
     _supportUsersView.top=_limitLab.bottom+KEDGE_DISTANCE;
