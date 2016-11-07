@@ -6,7 +6,7 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 #define BGIMAGEHEIGHT  200*KCOFFICIEMNT
-#define BLURHEIGHT     44
+#define BLURHEIGHT     35
 
 #import "ZYZCBaseTableView.h"
 #import "ZCDetailModel.h"

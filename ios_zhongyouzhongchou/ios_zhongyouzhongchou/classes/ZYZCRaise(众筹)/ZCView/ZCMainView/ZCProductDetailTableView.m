@@ -35,7 +35,7 @@
 #import "ZYDetailIUserInfoCell.h"
 
 @interface ZCProductDetailTableView ()
-@property (nonatomic, strong) UIView                *blurView;     //毛玻璃
+ @property (nonatomic, strong) UIVisualEffectView   *blurView;     //毛玻璃
 @property (nonatomic, strong) UILabel               *travelThemeLab;//主题名
 
 @property (nonatomic, strong) ZCCommentList         *commentList;
@@ -79,10 +79,16 @@
         _topImgView.layer.masksToBounds=YES;
         [self addSubview:_topImgView];
         
-        _blurView=[[UIView alloc]initWithFrame:CGRectMake(0, BGIMAGEHEIGHT-BLURHEIGHT, KSCREEN_W, BLURHEIGHT)];
-        _blurView.backgroundColor=[UIColor blackColor];
-        _blurView.alpha=0.4;
+         UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+        _blurView = [[UIVisualEffectView alloc] initWithEffect:blur];
+        _blurView.frame = CGRectMake(0, BGIMAGEHEIGHT-BLURHEIGHT, KSCREEN_W, BLURHEIGHT);
+        _blurView.alpha = 0.8;
         [_topImgView addSubview:_blurView];
+
+//        [[UIView alloc]initWithFrame:CGRectMake(0, BGIMAGEHEIGHT-BLURHEIGHT, KSCREEN_W, BLURHEIGHT)];
+//        _blurView.backgroundColor=[UIColor blackColor];
+//        _blurView.alpha=0.4;
+//        [_topImgView addSubview:_blurView];
         
         //创建旅行主题标签
         _travelThemeLab=[[UILabel alloc]initWithFrame:CGRectMake(20, BGIMAGEHEIGHT-BLURHEIGHT, KSCREEN_W-40, BLURHEIGHT)];
@@ -524,7 +530,7 @@
     NSString *userId=[ZYZCAccountTool getUserId];
     
     //判断支付是否成功
-    NSString *httpUrl=GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
+//    NSString *httpUrl=GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getOrderPayStatus"];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     [parameter setValue:appDelegate.out_trade_no forKey:@"outTradeNo"];

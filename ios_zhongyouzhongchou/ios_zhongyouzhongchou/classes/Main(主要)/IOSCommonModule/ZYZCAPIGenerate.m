@@ -100,8 +100,8 @@ static NSString* const apiFileExtension = @"json";
         }
             break;
         case kLinkServerTypeOfTest: {
+         //   return @"121.40.225.119:8080";
             return @"47.88.148.208:8080";
-            
         }
             break;
         case kLinkServerTypeOfOverseas: {

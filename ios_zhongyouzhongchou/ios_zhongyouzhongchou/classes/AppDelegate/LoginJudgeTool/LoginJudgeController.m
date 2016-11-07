@@ -290,7 +290,8 @@
             if (!accountModel.realName&&accountModel.userName) {
                 accountModel.realName=accountModel.userName;
             }
-            
+            //标记从微信登陆
+            accountModel.loginType=From_Wechat;
             //保存个人信息到本地
             [ZYZCAccountTool saveAccount:accountModel];
             
