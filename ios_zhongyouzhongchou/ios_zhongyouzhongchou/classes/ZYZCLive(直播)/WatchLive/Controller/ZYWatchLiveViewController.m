@@ -270,7 +270,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         CGFloat inputBarOriginX = self.conversationMessageCollectionView.frame.origin.x;
         CGFloat inputBarSizeWidth = self.contentView.frame.size.width;
         CGFloat inputBarSizeHeight = MinHeight_InputView;
-        self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight) inViewConroller:nil];
+        self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight)];
         self.inputBar.delegate = self;
         self.inputBar.backgroundColor = [UIColor clearColor];
         self.inputBar.hidden = YES;
@@ -295,9 +295,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 // 创建观看直播间头像view
 - (void)initChatroomMemberInfo{
-    NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:
-                                                @"" pathType:@""];
-
     UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(10, 30, 135, 40)];
     livePersonNumberView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
     livePersonNumberView.layer.cornerRadius = 40/2;
@@ -350,14 +347,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 // 创建打赏界面
 - (void)initPayView:(ZYJourneyLiveModel *)model {
     if (!self.payView && [self.liveModel.productId length] == 0) {
-      //  ZYBottomPayView * payView = [ZYBottomPayView loadCustumView];
-      // payView.delegate = self;
-       // CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
-       // payView.frame = rect;
-     // [payView.layer setCornerRadius:10];
-        // [self.view addSubview:payView];
-        //self.payView = payView;
-        
         ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.giftImageArray];
         travePayView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
@@ -515,20 +504,29 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     WEAKSELF
     dispatch_group_t group = dispatch_group_create();
-    for (int i = 0; i < self.giftImageArray.count; i++) {
-        __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
-        dispatch_group_enter(group);
-        [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl]];
-        [self.downloadManager setFractionCompleted:^(double progress) {
-            [VersionTool setPayVersion:@"0"];
-        }];
-        [self.downloadManager setSuccess:^(NSString *success) {
-            NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success pathType:model.price];
-            model.imageArray = imagePaths;
-            [weakSelf archiverCache];
-        }];
-        dispatch_group_leave(group);
-    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        for (int i = 0; i < self.giftImageArray.count; i ++)
+        {
+            dispatch_group_enter(group);
+            // 任务代码i 假定任务 是异步执行block回调
+            __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
+            [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl]];
+            [self.downloadManager setFractionCompleted:^(double progress) {
+                [VersionTool setPayVersion:@"0"];
+            }];
+            [self.downloadManager setSuccess:^(NSString *success) {
+                NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success pathType:model.price];
+                model.imageArray = imagePaths;
+                [weakSelf archiverCache];
+            }];            // block 回调执行
+            dispatch_group_leave(group);
+            // block 回调执行
+        }
+    });
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 主线程处理
+    });
 }
 
 - (void)archiverCache

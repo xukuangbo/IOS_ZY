@@ -16,6 +16,9 @@
 #import "ZYLiveListModel.h"
 #import "ZCProductDetailController.h"
 #import "ChatBlackListModel.h"
+#import "ZYDownloadGiftImageModel.h"
+#import "ZYZCMCCacheManager.h"
+#import "VersionTool.h"
 @implementation ZYLiveViewController (EVENT)
 - (void)initLivePersonDataView
 {
@@ -79,8 +82,7 @@
         float inputBarOriginX = self.conversationMessageCollectionView.frame.origin.x;
         float inputBarSizeWidth = self.contentView.frame.size.width;
         float inputBarSizeHeight = MinHeight_InputView;//高度50
-        self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight)
-                                              inViewConroller:nil];
+        self.inputBar = [[RCDLiveInputBar alloc]initWithFrame:CGRectMake(inputBarOriginX, inputBarOriginY,inputBarSizeWidth,inputBarSizeHeight)];
         self.inputBar.delegate = self;
         self.inputBar.backgroundColor = [UIColor clearColor];
         self.inputBar.hidden = YES;
@@ -314,7 +316,7 @@
 
 - (void)shareBtnAction:(UIButton *)sender
 {
-    
+    [self getPayVersion];
 }
 
 -(void)showInputBar:(id)sender{
@@ -373,38 +375,127 @@
     }];
 }
 
-#pragma mark - animtion
-- (void)showAnimtion:(NSString *)payType imageNumber:(NSInteger)number
+#pragma mark - 获取动画
+// 获取礼物清单
+- (void)getPayVersion
 {
+    [VersionTool setPayVersion:@"0"];
+    NSDictionary *parameters;
+    WEAKSELF
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinVersionJson"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if ([[NSString stringWithFormat:@"%@", [VersionTool getPayVersion]] isEqualToString:[NSString stringWithFormat:@"%@", result[@"data"]]]) {
+            NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
+            weakSelf.giftImageArray = [ZYZCMCCacheManager unarchiverCachePath:path];
+        } else {
+            [weakSelf downloadPayImage];
+        }
+        [VersionTool setPayVersion:result[@"data"]];
+    } andFailBlock:^(id failResult) {
+        NSLog(@"failResult");
+    }];
+    
+}
+// 请求打赏图片接口
+- (void)downloadPayImage
+{
+    NSMutableDictionary *parameters;
+    WEAKSELF
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinJson"];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.giftImageArray = [ZYDownloadGiftImageModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            [weakSelf cacheImagePath];
+        }
+    } andFailBlock:^(id failResult) {
+        
+    }];
+}
+
+- (void)cacheImagePath
+{
+    WEAKSELF
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        for (int i = 0; i < self.giftImageArray.count; i ++)
+        {
+            dispatch_group_enter(group);
+            // 任务代码i 假定任务 是异步执行block回调
+            __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
+            [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl]];
+            [self.downloadManager setFractionCompleted:^(double progress) {
+                [VersionTool setPayVersion:@"0"];
+            }];
+            [self.downloadManager setSuccess:^(NSString *success) {
+                NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success pathType:model.price];
+                model.imageArray = imagePaths;
+                [weakSelf archiverCache];
+                NSLog(@"modelmodelmodel%@", model);
+            }];
+            // block 回调执行
+            dispatch_group_leave(group);
+            // block 回调执行
+        }
+    });
+    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 主线程处理  
+    });
+}
+
+- (void)archiverCache
+{
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
+    [ZYZCMCCacheManager archiverCacheData:self.giftImageArray path:path];
+    
+}
+
+#pragma mark - animtion
+- (void)showAnimtion:(NSString *)payType
+{
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
+    NSMutableArray *GiftImageArray = [ZYZCMCCacheManager unarchiverCachePath:path];
+    NSMutableArray *giftImageArray;
+    for (int k = 0; k < GiftImageArray.count; k++) {
+        ZYDownloadGiftImageModel *model = GiftImageArray[k];
+        if ([model.price integerValue] == [payType integerValue] * 100) {
+            giftImageArray = [NSMutableArray arrayWithArray:model.imageArray];
+        }
+    }
+
     int arc4randomNumber = arc4random() % 270 + 100;
     int arc4randomWidth = arc4random() % 50;
     
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(arc4randomWidth, KSCREEN_H - arc4randomNumber * 16 / 9, arc4randomNumber, arc4randomNumber * 16 / 9)];
     [self.view addSubview:imageView];
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentpath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+    NSString *cacheImagePath = [NSString stringWithFormat:@"%@/cacheImagePath%d", documentpath, [payType intValue] * 100];
     //创建一个数组，数组中按顺序添加要播放的图片（图片为静态的图片）
     NSInteger j;
     NSMutableArray *imgArray = [NSMutableArray array];
-    for (int i=1; i < number + 5; i++) {
+    for (int i=1; i < giftImageArray.count + 5; i++) {
         j = i;
-        if (i > number) {
-            j = number;
+        if (i > giftImageArray.count) {
+            j = giftImageArray.count;
         }
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%dyuan_%ld", [payType intValue], j]];
-        [imgArray addObject:image];
+        UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%ld", cacheImagePath, j]];
+        if (image) {
+            [imgArray addObject:image];
+        }
     }
     //把存有UIImage的数组赋给动画图片数组
     imageView.animationImages = imgArray;
     //设置执行一次完整动画的时长
-    imageView.animationDuration = number*0.1;
+    imageView.animationDuration = (giftImageArray. count + 5 ) * 0.1;
     //动画重复次数 （0为重复播放）
     imageView.animationRepeatCount = 1;
     //开始播放动画
     [imageView startAnimating];
     
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [self showAnimtion:payType imageNumber:number];
-//    });
+    //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    //        [self showAnimtion:payType imageNumber:number];
+    //    });
 }
 
 @end
