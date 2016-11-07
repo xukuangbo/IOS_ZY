@@ -263,6 +263,8 @@
              accountModel.headimgurl=imgUrl;
              ZYZCAccountModel *oldAccountModel=[ZYZCAccountTool account];
              accountModel.scr=oldAccountModel.scr;
+             //标记从手机登陆
+             accountModel.loginType=From_Mobile;
              [ZYZCAccountTool saveAccount:accountModel];
              
              //回到主页

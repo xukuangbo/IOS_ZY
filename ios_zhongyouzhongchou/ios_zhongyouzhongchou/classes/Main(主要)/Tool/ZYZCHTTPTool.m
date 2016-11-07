@@ -67,23 +67,38 @@
 {
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    //    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     manager.responseSerializer.acceptableContentTypes =
     [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
     
+    //接口添加from参数
     NSString *newUrl=URLString;
+    
+    ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
+    NSString *fromStr=nil;
+    if (accountModel.loginType==From_Mobile) {
+        fromStr=@"ios_mobile";
+    }
+    else
+    {
+        fromStr=@"ios";
+    }
+
     if ([URLString hasSuffix:@".action"]) {
-        newUrl=[URLString stringByAppendingString:@"?from=ios"];
+        newUrl=[URLString stringByAppendingString:[NSString stringWithFormat:@"?from=%@",fromStr]];
     } else {
-        newUrl=[URLString stringByAppendingString:@"&from=ios"];
+        newUrl=[URLString stringByAppendingString:[NSString stringWithFormat:@"&from=%@",fromStr]];
     }
-    NSString *userId = [ZYZCAccountTool getUserId];
-    if (![parameters objectForKey:@"userId"] && userId) {
-        [parameters setValue:userId forKey:@"userId"];
+    
+    //参数中添加签名操作
+    NSMutableDictionary *newParameters=[NSMutableDictionary dictionaryWithDictionary:parameters];
+    NSDictionary *entryptParams=[[self class] encryptParams];
+    if (entryptParams) {
+        [newParameters addEntriesFromDictionary:entryptParams];
     }
-    DDLog(@"newUrl:%@",newUrl);
-    DDLog(@"parameters:%@",parameters);
+    
+    DDLog(@"Url:%@",newUrl);
+    DDLog(@"Parameters:%@",parameters);
     [manager GET:newUrl parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
      {
      }
@@ -113,57 +128,59 @@
 #pragma mark --- post请求
 +(void)postHttpDataWithEncrypt:(BOOL)needLogin andURL:(NSString *)url andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail
 {
-    //转换成json
-//    NSData *data = [NSJSONSerialization dataWithJSONObject :parameters options : NSJSONWritingPrettyPrinted error:NULL];
-//    
-//    NSString *jsonStr = [[ NSString alloc ] initWithData :data encoding : NSUTF8StringEncoding];
-//    
-    
-    NSMutableDictionary *newParameters=[NSMutableDictionary dictionaryWithDictionary:parameters];
-    if (needLogin)
-    {
-        //此处添加需登录的操作
-        NSDictionary *entryptParams=[[self class] encryptParams];
-        if (!entryptParams) {
-            return;
-        }
-        [newParameters addEntriesFromDictionary:entryptParams];
-    }
-    else
-    {
-        //此处添加不需要登录的操作
-    }
-    
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-//    manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     manager.responseSerializer.acceptableContentTypes =
     [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
-
-    
-    DDLog(@"newParameters:%@",newParameters);
-    
 //    NSString *newUrl=[url stringByAppendingString:[NSString stringWithFormat:@"?userId=%@&from=ios",[ZYZCAccountTool getUserId]]];
+    
+    //接口拼接from和userid参数
     NSString *newUrl=url;
+    
+    ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
+    NSString *fromStr=nil;
+    if (accountModel.loginType==From_Mobile) {
+        fromStr=@"ios_mobile";
+    }
+    else
+    {
+        fromStr=@"ios";
+    }
+    
     if ([url hasSuffix:@".action"]) {
-        newUrl=[url stringByAppendingString:@"?from=ios"];
+        newUrl=[url stringByAppendingString:
+                [NSString stringWithFormat:@"?from=%@",fromStr]];
     }
     else
     {
         if ([url hasSuffix:@".action?"]) {
-            newUrl=[url stringByAppendingString:@"from=ios"];
+            newUrl=[url stringByAppendingString:
+                    [NSString stringWithFormat:@"from=%@",fromStr]];
         }
         else
         {
-            newUrl=[url stringByAppendingString:@"&from=ios"];
+            newUrl=[url stringByAppendingString:
+                    [NSString stringWithFormat:@"&from=%@",fromStr]];
         }
     }
     NSRange range=[url rangeOfString:@"userId="];
     if (!range.length) {
         newUrl=[newUrl stringByAppendingString:[NSString stringWithFormat:@"&userId=%@",[ZYZCAccountTool getUserId]]];
     }
+    
+    //参数中添加签名操作
+    NSMutableDictionary *newParameters=[NSMutableDictionary dictionaryWithDictionary:parameters];
+//    if (needLogin)
+//    {
+        NSDictionary *entryptParams=[[self class] encryptParams];
+        if (entryptParams) {
+            [newParameters addEntriesFromDictionary:entryptParams];
+        }
+//    }
 
+    DDLog(@"Url:%@",newUrl);
+    DDLog(@"Parameters:%@",newParameters);
     [manager POST:newUrl parameters:newParameters progress:^(NSProgress * _Nonnull uploadProgress)
     {
         
@@ -177,12 +194,7 @@
             else
             {
                 if ([responseObject[@"errorMsg"] isEqualToString:@"非法访问"]) {
-//                [UIAlertView bk_showAlertViewWithTitle:@"非法访问，需重新登录" message:@"重新登录" cancelButtonTitle:@"否" otherButtonTitles:@[@"是"] handler:^(UIAlertView *alertView, NSInteger buttonIndex) {
-//                    if (buttonIndex==1) {
-//                        [ZYZCAccountTool deleteAccount];
-//                        [LoginJudgeTool judgeLogin];
-//                    }
-//                }];
+                    
                 }
                  successGet(responseObject,NO);
             }
@@ -197,7 +209,6 @@
         fail(error.localizedDescription);
     }];
 }
-
 
 #pragma mark --- 添加HttpHead字段的方法post请求
 +(void)addRongYunHeadPostHttpDataWithURL:(NSString *)url andParameters:(NSDictionary *)parameters andSuccessGetBlock:(SuccessGetBlock)successGet andFailBlock:(FailBlock)fail
@@ -256,20 +267,6 @@
      }];
 }
 
-#pragma mark --- 需要登录权限才能调用的接口
-+(NSDictionary *)loginPortNeedEncrypt
-{
-    NSMutableDictionary *strDic=[NSMutableDictionary dictionary];
-    
-    return strDic;
-}
-
-#pragma mark --- 不需要登录权限调用的接口
-+(NSDictionary *)noneLoginPortNeedEncrypt
-{
-    NSMutableDictionary *strDic=[NSMutableDictionary dictionary];
-    return strDic;
-}
 
 #pragma mark --- 加密参数
 +(NSDictionary *)encryptParams
@@ -283,6 +280,7 @@
         [LoginJudgeTool judgeLogin];
         return nil;
     }
+    DDLog(@"scr:%@",[ZYZCAccountTool getUserScret]);
     
     NSMutableDictionary *strDic=[NSMutableDictionary dictionary];
     //时间戳
@@ -304,17 +302,11 @@
     NSString *signature=[NSString stringWithFormat:@"%@%@%@%@%@%@%@",timeStamp,fix,nonceStr,fix,[ZYZCAccountTool getUserScret],fix,[self getTime]];
 //    DDLog(@"signature:%@",signature);
     NSString *signature_md5=[self turnStrToMD5:signature];
-//     DDLog(@"signature_md5:%@",signature_md5);
+//    DDLog(@"signature_md5:%@",signature_md5);
     [strDic setObject:signature_md5 forKey:@"signature"];
-
     if ([ZYZCAccountTool getUserId]) {
-
         [strDic setObject:[ZYZCAccountTool getUserId] forKey:@"userId"];
-        
-    }else{
-        
     }
-    
     return strDic;
 }
 
