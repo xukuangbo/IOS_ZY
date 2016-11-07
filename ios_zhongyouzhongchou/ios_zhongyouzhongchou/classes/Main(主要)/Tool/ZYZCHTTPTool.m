@@ -82,12 +82,14 @@
     if (![parameters objectForKey:@"userId"] && userId) {
         [parameters setValue:userId forKey:@"userId"];
     }
-    
+    DDLog(@"newUrl:%@",newUrl);
+    DDLog(@"parameters:%@",parameters);
     [manager GET:newUrl parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
      {
      }
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
+         DDLog(@"responseObject:%@",responseObject);
          if (responseObject[@"code"]) {
              if ([responseObject[@"code"] isEqual:@0]) {
                  successGet(responseObject,YES);

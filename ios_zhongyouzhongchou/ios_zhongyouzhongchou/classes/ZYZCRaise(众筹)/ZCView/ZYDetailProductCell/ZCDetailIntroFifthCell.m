@@ -10,6 +10,8 @@
 #import "ZCDetailCustomButton.h"
 #import "ZCWSMView.h"
 #import "NSDate+RMCalendarLogic.h"
+#import "UIView+GetSuperTableView.h"
+#import "WXApiManager.h"
 @interface ZCDetailIntroFifthCell ()
 @property (nonatomic, strong) UILabel    *moneyLab;
 @property (nonatomic, strong) UILabel    *subMoneyLab;
@@ -89,6 +91,9 @@
     _supportBtn.layer.cornerRadius = KCORNERRADIUS;
     _supportBtn.layer.masksToBounds = YES;
     [self.bgImg addSubview:_supportBtn];
+    
+    //支付结果的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayResult:) name:@"getPayResult" object:nil];
 }
 
 - (void) setDetailModel:(ZCDetailProductModel *)detailModel
@@ -214,7 +219,11 @@
         //可进行支持操作
         else
         {
-            
+            NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+            [dic setObject:[NSNumber numberWithFloat:[_returnModel.price floatValue]/100.0] forKey:@"style3"];
+            [dic setObject:_detailModel.productId forKey:@"productId"];
+            WXApiManager *wxManager=[WXApiManager sharedManager];
+            [wxManager payForWeChat:dic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
         }
     }
     button.enabled=YES;
@@ -244,6 +253,11 @@
         }
         _supportUsersView.height=last_btn_bottom;
     }
+}
+
+-(void) getPayResult:(NSNotification *)notify
+{
+    [self.getSuperTableView reloadData];
 }
 
 #pragma mark --- 改变文字样式

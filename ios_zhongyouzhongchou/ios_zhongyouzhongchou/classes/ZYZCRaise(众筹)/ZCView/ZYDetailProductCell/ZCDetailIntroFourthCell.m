@@ -9,9 +9,13 @@
 #import "ZCDetailIntroFourthCell.h"
 #import "ZCDetailCustomButton.h"
 #import "NSDate+RMCalendarLogic.h"
+#import "UIView+GetSuperTableView.h"
+#import "WXApiManager.h"
+#import "ZCWSMView.h"
 @interface ZCDetailIntroFourthCell ()
-@property (nonatomic, strong) UILabel *moneyLab;       //金额
-@property (nonatomic, strong) UILabel  *rateLab;       //支持比例
+@property (nonatomic, strong) UILabel   *moneyLab;       //金额
+@property (nonatomic, strong) UILabel   *rateLab;       //支持比例
+@property (nonatomic, strong) ZCWSMView *wsmView;
 @property (nonatomic, strong) UILabel  *limitLab;      //限额标签
 @property (nonatomic, strong) UILabel  *supportLab;    //支持的人
 @property (nonatomic, strong) UIView   *separateView;  //分割线
@@ -59,6 +63,10 @@
     _rateLab=[ZYZCTool createLabWithFrame:CGRectMake(KEDGE_DISTANCE, self.titleLab.bottom+KEDGE_DISTANCE, self.bgImg.width, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor ZYZC_TextBlackColor]];
     [self.bgImg addSubview:_rateLab];
     
+    //回报内容
+    _wsmView = [[ZCWSMView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, _rateLab.bottom+KEDGE_DISTANCE, self.bgImg.width-20, 0.1)];
+    [self.bgImg addSubview:_wsmView];
+    
     //限额人数
     _limitLab=[ZYZCTool createLabWithFrame:CGRectMake(KEDGE_DISTANCE, _rateLab.bottom+KEDGE_DISTANCE, 0, 20) andFont:[UIFont systemFontOfSize:15.f] andTitleColor:[UIColor ZYZC_TextGrayColor]];
     [self.bgImg addSubview:_limitLab];
@@ -80,6 +88,11 @@
     _supportBtn.layer.cornerRadius = KCORNERRADIUS;
     _supportBtn.layer.masksToBounds = YES;
     [self.bgImg addSubview:_supportBtn];
+    
+    //支付结果的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayResult:) name:@"getPayResult" object:nil];
+    //支持零元一起游后的通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(supportStyle4ZeroYuanSuccess:) name:@"Support_Style4_ZeroYuan_Success" object:nil];
 }
 
 - (void) setDetailModel:(ZCDetailProductModel *)detailModel
@@ -157,6 +170,8 @@
     }
     _rateLab.text = [NSString stringWithFormat:@"支持%.f％旅费",money_rate];
     
+    [_wsmView reloadDataByVideoImgUrl:togtherModel.spellVideoImg andPlayUrl:togtherModel.spellVideo andVoiceUrl:togtherModel.spellVoice andVoiceLen:togtherModel.spellVoiceLen andFaceImg:_detailModel.user.faceImg andDesc:togtherModel.desc andImgUrlStr:togtherModel.descImgs];
+    
     //限额
     _limitLab.attributedText = [self customStringByString: [NSString stringWithFormat:@"限额:%@位",togtherModel.people]];
     
@@ -165,6 +180,7 @@
     
     CGFloat limit_width01=[ZYZCTool calculateStrLengthByText:@"限额:位" andFont:_limitLab.font andMaxWidth:self.width].width;
     CGFloat limit_width02=[ZYZCTool calculateStrLengthByText:[NSString stringWithFormat:@"%@",togtherModel.people] andFont:[UIFont boldSystemFontOfSize:15.f] andMaxWidth:self.width].width;
+    
     _limitLab.width=MIN(limit_width01+limit_width02, 120.f);
     _separateView.hidden=NO;
     _separateView.left=_limitLab.right+20.f;
@@ -174,6 +190,11 @@
     CGFloat support_width02=[ZYZCTool calculateStrLengthByText:[NSString stringWithFormat:@"%ld",togtherModel.users.count] andFont:[UIFont boldSystemFontOfSize:15.f] andMaxWidth:self.width].width;
     _supportLab.width=MIN(support_width01+support_width02, 120.f);
     
+    _limitLab.top=_wsmView.bottom+KEDGE_DISTANCE;
+    _supportLab.top=_limitLab.top;
+    _separateView.top=_limitLab.top;
+    _supportUsersView.top=_limitLab.bottom+KEDGE_DISTANCE;
+
     //支持的人
     self.users = togtherModel.users;
 
@@ -200,7 +221,11 @@
         //可进行支持操作
         else
         {
-            
+            NSMutableDictionary *dic=[NSMutableDictionary dictionary];
+            [dic setObject:[NSNumber numberWithFloat:[_togtherModel.price floatValue]/100.0] forKey:@"style4"];
+            [dic setObject:_detailModel.productId forKey:@"productId"];
+            WXApiManager *wxManager=[WXApiManager sharedManager];
+            [wxManager payForWeChat:dic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
         }
     }
     button.enabled=YES;
@@ -229,6 +254,16 @@
         }
         _supportUsersView.height=last_btn_bottom;
     }
+}
+
+-(void) getPayResult:(NSNotification *)notify
+{
+    [self.getSuperTableView reloadData];
+}
+
+-(void) supportStyle4ZeroYuanSuccess:(NSNotification *)notify
+{
+    [self.getSuperTableView reloadData];
 }
 
 #pragma mark --- 改变文字样式

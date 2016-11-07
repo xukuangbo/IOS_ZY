@@ -194,8 +194,6 @@
             //判断是不是自己的项目，并更改底部按钮展示
             BOOL mySelf=[_detailModel.detailProductModel.mySelf boolValue];
             
-            //            _oneModel.mySelf=mySelf;
-            
             _bottomView.detailProductType=mySelf?MineDetailProduct:PersonDetailProduct;
             //判断是否已推荐
             _getCollection=[_detailModel.detailProductModel.Friend isEqual:@0];

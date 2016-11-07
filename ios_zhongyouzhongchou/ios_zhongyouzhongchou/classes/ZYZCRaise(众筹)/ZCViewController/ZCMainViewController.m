@@ -310,7 +310,7 @@
     //获取所有众筹详情
     NSString *httpUrl=nil;
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-
+//cache=false&orderType=4&pageNo=%d&pageSize=10
     if (searchKey.length) {
         //搜索关键词
         NSString *keyword= [_searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -321,8 +321,8 @@
         [parameter setValue:[NSString stringWithFormat:@"%d", _pageNo] forKey:@"pageNo"];
         [parameter setValue:@"10" forKey:@"pageSize"];
         [parameter setValue:@"6" forKey:@"querytype"];
-        [parameter setValue:keyword forKey:@"keyword"];
-        
+//        [parameter setValue:keyword forKey:@"keyword"];
+        httpUrl =[httpUrl stringByAppendingString:[NSString stringWithFormat:@"?keyword=%@",keyword]];
     }
     else
     {
