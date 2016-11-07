@@ -379,7 +379,6 @@
 // 获取礼物清单
 - (void)getPayVersion
 {
-    [VersionTool setPayVersion:@"0"];
     NSDictionary *parameters;
     WEAKSELF
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinVersionJson"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {

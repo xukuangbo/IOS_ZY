@@ -525,7 +525,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     });
     dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
     dispatch_async(dispatch_get_main_queue(), ^{
-        // 主线程处理
+        // 主线程处理,没有处理的事情
     });
 }
 
