@@ -40,6 +40,10 @@
 #import "showDashangMapView.h"
 #import "ZYTravePayView.h"
 #import "XTLoveHeartView.h"
+#import "ZYZCMCCacheManager.h"
+#import "ZYZCMCDownloadFileManager.h"
+#import "VersionTool.h"
+#import "ZYDownloadGiftImageModel.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -120,6 +124,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) WXApiManager *wxApiManger;
 // 打赏类型
 @property (nonatomic, assign) kLiveUserContributionStyle userContributionStyle;
+// 下载打赏图片manager
+@property (nonatomic, strong) ZYZCMCDownloadFileManager *downloadManager;
 @end
 /**
  *  文本cell标示
@@ -162,6 +168,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         [self initPersonData];
     }
     [self requestData];
+    [self getPayVersion];
     [self.portraitsCollectionView registerClass:[RCDLivePortraitViewCell class] forCellWithReuseIdentifier:@"portraitcell"];
     
     [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
@@ -286,8 +293,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self.watchLiveView.flowerBtn addTarget:self action:@selector(flowerButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.watchLiveView.shareBtn addTarget:self action:@selector(shareBtnAction:) forControlEvents:UIControlEventTouchUpInside];
 }
-
+// 创建观看直播间头像view
 - (void)initChatroomMemberInfo{
+    NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:
+                                                @"" pathType:@""];
+
     UIView *livePersonNumberView = [[UIView alloc] initWithFrame:CGRectMake(10, 30, 135, 40)];
     livePersonNumberView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
     livePersonNumberView.layer.cornerRadius = 40/2;
@@ -348,7 +358,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         // [self.view addSubview:payView];
         //self.payView = payView;
         
-        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.journeyLiveModel];
+        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.giftImageArray];
         travePayView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
         travePayView.frame = rect;
@@ -359,7 +369,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     } else if (self.payView && [self.liveModel.productId length] == 0) {
         self.payView.hidden = NO;
     } else if (!self.travePayView && [self.liveModel.productId length] != 0) {
-        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.journeyLiveModel];
+        ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.giftImageArray];
         travePayView.delegate = self;
         CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
         travePayView.frame = rect;
@@ -371,6 +381,26 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
 }
 
+// 播放直播的view
+- (void)getIntoLive:(NSString *)liveUrlString
+{
+    self.url = [NSURL URLWithString:liveUrlString];
+    _player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:nil];
+    UIView *playerView = [self.player view];
+    
+    UIView *displayView = [[UIView alloc] init];
+    displayView.frame = self.view.frame;
+    self.PlayerView = displayView;
+    self.PlayerView.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.PlayerView];
+    [self.view sendSubviewToBack:self.PlayerView];
+    
+    [self.PlayerView insertSubview:playerView atIndex:1];
+    [_player setScalingMode:IJKMPMovieScalingModeAspectFill];
+    
+    [self installMovieNotificationObservers];
+}
+// 添加约束
 - (void)setupConstraints
 {
     [self.watchLiveView.feedBackBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -443,22 +473,72 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [self registerNotification];
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
     self.wxApiManger = [[WXApiManager alloc] init];
+    self.downloadManager = [[ZYZCMCDownloadFileManager alloc] init];
 }
 
 #pragma mark - getData
-
-- (void)clickClapButton
+// 获取礼物清单
+- (void)getPayVersion
 {
-    NSDictionary *parameters= @{
-                                @"spaceName":self.liveModel.spaceName,
-                                @"streamName":self.liveModel.streamName,
-                                };
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_zanZhibo"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        NSLog(@"resultresult");
+    NSDictionary *parameters;
+    WEAKSELF
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinVersionJson"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if ([[NSString stringWithFormat:@"%@", [VersionTool getPayVersion]] isEqualToString:[NSString stringWithFormat:@"%@", result[@"data"]]]) {
+            NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
+            weakSelf.giftImageArray = [ZYZCMCCacheManager unarchiverCachePath:path];
+        } else {
+            [weakSelf downloadPayImage];
+        }
+        [VersionTool setPayVersion:result[@"data"]];
+    } andFailBlock:^(id failResult) {
+        NSLog(@"failResult");
+    }];
+   
+}
+// 请求打赏图片接口
+- (void)downloadPayImage
+{
+    NSMutableDictionary *parameters;
+    WEAKSELF
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinJson"];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.giftImageArray = [ZYDownloadGiftImageModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            [weakSelf cacheImagePath];
+        }
     } andFailBlock:^(id failResult) {
         
     }];
 }
+
+- (void)cacheImagePath
+{
+    WEAKSELF
+    dispatch_group_t group = dispatch_group_create();
+    for (int i = 0; i < self.giftImageArray.count; i++) {
+        __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
+        dispatch_group_enter(group);
+        [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl]];
+        [self.downloadManager setFractionCompleted:^(double progress) {
+            [VersionTool setPayVersion:@"0"];
+        }];
+        [self.downloadManager setSuccess:^(NSString *success) {
+            NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success pathType:model.price];
+            model.imageArray = imagePaths;
+            [weakSelf archiverCache];
+        }];
+        dispatch_group_leave(group);
+    }
+}
+
+- (void)archiverCache
+{
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
+    [ZYZCMCCacheManager archiverCacheData:self.giftImageArray path:path];
+
+}
+
+// 观看直播间用户的数组
 - (void)getUserIdString:(NSArray *)userIdArray
 {
     NSMutableString *userIdString = [NSMutableString string];
@@ -486,7 +566,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         [MBProgressHUD showError:@"请求数据失败"];
     }];
 }
-
+// 刷新观看直播间用户的数组
 - (void)refreshUserList:(NSString *)userID
 {
     WEAKSELF
@@ -518,25 +598,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }];
 }
 
-- (void)getIntoLive:(NSString *)liveUrlString
-{
-    self.url = [NSURL URLWithString:liveUrlString];
-    _player = [[IJKFFMoviePlayerController alloc] initWithContentURL:self.url withOptions:nil];
-    UIView *playerView = [self.player view];
-    
-    UIView *displayView = [[UIView alloc] init];
-    displayView.frame = self.view.frame;
-    self.PlayerView = displayView;
-    self.PlayerView.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.PlayerView];
-    [self.view sendSubviewToBack:self.PlayerView];
-    
-    [self.PlayerView insertSubview:playerView atIndex:1];
-    [_player setScalingMode:IJKMPMovieScalingModeAspectFill];
-    
-    [self installMovieNotificationObservers];
-}
-
 // 获取个人信息，是否关注
 - (void)requestData
 {
@@ -560,19 +621,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     } andFailBlock:^(id failResult) {
         weakSelf.livePersonNumberView.hidden = NO;
     }];
-//    WEAKSELF
-//    [ZYZCHTTPTool getHttpDataByURL:getUserInfoURL withSuccessGetBlock:^(id result, BOOL isSuccess) {
-//        NSDictionary *dic = (NSDictionary *)result;
-//        NSDictionary *data = dic[@"data"];
-//        if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]) {
-//            [weakSelf updateLivePersonNumberViewFrame];
-//            weakSelf.livePersonNumberView.hidden = NO;
-//        } else{
-//            weakSelf.livePersonNumberView.hidden = NO;
-//        }
-//    } andFailBlock:^(id failResult) {
-//        weakSelf.livePersonNumberView.hidden = NO;
-//    }];
 }
 
 /** 请求总金额数据 */
@@ -594,6 +642,19 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 
 #pragma mark - event
+- (void)clickClapButton
+{
+    NSDictionary *parameters= @{
+                                @"spaceName":self.liveModel.spaceName,
+                                @"streamName":self.liveModel.streamName,
+                                };
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_zanZhibo"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        NSLog(@"resultresult");
+    } andFailBlock:^(id failResult) {
+        
+    }];
+}
+
 // 关闭直播按钮
 - (void)closeLiveButtonAction:(UIButton *)sender
 {
@@ -1025,11 +1086,13 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
             [self requestTotalMoneyDataParameters:@{@"targetId" : [NSString stringWithFormat:@"%@", self.liveModel.userId]}];
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:content];
-                if ([dict[@"payType"] intValue] == 1) {
-                    [self showAnimtion:dict[@"payType"] imageNumber:11];
-                } else {
-                    [self showAnimtion:dict[@"payType"] imageNumber:37];
-                }
+                [self showAnimtion:dict[@"payType"]];
+
+//                if ([dict[@"payType"] intValue] == 1) {
+//                    [self showAnimtion:dict[@"payType"] imageNumber:11];
+//                } else {
+//                    [self showAnimtion:dict[@"payType"] imageNumber:37];
+//                }
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
             return ;

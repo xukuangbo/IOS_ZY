@@ -13,4 +13,6 @@
 @interface WalletHeadView : UIView
 
 @property (nonatomic, strong) WalletHeadModel *model;
+
+-(void)addFXBlurView;
 @end

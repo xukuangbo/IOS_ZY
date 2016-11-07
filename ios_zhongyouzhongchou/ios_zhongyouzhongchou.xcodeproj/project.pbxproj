@@ -103,6 +103,9 @@
 		0509693C1DCB0D3300128766 /* BottomPayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 050969371DCB0D3300128766 /* BottomPayView.xib */; };
 		0509693D1DCB0D3300128766 /* ZYBottomPayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 050969391DCB0D3300128766 /* ZYBottomPayView.m */; };
 		0509693E1DCB0D3300128766 /* ZYWatchLiveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0509693B1DCB0D3300128766 /* ZYWatchLiveView.m */; };
+		050969411DCC224400128766 /* ZYZCMCDownloadFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 050969401DCC224400128766 /* ZYZCMCDownloadFileManager.m */; };
+		050969441DCC249100128766 /* ZYZCMCCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 050969431DCC249100128766 /* ZYZCMCCacheManager.m */; };
+		050969471DCC359E00128766 /* ZYDownloadGiftImageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 050969461DCC359E00128766 /* ZYDownloadGiftImageModel.m */; };
 		05130FE91D828CA9001023B1 /* ZYZCWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */; };
 		051666B91D9388E0001ED976 /* ZYSystemCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 051666B81D9388E0001ED976 /* ZYSystemCommon.m */; };
 		051666BC1D9504BF001ED976 /* ZYLiveViewController+EVENT.m in Sources */ = {isa = PBXBuildFile; fileRef = 051666BB1D9504BF001ED976 /* ZYLiveViewController+EVENT.m */; };
@@ -853,6 +856,12 @@
 		050969391DCB0D3300128766 /* ZYBottomPayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYBottomPayView.m; sourceTree = "<group>"; };
 		0509693A1DCB0D3300128766 /* ZYWatchLiveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYWatchLiveView.h; sourceTree = "<group>"; };
 		0509693B1DCB0D3300128766 /* ZYWatchLiveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYWatchLiveView.m; sourceTree = "<group>"; };
+		0509693F1DCC224400128766 /* ZYZCMCDownloadFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCMCDownloadFileManager.h; sourceTree = "<group>"; };
+		050969401DCC224400128766 /* ZYZCMCDownloadFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCMCDownloadFileManager.m; sourceTree = "<group>"; };
+		050969421DCC249100128766 /* ZYZCMCCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCMCCacheManager.h; sourceTree = "<group>"; };
+		050969431DCC249100128766 /* ZYZCMCCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCMCCacheManager.m; sourceTree = "<group>"; };
+		050969451DCC359E00128766 /* ZYDownloadGiftImageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYDownloadGiftImageModel.h; sourceTree = "<group>"; };
+		050969461DCC359E00128766 /* ZYDownloadGiftImageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYDownloadGiftImageModel.m; sourceTree = "<group>"; };
 		05130FE71D828CA9001023B1 /* ZYZCWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCWebViewController.h; sourceTree = "<group>"; };
 		05130FE81D828CA9001023B1 /* ZYZCWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCWebViewController.m; sourceTree = "<group>"; };
 		051666B71D9388E0001ED976 /* ZYSystemCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYSystemCommon.h; sourceTree = "<group>"; };
@@ -2616,6 +2625,8 @@
 			children = (
 				0509692E1DCB0CDF00128766 /* ZYJourneyLiveModel.h */,
 				0509692F1DCB0CDF00128766 /* ZYJourneyLiveModel.m */,
+				050969451DCC359E00128766 /* ZYDownloadGiftImageModel.h */,
+				050969461DCC359E00128766 /* ZYDownloadGiftImageModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2687,6 +2698,10 @@
 			children = (
 				0527D8941DC1F0050064E354 /* ZYZCAPIGenerate.h */,
 				0527D8951DC1F0050064E354 /* ZYZCAPIGenerate.m */,
+				0509693F1DCC224400128766 /* ZYZCMCDownloadFileManager.h */,
+				050969401DCC224400128766 /* ZYZCMCDownloadFileManager.m */,
+				050969421DCC249100128766 /* ZYZCMCCacheManager.h */,
+				050969431DCC249100128766 /* ZYZCMCCacheManager.m */,
 			);
 			path = IOSCommonModule;
 			sourceTree = "<group>";
@@ -6043,6 +6058,7 @@
 				05977B231DB85DC5007EC20A /* ZFBrightnessView.m in Sources */,
 				2C1B60F61D6D3CF900E3C25B /* RecordSoundObj.m in Sources */,
 				2C1B60DA1D6D3CF900E3C25B /* FZCSingleTitleView.m in Sources */,
+				050969441DCC249100128766 /* ZYZCMCCacheManager.m in Sources */,
 				2C5159A11D8641B20048BD20 /* MLAudioPlayer.m in Sources */,
 				2CDE66C21DA650690066F49D /* QPPickerPreviewViewController.m in Sources */,
 				2CDE673D1DA652380066F49D /* QPEffectFilterManager.m in Sources */,
@@ -6236,6 +6252,7 @@
 				2C1B60D01D6D3CF900E3C25B /* MoreFZCChooseSceneController.m in Sources */,
 				392AB2871D669C26003FEDB7 /* RCDLiveTipMessageCell.m in Sources */,
 				39809D121D58762E00CB9EE3 /* TacticMainCountryCell.m in Sources */,
+				050969471DCC359E00128766 /* ZYDownloadGiftImageModel.m in Sources */,
 				2CDE66301DA64D7A0066F49D /* QPCutInfo.m in Sources */,
 				394D537B1D62F45500E7F595 /* UIView+ZYLayer.m in Sources */,
 				2C1B60D71D6D3CF900E3C25B /* ZYDescImgModel.m in Sources */,
@@ -6270,6 +6287,7 @@
 				05D887AC1DACC9BA0093910D /* ZYGuideManager.m in Sources */,
 				2C8B19791D0CF7EC0063097B /* JGProgressHUDSuccessIndicatorView.m in Sources */,
 				3926350D1D5D7C29006A90BE /* MineWalletModel.m in Sources */,
+				050969411DCC224400128766 /* ZYZCMCDownloadFileManager.m in Sources */,
 				39911ADE1D5044A8007DF44B /* ZYZCTool.m in Sources */,
 				04C087B51D05493900203D40 /* MyUserFollowedModel.m in Sources */,
 				2CFC7D191DA648D900A28D74 /* QPProgressHUD.m in Sources */,

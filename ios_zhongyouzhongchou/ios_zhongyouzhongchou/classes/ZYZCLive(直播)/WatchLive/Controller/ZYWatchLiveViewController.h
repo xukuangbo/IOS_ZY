@@ -39,6 +39,8 @@
 @property(nonatomic,strong)NSMutableArray *userList;
 // 直播信息model
 @property (nonatomic, strong) ZYLiveListModel *liveModel;
+// 打赏礼物图片
+@property (nonatomic, strong) NSMutableArray *giftImageArray;
 
 /*!
  当前会话的会话类型

@@ -12,6 +12,9 @@ pod 'Reachability', '3.2'
 pod 'ReactiveCocoa', '~> 2.5'
 pod 'Bugtags', '1.3.1'
 pod 'GRKPageViewController', '1.2'
+pod 'ZipArchive'
+pod 'Mantle'
+
 #pod 'ZFPlayer'
 
 #pod 'BlocksKit', '~> 2.2.5'
