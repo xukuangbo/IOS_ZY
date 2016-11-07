@@ -9,6 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "NSObject+MJCoding.h"
 
+//登陆app的渠道
+typedef NS_ENUM(NSInteger, LoginType)
+{
+    From_Wechat,
+    From_Mobile
+    
+};
+
 @interface ZYZCAccountModel : NSObject<MJCoding>
 /**　string	用于调用access_token，接口获取授权后的access token。*/
 @property (nonatomic, copy) NSString *access_token;
@@ -83,7 +91,10 @@
  *  用户MD5密匙 (在用户微信注册或手机登录的时候会反馈给app，这时app需要更新本地的用户scret）
  */
 @property (nonatomic, copy  ) NSString *scr;
-
+/**
+ *  登陆渠道
+ */
+@property (nonatomic, assign) LoginType loginType;
 
 
 + (instancetype)accountWithDict:(NSDictionary *)dict;

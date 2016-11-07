@@ -30,6 +30,7 @@
 #import "RCDLiveKitCommonDefine.h"
 #import "LiveFunctionView.h"
 #import "showDashangMapView.h"
+#import "ZYZCMCDownloadFileManager.h"
 @class ZYLiveListModel;
 ///输入栏扩展输入的唯一标示
 #define PLUGIN_BOARD_ITEM_ALBUM_TAG    1001
@@ -62,6 +63,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
 @property (nonatomic, copy) NSString *productID;
+// 下载打赏图片manager
+@property (nonatomic, strong) ZYZCMCDownloadFileManager *downloadManager;
+// 打赏礼物图片
+@property (nonatomic, strong) NSMutableArray *giftImageArray;
 // 看视频的userid
 @property(nonatomic,strong)NSMutableArray *userList;
 // 创建直播model

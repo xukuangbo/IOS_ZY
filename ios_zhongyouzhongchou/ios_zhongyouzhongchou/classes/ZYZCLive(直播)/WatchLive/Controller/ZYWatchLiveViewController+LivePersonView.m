@@ -338,12 +338,14 @@
             j = giftImageArray.count;
         }
         UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/%ld", cacheImagePath, j]];
-        [imgArray addObject:image];
+        if (image) {
+            [imgArray addObject:image];
+        }
     }
     //把存有UIImage的数组赋给动画图片数组
     imageView.animationImages = imgArray;
     //设置执行一次完整动画的时长
-    imageView.animationDuration = 13*0.1;
+    imageView.animationDuration = (giftImageArray. count + 5 ) * 0.1;
     //动画重复次数 （0为重复播放）
     imageView.animationRepeatCount = 1;
     //开始播放动画

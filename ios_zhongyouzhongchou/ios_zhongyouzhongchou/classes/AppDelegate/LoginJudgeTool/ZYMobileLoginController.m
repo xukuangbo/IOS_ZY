@@ -289,6 +289,8 @@
             {
                 //如果已有用户信息，则保存用户信息到本地
                 ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"][@"user"] ];
+                //标记从手机登陆
+                accountModel.loginType=From_Mobile;
                 [ZYZCAccountTool saveAccount:accountModel];
                 //回到首页
                 __weak typeof (&*self)weakSelf=self;

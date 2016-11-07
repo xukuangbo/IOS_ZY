@@ -8,7 +8,7 @@
 
 #import "RCDLiveKitUtility.h"
 #import "RCDLive.h"
-//#import "RCDLiveGiftMessage.h"
+#import "RCDLiveGiftMessage.h"
 #import "RCDLiveKitCommonDefine.h"
 
 @interface RCDLiveWeakRef : NSObject

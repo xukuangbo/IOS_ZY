@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-//#import "RCVoiceRecorder.h"
+#import "RCVoiceRecorder.h"
 
 @protocol RCVoiceCaptureControlDelegate <NSObject>
 

@@ -58,7 +58,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZC/Controller/MoreFZCViewController.m"
-                  timestampString = "499946882.379992"
+                  timestampString = "500197916.357729"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "369"
@@ -73,7 +73,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZC/Controller/MoreFZCViewController.m"
-                  timestampString = "499946882.381678"
+                  timestampString = "500197916.360761"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "369"
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/WatchLive/Controller/ZYWatchLiveViewController.m"
-            timestampString = "499946880.678227"
+            timestampString = "500195580.052834"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1289"
-            endingLineNumber = "1289"
+            startingLineNumber = "1287"
+            endingLineNumber = "1287"
             landmarkName = "-sizeForItem:atIndexPath:"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +170,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController+EVENT.m"
-            timestampString = "497606841.822624"
+            timestampString = "500196801.592503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "244"
-            endingLineNumber = "244"
+            startingLineNumber = "246"
+            endingLineNumber = "246"
             landmarkName = "-clickEnterRoomButton:"
             landmarkType = "7">
          </BreakpointContent>
@@ -202,7 +202,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/CalendarViewController.m"
-                  timestampString = "499946882.400088"
+                  timestampString = "500197916.380272"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "296"
@@ -217,7 +217,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/CalendarViewController.m"
-                  timestampString = "499946882.401479"
+                  timestampString = "500197916.382186"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "296"
@@ -232,7 +232,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/CalendarViewController.m"
-                  timestampString = "499946882.402904"
+                  timestampString = "500197916.383729"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "296"
@@ -265,7 +265,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/ChooseTimeViewController.m"
-                  timestampString = "499946882.406444"
+                  timestampString = "500197916.387419"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "214"
@@ -280,7 +280,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/ChooseTimeViewController.m"
-                  timestampString = "499946882.407938"
+                  timestampString = "500197916.389118"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "214"
@@ -295,7 +295,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/ChooseTimeViewController.m"
-                  timestampString = "499946882.409394"
+                  timestampString = "500197916.391101"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "214"
@@ -536,7 +536,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/Main(%E4%B8%BB%E8%A6%81)/Tool/ZYGuideView/ZYDetailGuideView.m"
-                  timestampString = "499946882.437852"
+                  timestampString = "500197916.418809"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "59"
@@ -551,7 +551,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/Main(%E4%B8%BB%E8%A6%81)/Tool/ZYGuideView/ZYDetailGuideView.m"
-                  timestampString = "499946882.439816"
+                  timestampString = "500197916.420702"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "59"
@@ -584,7 +584,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/Main(%E4%B8%BB%E8%A6%81)/Tool/ZYGuideView/ZYDetailGuideView.m"
-                  timestampString = "499946882.443221"
+                  timestampString = "500197916.424546"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "69"
@@ -599,7 +599,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/Main(%E4%B8%BB%E8%A6%81)/Tool/ZYGuideView/ZYDetailGuideView.m"
-                  timestampString = "499946882.445039"
+                  timestampString = "500197916.426362"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "69"
@@ -818,11 +818,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYDoLiveVC.m"
-            timestampString = "499160086.441091"
+            timestampString = "500196801.592503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "402"
-            endingLineNumber = "402"
+            startingLineNumber = "401"
+            endingLineNumber = "401"
             landmarkName = "-liveSession:error:"
             landmarkType = "7">
          </BreakpointContent>
@@ -962,27 +962,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
-            timestampString = "499831119.304759"
+            timestampString = "500182972.517447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
-            landmarkName = "-createLiveSession"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
-            timestampString = "499831124.035989"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "515"
-            endingLineNumber = "515"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
             landmarkName = "-liveSession:openAudioError:"
             landmarkType = "7">
          </BreakpointContent>
@@ -994,11 +978,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
-            timestampString = "499831126.044761"
+            timestampString = "500182972.517447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "521"
-            endingLineNumber = "521"
+            startingLineNumber = "523"
+            endingLineNumber = "523"
             landmarkName = "-liveSession:openVideoError:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1010,11 +994,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
-            timestampString = "499831128.829788"
+            timestampString = "500182972.517447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "529"
+            endingLineNumber = "529"
             landmarkName = "-liveSession:encodeAudioError:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1026,11 +1010,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
-            timestampString = "499831132.711624"
+            timestampString = "500182972.517447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "533"
-            endingLineNumber = "533"
+            startingLineNumber = "535"
+            endingLineNumber = "535"
             landmarkName = "-liveSession:encodeVideoError:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1057,22 +1041,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
-            timestampString = "499834137.169886"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "-createLiveSession"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/Main(&#x4e3b;&#x8981;)/Tool/ZYZCHTTPTool.m"
             timestampString = "499935984.099238"
             startingColumnNumber = "9223372036854775807"
@@ -1080,22 +1048,6 @@
             startingLineNumber = "282"
             endingLineNumber = "282"
             landmarkName = "+encryptParams"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/WatchLive/Controller/ZYWatchLiveViewController.m"
-            timestampString = "499946880.678227"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "523"
-            endingLineNumber = "523"
-            landmarkName = "-cacheImagePath"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1153,12 +1105,172 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/WatchLive/Controller/ZYWatchLiveViewController+LivePersonView.m"
-            timestampString = "499946644.796913"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
+            timestampString = "500182972.517447"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
+            startingLineNumber = "405"
+            endingLineNumber = "405"
+            landmarkName = "-enterChatRoom"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController.m"
+            timestampString = "500182972.517447"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "407"
+            endingLineNumber = "407"
+            landmarkName = "-enterChatRoom"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/AppDelegate/LoginJudgeTool/LoginJudgeController.m"
+            timestampString = "500178880.09362"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "306"
+            endingLineNumber = "306"
+            landmarkName = "-regisPersonalMessageWith:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/AppDelegate/LoginJudgeTool/LoginJudgeController.m"
+            timestampString = "500178881.149896"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "303"
+            endingLineNumber = "303"
+            landmarkName = "-regisPersonalMessageWith:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/AppDelegate/LoginJudgeTool/LoginJudgeController.m"
+            timestampString = "500178904.433455"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "-requstPersonalData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/AppDelegate/LoginJudgeTool/LoginJudgeController.m"
+            timestampString = "500178905.73109"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "244"
+            endingLineNumber = "244"
+            landmarkName = "-requstPersonalData:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/AppDelegate/LoginJudgeTool/LoginJudgeController.m"
+            timestampString = "500178942.726518"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "-managerDidRecvAuthResponse:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/AppDelegate/LoginJudgeTool/LoginJudgeController.m"
+            timestampString = "500178950.450639"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "-managerDidRecvAuthResponse:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/AppDelegate/LoginJudgeTool/LoginJudgeController.m"
+            timestampString = "500178951.708246"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "-managerDidRecvAuthResponse:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/AppDelegate/LoginJudgeTool/LoginJudgeController.m"
+            timestampString = "500178953.768084"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "-managerDidRecvAuthResponse:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController+EVENT.m"
+            timestampString = "500196801.592503"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "461"
+            endingLineNumber = "461"
             landmarkName = "-showAnimtion:"
             landmarkType = "7">
          </BreakpointContent>
@@ -1169,13 +1281,125 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/Main(&#x4e3b;&#x8981;)/IOSCommonModule/ZYZCMCCacheManager.m"
-            timestampString = "499946678.516289"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController+EVENT.m"
+            timestampString = "500196801.592503"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "+zipArchive:pathType:"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
+            landmarkName = "-messageBtnAction:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController+EVENT.m"
+            timestampString = "500196801.592503"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "431"
+            endingLineNumber = "431"
+            landmarkName = "-cacheImagePath"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/Controller/ZYLiveViewController+EVENT.m"
+            timestampString = "500196801.592503"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
+            landmarkName = "-cacheImagePath"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__45-[ZYLiveViewController(EVENT) cacheImagePath]_block_invoke"
+                  moduleName = "&#x4f17;&#x6e38;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCLive(%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/Controller/ZYLiveViewController+EVENT.m"
+                  timestampString = "500197916.545471"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "425"
+                  endingLineNumber = "425"
+                  offsetFromSymbolStart = "584">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__45-[ZYLiveViewController(EVENT) cacheImagePath]_block_invoke.476"
+                  moduleName = "&#x4f17;&#x6e38;"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCLive(%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/DoLive(%E5%81%9A%E7%9B%B4%E6%92%AD)/Controller/ZYLiveViewController+EVENT.m"
+                  timestampString = "500197916.547006"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "426"
+                  endingLineNumber = "426"
+                  offsetFromSymbolStart = "48">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/CustomViews/EmojiView/RCDLiveEmojiBoardView.m"
+            timestampString = "500197915.728924"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
+            landmarkName = "-sendBtnHandle:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/CustomViews/InputBar/RCDLiveInputBar.m"
+            timestampString = "500197836.834158"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "345"
+            endingLineNumber = "345"
+            landmarkName = "-didTouchEmojiView:touchedEmoji:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/DoLive(&#x505a;&#x76f4;&#x64ad;)/CustomViews/InputBar/RCDLiveInputView.m"
+            timestampString = "500197915.728924"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "259"
+            endingLineNumber = "259"
+            landmarkName = "-didTouchEmojiDown:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
