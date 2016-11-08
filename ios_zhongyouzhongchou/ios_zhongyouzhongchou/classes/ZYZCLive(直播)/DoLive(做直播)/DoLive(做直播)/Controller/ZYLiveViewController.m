@@ -138,7 +138,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     [self setUpLive];
     //进入聊天室
     [self enterChatRoom];
-    
+    // 获取动画版本号
+    [self getPayVersion];
     
     [self requestTotalMoneyDataParameters:nil];
 }
@@ -219,7 +220,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 #pragma mark - setup方法
 // 设置主播UserInfo
 - (void)setUpCurrentUserInfo{
-    
+    self.downloadManager = [[ZYZCMCDownloadFileManager alloc] init];
+
     ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
     
     NSString *faceImgStrng = accountModel.faceImg64.length > 0?accountModel.faceImg64 : accountModel.faceImg132;
@@ -1055,11 +1057,7 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
             [self requestTotalMoneyDataParameters:nil];
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:content];
-                if ([dict[@"payType"] intValue] == 1) {
-                    [self showAnimtion:dict[@"payType"] imageNumber:11];
-                } else {
-                    [self showAnimtion:dict[@"payType"] imageNumber:37];
-                }
+                [self showAnimtion:dict[@"payType"]];
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
             return ;

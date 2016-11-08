@@ -519,6 +519,9 @@
 		390D2FD61DAC8B1000D44E90 /* showDashangMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD21DAC8B1000D44E90 /* showDashangMapView.m */; };
 		390D2FD71DAC8B1000D44E90 /* showDashangView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD41DAC8B1000D44E90 /* showDashangView.m */; };
 		390D2FDA1DAC8D8300D44E90 /* XTLoveHeartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */; };
+		390D9CF01DD065E30013F606 /* WalletZCMoneyVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D9CEE1DD065E30013F606 /* WalletZCMoneyVC.m */; };
+		390D9CF41DD066D30013F606 /* WalletZCMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 390D9CF31DD066D30013F606 /* WalletZCMoneyView.m */; };
+		390D9CF61DD066EE0013F606 /* WalletZCMoneyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 390D9CF51DD066EE0013F606 /* WalletZCMoneyView.xib */; };
 		3910CE701D35D6F4004D7578 /* TacticMoreJieshaoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */; };
 		391115E91DC21B44000C82F1 /* WalletYbjCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115E71DC21B44000C82F1 /* WalletYbjCell.m */; };
 		391115EA1DC21B44000C82F1 /* WalletYbjCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 391115E81DC21B44000C82F1 /* WalletYbjCell.xib */; };
@@ -1659,6 +1662,11 @@
 		390D2FD41DAC8B1000D44E90 /* showDashangView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = showDashangView.m; sourceTree = "<group>"; };
 		390D2FD81DAC8D8300D44E90 /* XTLoveHeartView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTLoveHeartView.h; sourceTree = "<group>"; };
 		390D2FD91DAC8D8300D44E90 /* XTLoveHeartView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTLoveHeartView.m; sourceTree = "<group>"; };
+		390D9CED1DD065E30013F606 /* WalletZCMoneyVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletZCMoneyVC.h; sourceTree = "<group>"; };
+		390D9CEE1DD065E30013F606 /* WalletZCMoneyVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletZCMoneyVC.m; sourceTree = "<group>"; };
+		390D9CF21DD066D30013F606 /* WalletZCMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletZCMoneyView.h; sourceTree = "<group>"; };
+		390D9CF31DD066D30013F606 /* WalletZCMoneyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletZCMoneyView.m; sourceTree = "<group>"; };
+		390D9CF51DD066EE0013F606 /* WalletZCMoneyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletZCMoneyView.xib; sourceTree = "<group>"; };
 		3910CE6E1D35D6F4004D7578 /* TacticMoreJieshaoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticMoreJieshaoVC.h; sourceTree = "<group>"; };
 		3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticMoreJieshaoVC.m; sourceTree = "<group>"; };
 		391115E61DC21B43000C82F1 /* WalletYbjCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjCell.h; sourceTree = "<group>"; };
@@ -4546,6 +4554,42 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		390D9CE91DD0590A0013F606 /* WalletZCVC(转出余额) */ = {
+			isa = PBXGroup;
+			children = (
+				390D9CEA1DD0590A0013F606 /* Controller */,
+				390D9CEB1DD0590A0013F606 /* Model */,
+				390D9CEC1DD0590A0013F606 /* View */,
+			);
+			path = "WalletZCVC(转出余额)";
+			sourceTree = "<group>";
+		};
+		390D9CEA1DD0590A0013F606 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				390D9CED1DD065E30013F606 /* WalletZCMoneyVC.h */,
+				390D9CEE1DD065E30013F606 /* WalletZCMoneyVC.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		390D9CEB1DD0590A0013F606 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		390D9CEC1DD0590A0013F606 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				390D9CF21DD066D30013F606 /* WalletZCMoneyView.h */,
+				390D9CF31DD066D30013F606 /* WalletZCMoneyView.m */,
+				390D9CF51DD066EE0013F606 /* WalletZCMoneyView.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		3910CE6D1D35D6CC004D7578 /* MoreJieshao(更多介绍) */ = {
 			isa = PBXGroup;
 			children = (
@@ -5373,6 +5417,7 @@
 		39E0A98C1DC7450100FE6B6C /* DetailVC */ = {
 			isa = PBXGroup;
 			children = (
+				390D9CE91DD0590A0013F606 /* WalletZCVC(转出余额) */,
 				395260C11DC9BB7600BA7C55 /* WalletYbjChangeXC */,
 				39E0A98D1DC7450100FE6B6C /* WalletUseYbjVC */,
 			);
@@ -5722,6 +5767,7 @@
 				2C1B610B1D6D3CF900E3C25B /* WeekDayView.xib in Resources */,
 				2CDE67101DA651070066F49D /* QPMVMoreViewCell.xib in Resources */,
 				2C066A6C1D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
+				390D9CF61DD066EE0013F606 /* WalletZCMoneyView.xib in Resources */,
 				2CE617761D657DD100962163 /* pick_checked@2x.png in Resources */,
 				2CDE66201DA64C3E0066F49D /* icon.png in Resources */,
 				0527D88E1DC1E3F00064E354 /* ZhongYouAPIConfig.json in Resources */,
@@ -6013,6 +6059,7 @@
 				2C8B19741D0CF7EC0063097B /* JGProgressHUDImageIndicatorView.m in Sources */,
 				39911ACA1D504174007DF44B /* UIView+GetSuperTableView.m in Sources */,
 				0406513B1CC7597A003FD539 /* TacticVideoModel.m in Sources */,
+				390D9CF01DD065E30013F606 /* WalletZCMoneyVC.m in Sources */,
 				393C292B1D435E6600B64551 /* AboutYinsiVC.m in Sources */,
 				3985EC391D5C1C86007C43D1 /* WalletMingXiVC.m in Sources */,
 				2C1B60F11D6D3CF900E3C25B /* AddSceneView.m in Sources */,
@@ -6242,6 +6289,7 @@
 				392AB2951D669C26003FEDB7 /* RCDLiveKitUtility.m in Sources */,
 				394D53721D62D76B00E7F595 /* ZYFaqiLiveViewController.m in Sources */,
 				2CE6176E1D657DD100962163 /* HUAlbumCell.m in Sources */,
+				390D9CF41DD066D30013F606 /* WalletZCMoneyView.m in Sources */,
 				2C8B19701D0CF7EC0063097B /* JGProgressHUDAnimation.m in Sources */,
 				05130FE91D828CA9001023B1 /* ZYZCWebViewController.m in Sources */,
 				05977B221DB85DC5007EC20A /* UIViewController+ZFPlayerRotation.m in Sources */,

@@ -45,13 +45,11 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
 
 @implementation RCDLiveInputView
 
-- (id)initWithFrame:(CGRect)frame
-    withContextView:(UIView *)contextView {
+- (id)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
         self.inputContainerSubViewConstraints = [[NSMutableArray alloc] init];
         [self resetInputBar];
-        _contextView = contextView;
         self.currentPositionY = frame.origin.y;
         self.originalPositionY = frame.origin.y;
         
@@ -110,6 +108,7 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
     [_emojiButton setImage:RCDLive_IMAGE_BY_NAMED(@"chatting_biaoqing_btn_normal") forState:UIControlStateNormal];
     [_emojiButton setImage:RCDLive_IMAGE_BY_NAMED(@"chatting_biaoqing_btn_selected") forState:UIControlStateSelected];
     [_emojiButton setExclusiveTouch:YES];
+    _emojiButton.hidden = YES;
     [_emojiButton addTarget:self action:@selector(didTouchEmojiDown:) forControlEvents:UIControlEventTouchUpInside];
     
     self.inputContainerView.backgroundColor = [UIColor clearColor];
@@ -255,6 +254,7 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
     }
 }
 
+
 - (void)didTouchEmojiDown:(UIButton *)sender {
     if (self.inputTextView.hidden) {
         [self switchInputBoxOrRecord];
@@ -264,8 +264,6 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
 
 #pragma mark <UITextViewDelegate>
 - (void)changeInputViewFrame:(NSString *)text textView:(UITextView *)textView range:(NSRange)range {
-//    [textView scrollRangeToVisible:NSMakeRange([textView.text length], 1)];
-
     _inputTextview_height = 36.0f;
     if (_inputTextView.contentSize.height < 70 && _inputTextView.contentSize.height > 36.0f) {
         _inputTextview_height = _inputTextView.contentSize.height;
@@ -275,7 +273,6 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
         _inputTextview_height = 70;
         
     }
-    
     NSString *inputStr = _inputTextView.text;
     CGSize textViewSize=[self TextViewAutoCalculateRectWith:inputStr FontSize:16.0 MaxSize:CGSizeMake(_inputTextView.frame.size.width, 70)];
     
@@ -329,29 +326,26 @@ typedef void (^RCTKAnimationCompletionBlock)(BOOL finished);
     float animateDuration = 0.5;
     [UIView animateWithDuration:animateDuration
                      animations:^{
-                         CGRect intputTextRect = self.inputTextView.frame;
-                         intputTextRect.size.height = _inputTextview_height;
-                         //intputTextRect.origin.y = 7;
-                         [_inputTextView setFrame:intputTextRect];
-                         CGRect vRect = self.frame;
-                         vRect.size.height = Height_ChatSessionInputBar + (_inputTextview_height - 36);
-                         vRect.origin.y = _originalPositionY - (_inputTextview_height - 36);
-                         self.frame = vRect;
-                         CGRect rectFrame = self.inputContainerView.frame;
-                         rectFrame.size.height = vRect.size.height;
-                         self.inputContainerView.frame = rectFrame;
-                         
-                         _currentPositionY = vRect.origin.y;
-                         [self.delegate chatSessionInputBarControlContentSizeChanged:vRect];
-                         if (_inputTextview_height>70.0) {
-                             textView.contentOffset=CGPointMake(0, 100);
-                         }
+//                         CGRect intputTextRect = self.inputTextView.frame;
+//                         intputTextRect.size.height = _inputTextview_height;
+//                         intputTextRect.origin.y = 7;
+//                         [self.inputTextView setFrame:intputTextRect];
+//                         self.inputTextview_height =
+//                         _inputTextview_height;
+//                         
+//                         CGRect vRect = self.frame;
+//                         vRect.size.height =
+//                         50 + (_inputTextview_height - 36);
+//                         vRect.origin.y = self.originalPositionY -
+//                         (_inputTextview_height - 36
+//                          );
+//                         self.frame = vRect;
+//                         self.currentPositionY = vRect.origin.y;
+
                      }];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
-//    [textView scrollRangeToVisible:NSMakeRange([textView.text length], 1)];
-
     [self.delegate inputTextView:textView shouldChangeTextInRange:range replacementText:text];
     if ([text isEqualToString:@"\n"]) {
         if ([self.delegate respondsToSelector:@selector(didTouchKeyboardReturnKey:text:)]) {

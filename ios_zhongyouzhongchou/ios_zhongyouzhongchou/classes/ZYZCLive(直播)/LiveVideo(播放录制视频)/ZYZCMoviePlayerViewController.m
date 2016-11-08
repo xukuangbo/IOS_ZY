@@ -35,6 +35,7 @@
         self.isPlaying = NO;
         [self.playerView play];
     }
+    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -58,10 +59,10 @@
     [self.view addSubview:topView];
     [topView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.top.left.right.equalTo(self.view);
-        make.height.mas_offset(20);
+        make.height.mas_offset(0);
     }];
     
-    self.playerView = [[ZFPlayerView alloc] initWithFrame:self.view.bounds];
+    self.playerView = [[ZFPlayerView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [self.view addSubview:self.playerView];
     // 隐藏全屏按钮和锁屏按钮
     self.playerView.controlView.fullScreenBtn.hidden = YES;

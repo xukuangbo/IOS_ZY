@@ -37,6 +37,7 @@
     [_commitButton setBackgroundColor:[UIColor ZYZC_LineGrayColor]];
     [_commitButton addTarget:self action:@selector(commitAction) forControlEvents:UIControlEventTouchUpInside];
     _commitButton.layerCornerRadius = 5;
+    _commitButton.enabled = NO;
     
     [self addSubview:_moneyNumberLabel];
     [self addSubview:_commitButton];

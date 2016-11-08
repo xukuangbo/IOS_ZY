@@ -607,7 +607,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerState) {
         if (self.isBottomVideo && !self.isFullScreen) { [self.controlView hideControlView]; } // 视频在底部bottom小屏,并且不是全屏状态
         else if (self.playDidEnd) { [self.controlView hideControlView]; } // 播放完了
         else { [self.controlView showControlView]; }
-        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
     } completion:^(BOOL finished) {
         self.isMaskShowing = YES;
         [self autoFadeOutControlBar];

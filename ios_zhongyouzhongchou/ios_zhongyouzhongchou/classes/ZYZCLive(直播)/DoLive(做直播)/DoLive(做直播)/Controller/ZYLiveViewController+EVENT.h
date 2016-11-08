@@ -25,5 +25,8 @@
 
 -(void)showInputBar:(id)sender;
 // 显示动画
-- (void)showAnimtion:(NSString *)payType imageNumber:(NSInteger)number;
+- (void)showAnimtion:(NSString *)payType;
+// 获取动画版本号
+- (void)getPayVersion;
+
 @end
