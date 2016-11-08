@@ -14,15 +14,6 @@
 #define ALERT_SURE_END_TRAVEL_TAG        14
 #define ALERT_DELAYTRAVEL_TAG            15
 
-//获取草稿
-#define KGET_DRAFT_PRODUCT(userId,productId)  [NSString stringWithFormat:@"%@userId=%@&productId=%@",GETPRODUCTDETAIL,userId,productId]
-
-//确认行程结束
-#define KGET_TRAVEL_END_STATE  [NSString stringWithFormat:@"%@product/endTravelProduct.action",BASE_URL]
-
-//延时出发
-#define KDELAY_TRAVEL  [NSString stringWithFormat:@"%@product/godelayProduct.action",BASE_URL]
-
 #import "ZYZCEditProductView.h"
 #import "MoreFZCViewController.h"
 #import "MoreFZCDataManager.h"
@@ -1023,7 +1014,10 @@
                               @"userId":[ZYZCAccountTool getUserId],
                               @"productId":_productId
                               };
-        NSString *httpUrl=KGET_TRAVEL_END_STATE;
+         //确认行程结束
+//        NSString *httpUrl = [NSString stringWithFormat:@"%@product/endTravelProduct.action",BASE_URL]
+        NSString *httpUrl = [[ZYZCAPIGenerate sharedInstance] API:@"end_travel_product"];
+        
         [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess)
          {
@@ -1057,7 +1051,9 @@
                               @"productId":_productId
                               };
 //        NSLog(@"param:%@",param);
-        NSString *httpUrl=KDELAY_TRAVEL;
+//        NSString *httpUrl=[NSString stringWithFormat:@"%@product/godelayProduct.action",BASE_URL];
+//
+        NSString *httpUrl = [[ZYZCAPIGenerate sharedInstance] API:@"delay_product"];
         [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess)
          {

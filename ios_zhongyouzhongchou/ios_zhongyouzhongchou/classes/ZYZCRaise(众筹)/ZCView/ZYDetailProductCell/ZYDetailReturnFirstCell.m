@@ -83,6 +83,13 @@
                 supportMoneyView.lineView.hidden=YES;
             }
             SupportStateModel *stateModel=[SupportStateModel new];
+            if (_viewStateArr.count>=i+1) {
+                stateModel=_viewStateArr[i];
+            }
+            else
+            {
+                [_viewStateArr addObject:stateModel];
+            }
             //判断项目是否是浏览或草稿
             if ((_detailProductType==SkimDetailProduct)||(_detailProductType==
                 DraftDetailProduct)) {
@@ -113,13 +120,6 @@
                         break;
                     }
                 }
-            }
-            if (_viewStateArr.count>=i+1) {
-                stateModel=_viewStateArr[i];
-            }
-            else
-            {
-                [_viewStateArr addObject:stateModel];
             }
             supportMoneyView.supportStateModel=stateModel;
             supportMoneyView.reportModel=reportModel;

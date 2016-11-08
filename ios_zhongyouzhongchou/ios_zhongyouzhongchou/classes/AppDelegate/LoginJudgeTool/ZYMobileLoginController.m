@@ -8,10 +8,6 @@
 
 #define TITLE_TEXT @"手机动态登录"
 #define UNIT_HEIGHT  50
-//获取验证码
-#define GET_PHONE_CODE(mobile)  [NSString stringWithFormat:@"%@mobileAPI/sendLoginCode.action?mobile=%@",BASE_URL,mobile]
-//验证码登录
-#define LOGIN_BY_MOBILE(mobile,code) [NSString stringWithFormat:@"%@mobileAPI/loginByCode.action?mobile=%@&code=%@",BASE_URL,mobile,code]
 
 #import "ZYMobileLoginController.h"
 #import "FinishBaseInfoController.h"
@@ -235,9 +231,12 @@
     [self getTimer];
     
 //    NSLog(@"%@",GET_PHONE_CODE(_textField.text));
+//    NSString *url=[NSString stringWithFormat:@"%@mobileAPI/sendLoginCode.action?mobile=%@",BASE_URL,mobile];
+    
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"get_mobile_code"];
+    NSDictionary *parameter=@{@"mobile":_textField.text};
     //获取验证码
-    [ZYZCHTTPTool getHttpDataByURL:GET_PHONE_CODE(_textField.text) withSuccessGetBlock:^(id result, BOOL isSuccess)
-    {
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         NSLog(@"result：%@",result);
         if (isSuccess) {
             
@@ -251,9 +250,7 @@
             _timer = nil;
             _codeBtn.enabled = YES;
         }
-    }
-    andFailBlock:^(id failResult)
-    {
+    } andFailBlock:^(id failResult) {
         NSLog(@"failResult：%@",failResult);
         [MBProgressHUD showError:@"网络错误,获取失败"];
         [self prepareGetCodeBtn];
@@ -269,17 +266,24 @@
 {
     [self.view endEditing:YES];
     
+//    NSString *url=[NSString stringWithFormat:@"%@mobileAPI/loginByCode.action?mobile=%@&code=%@",BASE_URL,mobile,code]
+    NSString *url= [[ZYZCAPIGenerate sharedInstance] API:@"login_by_mobileCode"];
+    NSDictionary *parameter=@{@"mobile":_textField.text,
+                              @"code":_codeText.text
+                              };
+    
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool getHttpDataByURL:LOGIN_BY_MOBILE(_textField.text, _codeText.text) withSuccessGetBlock:^(id result, BOOL isSuccess)
+    //验证码登录
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess)
     {
-//        DDLog(@"%@",result);
+        DDLog(@"%@",result);
         [MBProgressHUD hideHUDForView:self.view];
         if (isSuccess) {
             //如果没有用户信息，填写用户信息
             //主要保存scr
             ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"][@"user"] ];
             [ZYZCAccountTool saveAccount:accountModel];
-
+            
             if ([result[@"data"][@"setinfo"] isEqual:@1]) {
                 FinishBaseInfoController *baseInfoController=[[FinishBaseInfoController alloc]init];
                 baseInfoController.userId=result[@"data"][@"user"][@"userId"];
@@ -303,14 +307,13 @@
         {
             [MBProgressHUD showShortMessage:result[@"errorMsg"]];
         }
-        
     }
-    andFailBlock:^(id failResult) {
-        NSLog(@"%@",failResult);
+    andFailBlock:^(id failResult)
+    {
+        DDLog(@"%@",failResult);
         [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showShortMessage:@"网络错误,登录失败"];
     }];
-    
 }
 
 

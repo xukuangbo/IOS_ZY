@@ -20,7 +20,7 @@
 #import "ZCDetailArrangeFirstCell.h"
 //回报部分cells
 #import "ZYDetailReturnFirstCell.h"
-#import "ZCDetailReturnFirstCell.h"
+//#import "ZCDetailReturnFirstCell.h"
 #import "ZCDetailReturnSecondCell.h"
 #import "ZCDetailReturnThridCell.h"
 #import "ZCDetailReturnFourthCell.h"
@@ -51,7 +51,7 @@
 @property (nonatomic, assign) BOOL hasHotComment;//标记是否有热门评论
 @property (nonatomic, assign) BOOL hasInterestTravel;//标记是否有兴趣标签匹配的旅游
 
-@property (nonatomic, strong) ZCDetailReturnFirstCell  *returnFirstCell;
+//@property (nonatomic, strong) ZCDetailReturnFirstCell  *returnFirstCell;
 
 @end
 
@@ -85,11 +85,6 @@
         _blurView.alpha = 0.8;
         [_topImgView addSubview:_blurView];
 
-//        [[UIView alloc]initWithFrame:CGRectMake(0, BGIMAGEHEIGHT-BLURHEIGHT, KSCREEN_W, BLURHEIGHT)];
-//        _blurView.backgroundColor=[UIColor blackColor];
-//        _blurView.alpha=0.4;
-//        [_topImgView addSubview:_blurView];
-        
         //创建旅行主题标签
         _travelThemeLab=[[UILabel alloc]initWithFrame:CGRectMake(20, BGIMAGEHEIGHT-BLURHEIGHT, KSCREEN_W-40, BLURHEIGHT)];
         _travelThemeLab.font=[UIFont boldSystemFontOfSize:20];

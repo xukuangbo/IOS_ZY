@@ -5,9 +5,6 @@
 //  Created by liuliang on 16/7/20.
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
-
-#define CHAT_COMPLAIN_URL [NSString stringWithFormat:@"%@productInfo/msgComplaint.action",BASE_URL]
-
 #import "ChatComplainController.h"
 #import "XMNPhotoPickerFramework/XMNPhotoPickerFramework.h"
 #import "MediaUtils.h"
@@ -249,15 +246,14 @@
 -(void)commitData
 {
     NSString *images=[_imgUrlArr componentsJoinedByString:@","];
-    NSString *httpUrl=CHAT_COMPLAIN_URL;
+//    NSString *httpUrl= [NSString stringWithFormat:@"%@productInfo/msgComplaint.action",BASE_URL]
+    NSString *httpUrl = [[ZYZCAPIGenerate sharedInstance] API:@"complaint_product"];
     NSDictionary *param=@{@"selfUserId":[ZYZCAccountTool getUserId],
                           @"userId":_targetId,
                           @"type":[NSNumber numberWithInteger:_complainType],
                           @"images":images,
                           @"content":@"无"
                           };
-//    NSLog(@"param:%@",param);
-//    NSLog(@"httpUrl:%@",httpUrl);
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
 //        NSLog(@"%@",result);
         if (isSuccess) {

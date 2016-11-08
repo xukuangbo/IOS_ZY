@@ -12,9 +12,6 @@
 
 #define TOGETHERSUPPORT(rate,money) [NSString stringWithFormat:@"一起去:支持%d％旅费(%.2f)元",rate,money]
 
-//获取项目中支持各项的人
-#define GET_STYLE_USERS(productId) [NSString stringWithFormat:@"%@productInfo/getStyleUsers.action?productId=%@",BASE_URL,productId]
-
 #import "ZCDetailReturnFirstCell.h"
 #import "StylesUserModel.h"
 #import "NSDate+RMCalendarLogic.h"
@@ -315,7 +312,9 @@
 -(void)getOrderFailWithMaxStyle3
 {
 //    NSLog(@"+++++++%@",GET_STYLE_USERS(_cellModel.productId));
-        [ZYZCHTTPTool getHttpDataByURL:GET_STYLE_USERS(_cellModel.productId) withSuccessGetBlock:^(id result, BOOL isSuccess)
+    //获取项目中支持各项的人
+    NSString *url=[NSString stringWithFormat:@"%@productInfo/getStyleUsers.action?productId=%@",[ZYZCAPIGenerate sharedInstance].APIBaseUrl,_cellModel.productId];
+        [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
         {
 //            NSLog(@"++++%@",result);
             if (isSuccess) {

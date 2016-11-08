@@ -38,11 +38,12 @@
     _numberLab.textAlignment=NSTextAlignmentCenter;
     [self addSubview:_numberLab];
     
-    CGFloat btnWidth=(self.width-50)/8;
+    CGFloat btnEdg=10;
+    CGFloat btnWidth=20;
     CGFloat btnHeight=42;
     for (int i=0; i<8; i++) {
         UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
-        btn.frame=CGRectMake(_numberLab.right+(btnWidth)*i, (self.height-btnHeight)/2, btnWidth,btnHeight);
+        btn.frame=CGRectMake(_numberLab.right+(btnWidth+btnEdg)*i, (self.height-btnHeight)/2, btnWidth,btnHeight);
         [btn setImage:[UIImage imageNamed:@"icn_hum_pre"] forState:UIControlStateSelected];
         [btn setImage:[UIImage imageNamed:@"icn_hum"] forState:UIControlStateNormal];
 

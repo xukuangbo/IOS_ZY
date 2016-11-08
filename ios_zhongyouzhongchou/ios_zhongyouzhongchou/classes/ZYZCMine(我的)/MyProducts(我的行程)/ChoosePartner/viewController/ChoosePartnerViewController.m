@@ -275,7 +275,10 @@
         return;
     }
     
-    NSString *httpUrl=ADD_TOGETHER_PARTNER([ZYZCAccountTool getUserId],_productId,mutStr);
+
+    //加入一起游意向列表
+//  NSString *httpUrl ＝ [NSString stringWithFormat:@"%@productInfo/savaProductUserStatus.action?userId=%@&productId=%@&userIds=%@",BASE_URL,[ZYZCAccountTool getUserId],_productId,mutStr]
+    
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_savaProductUserStatus"];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     [parameter setValue:[NSString stringWithFormat:@"%@", _productId] forKey:@"productId"];
@@ -283,7 +286,6 @@
     [parameter setValue:mutStr forKey:@"userIds"];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
 
-    WEAKSELF
     [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
         //        NSLog(@"%@",result);

@@ -52,12 +52,10 @@
 
 -(void)getHttpData
 {
-    [MBProgressHUD showMessage:nil];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_getPageList"] andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_pageNo],
                         @"targetId":[ZYZCAccountTool getUserId]
                         } andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        DDLog(@"%@",result);
-        [MBProgressHUD hideHUD];
+//        DDLog(@"%@",result);
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_footprintListView.mj_footer ;
             if (_pageNo==1&&_listArr.count) {
@@ -92,7 +90,6 @@
         
         
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD hideHUD];
         [_footprintListView.mj_header endRefreshing];
         [_footprintListView.mj_footer endRefreshing];
     }];

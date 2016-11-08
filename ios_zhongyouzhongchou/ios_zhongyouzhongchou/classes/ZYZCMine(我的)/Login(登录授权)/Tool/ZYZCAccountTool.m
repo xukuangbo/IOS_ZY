@@ -53,14 +53,14 @@
 #pragma mark --- 取我的openid
 + (NSString *)getOpenid
 {
-    ZYZCAccountModel  *accountModel=[self account];
+    ZYZCAccountModel  *accountModel=[[self class] account];
     return accountModel.openid;
 }
 
 #pragma mark --- 取我的scret
 + (NSString *)getUserScret
 {
-    ZYZCAccountModel  *accountModel=[self account];
+    ZYZCAccountModel  *accountModel=[[self class] account];
     return accountModel.scr;
 }
 
