@@ -93,13 +93,13 @@
     [_addBtn setImage:[UIImage imageNamed:@"btn_and"] forState:UIControlStateNormal];
     [_addBtn addTarget:self action:@selector(addScene) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:_addBtn];
-    _addBtn.enabled=NO;
+    _addBtn.hidden=YES;
     
     MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
     if (manager.goal_goals.count>=2) {
-        _addBtn.enabled=YES;
+        _addBtn.hidden=NO;
         if (manager.goal_goals.count>=MAX_NUM_DEST) {
-            _addBtn.enabled=NO;
+            _addBtn.hidden=YES;
         }
         for (NSInteger i=2; i<manager.goal_goals.count; i++) {
             [self addSceneByTitle:manager.goal_goals[i]];
@@ -206,7 +206,7 @@
 {
      MoreFZCChooseSceneController *chooseScenceVC=[[MoreFZCChooseSceneController  alloc]init];
     chooseScenceVC.mySceneArr=_sceneTitleArr;
-     __weak typeof (&*self)weakSelf=self;
+    WEAKSELF
     if (button==_startDestBtn) {
         chooseScenceVC.isStartDest=YES;
         chooseScenceVC.getOneScene=^(NSString *scene)
@@ -226,7 +226,7 @@
             else if (manager.goal_goals.count>=2){
                 [manager.goal_goals replaceObjectAtIndex:1 withObject:scene];
             }
-            weakSelf.addBtn.enabled=YES;
+            weakSelf.addBtn.hidden=NO;
             [weakSelf changeFirstDestButton];
         };
     }
@@ -239,7 +239,7 @@
 {
     MoreFZCChooseSceneController *chooseScenceVC=[[MoreFZCChooseSceneController  alloc]init];
     chooseScenceVC.mySceneArr=_sceneTitleArr;
-    __weak typeof (&*self)weakSelf=self;
+    WEAKSELF
     chooseScenceVC.getOneScene=^(NSString *scene)
     {
         [weakSelf.sceneTitleArr addObject:scene];//将目的地名称保存在数组中
@@ -247,7 +247,7 @@
         manager.goal_goals=weakSelf.sceneTitleArr;//单例纪录目的地
         [weakSelf addSceneByTitle:scene];
         if (weakSelf.sceneTitleArr.count>=MAX_NUM_DEST) {
-            weakSelf.addBtn.enabled=NO;
+            weakSelf.addBtn.hidden=YES;
         }
     };
     chooseScenceVC.mySceneArr=_sceneTitleArr;
@@ -336,7 +336,7 @@
     }
     
     if (_sceneTitleArr.count<MAX_NUM_DEST) {
-        _addBtn.enabled=YES;
+        _addBtn.hidden=NO;
     }
 }
 
@@ -414,12 +414,4 @@
         _peoplePickerView.numberPeople=4;
     }
 }
-
-//#pragma mark - UITextfieldDelegate
-//- (void)textFieldDidBeginEditing:(UITextField *)textField
-//{
-//    [textField resignFirstResponder];
-//    
-//    textField.backgroundColor = [UIColor colorWithRed:arc4random() %256 / 256.0 green:arc4random()%256 / 256.0 blue:arc4random()%256 / 256.0 alpha:1];
-//}
 @end

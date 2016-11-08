@@ -9,7 +9,7 @@
 #ifndef HttpCommon_h
 #define HttpCommon_h
 
-
+/*
 #pragma mark --- 基础网络接口
 //正式
 //#define BASE_URL @"http://www.sosona.com:8080/"
@@ -260,5 +260,6 @@
 // 请求众游详情的回报和一起游金额
 #define PRODUCT_INFO_MONEY   [NSString stringWithFormat:@"%@productInfo/getProductMinInfo.action",BASE_URL]
 
+*/
 
 #endif /* HttpCommon_h */

@@ -55,16 +55,17 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     // 拍摄视频
     UIAlertAction *videoAction = [UIAlertAction actionWithTitle:@"拍摄视频" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action){
-        [ZYZCAccountTool getQuPaiAuthWithResultBlock:^(BOOL result) {
-            if (result==YES) {
-                [self createQuPai];
-            }
-            else
-            {
-                [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
-            }
-        }];
-        
+//        [ZYZCAccountTool getQuPaiAuthWithResultBlock:^(BOOL result) {
+//            if (result==YES) {
+//                [self createQuPai];
+//            }
+//            else
+//            {
+//                [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
+//            }
+//        }];
+        //无需鉴权即可登陆
+        [self createQuPai];
     }];
     //选择本地相册
     UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"手机相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {

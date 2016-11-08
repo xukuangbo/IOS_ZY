@@ -2989,7 +2989,6 @@
 				2C1B605A1D6D3CF900E3C25B /* FZCContentEntryView.m */,
 				2C1B605B1D6D3CF900E3C25B /* FZCSingleTitleView.h */,
 				2C1B605C1D6D3CF900E3C25B /* FZCSingleTitleView.m */,
-				2C1B605D1D6D3CF900E3C25B /* GoalCell */,
 				2C1B60661D6D3CF900E3C25B /* MoreFZCBaseTableView.h */,
 				2C1B60671D6D3CF900E3C25B /* MoreFZCBaseTableView.m */,
 				2C1B60681D6D3CF900E3C25B /* MoreFZCBaseTableViewCell.h */,
@@ -3006,16 +3005,17 @@
 				2C1B60731D6D3CF900E3C25B /* MoreFZCTravelTableView.m */,
 				2C1B60741D6D3CF900E3C25B /* NecessaryView.h */,
 				2C1B60751D6D3CF900E3C25B /* NecessaryView.m */,
-				2C1B60761D6D3CF900E3C25B /* RaiseCell */,
-				2C1B607F1D6D3CF900E3C25B /* ReturnCell */,
-				2C1B608B1D6D3CF900E3C25B /* TravelCell */,
-				2C1B60941D6D3CF900E3C25B /* WSMView */,
 				2C1B60A51D6D3CF900E3C25B /* ZYChooseNetImgCell.h */,
 				2C1B60A61D6D3CF900E3C25B /* ZYChooseNetImgCell.m */,
 				2C1B60A71D6D3CF900E3C25B /* ZYChooseNetImgTable.h */,
 				2C1B60A81D6D3CF900E3C25B /* ZYChooseNetImgTable.m */,
 				2C1B60A91D6D3CF900E3C25B /* ZYimageView.h */,
 				2C1B60AA1D6D3CF900E3C25B /* ZYimageView.m */,
+				2C1B60941D6D3CF900E3C25B /* WSMView */,
+				2C1B605D1D6D3CF900E3C25B /* GoalCell */,
+				2C1B60761D6D3CF900E3C25B /* RaiseCell */,
+				2C1B607F1D6D3CF900E3C25B /* ReturnCell */,
+				2C1B608B1D6D3CF900E3C25B /* TravelCell */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3023,12 +3023,12 @@
 		2C1B605D1D6D3CF900E3C25B /* GoalCell */ = {
 			isa = PBXGroup;
 			children = (
-				2C1B605E1D6D3CF900E3C25B /* GoalFirstCell.h */,
-				2C1B605F1D6D3CF900E3C25B /* GoalFirstCell.m */,
 				2C1B60601D6D3CF900E3C25B /* GoalPeoplePickerView.h */,
 				2C1B60611D6D3CF900E3C25B /* GoalPeoplePickerView.m */,
 				2C1B60621D6D3CF900E3C25B /* GoalScheduleView.h */,
 				2C1B60631D6D3CF900E3C25B /* GoalScheduleView.m */,
+				2C1B605E1D6D3CF900E3C25B /* GoalFirstCell.h */,
+				2C1B605F1D6D3CF900E3C25B /* GoalFirstCell.m */,
 				2C1B60641D6D3CF900E3C25B /* GoalSecondCell.h */,
 				2C1B60651D6D3CF900E3C25B /* GoalSecondCell.m */,
 			);

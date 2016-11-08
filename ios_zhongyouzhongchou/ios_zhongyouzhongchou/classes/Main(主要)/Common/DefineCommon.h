@@ -13,29 +13,19 @@
  XCode LLVM XXX - Preprocessing中Debug会添加 DEBUG=1 标志
  */
 #ifdef DEBUG
+
 #define ZYLog(xx, ...)  NSLog(@"行号:%d 时间:%s 文件名:%s\t方法名:%s\n%s(%d):\n",  __LINE__,__TIME__,[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],__func__, [[NSString stringWithFormat:xx, ##__VA_ARGS__] UTF8String])
 #define DDLog(xx, ...)  NSLog(@"%s(%d): " xx, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
 
-//融云appKey（测试）
-#define RC_APPKEY @"lmxuhwagxqfzd"
-//趣拍（正式）
-//#define  kQPZhouYouLiveHttpHost  @"http://zhongyoulive.s.qupai.me"
-//#define  kQPAppKey     @"20a9a463ed1796c"
-//#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
-
 #else
+
 #define ZYLog(FORMAT, ...) nil
 #define DDLog(xx, ...) nil
 
-//融云appKey（正式）
-#define RC_APPKEY @"z3v5yqkbvp960"
-// bugTags appKey
-////趣拍（正式）
-//#define  kQPZhouYouLiveHttpHost  @"http://zhongyoulive.s.qupai.me"
-//#define  kQPAppKey     @"20a9a463ed1796c"
-//#define  kQPAppSecret  @"b39015e4f733445290c63b4de7b603cd"
-
 #endif
+
+//融云appKey（测试和正式）
+#define RC_APPKEY(serverStatus) serverStatus == 1 ? @"lmxuhwagxqfzd" :@"z3v5yqkbvp960"
 
 ////趣拍（测试和正式） serverStatus为1为测试服务器，否则为趣拍的正式服务器
 #define  kQPZhouYouLiveHttpHost(serverStatus)  serverStatus == 1 ? @"http://zhongyoutest01.s.qupai.me" : @"http://zhongyoulive.s.qupai.me"

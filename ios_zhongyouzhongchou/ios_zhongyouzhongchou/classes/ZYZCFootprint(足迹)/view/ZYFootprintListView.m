@@ -128,11 +128,17 @@
     }
     else
     {
-        cellModel.cellType=CompleteCell;
-        
+        if (_footprintListType==MyFootprintList)
+        {
+             cellModel.cellType=FootCell;
+        }
+        else
+        {
+            cellModel.cellType=CompleteCell;
+        }
     }
     
-    if (_footprintListType==MyFootprintList&&index==0) {
+    if (_footprintListType==MyFootprintList&&index==0&&self.dataArr.count>1) {
         cellModel.cellType=BodyCell;
     }
     

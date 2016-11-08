@@ -111,7 +111,14 @@
              }
              else
              {
-                 successGet(responseObject,NO);
+                 if ([responseObject[@"errorMsg"] isEqualToString:@"非法访问"]) {
+                     [[self class] alertToRelogin];
+                      successGet(responseObject,YES);
+                 }
+                 else
+                 {
+                      successGet(responseObject,NO);
+                 }
              }
          }
          else
@@ -194,9 +201,13 @@
             else
             {
                 if ([responseObject[@"errorMsg"] isEqualToString:@"非法访问"]) {
-                    
+                    [[self class] alertToRelogin];
+                    successGet(responseObject,YES);
                 }
-                 successGet(responseObject,NO);
+                else
+                {
+                    successGet(responseObject,NO);
+                }
             }
         }
         else
@@ -217,7 +228,7 @@
 //    manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializerWithReadingOptions:NSJSONReadingAllowFragments];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html",@"text/plain", nil];
-    NSString * appkey = RC_APPKEY;
+    NSString * appkey = RC_APPKEY([ZYZCAPIGenerate sharedInstance].serverType);
     NSString * nonce = [NSString stringWithFormat:@"%zd",arc4random() % 10000];
     NSTimeZone *zone = [NSTimeZone localTimeZone];
     //当前时区和格林尼治时区的时间差 8小时 = 28800s
@@ -267,6 +278,25 @@
      }];
 }
 
+#pragma mark --- 非法访问，提示重新登录
++(void)alertToRelogin
+{
+    UIAlertController *alertController=[UIAlertController alertControllerWithTitle:@"登录过期" message:@"是否重新登录" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [ZYZCAccountTool deleteAccount];
+        [LoginJudgeTool judgeLogin];
+    }];
+    
+    [alertController addAction:cancleAction];
+    [alertController addAction:defaultAction];
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
 
 #pragma mark --- 加密参数
 +(NSDictionary *)encryptParams
@@ -275,16 +305,9 @@
     
 //    ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
     
-    if (![ZYZCAccountTool getUserScret]) {
-        [ZYZCAccountTool deleteAccount];
-        [LoginJudgeTool judgeLogin];
-        return nil;
-    }
-    DDLog(@"scr:%@",[ZYZCAccountTool getUserScret]);
-    
     NSMutableDictionary *strDic=[NSMutableDictionary dictionary];
     //时间戳
-    NSString *timeStamp=[self getTimeStamp];
+    NSString *timeStamp=[[self class] getTimeStamp];
 //    DDLog(@"timeStamp:%@",timeStamp);
     DDLog(@"time:%@",[ZYZCTool turnTimeStampToDate:timeStamp]);
     [strDic setObject:timeStamp forKey:@"timestamp"];
@@ -299,9 +322,11 @@
 //    DDLog(@"fix:%@,fixNum:%d",fix,fixNum);
     [strDic setObject:[NSNumber numberWithInt:fixNum] forKey:@"fix"];
     //signature
-    NSString *signature=[NSString stringWithFormat:@"%@%@%@%@%@%@%@",timeStamp,fix,nonceStr,fix,[ZYZCAccountTool getUserScret],fix,[self getTime]];
+    NSString *scr = [ZYZCAccountTool getUserScret];
+//    DDLog(@"scr:%@",scr);
+    NSString *signature=[NSString stringWithFormat:@"%@%@%@%@%@%@%@",timeStamp,fix,nonceStr,fix,scr,fix,[[self class] getTime]];
 //    DDLog(@"signature:%@",signature);
-    NSString *signature_md5=[self turnStrToMD5:signature];
+    NSString *signature_md5=[[self class] turnStrToMD5:signature];
 //    DDLog(@"signature_md5:%@",signature_md5);
     [strDic setObject:signature_md5 forKey:@"signature"];
     if ([ZYZCAccountTool getUserId]) {

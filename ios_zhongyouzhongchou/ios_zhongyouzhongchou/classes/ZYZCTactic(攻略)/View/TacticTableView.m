@@ -120,7 +120,7 @@
         NSMutableArray *headURLArray = [NSMutableArray array];
         for (TacticIndexImgModel *indexImgModel in self.tacticModel.indexImg) {
             if (indexImgModel.status == 0) {//有效
-                NSString *headImgString = [NSString stringWithFormat:@"%@%@",BASE_URL,indexImgModel.proImg];
+                NSString *headImgString = [NSString stringWithFormat:@"%@%@",[ZYZCAPIGenerate sharedInstance].APIBaseUrl,indexImgModel.proImg];
                 [headImgArray addObject:headImgString];
 //                [headTitleArray addObject:indexImgModel.title];
                 [headURLArray addObject:indexImgModel.proUrl];

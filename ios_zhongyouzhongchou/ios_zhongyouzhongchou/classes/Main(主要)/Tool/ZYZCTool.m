@@ -89,7 +89,7 @@
 #pragma mark --- 创建btn（文字在左图片在右）
 + (UIButton *)getCustomBtnByTilte:(NSString *)title andImageName:(NSString *)imageName andtitleFont:(UIFont *)titleFont andTextColor:(UIColor *)textColor andSpacing:(CGFloat )spacing
 {
-    CGSize rightButtonTitleSize = [self calculateStrLengthByText:title andFont:titleFont andMaxWidth:MAXFLOAT];
+    CGSize rightButtonTitleSize = [[self class] calculateStrLengthByText:title andFont:titleFont andMaxWidth:MAXFLOAT];
     CGFloat labelWidth = rightButtonTitleSize.width;
     UIButton *btn=[UIButton buttonWithType:UIButtonTypeCustom];
     btn.titleLabel.font= titleFont;
@@ -587,7 +587,7 @@
 {
     NSString *showDateStr=nil;
     
-    NSString *dateStr = [self turnTimeStampToDate:timestamp];
+    NSString *dateStr = [[self class] turnTimeStampToDate:timestamp];
     if (dateStr.length>11) {
     NSString *year  = [dateStr substringToIndex:4];
     NSString *month = [dateStr substringWithRange:NSMakeRange(5, 2)];
@@ -645,7 +645,7 @@
     }
     
     //缩
-    UIImage *newImage=[self reduceImageSizeFromSourceImage:sourceImage andScale:scale];
+    UIImage *newImage=[[self class] reduceImageSizeFromSourceImage:sourceImage andScale:scale];
     if (!newImage) {
         return nil;
     }
@@ -720,7 +720,7 @@
         if (data.length>length*1024) {
             UIImage *resultImage=nil;
             for (int i=1; i<10; i++) {
-                UIImage *img=[self reduceImageSizeFromSourceImage:compressImage01 andScale:(10-i)*0.1];
+                UIImage *img=[[self class] reduceImageSizeFromSourceImage:compressImage01 andScale:(10-i)*0.1];
                 NSData *data = UIImageJPEGRepresentation(img, 1.0);
                 if (data.length<length*1024) {
                     resultImage=[UIImage imageWithData:data];
@@ -766,7 +766,7 @@ BOOL isFuguozhi = false;
         if (targetView) {
             frame_f = [targetView convertRect:targetView.bounds toView:nil];
         }else{
-            UIView *firstResponder = [self getFirstResponder];
+            UIView *firstResponder = [[self class] getFirstResponder];
             frame_f = [firstResponder convertRect:firstResponder.bounds toView:nil];
         }
         if ([view isKindOfClass:[UIScrollView class]]) {
