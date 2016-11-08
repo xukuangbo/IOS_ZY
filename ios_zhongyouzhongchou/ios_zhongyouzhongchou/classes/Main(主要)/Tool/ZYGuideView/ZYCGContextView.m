@@ -89,17 +89,7 @@
                 CGContextSetFillColorWithColor(context, [[[UIColor blackColor] colorWithAlphaComponent:ALPHA] CGColor]);
                 CGContextEOFillPath(context);
                 
-                
-           
-//                CGFloat space = (self.frame.size.width-_contextRect.size.width)/2;
-////                [[[UIColor blackColor] colorWithAlphaComponent:0.8] setFill];//设置要填充颜色
-//                CGContextFillRect(context, CGRectMake(0, 0, self.frame.size.width, _contextRect.origin.y));
-//                CGContextFillRect(context, CGRectMake(0, _contextRect.size.height+_contextRect.origin.y, self.frame.size.width, self.frame.size.height-_contextRect.size.height-_contextRect.origin.y));
-//                CGContextFillRect(context, CGRectMake(0, _contextRect.origin.y, space, _contextRect.size.height));
-//                CGContextFillRect(context, CGRectMake(space+_contextRect.size.width, _contextRect.origin.y, space, _contextRect.size.height));
-//                CGContextSetFillColorWithColor(context, [[[UIColor blackColor] colorWithAlphaComponent:ALPHA] CGColor]);
-//                CGContextStrokePath(context);
-//            }
+            
         }
     }
     

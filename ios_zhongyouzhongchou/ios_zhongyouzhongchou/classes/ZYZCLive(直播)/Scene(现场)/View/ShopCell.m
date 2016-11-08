@@ -39,9 +39,11 @@
     [self.headerImageView.layer setBorderWidth:1];
     
     self.backgroundImage.image = KPULLIMG(@"scene_cell_background_image", 0, 0, 5, 0);
+//    self.backgroundImage.layer.masksToBounds = YES;
+//    self.backgroundImage.layer.cornerRadius = 4;
     
     self.imageView.layer.masksToBounds = YES;
-    self.imageView.layer.cornerRadius = 5;
+    self.imageView.layer.cornerRadius = 4;
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.userInteractionEnabled = YES;
     self.commentButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
