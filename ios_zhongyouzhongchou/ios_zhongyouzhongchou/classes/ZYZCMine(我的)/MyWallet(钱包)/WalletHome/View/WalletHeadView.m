@@ -12,10 +12,13 @@
 #import "WalletHeadModel.h"
 #import "FXBlurView.h"
 #import "RACEXTScope.h"
+#import "WalletZCMoneyVC.h"
 @interface WalletHeadView ()
 
 /* 转出余额 */
 @property (nonatomic, strong) UIButton *ZCMoneyButton;
+/* 转出余额点击区域 */
+@property (nonatomic, strong) UIView *ZCMoneySelectDiv;
 /* 钱包余额标题 */
 @property (nonatomic, strong) UILabel *balanceTitleLabel;
 /* 钱包余额 */
@@ -54,13 +57,15 @@
     //模糊背景
     _blurImageView = [[UIImageView alloc] init];
     [_blurImageView sd_setImageWithURL:[NSURL URLWithString:[ZYZCAccountTool account].faceImg] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
+    _blurImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self addFXBlurView];
-//    _blurImageView = [[ZYCustomBlurView alloc] initWithFrame:self.bounds andBlurEffectStyle:UIBlurEffectStyleExtraLight andBlurColor:[UIColor ZYZC_MainColor] andBlurAlpha:0.2 andColorAlpha:0.8];
-//    _blurImageView.image = [UIImage imageNamed:@"head"];
-//    [self addSubview:_blurImageView];
+    
+    //转出可点击区域
+    _ZCMoneySelectDiv = [[UIView alloc] init];
+    [_ZCMoneySelectDiv addTarget:self action:@selector(pushZhuanchuVC)];
     
     //转出按钮
-    _ZCMoneyButton = [ZYZCTool getCustomBtnByTilte:@"转出余额" andImageName:@"btn_rig_mor" andtitleFont:[UIFont systemFontOfSize:15] andTextColor:[UIColor whiteColor] andSpacing:2];
+    _ZCMoneyButton = [ZYZCTool getCustomBtnByTilte:@"转出余额" andImageName:@"btn_right_white" andtitleFont:[UIFont systemFontOfSize:15] andTextColor:[UIColor whiteColor] andSpacing:2];
     
     //余额标题
     _balanceTitleLabel = [[UILabel alloc] init];
@@ -89,6 +94,7 @@
     _UBLabel.text = @"0.00";
 
     [self addSubview:_blurImageView];
+    [self addSubview:_ZCMoneySelectDiv];
     [self addSubview:_ZCMoneyButton];
     [self addSubview:_balanceTitleLabel];
     [self addSubview:_balanceLabel];
@@ -99,6 +105,13 @@
     //模糊背景图
     [_blurImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.equalTo(self);
+    }];
+    
+    //转出可点击区域
+    [_ZCMoneySelectDiv mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.mas_right);
+        make.top.equalTo(self.mas_top);
+        make.width.height.equalTo(self).multipliedBy(0.3);
     }];
     
     //转出
@@ -197,5 +210,12 @@
     [attrString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:20] range:[totalString rangeOfString:[NSString stringWithFormat:@".%@",strArray[1]] options:NSBackwardsSearch]];
     
     return attrString;
+}
+
+#pragma mark - pushZhuanchuVC
+- (void)pushZhuanchuVC
+{
+//    DDLog(@"heiehei");
+    [self.viewController.navigationController pushViewController:[[WalletZCMoneyVC alloc] init] animated:YES];
 }
 @end
