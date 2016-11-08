@@ -208,15 +208,18 @@
 #pragma mark --- 短视频
 -(void)enterShortVideo
 {
-    [ZYZCAccountTool getQuPaiAuthWithResultBlock:^(BOOL result) {
-        if (result==YES) {
-            [self createQuPai];
-        }
-        else
-        {
-            [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
-        }
-    }];
+//    [ZYZCAccountTool getQuPaiAuthWithResultBlock:^(BOOL result) {
+//        if (result==YES) {
+//            [self createQuPai];
+//        }
+//        else
+//        {
+//            [MBProgressHUD showShortMessage:@"网络错误，鉴权失败"];
+//        }
+//    }];
+    
+    //无需鉴权即可登陆
+    [self createQuPai];
 }
 
 -(void)createQuPai

@@ -198,11 +198,7 @@
         "action": "getIndexHot.action",
         "protocol": "http"
     },
-    "viewSpot_getViewSpotAction": {
-        "control": "viewSpot",
-        "action": "getViewSpot.action",
-        "protocol": "http"
-    },
+    
     "adminback_getViewList": {
         "control": "admin_back",
         "action": "getViewList.action",
@@ -584,6 +580,36 @@
     "zhibo_lipinJson": {
         "control": "zhibo",
         "action": "lipinJson.action",
+        "protocol": "http"
+    },
+    "end_travel_product": {
+        "control": "product",
+        "action": "endTravelProduct.action",
+        "protocol": "http"
+    },
+    "delay_product": {
+        "control": "product",
+        "action": "godelayProduct.action",
+        "protocol": "http"
+    },
+    "get_mobile_code": {
+        "control": "mobileAPI",
+        "action": "sendLoginCode.action",
+        "protocol": "http"
+    },
+    "login_by_mobileCode": {
+        "control": "mobileAPI",
+        "action": "loginByCode.action",
+        "protocol": "http"
+    },
+    "register_userBaseInfo": {
+        "control": "register",
+        "action": "updateUserBaseInfo.action",
+        "protocol": "http"
+    },
+    "complaint_product": {
+        "control": "productInfo",
+        "action": "msgComplaint.action",
         "protocol": "http"
     }
 }

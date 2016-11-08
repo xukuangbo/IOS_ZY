@@ -172,7 +172,7 @@
 -(void)initRCloudWithLaunchOptions:(NSDictionary *)launchOptions
 {
 //    [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY];
-    [[RCDLive sharedRCDLive] initRongCloud:RC_APPKEY];
+    [[RCDLive sharedRCDLive] initRongCloud:RC_APPKEY([ZYZCAPIGenerate sharedInstance].serverType)];
     //注册自定义消息
     [[RCDLive sharedRCDLive] registerRongCloudMessageType:[RCDLiveGiftMessage class]];
     

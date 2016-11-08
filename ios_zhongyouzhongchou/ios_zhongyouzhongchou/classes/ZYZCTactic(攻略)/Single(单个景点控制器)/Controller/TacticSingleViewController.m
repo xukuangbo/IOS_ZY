@@ -258,29 +258,29 @@
         return;
     }
     
-    NSString *url = GET_TACTIC_VIEW(viewId);
-//    NSLog(@"%@",url);
+//    NSString *url = [NSString stringWithFormat:@"%@viewSpot/getViewSpot.action?viewId=%zd",BASE_URL,viewID]
+
+    NSString *url=[[ZYZCAPIGenerate sharedInstance] API:@"viewSpot_getViewSpot"];
+    NSMutableDictionary *parameter=[NSMutableDictionary dictionary];
+    [parameter setObject:[NSString stringWithFormat:@"%zd",viewId] forKey:@"viewId"];
+    
+    WEAKSELF
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    __weak typeof(&*self) weakSelf = self;
-    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess){
         [NetWorkManager hideFailViewForView:weakSelf.view];
         if (isSuccess) {
-            
             [weakSelf handleResult:result];
-            
         }
         [MBProgressHUD hideHUDForView:weakSelf.view];
-    } andFailBlock:^(id failResult) {
-//        NSLog(@"%@",failResult);
+    }
+    andFailBlock:^(id failResult) {
         [MBProgressHUD hideHUDForView:weakSelf.view];
         [NetWorkManager hideFailViewForView:weakSelf.view];
         [NetWorkManager showMBWithFailResult:failResult];
-        __weak typeof (&*self)weakSelf=self;
         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
             [weakSelf refreshDataWithViewId:viewId];
         }];
     }];
-    
 }
 
 - (void)handleResult:(NSDictionary *)result
@@ -327,7 +327,6 @@
 {
     NSString *userId = [ZYZCAccountTool getUserId];
 //    ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
-    __weak typeof(&*self) weakSelf = self;
     if (!userId) {//没有账号
         [MBProgressHUD showError:@"请登录后再点击"];
     }else{

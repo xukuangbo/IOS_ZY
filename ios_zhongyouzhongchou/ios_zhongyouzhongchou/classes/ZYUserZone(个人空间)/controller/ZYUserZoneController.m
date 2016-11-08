@@ -263,7 +263,7 @@
 //    NSString *url=Get_SelfInfo([ZYZCAccountTool getUserId],_friendID);
     NSString *getUserInfoURL = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail_action"];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-    [parameter setValue:_friendID forKey:@"selfUserId"];
+    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"selfUserId"];
     [parameter setValue:_friendID forKey:@"userId"];
     [MBProgressHUD showMessage:nil];
     WEAKSELF

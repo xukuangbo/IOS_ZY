@@ -9,7 +9,6 @@
 #define HEAD_HEIGHT  184+80*KCOFFICIEMNT
 #define ONE_HEIGHT   50
 #define TEXT_LIMIT   15
-#define SAVE_BASE_INFO [NSString stringWithFormat:@"%@register/updateUserBaseInfo.action",BASE_URL]
 
 #import "FinishBaseInfoController.h"
 #import "FXBlurView.h"
@@ -252,8 +251,11 @@
                           };
 //    NSLog(@"loginParam:%@",param);
     //保存数据
+//    NSString *url = [NSString stringWithFormat:@"%@register/updateUserBaseInfo.action",BASE_URL]
+    
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_userBaseInfo"];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:NO andURL:SAVE_BASE_INFO andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess)
+    [ZYZCHTTPTool postHttpDataWithEncrypt:NO andURL:url andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          DDLog(@"userInfo:%@",result);
          [MBProgressHUD hideHUDForView:self.view];
