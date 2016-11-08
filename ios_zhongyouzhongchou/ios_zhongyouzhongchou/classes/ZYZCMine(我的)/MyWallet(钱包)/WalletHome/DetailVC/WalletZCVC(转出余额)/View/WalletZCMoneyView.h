@@ -10,4 +10,5 @@
 
 @interface WalletZCMoneyView : UIView
 
+@property (nonatomic, assign) CGFloat kzcMoney;
 @end

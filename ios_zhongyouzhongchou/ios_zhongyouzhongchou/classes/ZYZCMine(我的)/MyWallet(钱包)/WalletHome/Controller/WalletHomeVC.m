@@ -256,7 +256,8 @@ static NSInteger YbjPageSize = 10;
                                  @"pageSize" : @(YbjPageSize)
                                  };
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:ybjProducts_Url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        NSArray *tempArray = [WalletYbjModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        //list是是总共多少条数据,totles判断是否有未使用
+        NSArray *tempArray = [WalletYbjModel mj_objectArrayWithKeyValuesArray:result[@"data"][@"list"]];
         if (tempArray.count > 0) {
             [weakSelf.ybjTableView.dataArr removeAllObjects];
             [weakSelf.ybjTableView.dataArr addObjectsFromArray:tempArray];
