@@ -111,7 +111,14 @@
              }
              else
              {
-                 successGet(responseObject,NO);
+                 if ([responseObject[@"errorMsg"] isEqualToString:@"非法访问"]) {
+                     [[self class] alertToRelogin];
+                      successGet(responseObject,YES);
+                 }
+                 else
+                 {
+                      successGet(responseObject,NO);
+                 }
              }
          }
          else
@@ -194,9 +201,13 @@
             else
             {
                 if ([responseObject[@"errorMsg"] isEqualToString:@"非法访问"]) {
-                    
+                    [[self class] alertToRelogin];
+                    successGet(responseObject,YES);
                 }
-                 successGet(responseObject,NO);
+                else
+                {
+                    successGet(responseObject,NO);
+                }
             }
         }
         else
@@ -267,6 +278,25 @@
      }];
 }
 
+#pragma mark --- 非法访问，提示重新登录
++(void)alertToRelogin
+{
+    UIAlertController *alertController=[UIAlertController alertControllerWithTitle:@"登录过期" message:@"是否重新登录" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *cancleAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [ZYZCAccountTool deleteAccount];
+        [LoginJudgeTool judgeLogin];
+    }];
+    
+    [alertController addAction:cancleAction];
+    [alertController addAction:defaultAction];
+    
+    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alertController animated:YES completion:nil];
+}
 
 #pragma mark --- 加密参数
 +(NSDictionary *)encryptParams

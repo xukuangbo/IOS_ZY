@@ -105,6 +105,7 @@
     return YES;
 }
 
+
 #pragma mark --- 获取网络状态
 -(void)getCurrentNetworkStatus
 {

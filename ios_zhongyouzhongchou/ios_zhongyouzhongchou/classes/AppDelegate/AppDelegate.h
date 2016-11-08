@@ -22,5 +22,6 @@
  */
 @property (nonatomic, assign) BOOL     enterChatList;
 
+
 @end
 
