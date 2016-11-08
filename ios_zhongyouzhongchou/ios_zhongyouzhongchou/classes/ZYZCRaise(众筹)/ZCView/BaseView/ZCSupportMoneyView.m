@@ -309,7 +309,7 @@
             UserModel *user=reportModel.users[i];
             ZCDetailCustomButton *iconBtn=[[ZCDetailCustomButton alloc]initWithFrame:CGRectMake((btn_width+btn_edg)*i, 0, btn_width, btn_width)];
             iconBtn.userId=user.userId;
-            [iconBtn sd_setImageWithURL:[NSURL URLWithString:user.img?user.img:user.faceImg] forState:UIControlStateNormal];
+            [iconBtn sd_setImageWithURL:[NSURL URLWithString:user.img?user.img:user.faceImg] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"head_hh"]];
             [_supportUserView addSubview:iconBtn];
         }
         _supportUserView.height=btn_width;
