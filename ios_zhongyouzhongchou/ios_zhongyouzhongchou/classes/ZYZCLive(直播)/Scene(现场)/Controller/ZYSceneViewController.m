@@ -13,6 +13,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "EntryPlaceholderView.h"
 #import "ZYCommentFootprintController.h"
+#import "ZYZCPlayViewController.h"
 @interface ZYSceneViewController () <UICollectionViewDelegate, UICollectionViewDataSource,WaterFlowLayoutDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *scenes;
@@ -157,12 +158,12 @@ static NSString *const ShopID = @"ShopCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ZYFootprintListModel *footprintModel = self.scenes[indexPath.item];
-    ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
-    commentFootprintVC.hidesBottomBarWhenPushed = YES;
-    commentFootprintVC.footprintModel = footprintModel;
-    commentFootprintVC.showWithKeyboard = NO;
-    [self.navigationController pushViewController:commentFootprintVC animated:YES];
+//    ZYFootprintListModel *footprintModel = self.scenes[indexPath.item];
+//    ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
+//    commentFootprintVC.hidesBottomBarWhenPushed = YES;
+//    commentFootprintVC.footprintModel = footprintModel;
+//    commentFootprintVC.showWithKeyboard = NO;
+//    [self.navigationController pushViewController:commentFootprintVC animated:YES];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -180,7 +181,28 @@ static NSString *const ShopID = @"ShopCell";
     cell.layer.cornerRadius = 4;
 
     cell.model = self.scenes[indexPath.row];
-    
+    WEAKSELF
+    cell.playBlock = ^(void) {
+        ZYZCPlayViewController *playVC = [[ZYZCPlayViewController alloc] init];
+        playVC.urlString = [weakSelf.scenes[indexPath.row] video];
+        [weakSelf presentViewController:playVC animated:YES completion:nil];
+    };
+    cell.commentBlock = ^(void) {
+        ZYFootprintListModel *footprintModel = weakSelf.scenes[indexPath.item];
+        ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
+        commentFootprintVC.hidesBottomBarWhenPushed = YES;
+        commentFootprintVC.footprintModel = footprintModel;
+        commentFootprintVC.showWithKeyboard = YES;
+        [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
+    };
+    cell.praiseBlock = ^(NSString *userId) {
+        ZYFootprintListModel *footprintModel = weakSelf.scenes[indexPath.item];
+        ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
+        commentFootprintVC.hidesBottomBarWhenPushed = YES;
+        commentFootprintVC.footprintModel = footprintModel;
+        commentFootprintVC.showWithKeyboard = YES;
+        [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
+    };
     return cell;
 }
 
@@ -205,7 +227,6 @@ static NSString *const ShopID = @"ShopCell";
     }
     return itemWidth / model.videoimgsize + sceneSize.height + 80;
 }
-
 
 
 @end
