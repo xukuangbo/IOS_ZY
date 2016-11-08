@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 @class ZYFootprintListModel;
-typedef void(^PlayBtnCallBackBlock)(UIButton *);
+typedef void(^PlayBtnCallBackBlock)(void);
 typedef void(^CommentBtnBlock)(void);
 typedef void(^PraiseBtnBlock)(NSString *);
 

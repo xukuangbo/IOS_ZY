@@ -428,7 +428,6 @@
                 NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success pathType:model.price];
                 model.imageArray = imagePaths;
                 [weakSelf archiverCache];
-                NSLog(@"modelmodelmodel%@", model);
             }];
             // block 回调执行
             dispatch_group_leave(group);

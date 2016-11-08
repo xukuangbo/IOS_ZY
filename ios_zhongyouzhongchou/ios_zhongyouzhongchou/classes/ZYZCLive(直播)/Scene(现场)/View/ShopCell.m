@@ -43,18 +43,20 @@
     self.imageView.layer.masksToBounds = YES;
     self.imageView.layer.cornerRadius = 5;
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    
+    self.imageView.userInteractionEnabled = YES;
     self.commentButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
     self.commentButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);
-    
+    self.commentButton.userInteractionEnabled = YES;
     self.praiseButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
     self.praiseButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);
+    self.praiseButton.userInteractionEnabled = YES;
+    
     [self.commentButton addTarget:self action:@selector(comment:) forControlEvents:UIControlEventTouchUpInside];
     [self.praiseButton addTarget:self action:@selector(praise:) forControlEvents:UIControlEventTouchUpInside];
     
     self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.playBtn setImage:[UIImage imageNamed:@"scene_play"] forState:UIControlStateNormal];
-//    [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
+    [self.playBtn addTarget:self action:@selector(play:) forControlEvents:UIControlEventTouchUpInside];
     [self.imageView addSubview:self.playBtn];
     [self.playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.imageView);
@@ -101,11 +103,11 @@
 }
 
 #pragma mark - event
-//- (void)play:(UIButton *)sender {
-//    if (self.playBlock) {
-//        self.playBlock(sender);
-//    }
-//}
+- (void)play:(UIButton *)sender {
+    if (self.playBlock) {
+        self.playBlock();
+    }
+}
 
 - (void)comment:(UIButton *)sender
 {
