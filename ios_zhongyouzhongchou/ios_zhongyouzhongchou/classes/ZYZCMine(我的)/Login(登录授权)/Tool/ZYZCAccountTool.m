@@ -137,6 +137,7 @@
     NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
     //删除融云token
     [user setObject:nil forKey:KCHAT_TOKEN];
+    
      //删除趣拍鉴权结果
     [user setObject:nil forKey:Auth_QuPai_Result];
     [user synchronize];
@@ -144,8 +145,8 @@
     //将融云的登录标记设置为no
     ZYZCRCManager *rcManager=[ZYZCRCManager defaultManager];
     rcManager.hasLogin=NO;
-    
-    
+    //与融云断开连接
+    [rcManager disconnectRCloud];
 }
 
 #pragma mark ---  获取用户未读系统消息数
