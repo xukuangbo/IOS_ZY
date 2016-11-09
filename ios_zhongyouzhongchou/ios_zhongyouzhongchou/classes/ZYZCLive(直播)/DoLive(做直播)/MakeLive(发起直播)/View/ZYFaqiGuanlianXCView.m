@@ -36,7 +36,7 @@
     [self addSubview:titleLabel];
     titleLabel.textColor = [UIColor whiteColor];
     titleLabel.font = [UIFont systemFontOfSize:15];
-    titleLabel.text = @"关联直播:";
+    titleLabel.text = @"关联众筹行程:";
     
     _travelLabel = [UILabel new];
     [self addSubview:_travelLabel];

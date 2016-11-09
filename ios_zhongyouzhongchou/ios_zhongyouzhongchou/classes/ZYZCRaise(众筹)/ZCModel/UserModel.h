@@ -21,6 +21,8 @@ typedef NS_ENUM(NSInteger, MyPartnerType)
 @property (nonatomic, copy  ) NSString *realName;
 @property (nonatomic, copy  ) NSString *faceImg;
 @property (nonatomic, copy  ) NSString *faceImg640;
+@property (nonatomic, copy  ) NSString *faceImg132;
+@property (nonatomic, copy  ) NSString *faceImg64;
 @property (nonatomic, copy  ) NSString *sex;//0未知，1.男，2.女
 @property (nonatomic, copy  ) NSString *weixinProvince;
 @property (nonatomic, copy  ) NSString *weixinCity;

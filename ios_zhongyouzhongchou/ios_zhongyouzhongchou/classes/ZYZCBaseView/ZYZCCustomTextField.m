@@ -48,6 +48,12 @@
     return self;
 }
 
+- (void)awakeFromNib{
+    [super awakeFromNib];
+    self.delegate=self;
+    self.shouldLimitTwoDecimal=YES;
+}
+
 //-(void)setDelegate:(id<UITextFieldDelegate>)delegate
 //{
 //    self.customTextFieldDelegate=(id<ZYZCCustomTextFieldDelegate>)delegate;

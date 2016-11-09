@@ -94,7 +94,7 @@
     [_sendComentBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
     _sendComentBtn.titleLabel.font=[UIFont systemFontOfSize:20];
     _sendComentBtn.titleLabel.textAlignment=NSTextAlignmentCenter;
-    [_sendComentBtn addTarget:self  action:@selector(sendMyComment) forControlEvents:UIControlEventTouchUpInside];
+    [_sendComentBtn addTarget:self  action:@selector(sendMyComment:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:_sendComentBtn];
     [self addSubview:[UIView lineViewWithFrame:CGRectMake(0, 0, self.width, 1) andColor:nil]];
 }
@@ -118,20 +118,23 @@
 }
 
 #pragma mark --- 发表评论
--(void)sendMyComment
+-(void)sendMyComment:(UIButton *)button
 {
+    button.enabled=NO;
     _editFieldView.text=[_editFieldView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
     BOOL isEmptyStr=[ZYZCTool isEmpty:_editFieldView.text];
     if (isEmptyStr) {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"文字不能为空" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
-        return;
     }
-    
-    if (self.commitComment) {
-        self.commitComment(_editFieldView.text);
+    else
+    {
+        if (self.commitComment) {
+            self.commitComment(_editFieldView.text);
+        }
     }
+    button.enabled=YES;
 }
 
 #pragma mark --- textField代理方法

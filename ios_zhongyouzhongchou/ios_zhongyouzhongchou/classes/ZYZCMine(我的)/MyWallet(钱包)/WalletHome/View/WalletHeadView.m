@@ -53,7 +53,7 @@
 
 - (void)setUpSubviews
 {
-    
+    self.layer.masksToBounds = YES;
     //模糊背景
     _blurImageView = [[UIImageView alloc] init];
     [_blurImageView sd_setImageWithURL:[NSURL URLWithString:[ZYZCAccountTool account].faceImg] placeholderImage:nil options:SDWebImageRetryFailed | SDWebImageLowPriority];
@@ -66,6 +66,7 @@
     
     //转出按钮
     _ZCMoneyButton = [ZYZCTool getCustomBtnByTilte:@"转出余额" andImageName:@"btn_right_white" andtitleFont:[UIFont systemFontOfSize:15] andTextColor:[UIColor whiteColor] andSpacing:2];
+    _ZCMoneyButton.enabled = NO;
     
     //余额标题
     _balanceTitleLabel = [[UILabel alloc] init];
@@ -216,6 +217,8 @@
 - (void)pushZhuanchuVC
 {
 //    DDLog(@"heiehei");
-    [self.viewController.navigationController pushViewController:[[WalletZCMoneyVC alloc] init] animated:YES];
+    WalletZCMoneyVC *ZcVC =  [[WalletZCMoneyVC alloc] init];
+    ZcVC.kzcMoney = self.model.cash / 100;
+    [self.viewController.navigationController pushViewController:ZcVC animated:YES];
 }
 @end
