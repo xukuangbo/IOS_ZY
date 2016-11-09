@@ -611,6 +611,16 @@
         "control": "productInfo",
         "action": "msgComplaint.action",
         "protocol": "http"
+    },
+    "register_bandWx.action": {
+        "control": "register",
+        "action": "bandWx.action",
+        "protocol": "http"
+    },
+    "u_checkUserBand.action": {
+        "control": "u",
+        "action": "checkUserBand.action",
+        "protocol": "http"
     }
 }
 
