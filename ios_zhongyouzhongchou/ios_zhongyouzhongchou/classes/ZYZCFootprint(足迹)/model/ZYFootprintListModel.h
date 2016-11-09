@@ -72,13 +72,14 @@ typedef NS_ENUM(NSInteger, FootprintListType)
 @property (nonatomic, assign) FootprintListType footprintListType;
 
 //发起人昵称
-@property (nonatomic, copy  ) NSString *userName;
+@property (nonatomic, copy) NSString *userName;
+@property (nonatomic, copy) NSString *realName;
 
 // 发起人头像
-@property (nonatomic, copy  ) NSString *faceImg;
-@property (nonatomic, copy  ) NSString *faceImg132;
-@property (nonatomic, copy  ) NSString *faceImg64;
-@property (nonatomic, copy  ) NSString *faceImg640;
+@property (nonatomic, copy) NSString *faceImg;
+@property (nonatomic, copy) NSString *faceImg132;
+@property (nonatomic, copy) NSString *faceImg64;
+@property (nonatomic, copy) NSString *faceImg640;
 
 @property (nonatomic, assign) NSInteger totalMonth;
 

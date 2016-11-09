@@ -292,33 +292,6 @@
             [strongSelf getUserInfoData];
         }];
     }];
-    
-//    [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess)
-//     {
-//         [NetWorkManager hideFailViewForView:self.view];
-//         
-//         if (isSuccess) {
-//             self.friendship  = [result[@"data"][@"friend"] boolValue];
-//             self.friendNumber= [result[@"data"][@"meGzAll"] integerValue];
-//             self.fansNumber  = [result[@"data"][@"gzMeAll"] integerValue];
-//              self.userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
-//            [self getProductsData];
-//         }
-//         else
-//         {
-//             [MBProgressHUD hideHUD];
-//             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-//         }
-//     }
-//    andFailBlock:^(id failResult) {
-//         [MBProgressHUD hideHUD];
-//         [NetWorkManager showMBWithFailResult:failResult];
-//         [NetWorkManager hideFailViewForView:self.view];
-//         __weak typeof (&*self)weakSelf=self;
-//         [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-//             [weakSelf getUserInfoData];
-//         }];
-//     }];
 }
 
 #pragma mark --- 获取TA的众筹
