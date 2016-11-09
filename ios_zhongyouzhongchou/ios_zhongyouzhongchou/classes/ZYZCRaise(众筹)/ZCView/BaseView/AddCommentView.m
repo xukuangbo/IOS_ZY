@@ -130,6 +130,7 @@
     }
     else
     {
+        [self endEditing:YES];
         if (self.commitComment) {
             self.commitComment(_editFieldView.text);
         }

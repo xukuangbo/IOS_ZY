@@ -107,9 +107,10 @@
 //    }
 
     WEAKSELF;
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addComment"] andParameters:newParms andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
-        DDLog(@"%@",result);
+        [MBProgressHUD hideHUDForView:self.view];
+//        DDLog(@"%@",result);
         if (isSuccess) {
             ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"comment_success")];
@@ -145,6 +146,7 @@
         }
         
     } andFailBlock:^(id failResult) {
+        [MBProgressHUD hideHUDForView:self.view];
         [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
     }];
 }

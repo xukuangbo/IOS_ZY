@@ -50,7 +50,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tabBar.translucent = NO;
-    self.tabBar.alpha=0.95;
+    self.tabBar.alpha=0.96;
     self.selectedIndex=1;
     [self getCustomItems];
     [self insertSpaceItem];
