@@ -70,10 +70,10 @@
     _model = model;
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
-    if ([model.userName length] != 0) {
-        self.titleLab.text = [NSString stringWithFormat:@"%@",model.userName];
+    if ([model.realName length] != 0) {
+        self.titleLab.text = [NSString stringWithFormat:@"%@",model.realName];
     } else {
-        self.titleLab.text = @"";
+        self.titleLab.text = model.realName;
     }
     [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", model.commentTotles] forState:UIControlStateNormal];
     if ([model.content length] != 0) {
