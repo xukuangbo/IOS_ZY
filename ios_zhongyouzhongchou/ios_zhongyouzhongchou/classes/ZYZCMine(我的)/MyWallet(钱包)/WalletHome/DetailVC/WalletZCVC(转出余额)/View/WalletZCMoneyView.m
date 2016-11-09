@@ -10,9 +10,11 @@
 #import "WalletZCMoneyView.h"
 #import "UIView+ZYLayer.h"
 #import "ZYZCCustomTextField.h"
-#import "ReactiveCocoa.h"
+//#import "ReactiveCocoa.h"
+#import "RACEXTScope.h"
 #import "MBProgressHUD+MJ.h"
-
+#import "WXApiManager.h"
+#import "NetWorkManager.h"
 @interface WalletZCMoneyView ()<ZYZCCustomTextFieldDelegate>
 /* 可转出余额  */
 @property (weak, nonatomic) IBOutlet UILabel *kzcMoneyLabel;
@@ -30,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *commitButton;
 
 
+@property (nonatomic, strong) ZYZCAccountModel *bindModel;
 @end
 
 @implementation WalletZCMoneyView
@@ -39,7 +42,9 @@
     
     [self setUpSubviews];
     
-    [self judgeWechatId];
+    [self requestBindData];
+    
+    [ZYNSNotificationCenter addObserver:self selector:@selector(BindWechatNotification:) name:BindWechatNoti object:nil];
 }
 
 - (void)dealloc
@@ -76,6 +81,8 @@
     _inputBgView.image = KPULLIMG(@"tab_bg_boss0", 5, 0, 5, 0);
     
     //4.更换绑定按钮
+    [_changeBindLabel addTarget:self action:@selector(bingWxAction)];
+    [self changeBindContentWithStatus:NO WechatModel:nil];
     
     //5.确认使用按钮
     _commitButton.layerCornerRadius = 5;
@@ -102,19 +109,72 @@
         _commitButton.enabled = YES;
     }
 }
-/* 判断是否有微信登录 */
-- (void)judgeWechatId{
-    ZYZCAccountModel *accountModel = [ZYZCAccountTool account];
-    DDLog(@"%@",accountModel.openid);
-    if (!accountModel.openid) {
-        //手机登录,需要绑定支付的微信id
+
+/* 更换绑定label内容 */
+- (void)changeBindContentWithStatus:(BOOL)status WechatModel:(ZYZCAccountModel *)model{
+    if (status == 0) {//未绑定
+        NSString *str = @"还未绑定微信钱包 前去微信绑定";
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:str];
+        //1.绑定颜色
+        NSRange bindRangge = [str rangeOfString:@"前去微信绑定" options:NSBackwardsSearch];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor ZYZC_MainColor] range:bindRangge];
+        //2.内容颜色
+        NSRange contentRange = NSMakeRange(0, str.length - bindRangge.length);
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor ZYZC_TextBlackColor] range:contentRange];
         
-    }else{
-        //微信登录,还是需要绑定微信的id吗?
+        _changeBindLabel.attributedText = attrString;
+    }else{//已绑定
         
-    
+        NSString *str = [NSString stringWithFormat:@"转出到(%@)微信钱包 更换",model.userName];
+        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:str];
+        //1.绑定颜色
+        NSRange bindRangge = [str rangeOfString:@"更换" options:NSBackwardsSearch];
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor ZYZC_MainColor] range:bindRangge];
+        //2.内容颜色
+        NSRange contentRange = NSMakeRange(0, str.length - bindRangge.length);
+        [attrString addAttribute:NSForegroundColorAttributeName value:[UIColor ZYZC_TextBlackColor] range:contentRange];
+        
+        _changeBindLabel.attributedText = attrString;
     }
+}
+
+#pragma mark - NetWork请求是否有绑定过微信id
+- (void)requestBindData{
     
+    NSString *httpUrl = [[ZYZCAPIGenerate sharedInstance] API:@"u_checkUserBand.action"];
+    @weakify(self);
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:nil andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        //        NSLog(@"%@",result);
+        @strongify(self);
+        if (isSuccess) {
+            NSString *bandStatus = result[@"data"][@"band"];
+            if ([bandStatus isEqualToString:@"0"]) {//未绑定
+                [self changeBindContentWithStatus:NO WechatModel:nil];
+            }else{//已绑定
+                ZYZCAccountModel *accountModel =  [ZYZCAccountModel mj_objectWithKeyValues:result[@"data"][@"data"]];
+                [self changeBindContentWithStatus:YES WechatModel:accountModel];
+            }
+        }else
+        {
+            [MBProgressHUD showError:@"网络错误" toView:self];
+        }
+    }andFailBlock:^(id failResult) {
+        @strongify(self);
+        [MBProgressHUD showError:@"网络错误" toView:self];
+    }];
+
+}
+#pragma mark - 点击动作
+- (void)bingWxAction{
+    SendAuthReq* req = [[SendAuthReq alloc] init];
+    req.scope = kWechatAuthScope;// @"post_timeline,sns"
+    req.state = kWechatAuthState;//  req.openID = kWechatAuthOpenID;
+    [WXApi sendAuthReq:req viewController:self.viewController delegate:[WXApiManager sharedManager]];
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
+    [self endEditing:YES];
 }
 
 #pragma mark - textFieldDelegate
@@ -138,8 +198,89 @@
     
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
-    
-    [self endEditing:YES];
+
+#pragma mark - 通知
+/* */
+- (void)BindWechatNotification:(NSNotification *)noti{
+    BaseResp *resp = (BaseResp *)noti.object;
+    SendAuthResp *authResp = (SendAuthResp *)resp;
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"wxAPI_getToken"];
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    [parameter setValue:authResp.code forKey:@"code"];
+    @weakify(self);
+    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        @strongify(self);
+        if (result[@"data"][@"errcode"]) {//获取失败，比如
+            return ;
+        } else {
+            //获取成功，获取微信信息，并注册我们的平台
+            ZYZCAccountModel *accountModel=[[ZYZCAccountModel alloc]mj_setKeyValues:result[@"data"]];
+            if (accountModel.access_token) {
+                [self requstPersonalData:accountModel];
+            }
+        }
+    } andFailBlock:^(id failResult) {
+        @strongify(self);
+        [MBProgressHUD showError:@"网路错误" toView:self];
+    }];
+
+}
+
+/**
+ *  获取微信用户的个人信息
+ */
+- (void)requstPersonalData:(ZYZCAccountModel *)account
+{
+    if (account) {
+        NSString *url =[NSString stringWithFormat:@"https://api.weixin.qq.com/sns/userinfo?access_token=%@&openid=%@",account.access_token,account.openidapp];
+        @weakify(self);
+        [ZYZCHTTPTool getHttpDataByURL:url withSuccessGetBlock:^(id result, BOOL isSuccess) {
+            //            NSLog(@"%@",result);
+            @strongify(self);
+            ZYZCAccountModel *accountModel=[ZYZCAccountModel mj_objectWithKeyValues:result];
+            self.bindModel = accountModel;
+//            有微信的数据后可以向我们的服务器发送绑定信息
+            [self bindZhuanZhangWechatId:accountModel];
+        } andFailBlock:^(id failResult) {
+            //            NSLog(@"%@",failResult);
+            @strongify(self);
+            [MBProgressHUD showError:@"网络错误" toView:self];
+        }];
+    }
+}
+
+- (void)bindZhuanZhangWechatId:(ZYZCAccountModel *)accountModel{
+    NSDictionary *parameter = @{
+                                @"openid": accountModel.unionid,
+                                @"openidapp": accountModel.openidapp,
+                                @"nickname": accountModel.nickname,
+                                @"sex": accountModel.sex,
+                                @"language": accountModel.language,
+                                @"city": accountModel.city,
+                                @"province": accountModel.province,
+                                @"country": accountModel.country,
+                                @"headimgurl":accountModel.headimgurl
+                                };
+    [MBProgressHUD showHUDAddedTo:self animated:YES];
+    @weakify(self);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_bandWx.action"];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:NO andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        DDLog(@"%@",result);
+        @strongify(self);
+        if (isSuccess) {
+
+            [MBProgressHUD hideHUDForView:self];
+            [self changeBindContentWithStatus:YES WechatModel:self.bindModel];
+        }
+        else
+        {
+            [MBProgressHUD hideHUDForView:self];
+            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+        }
+    } andFailBlock:^(id failResult) {
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self];
+        [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+    }];
 }
 @end
