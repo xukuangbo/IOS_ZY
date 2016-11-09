@@ -405,7 +405,7 @@
             _isFirstEntry=NO;
         }
         [NetWorkManager hideFailViewForView:self.view];
-        //        DDLog(@"result：%@",result);
+                DDLog(@"result：%@",result);
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_table.mj_footer ;
             if (_pageNo==1&&_listArr.count) {

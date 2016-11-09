@@ -281,7 +281,7 @@
     
     //出发地
     CGFloat destWidth=0.0;
-    if (startDest) {
+    if (startDest.length>0) {
         _startDestLab.text=[NSString stringWithFormat:@"%@出发",startDest];
         destWidth=[ZYZCTool calculateStrLengthByText:_startDestLab.text andFont:_startDestLab.font andMaxWidth:self.width].width+10;
         destWidth=MIN(destWidth, 100);
