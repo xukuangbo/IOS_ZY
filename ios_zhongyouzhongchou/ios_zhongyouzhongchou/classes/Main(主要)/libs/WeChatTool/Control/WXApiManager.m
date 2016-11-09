@@ -49,6 +49,8 @@
             [_delegate managerDidRecvMessageResponse:messageResp];
         }
     } else if ([resp isKindOfClass:[SendAuthResp class]]) {
+        //这里要判断是否已经有账号登录如果有账号登录的话,就绑定,没有就跳到注册那边去
+        
         if (_delegate
             && [_delegate respondsToSelector:@selector(managerDidRecvAuthResponse:)]) {
             SendAuthResp *authResp = (SendAuthResp *)resp;
