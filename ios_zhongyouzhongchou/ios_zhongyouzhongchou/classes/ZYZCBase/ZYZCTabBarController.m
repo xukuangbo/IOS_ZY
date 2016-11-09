@@ -122,10 +122,10 @@
 {
     
     NSArray *titleArray = @[@"目的地",@"众筹",@"现场",@"我的"];
-    NSArray *imageArray = @[@"tab_one_gl",@"tab_two_zc",@"tab_zhibo",@"tab_fou_min"];
+    NSArray *imageArray = @[@"destnation",@"crowd_funding",@"live",@"mine"];
     for (int i=0; i<4; i++){
         UINavigationController *navi = self.viewControllers[i];
-        navi.tabBarItem = [[UITabBarItem alloc] initWithTitle:titleArray[i] image:[[UIImage imageNamed:imageArray[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:[NSString stringWithFormat:@"%@_pre",imageArray[i]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+        navi.tabBarItem = [[UITabBarItem alloc] initWithTitle:titleArray[i] image:[[UIImage imageNamed:imageArray[i]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] selectedImage:[[UIImage imageNamed:[NSString stringWithFormat:@"%@_hl",imageArray[i]]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
         }
     self.tabBar.tintColor = [UIColor ZYZC_MainColor];
 }

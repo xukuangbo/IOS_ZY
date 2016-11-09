@@ -37,7 +37,7 @@ static NSString *const ShopID = @"ShopCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
 }
 
 - (void)viewDidAppear:(BOOL)animated

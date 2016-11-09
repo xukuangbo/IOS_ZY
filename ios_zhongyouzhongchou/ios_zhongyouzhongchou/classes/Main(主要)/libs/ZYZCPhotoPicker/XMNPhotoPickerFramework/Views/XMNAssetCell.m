@@ -17,7 +17,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *photoImageView;
 @property (weak, nonatomic) IBOutlet UIView *videoView;
 @property (weak, nonatomic) IBOutlet UILabel *videoTimeLabel;
-@property (nonatomic, assign) BOOL           isNotChoose;//不可可选
 
 @end
 
@@ -52,11 +51,6 @@
     }
     self.photoStateButton.selected = item.selected;
     self.photoImageView.image = item.thumbnail;
-    
-    if (item.previewImage==nil) {
-        _isNotChoose=YES;
-    }
-
 }
 
 
@@ -121,11 +115,13 @@
  *  @param sender button
  */
 - (IBAction)_handleButtonAction:(UIButton *)sender {
-    if (_isNotChoose) {
+    //如果图片资源不存在
+    if (_asset.previewImage==nil) {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"照片不可选!" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alert show];
         return;
     }
+
     BOOL originState = sender.selected;
     self.photoStateButton.selected = self.willChangeSelectedStateBlock ? self.willChangeSelectedStateBlock(self.asset) : NO;
     if (self.photoStateButton.selected) {

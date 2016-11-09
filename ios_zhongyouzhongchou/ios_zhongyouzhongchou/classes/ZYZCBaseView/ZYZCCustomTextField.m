@@ -175,12 +175,13 @@
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     //如果是有小数点的键盘,要做处理
+    BOOL result=YES;
     if (self.keyboardType == UIKeyboardTypeDecimalPad)
     {
          NSString  *limitStr = @"0123456789.";
          NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:limitStr] invertedSet];
          NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-         return [string isEqualToString:filtered];
+        result = [string isEqualToString:filtered];
     }
     
     if (self.keyboardType == UIKeyboardTypeNumberPad)
@@ -188,13 +189,19 @@
         NSString  *limitStr = @"0123456789";
         NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:limitStr] invertedSet];
         NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs] componentsJoinedByString:@""];
-        return [string isEqualToString:filtered];
+        result = [string isEqualToString:filtered];
     }
 
-
-    if ([_customTextFieldDelegate respondsToSelector:@selector(textField: shouldChangeCharactersInRange: replacementString:)]) {
-        return [_customTextFieldDelegate textField:textField shouldChangeCharactersInRange:range replacementString:string];
+    if (result) {
+        if ([_customTextFieldDelegate respondsToSelector:@selector(textField: shouldChangeCharactersInRange: replacementString:)]) {
+            return [_customTextFieldDelegate textField:textField shouldChangeCharactersInRange:range replacementString:string];
+        }
     }
+    else
+    {
+        return NO;
+    }
+
     return YES;
 }
 
