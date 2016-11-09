@@ -10,4 +10,5 @@
 
 @interface WalletZCMoneyVC : ZYZCBaseViewController
 
+@property (nonatomic, assign) CGFloat kzcMoney;
 @end

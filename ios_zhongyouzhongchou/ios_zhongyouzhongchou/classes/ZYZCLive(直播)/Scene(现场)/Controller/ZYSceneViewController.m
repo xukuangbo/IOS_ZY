@@ -178,7 +178,7 @@ static NSString *const ShopID = @"ShopCell";
     ShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ShopID forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     cell.layer.masksToBounds = YES;
-    cell.layer.cornerRadius = 4;
+    cell.layer.cornerRadius = 6;
 
     cell.model = self.scenes[indexPath.row];
     WEAKSELF

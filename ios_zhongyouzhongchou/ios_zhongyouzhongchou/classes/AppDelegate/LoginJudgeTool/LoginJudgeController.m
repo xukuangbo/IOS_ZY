@@ -183,8 +183,7 @@
     [_txLabel addLinkToURL:[NSURL URLWithString:@"yinsiVC"] withRange:range2];
     
     [self.view addSubview:_txLabel];
-    
-    
+
 }
 
 #pragma mark - 手机动态登录

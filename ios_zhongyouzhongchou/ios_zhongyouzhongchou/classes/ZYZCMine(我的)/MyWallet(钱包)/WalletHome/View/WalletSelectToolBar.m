@@ -34,6 +34,7 @@
     
     _pressBtn = _ktxBtn;
     self.backgroundColor = [UIColor ZYZC_BgGrayColor];
+    
     [_ktxBtn setTitleColor:[UIColor ZYZC_MainColor] forState:UIControlStateNormal];
     [_ybjBtn setTitleColor:[UIColor ZYZC_TextGrayColor] forState:UIControlStateNormal];
     _ktxBtn.tag = WalletSelectTypeKTX;

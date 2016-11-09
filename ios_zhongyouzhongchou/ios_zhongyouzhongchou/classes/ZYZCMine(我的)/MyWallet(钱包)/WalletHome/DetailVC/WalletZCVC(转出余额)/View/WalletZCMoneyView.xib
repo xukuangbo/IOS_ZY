@@ -44,13 +44,16 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9pj-ZC-Nde" userLabel="MapView">
                     <rect key="frame" x="10" y="388" width="355" height="125"/>
                     <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wQf-Pt-OYP" userLabel="inputBgView">
+                            <rect key="frame" x="0.0" y="0.0" width="355" height="125"/>
+                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="转出金额" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Df8-YQ-db8" userLabel="转出金额">
-                            <rect key="frame" x="10" y="10" width="69.5" height="21"/>
+                            <rect key="frame" x="10" y="10" width="70" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.00" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aE2-4q-jue">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0.00" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aE2-4q-jue" customClass="ZYZCCustomTextField">
                             <rect key="frame" x="45" y="52" width="265" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="NoI-Gq-P7V"/>
@@ -62,12 +65,16 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="wQf-Pt-OYP" firstAttribute="leading" secondItem="9pj-ZC-Nde" secondAttribute="leading" id="0zD-jA-jAr"/>
+                        <constraint firstAttribute="bottom" secondItem="wQf-Pt-OYP" secondAttribute="bottom" id="7co-SC-avA"/>
                         <constraint firstItem="Df8-YQ-db8" firstAttribute="top" secondItem="9pj-ZC-Nde" secondAttribute="top" constant="10" id="Idq-Eh-hnH"/>
                         <constraint firstAttribute="height" constant="125" id="MJP-Ue-V4C"/>
                         <constraint firstItem="Df8-YQ-db8" firstAttribute="leading" secondItem="9pj-ZC-Nde" secondAttribute="leading" constant="10" id="Mje-Tn-WeK"/>
                         <constraint firstItem="aE2-4q-jue" firstAttribute="centerY" secondItem="9pj-ZC-Nde" secondAttribute="centerY" constant="9.5" id="dUT-rC-vhi"/>
                         <constraint firstItem="aE2-4q-jue" firstAttribute="leading" secondItem="9pj-ZC-Nde" secondAttribute="leading" constant="45" id="ekq-y2-Ft1"/>
+                        <constraint firstAttribute="trailing" secondItem="wQf-Pt-OYP" secondAttribute="trailing" id="gNN-pP-Hv6"/>
                         <constraint firstAttribute="trailing" secondItem="aE2-4q-jue" secondAttribute="trailing" constant="45" id="lxv-nC-1UK"/>
+                        <constraint firstItem="wQf-Pt-OYP" firstAttribute="top" secondItem="9pj-ZC-Nde" secondAttribute="top" id="nyQ-bz-GAu"/>
                     </constraints>
                 </view>
             </subviews>
@@ -86,6 +93,15 @@
                 <constraint firstAttribute="bottom" secondItem="XnJ-os-rxW" secondAttribute="bottom" constant="40" id="koy-VY-Ogp"/>
                 <constraint firstItem="7Gs-dB-86d" firstAttribute="top" secondItem="9pj-ZC-Nde" secondAttribute="bottom" constant="10" id="w2I-As-K4V"/>
             </constraints>
+            <connections>
+                <outlet property="changeBindLabel" destination="7Gs-dB-86d" id="1gb-Hx-G4i"/>
+                <outlet property="commitButton" destination="XnJ-os-rxW" id="wmR-Oj-liM"/>
+                <outlet property="inputBgView" destination="wQf-Pt-OYP" id="fff-Pz-tam"/>
+                <outlet property="inputMapTextfiled" destination="aE2-4q-jue" id="Om5-nH-Nqx"/>
+                <outlet property="inputMapTitleLabel" destination="Df8-YQ-db8" id="hzA-8h-P7p"/>
+                <outlet property="inputMapView" destination="9pj-ZC-Nde" id="x4T-7n-2G9"/>
+                <outlet property="kzcMoneyLabel" destination="5Y5-Mo-LKv" id="jsh-MO-hsr"/>
+            </connections>
             <point key="canvasLocation" x="50.5" y="-29.5"/>
         </view>
     </objects>

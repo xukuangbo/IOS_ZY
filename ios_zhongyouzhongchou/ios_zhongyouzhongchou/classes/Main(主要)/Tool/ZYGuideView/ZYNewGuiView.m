@@ -35,10 +35,13 @@
 
 - (void)initSubViewWithTeacherGuideType:(detailType)type withContextViewType:(CGContextType)contextType
 {
-    _cgContextView = [[ZYCGContextView alloc] initWithFrame:self.bounds];
-    [self addSubview:_cgContextView];
-    _guideView = [[ZYDetailGuideView alloc] initWithFrame:CGRectZero];
-    [_cgContextView addSubview:_guideView];
+    if (type != liveWindowType) {
+        _cgContextView = [[ZYCGContextView alloc] initWithFrame:self.bounds];
+        [self addSubview:_cgContextView];
+        _guideView = [[ZYDetailGuideView alloc] initWithFrame:CGRectZero];
+        [_cgContextView addSubview:_guideView];
+    }
+    
 //    NSDictionary *dic = [self getDetailTitleArray][type];
     
     switch (type) {
@@ -60,6 +63,11 @@
         case prevType:
         {
             [_guideView createDetailWithAlignmentType:prevType];
+        }
+            break;
+        case liveWindowType:
+        {
+//            [_guideView createDetailWithAlignmentType:liveWindowType];
         }
             break;
             
@@ -149,6 +157,37 @@
             
             break;
         }
+        case liveWindowType:
+        {
+            UIImageView *guideCircleImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+            guideCircleImageView.image = [UIImage imageNamed:@"background_card"];
+            [self addSubview:guideCircleImageView];
+            
+            UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 5, 40, 40)];
+            headerImageView.layer.masksToBounds = YES;
+            headerImageView.layer.cornerRadius = 20;
+            headerImageView.image = [UIImage imageNamed:@"icon_mxc_cy"];
+            [self addSubview:headerImageView];
+            
+            UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 5, KSCREEN_W - 135, 40)];
+            contentLabel.textColor = [UIColor colorWithHexString:@"ffffff"];
+            contentLabel.font = [UIFont systemFontOfSize:13.0f];
+            [contentLabel setTextAlignment:NSTextAlignmentCenter];
+            contentLabel.text = @"众游红包正在直播\n点击进入直播间";
+            contentLabel.numberOfLines = 2;
+            [self addSubview:contentLabel];
+            
+            UIImageView *liveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(28, 32, 23, 10)];
+            liveImageView.image = [UIImage imageNamed:@"live_icon"];
+            [self addSubview:liveImageView];
+            
+            UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+            closeButton.frame = CGRectMake(KSCREEN_W - 55, 15, 20, 20);
+            [closeButton setImage:[UIImage imageNamed:@"live_message_closed"] forState:UIControlStateNormal];
+            [self addSubview:closeButton];
+            break;
+        }
+            
         default:
             break;
     }
