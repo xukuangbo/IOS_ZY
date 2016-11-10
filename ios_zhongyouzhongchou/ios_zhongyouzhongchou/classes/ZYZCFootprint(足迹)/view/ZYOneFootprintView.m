@@ -327,9 +327,11 @@
 {
     sender.enabled=NO;
     [self.viewController.view endEditing:YES];
+    [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
     //点赞
     if (!_footprintModel.hasZan) {
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            [MBProgressHUD hideHUDForView:self.viewController.view];
             sender.enabled=YES;
             if (isSuccess) {
                 _supportImg.image=[UIImage imageNamed:@"footprint-like-2"];
@@ -343,6 +345,7 @@
             }
         } andFailBlock:^(id failResult) {
             sender.enabled=YES;
+            [MBProgressHUD hideHUDForView:self.viewController.view];
             [MBProgressHUD showShortMessage:@"网络错误"];
         }];
     }
@@ -350,6 +353,7 @@
     else
     {
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_delZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:_footprintModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            [MBProgressHUD hideHUDForView:self.viewController.view];
             sender.enabled=YES;
             if (isSuccess) {
                 _supportImg.image=[UIImage imageNamed:@"footprint-like"];
@@ -362,6 +366,7 @@
             }
         } andFailBlock:^(id failResult) {
             sender.enabled=YES;
+            [MBProgressHUD hideHUDForView:self.viewController.view];
             [MBProgressHUD showShortMessage:@"网络错误"];
         }];
         

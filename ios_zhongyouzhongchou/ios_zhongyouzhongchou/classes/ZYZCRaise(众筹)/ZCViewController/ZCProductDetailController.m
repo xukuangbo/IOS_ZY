@@ -6,7 +6,7 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 
-#define KGET_DETAIL_PRODUCT(userId,productId)  [NSString stringWithFormat:@"%@userId=%@&productId=%@",GETPRODUCTDETAIL,userId,productId]
+//#define KGET_DETAIL_PRODUCT(userId,productId)  [NSString stringWithFormat:@"%@userId=%@&productId=%@",GETPRODUCTDETAIL,userId,productId]
 
 #define SHARE_URL(productId) [NSString stringWithFormat:@"http://www.sosona.com/pay/crowdfundingDetail?pid=%@",productId]
 
@@ -352,19 +352,18 @@
 #pragma mark --- 分享
 -(void)share
 {
-    __weak typeof (&*self)weakSelf=self;
-    
+    WEAKSELF
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//    alertController.view.tintColor=[UIColor ZYZC_MainColor];
+    alertController.view.tintColor=[UIColor ZYZC_MainColor];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *shareToZoneAction = [UIAlertAction actionWithTitle:@"分享到微信朋友圈" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
     {
-        [weakSelf shareToFriendScene:YES];
+        [weakSelf shareProductToWechat:1];
     }];
     
     UIAlertAction *shareToFriendAction = [UIAlertAction actionWithTitle:@"分享到微信好友" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action)
   {
-      [weakSelf shareToFriendScene:NO];
+      [weakSelf shareProductToWechat:0];
   }];
     
     [alertController addAction:cancelAction];
@@ -374,7 +373,7 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
--(void)shareToFriendScene:(BOOL)isFriendScene
+-(void)shareProductToWechat:(int)scene
 {
     NSString *url=SHARE_URL(_productId);
     
@@ -385,7 +384,7 @@
     
       
     WXApiManager *wxManager=[WXApiManager sharedManager];
-    [wxManager shareScene:isFriendScene withTitle:_detailModel.detailProductModel.title andDesc:[NSString stringWithFormat:@"%@梦想去%@旅行,正在众游筹旅费，希望你能支持TA",user.realName?user.realName:user.userName,dest] andThumbImage:user.faceImg andWebUrl:url];
+    [wxManager shareScene:scene withTitle:_detailModel.detailProductModel.title andDesc:[NSString stringWithFormat:@"%@梦想去%@旅行,正在众游筹旅费，希望你能支持TA",user.realName?user.realName:user.userName,dest] andThumbImage:user.faceImg andWebUrl:url];
 }
 
 #pragma mark --- 推荐/取消推荐

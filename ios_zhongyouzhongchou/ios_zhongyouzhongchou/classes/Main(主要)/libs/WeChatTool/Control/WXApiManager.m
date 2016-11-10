@@ -15,7 +15,6 @@
 #define FAIL_NETWORK        @"网络错误，支持失败"
 
 #import "WXApiManager.h"
-#import "MBProgressHUD.h"
 #import "MBProgressHUD+MJ.h"
 #import "ZYZCRCManager.h"
 #import "ZYZCAccountTool.h"
@@ -185,48 +184,35 @@
     WXMediaMessage *message=[WXMediaMessage message];
     message.title=title;
     message.description=description;
-    //图片不能大于32k
-    if (!thumbImage) {
-        [message setThumbImage:[UIImage imageNamed:@"Share_iocn"]];
-    }
-    else{
-        if ([thumbImage hasSuffix:@"/0"]) {
-            thumbImage=[thumbImage stringByReplacingCharactersInRange:NSMakeRange(thumbImage.length-2, 2) withString:@"/132"];
-        }
-        
-        NSData *imgData=[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbImage]];
-        
-        UIImage *sourceimage=[UIImage imageWithData:imgData];
-        UIImage *compressImage=[ZYZCTool compressSourceImage:sourceimage underLength:32 withPlaceHolderImage:[UIImage imageNamed:@"Share_iocn"]];
-
-        [message setThumbImage:compressImage];
-    }
-    WXWebpageObject *webpageObject=[WXWebpageObject object];
-    webpageObject.webpageUrl=webUrl;
-    message.mediaObject=webpageObject;
-    SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
-    req.bText=NO;
-    req.message=message;
-    req.scene=scene;
-    [WXApi sendReq:req];
-}
-
-#pragma mark ---分享视频
-- (void)shareToWeChatWithScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(UIImage *)thumbImage andVideoUrl:(NSString *)videoUrl
-{
-    WXMediaMessage *message = [WXMediaMessage message];
-    message.title = title;
-    message.description = description;
-    [message setThumbImage:[UIImage imageNamed:@"Share_iocn"]];
-    WXVideoObject *videoObject = [WXVideoObject object];
-    videoObject.videoUrl = videoUrl;
-    videoObject.videoLowBandUrl = videoObject.videoUrl;
     
-    SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
-    req.bText=NO;
-    req.message = message;
-    req.scene =scene;
-    [WXApi sendReq:req];
+    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow.rootViewController.view animated:YES];
+    dispatch_async(dispatch_get_global_queue(0, 0), ^
+   {
+       //图片不能大于32k
+       if (!thumbImage) {
+           [message setThumbImage:[UIImage imageNamed:@"Share_iocn"]];
+       }
+       else{
+           NSData *imgData=[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbImage]];
+           
+           UIImage *sourceimage=[UIImage imageWithData:imgData];
+           UIImage *compressImage=[ZYZCTool compressSourceImage:sourceimage underLength:32 withPlaceHolderImage:[UIImage imageNamed:@"Share_iocn"]];
+           [message setThumbImage:compressImage];
+           
+       }
+       dispatch_async(dispatch_get_main_queue(), ^
+                      {
+                          [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
+                          WXWebpageObject *webpageObject=[WXWebpageObject object];
+                          webpageObject.webpageUrl=webUrl;
+                          message.mediaObject=webpageObject;
+                          SendMessageToWXReq *req=[[SendMessageToWXReq alloc]init];
+                          req.bText=NO;
+                          req.message=message;
+                          req.scene=scene;
+                          [WXApi sendReq:req];
+                      });
+   });
 }
 
 #pragma mark --- 生成订单失败提示

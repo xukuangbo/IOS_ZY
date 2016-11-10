@@ -719,8 +719,9 @@
         UIImage *compressImage01=[UIImage imageWithData:data];
         if (data.length>length*1024) {
             UIImage *resultImage=nil;
-            for (int i=1; i<10; i++) {
-                UIImage *img=[[self class] reduceImageSizeFromSourceImage:compressImage01 andScale:(10-i)*0.1];
+            int num=20;
+            for (int i=1; i<num; i++) {
+                UIImage *img=[[self class] reduceImageSizeFromSourceImage:compressImage01 andScale:(num-i)*(1.0/num)];
                 NSData *data = UIImageJPEGRepresentation(img, 1.0);
                 if (data.length<length*1024) {
                     resultImage=[UIImage imageWithData:data];
