@@ -26,4 +26,6 @@
  *  展示0.5秒的mb
  */
 + (void)showShortMessage:(NSString *)message;
+
++ (void)showShortMessage:(NSString *)message toView:(UIView *)view;
 @end

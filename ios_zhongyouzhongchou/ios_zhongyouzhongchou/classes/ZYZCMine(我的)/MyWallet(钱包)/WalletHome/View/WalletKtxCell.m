@@ -8,6 +8,7 @@
 #import "WalletKtxCell.h"
 #import "WalletKtxModel.h"
 #import "UIView+ZYLayer.h"
+#import "UploadVoucherVC.h"
 @interface WalletKtxCell ()
 @property (weak, nonatomic) IBOutlet UIView *mapView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
@@ -63,6 +64,9 @@
     //添加目的地
     _destLab=[self createLabWithFrame:CGRectMake(0, 0, 0, 29) andFont:[UIFont boldSystemFontOfSize:20] andTitleColor:[UIColor whiteColor]];
     [_destScroll addSubview:_destLab];
+    
+    //提现添加点击事件
+    [_txLabel addTarget:self action:@selector(txLabelAction)];
 }
 
 #pragma mark --- 创建lab
@@ -169,5 +173,16 @@
         //        _productNameLabel.size = [ZYZCTool calculateStrLengthByText:_productNameLabel.text andFont:_productNameLabel.font andMaxWidth:MAXFLOAT];
     }
     
+}
+
+#pragma mark - 申请提现点击
+- (void)txLabelAction{
+    if (self.mineWalletModel.productId) {
+        UploadVoucherVC *uploadVC = [[UploadVoucherVC alloc] init];
+        uploadVC.productID = self.mineWalletModel.productId;
+        [self.viewController.navigationController pushViewController:uploadVC animated:YES];
+    }else{
+        //        NSLog(@"没有项目id");
+    }
 }
 @end

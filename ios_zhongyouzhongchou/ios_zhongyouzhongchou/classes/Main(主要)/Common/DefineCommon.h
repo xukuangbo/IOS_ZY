@@ -197,3 +197,6 @@
 //绑定微信动作通知
 #define BindWechatNoti @"BindWechatNoti"
 
+//项目待提现申请提现成功通知
+#define ProductRequestTxSuccessNoti @"ProductRequestTxSuccessNoti"
+

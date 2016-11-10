@@ -12,6 +12,7 @@
 #import "WalletYbjModel.h"
 #import "WalletHomeVC.h"
 #import "WalletYbjBottomBar.h"
+#import "WalletMingXiVC.h"
 #import <ReactiveCocoa.h>
 static NSString *cellID = @"WalletYbjCell";
 
@@ -98,6 +99,13 @@ static NSString *cellID = @"WalletYbjCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return WalletYbjCellH;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    WalletYbjModel *model = self.dataArr[indexPath.row];
+    WalletMingXiVC *mxVC = [[WalletMingXiVC alloc] initWIthYbjSpaceName:model.spaceName StreamName:model.streamName];
+    [self.viewController.navigationController pushViewController:mxVC animated:YES];
 }
 
 #pragma mark --- 置顶按钮状态变化

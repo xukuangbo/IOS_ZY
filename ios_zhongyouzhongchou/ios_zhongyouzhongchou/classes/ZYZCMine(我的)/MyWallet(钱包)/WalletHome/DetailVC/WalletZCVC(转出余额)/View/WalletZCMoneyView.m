@@ -33,6 +33,8 @@
 
 
 @property (nonatomic, strong) ZYZCAccountModel *bindModel;
+/* 是否绑定 */
+@property (nonatomic, assign) BOOL isBind;
 @end
 
 @implementation WalletZCMoneyView
@@ -86,6 +88,8 @@
     
     //5.确认使用按钮
     _commitButton.layerCornerRadius = 5;
+    _commitButton.multipleTouchEnabled = NO;
+    [_commitButton addTarget:self action:@selector(commitButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [self changeCommitButtonUIWithStatus:NO];
 }
 #pragma mark - set方法
@@ -125,7 +129,15 @@
         _changeBindLabel.attributedText = attrString;
     }else{//已绑定
         
-        NSString *str = [NSString stringWithFormat:@"转出到(%@)微信钱包 更换",model.userName];
+        NSString *WxName;//限制长度
+        if (model.nickname.length > 5) {
+            WxName = [model.nickname substringToIndex:5];
+            WxName = [NSString stringWithFormat:@"%@...",WxName];
+        }else{
+            WxName = model.nickname;
+        }
+        
+        NSString *str = [NSString stringWithFormat:@"转出到(%@)微信钱包 更换",WxName];
         NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:str];
         //1.绑定颜色
         NSRange bindRangge = [str rangeOfString:@"更换" options:NSBackwardsSearch];
@@ -150,13 +162,16 @@
             NSString *bandStatus = result[@"data"][@"band"];
             if ([bandStatus isEqualToString:@"0"]) {//未绑定
                 [self changeBindContentWithStatus:NO WechatModel:nil];
+                self.isBind = NO;
             }else{//已绑定
                 ZYZCAccountModel *accountModel =  [ZYZCAccountModel mj_objectWithKeyValues:result[@"data"][@"data"]];
                 [self changeBindContentWithStatus:YES WechatModel:accountModel];
+                self.isBind = YES;
             }
         }else
         {
             [MBProgressHUD showError:@"网络错误" toView:self];
+            self.isBind = NO;
         }
     }andFailBlock:^(id failResult) {
         @strongify(self);
@@ -177,6 +192,39 @@
     [self endEditing:YES];
 }
 
+#pragma mark - 确认转出按钮
+- (void)commitButtonAction:(UIButton *)button{
+    
+    NSString *zcMoney = [NSString stringWithFormat:@"%zd",(NSInteger)([self.inputMapTextfiled.text floatValue] * 100)];
+    NSDictionary *parameter = @{
+                                @"totles" : zcMoney
+                                };
+    [MBProgressHUD showHUDAddedTo:self.superview animated:YES];
+    @weakify(self);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"wallet_wallet2wx.action"];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        DDLog(@"%@",result);
+        @strongify(self);
+        if (isSuccess) {
+            
+            [MBProgressHUD hideHUDForView:self.superview];
+            [self.viewController.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+            [MBProgressHUD hideHUDForView:self.superview];
+            [MBProgressHUD showError:result[@"errorMsg"] toView:self.superview];
+            
+        }
+    } andFailBlock:^(id failResult) {
+
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self];
+        [MBProgressHUD showError:ZYLocalizedString(@"unkonwn_error") toView:self.superview];
+        
+    }];
+}
+
 #pragma mark - textFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
@@ -188,11 +236,16 @@
         return NO;
     }else{
         //改变按钮状态
-        if (inputMoney > 0) {
-            [self changeCommitButtonUIWithStatus:YES];
+        if (self.isBind == YES) {
+            if (inputMoney > 0) {
+                [self changeCommitButtonUIWithStatus:YES];
+            }else{
+                [self changeCommitButtonUIWithStatus:NO];
+            }
         }else{
-            [self changeCommitButtonUIWithStatus:NO];
+             [self changeCommitButtonUIWithStatus:NO];
         }
+        
         return YES;
     }
     
@@ -221,7 +274,7 @@
         }
     } andFailBlock:^(id failResult) {
         @strongify(self);
-        [MBProgressHUD showError:@"网路错误" toView:self];
+        [MBProgressHUD showError:ZYLocalizedString(@"unkonwn_error") toView:self.superview];
     }];
 
 }
@@ -271,16 +324,20 @@
 
             [MBProgressHUD hideHUDForView:self];
             [self changeBindContentWithStatus:YES WechatModel:self.bindModel];
+            
+            self.isBind = YES;
         }
         else
         {
             [MBProgressHUD hideHUDForView:self];
-            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+            [MBProgressHUD showError:result[@"errorMsg"] toView:self.superview];
+            
         }
     } andFailBlock:^(id failResult) {
         @strongify(self);
         [MBProgressHUD hideHUDForView:self];
-        [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+        [MBProgressHUD showError:ZYLocalizedString(@"unkonwn_error") toView:self.superview];
+        
     }];
 }
 @end
