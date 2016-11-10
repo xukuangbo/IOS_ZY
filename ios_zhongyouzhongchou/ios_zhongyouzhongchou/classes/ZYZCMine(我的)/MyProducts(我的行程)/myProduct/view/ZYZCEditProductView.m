@@ -912,13 +912,12 @@
         WEAKSELF
         [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
             [MBProgressHUD hideHUDForView:self.viewController.view];
-            [MBProgressHUD hideHUDForView:self.viewController.view];
             //            NSLog(@"%@",result);
             if (isSuccess) {
                 [MBProgressHUD showSuccess:@"取消成功!"];
-                MyProductController *myProductController=(MyProductController *)weakSelf.viewController;
-                
-                
+                weakSelf.joinProductState=@4;
+                weakSelf.myPaybackstatus=@0;
+                weakSelf.btnTitleArr=@[@"等待确认",@"等待退款",@"评价"];
             }
             else
             {

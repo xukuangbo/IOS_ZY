@@ -135,7 +135,7 @@
     [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow.rootViewController.view animated:YES];
     
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:payUrl  andParameters:params andSuccessGetBlock:^(id result, BOOL isSuccess) {
-//        NSLog(@"result:%@",result);
+        DDLog(@"result:%@",result);
         [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow.rootViewController.view];
         if([result[@"code"] isEqual:@1])
         {

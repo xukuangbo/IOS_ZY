@@ -206,7 +206,7 @@
                 [weakSelf.dataArr addObject:oneModel];
             }
             
-            if (!listModel.data.count) {
+            if (!listModel.data.count&&weakSelf.pageNo>1) {
                 weakSelf.pageNo--;
                 [autoFooter setTitle:@"没有更多数据了" forState:MJRefreshStateRefreshing];
             }
