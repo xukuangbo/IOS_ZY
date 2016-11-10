@@ -734,7 +734,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 
 -(void)showInputBar:(id)sender{
     self.inputBar.hidden = NO;
-    [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];
+    [self.inputBar setInputBarStatus:RCDLiveBottomBarKeyboardStatus];
 }
 
 // 打赏功能
@@ -758,7 +758,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.payView.hidden = YES;
         self.travePayView.hidden = YES;
-        [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
+        [self.inputBar setInputBarStatus:RCDLiveBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
         [self clapButtonPressed];
     }
