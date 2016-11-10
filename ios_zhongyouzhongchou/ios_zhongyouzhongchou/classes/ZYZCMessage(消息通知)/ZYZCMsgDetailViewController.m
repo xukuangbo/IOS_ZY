@@ -11,9 +11,8 @@
 #import "NetWorkManager.h"
 #import "MBProgressHUD+MJ.h"
 #import "MsgDetailModel.h"
-#import "MyProductViewController.h"
 #import "MyReturnViewController.h"
-
+#import "MyProductController.h"
 @interface ZYZCMsgDetailViewController ()
 @property (nonatomic, strong) UIView      *topView;
 @property (nonatomic, strong) UIImageView *icon;
@@ -160,7 +159,7 @@
 {
     //我发布，我参与
     if (_msgListModel.msgStyle==1||_msgListModel.msgStyle==2) {
-        MyProductViewController *myTravelVC=[[MyProductViewController alloc]init];
+        MyProductController *myTravelVC=[[MyProductController alloc]init];
         myTravelVC.hidesBottomBarWhenPushed=YES;
         myTravelVC.myProductType=_msgListModel.msgStyle;
         [self.navigationController pushViewController:myTravelVC animated:YES];

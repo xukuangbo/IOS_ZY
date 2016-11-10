@@ -241,15 +241,17 @@
 		2C3293001D926E890095F60E /* ZYCommentListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3292FF1D926E890095F60E /* ZYCommentListModel.m */; };
 		2C3293061D9276110095F60E /* ZYFootprintOneCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3293051D9276110095F60E /* ZYFootprintOneCommentCell.m */; };
 		2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */; };
-		2C3777EC1D07BC51004FDA9D /* MyProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EB1D07BC51004FDA9D /* MyProductViewController.m */; };
-		2C3777EF1D07C345004FDA9D /* MyProductTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777EE1D07C345004FDA9D /* MyProductTableView.m */; };
-		2C3777F51D07CA2C004FDA9D /* ZYZCOneProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777F41D07CA2C004FDA9D /* ZYZCOneProductCell.m */; };
 		2C3777FC1D07F355004FDA9D /* ZYZCBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777FB1D07F355004FDA9D /* ZYZCBaseTableView.m */; };
 		2C3777FF1D07F36F004FDA9D /* ZYZCBaseTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3777FE1D07F36F004FDA9D /* ZYZCBaseTableViewCell.m */; };
 		2C3FAA211D54793000F2B187 /* MsgDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C3FAA201D54793000F2B187 /* MsgDetailModel.m */; };
 		2C41A8121D8A9D2100AD9437 /* ZYLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C41A8111D8A9D2100AD9437 /* ZYLocationManager.m */; };
-		2C44698C1D1671C8000639EB /* ZYZCEditProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */; };
 		2C46C1A61DC8734E006C613A /* ZCDetailIntroFifthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C46C1A51DC8734E006C613A /* ZCDetailIntroFifthCell.m */; };
+		2C4EDD3D1DD40757005D68FD /* MyProductController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4EDD3A1DD40757005D68FD /* MyProductController.m */; };
+		2C4EDD3E1DD40757005D68FD /* MyProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4EDD3C1DD40757005D68FD /* MyProductViewController.m */; };
+		2C4EDD451DD407B6005D68FD /* MyProductTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4EDD401DD407B6005D68FD /* MyProductTableView.m */; };
+		2C4EDD461DD407B6005D68FD /* ZYZCEditProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4EDD421DD407B6005D68FD /* ZYZCEditProductView.m */; };
+		2C4EDD471DD407B6005D68FD /* ZYZCOneProductCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4EDD441DD407B6005D68FD /* ZYZCOneProductCell.m */; };
+		2C4EDD4A1DD408A0005D68FD /* ProductTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C4EDD491DD408A0005D68FD /* ProductTableView.m */; };
 		2C4EEFB91CC6087D00AA99F6 /* outboundCity.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C4EEFB81CC6087D00AA99F6 /* outboundCity.plist */; };
 		2C5159A01D8641B20048BD20 /* AmrPlayerReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159851D8641B20048BD20 /* AmrPlayerReader.m */; };
 		2C5159A11D8641B20048BD20 /* MLAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C5159871D8641B20048BD20 /* MLAudioPlayer.m */; };
@@ -1114,12 +1116,6 @@
 		2C3293051D9276110095F60E /* ZYFootprintOneCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYFootprintOneCommentCell.m; sourceTree = "<group>"; };
 		2C3523211D3C63B8005200AD /* ZYMobileLoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMobileLoginController.h; sourceTree = "<group>"; };
 		2C3523221D3C63B8005200AD /* ZYMobileLoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYMobileLoginController.m; sourceTree = "<group>"; };
-		2C3777EA1D07BC51004FDA9D /* MyProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductViewController.h; sourceTree = "<group>"; };
-		2C3777EB1D07BC51004FDA9D /* MyProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProductViewController.m; sourceTree = "<group>"; };
-		2C3777ED1D07C345004FDA9D /* MyProductTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductTableView.h; sourceTree = "<group>"; };
-		2C3777EE1D07C345004FDA9D /* MyProductTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProductTableView.m; sourceTree = "<group>"; };
-		2C3777F31D07CA2C004FDA9D /* ZYZCOneProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCOneProductCell.h; sourceTree = "<group>"; };
-		2C3777F41D07CA2C004FDA9D /* ZYZCOneProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCOneProductCell.m; sourceTree = "<group>"; };
 		2C3777FA1D07F355004FDA9D /* ZYZCBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCBaseTableView.h; sourceTree = "<group>"; };
 		2C3777FB1D07F355004FDA9D /* ZYZCBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCBaseTableView.m; sourceTree = "<group>"; };
 		2C3777FD1D07F36F004FDA9D /* ZYZCBaseTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCBaseTableViewCell.h; sourceTree = "<group>"; };
@@ -1128,10 +1124,20 @@
 		2C3FAA201D54793000F2B187 /* MsgDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgDetailModel.m; sourceTree = "<group>"; };
 		2C41A8101D8A9D2100AD9437 /* ZYLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLocationManager.h; sourceTree = "<group>"; };
 		2C41A8111D8A9D2100AD9437 /* ZYLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLocationManager.m; sourceTree = "<group>"; };
-		2C44698A1D1671C8000639EB /* ZYZCEditProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCEditProductView.h; sourceTree = "<group>"; };
-		2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCEditProductView.m; sourceTree = "<group>"; };
 		2C46C1A41DC8734E006C613A /* ZCDetailIntroFifthCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZCDetailIntroFifthCell.h; sourceTree = "<group>"; };
 		2C46C1A51DC8734E006C613A /* ZCDetailIntroFifthCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZCDetailIntroFifthCell.m; sourceTree = "<group>"; };
+		2C4EDD391DD40757005D68FD /* MyProductController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductController.h; sourceTree = "<group>"; };
+		2C4EDD3A1DD40757005D68FD /* MyProductController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProductController.m; sourceTree = "<group>"; };
+		2C4EDD3B1DD40757005D68FD /* MyProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductViewController.h; sourceTree = "<group>"; };
+		2C4EDD3C1DD40757005D68FD /* MyProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProductViewController.m; sourceTree = "<group>"; };
+		2C4EDD3F1DD407B6005D68FD /* MyProductTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyProductTableView.h; sourceTree = "<group>"; };
+		2C4EDD401DD407B6005D68FD /* MyProductTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyProductTableView.m; sourceTree = "<group>"; };
+		2C4EDD411DD407B6005D68FD /* ZYZCEditProductView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCEditProductView.h; sourceTree = "<group>"; };
+		2C4EDD421DD407B6005D68FD /* ZYZCEditProductView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCEditProductView.m; sourceTree = "<group>"; };
+		2C4EDD431DD407B6005D68FD /* ZYZCOneProductCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCOneProductCell.h; sourceTree = "<group>"; };
+		2C4EDD441DD407B6005D68FD /* ZYZCOneProductCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYZCOneProductCell.m; sourceTree = "<group>"; };
+		2C4EDD481DD408A0005D68FD /* ProductTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTableView.h; sourceTree = "<group>"; };
+		2C4EDD491DD408A0005D68FD /* ProductTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTableView.m; sourceTree = "<group>"; };
 		2C4EEFB81CC6087D00AA99F6 /* outboundCity.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = outboundCity.plist; sourceTree = "<group>"; };
 		2C5159841D8641B20048BD20 /* AmrPlayerReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AmrPlayerReader.h; sourceTree = "<group>"; };
 		2C5159851D8641B20048BD20 /* AmrPlayerReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AmrPlayerReader.m; sourceTree = "<group>"; };
@@ -3257,17 +3263,10 @@
 		2C3777E91D07BBE0004FDA9D /* MyProducts(我的行程) */ = {
 			isa = PBXGroup;
 			children = (
+				2C4EDD351DD406A3005D68FD /* myProduct */,
 				395B5A961D2699670084264C /* Upload */,
 				2CAD97AA1D1D3CAB000E4ED8 /* CommentUser(评价) */,
 				2C1C07891D1AA35A00203FF4 /* ChoosePartner(选择旅伴) */,
-				2C3777EA1D07BC51004FDA9D /* MyProductViewController.h */,
-				2C3777EB1D07BC51004FDA9D /* MyProductViewController.m */,
-				2C3777ED1D07C345004FDA9D /* MyProductTableView.h */,
-				2C3777EE1D07C345004FDA9D /* MyProductTableView.m */,
-				2C3777F31D07CA2C004FDA9D /* ZYZCOneProductCell.h */,
-				2C3777F41D07CA2C004FDA9D /* ZYZCOneProductCell.m */,
-				2C44698A1D1671C8000639EB /* ZYZCEditProductView.h */,
-				2C44698B1D1671C8000639EB /* ZYZCEditProductView.m */,
 			);
 			path = "MyProducts(我的行程)";
 			sourceTree = "<group>";
@@ -3291,6 +3290,49 @@
 				2C228B861DB9FA0B00ECAD69 /* ZYCustomBlurView.m */,
 			);
 			path = ZYZCBaseView;
+			sourceTree = "<group>";
+		};
+		2C4EDD351DD406A3005D68FD /* myProduct */ = {
+			isa = PBXGroup;
+			children = (
+				2C4EDD361DD406DC005D68FD /* controller */,
+				2C4EDD371DD406DC005D68FD /* model */,
+				2C4EDD381DD406DC005D68FD /* view */,
+			);
+			path = myProduct;
+			sourceTree = "<group>";
+		};
+		2C4EDD361DD406DC005D68FD /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				2C4EDD391DD40757005D68FD /* MyProductController.h */,
+				2C4EDD3A1DD40757005D68FD /* MyProductController.m */,
+				2C4EDD3B1DD40757005D68FD /* MyProductViewController.h */,
+				2C4EDD3C1DD40757005D68FD /* MyProductViewController.m */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		2C4EDD371DD406DC005D68FD /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		2C4EDD381DD406DC005D68FD /* view */ = {
+			isa = PBXGroup;
+			children = (
+				2C4EDD3F1DD407B6005D68FD /* MyProductTableView.h */,
+				2C4EDD401DD407B6005D68FD /* MyProductTableView.m */,
+				2C4EDD411DD407B6005D68FD /* ZYZCEditProductView.h */,
+				2C4EDD421DD407B6005D68FD /* ZYZCEditProductView.m */,
+				2C4EDD431DD407B6005D68FD /* ZYZCOneProductCell.h */,
+				2C4EDD441DD407B6005D68FD /* ZYZCOneProductCell.m */,
+				2C4EDD481DD408A0005D68FD /* ProductTableView.h */,
+				2C4EDD491DD408A0005D68FD /* ProductTableView.m */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 		2C5159821D86419C0048BD20 /* AudioRecordAndPlay */ = {
@@ -5859,7 +5901,6 @@
 				2CC5FD781D5990EE0001AC95 /* UIBarButtonItem+WZLBadge.m in Sources */,
 				2C0A20CC1D585DF100E6CE40 /* ChatUserInfoModel.m in Sources */,
 				04C087A01D03E31300203D40 /* TacticMoreCitiesVC.m in Sources */,
-				2C3777F51D07CA2C004FDA9D /* ZYZCOneProductCell.m in Sources */,
 				0469C5701D0E44CF00A34A03 /* MineTravelTagsModel.m in Sources */,
 				2CDE673E1DA652380066F49D /* QPEffectManager.m in Sources */,
 				2C3292FA1D9258F40095F60E /* ZYSupportListModel.m in Sources */,
@@ -5896,6 +5937,7 @@
 				2C8B19801D0CF7EC0063097B /* XMNPhotoPickerController.m in Sources */,
 				39911AC91D504174007DF44B /* UIColor+ZYZCColors.m in Sources */,
 				04F8364D1CD734CD00140980 /* TacticSingleTipsController.m in Sources */,
+				2C4EDD3E1DD40757005D68FD /* MyProductViewController.m in Sources */,
 				3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */,
 				2CDE66811DA64EB70066F49D /* JSONModel.m in Sources */,
 				0406514D1CC87A89003FD539 /* TacticSingleViewController.m in Sources */,
@@ -5918,7 +5960,6 @@
 				3951296C1D8658CD00760405 /* LivePersonDataView.m in Sources */,
 				05977B211DB85DC5007EC20A /* UITabBarController+ZFPlayerRotation.m in Sources */,
 				050969351DCB0CDF00128766 /* ZYTravePayView.m in Sources */,
-				2C44698C1D1671C8000639EB /* ZYZCEditProductView.m in Sources */,
 				055F68501DB62098005C4345 /* ZYLiveHomeViewController.m in Sources */,
 				0432ADAF1D096B89005D789E /* NSCalendar+ST.m in Sources */,
 				392AB2861D669C26003FEDB7 /* RCDLiveTextMessageCell.m in Sources */,
@@ -6032,6 +6073,7 @@
 				2C8B198E1D0CF7EC0063097B /* XMNPhotoPreviewCell.m in Sources */,
 				05977B201DB85DC5007EC20A /* UINavigationController+ZFPlayerRotation.m in Sources */,
 				2CFC7D131DA648B900A28D74 /* QPSDKConfig.m in Sources */,
+				2C4EDD451DD407B6005D68FD /* MyProductTableView.m in Sources */,
 				39911ADB1D5044A8007DF44B /* ZYZCDataBase.m in Sources */,
 				2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */,
 				2C1B60F51D6D3CF900E3C25B /* MovieView.m in Sources */,
@@ -6046,6 +6088,7 @@
 				2CDE67591DA652C30066F49D /* zip.c in Sources */,
 				2C1B60EC1D6D3CF900E3C25B /* ReturnFirstCell.m in Sources */,
 				2C8B19821D0CF7EC0063097B /* XMNVideoPreviewController.m in Sources */,
+				2C4EDD3D1DD40757005D68FD /* MyProductController.m in Sources */,
 				2CDE67451DA652380066F49D /* QPEffectMV.m in Sources */,
 				2C0A20C91D585D7700E6CE40 /* ChatUserModel.m in Sources */,
 				2C9AA6E21D3D2BAF0030A5B4 /* ZYCustomIconView.m in Sources */,
@@ -6181,6 +6224,7 @@
 				2CE617751D657DD100962163 /* HUPhotoHelper.m in Sources */,
 				2CF6832A1D2383D300447349 /* ComplainViewController.m in Sources */,
 				3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */,
+				2C4EDD461DD407B6005D68FD /* ZYZCEditProductView.m in Sources */,
 				2CF74EED1D8E7ECD004F8718 /* ZYPublishFootprintController.m in Sources */,
 				05222EEA1D9924A400971DE0 /* ZYWatchLiveViewController+LivePersonView.m in Sources */,
 				2CF305101D3DC716008296EC /* JudgeAuthorityTool.m in Sources */,
@@ -6227,7 +6271,6 @@
 				2C3178481DAA41340042B5DB /* ZYDetailIUserInfoCell.m in Sources */,
 				2C7FC2B21D22A007000FDFDE /* CommentListTableView.m in Sources */,
 				3941CD6A1D41FCB7009224BC /* ChatComplainController.m in Sources */,
-				2C3777EF1D07C345004FDA9D /* MyProductTableView.m in Sources */,
 				05274EE81D66E750002C10A1 /* ZYWatchLiveViewController.m in Sources */,
 				2C2BCE2C1DB77C1F007C6E1C /* ZYBaseLimitTextView.m in Sources */,
 				2CD209011D6D3E27005EB62E /* UserModel.m in Sources */,
@@ -6268,6 +6311,7 @@
 				2CD6B8F71DA9DFEE00B7E60A /* ZCInfoView.m in Sources */,
 				2CDE66821DA64EB70066F49D /* JSONModelClassProperty.m in Sources */,
 				040651221CC62FC7003FD539 /* TAAnimatedDotView.m in Sources */,
+				2C4EDD4A1DD408A0005D68FD /* ProductTableView.m in Sources */,
 				04A99D211CC07E1800C6F5F0 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				2CD6B8CE1DA9DDB700B7E60A /* ZCDetailReturnSecondCell.m in Sources */,
 				2CE617791D657DD100962163 /* HUWebImageDownloader.m in Sources */,
@@ -6277,6 +6321,7 @@
 				3941CD751D420B29009224BC /* ChatBlackListCell.m in Sources */,
 				2C0101CE1D5DF48E00D6470D /* ZFWeiboButton.m in Sources */,
 				392AB2961D669C26003FEDB7 /* RCDLiveGiftMessage.m in Sources */,
+				2C4EDD471DD407B6005D68FD /* ZYZCOneProductCell.m in Sources */,
 				2C1C07A11D1AC2C100203FF4 /* PartnerTableView.m in Sources */,
 				04A99C971CBF848D00C6F5F0 /* ZYZCNavigationController.m in Sources */,
 				2CFC7D0C1DA648B900A28D74 /* QPEventManager.m in Sources */,
@@ -6299,7 +6344,6 @@
 				39911ADE1D5044A8007DF44B /* ZYZCTool.m in Sources */,
 				04C087B51D05493900203D40 /* MyUserFollowedModel.m in Sources */,
 				2CFC7D191DA648D900A28D74 /* QPProgressHUD.m in Sources */,
-				2C3777EC1D07BC51004FDA9D /* MyProductViewController.m in Sources */,
 				2CDE66C11DA650690066F49D /* QPPickerPreviewView.m in Sources */,
 				04A99D1E1CC07E1800C6F5F0 /* WXApiRequestHandler.m in Sources */,
 				2CDE67441DA652380066F49D /* QPEffectMusic.m in Sources */,

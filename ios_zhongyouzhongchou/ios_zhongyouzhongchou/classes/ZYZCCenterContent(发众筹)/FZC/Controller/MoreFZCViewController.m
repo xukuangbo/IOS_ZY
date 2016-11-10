@@ -431,19 +431,19 @@
 {
     NSInteger lossMessage=0;
     if (button.tag==MoreFZCToolBarTypeGoal) {
-        lossMessage=[NecessoryAlertManager showNecessoryAlertView01];
+        lossMessage=[NecessoryAlertManager showNecessoryAlertView01ForView:self.view];
     }
     else if (button.tag==MoreFZCToolBarTypeRaiseMoney)
     {
-        lossMessage=[NecessoryAlertManager showNecessoryAlertView02];
+        lossMessage=[NecessoryAlertManager showNecessoryAlertView02ForView:self.view];
     }
     else if (button.tag==MoreFZCToolBarTypeTravel)
     {
-        lossMessage=[NecessoryAlertManager showNecessoryAlertView03];
+        lossMessage=[NecessoryAlertManager showNecessoryAlertView03ForView:self.view];
     }
     else if (button.tag==MoreFZCToolBarTypeReturn)
     {
-        lossMessage=[NecessoryAlertManager showNecessoryAlertView04];
+        lossMessage=[NecessoryAlertManager showNecessoryAlertView04ForView:self.view];
     }
     
 //    NSLog(@"%ld",lossMessage);
@@ -737,7 +737,7 @@
 #pragma mark --- 保存数据
 -(void)saveMyProduct
 {
-    BOOL showAlert=[NecessoryAlertManager showNecessoryAlertView01];
+    BOOL showAlert=[NecessoryAlertManager showNecessoryAlertView01ForView:self.view];
     if (showAlert) {
          UIButton *chooseButton=(UIButton *)[self.toolBar viewWithTag:MoreFZCToolBarTypeGoal];
         if (self.toolBar.preClickBtn.tag!=MoreFZCToolBarTypeGoal) {
