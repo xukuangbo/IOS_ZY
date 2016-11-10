@@ -19,13 +19,14 @@ typedef enum : NSInteger {
 @protocol ShowDoneDelegate <NSObject>
 
 - (void)showDone;
-//- (void)resetGuideSubviews;
+- (void)closeNotifitionView;
+- (void)showNotifitionContent:(NSString *)content;
 
 @end
 @interface ZYNewGuiView : UIView
 @property (assign, nonatomic) CGFloat rectTypeOriginalY;//起始点纵坐标
 @property (assign, nonatomic) CGFloat rectTypeOriginalX;//横坐标
-@property (assign, nonatomic) id <ShowDoneDelegate> showDoneDelagate;
+@property (weak, nonatomic) id <ShowDoneDelegate> showDoneDelagate;
 
 
 - (void)initSubViewWithTeacherGuideType:(detailType)type withContextViewType:(CGContextType)contextType;

@@ -42,6 +42,9 @@
     [self show:message icon:nil view:nil];
 }
 
++ (void)showShortMessage:(NSString *)message toView:(UIView *)view{
+     [self show:message icon:nil view:view];
+}
 #pragma mark 显示一些信息
 + (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view {
     if (view == nil) view = [[UIApplication sharedApplication].windows lastObject];

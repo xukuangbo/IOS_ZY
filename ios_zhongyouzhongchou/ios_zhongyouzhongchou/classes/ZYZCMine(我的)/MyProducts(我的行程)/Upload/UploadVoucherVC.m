@@ -11,6 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "MediaUtils.h"
 #import "ZYZCOSSManager.h"
+#import "RACEXTScope.h"
 @interface UploadVoucherVC ()<UIAlertViewDelegate>
 @property (nonatomic, strong) UIButton *sureBtn;
 
@@ -46,6 +47,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.translucent = YES;
     
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
 }
@@ -246,32 +249,41 @@
                                  @"productId":self.productID,
                                  @"attachment":attachmentString
                                  };
+    @weakify(self);
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"productInfo_productVoucher"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        @strongify(self);
+        if (isSuccess) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUD];
+                [MBProgressHUD showSuccess:@"上传成功"];
+                
+                //清楚图片缓存
+                NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+                NSString *voucherPath = [NSString stringWithFormat:@"%@/%@", pathDocuments,KVoucher_File_Path];
+                
+                [self clearCache:voucherPath];
+                
+                if (_uploadVoucherSuccess)
+                {
+                    _uploadVoucherSuccess();
+                }
+                [self.navigationController popViewControllerAnimated:YES];
+                
+                //发出一个通知,让项目待提现列表刷新数据
+                [ZYNSNotificationCenter postNotificationName:ProductRequestTxSuccessNoti object:nil];
+            });
+        }else{
+            [MBProgressHUD showError:result[@"errorMsg"] toView:self.view];
+        }
 //        NSLog(@"%@",result);
-        //隐藏菊花
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [MBProgressHUD hideHUD];
-            [MBProgressHUD showSuccess:@"上传成功"];
-            
-            //清楚图片缓存
-            NSString *pathDocuments = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-            NSString *voucherPath = [NSString stringWithFormat:@"%@/%@", pathDocuments,KVoucher_File_Path];
         
-            [self clearCache:voucherPath];
-            
-            if (_uploadVoucherSuccess)
-            {
-                _uploadVoucherSuccess();
-            }
-            [self.navigationController popViewControllerAnimated:YES];
-        });
         
     } andFailBlock:^(id failResult) {
 //        NSLog(@"%@",failResult);
         //隐藏菊花
         dispatch_async(dispatch_get_main_queue(), ^{
             [MBProgressHUD hideHUD];
-            [MBProgressHUD showSuccess:@"上传失败"];
+            [MBProgressHUD showSuccess:ZYLocalizedString(@"unkonwn_error")];
         });
     }];
 }

@@ -29,5 +29,7 @@
 //status 状态(0是未使用,1是已使用,2是已锁定,3是自己已选择)
 @property (nonatomic, assign) NSInteger status;
 
+@property (nonatomic, copy) NSString *spaceName;
 
+@property (nonatomic, copy) NSString *streamName;
 @end

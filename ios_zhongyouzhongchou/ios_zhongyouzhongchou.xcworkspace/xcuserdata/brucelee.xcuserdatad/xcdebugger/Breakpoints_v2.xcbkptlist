@@ -170,7 +170,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/CalendarViewController.m"
-                  timestampString = "500352426.083029"
+                  timestampString = "500435906.490899"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "296"
@@ -185,7 +185,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/CalendarViewController.m"
-                  timestampString = "500352426.084507"
+                  timestampString = "500435906.492303"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "296"
@@ -200,7 +200,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/CalendarViewController.m"
-                  timestampString = "500352426.085967"
+                  timestampString = "500435906.493687"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "296"
@@ -233,7 +233,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/ChooseTimeViewController.m"
-                  timestampString = "500352426.089418"
+                  timestampString = "500435906.496797"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "214"
@@ -248,7 +248,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/ChooseTimeViewController.m"
-                  timestampString = "500352426.090908"
+                  timestampString = "500435906.498212"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "214"
@@ -263,7 +263,7 @@
                   moduleName = "&#x4f17;&#x6e38;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/brucelee/Desktop/IOS_ZY/ios_zhongyouzhongchou/ios_zhongyouzhongchou/classes/ZYZCCenterContent(%E5%8F%91%E4%BC%97%E7%AD%B9)/FZCViewController/ChooseTimeViewController.m"
-                  timestampString = "500352426.092355"
+                  timestampString = "500435906.49964"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "214"
@@ -993,13 +993,45 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCLive(&#x76f4;&#x64ad;)/Scene(&#x73b0;&#x573a;)/Controller/ZYSceneViewController.m"
-            timestampString = "500352127.980346"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/Controller/ZYMineZoomController.m"
+            timestampString = "500375297.197937"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
-            landmarkName = "-requestListDataWithPage:direction:"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
+            landmarkName = "-closeNotifitionView"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/Controller/ZYMineZoomController.m"
+            timestampString = "500375329.72988"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "-showDone"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/Controller/ZYMineZoomController.m"
+            timestampString = "500376112.607097"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "-showDone"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

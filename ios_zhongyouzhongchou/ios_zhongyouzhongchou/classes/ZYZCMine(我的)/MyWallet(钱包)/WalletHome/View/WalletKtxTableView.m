@@ -9,6 +9,8 @@
 #import "WalletKtxTableView.h"
 //#import "MineWalletTableViewCell.h"
 #import "WalletKtxCell.h"
+#import "WalletMingXiVC.h"
+#import "WalletKtxModel.h"
 static NSString *cellID = @"WalletKtxCell";
 
 @implementation WalletKtxTableView
@@ -46,6 +48,13 @@ static NSString *cellID = @"WalletKtxCell";
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return WalletKtxCellH;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    WalletKtxModel *model = self.dataArr[indexPath.row];
+    WalletMingXiVC *mxVC = [[WalletMingXiVC alloc] initWIthProductId:model.productId];
+    [self.viewController.navigationController pushViewController:mxVC animated:YES];
 }
 
 #pragma mark --- 置顶按钮状态变化

@@ -181,7 +181,7 @@
     //隐藏个人信息
     [self.personDataView hidePersonDataView];
     if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-        [self.inputBar setInputBarStatus:KBottomBarDefaultStatus];
+        [self.inputBar setInputBarStatus:RCDLiveBottomBarDefaultStatus];
         self.inputBar.hidden = YES;
         self.liveFunctionView.hidden = YES;
     }
@@ -321,7 +321,7 @@
 
 -(void)showInputBar:(id)sender{
     self.inputBar.hidden = NO;
-    [self.inputBar setInputBarStatus:KBottomBarKeyboardStatus];
+    [self.inputBar setInputBarStatus:RCDLiveBottomBarKeyboardStatus];
 }
 
 // 主播功能段点击事件

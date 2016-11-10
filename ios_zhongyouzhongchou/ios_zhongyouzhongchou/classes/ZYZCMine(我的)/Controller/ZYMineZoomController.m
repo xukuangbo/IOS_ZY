@@ -18,7 +18,12 @@
 #import "ZYUserHeadView.h"
 #import "ZYMineBusinessTable.h"
 #import "ZYFootprintListView.h"
-@interface ZYMineZoomController ()
+#import "GuideWindow.h"
+#import "ZYNewGuiView.h"
+#import "ZYGuideManager.h"
+#import "ZYWatchLiveViewController.h"
+#import "ZYSystemCommon.h"
+@interface ZYMineZoomController () <ShowDoneDelegate>
 
 @property (nonatomic, strong) UILabel        *titleLab;
 @property (nonatomic, strong) NSNumber       *meGzAll;
@@ -36,7 +41,9 @@
 @property (nonatomic, strong) NSMutableArray       *footprintArr;
 
 @property (nonatomic, assign) NSInteger             contentType;
-
+// 通知view
+@property (strong, nonatomic) ZYNewGuiView *notifitionView;
+@property (strong, nonatomic) GuideWindow *guideWindow;
 @end
 
 @implementation ZYMineZoomController
@@ -56,6 +63,7 @@
       [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(publishFootprintSuccess:) name:PUBLISH_FOOTPRINT_SUCCESS  object:nil];
     //删除足迹成功
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteFootprintSuccess:) name:DELETE_ONE_FOOTPRINT_SUCCESS  object:nil];
+//    [self createNotificationView];
 }
 
 -(void)setNavItems
@@ -73,6 +81,63 @@
     [messageButton setImage:[UIImage imageNamed:@"btn_pas_ld"] forState:UIControlStateNormal];
     [messageButton addTarget:self action:@selector(rightButtonClick) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:messageButton];
+}
+
+#pragma mark - 接收通知提醒
+- (void)createNotificationView
+{
+    ZYNewGuiView *notifitionView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 50)];
+    notifitionView.layer.masksToBounds = YES;
+    notifitionView.layer.cornerRadius = 25;
+    
+    [self.guideWindow addSubview:notifitionView];
+    self.notifitionView = notifitionView;
+    self.notifitionView.rectTypeOriginalY = 283;
+    notifitionView.showDoneDelagate = self;
+    [notifitionView initSubViewWithTeacherGuideType:liveWindowType withContextViewType:rectTangleType];
+    [self.guideWindow bringSubviewToFront:notifitionView];
+    [self.guideWindow show];
+}
+
+- (GuideWindow *)guideWindow
+{
+    if (!_guideWindow) {
+        _guideWindow = [[GuideWindow alloc] initWithFrame:CGRectMake(0, KSCREEN_H - 49 - 60, ScreenWidth - 20, 50)];
+    }
+    return _guideWindow;
+}
+
+#pragma mark - ShowDoneDelegate
+- (void)showDone
+{
+    ZYSystemCommon *systemCommon = [[ZYSystemCommon alloc] init];
+    NSDictionary *dict;
+    WEAKSELF
+    NSDictionary *parameters= @{
+                                @"spaceName":dict[@"spaceName"],
+                                @"streamName":dict[@"streamName"]
+                                };
+    systemCommon.getLiveDataSuccess = ^(ZYLiveListModel *liveModel) {
+        if (liveModel != nil) {
+            ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:liveModel];
+            watchLiveVC.conversationType = ConversationType_CHATROOM;
+            [weakSelf.navigationController pushViewController:watchLiveVC animated:YES];
+        } else {
+            [MBProgressHUD showShortMessage:@"直播已结束"];
+            [weakSelf closeNotifitionView];
+            NSLog(@"aaaaaaa");
+        }
+    };
+    
+    [systemCommon getLiveContent:parameters];
+}
+
+- (void)closeNotifitionView
+{
+    self.notifitionView.hidden = YES;
+    [self.guideWindow dismiss];
+    self.guideWindow.hidden = YES;
+    [ZYGuideManager guideStartZhongchou:YES];
 }
 
 #pragma mark --- 设置
@@ -263,7 +328,7 @@
     if (!userId) {
         return;
     }
-    [MBProgressHUD showMessage:nil];
+    [MBProgressHUD showMessage:nil toView:self.view];
 //    NSString *url=[NSString stringWithFormat:@"%@selfUserId=%@&userId=%@",GETUSERDETAIL,[ZYZCAccountTool getUserId],userId];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail"];
@@ -272,7 +337,7 @@
 
     [ZYZCHTTPTool GET:url parameters:parameter  withSuccessGetBlock:^(id result, BOOL isSuccess)
      {
-         [MBProgressHUD hideHUD];
+         [MBProgressHUD hideHUDForView:self.view];
          if (isSuccess) {
              _hasGetUserData=YES;
               _userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
@@ -282,7 +347,7 @@
              
          }
      } andFailBlock:^(id failResult) {
-         [MBProgressHUD hideHUD];
+         [MBProgressHUD hideHUDForView:self.view];
      }];
 }
 

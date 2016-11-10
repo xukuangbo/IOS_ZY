@@ -14,6 +14,7 @@
     ZYDetailGuideView *_guideView;
     ZYCGContextView *_cgContextView;
     CGContextType _contextType;
+    UILabel *_notifitionContentLabel;
 }
 - (id)initWithFrame:(CGRect)frame
 {
@@ -176,6 +177,7 @@
             contentLabel.text = @"众游红包正在直播\n点击进入直播间";
             contentLabel.numberOfLines = 2;
             [self addSubview:contentLabel];
+            _notifitionContentLabel = contentLabel;
             
             UIImageView *liveImageView = [[UIImageView alloc] initWithFrame:CGRectMake(28, 32, 23, 10)];
             liveImageView.image = [UIImage imageNamed:@"live_icon"];
@@ -183,6 +185,7 @@
             
             UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
             closeButton.frame = CGRectMake(KSCREEN_W - 55, 15, 20, 20);
+            [closeButton addTarget:self action:@selector(closeButtonAction) forControlEvents:UIControlEventTouchUpInside];
             [closeButton setImage:[UIImage imageNamed:@"live_message_closed"] forState:UIControlStateNormal];
             [self addSubview:closeButton];
             break;
@@ -190,6 +193,14 @@
             
         default:
             break;
+    }
+}
+
+#pragma mark - event
+- (void)closeButtonAction
+{
+    if([self.showDoneDelagate respondsToSelector:@selector(closeNotifitionView)]){
+        [self.showDoneDelagate closeNotifitionView];
     }
 }
 

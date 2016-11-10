@@ -12,10 +12,15 @@
 #import "MBProgressHUD+MJ.h"
 #import "NetWorkManager.h"
 #import "WalletMingXiModel.h"
+#import "NetWorkManager.h"
+
+typedef enum : NSUInteger {
+    VCTypeKtxMx,
+    VCTypeYbjMx,
+} VCType;
 @interface WalletMingXiVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
-
 
 /**
  *  可提现列表
@@ -23,6 +28,8 @@
 @property (nonatomic, strong) NSMutableArray *moneyListArray;
 
 @property (nonatomic, assign) NSInteger pageNo;
+
+@property (nonatomic, assign) VCType VCType;
 @end
 
 @implementation WalletMingXiVC
@@ -37,77 +44,166 @@
         self.title=@"众筹明细";
         self.hidesBottomBarWhenPushed = YES;
         self.pageNo = 1;
-        
+        self.VCType = VCTypeKtxMx;
         //刷新ui
         [self configUI];
         
-        [self requestListDataWithPage:self.pageNo direction:1];
-        
+        [self.tableView.mj_header beginRefreshing];
     }
     
     return  self;
 }
 
+- initWIthYbjSpaceName:(NSString *)spaceName StreamName:(NSString *)streamName{
+    self = [super init];
+    if (self) {
+        
+        
+        self.spaceName = spaceName;
+        self.streamName = streamName;
+        self.title=@"旅费筹集记录";
+        self.hidesBottomBarWhenPushed = YES;
+        self.pageNo = 1;
+        self.VCType = VCTypeYbjMx;
+        //刷新ui
+        [self configUI];
+        
+        [self.tableView.mj_header beginRefreshing];
+    }
+    return  self;
+}
+
+
+//down = 0;
+//hbstatus = 1;
+//headImage = "http://www.sosona.cn:8080/viewSpot/images/317/1471319305999_640.jpg";
+//productDest = "[\"\U676d\U5dde\",\"\U5b89\U7279\U536b\U666e\",\"\U91d1\U8fb9\",\"\U91dc\U5c71\",\"\U91d1\U8fb9\",\"\U91dc\U5c71\",\"\U91d1\U8fb9\",\"\U91dc\U5c71\",\"\U5df4\U5398\U5c9b\"]";
+//productEndTime = "2016-11-01";
+//productId = 144;
+//productName = ingot;
+//productPrice = 100;
+//productStartTime = "2016-10-27";
+//pzstatus = 0;
+//status = 5;
+//travelendTime = "2016-11-03";
+//travelstartTime = "2016-11-02";
+//txstatus = 2;
+//txtotles = 300;
+//up = 0;
+
 #pragma mark - network
-- (void)requestListDataWithPage:(NSInteger )pageNO direction:(NSInteger )direction{
-    //direction 方向:1为下拉刷新 2为上拉加载更多
-    
-//    NSString *url = Get_RecordDetail([ZYZCAccountTool getUserId], self.productId, pageNO);
-    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_recordDetail"];
+- (void)loadNewData
+{
+    _pageNo = 1;
+    NSString *url;
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-    [parameter setValue:[NSString stringWithFormat:@"%@", self.productId] forKey:@"productId"];
-    [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
-    [parameter setValue:[NSString stringWithFormat:@"%ld", pageNO] forKey:@"pageNo"];
-    [parameter setValue:@"10" forKey:@"pageSize"];
-    [MBProgressHUD showMessage:@"正在加载"];
-    WEAKSELF
-    [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        if (isSuccess) {
+    
+    if (self.VCType == VCTypeKtxMx) {//1.可提现明细,get请求
+        
+        url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProducts"];
+        [parameter setValue:[NSString stringWithFormat:@"%@", self.productId] forKey:@"productId"];
+        [parameter setValue:[NSString stringWithFormat:@"%ld", _pageNo] forKey:@"pageNo"];
+        [parameter setValue:@"10" forKey:@"pageSize"];
+        [parameter setValue:[ZYZCAccountTool getOpenid] forKey:@"openid"];
+        WEAKSELF
+        [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
             
-            NSMutableArray *dataArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-            if (direction == 1) {//说明是下拉
-                if (dataArray.count > 0) {
-                    
-                    weakSelf.moneyListArray = dataArray;
-                    weakSelf.pageNo = 2;
-                    [weakSelf.tableView reloadData];
-                    
-                    [MBProgressHUD hideHUD];
-                }else{
-                    weakSelf.moneyListArray = nil;
-                    [weakSelf.tableView reloadData];
-                    
-                    [MBProgressHUD hideHUD];
-                    [MBProgressHUD showShortMessage:@"没有更多数据"];
-                }
-            }else{//上啦
-                if (dataArray.count > 0) {
-                    [weakSelf.moneyListArray addObjectsFromArray:dataArray];
-                    weakSelf.pageNo++;
-                    [weakSelf.tableView reloadData];
-                    [MBProgressHUD hideHUD];
-                }else{
-                    [MBProgressHUD hideHUD];
-                    [MBProgressHUD showShortMessage:@"没有更多数据"];
-                }
+            NSArray *tempArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            if (tempArray.count > 0) {
+                [weakSelf.moneyListArray removeAllObjects];
+                [weakSelf.moneyListArray addObjectsFromArray:tempArray];
+                [weakSelf.tableView reloadData];
+                weakSelf.pageNo++;
+            }else{
+                
+                [MBProgressHUD showError:result[@"data"] toView:weakSelf.view];
             }
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } andFailBlock:^(id failResult) {
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        }];
+    }else if(self.VCType == VCTypeYbjMx){//2.预备金明细
+        
+        url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_zhiboOrderList"];
+        [parameter setValue:[NSString stringWithFormat:@"%@", self.spaceName] forKey:@"spaceName"];
+        [parameter setValue:[NSString stringWithFormat:@"%@", self.streamName] forKey:@"streamName"];
+        [parameter setValue:[NSString stringWithFormat:@"%ld", _pageNo] forKey:@"pageNo"];
+        [parameter setValue:@"10" forKey:@"pageSize"];
+        
+        WEAKSELF
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            
+            NSArray *tempArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            if (tempArray.count > 0) {
+                [weakSelf.moneyListArray removeAllObjects];
+                [weakSelf.moneyListArray addObjectsFromArray:tempArray];
+                [weakSelf.tableView reloadData];
+                weakSelf.pageNo++;
+            }else{
+                
+                [MBProgressHUD showError:result[@"data"] toView:weakSelf.view];
+            }
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } andFailBlock:^(id failResult) {
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        }];
+    }else{
+        
+        return ;
+    }
+   
+}
+
+- (void)loadMoreData
+{
+    NSString *url;
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    
+    if (self.VCType == VCTypeKtxMx) {//1.可提现明细
+        
+        url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProducts"];
+        [parameter setValue:[NSString stringWithFormat:@"%@", self.productId] forKey:@"productId"];
+    }else if(self.VCType == VCTypeYbjMx){//2.预备金明细
+        
+        url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_zhiboOrderList"];
+        [parameter setValue:[NSString stringWithFormat:@"%@", self.spaceName] forKey:@"spaceName"];
+        [parameter setValue:[NSString stringWithFormat:@"%@", self.streamName] forKey:@"streamName"];
+    }else{
+        
+        return ;
+    }
+    [parameter setValue:@"fause" forKey:@"cache"];
+    [parameter setValue:[NSString stringWithFormat:@"%ld", _pageNo] forKey:@"pageNo"];
+    [parameter setValue:[NSString stringWithFormat:@"%zd", 10] forKey:@"pageSize"];
+    WEAKSELF
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        
+        MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.tableView.mj_footer ;
+        NSArray *tempArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+        if (tempArray.count > 0) {
+            [weakSelf.moneyListArray addObjectsFromArray:tempArray];
+            [weakSelf.tableView reloadData];
+            weakSelf.pageNo++;
+            [autoFooter setTitle:@"正在加载更多" forState:MJRefreshStateRefreshing];
         }else{
-            [MBProgressHUD hideHUD];
-            [MBProgressHUD showShortMessage:@"连接服务器失败,请检查你的网络"];
+            [autoFooter setTitle:@"没有更多数据了.." forState:MJRefreshStateRefreshing];
         }
-        
-        //结束刷新
-        [weakSelf.tableView.mj_footer endRefreshing];
         [weakSelf.tableView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_footer endRefreshing];
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD hideHUD];
-        [MBProgressHUD showShortMessage:@"连接服务器失败,请检查你的网络"];
-        
-        //结束刷新
-        [weakSelf.tableView.mj_footer endRefreshing];
         [weakSelf.tableView.mj_header endRefreshing];
+        [weakSelf.tableView.mj_footer endRefreshing];
+        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
     }];
 }
+
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -140,14 +236,13 @@
     WEAKSELF
     //上啦加载更多
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [weakSelf requestListDataWithPage:weakSelf.pageNo direction:2];
+        [weakSelf loadMoreData];
     }];
     
     //下拉刷新
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         //移除占位view
-        weakSelf.pageNo = 1;
-        [weakSelf requestListDataWithPage:weakSelf.pageNo direction:1];
+        [weakSelf loadNewData];
     }];
 }
 
