@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/MyWallet(&#x94b1;&#x5305;)/WalletHome/DetailVC/WalletZCVC(&#x8f6c;&#x51fa;&#x4f59;&#x989d;)/View/WalletZCMoneyView.m"
-            timestampString = "500300378.385357"
+            timestampString = "500375060.528282"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "117"
-            endingLineNumber = "117"
-            landmarkName = "-judgeWechatId"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/MyWallet(&#x94b1;&#x5305;)/WalletHome/DetailVC/WalletZCVC(&#x8f6c;&#x51fa;&#x4f59;&#x989d;)/View/WalletZCMoneyView.m"
-            timestampString = "500287738.354858"
+            filePath = "ios_zhongyouzhongchou/classes/ZYZCBaseView/ZYZCCustomTextField.m"
+            timestampString = "500375111.147473"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
-            landmarkName = "-awakeFromNib"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "-textField:shouldChangeCharactersInRange:replacementString:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

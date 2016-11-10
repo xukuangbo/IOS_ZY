@@ -172,7 +172,7 @@
 #pragma mark --- 初始化融云
 -(void)initRCloudWithLaunchOptions:(NSDictionary *)launchOptions
 {
-//    [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY];
+//    [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY([ZYZCAPIGenerate sharedInstance].serverType)];
     [[RCDLive sharedRCDLive] initRongCloud:RC_APPKEY([ZYZCAPIGenerate sharedInstance].serverType)];
     //注册自定义消息
     [[RCDLive sharedRCDLive] registerRongCloudMessageType:[RCDLiveGiftMessage class]];

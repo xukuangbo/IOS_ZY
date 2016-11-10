@@ -193,3 +193,7 @@
 #define WalletUseYbjFailNoti @"WalletUseYbjFailNoti"
 #define WalletUseYbjSuccessNoti @"WalletUseYbjSuccessNoti"
 #endif /* DefineCommon_h */
+
+//绑定微信动作通知
+#define BindWechatNoti @"BindWechatNoti"
+

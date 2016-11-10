@@ -133,7 +133,9 @@
 #pragma mark --- 删除评论
 -(void)deleteCommentWithComment:(ZYOneCommentModel *)oneCommentModel
 {
+    [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_delComment"] andParameters:@{@"id":[NSNumber numberWithInteger:oneCommentModel.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUDForView:self.viewController.view];
         if (isSuccess) {
             [MBProgressHUD showShortMessage:@"删除成功"];
             NSMutableArray *newCommentList=[NSMutableArray arrayWithArray:self.dataArr];
@@ -150,7 +152,8 @@
         }
         
     } andFailBlock:^(id failResult) {
-         [MBProgressHUD showShortMessage:@"删除失败"];
+        [MBProgressHUD hideHUDForView:self.viewController.view];
+        [MBProgressHUD showShortMessage:@"删除失败"];
     }];
 }
 

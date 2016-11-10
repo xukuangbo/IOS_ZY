@@ -49,11 +49,21 @@
             [_delegate managerDidRecvMessageResponse:messageResp];
         }
     } else if ([resp isKindOfClass:[SendAuthResp class]]) {
-        if (_delegate
-            && [_delegate respondsToSelector:@selector(managerDidRecvAuthResponse:)]) {
-            SendAuthResp *authResp = (SendAuthResp *)resp;
-            [_delegate managerDidRecvAuthResponse:authResp];
+        //这里要判断是否已经有账号登录如果有账号登录的话,就绑定,没有就跳到注册那边去
+        ZYZCAccountModel *model = [ZYZCAccountTool account];
+        if (model.userId) {
+            //绑定操作
+            [ZYNSNotificationCenter postNotificationName:@"BindWechatNoti" object:resp];
+        }else{
+            //登录操作
+            if (_delegate
+                && [_delegate respondsToSelector:@selector(managerDidRecvAuthResponse:)]) {
+                SendAuthResp *authResp = (SendAuthResp *)resp;
+                [_delegate managerDidRecvAuthResponse:authResp];
+            }
         }
+        
+        
     } else if ([resp isKindOfClass:[AddCardToWXCardPackageResp class]]) {
         if (_delegate
             && [_delegate respondsToSelector:@selector(managerDidRecvAddCardResponse:)]) {

@@ -205,7 +205,7 @@
 }
 
 
-#pragma mark --- 从微信返回的回调方法，获取微信token
+#pragma mark - 从微信返回的回调方法，获取微信token
 -(void)managerDidRecvAuthResponse:(SendAuthResp *)response
 {
 //    NSString *url = GET_WX_TOKEN(response.code);

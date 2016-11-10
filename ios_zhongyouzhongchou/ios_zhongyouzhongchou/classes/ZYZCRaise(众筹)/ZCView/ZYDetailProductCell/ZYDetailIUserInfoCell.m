@@ -113,7 +113,7 @@
     
     //出发地
     CGFloat destWidth=0.0;
-    if (startDest) {
+    if (startDest.length>0) {
         _infoView.startDest.hidden=NO;
         _infoView.startDest.text=[NSString stringWithFormat:@"%@出发",startDest];
         destWidth=[ZYZCTool calculateStrLengthByText:_infoView.startDest.text andFont:_infoView.startDest.font andMaxWidth:self.width].width+10;

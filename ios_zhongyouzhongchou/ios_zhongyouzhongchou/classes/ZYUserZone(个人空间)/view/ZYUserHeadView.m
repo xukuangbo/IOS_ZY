@@ -248,7 +248,7 @@
     [self addSubview:_blurView];
     _blurColorView=[[UIView alloc]initWithFrame:_blurView.bounds];
     _blurColorView.backgroundColor=[UIColor ZYZC_MainColor];
-    _blurColorView.alpha=0.7;
+    _blurColorView.alpha=0.9;
     [_blurView addSubview:_blurColorView];
     [self insertSubview:_blurView atIndex:1];
 }

@@ -104,7 +104,7 @@
      }
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)
      {
-         DDLog(@"responseObject:%@",responseObject);
+//         DDLog(@"responseObject:%@",responseObject);
          if (responseObject[@"code"]) {
              if ([responseObject[@"code"] isEqual:@0]) {
                  successGet(responseObject,YES);

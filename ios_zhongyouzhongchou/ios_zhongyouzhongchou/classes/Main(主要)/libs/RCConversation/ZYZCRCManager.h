@@ -42,5 +42,10 @@ typedef void (^LoginFail)();//登陆失败后操作
  */
 -(void)connectTarget:(NSString *)targetId andTitle:(NSString *)title andSuperViewController:(UIViewController *)viewController;
 
+/**
+ *  与融云断开连接
+ */
+-(void)disconnectRCloud;
+
 
 @end

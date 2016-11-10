@@ -65,7 +65,7 @@
     _listArr=[NSMutableArray array];
     _pageNo=1;
     _isFirstEntry=YES;
-    _filterItems=@[@"只看女",@"只看男",@"看成功",@"看最新",@"看全部",@"默认"];
+    _filterItems=@[@"只看女",@"只看男",@"看成功",@"看最新",@"看全部",@"取消"];
     _filterType=_filterItems.count;//默认
     [self setNavBar];
     [self configUI];
@@ -405,7 +405,7 @@
             _isFirstEntry=NO;
         }
         [NetWorkManager hideFailViewForView:self.view];
-        //        DDLog(@"result：%@",result);
+//       DDLog(@"result：%@",result);
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_table.mj_footer ;
             if (_pageNo==1&&_listArr.count) {

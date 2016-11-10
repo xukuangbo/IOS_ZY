@@ -17,7 +17,7 @@
 static ZYZCRCManager *_RCManager;
 
 @interface ZYZCRCManager()<UIAlertViewDelegate, RCIMUserInfoDataSource>
-
+@property (nonatomic, assign) NSInteger loginTime;
 @end
 
 
@@ -67,6 +67,7 @@ static ZYZCRCManager *_RCManager;
         [parameter setValue:model.faceImg forKey:@"portraitUri"];
 
         [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+            DDLog(@"+++++++++%@",result);
             if (isSuccess) {
                 NSDictionary *dic=[ZYZCTool turnJsonStrToDictionary:result[@"data"][@"result"]];
                 if ([dic[@"code"] isEqual:@200])
@@ -117,8 +118,6 @@ static ZYZCRCManager *_RCManager;
     }
     
 //    NSLog(@"myToken:%@",myToken);
-    //连接前先断开连接
-    [[RCIM sharedRCIM] disconnect:YES];
     [[RCIM sharedRCIM] connectWithToken:myToken success:^(NSString *userId) {
         //设置用户信息提供者,页面展现的用户头像及昵称都会从此代理取
         [[RCIM sharedRCIM] setUserInfoDataSource:self];
@@ -222,6 +221,11 @@ static ZYZCRCManager *_RCManager;
              UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"未登录，此项不可操作" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
              [alert show];
         }];
+}
+
+-(void)disconnectRCloud
+{
+    [[RCIM sharedRCIM] disconnect:YES];
 }
 
 @end

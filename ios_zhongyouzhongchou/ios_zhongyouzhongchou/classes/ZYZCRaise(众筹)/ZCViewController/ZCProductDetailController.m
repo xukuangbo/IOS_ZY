@@ -383,7 +383,7 @@
     
     UserModel *user=_detailModel.detailProductModel.user;
     
-    
+      
     WXApiManager *wxManager=[WXApiManager sharedManager];
     [wxManager shareScene:isFriendScene withTitle:_detailModel.detailProductModel.title andDesc:[NSString stringWithFormat:@"%@梦想去%@旅行,正在众游筹旅费，希望你能支持TA",user.realName?user.realName:user.userName,dest] andThumbImage:user.faceImg andWebUrl:url];
 }

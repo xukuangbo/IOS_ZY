@@ -21,6 +21,9 @@
 #import "QPRecordView.h"
 #import "QPPointProgress.h"
 
+#import "QPPickerLibraray.h"
+#import "QPLibrarayItem.h"
+
 typedef NS_ENUM(NSInteger, QPRecordStatus) {
     QPRecordStatusEmpty,
     QPRecordStatusRecording,
@@ -77,6 +80,8 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
     
     AVCaptureDevicePosition _markPosition;
     BOOL _markskin;
+    
+    UIImage *_firstVideoImage;
 }
 
 #pragma mark - life cycle
@@ -94,6 +99,7 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
     [self addObserver];
     [self addNotification];
     [self setupRecorder];
+    [self getFirstVideoImage];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -393,7 +399,13 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
 - (void)updateRecordStatus {
     if (_recordStatus == QPRecordStatusEmpty) {
         if (QupaiSDK.shared.enableImport) {
-            [self changeButton:self.qpRecordView.buttonLibrary image:@"record_ico_input" size:CGSizeMake(55, 55) x:34];
+            if (_firstVideoImage) {
+                [self.qpRecordView.buttonLibrary setImage:_firstVideoImage forState:UIControlStateNormal];
+            }
+            else
+            {
+                [self changeButton:self.qpRecordView.buttonLibrary image:@"record_ico_input" size:CGSizeMake(55, 55) x:34];
+            }
         }else{
             [self changeButton:self.qpRecordView.buttonLibrary image:nil size:CGSizeMake(55, 55) x:34];
         }
@@ -1134,6 +1146,24 @@ typedef NS_ENUM(NSInteger, QPRecordViewTag) {
         }
     }];
 }
+
+#pragma mark ---
+- (void)getFirstVideoImage
+{
+    QPPickerLibraray *tool = [[QPPickerLibraray alloc] init];
+    tool.library = [[ALAssetsLibrary alloc] init];;
+    tool.groupType = ALAssetsGroupSavedPhotos;
+    tool.groupName = nil;
+    [tool setItemsCompleteBlock:^(NSArray *a, NSInteger c) {
+        if (a.count>0) {
+             QPLibrarayItem *item = [a firstObject];
+            _firstVideoImage=item.image;
+             [self.qpRecordView.buttonLibrary setImage:_firstVideoImage forState:UIControlStateNormal];
+        }
+    }];
+    [tool startLibrary];
+}
+
 
 //- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
 //    return UIInterfaceOrientationMaskPortrait;
