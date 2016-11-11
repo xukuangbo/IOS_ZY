@@ -40,7 +40,7 @@
 - (void)configUI
 {
     [self setBackItem];
-    self.title = @"更多攻略视频";
+    self.title = @"视频攻略";
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
     

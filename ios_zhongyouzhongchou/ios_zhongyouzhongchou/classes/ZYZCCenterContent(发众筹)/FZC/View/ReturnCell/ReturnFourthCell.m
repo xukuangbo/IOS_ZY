@@ -193,7 +193,7 @@
     moneyLabel.textAlignment = NSTextAlignmentCenter;
     [self.bigContentView addSubview:moneyLabel];
     
-    NSInteger returnCellSupportButton = 0;
+    NSInteger returnCellSupportButton = 1;
     //这里是为了给他一个初始值
     [self changeMoneyCountByTag:returnCellSupportButton];
 }
@@ -203,19 +203,24 @@
  */
 - (void)changeMoneyCountByTag:(NSInteger)tag
 {
+    MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
     
     switch (tag) {
         case 0:
             self.peopleMoneyView.image = [UIImage imageNamed:@"jdt_zer"];
+            manager.return_togetherMoneyPercent = @"0";
             break;
         case 1:
             self.peopleMoneyView.image = [UIImage imageNamed:@"jdt_fiv"];
+            manager.return_togetherMoneyPercent = @"5";
             break;
         case 2:
             self.peopleMoneyView.image = [UIImage imageNamed:@"jdt_ten"];
+            manager.return_togetherMoneyPercent = @"10";
             break;
         case 3:
             self.peopleMoneyView.image = [UIImage imageNamed:@"jdt_fif"];
+            manager.return_togetherMoneyPercent = @"15";
             break;
         default:
             break;
@@ -228,7 +233,6 @@
     NSString *moneyString = [NSString stringWithFormat:@"￥ %.2f 元",returnMoneyCount];
     [self changeMoneyLabelStringWithString:moneyString];
     
-    MoreFZCDataManager *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
     manager.return_togetherRateMoney= [NSString stringWithFormat:@"%f",returnMoneyCount];
     
 }
@@ -287,14 +291,14 @@
         self.pickerView.numberPeople = [mgr.goal_numberPeople integerValue];
     }
     
-    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-    NSNumber *supportType=[user objectForKey:KMOREFZC_RETURN_SUPPORTTYPE];
-    if (supportType) {
-        [self changeMoneyCountByTag:[supportType integerValue]];
-    }
-    
-    [user setObject:nil forKey:KMOREFZC_RETURN_SUPPORTTYPE];
-    [user synchronize];
+//    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+//    NSNumber *supportType=[user objectForKey:KMOREFZC_RETURN_SUPPORTTYPE];
+//    if (supportType) {
+//        [self changeMoneyCountByTag:[supportType integerValue]];
+//    }
+//    
+//    [user setObject:nil forKey:KMOREFZC_RETURN_SUPPORTTYPE];
+//    [user synchronize];
     
     NSInteger buttonTag=0;
     if ([mgr.return_togetherMoneyPercent isEqualToString:@"5"]) {
@@ -321,9 +325,9 @@
 //    }
     [self changeMoneyCountByTag:button.tag];
     self.lastButton = button;
-    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-    [user setObject:[NSNumber numberWithInteger:button.tag] forKey:KMOREFZC_RETURN_SUPPORTTYPE];
-    [user synchronize];
+//    NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
+//    [user setObject:[NSNumber numberWithInteger:button.tag] forKey:KMOREFZC_RETURN_SUPPORTTYPE];
+//    [user synchronize];
 }
 
 /**

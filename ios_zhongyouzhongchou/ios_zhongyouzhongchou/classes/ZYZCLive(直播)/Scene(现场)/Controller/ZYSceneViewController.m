@@ -48,7 +48,7 @@ static NSString *const ShopID = @"ShopCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"现场";
+    self.title = @"全球现场";
     [self initView];
     
     [self setupRefresh];

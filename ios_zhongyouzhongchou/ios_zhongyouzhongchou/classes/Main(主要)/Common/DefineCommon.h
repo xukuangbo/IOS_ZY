@@ -125,7 +125,7 @@
 #define KWebImage(urlImage) [[NSString stringWithFormat:@"http://zhongyou-hz.oss-cn-hangzhou.aliyuncs.com/%@",[urlImage stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] //网络访问阿里云的图片
 
 //NSUserDefaults-key使用
-#define KMOREFZC_RETURN_SUPPORTTYPE  @"return_supportType"
+//#define KMOREFZC_RETURN_SUPPORTTYPE  @"return_supportType"
 //存储app的版本号
 #define KAPP_VERSION                 @"version"
 //记录当地城市

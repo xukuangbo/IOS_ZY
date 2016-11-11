@@ -495,7 +495,7 @@
 
 - (void)dealloc
 {
-    DDLog(@"dealloc:%@",[self class]);
+//    DDLog(@"dealloc:%@",[self class]);
     [ZYNSNotificationCenter removeObserver:self];
 }
 

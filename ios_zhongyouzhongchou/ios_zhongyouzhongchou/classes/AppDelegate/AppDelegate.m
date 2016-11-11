@@ -10,7 +10,7 @@
 #import "AppDelegate.h"
 #import "ZYZCTabBarController.h"
 #import "ZYZCOSSManager.h"
-//#import <RongIMKit/RongIMKit.h>
+#import <RongIMKit/RongIMKit.h>
 #import "WXApi.h"
 #import "WXApiManager.h"
 #import "ZYZCDataBase.h"
@@ -19,9 +19,9 @@
 #import "VersionTool.h"
 #import "LoginJudgeTool.h"
 #import "OpenSetTool.h"
-#import "RCDLive.h"
+//#import "RCDLive.h"
 #import "Reachability.h"
-#import "RCDLiveGiftMessage.h"
+//#import "RCDLiveGiftMessage.h"
 
 #import "ZYZCMessageListViewController.h"
 #import "ChatUserInfoModel.h"
@@ -172,10 +172,10 @@
 #pragma mark --- 初始化融云
 -(void)initRCloudWithLaunchOptions:(NSDictionary *)launchOptions
 {
-//    [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY([ZYZCAPIGenerate sharedInstance].serverType)];
-    [[RCDLive sharedRCDLive] initRongCloud:RC_APPKEY([ZYZCAPIGenerate sharedInstance].serverType)];
+    [[RCIM sharedRCIM] initWithAppKey:RC_APPKEY([ZYZCAPIGenerate sharedInstance].serverType)];
+//    [[RCDLive sharedRCDLive] initRongCloud:RC_APPKEY([ZYZCAPIGenerate sharedInstance].serverType)];
     //注册自定义消息
-    [[RCDLive sharedRCDLive] registerRongCloudMessageType:[RCDLiveGiftMessage class]];
+//    [[RCDLive sharedRCDLive] registerRongCloudMessageType:[RCDLiveGiftMessage class]];
     
     ZYZCRCManager *rcManager=[ZYZCRCManager defaultManager];
     

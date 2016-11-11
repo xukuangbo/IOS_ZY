@@ -244,7 +244,7 @@
     //创建毛玻璃
     _blurView = [[FXBlurView alloc] initWithFrame:_iconBgView.bounds];
     [_blurView setDynamic:NO];
-    _blurView.blurRadius=10;
+    _blurView.blurRadius=15;
     [self addSubview:_blurView];
     _blurColorView=[[UIView alloc]initWithFrame:_blurView.bounds];
     _blurColorView.backgroundColor=[UIColor ZYZC_MainColor];

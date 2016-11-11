@@ -9,6 +9,7 @@
 #import "WalletZCMoneyVC.h"
 #import "WalletZCMoneyView.h"
 #import "RACEXTScope.h"
+#import "WalletOutRecordVC.h"
 @interface WalletZCMoneyVC ()
 @property (nonatomic, strong) WalletZCMoneyView *moneyView;
 
@@ -36,6 +37,14 @@
     _moneyView.kzcMoney = self.kzcMoney;
     [self.view addSubview:_moneyView];
     
+    UIButton *lahei_List_Btn=[UIButton buttonWithType:UIButtonTypeCustom];
+    lahei_List_Btn.frame=CGRectMake(0, 0, 80, 44);
+    //    [lahei_List_Btn setTitle:@"投诉" forState:UIControlStateNormal];
+    [lahei_List_Btn setTitle:@"转出记录" forState:UIControlStateNormal];
+    [lahei_List_Btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [lahei_List_Btn addTarget:self action:@selector(pushToOutRecordListVC) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.rightBarButtonItem =  [[UIBarButtonItem alloc] initWithCustomView:lahei_List_Btn];
+    
     [self addNotis];
 }
 
@@ -50,6 +59,11 @@
     [ZYNSNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     //键盘收起
     [ZYNSNotificationCenter addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)pushToOutRecordListVC{
+    WalletOutRecordVC *outRecordVC = [[WalletOutRecordVC alloc] init];
+    [self.navigationController pushViewController:outRecordVC animated:YES];
 }
 
 #pragma mark - 通知
