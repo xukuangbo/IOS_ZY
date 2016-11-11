@@ -120,7 +120,7 @@
     {
         weakSelf.productType=travelType;
         weakSelf.travel_pageNo=1;
-        [MBProgressHUD showMessage:nil];
+         [MBProgressHUD showHUDAddedTo:weakSelf.view animated:YES];
         [weakSelf getProductsData];
     };
     
@@ -314,7 +314,7 @@
     DDLog(@"++++++%@",url);
     [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_userProductTable.mj_footer ;
@@ -346,7 +346,7 @@
         [_userProductTable.mj_header endRefreshing];
 
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view];
         //停止上拉刷新
         [_userProductTable.mj_footer endRefreshing];
         [_userProductTable.mj_header endRefreshing];
@@ -362,11 +362,11 @@
 #pragma mark --- 获取足迹数据
 -(void)getFootprintData
 {
-    [MBProgressHUD showMessage:nil];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_getPageList"] andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_footprint_pageNo],@"targetId":_friendID
      } andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view];
          if (isSuccess) {
              MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_footprintListView.mj_footer ;
              if (_footprint_pageNo==1&&_footprintArr.count) {
@@ -400,7 +400,7 @@
          [_footprintListView.mj_header endRefreshing];
          [_footprintListView.mj_footer endRefreshing];
         } andFailBlock:^(id failResult) {
-             [MBProgressHUD hideHUD];
+            [MBProgressHUD hideHUDForView:self.view];
             [_footprintListView.mj_header endRefreshing];
             [_footprintListView.mj_footer endRefreshing];
         }];

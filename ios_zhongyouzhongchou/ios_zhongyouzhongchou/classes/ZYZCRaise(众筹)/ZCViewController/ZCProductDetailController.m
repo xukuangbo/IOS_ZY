@@ -222,7 +222,13 @@
         }
         else
         {
-            [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+            if (result[@"errorMsg"]) {
+                [MBProgressHUD showShortMessage:result[@"errorMsg"]];
+            }
+            else{
+                [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
+            }
+            _shareBtn.userInteractionEnabled=NO;
             _bottomView.userInteractionEnabled=NO;
         }
         

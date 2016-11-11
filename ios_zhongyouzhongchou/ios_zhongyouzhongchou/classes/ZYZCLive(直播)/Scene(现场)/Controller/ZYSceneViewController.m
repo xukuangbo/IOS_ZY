@@ -14,11 +14,14 @@
 #import "EntryPlaceholderView.h"
 #import "ZYCommentFootprintController.h"
 #import "ZYZCPlayViewController.h"
+#import "ZYStartFootprintBtn.h"
 @interface ZYSceneViewController () <UICollectionViewDelegate, UICollectionViewDataSource,WaterFlowLayoutDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *scenes;
 @property (nonatomic, assign) NSInteger pageNo;
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
+
+@property (nonatomic, strong) ZYStartFootprintBtn    *navRightBtn;//发起
 
 @end
 
@@ -38,12 +41,19 @@ static NSString *const ShopID = @"ShopCell";
 {
     [super viewWillAppear:animated];
      self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    _navRightBtn.hidden=NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
+}
+
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _navRightBtn.hidden=YES;
 }
 
 - (void)viewDidLoad {
@@ -79,6 +89,13 @@ static NSString *const ShopID = @"ShopCell";
 
 - (void)initView
 {
+    ZYStartFootprintBtn *navRightBtn=[[ZYStartFootprintBtn alloc]initWithFrame:CGRectMake(self.view.width-60, 4, 60, 30)];
+    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
+    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
+    [self.navigationController.navigationBar addSubview:navRightBtn];
+    _navRightBtn=navRightBtn;
+
+    
     self.view.backgroundColor = [UIColor whiteColor];
     WaterFlowLayout *layout = [[WaterFlowLayout alloc]init];
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -263,6 +280,12 @@ static NSString *const ShopID = @"ShopCell";
         }];
         
     }
+}
+
+#pragma mark --- 发起
+-(void)clickRightNavBtn
+{
+    
 }
 
 
