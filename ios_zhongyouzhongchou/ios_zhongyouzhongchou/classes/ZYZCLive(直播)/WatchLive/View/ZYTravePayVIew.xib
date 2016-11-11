@@ -101,7 +101,7 @@
             <connections>
                 <outlet property="journeyDetailButton" destination="sqH-3y-eEn" id="NME-rl-MUa"/>
             </connections>
-            <point key="canvasLocation" x="-84" y="69"/>
+            <point key="canvasLocation" x="179" y="12"/>
         </view>
     </objects>
     <resources>

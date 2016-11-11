@@ -15,6 +15,7 @@
     ZYCGContextView *_cgContextView;
     CGContextType _contextType;
     UILabel *_notifitionContentLabel;
+    NSString *_notifitionContent;
 }
 - (id)initWithFrame:(CGRect)frame
 {
@@ -23,6 +24,18 @@
         [self addGestureRecognizer:tapGesture];
         [tapGesture addTarget:self action:@selector(tap:)];
         self.backgroundColor = [UIColor clearColor];
+    }
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame NotificationContent:(NSString *)content;
+{
+    if(self = [super initWithFrame:frame]){
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+        [self addGestureRecognizer:tapGesture];
+        [tapGesture addTarget:self action:@selector(tap:)];
+        self.backgroundColor = [UIColor clearColor];
+        _notifitionContent = content;
     }
     return self;
 }
@@ -174,8 +187,9 @@
             contentLabel.textColor = [UIColor colorWithHexString:@"ffffff"];
             contentLabel.font = [UIFont systemFontOfSize:13.0f];
             [contentLabel setTextAlignment:NSTextAlignmentCenter];
-            contentLabel.text = @"众游红包正在直播\n点击进入直播间";
+//            contentLabel.text = @"众游红包正在直播\n点击进入直播间";
             contentLabel.numberOfLines = 2;
+            contentLabel.text = _notifitionContent;
             [self addSubview:contentLabel];
             _notifitionContentLabel = contentLabel;
             

@@ -10,7 +10,7 @@
 @class ZYFootprintListModel;
 typedef void(^PlayBtnCallBackBlock)(void);
 typedef void(^CommentBtnBlock)(void);
-typedef void(^PraiseBtnBlock)(NSString *);
+typedef void(^PraiseBtnBlock)(UIButton *);
 
 @interface ShopCell : UICollectionViewCell
 @property (nonatomic, strong) ZYFootprintListModel *model;
@@ -19,7 +19,7 @@ typedef void(^PraiseBtnBlock)(NSString *);
 // 评论按钮
 @property (nonatomic, copy  ) CommentBtnBlock commentBlock;
 // 点赞按钮
-@property (nonatomic, copy  ) PraiseBtnBlock praiseBlock;
+@property (nonatomic, copy ) PraiseBtnBlock praiseBlock;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 

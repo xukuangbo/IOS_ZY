@@ -23,7 +23,7 @@
 #import "CommentPersonListController.h"
 #import "MyReturnViewController.h"
 #import "UploadVoucherVC.h"
-#import "MyProductViewController.h"
+#import "MyProductController.h"
 #import "NetWorkManager.h"
 @interface ZYZCEditProductView()<UIAlertViewDelegate>
 @property (nonatomic, strong) UIButton     *firstEditBtn;
@@ -877,7 +877,7 @@
             [NetWorkManager showMBWithFailResult:failResult];
         }];
     }
-    //删除项目
+    //删除我发起的项目
     else if (alertView.tag==ALERT_DELETE_TAG&&buttonIndex==1) {
         NSDictionary *param=@{
                             @"userId":[ZYZCAccountTool getUserId],
@@ -889,8 +889,8 @@
 //            NSLog(@"%@",result);
             if (isSuccess) {
                 [MBProgressHUD showSuccess:@"取消成功!"];
-                MyProductViewController *myProductViewController=(MyProductViewController *)self.viewController;
-                [myProductViewController removeDataByProductId:_productId];
+                MyProductController *myProductController=(MyProductController *)self.viewController;
+                [myProductController removeDataByProductId:_productId withMyProductType:K_MyPublishType];
             }
             else{
                 [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
@@ -901,7 +901,7 @@
             [NetWorkManager showMBWithFailResult:failResult];
         }];
     }
-    //删除我参与的行程
+    //取消我参与的行程
     else if (alertView.tag==ALERT_DELETE_MYJOINPRODUCT_TAG&&buttonIndex==1)
     {
         [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
@@ -912,12 +912,12 @@
         WEAKSELF
         [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
             [MBProgressHUD hideHUDForView:self.viewController.view];
-            [MBProgressHUD hideHUDForView:self.viewController.view];
             //            NSLog(@"%@",result);
             if (isSuccess) {
                 [MBProgressHUD showSuccess:@"取消成功!"];
-                MyProductViewController *myProductViewController=(MyProductViewController *)weakSelf.viewController;
-                [myProductViewController reloadData];
+                weakSelf.joinProductState=@4;
+                weakSelf.myPaybackstatus=@0;
+                weakSelf.btnTitleArr=@[@"等待确认",@"等待退款",@"评价"];
             }
             else
             {

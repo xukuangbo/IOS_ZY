@@ -54,13 +54,5 @@ typedef void(^GetOrderFail)();
  */
 - (void) shareScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(NSString *)thumbImage andWebUrl:(NSString *)webUrl;
 
-/**
- *  分享视频
- */
-- (void)shareToWeChatWithScene:(int)scene  withTitle:(NSString *)title andDesc:(NSString *)description andThumbImage:(UIImage *)thumbImage andVideoUrl:(NSString *)videoUrl;
-
-
-
-
 
 @end

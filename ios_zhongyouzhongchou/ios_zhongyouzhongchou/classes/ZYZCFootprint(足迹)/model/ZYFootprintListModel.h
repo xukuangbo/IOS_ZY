@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, FootprintListType)
 
 @property (nonatomic, assign) NSInteger ID;
 
-@property (nonatomic, assign) NSInteger footprintType;
+@property (nonatomic, assign) NSInteger footprintType;//1.图片，2.视频
 
 @property (nonatomic, copy  ) NSString  *creattime;
 

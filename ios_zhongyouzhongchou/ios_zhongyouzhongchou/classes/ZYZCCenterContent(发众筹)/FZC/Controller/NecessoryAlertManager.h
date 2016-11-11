@@ -17,10 +17,10 @@
  *         3.行程未填完整
  *         4.回报未填完整
  */
-+ (NSInteger)showNecessoryAlertView;
-+ (NSInteger)showNecessoryAlertView01;
-+ (NSInteger)showNecessoryAlertView02;
-+ (NSInteger)showNecessoryAlertView03;
-+ (NSInteger)showNecessoryAlertView04;
++ (NSInteger)showNecessoryAlertViewForView:(UIView *)view;
++ (NSInteger)showNecessoryAlertView01ForView:(UIView *)view;
++ (NSInteger)showNecessoryAlertView02ForView:(UIView *)view;
++ (NSInteger)showNecessoryAlertView03ForView:(UIView *)view;
++ (NSInteger)showNecessoryAlertView04ForView:(UIView *)view;
 
 @end

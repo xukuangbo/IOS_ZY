@@ -150,6 +150,8 @@
 #define PUBLISH_FOOTPRINT_SUCCESS    @"piblishFootprintSuccess"
 //删除足迹成功
 #define DELETE_ONE_FOOTPRINT_SUCCESS @"deleteOneFootprintSuccess"
+//收到直播通知
+#define RECEPTION_LIVE_NOTIFICATION @"receptionLiveNotification"
 //纪录趣拍是否鉴权成功
 #define Auth_QuPai_Result            @"authQupaiResult"
 
