@@ -124,12 +124,13 @@ static NSString *const ShopID = @"ShopCell";
                                  @"pageSize" : @"10"
                                  };
     
-    __weak typeof(&*self) weakSelf = self;
+    WEAKSELF
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         NSMutableArray *dataArray = [ZYFootprintListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         
         if (direction == 1) {//说明是下拉
+            [weakSelf.scenes removeAllObjects];
             if (dataArray.count > 0) {
                 
                 weakSelf.entryView.hidden = YES;
@@ -139,7 +140,6 @@ static NSString *const ShopID = @"ShopCell";
                 
                 [MBProgressHUD hideHUD];
             }else{
-                weakSelf.scenes = nil;
                 weakSelf.entryView.hidden = NO;
                 
                 [weakSelf.collectionView reloadData];
@@ -193,12 +193,13 @@ static NSString *const ShopID = @"ShopCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ShopID forIndexPath:indexPath];
+    ShopCell *cell = (ShopCell *)[collectionView dequeueReusableCellWithReuseIdentifier:ShopID forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     cell.layer.masksToBounds = YES;
     cell.layer.cornerRadius = 6;
-
+    
     cell.model = self.scenes[indexPath.row];
+    
     WEAKSELF
     cell.playBlock = ^(void) {
         ZYZCPlayViewController *playVC = [[ZYZCPlayViewController alloc] init];
@@ -220,7 +221,7 @@ static NSString *const ShopID = @"ShopCell";
 //        commentFootprintVC.footprintModel = footprintModel;
 //        commentFootprintVC.showWithKeyboard = YES;
 //        [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
-        [weakSelf clickPraiseButtonAction:praiseButton model:footprintModel];
+        [weakSelf clickPraiseButtonAction:praiseButton model:footprintModel indexPath:indexPath];
     };
     return cell;
 }
@@ -248,7 +249,7 @@ static NSString *const ShopID = @"ShopCell";
 }
 
 #pragma mark - event
-- (void)clickPraiseButtonAction:(UIButton *)sender model:(ZYFootprintListModel *)model
+- (void)clickPraiseButtonAction:(UIButton *)sender model:(ZYFootprintListModel *)model indexPath:(NSIndexPath *)indexPath
 {
     sender.userInteractionEnabled=NO;
 
@@ -257,7 +258,9 @@ static NSString *const ShopID = @"ShopCell";
         [sender setImage:[UIImage imageNamed:@"footprint-like-2"] forState:UIControlStateNormal];
         model.hasZan=YES;
         model.zanTotles++;
-        [self.collectionView reloadData];
+        [UIView performWithoutAnimation:^{
+            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        }];
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:model.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
             sender.userInteractionEnabled=YES;
 
@@ -272,7 +275,9 @@ static NSString *const ShopID = @"ShopCell";
         [sender setImage:[UIImage imageNamed:@"footprint-like"] forState:UIControlStateNormal];
         model.hasZan=NO;
         model.zanTotles--;
-        [self.collectionView reloadData];
+        [UIView performWithoutAnimation:^{
+            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        }];
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_delZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:model.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
             sender.userInteractionEnabled=YES;
         } andFailBlock:^(id failResult) {
