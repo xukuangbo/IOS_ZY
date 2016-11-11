@@ -138,7 +138,7 @@
             __weak typeof (&*self)weakSelf=self;
             chooseImgVC.chooseImageBolck=^(NSString *imgUrl)
             {
-                [weakSelf.frameImg sd_setImageWithURL:[NSURL URLWithString:imgUrl]  placeholderImage:[UIImage imageNamed:@"icon_placeholder"] options:SDWebImageRetryFailed | SDWebImageLowPriority];
+                [weakSelf.frameImg sd_setImageWithURL:[NSURL URLWithString:imgUrl]  placeholderImage:[UIImage imageNamed:@"image_placeholder"] options:SDWebImageRetryFailed | SDWebImageLowPriority];
             };
             
             [weakSelf.viewController.navigationController pushViewController:chooseImgVC animated:YES];

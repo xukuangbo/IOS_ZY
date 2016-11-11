@@ -58,7 +58,10 @@ static NSString *const ShopID = @"ShopCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"全球现场";
+//    self.title = @"全球现场";
+    UILabel *titleLab=[ZYZCTool createLabWithFrame:CGRectMake(0, 0, 80, 20) andFont:[UIFont boldSystemFontOfSize:20.f] andTitleColor:[UIColor whiteColor]];
+    titleLab.text = @"全球现场";
+    self.navigationItem.titleView=titleLab;
     [self initView];
     
     [self setupRefresh];
@@ -180,7 +183,7 @@ static NSString *const ShopID = @"ShopCell";
     ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
     commentFootprintVC.hidesBottomBarWhenPushed = YES;
     commentFootprintVC.footprintModel = footprintModel;
-    commentFootprintVC.showWithKeyboard = YES;
+    commentFootprintVC.showWithKeyboard = NO;
     [self.navigationController pushViewController:commentFootprintVC animated:YES];
 }
 
