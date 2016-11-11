@@ -63,7 +63,10 @@
       [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(publishFootprintSuccess:) name:PUBLISH_FOOTPRINT_SUCCESS  object:nil];
     //删除足迹成功
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteFootprintSuccess:) name:DELETE_ONE_FOOTPRINT_SUCCESS  object:nil];
-//    [self createNotificationView];
+    // 收到直播通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receptionLiveNotification:) name:DELETE_ONE_FOOTPRINT_SUCCESS  object:nil];
+
+//    [self createNotificationView:@"众游红包正在直播\n点击进入直播间"];
 }
 
 -(void)setNavItems
@@ -84,9 +87,9 @@
 }
 
 #pragma mark - 接收通知提醒
-- (void)createNotificationView
+- (void)createNotificationView:(NSString *)content
 {
-    ZYNewGuiView *notifitionView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 50)];
+    ZYNewGuiView *notifitionView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 50) NotificationContent:content];
     notifitionView.layer.masksToBounds = YES;
     notifitionView.layer.cornerRadius = 25;
     
@@ -111,12 +114,12 @@
 - (void)showDone
 {
     ZYSystemCommon *systemCommon = [[ZYSystemCommon alloc] init];
-    NSDictionary *dict;
+    NSDictionary *parameters;
     WEAKSELF
-    NSDictionary *parameters= @{
-                                @"spaceName":dict[@"spaceName"],
-                                @"streamName":dict[@"streamName"]
-                                };
+//    NSDictionary *parameters= @{
+//                                @"spaceName":dict[@"spaceName"],
+//                                @"streamName":dict[@"streamName"]
+//                                };
     systemCommon.getLiveDataSuccess = ^(ZYLiveListModel *liveModel) {
         if (liveModel != nil) {
             ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:liveModel];
@@ -134,10 +137,16 @@
 
 - (void)closeNotifitionView
 {
-    self.notifitionView.hidden = YES;
+    self.notifitionView = nil;
+    [self.notifitionView removeFromSuperview];
     [self.guideWindow dismiss];
-    self.guideWindow.hidden = YES;
-    [ZYGuideManager guideStartZhongchou:YES];
+    self.guideWindow = nil;
+}
+
+#pragma mark - 收到直播通知
+- (void)receptionLiveNotification:(NSNotification *)notification
+{
+    
 }
 
 #pragma mark --- 设置

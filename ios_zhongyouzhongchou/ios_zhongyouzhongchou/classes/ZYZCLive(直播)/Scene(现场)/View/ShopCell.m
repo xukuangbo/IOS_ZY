@@ -46,6 +46,8 @@
     self.imageView.layer.cornerRadius = 4;
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap=[[UITapGestureRecognizer alloc]initWithTarget:self  action:@selector(tap:)];
+    [self.imageView addGestureRecognizer:tap];
     self.commentButton.titleEdgeInsets = UIEdgeInsetsMake(0,12, 0, 0);
     self.commentButton.imageEdgeInsets = UIEdgeInsetsMake(0,-5, 0, 0);
     self.commentButton.userInteractionEnabled = YES;
@@ -120,9 +122,15 @@
 
 -(void)praise:(UIButton *)sender
 {
-    NSString *tag = [NSString stringWithFormat:@"%ld", sender.tag];
     if (self.praiseBlock) {
-        self.praiseBlock(tag);
+        self.praiseBlock(sender);
+    }
+}
+
+- (void)tap:(UITapGestureRecognizer *)tap
+{
+    if (self.playBlock) {
+        self.playBlock();
     }
 }
 
