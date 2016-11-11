@@ -6,7 +6,6 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 #import "MineTableViewCell.h"
-#import "MyProductViewController.h"
 #import "MyReturnViewController.h"
 #import "MineWantGoVC.h"
 #import "ZYZCRCManager.h"
@@ -19,6 +18,7 @@
 #import "MineTravelTagVC.h"
 #import "ZYFootprintController.h"
 #import "ZYZCTestModeViewController.h"
+#import "MyProductController.h"
 @interface MineTableViewCell ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UIImageView *iconImg;
 @property (nonatomic, strong) UILabel     *textLab;
@@ -126,9 +126,12 @@
     
     if (indexPath.row==0) {
         //我的行程
-        MyProductViewController *myTravelVC=[[MyProductViewController alloc]init];
-        myTravelVC.hidesBottomBarWhenPushed=YES;
-        [self.viewController.navigationController pushViewController:myTravelVC animated:YES];
+        MyProductController *myProduct=[MyProductController new];
+        myProduct.hidesBottomBarWhenPushed=YES;
+        [self.viewController.navigationController pushViewController:myProduct animated:YES];
+        
+        
+        
     }
     if (indexPath.row==1) {
         //我的回报

@@ -6,8 +6,8 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 
-//我的众筹列表
-#define GET_MY_LIST(userId,type,pageNo) [NSString stringWithFormat:@"cache=false&userId=%@&self=%ld&pageNo=%d&status_not=0&pageSize=10",userId,type,pageNo]
+////我的众筹列表
+//#define GET_MY_LIST(userId,type,pageNo) [NSString stringWithFormat:@"cache=false&userId=%@&self=%ld&pageNo=%d&status_not=0&pageSize=10",userId,type,pageNo]
 
 #import "MyProductViewController.h"
 #import "ZCNoneDataView.h"
@@ -89,7 +89,7 @@
         weakSelf.pageNo++;
         [weakSelf getHttpData];
     };
-    
+
     _myProductTable.scrollDidScrollBlock=^(CGFloat offSetY)
     {
         if (offSetY>=1000.0) {

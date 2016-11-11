@@ -73,8 +73,8 @@ static NSInteger YbjPageSize = 10;
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     self.navigationController.navigationBar.translucent = NO;
+    [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
 }
 
 - (void)dealloc
@@ -100,6 +100,13 @@ static NSInteger YbjPageSize = 10;
         @strongify(self);
         [self.ybjTableView scrollsToTop];
         [self.ybjTableView.mj_header beginRefreshing];
+    }];
+    
+    //接收到项目申请提现成功
+    [[ZYNSNotificationCenter rac_addObserverForName:ProductRequestTxSuccessNoti object:nil] subscribeNext:^(NSNotification *noti) {
+        @strongify(self);
+        
+        [self.ktxTableView.mj_header beginRefreshing];
     }];
 }
 

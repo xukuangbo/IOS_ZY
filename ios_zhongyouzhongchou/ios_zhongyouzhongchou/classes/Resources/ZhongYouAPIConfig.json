@@ -621,6 +621,12 @@
         "control": "u",
         "action": "checkUserBand.action",
         "protocol": "http"
-    }
+    },
+    "wallet_wallet2wx.action": {
+        "control": "wallet",
+        "action": "wallet2wx.action",
+        "protocol": "http"
+    },
+    
 }
 

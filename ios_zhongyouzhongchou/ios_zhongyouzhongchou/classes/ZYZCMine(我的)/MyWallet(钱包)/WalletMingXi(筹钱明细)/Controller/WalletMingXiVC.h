@@ -12,5 +12,11 @@
 
 @property (nonatomic, strong) NSNumber *productId;
 
+@property (nonatomic, copy) NSString *spaceName;
+
+@property (nonatomic, copy) NSString *streamName;
+
 - initWIthProductId:(NSNumber *)productId;
+
+- initWIthYbjSpaceName:(NSString *)spaceName StreamName:(NSString *)streamName;
 @end
