@@ -41,7 +41,6 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self setBackgroundImage:[UIImage imageNamed:@"footprint-start"] forState:UIControlStateNormal];
         [self addTarget:self action:@selector(startEditfootprint) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;

@@ -9,7 +9,7 @@
 	<key>APIModeSwitch</key>
 	<integer>1</integer>
 	<key>IS_TEST_MODE</key>
-	<true/>
+	<false/>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>

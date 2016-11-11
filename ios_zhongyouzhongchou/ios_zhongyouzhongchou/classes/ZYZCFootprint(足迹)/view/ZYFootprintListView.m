@@ -7,7 +7,7 @@
 //
 
 #import "ZYFootprintListView.h"
-
+#import "ZYCommentFootprintController.h"
 @interface ZYFootprintListView ()
 
 @property (nonatomic, assign) FootprintListType  footprintListType;
@@ -176,7 +176,11 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    ZYCommentFootprintController *commentFootprintController=[[ZYCommentFootprintController alloc]init];
+    commentFootprintController.footprintModel=self.dataArr[indexPath.row];
+    commentFootprintController.hidesBottomBarWhenPushed=YES;
+    commentFootprintController.showWithKeyboard = NO;
+    [self.viewController.navigationController pushViewController:commentFootprintController animated:YES];
 }
 
 #pragma mark --- 置顶按钮状态变化

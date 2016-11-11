@@ -16,7 +16,7 @@
 #import "ZYUserProductTable.h"
 
 #import "ZYFootprintListView.h"
-#import "MBProgressHUD+MJ.h"
+
 
 @interface ZYUserZoneController ()
 @property (nonatomic, strong) ZYUserBottomBarView *bottomBarView;
@@ -120,8 +120,7 @@
     {
         weakSelf.productType=travelType;
         weakSelf.travel_pageNo=1;
-        [MBProgressHUD showMessage:nil];
-        [weakSelf getProductsData];
+        [weakSelf.userProductTable.mj_header beginRefreshing];
     };
     
     _userheadView.changeContent=^(NSInteger contentType)
@@ -189,7 +188,7 @@
             weakSelf.userheadView.segmentView.enabled=YES;
         };
 
-        [self getFootprintData];
+        [self.footprintListView.mj_header beginRefreshing];
     }
 }
 
@@ -265,26 +264,25 @@
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"selfUserId"];
     [parameter setValue:_friendID forKey:@"userId"];
-    [MBProgressHUD showMessage:nil];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     WEAKSELF
     STRONGSELF
     [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+        [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
-        
         if (isSuccess) {
             self.friendship  = [result[@"data"][@"friend"] boolValue];
             self.friendNumber= [result[@"data"][@"meGzAll"] integerValue];
             self.fansNumber  = [result[@"data"][@"gzMeAll"] integerValue];
             self.userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
-            [self getProductsData];
+            [self.userProductTable.mj_header beginRefreshing];
         }
         else
         {
-            [MBProgressHUD hideHUD];
             [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
         }
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD hideHUD];
+        [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
         [NetWorkManager hideFailViewForView:self.view];
         
@@ -297,11 +295,6 @@
 #pragma mark --- 获取TA的众筹
 -(void)getProductsData
 {
-    if (!_userModel.userId) {
-        [MBProgressHUD hideHUD];
-        return;
-    }
-
 //    NSString *url=[NSString stringWithFormat:@"%@%@",LISTMYPRODUCTS, Get_Uer_List(_userModel.userId,_productType-Travel_PublishType+1,_travel_pageNo)];
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyProducts"];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
@@ -314,7 +307,6 @@
     DDLog(@"++++++%@",url);
     [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);
-        [MBProgressHUD hideHUD];
         [NetWorkManager hideFailViewForView:self.view];
         if (isSuccess) {
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_userProductTable.mj_footer ;
@@ -346,7 +338,6 @@
         [_userProductTable.mj_header endRefreshing];
 
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD hideHUD];
         //停止上拉刷新
         [_userProductTable.mj_footer endRefreshing];
         [_userProductTable.mj_header endRefreshing];
@@ -362,11 +353,9 @@
 #pragma mark --- 获取足迹数据
 -(void)getFootprintData
 {
-    [MBProgressHUD showMessage:nil];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_getPageList"] andParameters:@{@"pageNo"  :[NSNumber numberWithInteger:_footprint_pageNo],@"targetId":_friendID
      } andSuccessGetBlock:^(id result, BOOL isSuccess) {
         DDLog(@"%@",result);
-        [MBProgressHUD hideHUD];
          if (isSuccess) {
              MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_footprintListView.mj_footer ;
              if (_footprint_pageNo==1&&_footprintArr.count) {
@@ -400,7 +389,6 @@
          [_footprintListView.mj_header endRefreshing];
          [_footprintListView.mj_footer endRefreshing];
         } andFailBlock:^(id failResult) {
-             [MBProgressHUD hideHUD];
             [_footprintListView.mj_header endRefreshing];
             [_footprintListView.mj_footer endRefreshing];
         }];

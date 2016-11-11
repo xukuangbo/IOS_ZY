@@ -14,11 +14,14 @@
 #import "EntryPlaceholderView.h"
 #import "ZYCommentFootprintController.h"
 #import "ZYZCPlayViewController.h"
+#import "ZYStartFootprintBtn.h"
 @interface ZYSceneViewController () <UICollectionViewDelegate, UICollectionViewDataSource,WaterFlowLayoutDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *scenes;
 @property (nonatomic, assign) NSInteger pageNo;
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
+
+@property (nonatomic, strong) ZYStartFootprintBtn    *navRightBtn;//发起
 
 @end
 
@@ -38,6 +41,7 @@ static NSString *const ShopID = @"ShopCell";
 {
     [super viewWillAppear:animated];
      self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    _navRightBtn.hidden=NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,9 +50,18 @@ static NSString *const ShopID = @"ShopCell";
     
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _navRightBtn.hidden=YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"全球现场";
+//    self.title = @"全球现场";
+    UILabel *titleLab=[ZYZCTool createLabWithFrame:CGRectMake(0, 0, 80, 20) andFont:[UIFont boldSystemFontOfSize:20.f] andTitleColor:[UIColor whiteColor]];
+    titleLab.text = @"全球现场";
+    self.navigationItem.titleView=titleLab;
     [self initView];
     
     [self setupRefresh];
@@ -79,6 +92,13 @@ static NSString *const ShopID = @"ShopCell";
 
 - (void)initView
 {
+    ZYStartFootprintBtn *navRightBtn=[[ZYStartFootprintBtn alloc]initWithFrame:CGRectMake(self.view.width-60, 4, 60, 30)];
+    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
+    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
+    [self.navigationController.navigationBar addSubview:navRightBtn];
+    _navRightBtn=navRightBtn;
+
+    
     self.view.backgroundColor = [UIColor whiteColor];
     WaterFlowLayout *layout = [[WaterFlowLayout alloc]init];
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -163,7 +183,7 @@ static NSString *const ShopID = @"ShopCell";
     ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
     commentFootprintVC.hidesBottomBarWhenPushed = YES;
     commentFootprintVC.footprintModel = footprintModel;
-    commentFootprintVC.showWithKeyboard = YES;
+    commentFootprintVC.showWithKeyboard = NO;
     [self.navigationController pushViewController:commentFootprintVC animated:YES];
 }
 
@@ -268,6 +288,12 @@ static NSString *const ShopID = @"ShopCell";
         }];
         
     }
+}
+
+#pragma mark --- 发起
+-(void)clickRightNavBtn
+{
+    
 }
 
 

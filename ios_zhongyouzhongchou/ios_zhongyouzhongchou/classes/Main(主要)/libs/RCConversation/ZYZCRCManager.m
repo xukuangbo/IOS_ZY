@@ -50,7 +50,7 @@ static ZYZCRCManager *_RCManager;
 {
     ZYZCAccountModel *model = [ZYZCAccountTool account];
     if (model.userId) {
-        NSString *utf8Str=[model.realName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//        NSString *utf8Str=[model.realName?model.realName:model.userName stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 //        NSString *url=GET_CHAT_TOKEN(model.userId,utf8Str,model.faceImg);
         NSString *url;
         if ([ZYZCAPIGenerate sharedInstance].serverType == 1||([ZYZCAPIGenerate sharedInstance].serverType==3)) {
@@ -59,10 +59,9 @@ static ZYZCRCManager *_RCManager;
         else
         {
             url=[[ZYZCAPIGenerate sharedInstance] API:@"rongAPI_getToken"];
-
+            url=[url stringByAppendingString:[NSString stringWithFormat:@"userName=%@",model.realName?model.realName:model.userName]];
         }
         NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-        [parameter setValue:utf8Str forKey:@"userName"];
         [parameter setValue:model.userId forKey:@"userId"];
         [parameter setValue:model.faceImg forKey:@"portraitUri"];
 
