@@ -21,6 +21,6 @@ typedef void(^PraiseBtnBlock)(UIButton *);
 // 点赞按钮
 @property (nonatomic, copy ) PraiseBtnBlock praiseBlock;
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 
 @end
