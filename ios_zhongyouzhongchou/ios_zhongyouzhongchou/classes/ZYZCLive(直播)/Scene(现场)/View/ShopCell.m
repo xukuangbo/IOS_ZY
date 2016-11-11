@@ -85,7 +85,7 @@
                                                    options:NSStringDrawingUsesLineFragmentOrigin
                                                 attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0]}
                                                    context:nil].size;
-    self.contentLabelLaoutHeight.constant = sceneSize.height;
+    self.contentLabelLaoutHeight.constant = (floorf(sceneSize.height));
     if ([model.content length] != 0) {
         self.contentLabel.text = [NSString stringWithFormat:@"%@",model.content];
     } else {
