@@ -60,6 +60,8 @@ static NSInteger YbjPageSize = 10;
     
     self.navigationController.navigationBar.translucent = NO;
     
+    self.title = [ZYZCAccountTool account].realName;
+    
     [self addNotis];
     
     [self setUpSubviews];
@@ -440,12 +442,12 @@ static NSInteger YbjPageSize = 10;
 //        }
     }
     
-    if (offsetY > show_Name_offsetY) {
-        NSString *name=@"王小二";
-        self.title=name;
-    } else {
-        self.title=nil;
-    }
+    //if (offsetY > show_Name_offsetY) {
+      //  NSString *name=@"王小二";
+      //  self.title=name;
+    //} else {
+    //    self.title=nil;
+    //}
     if (offsetY<=-(TotalViewHeight) + KEDGE_DISTANCE) {
         
     }

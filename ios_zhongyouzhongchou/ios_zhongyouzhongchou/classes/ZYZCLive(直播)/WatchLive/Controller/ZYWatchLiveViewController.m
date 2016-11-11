@@ -346,10 +346,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 }
 // 创建打赏界面
 - (void)initPayView:(ZYJourneyLiveModel *)model {
-    if (!self.payView && [self.liveModel.productId length] == 0) {
+    CGFloat traveViewHeight = 120 * KSCREEN_H / 568;
+    if (!self.travePayView && [self.liveModel.productId length] == 0) {
         ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.giftImageArray];
         travePayView.delegate = self;
-        CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
+        CGRect rect = CGRectMake(0, KSCREEN_H - traveViewHeight, KSCREEN_W, traveViewHeight);
         travePayView.frame = rect;
         [travePayView.layer setCornerRadius:10];
         travePayView.journeyDetailButton.hidden = YES;
@@ -360,7 +361,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     } else if (!self.travePayView && [self.liveModel.productId length] != 0) {
         ZYTravePayView *travePayView = [ZYTravePayView loadCustumView:self.giftImageArray];
         travePayView.delegate = self;
-        CGRect rect = CGRectMake(0, KSCREEN_H - 120, KSCREEN_W, 120);
+        CGRect rect = CGRectMake(0, KSCREEN_H - traveViewHeight, KSCREEN_W, traveViewHeight);
         travePayView.frame = rect;
         [travePayView.layer setCornerRadius:10];
         [self.view addSubview:travePayView];

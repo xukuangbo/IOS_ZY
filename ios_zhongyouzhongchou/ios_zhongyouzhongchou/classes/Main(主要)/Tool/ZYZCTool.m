@@ -46,7 +46,7 @@
     //2.53
     NSString *numberString = [NSString stringWithFormat:@"%.2f",number];
     //¥2.53
-    NSString *totalString = [NSString stringWithFormat:@"¥%@",numberString];
+    NSString *totalString = [NSString stringWithFormat:@"¥ %@",numberString];
     //¥2.53
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:totalString];
     //[2,53]

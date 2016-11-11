@@ -159,12 +159,12 @@ static NSString *const ShopID = @"ShopCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    ZYFootprintListModel *footprintModel = self.scenes[indexPath.item];
-//    ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
-//    commentFootprintVC.hidesBottomBarWhenPushed = YES;
-//    commentFootprintVC.footprintModel = footprintModel;
-//    commentFootprintVC.showWithKeyboard = NO;
-//    [self.navigationController pushViewController:commentFootprintVC animated:YES];
+    ZYFootprintListModel *footprintModel = self.scenes[indexPath.item];
+    ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
+    commentFootprintVC.hidesBottomBarWhenPushed = YES;
+    commentFootprintVC.footprintModel = footprintModel;
+    commentFootprintVC.showWithKeyboard = YES;
+    [self.navigationController pushViewController:commentFootprintVC animated:YES];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -196,13 +196,14 @@ static NSString *const ShopID = @"ShopCell";
         commentFootprintVC.showWithKeyboard = YES;
         [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
     };
-    cell.praiseBlock = ^(NSString *userId) {
+    cell.praiseBlock = ^(UIButton *praiseButton) {
         ZYFootprintListModel *footprintModel = weakSelf.scenes[indexPath.item];
-        ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
-        commentFootprintVC.hidesBottomBarWhenPushed = YES;
-        commentFootprintVC.footprintModel = footprintModel;
-        commentFootprintVC.showWithKeyboard = YES;
-        [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
+//        ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
+//        commentFootprintVC.hidesBottomBarWhenPushed = YES;
+//        commentFootprintVC.footprintModel = footprintModel;
+//        commentFootprintVC.showWithKeyboard = YES;
+//        [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
+        [weakSelf clickPraiseButtonAction:praiseButton model:footprintModel];
     };
     return cell;
 }
@@ -227,6 +228,41 @@ static NSString *const ShopID = @"ShopCell";
         return itemWidth / model.videoimgsize + sceneSize.height + 50;
     }
     return itemWidth / model.videoimgsize + sceneSize.height + 80;
+}
+
+#pragma mark - event
+- (void)clickPraiseButtonAction:(UIButton *)sender model:(ZYFootprintListModel *)model
+{
+    sender.userInteractionEnabled=NO;
+
+    //点赞
+    if (!model.hasZan) {
+        [sender setImage:[UIImage imageNamed:@"footprint-like-2"] forState:UIControlStateNormal];
+        model.hasZan=YES;
+        model.zanTotles++;
+        [self.collectionView reloadData];
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:model.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            sender.userInteractionEnabled=YES;
+
+        } andFailBlock:^(id failResult) {
+            sender.userInteractionEnabled=YES;
+
+        }];
+    }
+    //取消点赞
+    else
+    {
+        [sender setImage:[UIImage imageNamed:@"footprint-like"] forState:UIControlStateNormal];
+        model.hasZan=NO;
+        model.zanTotles--;
+        [self.collectionView reloadData];
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_delZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:model.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            sender.userInteractionEnabled=YES;
+        } andFailBlock:^(id failResult) {
+            sender.userInteractionEnabled=YES;
+        }];
+        
+    }
 }
 
 

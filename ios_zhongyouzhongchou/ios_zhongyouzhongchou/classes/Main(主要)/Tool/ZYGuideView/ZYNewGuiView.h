@@ -30,5 +30,5 @@ typedef enum : NSInteger {
 
 
 - (void)initSubViewWithTeacherGuideType:(detailType)type withContextViewType:(CGContextType)contextType;
-
+- (id)initWithFrame:(CGRect)frame NotificationContent:(NSString *)content;
 @end

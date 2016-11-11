@@ -627,6 +627,11 @@
         "action": "wallet2wx.action",
         "protocol": "http"
     },
+    "wallet_transfersOrderList.action": {
+        "control": "wallet",
+        "action": "transfersOrderList.action",
+        "protocol": "http"
+    }
     
 }
 

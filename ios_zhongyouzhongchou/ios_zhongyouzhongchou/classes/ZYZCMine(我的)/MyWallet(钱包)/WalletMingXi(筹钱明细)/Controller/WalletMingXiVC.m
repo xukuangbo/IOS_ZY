@@ -18,6 +18,8 @@ typedef enum : NSUInteger {
     VCTypeKtxMx,
     VCTypeYbjMx,
 } VCType;
+
+static int pagesize = 10;
 @interface WalletMingXiVC ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, strong) UITableView *tableView;
@@ -45,6 +47,8 @@ typedef enum : NSUInteger {
         self.hidesBottomBarWhenPushed = YES;
         self.pageNo = 1;
         self.VCType = VCTypeKtxMx;
+        
+        self.moneyListArray = [NSMutableArray array];
         //刷新ui
         [self configUI];
         
@@ -65,6 +69,8 @@ typedef enum : NSUInteger {
         self.hidesBottomBarWhenPushed = YES;
         self.pageNo = 1;
         self.VCType = VCTypeYbjMx;
+        
+        self.moneyListArray = [NSMutableArray array];
         //刷新ui
         [self configUI];
         
@@ -100,11 +106,12 @@ typedef enum : NSUInteger {
     
     if (self.VCType == VCTypeKtxMx) {//1.可提现明细,get请求
         
-        url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProducts"];
+        url = [[ZYZCAPIGenerate sharedInstance] API:@"list_recordDetail"];
         [parameter setValue:[NSString stringWithFormat:@"%@", self.productId] forKey:@"productId"];
         [parameter setValue:[NSString stringWithFormat:@"%ld", _pageNo] forKey:@"pageNo"];
-        [parameter setValue:@"10" forKey:@"pageSize"];
-        [parameter setValue:[ZYZCAccountTool getOpenid] forKey:@"openid"];
+        [parameter setValue:@(pagesize) forKey:@"pageSize"];
+//        [parameter setValue:[ZYZCAccountTool getOpenid] forKey:@"openid"];
+        [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
         WEAKSELF
         [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
             
@@ -131,7 +138,8 @@ typedef enum : NSUInteger {
         [parameter setValue:[NSString stringWithFormat:@"%@", self.spaceName] forKey:@"spaceName"];
         [parameter setValue:[NSString stringWithFormat:@"%@", self.streamName] forKey:@"streamName"];
         [parameter setValue:[NSString stringWithFormat:@"%ld", _pageNo] forKey:@"pageNo"];
-        [parameter setValue:@"10" forKey:@"pageSize"];
+        [parameter setValue:@(pagesize) forKey:@"pageSize"];
+        [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
         
         WEAKSELF
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
@@ -167,55 +175,81 @@ typedef enum : NSUInteger {
     
     if (self.VCType == VCTypeKtxMx) {//1.可提现明细
         
-        url = [[ZYZCAPIGenerate sharedInstance] API:@"list_listMyTxProducts"];
+        url = [[ZYZCAPIGenerate sharedInstance] API:@"list_recordDetail"];
         [parameter setValue:[NSString stringWithFormat:@"%@", self.productId] forKey:@"productId"];
+        [parameter setValue:@"fause" forKey:@"cache"];
+        [parameter setValue:[NSString stringWithFormat:@"%ld", _pageNo] forKey:@"pageNo"];
+        [parameter setValue:@(pagesize) forKey:@"pageSize"];
+        
+        WEAKSELF
+        [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
+            
+            MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.tableView.mj_footer ;
+            NSArray *tempArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            if (tempArray.count > 0) {
+                [weakSelf.moneyListArray addObjectsFromArray:tempArray];
+                [weakSelf.tableView reloadData];
+                weakSelf.pageNo++;
+                [autoFooter setTitle:@"正在加载更多" forState:MJRefreshStateRefreshing];
+            }else{
+                [autoFooter setTitle:@"没有更多数据了.." forState:MJRefreshStateRefreshing];
+            }
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } andFailBlock:^(id failResult) {
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        }];
     }else if(self.VCType == VCTypeYbjMx){//2.预备金明细
         
         url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_zhiboOrderList"];
         [parameter setValue:[NSString stringWithFormat:@"%@", self.spaceName] forKey:@"spaceName"];
         [parameter setValue:[NSString stringWithFormat:@"%@", self.streamName] forKey:@"streamName"];
+        [parameter setValue:@"fause" forKey:@"cache"];
+        [parameter setValue:[NSString stringWithFormat:@"%ld", _pageNo] forKey:@"pageNo"];
+        [parameter setValue:@(pagesize) forKey:@"pageSize"];
+        
+        WEAKSELF
+        [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            
+            MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.tableView.mj_footer ;
+            NSArray *tempArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            if (tempArray.count > 0) {
+                [weakSelf.moneyListArray addObjectsFromArray:tempArray];
+                [weakSelf.tableView reloadData];
+                weakSelf.pageNo++;
+                [autoFooter setTitle:@"正在加载更多" forState:MJRefreshStateRefreshing];
+            }else{
+                [autoFooter setTitle:@"没有更多数据了.." forState:MJRefreshStateRefreshing];
+            }
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+        } andFailBlock:^(id failResult) {
+            [weakSelf.tableView.mj_header endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
+            [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        }];
     }else{
         
         return ;
     }
-    [parameter setValue:@"fause" forKey:@"cache"];
-    [parameter setValue:[NSString stringWithFormat:@"%ld", _pageNo] forKey:@"pageNo"];
-    [parameter setValue:[NSString stringWithFormat:@"%zd", 10] forKey:@"pageSize"];
-    WEAKSELF
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        
-        MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.tableView.mj_footer ;
-        NSArray *tempArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-        if (tempArray.count > 0) {
-            [weakSelf.moneyListArray addObjectsFromArray:tempArray];
-            [weakSelf.tableView reloadData];
-            weakSelf.pageNo++;
-            [autoFooter setTitle:@"正在加载更多" forState:MJRefreshStateRefreshing];
-        }else{
-            [autoFooter setTitle:@"没有更多数据了.." forState:MJRefreshStateRefreshing];
-        }
-        [weakSelf.tableView.mj_header endRefreshing];
-        [weakSelf.tableView.mj_footer endRefreshing];
-    } andFailBlock:^(id failResult) {
-        [weakSelf.tableView.mj_header endRefreshing];
-        [weakSelf.tableView.mj_footer endRefreshing];
-        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
-    }];
 }
 
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
-
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar lt_setBackgroundColor:[UIColor ZYZC_NavColor]];
     
+    self.navigationController.navigationBar.translucent = NO;
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBar.translucent = YES;
 }
 
 #pragma mark - configUI方法
@@ -224,7 +258,8 @@ typedef enum : NSUInteger {
 {
     [self setBackItem];
     
-    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    CGRect tableViewRect = CGRectMake(0, 0, KSCREEN_W, KSCREEN_H - KNAV_HEIGHT - 5);
+    _tableView = [[UITableView alloc] initWithFrame:tableViewRect style:UITableViewStylePlain];
     _tableView.backgroundColor = [UIColor clearColor];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.delegate = self;

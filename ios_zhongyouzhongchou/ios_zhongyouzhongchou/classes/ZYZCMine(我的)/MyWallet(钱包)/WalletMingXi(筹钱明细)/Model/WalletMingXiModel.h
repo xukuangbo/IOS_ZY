@@ -31,4 +31,19 @@
 @property (nonatomic, copy  ) NSString *userName;
 //userId = 33;
 //userName = CHENG;
+
+//hbstatus = 1;
+//headImage = "http://www.sosona.cn:8080/viewSpot/images/233/1471405959044_640.jpg";
+//productDest = "[\"\U676d\U5dde\",\"\U585e\U73ed\U5c9b\",\"\U5b89\U7279\U536b\U666e\",\"\U5e03\U9c81\U65e5\"]";
+//productEndTime = "2016-11-09";
+//productId = 145;
+//productName = "\U72d7\U72d7";
+//productPrice = 100;
+//productStartTime = "2016-10-27";
+//pzstatus = 0;
+//status = 5;
+//travelendTime = "2016-11-08";
+//travelstartTime = "2016-11-07";
+//txstatus = 1;
+//txtotles = 400;
 @end
