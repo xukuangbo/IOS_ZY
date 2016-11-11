@@ -7,7 +7,7 @@
 //
 
 #define ZCDETAILINTRO_THIRDCELL_HEIGHT  85+(KSCREEN_W-4*KEDGE_DISTANCE)*5/8
-#define SUBDES_FORMOVIE(goal) [NSString stringWithFormat:@"趣味动画教你畅游%@",goal]
+#define SUBDES_FORMOVIE(goal) [NSString stringWithFormat:@"3分钟视频帮你了解%@",goal]
 
 #import "MoreFZCBaseTableViewCell.h"
 #import "ZYZCCusomMovieImage.h"

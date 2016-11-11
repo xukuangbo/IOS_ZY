@@ -89,7 +89,6 @@
 {
     WEAKSELF
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    alertController.view.tintColor=[UIColor ZYZC_MainColor];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *shareToZoneAction = [UIAlertAction actionWithTitle:@"分享到微信朋友圈" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action){
             [weakSelf shareFootprintToWechat:1];
@@ -99,7 +98,10 @@
         {
             [weakSelf shareFootprintToWechat:0];
         }];
-    
+    [cancelAction setValue:[UIColor ZYZC_MainColor]
+                    forKey:@"_titleTextColor"];
+    [shareToZoneAction setValue:[UIColor ZYZC_TextBlackColor] forKey:@"_titleTextColor"];
+    [shareToFriendAction setValue:[UIColor ZYZC_TextBlackColor] forKey:@"_titleTextColor"];
     [alertController addAction:cancelAction];
     [alertController addAction:shareToZoneAction];
     [alertController addAction:shareToFriendAction];

@@ -145,10 +145,8 @@
             if (getOrderSuccess) {
                 getOrderSuccess();
             }
-            if ((params[@"style1"] || params[@"style2"] || params[@"style3"])&&([params[@"style1"] floatValue]+[params[@"style2"] floatValue]+[params[@"style3"] floatValue]+[params[@"style4"] floatValue]==0.0)) {
-                
-                [MBProgressHUD showSuccess:@"支持成功!"];
-                
+            if ([params[@"style4"] floatValue]==0.0&&!(params[@"style1"] || params[@"style2"] || params[@"style3"])) {
+                [MBProgressHUD showSuccess:@"报名成功!"];
                 //通知支持一起游成功
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"Support_Style4_ZeroYuan_Success" object:nil];
             }
@@ -196,7 +194,9 @@
            NSData *imgData=[NSData dataWithContentsOfURL:[NSURL URLWithString:thumbImage]];
            
            UIImage *sourceimage=[UIImage imageWithData:imgData];
-           UIImage *compressImage=[ZYZCTool compressSourceImage:sourceimage underLength:32 withPlaceHolderImage:[UIImage imageNamed:@"Share_iocn"]];
+           UIImage *compressImage=[ZYZCTool compressSourceImage:sourceimage underLength:30 withPlaceHolderImage:[UIImage imageNamed:@"Share_iocn"]];
+           
+           
            [message setThumbImage:compressImage];
            
        }
