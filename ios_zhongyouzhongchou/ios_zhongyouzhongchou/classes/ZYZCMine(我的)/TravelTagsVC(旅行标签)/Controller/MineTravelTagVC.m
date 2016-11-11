@@ -20,7 +20,6 @@
 @property (nonatomic, strong) MineTravelTagBgView *firstBg;
 @property (nonatomic, strong) MineTravelTagBgView *secondBg;
 @property (nonatomic, strong) NSArray *personTagArray;
-//@property (nonatomic, strong) ZYZCAccountModel *account;
 @property (nonatomic, strong) UIButton *saveButton;
 
 @property (nonatomic, assign) BOOL hasFZC;

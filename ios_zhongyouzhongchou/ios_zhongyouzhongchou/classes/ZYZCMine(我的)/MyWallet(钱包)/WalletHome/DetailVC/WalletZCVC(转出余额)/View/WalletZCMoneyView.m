@@ -15,6 +15,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "WXApiManager.h"
 #import "NetWorkManager.h"
+#import "WalletOutRecordVC.h"
 @interface WalletZCMoneyView ()<ZYZCCustomTextFieldDelegate>
 /* 可转出余额  */
 @property (weak, nonatomic) IBOutlet UILabel *kzcMoneyLabel;
@@ -170,7 +171,7 @@
             }
         }else
         {
-            [MBProgressHUD showError:@"网络错误" toView:self];
+            [MBProgressHUD showError:result[@"errorMsg"] toView:self];
             self.isBind = NO;
         }
     }andFailBlock:^(id failResult) {
@@ -208,7 +209,9 @@
         if (isSuccess) {
             
             [MBProgressHUD hideHUDForView:self.superview];
-            [self.viewController.navigationController popViewControllerAnimated:YES];
+            
+            WalletOutRecordVC *outRecordVC = [[WalletOutRecordVC alloc] init];
+            [self.viewController.navigationController pushViewController:outRecordVC animated:YES];
         }
         else
         {
@@ -232,7 +235,8 @@
     CGFloat inputMoney = [new_text_str floatValue];
     //1.判断是否超过可转出金额
     if (inputMoney > _kzcMoney) {
-        [MBProgressHUD showError:@"金额超出" toView:self];
+        
+        [MBProgressHUD showError:@"金额超出" toView:self.superview];
         return NO;
     }else{
         //改变按钮状态

@@ -66,7 +66,7 @@
     
     //转出按钮
     _ZCMoneyButton = [ZYZCTool getCustomBtnByTilte:@"转出余额" andImageName:@"btn_right_white" andtitleFont:[UIFont systemFontOfSize:15] andTextColor:[UIColor whiteColor] andSpacing:2];
-    _ZCMoneyButton.enabled = NO;
+    _ZCMoneyButton.userInteractionEnabled = NO;
     
     //余额标题
     _balanceTitleLabel = [[UILabel alloc] init];
@@ -166,10 +166,10 @@
     //创建毛玻璃
     _blurView = [[FXBlurView alloc] init];
     [_blurView setDynamic:NO];
-    _blurView.blurRadius=10;
+    _blurView.blurRadius=15;
     _blurColorView=[[UIView alloc] init];
     _blurColorView.backgroundColor=[UIColor ZYZC_MainColor];
-    _blurColorView.alpha=0.7;
+    _blurColorView.alpha=0.9;
     
     [_blurImageView addSubview:_blurView];
     [_blurImageView addSubview:_blurColorView];
@@ -200,7 +200,7 @@
     //2.53
     NSString *numberString = [NSString stringWithFormat:@"%.2f",number];
     //¥2.53
-    NSString *totalString = [NSString stringWithFormat:@"¥%@",numberString];
+    NSString *totalString = [NSString stringWithFormat:@"¥ %@",numberString];
     //¥2.53
     NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:totalString];
     //[2,53]
