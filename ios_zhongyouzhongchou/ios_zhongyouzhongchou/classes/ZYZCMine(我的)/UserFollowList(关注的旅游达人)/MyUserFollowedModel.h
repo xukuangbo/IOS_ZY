@@ -29,5 +29,6 @@
 @property (nonatomic, copy) NSString *company;
 //"title"
 @property (nonatomic, copy) NSString *title;
-
+//"realName"
+@property (nonatomic, copy) NSString *realName;
 @end
