@@ -16,6 +16,7 @@
 #import "STPickerSingle.h"
 #import "FXBlurView.h"
 #import "ZYZCRCManager.h"
+#import "RACEXTScope.h"
 #define Limit_Name_Length 15
 #define SetUpFirstCellLabelHeight 34
 @interface MinePersonSetUpScrollView()<ZYZCCustomTextFieldDelegate,STPickerAreaDelegate,STPickerDateDelegate>
@@ -498,7 +499,7 @@
     //使用一个string来保存上一次的图片
     if (self.headView.iconImg) {
         [self.headView.iconView uploadImageToOSS:self.headView.iconImg andResult:^(BOOL result, NSString *imgUrl) {
-//            NSLog(@"%d",result);
+            
             if (result == YES) {
                 //上传成功
                 [self uploadSelfInfo:imgUrl];
@@ -516,6 +517,9 @@
 
 - (void)uploadSelfInfo:(NSString *)headImgUrl
 {
+    
+    [MBProgressHUD showMessage:@"正在上传" toView:self];
+    
     NSString *userId = [ZYZCAccountTool getUserId];
     if (userId) {
         NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
@@ -587,9 +591,11 @@
             [parameter setValue:_phoneButton.text forKey:@"qq"];
         }
         NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_updateUserInfo"];
-
+        @weakify(self);
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+            @strongify(self);
             DDLog(@"%@",result);
+            [MBProgressHUD hideHUDForView:self];
             [MBProgressHUD showSuccess:@"保存成功"];
             [MBProgressHUD setAnimationDelay:2];
             [self.viewController.navigationController popViewControllerAnimated:YES];
@@ -608,9 +614,10 @@
             }
             
         } andFailBlock:^(id failResult) {
+            @strongify(self);
+            [MBProgressHUD hideHUDForView:self];
             [MBProgressHUD showError:@"保存失败"];
             [MBProgressHUD setAnimationDelay:2];
-//            NSLog(@"%@",failResult);
         }];
         
     }
