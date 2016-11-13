@@ -98,8 +98,8 @@
     _supportBtn.layer.masksToBounds = YES;
     [self.bgImg addSubview:_supportBtn];
     
-    //支付结果的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayResult:) name:@"getPayResult" object:nil];
+//    //支付结果的通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayResult:) name:@"getPayResult" object:nil];
 }
 
 - (void) setDetailModel:(ZCDetailProductModel *)detailModel
@@ -261,10 +261,10 @@
     }
 }
 
--(void) getPayResult:(NSNotification *)notify
-{
-    [self.getSuperTableView reloadData];
-}
+//-(void) getPayResult:(NSNotification *)notify
+//{
+//    [self.getSuperTableView reloadData];
+//}
 
 #pragma mark --- 改变文字样式
 -(NSAttributedString *)customStringByString:(NSString *)str

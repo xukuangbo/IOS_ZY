@@ -138,11 +138,9 @@
         [MBProgressHUD hideHUDForView:self.viewController.view];
         if (isSuccess) {
             [MBProgressHUD showShortMessage:@"删除成功"];
-            NSMutableArray *newCommentList=[NSMutableArray arrayWithArray:self.dataArr];
-            [newCommentList removeObject:oneCommentModel];
-            self.dataArr=newCommentList;
+            [self.dataArr removeObject:oneCommentModel];
             if (self.commentNumberChangeBlock) {
-                self.commentNumberChangeBlock(newCommentList.count);
+                self.commentNumberChangeBlock(self.dataArr.count);
             }
             [self reloadData];
         }

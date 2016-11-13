@@ -75,16 +75,22 @@
     if ([resp isKindOfClass:[PayResp class]])
     {
         PayResp *response = (PayResp *)resp;
-        switch (response.errCode) {
-            case WXSuccess: {
-                NSNotification *notification = [NSNotification notificationWithName:KORDER_PAY_NOTIFICATION object:@"success"];
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
-                break;
-            }
-            default: {
-                NSNotification *notification = [NSNotification notificationWithName:KORDER_PAY_NOTIFICATION object:@"fail"];
-                [[NSNotificationCenter defaultCenter] postNotification:notification];
-                break;
+        //如果是支持众游项目的支付回调
+        AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+        if (appDelegate.out_trade_no) {
+            switch (response.errCode) {
+                case WXSuccess: {
+                    appDelegate.productPayResult=YES;
+//                    NSNotification *notification = [NSNotification notificationWithName:kProductOrderPay object:@"success"];
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    break;
+                }
+                default: {
+                    appDelegate.productPayResult=NO;
+//                    NSNotification *notification = [NSNotification notificationWithName:kProductOrderPay object:@"fail"];
+//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
+                    break;
+                }
             }
         }
     }

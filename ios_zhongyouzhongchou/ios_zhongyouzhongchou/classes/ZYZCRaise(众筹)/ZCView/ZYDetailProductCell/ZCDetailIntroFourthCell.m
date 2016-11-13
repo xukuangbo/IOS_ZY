@@ -94,10 +94,10 @@
     _supportBtn.layer.masksToBounds = YES;
     [self.bgImg addSubview:_supportBtn];
     
-    //支付结果的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayResult:) name:@"getPayResult" object:nil];
-    //支持零元一起游后的通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(supportStyle4ZeroYuanSuccess:) name:@"Support_Style4_ZeroYuan_Success" object:nil];
+//    //支付结果的通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getPayResult:) name:@"getPayResult" object:nil];
+//    //支持零元一起游后的通知
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(supportStyle4ZeroYuanSuccess:) name:@"Support_Style4_ZeroYuan_Success" object:nil];
 }
 
 - (void) setDetailModel:(ZCDetailProductModel *)detailModel
@@ -262,15 +262,15 @@
     }
 }
 
--(void) getPayResult:(NSNotification *)notify
-{
-    [self.getSuperTableView reloadData];
-}
-
--(void) supportStyle4ZeroYuanSuccess:(NSNotification *)notify
-{
-    [self.getSuperTableView reloadData];
-}
+//-(void) getPayResult:(NSNotification *)notify
+//{
+//    [self.getSuperTableView reloadData];
+//}
+//
+//-(void) supportStyle4ZeroYuanSuccess:(NSNotification *)notify
+//{
+//    [self.getSuperTableView reloadData];
+//}
 
 #pragma mark --- 改变文字样式
 -(NSAttributedString *)customStringByString:(NSString *)str

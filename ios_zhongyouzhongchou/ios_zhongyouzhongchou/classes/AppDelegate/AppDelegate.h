@@ -13,9 +13,10 @@
 @property (strong, nonatomic) UIWindow *window;
 
 /**
- *  获取订单号
+ *  获取订单号（众游项目）
  */
 @property (nonatomic, strong) NSString *out_trade_no;
+@property (nonatomic, assign) BOOL     productPayResult;
 
 /**
  *  是否已处于聊天列表

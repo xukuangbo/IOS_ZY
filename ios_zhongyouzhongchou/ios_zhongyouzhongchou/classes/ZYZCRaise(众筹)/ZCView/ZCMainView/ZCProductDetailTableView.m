@@ -102,7 +102,7 @@
         //支付结果通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPay) name:kGetPayResultNotification object:nil];
 
-        //支付0元时的通知
+        //单独支付一起游0元时的通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addMySelfInStyle4) name:@"Support_Style4_ZeroYuan_Success" object:nil];
     }
     return self;
@@ -532,26 +532,30 @@
     [parameter setValue:userId forKey:@"userId"];
     WEAKSELF
     [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        appDelegate.out_trade_no=nil;
+        DDLog(@"+++++++++%@",result);
         NSArray *arr=result[@"data"];
         NSDictionary *dic=nil;
         if (arr.count) {
             dic=[arr firstObject];
         }
         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
+        if (appDelegate.productPayResult==YES) {
+            payResult=YES;
+        }
         //支付成功
         if(payResult){
-            [MBProgressHUD showSuccess:@"支付成功!"];
+//            [MBProgressHUD showSuccess:@"支付成功!"];
             [weakSelf addMyselfInStyles:arr];
         }
         else{
-            [MBProgressHUD showError:@"支付失败!"];
-            appDelegate.out_trade_no=nil;
+//            [MBProgressHUD showError:@"支付失败!"];
         }
         //发出支付结果的通知
         [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:payResult]];
+        appDelegate.out_trade_no=nil;
+        appDelegate.productPayResult=NO;
     } andFailBlock:^(id failResult) {
-        [MBProgressHUD showError:@"网络出错,支付失败!"];
+//        [MBProgressHUD showError:@"网络出错,支付失败!"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:NO]];
     }];
 }
@@ -559,7 +563,6 @@
 #pragma mark --- 支持后添加个人头像到对应支持栏中
 -(void)addMyselfInStyles:(NSArray *)styles
 {
-    
     ZYZCAccountModel *accountModel=[ZYZCAccountTool account];
     UserModel *mySelf=[UserModel new];
     mySelf.userId=accountModel.userId;
