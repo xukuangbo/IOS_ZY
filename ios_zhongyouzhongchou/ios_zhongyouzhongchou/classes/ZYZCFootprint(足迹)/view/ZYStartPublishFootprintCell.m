@@ -50,6 +50,7 @@
     
     //开始发布键
     ZYStartFootprintBtn *startBtn=[[ZYStartFootprintBtn alloc]initWithFrame:CGRectMake(35, _timeLab.bottom+KEDGE_DISTANCE, START_BTN_HEIGHT, START_BTN_HEIGHT)];
+    [startBtn setBackgroundImage:[UIImage imageNamed:@"footprint-start"] forState:UIControlStateNormal];
     [_bgImage addSubview:startBtn];
     
     //提示文字

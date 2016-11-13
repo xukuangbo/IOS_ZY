@@ -6,6 +6,10 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 
+#define title_text            @"支持我旅费  会有回报哦"
+#define button_text           @"回报支持"
+#define subTitle_text(money)  [NSString stringWithFormat:@"支持%.2f元,就可以获得丰厚回报哦!",money]
+
 #import "ZCDetailIntroFifthCell.h"
 #import "ZCDetailCustomButton.h"
 #import "ZCWSMView.h"
@@ -52,7 +56,7 @@
     [self.topLineView removeFromSuperview];
     [self.vertical removeFromSuperview];
     self.titleLab.left=KEDGE_DISTANCE;
-    self.titleLab.text=@"回报支持";
+    self.titleLab.text=title_text;
     self.titleLab.textColor=[UIColor ZYZC_RedTextColor];
     self.titleLab.font=[UIFont boldSystemFontOfSize:17.f];
     
@@ -60,10 +64,12 @@
     _moneyLab=[ZYZCTool createLabWithFrame:CGRectMake(0, self.titleLab.top, self.bgImg.width-KEDGE_DISTANCE, self.titleLab.height) andFont:[UIFont systemFontOfSize:15.f] andTitleColor:[UIColor blackColor]];
     _moneyLab.textAlignment=NSTextAlignmentRight;
     [self.bgImg addSubview:_moneyLab];
+    [_moneyLab addTarget:self action:@selector(support)];
     
     //子金额
-    _subMoneyLab=[ZYZCTool createLabWithFrame:CGRectMake(KEDGE_DISTANCE, self.titleLab.bottom+KEDGE_DISTANCE, self.bgImg.width-20, 20) andFont:[UIFont systemFontOfSize:15.f] andTitleColor:[UIColor ZYZC_TextBlackColor]];
+    _subMoneyLab=[ZYZCTool createLabWithFrame:CGRectMake(KEDGE_DISTANCE, self.titleLab.bottom+KEDGE_DISTANCE, self.bgImg.width-20, 20) andFont:[UIFont systemFontOfSize:12.f] andTitleColor:[UIColor ZYZC_TextBlackColor]];
     [self.bgImg addSubview:_subMoneyLab];
+    
     
     //回报内容
     _wsmView = [[ZCWSMView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, _subMoneyLab.bottom+KEDGE_DISTANCE, self.bgImg.width-20, 0.1)];
@@ -85,7 +91,7 @@
     _supportUsersView=[[UIView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, _limitLab.bottom+KEDGE_DISTANCE, self.bgImg.width-20, 0.1)];
     [self.bgImg addSubview:_supportUsersView];
     
-    _supportBtn=[ZYZCTool createBtnWithFrame:CGRectMake(KEDGE_DISTANCE, _supportUsersView.bottom+KEDGE_DISTANCE, self.bgImg.width-20, 40) andNormalTitle:@"我想要回报" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(support:)];
+    _supportBtn=[ZYZCTool createBtnWithFrame:CGRectMake(KEDGE_DISTANCE, _supportUsersView.bottom+KEDGE_DISTANCE, self.bgImg.width-20, 40) andNormalTitle:button_text andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(support)];
     _supportBtn.backgroundColor = [UIColor ZYZC_MainColor];
     _supportBtn.titleLabel.font = [UIFont boldSystemFontOfSize:17.f];
     _supportBtn.layer.cornerRadius = KCORNERRADIUS;
@@ -166,7 +172,7 @@
     _moneyLab.attributedText = [self customMoneyByString:[NSString stringWithFormat:@"¥ %.2f",money]];
                                 
     //子金额
-    _subMoneyLab.text = [NSString stringWithFormat:@"支持%.2f元",money];
+    _subMoneyLab.text = subTitle_text(money);
     
     [_wsmView reloadDataByVideoImgUrl:returnModel.spellVideoImg andPlayUrl:returnModel.spellVideo andVoiceUrl:returnModel.spellVoice andVoiceLen:returnModel.spellVoiceLen andFaceImg:_detailModel.user.faceImg andDesc:returnModel.desc andImgUrlStr:returnModel.descImgs];
     
@@ -203,9 +209,9 @@
 
 }
 
--(void) support:(UIButton *)button
+-(void) support
 {
-    button.enabled=NO;
+    _supportBtn.enabled=NO;
     if (!_canChoose||_isMySelf||_hasSupport||_isGetMax) {
         
     }
@@ -226,7 +232,7 @@
             [wxManager payForWeChat:dic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
         }
     }
-    button.enabled=YES;
+    _supportBtn.enabled=YES;
     
 }
 

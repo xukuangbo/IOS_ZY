@@ -714,29 +714,23 @@
         return placeHolderImage;
     }
     NSData *imageData = UIImageJPEGRepresentation(sourceImage, 1.0);
-    if (imageData.length>length*1024) {
-        NSData *data = UIImageJPEGRepresentation(sourceImage, 0.5);
-        UIImage *compressImage01=[UIImage imageWithData:data];
-        if (data.length>length*1024) {
-            UIImage *resultImage=nil;
-            int num=20;
-            for (int i=1; i<num; i++) {
-                UIImage *img=[[self class] reduceImageSizeFromSourceImage:compressImage01 andScale:(num-i)*(1.0/num)];
-                NSData *data = UIImageJPEGRepresentation(img, 1.0);
-                if (data.length<length*1024) {
-                    resultImage=[UIImage imageWithData:data];
-                    break;
-                }
+//    DDLog(@"image大小：%ld",imageData.length);
+    if (imageData.length>length*1000) {
+        UIImage *resultImage=nil;
+        int num=20;
+        for (int i=1; i<num; i++) {
+            UIImage *img=[[self class] reduceImageSizeFromSourceImage:sourceImage andScale:(num-i)*(1.0/num)];
+            NSData *data = UIImageJPEGRepresentation(img, 1.0);
+//            DDLog(@"第%d次缩后大小：%ld",i,data.length);
+            if (data.length<length*1000) {
+                resultImage=[UIImage imageWithData:data];
+                break;
             }
-            if (!resultImage) {
-                resultImage=placeHolderImage;
-            }
-            return resultImage;
         }
-        else
-        {
-            return  compressImage01;
+        if (!resultImage) {
+            resultImage=placeHolderImage;
         }
+        return resultImage;
     }
     else
     {

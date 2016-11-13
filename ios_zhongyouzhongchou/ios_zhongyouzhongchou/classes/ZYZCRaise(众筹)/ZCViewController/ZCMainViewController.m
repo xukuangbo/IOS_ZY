@@ -7,7 +7,7 @@
 //
 //所有众筹列表
 
-#define GET_PRODUCT_LIST(pageNo) [NSString stringWithFormat:@"cache=false&orderType=4&pageNo=%d&pageSize=10",pageNo]
+//#define GET_PRODUCT_LIST(pageNo) [NSString stringWithFormat:@"cache=false&orderType=4&pageNo=%d&pageSize=10",pageNo]
 
 #import "ZCMainViewController.h"
 #import "ZCFilterTableViewCell.h"
@@ -49,7 +49,7 @@
 
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
 
-@property (nonatomic, assign) BOOL              isFirstEntry;//是否第一次进入
+//@property (nonatomic, assign) BOOL              isFirstEntry;//是否第一次进入
 // 引导页view
 @property (strong, nonatomic) GuideWindow *guideWindow;
 @property (strong, nonatomic) ZYNewGuiView *guideView;
@@ -64,7 +64,7 @@
     self.automaticallyAdjustsScrollViewInsets=NO;
     _listArr=[NSMutableArray array];
     _pageNo=1;
-    _isFirstEntry=YES;
+//    _isFirstEntry=YES;
     _filterItems=@[@"只看女",@"只看男",@"看成功",@"看最新",@"看全部",@"取消"];
     _filterType=_filterItems.count;//默认
     [self setNavBar];
@@ -72,7 +72,8 @@
     if (![ZYGuideManager getGuideStartZhongchou]) {
         [self createOpenFlashContextView];
     }
-    [self getHttpDataByFilterType:_filterType andSeachKey:nil];
+    [self.table.mj_header beginRefreshing];
+//    [self getHttpDataByFilterType:_filterType andSeachKey:nil];
 }
 
 -(void)setNavBar
@@ -138,7 +139,9 @@
     }
     _pageNo=1;
     
-    [self getHttpDataByFilterType:4 andSeachKey:searchBar.text];
+    self.filterType=4;
+    [_table.mj_header beginRefreshing];
+//    [self getHttpDataByFilterType:4 andSeachKey:searchBar.text];
 }
 
 #pragma mark --- 点击右侧导航栏按钮
@@ -197,9 +200,10 @@
     _searchBar.text=nil;
     if (_filterType!=indexPath.row+1) {
         _pageNo=1;
-        _isFirstEntry=YES;
+//        _isFirstEntry=YES;
         _filterType=indexPath.row+1;
-        [self getHttpDataByFilterType:_filterType andSeachKey:nil];
+        [self.table.mj_header beginRefreshing];
+//        [self getHttpDataByFilterType:_filterType andSeachKey:nil];
     }
 }
 
@@ -395,15 +399,15 @@
         }
     }
 //    DDLog(@"httpUrl:%@",httpUrl);
-    if (_isFirstEntry) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
+//    if (_isFirstEntry) {
+//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    }
     STRONGSELF
     [ZYZCHTTPTool GET:httpUrl parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        if (_isFirstEntry) {
-            [MBProgressHUD hideHUDForView:self.view];
-            _isFirstEntry=NO;
-        }
+//        if (_isFirstEntry) {
+//            [MBProgressHUD hideHUDForView:self.view];
+//            _isFirstEntry=NO;
+//        }
         [NetWorkManager hideFailViewForView:self.view];
 //       DDLog(@"result：%@",result);
         if (isSuccess) {
@@ -442,18 +446,18 @@
         [_table.mj_footer endRefreshing];
 
     } andFailBlock:^(id failResult) {
-        if (_isFirstEntry) {
-            [MBProgressHUD hideHUDForView:self.view];
-            _isFirstEntry=NO;
-        }
-        _isFirstEntry=YES;
+//        if (_isFirstEntry) {
+//            [MBProgressHUD hideHUDForView:self.view];
+//            _isFirstEntry=NO;
+//        }
+//        _isFirstEntry=YES;
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
-        __weak typeof (&*self)weakSelf=self;
-        [NetWorkManager getFailViewForView:weakSelf.view andFailResult:failResult andReFrashBlock:^{
-            [strongSelf getHttpDataByFilterType:strongSelf.filterType andSeachKey:strongSelf.searchBar.text];
+        [NetWorkManager getFailViewForView:self.view andFailResult:failResult andReFrashBlock:^{
+            [strongSelf.table.mj_header beginRefreshing];
+//            [strongSelf getHttpDataByFilterType:strongSelf.filterType andSeachKey:strongSelf.searchBar.text];
         }];
     }];
 }

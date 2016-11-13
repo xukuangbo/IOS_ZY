@@ -11,7 +11,7 @@
 #import "UIImageView+WebCache.h"
 @interface ShopCell ()
 //@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *titleLab;
+@property (strong, nonatomic) IBOutlet UILabel *titleLab;
 @property (strong, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (strong, nonatomic) IBOutlet UILabel *contentLabel;
 
@@ -24,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *commentButtonTopLayout;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *praiseButtonTopLayout;
 @property (strong, nonatomic) IBOutlet UIImageView *backgroundImage;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *contentLabelLaoutHeight;
 
 @end
 
@@ -78,6 +79,13 @@
         self.titleLab.text = model.realName;
     }
     [self.commentButton setTitle:[NSString stringWithFormat:@"%zd", model.commentTotles] forState:UIControlStateNormal];
+    CGFloat cellWidth = (KSCREEN_W - 30) / 2.0 - 20.0;
+
+    CGSize sceneSize = [model.content boundingRectWithSize:CGSizeMake(cellWidth, 1000.0f)
+                                                   options:NSStringDrawingUsesLineFragmentOrigin
+                                                attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0]}
+                                                   context:nil].size;
+    self.contentLabelLaoutHeight.constant = (floorf(sceneSize.height));
     if ([model.content length] != 0) {
         self.contentLabel.text = [NSString stringWithFormat:@"%@",model.content];
     } else {

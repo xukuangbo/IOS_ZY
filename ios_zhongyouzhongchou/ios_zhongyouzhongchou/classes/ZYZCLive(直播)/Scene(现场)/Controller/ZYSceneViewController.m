@@ -14,11 +14,14 @@
 #import "EntryPlaceholderView.h"
 #import "ZYCommentFootprintController.h"
 #import "ZYZCPlayViewController.h"
+#import "ZYStartFootprintBtn.h"
 @interface ZYSceneViewController () <UICollectionViewDelegate, UICollectionViewDataSource,WaterFlowLayoutDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *scenes;
 @property (nonatomic, assign) NSInteger pageNo;
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
+
+@property (nonatomic, strong) ZYStartFootprintBtn    *navRightBtn;//发起
 
 @end
 
@@ -38,6 +41,7 @@ static NSString *const ShopID = @"ShopCell";
 {
     [super viewWillAppear:animated];
      self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+    _navRightBtn.hidden=NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,9 +50,18 @@ static NSString *const ShopID = @"ShopCell";
     
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _navRightBtn.hidden=YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"现场";
+//    self.title = @"全球现场";
+    UILabel *titleLab=[ZYZCTool createLabWithFrame:CGRectMake(0, 0, 80, 20) andFont:[UIFont boldSystemFontOfSize:20.f] andTitleColor:[UIColor whiteColor]];
+    titleLab.text = @"全球现场";
+    self.navigationItem.titleView=titleLab;
     [self initView];
     
     [self setupRefresh];
@@ -79,6 +92,13 @@ static NSString *const ShopID = @"ShopCell";
 
 - (void)initView
 {
+    ZYStartFootprintBtn *navRightBtn=[[ZYStartFootprintBtn alloc]initWithFrame:CGRectMake(self.view.width-60, 4, 60, 30)];
+    [navRightBtn setTitle:@"发起" forState:UIControlStateNormal];
+    navRightBtn.titleLabel.font=[UIFont systemFontOfSize:15.f];
+    [self.navigationController.navigationBar addSubview:navRightBtn];
+    _navRightBtn=navRightBtn;
+
+    
     self.view.backgroundColor = [UIColor whiteColor];
     WaterFlowLayout *layout = [[WaterFlowLayout alloc]init];
     self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
@@ -107,12 +127,13 @@ static NSString *const ShopID = @"ShopCell";
                                  @"pageSize" : @"10"
                                  };
     
-    __weak typeof(&*self) weakSelf = self;
+    WEAKSELF
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
         
         NSMutableArray *dataArray = [ZYFootprintListModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
         
         if (direction == 1) {//说明是下拉
+            [weakSelf.scenes removeAllObjects];
             if (dataArray.count > 0) {
                 
                 weakSelf.entryView.hidden = YES;
@@ -122,7 +143,6 @@ static NSString *const ShopID = @"ShopCell";
                 
                 [MBProgressHUD hideHUD];
             }else{
-                weakSelf.scenes = nil;
                 weakSelf.entryView.hidden = NO;
                 
                 [weakSelf.collectionView reloadData];
@@ -163,7 +183,7 @@ static NSString *const ShopID = @"ShopCell";
     ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
     commentFootprintVC.hidesBottomBarWhenPushed = YES;
     commentFootprintVC.footprintModel = footprintModel;
-    commentFootprintVC.showWithKeyboard = YES;
+    commentFootprintVC.showWithKeyboard = NO;
     [self.navigationController pushViewController:commentFootprintVC animated:YES];
 }
 
@@ -176,12 +196,13 @@ static NSString *const ShopID = @"ShopCell";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShopCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:ShopID forIndexPath:indexPath];
+    ShopCell *cell = (ShopCell *)[collectionView dequeueReusableCellWithReuseIdentifier:ShopID forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     cell.layer.masksToBounds = YES;
     cell.layer.cornerRadius = 6;
-
+    
     cell.model = self.scenes[indexPath.row];
+    
     WEAKSELF
     cell.playBlock = ^(void) {
         ZYZCPlayViewController *playVC = [[ZYZCPlayViewController alloc] init];
@@ -203,7 +224,7 @@ static NSString *const ShopID = @"ShopCell";
 //        commentFootprintVC.footprintModel = footprintModel;
 //        commentFootprintVC.showWithKeyboard = YES;
 //        [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
-        [weakSelf clickPraiseButtonAction:praiseButton model:footprintModel];
+        [weakSelf clickPraiseButtonAction:praiseButton model:footprintModel indexPath:indexPath];
     };
     return cell;
 }
@@ -231,7 +252,7 @@ static NSString *const ShopID = @"ShopCell";
 }
 
 #pragma mark - event
-- (void)clickPraiseButtonAction:(UIButton *)sender model:(ZYFootprintListModel *)model
+- (void)clickPraiseButtonAction:(UIButton *)sender model:(ZYFootprintListModel *)model indexPath:(NSIndexPath *)indexPath
 {
     sender.userInteractionEnabled=NO;
 
@@ -240,7 +261,9 @@ static NSString *const ShopID = @"ShopCell";
         [sender setImage:[UIImage imageNamed:@"footprint-like-2"] forState:UIControlStateNormal];
         model.hasZan=YES;
         model.zanTotles++;
-        [self.collectionView reloadData];
+        [UIView performWithoutAnimation:^{
+            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        }];
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:model.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
             sender.userInteractionEnabled=YES;
 
@@ -255,7 +278,9 @@ static NSString *const ShopID = @"ShopCell";
         [sender setImage:[UIImage imageNamed:@"footprint-like"] forState:UIControlStateNormal];
         model.hasZan=NO;
         model.zanTotles--;
-        [self.collectionView reloadData];
+        [UIView performWithoutAnimation:^{
+            [self.collectionView reloadItemsAtIndexPaths:@[indexPath]];
+        }];
         [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_delZan"] andParameters:@{@"pid":[NSNumber numberWithInteger:model.ID]} andSuccessGetBlock:^(id result, BOOL isSuccess) {
             sender.userInteractionEnabled=YES;
         } andFailBlock:^(id failResult) {
@@ -263,6 +288,12 @@ static NSString *const ShopID = @"ShopCell";
         }];
         
     }
+}
+
+#pragma mark --- 发起
+-(void)clickRightNavBtn
+{
+    
 }
 
 

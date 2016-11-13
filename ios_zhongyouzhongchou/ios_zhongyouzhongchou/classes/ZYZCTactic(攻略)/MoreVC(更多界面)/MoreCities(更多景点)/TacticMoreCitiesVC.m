@@ -29,6 +29,13 @@
     if (self) {
         self.hidesBottomBarWhenPushed = YES;
         _viewType = viewType;
+        if (_viewType == 1) {
+            
+            self.title = @"热门国家";
+        }else if (_viewType == 2) {
+            
+            self.title = @"热门目的地";
+        }
     }
     return self;
 }
@@ -45,7 +52,6 @@ static NSString *const ID = @"TacticMoreCitiesCell";
 - (void)configUI
 {
     [self setBackItem];
-    self.title = @"更多热门目的地";
     self.view.backgroundColor = [UIColor ZYZC_BgGrayColor];
     
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];

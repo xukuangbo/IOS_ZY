@@ -31,8 +31,7 @@
     self.view.backgroundColor=[UIColor whiteColor];
     _listArr = [NSMutableArray array];
     [self configUI];
-    [self getHttpData];
-
+    [_table.mj_header beginRefreshing];
 }
 
 #pragma mark --- 创建控件
@@ -77,14 +76,11 @@
 #pragma mark --- 获取数据
 -(void)getHttpData
 {
-//    DDLog(@"%@",Post_List_Msg);
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"systemMsg_getMsgList"] andParameters:@{@"userId":[ZYZCAccountTool getUserId],
                         @"pageNo":[NSNumber numberWithInt:_pageNo]}
     andSuccessGetBlock:^(id result, BOOL isSuccess)
     {
         DDLog(@"%@",result);
-        [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
@@ -121,7 +117,6 @@
         DDLog(@"%@",failResult);
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
-        [MBProgressHUD hideHUDForView:self.view];
         [NetWorkManager hideFailViewForView:self.view];
         [NetWorkManager showMBWithFailResult:failResult];
         __weak typeof (&*self)weakSelf=self;
