@@ -145,7 +145,7 @@
             if (getOrderSuccess) {
                 getOrderSuccess();
             }
-            if ([params[@"style4"] floatValue]==0.0&&!(params[@"style1"] || params[@"style2"] || params[@"style3"])) {
+            if (params[@"style4"] && [params[@"style4"] floatValue]==0.0&&!(params[@"style1"] || params[@"style2"] || params[@"style3"])) {
                 [MBProgressHUD showSuccess:@"报名成功!"];
                 //通知支持一起游成功
                 [[NSNotificationCenter defaultCenter]postNotificationName:@"Support_Style4_ZeroYuan_Success" object:nil];

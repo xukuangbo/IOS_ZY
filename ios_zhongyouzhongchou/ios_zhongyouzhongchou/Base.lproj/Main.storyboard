@@ -46,10 +46,10 @@
             </objects>
             <point key="canvasLocation" x="-897" y="1447.5"/>
         </scene>
-        <!--Scene View Controller-->
+        <!--Live Home View Controller-->
         <scene sceneID="vgz-D2-j1r">
             <objects>
-                <viewController id="m7p-Vo-QVY" customClass="ZYSceneViewController" sceneMemberID="viewController">
+                <viewController id="m7p-Vo-QVY" customClass="ZYLiveHomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BIZ-Wg-3kg"/>
                         <viewControllerLayoutGuide type="bottom" id="KGn-oi-2oH"/>

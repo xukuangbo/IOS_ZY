@@ -1630,7 +1630,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.payMoney = payMoney;
     if (style == kCommonLiveUserContributionStyle) {
         [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] withSuccessBolck:^{
-            weakSelf.payView.hidden = YES;
+            weakSelf.travePayView.hidden = YES;
         } andFailBlock:^{
             
         }];
