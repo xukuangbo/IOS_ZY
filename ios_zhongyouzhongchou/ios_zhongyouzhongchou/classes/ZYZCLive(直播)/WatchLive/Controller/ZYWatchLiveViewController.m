@@ -983,6 +983,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              dic=[arr firstObject];
          }
          BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
+         
+         if (appDelegate.orderModel.payResult==YES) {
+             payResult=YES;
+         }
          //支付成功
          if(payResult){
              NSDictionary *payDict = @{
@@ -1005,7 +1009,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
          }else{
              [MBProgressHUD showError:@"支付失败!"];
          }
+         //还原订单状态
          [appDelegate.orderModel initOrderState];
+         
      }andFailBlock:^(id failResult)
      {
          [MBProgressHUD showError:@"网络出错,支付失败!"];

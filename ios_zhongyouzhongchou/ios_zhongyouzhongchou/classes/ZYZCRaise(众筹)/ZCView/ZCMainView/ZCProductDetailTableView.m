@@ -556,7 +556,10 @@
         }
         //发出支付结果的通知
         [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:payResult]];
+        
+        //还原订单状态
         [appDelegate.orderModel initOrderState];
+        
     } andFailBlock:^(id failResult) {
 //        [MBProgressHUD showError:@"网络出错,支付失败!"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:NO]];
