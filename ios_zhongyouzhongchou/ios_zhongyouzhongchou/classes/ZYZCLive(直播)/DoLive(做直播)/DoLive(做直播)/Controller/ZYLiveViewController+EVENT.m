@@ -413,30 +413,24 @@
 - (void)cacheImagePath
 {
     WEAKSELF
-    dispatch_group_t group = dispatch_group_create();
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         for (int i = 0; i < self.giftImageArray.count; i ++)
         {
-            dispatch_group_enter(group);
-            // 任务代码i 假定任务 是异步执行block回调
+            [self.lock lock];
+            sleep(4); //线程1执行挂起4秒
             __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
             [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl]];
             [self.downloadManager setFractionCompleted:^(double progress) {
                 [VersionTool setPayVersion:@"0"];
             }];
+            
             [self.downloadManager setSuccess:^(NSString *success) {
                 NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success pathType:model.price];
                 model.imageArray = imagePaths;
                 [weakSelf archiverCache];
             }];
-            // block 回调执行
-            dispatch_group_leave(group);
-            // block 回调执行
+            [self.lock unlock];
         }
-    });
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 主线程处理  
     });
 }
 
@@ -444,6 +438,9 @@
 {
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
     [ZYZCMCCacheManager archiverCacheData:self.giftImageArray path:path];
+    NSLog(@"giftImageArraygiftImageArray%@", self.giftImageArray);
+    NSLog(@"endendend");
+
     
 }
 

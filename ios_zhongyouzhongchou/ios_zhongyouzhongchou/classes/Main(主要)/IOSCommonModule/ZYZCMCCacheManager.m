@@ -151,6 +151,7 @@
 
 + (NSArray *)zipArchive:(NSString *)path pathType:(NSString *)pathType
 {
+    NSLog(@"pathTypepathTypepathType%@", pathType);
     ZipArchive* zip = [[ZipArchive alloc] init];
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentpath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;

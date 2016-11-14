@@ -25,6 +25,8 @@
 
 @interface ZYWatchLiveViewController : ZYZCBaseViewController
 - (instancetype)initWatchLiveModel:(ZYLiveListModel *)liveModel;
+// 下载加锁
+@property (nonatomic, strong) NSLock *lock;
 
 //个人信息view
 @property (nonatomic, strong) LivePersonDataView *personDataView;

@@ -63,6 +63,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 @property (nonatomic, copy  ) NSString *pushUrl;
 @property (nonatomic, copy  ) NSString *pullUrl;
 @property (nonatomic, copy) NSString *productID;
+// 下载加锁
+@property (nonatomic, strong) NSLock *lock;
+
 // 下载打赏图片manager
 @property (nonatomic, strong) ZYZCMCDownloadFileManager *downloadManager;
 // 打赏礼物图片
