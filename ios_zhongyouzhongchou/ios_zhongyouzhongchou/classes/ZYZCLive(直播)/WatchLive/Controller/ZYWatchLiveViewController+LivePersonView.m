@@ -271,6 +271,11 @@
 - (void)getUserContributionResultHttpUrl
 {
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+    if (appDelegate.orderModel.orderType != 2)
+    {
+        return;
+    }
+    
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getOrderPayStatus"];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
     [parameter setValue:appDelegate.orderModel.out_trade_no forKey:@"outTradeNo"];
@@ -283,6 +288,9 @@
             dic=[arr firstObject];
         }
         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
+        if (appDelegate.orderModel.payResult) {
+            payResult = YES;
+        }
         //支付成功
         if(payResult){
             NSDictionary *payDict = @{
@@ -303,9 +311,11 @@
         } else {
             [MBProgressHUD showError:@"打赏失败!"];
         }
+        //还原订单状态
         [appDelegate.orderModel initOrderState];
+        
     } andFailBlock:^(id failResult) {
-        appDelegate.out_trade_no=nil;
+        
         [MBProgressHUD showError:@"网络出错,支付失败!"];
     }];
 }
