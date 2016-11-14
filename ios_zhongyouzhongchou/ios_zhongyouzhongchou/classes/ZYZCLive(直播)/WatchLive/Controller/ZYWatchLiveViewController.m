@@ -47,6 +47,7 @@
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
+static NSString * const kZhongYouLockName = @"com.sosona.zhongyouzhongchou.operation.lock";
 
 @interface ZYWatchLiveViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
@@ -148,6 +149,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     if (self) {
         self.liveModel = liveModel;
         _targetId = liveModel.chatRoomId;
+        self.lock = [[NSLock alloc] init];
+        self.lock.name = kZhongYouLockName;
     }
     return self;
 }
@@ -504,11 +507,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 - (void)cacheImagePath
 {
     WEAKSELF
-    dispatch_group_t group = dispatch_group_create();
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         for (int i = 0; i < self.giftImageArray.count; i ++)
         {
-            dispatch_group_enter(group);
+            [self.lock lock];
+            sleep(4); //线程1执行挂起4秒
             // 任务代码i 假定任务 是异步执行block回调
             __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
             [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl]];
@@ -519,14 +522,9 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                 NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success pathType:model.price];
                 model.imageArray = imagePaths;
                 [weakSelf archiverCache];
-            }];            // block 回调执行
-            dispatch_group_leave(group);
-            // block 回调执行
+            }];
+            [self.lock unlock];
         }
-    });
-    dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // 主线程处理,没有处理的事情
     });
 }
 
@@ -999,11 +997,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              NSString *localizedMessage = [ZYZCTool turnJson:payDict];
              RCTextMessage *rcTextMessage = [RCTextMessage messageWithContent:localizedMessage];
              rcTextMessage.extra = kPaySucceed;
-             [weakSelf sendMessage:rcTextMessage pushContent:nil];
              [MBProgressHUD showSuccess:@"支付成功!"];
              
              //展示支付成功动画
              dispatch_async(dispatch_get_main_queue(), ^{
+                 [weakSelf sendMessage:rcTextMessage pushContent:nil];
                  [weakSelf.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
              });
          }else{
@@ -1639,7 +1637,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     self.payMoney = payMoney;
     if (style == kCommonLiveUserContributionStyle) {
         [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] payType:2 withSuccessBolck:^{
-            weakSelf.payView.hidden = YES;
+            weakSelf.travePayView.hidden = YES;
         } andFailBlock:^{
             
         }];

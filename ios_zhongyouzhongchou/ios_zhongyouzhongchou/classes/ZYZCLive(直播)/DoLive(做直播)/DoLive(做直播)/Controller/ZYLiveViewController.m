@@ -28,6 +28,8 @@
 #import "ZYLiveViewController+EVENT.h"
 #import "XTLoveHeartView.h"
 #define kBounds [UIScreen mainScreen].bounds.size
+static NSString * const kZhongYouLockName = @"com.sosona.zhongyouzhongchou.operation.lock";
+
 @interface ZYLiveViewController () <
 UICollectionViewDelegate, UICollectionViewDataSource,
 UICollectionViewDelegateFlowLayout, RCDLiveMessageCellDelegate, UIGestureRecognizerDelegate,
@@ -103,6 +105,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
     if (self) {
         [self setUpRC];
         self.createLiveModel = createLiveModel;
+        self.lock = [[NSLock alloc] init];
+        self.lock.name = kZhongYouLockName;
     }
     return self;
 }
