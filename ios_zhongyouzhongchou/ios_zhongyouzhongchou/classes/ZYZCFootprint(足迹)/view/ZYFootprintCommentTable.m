@@ -15,6 +15,8 @@
 @property (nonatomic, strong) ZYFootprintListModel *footprintModel;
 @property (nonatomic, strong) UIAlertController    *alertController;
 @property (nonatomic, strong) ZYOneCommentModel    *deleteOneComment;
+@property (nonatomic, strong) UITableViewCell      *lastConmmentCell;
+@property (nonatomic, assign) BOOL                 getAllData;
 
 @end
 
@@ -76,6 +78,10 @@
         {
             commentFootprintCell.commentNumber=commentNumber;
         };
+        
+        if (self.dataArr.count==0) {
+            _lastConmmentCell=commentFootprintCell;
+        }
         return commentFootprintCell;
     }
     else
@@ -85,6 +91,9 @@
             oneCommentCell.showCommentImg=indexPath.row==1;
             oneCommentCell.showLine=indexPath.row!=self.dataArr.count;
             oneCommentCell.oneCommentModel=self.dataArr[indexPath.row-1];
+        if (indexPath.row == self.dataArr.count) {
+            _lastConmmentCell=oneCommentCell;
+        }
         return oneCommentCell;
     }
 }
@@ -159,6 +168,19 @@
 {
     _supportUsersModel=supportUsersModel;
     [self reloadData];
+}
+
+-(void)scrollToLastWithKeyBoardShow:(NSNotification *)notify
+{
+    [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.dataArr.count inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    [ZYZCTool handleKeyBoardScroOn:self forTarget:_lastConmmentCell noti:notify state:@"show"];
+    self.contentOffset=CGPointMake(self.contentOffset.x, self.contentOffset.y+44);
+}
+
+-(void)hiddenWithKeyBoardHidden:(NSNotification *)notify
+{
+    [ZYZCTool handleKeyBoardScroOn:self forTarget:_lastConmmentCell noti:notify state:@"hide"];
+     self.contentOffset=CGPointMake(self.contentOffset.x, self.contentOffset.y-44);
 }
 
 #pragma mark --- 置顶按钮状态变化
