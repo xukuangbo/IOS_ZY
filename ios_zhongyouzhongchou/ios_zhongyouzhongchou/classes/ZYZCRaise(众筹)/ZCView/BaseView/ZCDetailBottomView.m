@@ -97,116 +97,6 @@
     sender.enabled=YES;
 }
 
-/*
-#pragma mark --- 如果可以支持，支持按钮变为支付
--(void)changeSupportButton:(NSNotification *)notify
-{
-    NSString *str=notify.object;
-    
-    __weak typeof (&*self)weakSelf=self;
-    _payMoneyBlock=^(NSNumber *productId){
-        NSMutableDictionary *mutDic=[NSMutableDictionary dictionaryWithDictionary:[ZYZCTool turnJsonStrToDictionary:notify.object]];
-        [mutDic setObject:productId forKey:@"productId"];
-        NSNumber *style2=mutDic[@"style2"];
-        if ( style2&&[style2 isEqual:@0]) {
-            [MBProgressHUD showShortMessage:@"任意金额不能为空"];
-            return ;
-        }
-//        NSLog(@"mutDic:%@",mutDic);
-        
-         NSNumber *style4=mutDic[@"style4"];
-        
-        if (style4) {
-        #pragma mark ----------- 
-            //判断时间是否有冲突，如果有则不可支持
-            NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"list_checkMyProductsTime"];
-            NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-            [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
-            [parameter setValue:[NSString stringWithFormat:@"%@", productId] forKey:@"productId"];
-            [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
-                //没有冲突
-                if ([result[@"data"] isEqual:@1]) {
-                    WXApiManager *wxManager=[WXApiManager sharedManager];
-                    [wxManager payForWeChat:mutDic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
-                }
-                else if ([result[@"data"] isEqual:@0])
-                {
-                    UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"此行程与已有行程时间冲突,不可支持一起游" delegate:weakSelf cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                    [alert show];
-                }
-                else
-                {
-                    [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-                }
-            } andFailBlock:^(id failResult) {
-                [MBProgressHUD showShortMessage:ZYLocalizedString(@"unkonwn_error")];
-            }];
-        } else {
-            WXApiManager *wxManager=[WXApiManager sharedManager];
-            [wxManager payForWeChat:mutDic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
-        }
-        
-        
-//        if(mutDic[@"style1"]||mutDic[@"style3"]||mutDic[@"style4"])
-//        {
-//            NSUserDefaults *user=[NSUserDefaults standardUserDefaults];
-//            NSString *userId=[user objectForKey:KUSER_MARK];
-//            [ZYZCHTTPTool getHttpDataByURL:GET_MY_STYLEPAY_STATUS(userId,productId) withSuccessGetBlock:^(id result, BOOL isSuccess) {
-//                NSLog(@"%@",result);
-//                if (isSuccess) {
-//                    if ([result[@"style1"] boolValue]&&mutDic[@"style1"]) {
-//                        [MBProgressHUD showError:@"支持5元只能操作一次"];
-//                    }
-//                    else if ([result[@"style3"] boolValue]&&mutDic[@"style3"]) {
-//                        [MBProgressHUD showError:@"回报支持只能操作一次"];
-//                    }
-//                    else if ([result[@"style4"] boolValue]&&mutDic[@"style4"])
-//                    {
-//                        [MBProgressHUD showError:@"一起游支持只能操作一次"];
-//                    }
-//                    else
-//                    {
-//                        dispatch_async(dispatch_get_main_queue(), ^{
-//                            WXApiManager *wxManager=[WXApiManager sharedManager];
-//                            [wxManager payForWeChat:mutDic];
-//                        });
-//                    }
-//                }
-//                else
-//                {
-//                    [MBProgressHUD showError:@"数据异常，操作失败!"];
-//                }
-//                
-//            } andFailBlock:^(id failResult) {
-//                NSLog(@"%@",failResult);
-//                [MBProgressHUD showError:@"网络异常，操作失败!"];
-//            }];
-//        }
-//        else
-//        {
-//            WXApiManager *wxManager=[WXApiManager sharedManager];
-//            [wxManager payForWeChat:mutDic];
-//        }
-};
-    
-    UIButton *supportBtn=(UIButton *)[self viewWithTag:SupportType];
-     if([str isEqualToString:@"hidden"])
-    {
-        _surePay=NO;
-        [supportBtn setTitle: _detailProductType==PersonDetailProduct?@"支持":@"支持自己" forState:UIControlStateNormal];
-        [supportBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        supportBtn.backgroundColor=[UIColor ZYZC_MainColor];
-    }
-     else {
-         _surePay=YES;
-         [supportBtn setTitle:@"支付" forState:UIControlStateNormal];
-         [supportBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-         supportBtn.backgroundColor=[UIColor ZYZC_MainColor];
-     }
-
-}
- */
-
 #pragma mark --- 响应支持方式变动
 -(void) getSupportState:(NSNotification *)notify
 {
@@ -268,7 +158,7 @@
                 //没有冲突
                 if ([result[@"data"] isEqual:@1]) {
                     WXApiManager *wxManager=[WXApiManager sharedManager];
-                    [wxManager payForWeChat:dataDic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
+                    [wxManager payForWeChat:dataDic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] payType:1 withSuccessBolck:nil andFailBlock:nil];
                 }
                 else if ([result[@"data"] isEqual:@0])
                 {
@@ -284,7 +174,8 @@
             }];
         } else {
             WXApiManager *wxManager=[WXApiManager sharedManager];
-            [wxManager payForWeChat:dataDic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
+            [wxManager payForWeChat:dataDic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] payType:1
+                   withSuccessBolck:nil andFailBlock:nil];
         }
     };
 }

@@ -276,7 +276,8 @@
     __weak typeof (&*self)weakSelf=self;
     [wxManager payForWeChat:@{@"productId":_productId,
                               @"style4"   :[NSNumber numberWithFloat:[_togetherUersModel.price floatValue]/100.0]
-                              } payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:^{
+                              } payUrl:[[ZYZCAPIGenerate sharedInstance]  API:@"weixinpay_generateAppOrder"]
+                                payType:1 withSuccessBolck:^{
                                   [weakSelf.navigationController popViewControllerAnimated:YES];
                               } andFailBlock:^{
                                   

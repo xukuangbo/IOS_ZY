@@ -241,7 +241,7 @@
         //没有冲突
         if ([result[@"data"] isEqual:@1]) {
             WXApiManager *wxManager=[WXApiManager sharedManager];
-            [wxManager payForWeChat:params payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
+            [wxManager payForWeChat:params payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] payType:2 withSuccessBolck:nil andFailBlock:nil];
         }
         else if ([result[@"data"] isEqual:@0])
         {
@@ -264,7 +264,7 @@
     NSDictionary *params=@{@"productId":[NSString stringWithFormat:@"%@", self.liveModel.productId],@"style3":[NSString stringWithFormat:@"%.1lf", self.journeyLiveModel.rewardMoney / 10000.0]};
     
     WXApiManager *wxManager=[WXApiManager sharedManager];
-    [wxManager payForWeChat:params payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
+    [wxManager payForWeChat:params payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] payType:2 withSuccessBolck:nil andFailBlock:nil];
 }
 
 // 获取关联行程打赏结果
@@ -273,11 +273,10 @@
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getOrderPayStatus"];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-    [parameter setValue:appDelegate.out_trade_no forKey:@"outTradeNo"];
+    [parameter setValue:appDelegate.orderModel.out_trade_no forKey:@"outTradeNo"];
     [parameter setValue:[ZYZCAccountTool getUserId] forKey:@"userId"];
     WEAKSELF
     [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        appDelegate.out_trade_no=nil;
         NSArray *arr=result[@"data"];
         NSDictionary *dic=nil;
         if (arr.count) {
@@ -303,8 +302,8 @@
             });
         } else {
             [MBProgressHUD showError:@"打赏失败!"];
-            appDelegate.out_trade_no=nil;
         }
+        [appDelegate.orderModel initOrderState];
     } andFailBlock:^(id failResult) {
         [MBProgressHUD showError:@"网络出错,支付失败!"];
     }];

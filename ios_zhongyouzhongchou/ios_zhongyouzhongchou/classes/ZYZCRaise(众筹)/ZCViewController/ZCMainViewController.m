@@ -364,7 +364,7 @@
             [parameter setValue:@"10" forKey:@"pageSize"];
             [parameter setValue:@"2" forKey:@"querytype"];
         }
-        //看最近
+        //看最新
         else if (_filterType==4)
         {
 //            httpUrl=[NSString stringWithFormat:@"%@%@&querytype=5",LISTALLPRODUCTS,GET_PRODUCT_LIST(_pageNo)];

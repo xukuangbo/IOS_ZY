@@ -229,7 +229,7 @@
             [dic setObject:[NSNumber numberWithFloat:[_returnModel.price floatValue]/100.0] forKey:@"style3"];
             [dic setObject:_detailModel.productId forKey:@"productId"];
             WXApiManager *wxManager=[WXApiManager sharedManager];
-            [wxManager payForWeChat:dic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] withSuccessBolck:nil andFailBlock:nil];
+            [wxManager payForWeChat:dic payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_generateAppOrder"] payType:1 withSuccessBolck:nil andFailBlock:nil];
         }
     }
     _supportBtn.enabled=YES;

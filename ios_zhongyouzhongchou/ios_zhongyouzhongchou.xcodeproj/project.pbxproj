@@ -397,6 +397,7 @@
 		2CD6B9131DA9E2D900B7E60A /* ZYDetailUserInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6B9121DA9E2D900B7E60A /* ZYDetailUserInfoView.m */; };
 		2CD6B9171DA9E34500B7E60A /* ZYDetailUserInfoView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CD6B9161DA9E34500B7E60A /* ZYDetailUserInfoView.xib */; };
 		2CD6F6031D964D5600D57457 /* ZYStartFootprintBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F6021D964D5600D57457 /* ZYStartFootprintBtn.m */; };
+		2CD7C8841DD94F88000D94FF /* WXOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD7C8831DD94F88000D94FF /* WXOrderModel.m */; };
 		2CD802841CF6DA3000823C9F /* LanguageTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CD802831CF6DA3000823C9F /* LanguageTool.m */; };
 		2CDC49F71CFD32FC00E7893C /* ZYZCConversationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC49F61CFD32FC00E7893C /* ZYZCConversationController.m */; };
 		2CDC49FA1CFD3B5900E7893C /* ZYZCRCManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2CDC49F91CFD3B5900E7893C /* ZYZCRCManager.m */; };
@@ -1427,6 +1428,8 @@
 		2CD6B9161DA9E34500B7E60A /* ZYDetailUserInfoView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ZYDetailUserInfoView.xib; sourceTree = "<group>"; };
 		2CD6F6011D964D5600D57457 /* ZYStartFootprintBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYStartFootprintBtn.h; sourceTree = "<group>"; };
 		2CD6F6021D964D5600D57457 /* ZYStartFootprintBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYStartFootprintBtn.m; sourceTree = "<group>"; };
+		2CD7C8821DD94F88000D94FF /* WXOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXOrderModel.h; sourceTree = "<group>"; };
+		2CD7C8831DD94F88000D94FF /* WXOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXOrderModel.m; sourceTree = "<group>"; };
 		2CD802821CF6DA3000823C9F /* LanguageTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LanguageTool.h; sourceTree = "<group>"; };
 		2CD802831CF6DA3000823C9F /* LanguageTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LanguageTool.m; sourceTree = "<group>"; };
 		2CDC49F51CFD32FC00E7893C /* ZYZCConversationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYZCConversationController.h; sourceTree = "<group>"; };
@@ -2434,6 +2437,8 @@
 				04A99D121CC07E1800C6F5F0 /* WXApiRequestHandler.m */,
 				04A99D131CC07E1800C6F5F0 /* WXApiResponseHandler.h */,
 				04A99D141CC07E1800C6F5F0 /* WXApiResponseHandler.m */,
+				2CD7C8821DD94F88000D94FF /* WXOrderModel.h */,
+				2CD7C8831DD94F88000D94FF /* WXOrderModel.m */,
 			);
 			path = Control;
 			sourceTree = "<group>";
@@ -6123,6 +6128,7 @@
 				39911ADB1D5044A8007DF44B /* ZYZCDataBase.m in Sources */,
 				2C3523231D3C63B8005200AD /* ZYMobileLoginController.m in Sources */,
 				2C1B60F51D6D3CF900E3C25B /* MovieView.m in Sources */,
+				2CD7C8841DD94F88000D94FF /* WXOrderModel.m in Sources */,
 				2C1B60CE1D6D3CF900E3C25B /* FZCReplaceDataKeys.m in Sources */,
 				2C920D911DB0DEA10038C3E1 /* ZYShortVideoPublish.m in Sources */,
 				2CDE66BF1DA650690066F49D /* QPPickerLibraray.m in Sources */,

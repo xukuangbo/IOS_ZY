@@ -7,16 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WXOrderModel.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
 /**
- *  获取订单号（众游项目）
+ *  订单号model(支付时，杀死支付平台后进入app时使用)
  */
-@property (nonatomic, strong) NSString *out_trade_no;
-@property (nonatomic, assign) BOOL     productPayResult;
+@property (nonatomic, strong) WXOrderModel *orderModel;
 
 /**
  *  是否已处于聊天列表

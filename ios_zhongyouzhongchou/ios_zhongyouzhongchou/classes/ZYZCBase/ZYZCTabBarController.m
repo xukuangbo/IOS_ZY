@@ -246,7 +246,7 @@
     BOOL  exit= [manager fileExistsAtPath:videoPath];
     if (!exit) {
         if (videoPath) {
-        [MBProgressHUD showShortMessage:@"网络错误,视频导出失败"];
+        [MBProgressHUD showShortMessage:@"视频导出失败"];
         }
         [self dismissViewControllerAnimated:YES completion:nil];
         return;

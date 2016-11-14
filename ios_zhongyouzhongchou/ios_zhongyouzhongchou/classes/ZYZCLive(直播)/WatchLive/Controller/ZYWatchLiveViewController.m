@@ -956,6 +956,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 {
     WEAKSELF
     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    if (appDelegate.orderModel.orderType!=2) {
+        return;
+    }
     NSString *userId=[ZYZCAccountTool getUserId];
     NSString *httpUrl;
     //判断支付是否成功
@@ -968,12 +972,11 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     }
     NSDictionary *parameters = @{
                                  @"userId" : userId,
-                                 @"outTradeNo" : appDelegate.out_trade_no
+                                 @"outTradeNo" : appDelegate.orderModel.out_trade_no
                                  };
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:httpUrl andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess)
      {
          NSLog(@"%@",result);
-         appDelegate.out_trade_no=nil;
          NSArray *arr=result[@"data"];
          NSDictionary *dic=nil;
          if (arr.count) {
@@ -1001,8 +1004,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              });
          }else{
              [MBProgressHUD showError:@"支付失败!"];
-             appDelegate.out_trade_no=nil;
          }
+         [appDelegate.orderModel initOrderState];
      }andFailBlock:^(id failResult)
      {
          [MBProgressHUD showError:@"网络出错,支付失败!"];
@@ -1608,7 +1611,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                 @"price":@"0.1",
                                 };
     self.payMoney = payMoney;
-    [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] withSuccessBolck:^{
+    [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] payType:2 withSuccessBolck:^{
         weakSelf.payView.hidden = YES;
     } andFailBlock:^{
         
@@ -1629,7 +1632,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
                                 };
     self.payMoney = payMoney;
     if (style == kCommonLiveUserContributionStyle) {
-        [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] withSuccessBolck:^{
+        [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] payType:2 withSuccessBolck:^{
             weakSelf.payView.hidden = YES;
         } andFailBlock:^{
             

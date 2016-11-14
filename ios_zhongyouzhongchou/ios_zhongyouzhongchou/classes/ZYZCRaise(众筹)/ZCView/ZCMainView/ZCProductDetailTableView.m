@@ -517,10 +517,14 @@
 #pragma mark --- 支付回调
 -(void)getOrderPay{
     
+     AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+    
+    if (appDelegate.orderModel.orderType!=1) {
+        return;
+    }
+    
     ZCProductDetailController *detailController=(ZCProductDetailController *)self.viewController;
     [detailController reloadPartInfo];
-    
-    AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
     
     NSString *userId=[ZYZCAccountTool getUserId];
     
@@ -528,7 +532,7 @@
 //    NSString *httpUrl=GET_ORDERPAY_STATUS(userId, appDelegate.out_trade_no);
     NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"productInfo_getOrderPayStatus"];
     NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
-    [parameter setValue:appDelegate.out_trade_no forKey:@"outTradeNo"];
+    [parameter setValue:appDelegate.orderModel.out_trade_no forKey:@"outTradeNo"];
     [parameter setValue:userId forKey:@"userId"];
     WEAKSELF
     [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
@@ -539,7 +543,7 @@
             dic=[arr firstObject];
         }
         BOOL payResult=[[dic objectForKey:@"buyStatus"] boolValue];
-        if (appDelegate.productPayResult==YES) {
+        if (appDelegate.orderModel.payResult==YES) {
             payResult=YES;
         }
         //支付成功
@@ -552,8 +556,7 @@
         }
         //发出支付结果的通知
         [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:payResult]];
-        appDelegate.out_trade_no=nil;
-        appDelegate.productPayResult=NO;
+        [appDelegate.orderModel initOrderState];
     } andFailBlock:^(id failResult) {
 //        [MBProgressHUD showError:@"网络出错,支付失败!"];
         [[NSNotificationCenter defaultCenter]postNotificationName:@"getPayResult" object:[NSNumber numberWithBool:NO]];

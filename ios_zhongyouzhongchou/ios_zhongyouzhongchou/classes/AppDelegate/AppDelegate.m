@@ -48,6 +48,7 @@
     self.window.backgroundColor=[UIColor whiteColor];
     self.window.layer.cornerRadius=5;
     self.window.layer.masksToBounds=YES;
+    self.orderModel=[WXOrderModel new];
     [self.window makeKeyAndVisible];
     
     //将是否第一次进app置为0
@@ -388,7 +389,7 @@
         [VersionTool version];
     });
     [application cancelAllLocalNotifications];
-    if(self.out_trade_no)
+    if(self.orderModel.out_trade_no)
     {
         [[NSNotificationCenter defaultCenter]postNotificationName:kGetPayResultNotification object:nil];
     }

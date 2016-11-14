@@ -75,22 +75,15 @@
     if ([resp isKindOfClass:[PayResp class]])
     {
         PayResp *response = (PayResp *)resp;
-        //如果是支持众游项目的支付回调
         AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
-        if (appDelegate.out_trade_no) {
-            switch (response.errCode) {
-                case WXSuccess: {
-                    appDelegate.productPayResult=YES;
-//                    NSNotification *notification = [NSNotification notificationWithName:kProductOrderPay object:@"success"];
-//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
-                    break;
-                }
-                default: {
-                    appDelegate.productPayResult=NO;
-//                    NSNotification *notification = [NSNotification notificationWithName:kProductOrderPay object:@"fail"];
-//                    [[NSNotificationCenter defaultCenter] postNotification:notification];
-                    break;
-                }
+        switch (response.errCode) {
+            case WXSuccess: {
+                appDelegate.orderModel.payResult=YES;
+                break;
+            }
+            default: {
+                appDelegate.orderModel.payResult=NO;
+                break;
             }
         }
     }
@@ -120,9 +113,8 @@
 
 //======================================================
 #pragma mark --- 微信支付
--(void )payForWeChat:(NSDictionary *)dict payUrl:(NSString *)payUrl withSuccessBolck:(GetOrderSuccess)getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail
+ - (void) payForWeChat:(NSDictionary *)dict payUrl:(NSString *)payUrl payType:(NSInteger)payType withSuccessBolck:(GetOrderSuccess) getOrderSuccess andFailBlock:(GetOrderFail)getOrderFail
 {
-
     //如果没有安装微信/不能支持微信API，则提示
     if (![WXApi isWXAppInstalled]||![WXApi isWXAppSupportApi]) {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"支持失败" message:@"未安装微信或微信版本过低" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -158,10 +150,19 @@
             }
             else
             {
-                //调用支付
-                PayReq *request = [[PayReq alloc] init];
                 /** 商家向财付通申请的商家id */
                 NSDictionary *data=[ZYZCTool turnJsonStrToDictionary:result[@"data"]];
+                
+                //记录订单状态
+                WXOrderModel *orderModel = [WXOrderModel new];
+                orderModel.orderType     = payType;
+                orderModel.out_trade_no  = data[@"out_trade_no"];
+                orderModel.payResult     = NO;
+                AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
+                appDelegate.orderModel=orderModel;
+                
+                //调用微信支付
+                PayReq *request = [[PayReq alloc] init];
                 request.openID    = data[@"appid"];
                 request.partnerId = data[@"partnerid"];
                 request.prepayId  = data[@"prepayid"];
@@ -170,8 +171,6 @@
                 request.timeStamp = [data[@"timestamp"] intValue];
                 request.sign      = data[@"sign"];
                 [WXApi sendReq: request];
-                AppDelegate *appDelegate=(AppDelegate *)[UIApplication sharedApplication].delegate;
-                appDelegate.out_trade_no=data[@"out_trade_no"];
             }
         }
         
