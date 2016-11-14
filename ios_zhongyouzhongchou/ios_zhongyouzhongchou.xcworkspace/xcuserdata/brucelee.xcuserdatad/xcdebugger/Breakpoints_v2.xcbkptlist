@@ -311,8 +311,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "558"
             endingLineNumber = "558"
-            landmarkName = "@implementation ZCProductDetailTableView"
-            landmarkType = "3">
+            landmarkName = "-getOrderPay"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

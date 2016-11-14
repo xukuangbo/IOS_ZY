@@ -1001,10 +1001,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              });
          }else{
              [MBProgressHUD showError:@"支付失败!"];
-             appDelegate.out_trade_no=nil;
          }
      }andFailBlock:^(id failResult)
      {
+         appDelegate.out_trade_no=nil;
          [MBProgressHUD showError:@"网络出错,支付失败!"];
      }];
 }
