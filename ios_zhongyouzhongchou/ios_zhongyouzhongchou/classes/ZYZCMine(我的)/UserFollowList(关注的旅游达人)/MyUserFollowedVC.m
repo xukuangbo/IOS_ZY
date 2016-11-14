@@ -10,11 +10,12 @@
 #import "ZYZCAccountModel.h"
 #import "ZYZCAccountTool.h"
 #import "MyUserFollowedModel.h"
-#import "MyUserFollowedCell.h"
+//#import "MyUserFollowedCell.h"
 #import "ZYUserZoneController.h"
 #import "MBProgressHUD+MJ.h"
 #import "NetWorkManager.h"
 #import "EntryPlaceholderView.h"
+#import "MyUserFollowCell.h"
 @interface MyUserFollowedVC()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) NSMutableArray *userFollowedArray;
 
@@ -23,6 +24,7 @@
 @end
 
 
+static NSString *cellId = @"MyUserFollowCell";
 @implementation MyUserFollowedVC
 #pragma mark - system方法
 - (instancetype)init
@@ -60,11 +62,13 @@
 - (void)configUI
 {
     UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    tableView.contentInset = UIEdgeInsetsMake(0, 0, 10, 0);
     tableView.delegate = self;
     tableView.dataSource = self;
     tableView.rowHeight = MyUserFollowedCellHeight;
     tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     tableView.backgroundColor = [UIColor ZYZC_BgGrayColor];
+    [tableView registerNib:[UINib nibWithNibName:cellId bundle:[NSBundle mainBundle]] forCellReuseIdentifier:cellId];
     [self.view addSubview:tableView];
     self.tableView = tableView;
 }
@@ -149,12 +153,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *ID = @"MineMessageCell";
-    MyUserFollowedCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    if (!cell) {
-        cell = [[MyUserFollowedCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+    MyUserFollowCell *cell = [tableView dequeueReusableCellWithIdentifier:cellId forIndexPath:indexPath];
+    
+    //赋值
+    if (indexPath.row < self.userFollowedArray.count) {
+        cell.userFollowModel = self.userFollowedArray[indexPath.row];
     }
-    cell.userFollowModel = self.userFollowedArray[indexPath.row];
+    
     return cell;
 }
 

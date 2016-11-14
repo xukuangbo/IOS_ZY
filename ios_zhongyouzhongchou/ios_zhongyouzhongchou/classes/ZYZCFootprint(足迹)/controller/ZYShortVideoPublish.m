@@ -108,6 +108,13 @@
     backBtn.titleLabel.font=[UIFont systemFontOfSize:17];
     [backBtn  addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
+    
+    //发布按钮
+    UIButton *publishBtn=[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-60, 0, 60, 44) andNormalTitle:@"发布" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(publishMyFootprint)];
+    backBtn.titleLabel.font=[UIFont systemFontOfSize:17.f];
+    [self.view addSubview:publishBtn];
+    _publishBtn=publishBtn;
+
 }
 
 - (void)configBodyUI {
@@ -182,13 +189,13 @@
     [_switchView addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     [_cardImg addSubview:_switchView];
     
-    //发布按钮
-    _publishBtn = [ZYZCTool createBtnWithFrame:CGRectMake(35, self.view.height-70, self.view.width-70, 40) andNormalTitle:@"发布到足迹" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(publishMyFootprint)];
-    _publishBtn.titleLabel.font=[UIFont boldSystemFontOfSize:20.f];
-    _publishBtn.layer.cornerRadius=KCORNERRADIUS;
-    _publishBtn.layer.masksToBounds=YES;
-    _publishBtn.backgroundColor=[UIColor colorWithHexString:@"2ef2c7"];
-    [scrollView addSubview:_publishBtn];
+//    //发布按钮
+//    _publishBtn = [ZYZCTool createBtnWithFrame:CGRectMake(35, self.view.height-70, self.view.width-70, 40) andNormalTitle:@"发布到足迹" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(publishMyFootprint)];
+//    _publishBtn.titleLabel.font=[UIFont boldSystemFontOfSize:20.f];
+//    _publishBtn.layer.cornerRadius=KCORNERRADIUS;
+//    _publishBtn.layer.masksToBounds=YES;
+//    _publishBtn.backgroundColor=[UIColor colorWithHexString:@"2ef2c7"];
+//    [scrollView addSubview:_publishBtn];
     
     //分享
     CGFloat left=(self.view.width-220)/2;
