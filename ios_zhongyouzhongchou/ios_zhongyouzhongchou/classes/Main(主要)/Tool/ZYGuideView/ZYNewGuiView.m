@@ -16,6 +16,7 @@
     CGContextType _contextType;
     UILabel *_notifitionContentLabel;
     NSString *_notifitionContent;
+    NSString *_liveHeadImage;
 }
 - (id)initWithFrame:(CGRect)frame
 {
@@ -28,7 +29,7 @@
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame NotificationContent:(NSString *)content;
+- (id)initWithFrame:(CGRect)frame NotificationContent:(NSString *)content liveHeadImage:(NSString *)headImage;
 {
     if(self = [super initWithFrame:frame]){
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
@@ -36,6 +37,7 @@
         [tapGesture addTarget:self action:@selector(tap:)];
         self.backgroundColor = [UIColor clearColor];
         _notifitionContent = content;
+        _liveHeadImage = headImage;
     }
     return self;
 }
@@ -180,7 +182,7 @@
             UIImageView *headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(8, 5, 40, 40)];
             headerImageView.layer.masksToBounds = YES;
             headerImageView.layer.cornerRadius = 20;
-            headerImageView.image = [UIImage imageNamed:@"icon_mxc_cy"];
+            [headerImageView sd_setImageWithURL:[NSURL URLWithString:_liveHeadImage] placeholderImage:[UIImage imageNamed:@"icon_mxc_cy"]];
             [self addSubview:headerImageView];
             
             UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 5, KSCREEN_W - 135, 40)];

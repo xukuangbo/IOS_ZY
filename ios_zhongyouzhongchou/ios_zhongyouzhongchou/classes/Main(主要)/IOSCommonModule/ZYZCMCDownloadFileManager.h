@@ -14,10 +14,10 @@
 - (BOOL)isExistedWithFileUrl:(NSURL *)fileUrl;
 
 // 下载...
-- (void)downloadRecordFile:(NSURL *)fileUrl;
+- (void)downloadRecordFile:(NSURL *)fileUrl price:(NSString *)price;
 
 @property (copy, nonatomic) void(^failureError)(void);
-@property (copy, nonatomic) void(^success)(NSString *);
+@property (copy, nonatomic) void(^success)(NSArray *);
 @property (copy, nonatomic) void(^fractionCompleted)(double);
 
 @end

@@ -332,8 +332,13 @@
     }
     int arc4randomNumber = arc4random() % 270 + 100;
     int arc4randomWidth = arc4random() % 50;
-
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(arc4randomWidth, KSCREEN_H - arc4randomNumber * 16 / 9, arc4randomNumber, arc4randomNumber * 16 / 9)];
+    CGRect imageFrame;
+    if ([payType integerValue] > 5) {
+        imageFrame = CGRectMake(0, 0, KSCREEN_W, KSCREEN_H);
+    } else {
+        imageFrame = CGRectMake(arc4randomWidth, KSCREEN_H - arc4randomNumber * 16 / 9, arc4randomNumber, arc4randomNumber * 16 / 9);
+    }
+    UIImageView *imageView = [[UIImageView alloc] initWithFrame:imageFrame];
     [self.view addSubview:imageView];
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
