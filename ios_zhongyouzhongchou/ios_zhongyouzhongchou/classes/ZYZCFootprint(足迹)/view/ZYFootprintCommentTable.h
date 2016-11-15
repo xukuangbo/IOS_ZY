@@ -30,4 +30,7 @@ typedef void(^CommentNumberChangeBlock)(NSInteger commentNumber);
 
 @property (nonatomic, copy  )CommentNumberChangeBlock commentNumberChangeBlock;//评论数发生改变
 
+-(void)scrollToLastWithKeyBoardShow:(NSNotification *)notify;
+-(void)hiddenWithKeyBoardHidden:(NSNotification *)notify;
+
 @end

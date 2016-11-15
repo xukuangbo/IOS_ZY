@@ -5,8 +5,6 @@
 //  Created by liuliang on 16/9/20.
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
-#define share_footprint(ID) [NSString stringWithFormat:@"http://www.sosona.cn/videoShare?pid=%ld",ID]
-
 #import "ZYCommentFootprintController.h"
 #import "ZYFootprintCommentTable.h"
 #import "MBProgressHUD+MJ.h"
@@ -42,6 +40,10 @@
     {
         self.navigationItem.rightBarButtonItem=nil;
     }
+    
+    //监听键盘的出现和收起
+    [ZYNSNotificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [ZYNSNotificationCenter addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -111,9 +113,9 @@
 
 -(void)shareFootprintToWechat:(int)scene
 {
-    NSString *url=share_footprint(_footprintModel.ID);
+    NSString *url=share_footprint([ZYZCAPIGenerate sharedInstance].serverType,_footprintModel.ID);
     WXApiManager *wxManager=[WXApiManager sharedManager];
-    [wxManager shareScene:scene withTitle:@"众筹足迹" andDesc:_footprintModel.content andThumbImage:_footprintModel.videoimg andWebUrl:url];
+    [wxManager shareScene:scene withTitle:@"众游足迹" andDesc:_footprintModel.content andThumbImage:_footprintModel.videoimg andWebUrl:url];
 }
 
 
@@ -214,11 +216,7 @@
                         @"pageNo":[NSNumber numberWithInteger:_pageNo]}
         andSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUDForView:self.view];
-        if(_showWithKeyboard)
-        {
-            [_addCommentView textFieldBecomeFirstResponse];
-        }
-        DDLog(@"%@",result);
+//        DDLog(@"%@",result);
         if (isSuccess) {
              MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)_commentTable.mj_footer ;
             if (_pageNo==1&&_commentArr.count) {
@@ -242,6 +240,10 @@
             }
             _commentTable.dataArr=_commentArr;
             [_commentTable reloadData];
+            if(_showWithKeyboard)
+            {
+                [_addCommentView textFieldBecomeFirstResponse];
+            }
         }
         else
         {
@@ -254,6 +256,22 @@
     }];
 }
 
+#pragma mark --- 键盘出现和收起方法
+-(void)keyboardWillShow:(NSNotification *)notify
+{
+//    NSDictionary *dic = notify.userInfo;
+//    NSValue *value = dic[UIKeyboardFrameEndUserInfoKey];
+//    CGFloat height=value.CGRectValue.size.height;
+//    DDLog(@"height:%f",height);
+    [_commentTable scrollToLastWithKeyBoardShow:notify];
+    
+}
+
+-(void)keyboardWillHidden:(NSNotification *)notify
+{
+   [_commentTable hiddenWithKeyBoardHidden:notify];
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -264,6 +282,12 @@
 {
     [super viewWillDisappear:animated];
     
+}
+
+-(void)dealloc
+{
+    DDLog(@"delloc:%@",[self class]);
+    [ZYNSNotificationCenter removeObserver:self];
 }
 
 

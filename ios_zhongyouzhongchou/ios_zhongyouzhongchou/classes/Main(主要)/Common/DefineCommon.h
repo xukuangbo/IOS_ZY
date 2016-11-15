@@ -23,6 +23,8 @@
 #define DDLog(xx, ...) nil
 
 #endif
+//分享短视频 （测试和正式）
+#define share_footprint(serverStatus,ID) [NSString stringWithFormat:@"%@/videoShare?pid=%ld",serverStatus == 1?@"http://www.sosona.cn":@"http://www.sosona.com",ID]
 
 //融云appKey（测试和正式）
 #define RC_APPKEY(serverStatus) serverStatus == 1 ? @"lmxuhwagxqfzd" :@"z3v5yqkbvp960"

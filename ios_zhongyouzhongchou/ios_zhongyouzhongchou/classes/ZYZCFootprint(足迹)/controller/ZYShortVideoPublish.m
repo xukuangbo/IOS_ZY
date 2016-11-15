@@ -12,8 +12,9 @@
 #define placeHolder_text            @"分享此刻的心情"
 
 #define videoPublish_localText      @"显示当前位置"
+#define videoPublish_xcText         @"同时发布到现场  所有人可见"
 
-#define MAX_LIMIT_NUMS      36
+#define MAX_LIMIT_NUMS      100
 
 #import "ZYShortVideoPublish.h"
 #import "VideoService.h"
@@ -36,7 +37,10 @@
 @property (nonatomic, strong) UIImageView         *locationImg;
 @property (nonatomic, strong) UILabel             *locationLab;
 @property (nonatomic, strong) UISwitch            *switchView;
+@property (nonatomic, strong) UILabel             *xcLab;
+@property (nonatomic, strong) UISwitch            *xcSwitch;
 @property (nonatomic, strong) UIButton            *publishBtn;
+
 @property (nonatomic, strong) UIButton            *shareToFBtn;
 @property (nonatomic, strong) UIButton            *shareToPYQBtn;
 
@@ -68,7 +72,6 @@
     [self getImageData];
     [self configBodyUI];
     [self configNavUI];
-    [_textView becomeFirstResponder];
     [self switchAction:_switchView];
    self.videoLen = [NSNumber numberWithInt:(int)[VideoService getVideoDuration:[NSURL fileURLWithPath:self.videoPath]]];
 }
@@ -109,11 +112,11 @@
     [backBtn  addTarget:self action:@selector(backClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
     
-    //发布按钮
-    UIButton *publishBtn=[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-60, 0, 60, 44) andNormalTitle:@"发布" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(publishMyFootprint)];
-    backBtn.titleLabel.font=[UIFont systemFontOfSize:17.f];
-    [self.view addSubview:publishBtn];
-    _publishBtn=publishBtn;
+//    //发布按钮
+//    UIButton *publishBtn=[ZYZCTool createBtnWithFrame:CGRectMake(self.view.width-60, 0, 60, 44) andNormalTitle:@"发布" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(publishMyFootprint)];
+//    backBtn.titleLabel.font=[UIFont systemFontOfSize:17.f];
+//    [self.view addSubview:publishBtn];
+//    _publishBtn=publishBtn;
 
 }
 
@@ -151,11 +154,10 @@
     [self.view addSubview:scrollView];
     
     _pageLab=[ZYZCTool createLabWithFrame:CGRectMake((self.view.width-40)/2, pageFlowView.bottom-20, 40, 15) andFont:[UIFont systemFontOfSize:11.f] andTitleColor:[UIColor whiteColor]];
-//    _pageLab.layer.cornerRadius=3;
-//    _pageLab.layer.masksToBounds=YES;
-//    _pageLab.backgroundColor=[UIColor ZYZC_TextGrayColor01];
     _pageLab.textAlignment=NSTextAlignmentCenter;
     _pageLab.text=page_text((NSInteger)1);
+    _pageLab.layer.shadowOffset=CGSizeMake(1, 1);
+    _pageLab.layer.shadowColor=[UIColor blackColor].CGColor;
     [scrollView addSubview:_pageLab];
     
     //描述卡片
@@ -164,38 +166,71 @@
     _cardImg.userInteractionEnabled = YES;
     [scrollView addSubview:_cardImg];
     
-    _textView=[[ZYBaseLimitTextView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, _cardImg.width-2*KEDGE_DISTANCE, 50) andMaxTextNum:(NSInteger)MAX_LIMIT_NUMS];
+    _textView=[[ZYBaseLimitTextView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 0, _cardImg.width-2*KEDGE_DISTANCE, 80) andMaxTextNum:(NSInteger)MAX_LIMIT_NUMS];
     _textView.font=[UIFont systemFontOfSize:15.f];
     _textView.placeholder = placeHolder_text;
     _textView.layoutManager.allowsNonContiguousLayout = NO;
     [_cardImg addSubview:_textView];
     
-    _leftNumLab=[ZYZCTool createLabWithFrame:CGRectMake(_cardImg.width-70, _textView.bottom+5, 60, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor ZYZC_TextBlackColor]];
+    _leftNumLab=[ZYZCTool createLabWithFrame:CGRectMake(_cardImg.width-70, _textView.bottom+10, 60, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor ZYZC_TextBlackColor]];
     _leftNumLab.textAlignment=NSTextAlignmentRight;
     _leftNumLab.text=[NSString stringWithFormat:@"%ld/%ld",(NSInteger)MAX_LIMIT_NUMS,(NSInteger)MAX_LIMIT_NUMS];
     [_cardImg addSubview:_leftNumLab];
     
-    _locationImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, _leftNumLab.bottom+10, 17, 20)];
+//    _locationImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, _leftNumLab.bottom+10, 17, 20)];
+//    _locationImg.image=[UIImage imageNamed:@"footprint-coordinate-2"];
+//    [_cardImg addSubview:_locationImg];
+//    
+//    _locationLab=[ZYZCTool createLabWithFrame:CGRectMake(_locationImg.right+KEDGE_DISTANCE, _locationImg.top, _cardImg.width-130, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor ZYZC_TextGrayColor01]];
+//    _locationLab.text = videoPublish_localText;
+//    [_cardImg addSubview:_locationLab];
+//    
+//    _switchView=[[UISwitch alloc]initWithFrame:CGRectMake(_cardImg.width-60, 0, 0, 0)];
+//    _switchView.on=YES;
+//    _switchView.top=_cardImg.height-_switchView.height-10;
+//    [_switchView addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+//    [_cardImg addSubview:_switchView];
+    
+    //发布按钮
+    _publishBtn = [ZYZCTool createBtnWithFrame:CGRectMake(35, self.view.height-70, self.view.width-70, 40) andNormalTitle:@"发布到足迹" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(publishMyFootprint)];
+    _publishBtn.titleLabel.font=[UIFont boldSystemFontOfSize:20.f];
+    _publishBtn.layer.cornerRadius=KCORNERRADIUS;
+    _publishBtn.layer.masksToBounds=YES;
+    _publishBtn.backgroundColor=[UIColor colorWithHexString:@"2ef2c7"];
+    [scrollView addSubview:_publishBtn];
+    
+    //新增界面
+    UIImageView *cardImg02=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, _cardImg.bottom+10, self.view.width-2*KEDGE_DISTANCE, 104) ];
+    cardImg02.image=KPULLIMG(@"tab_bg_boss0", 5, 0, 5, 0) ;
+    cardImg02.userInteractionEnabled = YES;
+    [scrollView addSubview:cardImg02];
+    //展示位置
+    _locationImg=[[UIImageView alloc]initWithFrame:CGRectMake(KEDGE_DISTANCE, 20, 17, 20)];
     _locationImg.image=[UIImage imageNamed:@"footprint-coordinate-2"];
-    [_cardImg addSubview:_locationImg];
-    
-    _locationLab=[ZYZCTool createLabWithFrame:CGRectMake(_locationImg.right+KEDGE_DISTANCE, _locationImg.top, _cardImg.width-130, 20) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor ZYZC_TextGrayColor01]];
-    _locationLab.text = videoPublish_localText;
-    [_cardImg addSubview:_locationLab];
-    
-    _switchView=[[UISwitch alloc]initWithFrame:CGRectMake(_cardImg.width-60, 0, 0, 0)];
+    [cardImg02 addSubview:_locationImg];
+
+    _switchView=[[UISwitch alloc]initWithFrame:CGRectMake(_cardImg.width-60, 10, 0, 0)];
     _switchView.on=YES;
-    _switchView.top=_cardImg.height-_switchView.height-10;
     [_switchView addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
-    [_cardImg addSubview:_switchView];
+    [cardImg02 addSubview:_switchView];
     
-//    //发布按钮
-//    _publishBtn = [ZYZCTool createBtnWithFrame:CGRectMake(35, self.view.height-70, self.view.width-70, 40) andNormalTitle:@"发布到足迹" andNormalTitleColor:[UIColor whiteColor] andTarget:self andAction:@selector(publishMyFootprint)];
-//    _publishBtn.titleLabel.font=[UIFont boldSystemFontOfSize:20.f];
-//    _publishBtn.layer.cornerRadius=KCORNERRADIUS;
-//    _publishBtn.layer.masksToBounds=YES;
-//    _publishBtn.backgroundColor=[UIColor colorWithHexString:@"2ef2c7"];
-//    [scrollView addSubview:_publishBtn];
+    _locationLab=[ZYZCTool createLabWithFrame:CGRectMake(_locationImg.right+KEDGE_DISTANCE, _locationImg.top, _switchView.left-_locationImg.right-20, 20) andFont:[UIFont systemFontOfSize:15.f] andTitleColor:[UIColor ZYZC_TextGrayColor01]];
+    _locationLab.text = videoPublish_localText;
+    [cardImg02 addSubview:_locationLab];
+    
+    UIView *lineView=[UIView lineViewWithFrame:CGRectMake(10, _locationImg.bottom+10, cardImg02.width-20, 0.5) andColor:nil];
+    [cardImg02 addSubview:lineView];
+    
+    //展示现场
+    _xcSwitch=[[UISwitch alloc]initWithFrame:CGRectMake(_cardImg.width-60, lineView.bottom+10, 0, 0)];
+    _xcSwitch.on=YES;
+    [_xcSwitch addTarget:self action:@selector(xcSwitchAction:) forControlEvents:UIControlEventValueChanged];
+    [cardImg02 addSubview:_xcSwitch];
+    
+    _xcLab=[ZYZCTool createLabWithFrame:CGRectMake(_locationImg.left, _xcSwitch.bottom-20, _xcSwitch.left-_locationImg.right-20, 20) andFont:[UIFont systemFontOfSize:15.f] andTitleColor:[UIColor ZYZC_MainColor]];
+    _xcLab.text=videoPublish_xcText;
+    [cardImg02 addSubview:_xcLab];
+    
     
     //分享
     CGFloat left=(self.view.width-220)/2;
@@ -210,7 +245,7 @@
     WEAKSELF;
     _textView.textChangeBlock = ^(NSInteger leftNum)
     {
-        weakSelf.leftNumLab.text = [NSString stringWithFormat:@"%ld/36",leftNum];
+        weakSelf.leftNumLab.text = [NSString stringWithFormat:@"%ld/%d",leftNum,MAX_LIMIT_NUMS];
     };
 }
 
@@ -274,6 +309,7 @@
          [_shareToFBtn setImage:[UIImage imageNamed:@"Wechat"] forState:UIControlStateNormal];
     }
 }
+
 
 #pragma mark ---  发布足迹👣
 -(void)publishMyFootprint
@@ -384,7 +420,10 @@
     if (_videoImgSize) {
         [param setObject:_videoImgSize forKey:@"videoimgsize"];
     }
-    
+
+    //是否展示到现场
+    [param setObject:[NSString stringWithFormat:@"%d",_xcSwitch.on] forKey:@"xzshow"];
+
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"youji_addYouji"] andParameters:param andSuccessGetBlock:^(id result, BOOL isSuccess) {
         [MBProgressHUD hideHUD];
         _publishBtn.enabled=YES;
@@ -460,6 +499,18 @@
         _locationImg.image=[UIImage imageNamed:@"footprint-coordinate-2"];
         _locationLab.textColor=[UIColor ZYZC_TextGrayColor01];
         _locationLab.text=videoPublish_localText;
+    }
+}
+
+#pragma mark --- 是否展示现场
+-(void)xcSwitchAction:(id)sender
+{
+    UISwitch *switchButton = (UISwitch*)sender;
+    BOOL isButtonOn = [switchButton isOn];
+    if (isButtonOn) {
+            self.xcLab.textColor=[UIColor ZYZC_MainColor];
+    }else{
+         self.xcLab.textColor=[UIColor ZYZC_TextGrayColor01];
     }
 }
 

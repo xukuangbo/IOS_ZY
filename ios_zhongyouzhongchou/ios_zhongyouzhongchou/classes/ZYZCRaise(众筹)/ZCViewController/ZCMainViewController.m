@@ -49,7 +49,7 @@
 
 @property (nonatomic, strong) EntryPlaceholderView *entryView;
 
-//@property (nonatomic, assign) BOOL              isFirstEntry;//是否第一次进入
+@property (nonatomic, assign) BOOL              isNeedMB;//
 // 引导页view
 @property (strong, nonatomic) GuideWindow *guideWindow;
 @property (strong, nonatomic) ZYNewGuiView *guideView;
@@ -399,15 +399,15 @@
         }
     }
 //    DDLog(@"httpUrl:%@",httpUrl);
-//    if (_isFirstEntry) {
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    }
+    if (_isNeedMB) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    }
     STRONGSELF
     [ZYZCHTTPTool GET:httpUrl parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
-//        if (_isFirstEntry) {
-//            [MBProgressHUD hideHUDForView:self.view];
-//            _isFirstEntry=NO;
-//        }
+        if (_isNeedMB) {
+            [MBProgressHUD hideHUDForView:self.view];
+            _isNeedMB=NO;
+        }
         [NetWorkManager hideFailViewForView:self.view];
 //       DDLog(@"result：%@",result);
         if (isSuccess) {
@@ -446,11 +446,11 @@
         [_table.mj_footer endRefreshing];
 
     } andFailBlock:^(id failResult) {
-//        if (_isFirstEntry) {
-//            [MBProgressHUD hideHUDForView:self.view];
-//            _isFirstEntry=NO;
-//        }
-//        _isFirstEntry=YES;
+        if (_isNeedMB) {
+            [MBProgressHUD hideHUDForView:self.view];
+            _isNeedMB=NO;
+        }
+        _isNeedMB=YES;
         [_table.mj_header endRefreshing];
         [_table.mj_footer endRefreshing];
         [NetWorkManager hideFailViewForView:self.view];
