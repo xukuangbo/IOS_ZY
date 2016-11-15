@@ -5,6 +5,9 @@
 //  Created by liuliang on 16/9/20.
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
+#define share_title              @"众游旅行  和我一起看世界"
+#define share_content_placeHoder @"我在海边看风景,你躺在床上用手机看我。快下载\"众游\"App,我们一起去旅行!"
+
 #import "ZYCommentFootprintController.h"
 #import "ZYFootprintCommentTable.h"
 #import "MBProgressHUD+MJ.h"
@@ -115,7 +118,7 @@
 {
     NSString *url=share_footprint([ZYZCAPIGenerate sharedInstance].serverType,_footprintModel.ID);
     WXApiManager *wxManager=[WXApiManager sharedManager];
-    [wxManager shareScene:scene withTitle:@"众游足迹" andDesc:_footprintModel.content andThumbImage:_footprintModel.videoimg andWebUrl:url];
+    [wxManager shareScene:scene withTitle:share_title andDesc:_footprintModel.content.length>0? _footprintModel.content:share_content_placeHoder andThumbImage:_footprintModel.videoimg andWebUrl:url];
 }
 
 
