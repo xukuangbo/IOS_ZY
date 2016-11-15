@@ -44,6 +44,11 @@
 // 通知view
 @property (strong, nonatomic) ZYNewGuiView *notifitionView;
 @property (strong, nonatomic) GuideWindow *guideWindow;
+
+// 处理直播通知
+@property (nonatomic, strong) ZYSystemCommon *systemCommon;
+@property (strong, nonatomic) ZYLiveListModel *liveModel;
+
 @end
 
 @implementation ZYMineZoomController
@@ -51,8 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    _footprintArr=[NSMutableArray array];
-    _footprint_pageNo=1;
+    [self setupData];
     [self setNavItems];
     [self configUI];
     //用户基本信息更改
@@ -64,9 +68,17 @@
     //删除足迹成功
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteFootprintSuccess:) name:DELETE_ONE_FOOTPRINT_SUCCESS  object:nil];
     // 收到直播通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receptionLiveNotification:) name:DELETE_ONE_FOOTPRINT_SUCCESS  object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receptionLiveNotification:) name:RECEPTION_LIVE_NOTIFICATION  object:nil];
 
 //    [self createNotificationView:@"众游红包正在直播\n点击进入直播间"];
+}
+
+#pragma mark - setup 
+- (void)setupData
+{
+    _footprintArr=[NSMutableArray array];
+    _footprint_pageNo=1;
+    self.systemCommon = [[ZYSystemCommon alloc] init];
 }
 
 -(void)setNavItems
@@ -87,9 +99,9 @@
 }
 
 #pragma mark - 接收通知提醒
-- (void)createNotificationView:(NSString *)content
+- (void)createNotificationView:(NSString *)content headImage:(NSString *)headImage
 {
-    ZYNewGuiView *notifitionView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 50) NotificationContent:content];
+    ZYNewGuiView *notifitionView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 50) NotificationContent:content liveHeadImage:headImage];
     notifitionView.layer.masksToBounds = YES;
     notifitionView.layer.cornerRadius = 25;
     
@@ -113,26 +125,11 @@
 #pragma mark - ShowDoneDelegate
 - (void)showDone
 {
-    ZYSystemCommon *systemCommon = [[ZYSystemCommon alloc] init];
-    NSDictionary *parameters;
-    WEAKSELF
-//    NSDictionary *parameters= @{
-//                                @"spaceName":dict[@"spaceName"],
-//                                @"streamName":dict[@"streamName"]
-//                                };
-    systemCommon.getLiveDataSuccess = ^(ZYLiveListModel *liveModel) {
-        if (liveModel != nil) {
-            ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:liveModel];
-            watchLiveVC.conversationType = ConversationType_CHATROOM;
-            [weakSelf.navigationController pushViewController:watchLiveVC animated:YES];
-        } else {
-            [MBProgressHUD showShortMessage:@"直播已结束"];
-            [weakSelf closeNotifitionView];
-            NSLog(@"aaaaaaa");
-        }
-    };
-    
-    [systemCommon getLiveContent:parameters];
+    ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:self.liveModel];
+    watchLiveVC.hidesBottomBarWhenPushed = YES;
+    watchLiveVC.conversationType = ConversationType_CHATROOM;
+    [self.navigationController pushViewController:watchLiveVC animated:YES];
+    [self closeNotifitionView];
 }
 
 - (void)closeNotifitionView
@@ -146,7 +143,22 @@
 #pragma mark - 收到直播通知
 - (void)receptionLiveNotification:(NSNotification *)notification
 {
-    
+    NSDictionary *notificationObject = (NSDictionary *)notification.object;
+    NSDictionary *apsDict = notificationObject[@"aps"];
+    WEAKSELF
+    NSDictionary *parameters= @{
+                                @"spaceName":notificationObject[@"spaceName"],
+                                @"streamName":notificationObject[@"streamName"]
+                                };
+    self.systemCommon.getLiveDataSuccess = ^(ZYLiveListModel *liveModel) {
+        if (liveModel != nil) {
+            weakSelf.liveModel = liveModel;
+            [weakSelf createNotificationView:apsDict[@"alert"] headImage:notificationObject[@"headImg"]];
+        } else {
+            
+        }
+    };
+    [self.systemCommon getLiveContent:parameters];
 }
 
 #pragma mark --- 设置

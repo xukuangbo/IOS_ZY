@@ -10,16 +10,16 @@
 #import "AFNetworking.h"
 
 @implementation ZYZCMCDownloadFileManager
-- (void)downloadRecordFile:(NSURL *)fileUrl
+- (void)downloadRecordFile:(NSURL *)fileUrl price:(NSString *)price
 {
     NSString *urlPath=[NSString stringWithFormat:@"%@/Documents/%@",NSHomeDirectory(),[fileUrl.path substringFromIndex:[fileUrl.path length] - 5]];
-   
+    NSArray *blockParArray = [NSArray arrayWithObjects:urlPath, price,nil];
     // 判断文件是否本地存在
     if ([self is_file_exist:urlPath]) {
        
         dispatch_async(dispatch_get_main_queue(), ^{
             if (self.success) {
-                self.success(urlPath);
+                self.success(blockParArray);
             }
         });
         return;
@@ -52,9 +52,11 @@
                 }
             });
         } else {
+            NSArray *blockParArray = [NSArray arrayWithObjects:path, price,nil];
+
             if (weakSelf.success) {
                 NSLog(@"下载complectedHandler Success");
-                weakSelf.success(path);
+                weakSelf.success(blockParArray);
             }
         }
     }];

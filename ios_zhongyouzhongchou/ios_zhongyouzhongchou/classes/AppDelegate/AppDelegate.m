@@ -487,7 +487,9 @@ fetchCompletionHandler:
     [JPUSHService handleRemoteNotification:userInfo];
 //    NSLog(@"%@",userInfo);
 //    NSLog(@"收到通知:%@", [self logDic:userInfo]);
-    
+    if ([userInfo[@"pushType"] integerValue] == 10) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:RECEPTION_LIVE_NOTIFICATION object:userInfo];
+    }
     // 取得 APNs 标准信息内容
     NSDictionary *aps = [userInfo valueForKey:@"aps"];
 //    NSString *content = [aps valueForKey:@"alert"]; //推送显示的内容

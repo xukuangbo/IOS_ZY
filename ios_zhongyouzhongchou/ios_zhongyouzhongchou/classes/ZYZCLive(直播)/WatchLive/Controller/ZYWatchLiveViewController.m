@@ -511,15 +511,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
         for (int i = 0; i < self.giftImageArray.count; i ++)
         {
             [self.lock lock];
-            sleep(4); //线程1执行挂起4秒
+            sleep(1); //线程执行挂起1秒
             // 任务代码i 假定任务 是异步执行block回调
             __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
-            [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl]];
+            [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl] price:model.price];
             [self.downloadManager setFractionCompleted:^(double progress) {
                 [VersionTool setPayVersion:@"0"];
             }];
-            [self.downloadManager setSuccess:^(NSString *success) {
-                NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success pathType:model.price];
+            [self.downloadManager setSuccess:^(NSArray *success) {
+                NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success[0] pathType:success[1]];
                 model.imageArray = imagePaths;
                 [weakSelf archiverCache];
             }];
@@ -1002,6 +1002,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
              //展示支付成功动画
              dispatch_async(dispatch_get_main_queue(), ^{
                  [weakSelf sendMessage:rcTextMessage pushContent:nil];
+                 NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:rcTextMessage.content];
+                 [weakSelf showAnimtion:dict[@"payType"]];
                  [weakSelf.dashangMapView showDashangDataWithModelString:rcTextMessage.content];
              });
          }else{
@@ -1093,12 +1095,6 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSDictionary *dict = [ZYZCTool turnJsonStrToDictionary:content];
                 [self showAnimtion:dict[@"payType"]];
-
-//                if ([dict[@"payType"] intValue] == 1) {
-//                    [self showAnimtion:dict[@"payType"] imageNumber:11];
-//                } else {
-//                    [self showAnimtion:dict[@"payType"] imageNumber:37];
-//                }
                 [self.dashangMapView showDashangDataWithModelString:content];
             });
             return ;
