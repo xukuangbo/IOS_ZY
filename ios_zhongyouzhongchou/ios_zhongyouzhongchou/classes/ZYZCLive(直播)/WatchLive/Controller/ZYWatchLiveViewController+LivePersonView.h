@@ -26,7 +26,8 @@
 - (void)rewardUserContribution;
 // 获取关联行程打赏结果
 - (void)getUserContributionResultHttpUrl;
-
+// 获取礼物清单
+- (void)getPayVersion;
 // 显示动画
 - (void)showAnimtion:(NSString *)payType;
 @end

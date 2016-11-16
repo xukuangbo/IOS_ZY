@@ -85,6 +85,9 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 @property(nonatomic,strong)UIButton *clapBtn;
 
 @property(nonatomic,strong)UICollectionView *portraitsCollectionView;
+
+@property(nonatomic,assign) BOOL isCreateLive;
+
 @end
 
 #pragma mark - 方法实现
@@ -238,7 +241,8 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 - (void)setUpRC{
     
     self.conversationDataRepository = [[NSMutableArray alloc] init];
-    
+    self.downloadArray = [NSMutableArray array];
+
     self.conversationMessageCollectionView = nil;
     
     self.defaultHistoryMessageCountOfChatRoom = -1;
@@ -450,12 +454,12 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 #pragma mark - APP进入前后台的动作
 - (void)appResignActive{
-    
+    self.isCreateLive = YES;
     //销毁直播任务
     [self destroySession];
     
     //停止计时
-    [_headView stopTimer];
+//    [_headView stopTimer];
     
     // 监听电话
     _callCenter = [[CTCallCenter alloc] init];
@@ -496,7 +500,9 @@ UIScrollViewDelegate, UINavigationControllerDelegate,RCConnectionStatusChangeDel
 
 // 推流连接成功
 - (void)liveSessionConnectSuccess:(QPLiveSession *)session {
-    [self createLiveSession];
+    if (!self.isCreateLive) {
+        [self createLiveSession];
+    }
     NSLog(@"connect success!");
 }
 

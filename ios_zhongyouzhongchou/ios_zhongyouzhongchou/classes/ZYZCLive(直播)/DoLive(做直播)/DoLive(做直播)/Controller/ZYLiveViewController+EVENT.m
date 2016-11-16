@@ -379,8 +379,6 @@
 // 获取礼物清单
 - (void)getPayVersion
 {
-    [VersionTool setPayVersion:@"100"];
-
     NSDictionary *parameters;
     WEAKSELF
     [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinVersionJson"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
@@ -428,8 +426,12 @@
             
             [self.downloadManager setSuccess:^(NSArray *success) {
                 NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success[0] pathType:success[1]];
-                model.imageArray = imagePaths;
-                [weakSelf archiverCache];
+//                model.imageArray = imagePaths;
+                NSDictionary *downloadDict = @{@"type":success[1],@"imageArray":imagePaths};
+                [weakSelf.downloadArray addObject:downloadDict];
+                if (i == 3) {
+                    [weakSelf archiverCache];
+                }
             }];
 
             [self.lock unlock];
@@ -439,12 +441,16 @@
 
 - (void)archiverCache
 {
+    for (int i = 0; i < self.downloadArray.count; i++) {
+        ZYDownloadGiftImageModel *model = self.giftImageArray[i];
+        for (NSDictionary *dict in self.downloadArray) {
+            if ([model.price isEqualToString:dict[@"type"]]) {
+                model.imageArray = dict[@"imageArray"];
+            }
+        }
+    }
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
     [ZYZCMCCacheManager archiverCacheData:self.giftImageArray path:path];
-    NSLog(@"giftImageArraygiftImageArray%@", self.giftImageArray);
-    NSLog(@"endendend");
-
-    
 }
 
 #pragma mark - animtion
