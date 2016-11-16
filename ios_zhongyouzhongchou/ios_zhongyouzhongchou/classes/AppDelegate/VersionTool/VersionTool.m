@@ -7,6 +7,7 @@
 //
 
 #import "VersionTool.h"
+#import "ZYLeftTextAlertVC.h"
 #define OlVersion @"olVersion"
 #define IfFirst @"ifFirst"
 #define FirstVersion @"IfFirstSure"
@@ -50,7 +51,7 @@ static NSString *const kPayVersion = @"kPayVersion";
 
     if (versionModel.appupdate == 1) {//强制升级
         //版本不相同，需要跳转store
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有大版本更新啦~" message:versionModel.versionDesc preferredStyle:UIAlertControllerStyleAlert];
+        ZYLeftTextAlertVC *alertController = [ZYLeftTextAlertVC alertControllerWithTitle:@"有大版本更新啦~" message:versionModel.versionDesc preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *goStoreAction = [UIAlertAction actionWithTitle:@"前往" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             NSString * url = [NSString stringWithFormat:APP_STORE_URL];
@@ -81,7 +82,7 @@ static NSString *const kPayVersion = @"kPayVersion";
         
         
         //版本不相同，需要跳转store
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"有新版本更新啦~" message:versionModel.versionDesc preferredStyle:UIAlertControllerStyleAlert];
+        ZYLeftTextAlertVC *alertController = [ZYLeftTextAlertVC alertControllerWithTitle:@"有新版本更新啦~" message:versionModel.versionDesc preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             //设置为不是第一次进app
             [lcDic setValue:@1 forKey:IfFirst];

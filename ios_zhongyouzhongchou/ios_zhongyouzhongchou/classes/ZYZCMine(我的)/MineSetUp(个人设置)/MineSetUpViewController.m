@@ -16,6 +16,7 @@
 #import "AppDelegate.h"
 #import "LoginJudgeTool.h"
 #import "AboutZhongyouVC.h"
+#import "CertificationVC.h"
 @interface MineSetUpViewController ()<UITableViewDataSource,UITableViewDelegate,WXApiManagerDelegate,UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UISwitch *shakeSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *soundSwitch;
@@ -128,14 +129,16 @@
             [self.navigationController pushViewController:personVC animated:YES];
             
             return ;
-        }
-        switch (indexPath.row) {
-            case 1://收货地址
-//                NSLog(@"收货地址");
-                [self.navigationController pushViewController:[[MineSaveContactInfoVC alloc] init] animated:YES];
-                break;
-            default:
-                break;
+        }else if (indexPath.row == 1){
+            //                NSLog(@"收货地址");
+            [self.navigationController pushViewController:[[MineSaveContactInfoVC alloc] init] animated:YES];
+            return ;
+        }else if (indexPath.row == 2){
+            //                NSLog(@"实名认证");
+            [self.navigationController pushViewController:[[CertificationVC alloc] init] animated:YES];
+            return ;
+        }else{
+            
         }
     }else if(indexPath.section == 1){
         switch (indexPath.row) {
