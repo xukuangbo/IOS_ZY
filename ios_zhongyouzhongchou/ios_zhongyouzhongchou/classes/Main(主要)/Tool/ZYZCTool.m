@@ -782,7 +782,7 @@ BOOL isFuguozhi = false;
         }else{
             scro_distance = 0;
         }
-        [UIView animateWithDuration:0.3 animations:^{
+        [UIView animateWithDuration:0.01 animations:^{
             if (distance < 0) {
                 if ([view isKindOfClass:[UIScrollView class]]) {
                     CGPoint point = ((UIScrollView*)view).contentOffset;
@@ -794,7 +794,7 @@ BOOL isFuguozhi = false;
             }
         }];
     }else if ([state isEqualToString:@"hide"]){
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.01 animations:^{
             if ([view isKindOfClass:[UIScrollView class]]) {
                 //                ((UIScrollView*)view).contentOffset = oringnalPoint;
                 CGPoint point = ((UIScrollView*)view).contentOffset;

@@ -109,8 +109,8 @@ static NSString *const ShopID = @"ShopCell";
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view);
         make.right.equalTo(self.view);
-//        make.top.equalTo(@64);
-        make.top.equalTo(@0);
+        make.top.equalTo(@64);
+//        make.top.equalTo(@0);
         make.bottom.equalTo(@49);
     }];
     layout.delegate = self;

@@ -28,7 +28,7 @@
 @property (nonatomic, strong) ZCProductDetailTableView *table;
 @property (nonatomic, strong) UIColor               *navColor;
 @property (nonatomic, strong) UIButton              *shareBtn;
-@property (nonatomic, strong) UIButton          *collectionBtn;
+@property (nonatomic, strong) UIButton            *collectionBtn;
 @property (nonatomic, strong) ZCDetailBottomView  *bottomView;
 
 @property (nonatomic, strong) NSMutableArray  *detailDays;
