@@ -38,8 +38,13 @@
  @property (nonatomic, strong) UIVisualEffectView   *blurView;     //毛玻璃
 @property (nonatomic, strong) UILabel               *travelThemeLab;//主题名
 
+@property (nonatomic, strong) UIImageView         *markImageView;
+@property (nonatomic, strong) UILabel             *togtherNumLab;
+
 @property (nonatomic, strong) ZCCommentList         *commentList;
 @property (nonatomic, assign) ZCDetailContentType   contentType;
+
+@property (nonatomic, assign) NSInteger            togtherNum;
 
 @property (nonatomic, assign) BOOL hasCosponsor;//标记是否有联合发起人
 //@property (nonatomic, assign) BOOL hasIntroGoal;//标记是否有众筹目的
@@ -74,9 +79,10 @@
         _commentArr =[NSMutableArray array];
          self.contentInset=UIEdgeInsetsMake(BGIMAGEHEIGHT-64, 0, 0, 0);
         _topImgView=[[UIImageView alloc]initWithFrame:CGRectMake(0, -BGIMAGEHEIGHT,KSCREEN_W, BGIMAGEHEIGHT)];
-        _topImgView.image=[UIImage imageNamed:@"image_placeholder"];
-        _topImgView.contentMode=UIViewContentModeScaleAspectFill;
-        _topImgView.layer.masksToBounds=YES;
+        _topImgView.image = [UIImage imageNamed:@"image_placeholder"];
+        _topImgView.contentMode = UIViewContentModeScaleAspectFill;
+        _topImgView.layer.masksToBounds = YES;
+        _topImgView.userInteractionEnabled = YES;
         [self addSubview:_topImgView];
         
          UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -99,6 +105,9 @@
         bgImg.image=[UIImage imageNamed:@"Background"];
         [_topImgView addSubview:bgImg];
         
+        [_topImgView addSubview:self.markImageView];
+        self.markImageView.hidden=YES;
+        
         //支付结果通知
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getOrderPay) name:kGetPayResultNotification object:nil];
 
@@ -107,6 +116,52 @@
     }
     return self;
 }
+
+-(UIImageView *)markImageView
+{
+    if (!_markImageView) {
+        _markImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, self.topImgView.height-45-30, 0, 30)];
+        _markImageView.image=KPULLIMG(@"together_background", 0, 15, 0, 5);
+        
+        _togtherNumLab = [ZYZCTool createLabWithFrame:CGRectMake(10, 0, _markImageView.width-15, _markImageView.height) andFont:[UIFont systemFontOfSize:13.f] andTitleColor:[UIColor whiteColor]];
+        [_markImageView addSubview:_togtherNumLab];
+        
+        [_markImageView addTarget:self action:@selector(scrollToTogther)];
+    }
+    return _markImageView;
+}
+
+#pragma mark --- 定位到一起去
+- (void)scrollToTogther
+{
+    UIButton *btn=(UIButton *)[self.headView viewWithTag:IntroType];
+    [self.headView getContent:btn];
+    self.contentOffset=CGPointMake(0, 156);
+    [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:1] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    
+}
+
+-(void)setTogtherNum:(NSInteger)togtherNum
+{
+    _togtherNum=togtherNum;
+    if (_togtherNum==0) {
+        _markImageView.hidden=YES;
+    }
+    else
+    {
+        NSString *str = [NSString stringWithFormat:@"%ld 人报名一起去",_togtherNum];
+        _togtherNumLab.attributedText=[self customStringByString:str andTargetStr:[NSString stringWithFormat:@"%ld",_togtherNum]];
+         _markImageView.hidden=NO;
+        
+        CGFloat length01=[ZYZCTool calculateStrLengthByText:[NSString stringWithFormat:@"%ld",_togtherNum] andFont:[UIFont boldSystemFontOfSize:18.f] andMaxWidth:self.width].width;
+        CGFloat length02=[ZYZCTool calculateStrLengthByText:@" 人报名一起去" andFont:[UIFont systemFontOfSize:13.f] andMaxWidth:self.width].width;
+        _togtherNumLab.width=length01+length02;
+        _markImageView.width=10+_togtherNumLab.width+10;
+        _markImageView.left=self.width-_markImageView.width;
+        _togtherNumLab.left=10;
+    }
+}
+
 
 -(void)setDetailModel:(ZCDetailModel *)detailModel
 {
@@ -138,6 +193,18 @@
             }
         }
     }
+    
+    //获取一起去人数
+    ReportModel *togtherReport=nil;
+    for (NSInteger i=0; i<detailModel.detailProductModel.report.count; i++) {
+        ReportModel *report=detailModel.detailProductModel.report[i];
+        if ([report.style isEqual:@4]) {
+            togtherReport = report;
+            break;
+        }
+    }
+    self.togtherNum=togtherReport.users.count;
+
     [self reloadData];
 }
 
@@ -699,6 +766,19 @@
 //        [MBProgressHUD hideHUDForView:self.viewController.view];
 //    }];
 }
+
+#pragma mark --- 改变文字样式
+-(NSAttributedString *)customStringByString:(NSString *)str andTargetStr:(NSString *)targetStr
+{
+    NSMutableAttributedString *attrStr=[[NSMutableAttributedString alloc]initWithString:str];
+    NSRange range=[str rangeOfString:targetStr];
+    if (str.length) {
+        [attrStr addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:18.f] range:range];
+        [attrStr addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:range];
+    }
+    return  attrStr;
+}
+
 
 -(void)dealloc
 {
