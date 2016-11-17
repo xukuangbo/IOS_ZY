@@ -426,6 +426,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
  
 // 根据当前视频长宽比和是否旋转获取mv长宽比
 - (QPEffectMVRatio)mvRatioWithCurrentVideo {
+
     QPVideoRatio videoAspect = [[QupaiSDK shared] videoRatio];
     QPVideoPoint *point = [self.video pointAtIndex:0];
     BOOL rotate = (point.rotate == 1|| point.rotate == 3);
@@ -438,6 +439,29 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
             return QPEffectMVRatio3To4;
         }else if (videoAspect == QPVideoRatio3To4) {
             return QPEffectMVRatio4To3;
+        }
+    }
+    else
+    {
+        CGFloat videoRatio=self.video.size.width/self.video.size.height;
+        if (fabs(videoRatio-16.0/9.0)<=0.1) {
+            return QPEffectMVRatio16To9;
+        }
+        else if(fabs(videoRatio-9.0/16.0)<=0.1)
+        {
+            return QPEffectMVRatio9To16;
+        }
+        else if(fabs(videoRatio-4.0/3.0)<=0.1)
+        {
+            return QPEffectMVRatio3To4;
+        }
+        else if(fabs(videoRatio-3.0/4.0)<=0.1)
+        {
+            return QPEffectMVRatio4To3;
+        }
+        else if(videoRatio == 1/1)
+        {
+            return QPEffectMVRatio1To1;
         }
     }
     return (QPEffectMVRatio)videoAspect;
@@ -459,7 +483,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         }
         else
         {
-            alertStr=@"对不起，您所选择的MV不支持本视频";
+            alertStr=@"对不起，您所选择的MV不支持本视频规格";
         }
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertStr message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
