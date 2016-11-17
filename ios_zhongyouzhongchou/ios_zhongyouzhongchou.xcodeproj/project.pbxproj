@@ -609,6 +609,10 @@
 		395B5A9C1D27AC660084264C /* CustomImagemapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B5A9B1D27AC660084264C /* CustomImagemapView.m */; };
 		395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B88DA1D323C40001FF5DB /* AboutUsVC.m */; };
 		395FAD191D9BCF340075FED5 /* FCIMChatGetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FAD181D9BCF340075FED5 /* FCIMChatGetImage.m */; };
+		3961E6921DDBF89C008A0C54 /* ZYLeftTextAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3961E6911DDBF89C008A0C54 /* ZYLeftTextAlertVC.m */; };
+		3961E6991DDC01DC008A0C54 /* CertificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3961E6971DDC01DC008A0C54 /* CertificationVC.m */; };
+		3961E69A1DDC01DC008A0C54 /* CertificationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3961E6981DDC01DC008A0C54 /* CertificationVC.xib */; };
+		3961E69D1DDC07E6008A0C54 /* CertificationInputVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 3961E69C1DDC07E6008A0C54 /* CertificationInputVIew.m */; };
 		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
 		39788C4E1D8D3CF5000AC2BB /* LiveMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */; };
 		397DFC221DD5CF93007B282A /* MyUserFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 397DFC211DD5CF93007B282A /* MyUserFollowCell.m */; };
@@ -1829,6 +1833,13 @@
 		395B88DA1D323C40001FF5DB /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
 		395FAD171D9BCF340075FED5 /* FCIMChatGetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCIMChatGetImage.h; sourceTree = "<group>"; };
 		395FAD181D9BCF340075FED5 /* FCIMChatGetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCIMChatGetImage.m; sourceTree = "<group>"; };
+		3961E6901DDBF89C008A0C54 /* ZYLeftTextAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLeftTextAlertVC.h; sourceTree = "<group>"; };
+		3961E6911DDBF89C008A0C54 /* ZYLeftTextAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLeftTextAlertVC.m; sourceTree = "<group>"; };
+		3961E6961DDC01DC008A0C54 /* CertificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationVC.h; sourceTree = "<group>"; };
+		3961E6971DDC01DC008A0C54 /* CertificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationVC.m; sourceTree = "<group>"; };
+		3961E6981DDC01DC008A0C54 /* CertificationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationVC.xib; sourceTree = "<group>"; };
+		3961E69B1DDC07E6008A0C54 /* CertificationInputVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationInputVIew.h; sourceTree = "<group>"; };
+		3961E69C1DDC07E6008A0C54 /* CertificationInputVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationInputVIew.m; sourceTree = "<group>"; };
 		3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionView.h; sourceTree = "<group>"; };
 		3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionView.m; sourceTree = "<group>"; };
 		39788C4C1D8D3CF5000AC2BB /* LiveMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveMoneyView.h; sourceTree = "<group>"; };
@@ -2208,6 +2219,7 @@
 		04518B471CE419F0001921D0 /* MineSetUp(个人设置) */ = {
 			isa = PBXGroup;
 			children = (
+				3961E6931DDC0169008A0C54 /* CertificationVC(实名认证) */,
 				04D9A4A51D06B9A500753392 /* saveContact(收货地址) */,
 				04F685311CF57BE500E1A98E /* PersonSetUpVC(个人设置控制器) */,
 				39E4EC571D2FB99A00305F73 /* AboutZhongyou(关于众游) */,
@@ -5190,6 +5202,8 @@
 				395B5A8A1D24C4440084264C /* VersionModel.m */,
 				395B5A8B1D24C4440084264C /* VersionTool.h */,
 				395B5A8C1D24C4440084264C /* VersionTool.m */,
+				3961E6901DDBF89C008A0C54 /* ZYLeftTextAlertVC.h */,
+				3961E6911DDBF89C008A0C54 /* ZYLeftTextAlertVC.m */,
 			);
 			path = VersionTool;
 			sourceTree = "<group>";
@@ -5218,6 +5232,34 @@
 				395B5A9B1D27AC660084264C /* CustomImagemapView.m */,
 			);
 			path = Upload;
+			sourceTree = "<group>";
+		};
+		3961E6931DDC0169008A0C54 /* CertificationVC(实名认证) */ = {
+			isa = PBXGroup;
+			children = (
+				3961E6941DDC0169008A0C54 /* CertificationUploadVC */,
+				3961E6951DDC0169008A0C54 /* MainVC */,
+			);
+			path = "CertificationVC(实名认证)";
+			sourceTree = "<group>";
+		};
+		3961E6941DDC0169008A0C54 /* CertificationUploadVC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CertificationUploadVC;
+			sourceTree = "<group>";
+		};
+		3961E6951DDC0169008A0C54 /* MainVC */ = {
+			isa = PBXGroup;
+			children = (
+				3961E6961DDC01DC008A0C54 /* CertificationVC.h */,
+				3961E6971DDC01DC008A0C54 /* CertificationVC.m */,
+				3961E6981DDC01DC008A0C54 /* CertificationVC.xib */,
+				3961E69B1DDC07E6008A0C54 /* CertificationInputVIew.h */,
+				3961E69C1DDC07E6008A0C54 /* CertificationInputVIew.m */,
+			);
+			path = MainVC;
 			sourceTree = "<group>";
 		};
 		3967ADB51D6C2AFD008A7F81 /* LiveFunctionView(功能键) */ = {
@@ -5840,6 +5882,7 @@
 				2C8B19871D0CF7EC0063097B /* XMNAlbumCell.xib in Resources */,
 				04518B4B1CE419F0001921D0 /* MineSetUpVC.storyboard in Resources */,
 				394C2A791DB9C63600821F78 /* WalletSelectToolBar.xib in Resources */,
+				3961E69A1DDC01DC008A0C54 /* CertificationVC.xib in Resources */,
 				2CDE67061DA651070066F49D /* more_preview_ico_close@2x.png in Resources */,
 				2C066A6B1D87937B0048FAE4 /* ReceiverVoiceNodePlaying002@2x.png in Resources */,
 				2C8B198B1D0CF7EC0063097B /* XMNBottomBar.xib in Resources */,
@@ -6178,6 +6221,7 @@
 				2CDC49FA1CFD3B5900E7893C /* ZYZCRCManager.m in Sources */,
 				39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */,
 				2CDE67491DA652380066F49D /* QPEffectView.m in Sources */,
+				3961E69D1DDC07E6008A0C54 /* CertificationInputVIew.m in Sources */,
 				0490D1591CC9BFB60064844C /* TacticSingleModelFrame.m in Sources */,
 				2CD6B8F91DA9DFEE00B7E60A /* ZCNoneDataView.m in Sources */,
 				399E94331D3C6E8F006E1B68 /* TTTAttributedLabel.m in Sources */,
@@ -6242,6 +6286,7 @@
 				04D9A4A81D06B9FC00753392 /* MineSaveContactInfoVC.m in Sources */,
 				040651251CC62FC7003FD539 /* SDCollectionViewCell.m in Sources */,
 				392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */,
+				3961E6991DDC01DC008A0C54 /* CertificationVC.m in Sources */,
 				2C8B197D1D0CF7EC0063097B /* UIView+Animations.m in Sources */,
 				2C8E9AC41D8F978200CA35DE /* ZYfootprintListCell.m in Sources */,
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
@@ -6374,6 +6419,7 @@
 				3941CD751D420B29009224BC /* ChatBlackListCell.m in Sources */,
 				2C0101CE1D5DF48E00D6470D /* ZFWeiboButton.m in Sources */,
 				392AB2961D669C26003FEDB7 /* RCDLiveGiftMessage.m in Sources */,
+				3961E6921DDBF89C008A0C54 /* ZYLeftTextAlertVC.m in Sources */,
 				2C4EDD471DD407B6005D68FD /* ZYZCOneProductCell.m in Sources */,
 				2C1C07A11D1AC2C100203FF4 /* PartnerTableView.m in Sources */,
 				04A99C971CBF848D00C6F5F0 /* ZYZCNavigationController.m in Sources */,

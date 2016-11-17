@@ -20,6 +20,10 @@
 #import "WXApiManager.h"
 #import "AppDelegate.h"
 #import "ZYDownloadGiftImageModel.h"
+#import "VersionTool.h"
+#import "ZYZCMCDownloadFileManager.h"
+#import "ZYDownloadGiftImageModel.h"
+#import "ZYZCMCCacheManager.h"
 
 @implementation ZYWatchLiveViewController (LivePersonView)
 - (void)initLivePersonDataView
@@ -320,6 +324,86 @@
     }];
 }
 
+#pragma mark - 请求礼物
+// 获取礼物清单
+- (void)getPayVersion
+{
+//    [VersionTool setPayVersion:@"100"];
+    NSDictionary *parameters;
+    WEAKSELF
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinVersionJson"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if ([[NSString stringWithFormat:@"%@", [VersionTool getPayVersion]] isEqualToString:[NSString stringWithFormat:@"%@", result[@"data"]]]) {
+            NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
+            weakSelf.giftImageArray = [ZYZCMCCacheManager unarchiverCachePath:path];
+        } else {
+            [weakSelf downloadPayImage];
+        }
+        [VersionTool setPayVersion:result[@"data"]];
+    } andFailBlock:^(id failResult) {
+        NSLog(@"failResult");
+    }];
+    
+}
+// 请求打赏图片接口
+- (void)downloadPayImage
+{
+    NSMutableDictionary *parameters;
+    WEAKSELF
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinJson"];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        if (isSuccess) {
+            weakSelf.giftImageArray = [ZYDownloadGiftImageModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
+            NSLog(@"datadatadata%@", result[@"data"]);
+            [weakSelf cacheImagePath];
+        }
+    } andFailBlock:^(id failResult) {
+        
+    }];
+}
+
+- (void)cacheImagePath
+{
+    WEAKSELF
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        for (int i = 0; i < self.giftImageArray.count; i ++)
+        {
+            [self.lock lock];
+            sleep(1); //线程执行挂起1秒
+            // 任务代码i 假定任务 是异步执行block回调
+            __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
+            NSLog(@"downUrldownUrldownUrl%@", model.downUrl);
+            [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl] price:model.price];
+            [self.downloadManager setFractionCompleted:^(double progress) {
+                [VersionTool setPayVersion:@"0"];
+            }];
+            [self.downloadManager setSuccess:^(NSArray *success) {
+                NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success[0] pathType:success[1]];
+                NSDictionary *downloadDict = @{@"type":success[1],@"imageArray":imagePaths};
+                [weakSelf.downloadArray addObject:downloadDict];
+                if (i == 3) {
+                    [weakSelf archiverCache];
+                }
+            }];
+            [self.lock unlock];
+        }
+    });
+}
+
+- (void)archiverCache
+{
+    for (int i = 0; i < self.downloadArray.count; i++) {
+        ZYDownloadGiftImageModel *model = self.giftImageArray[i];
+        for (NSDictionary *dict in self.downloadArray) {
+            if ([model.price isEqualToString:dict[@"type"]]) {
+                model.imageArray = dict[@"imageArray"];
+            }
+        }
+    }
+    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
+    [ZYZCMCCacheManager archiverCacheData:self.giftImageArray path:path];
+    NSLog(@"giftImageArraygiftImageArray%@", self.giftImageArray);
+}
+
 #pragma mark - animtion
 - (void)showAnimtion:(NSString *)payType
 {
@@ -360,7 +444,7 @@
     //把存有UIImage的数组赋给动画图片数组
     imageView.animationImages = imgArray;
     //设置执行一次完整动画的时长
-    imageView.animationDuration = (giftImageArray. count + 5 ) * 0.1;
+    imageView.animationDuration = (giftImageArray.count + 5) * 0.1;
     //动画重复次数 （0为重复播放）
     imageView.animationRepeatCount = 1;
     //开始播放动画

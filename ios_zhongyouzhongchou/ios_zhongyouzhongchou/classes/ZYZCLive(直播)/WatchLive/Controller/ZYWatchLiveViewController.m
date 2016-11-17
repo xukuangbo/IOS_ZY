@@ -40,10 +40,8 @@
 #import "showDashangMapView.h"
 #import "ZYTravePayView.h"
 #import "XTLoveHeartView.h"
-#import "ZYZCMCCacheManager.h"
 #import "ZYZCMCDownloadFileManager.h"
-#import "VersionTool.h"
-#import "ZYDownloadGiftImageModel.h"
+//#import "ZYDownloadGiftImageModel.h"
 //输入框的高度
 #define MinHeight_InputView 50.0f
 #define kBounds [UIScreen mainScreen].bounds.size
@@ -125,8 +123,6 @@ UIScrollViewDelegate, UINavigationControllerDelegate, RCTKInputBarControlDelegat
 @property (nonatomic, strong) WXApiManager *wxApiManger;
 // 打赏类型
 @property (nonatomic, assign) kLiveUserContributionStyle userContributionStyle;
-// 下载打赏图片manager
-@property (nonatomic, strong) ZYZCMCDownloadFileManager *downloadManager;
 @end
 /**
  *  文本cell标示
@@ -467,74 +463,10 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     [[RCIMClient sharedRCIMClient]setRCConnectionStatusChangeDelegate:self];
     self.wxApiManger = [[WXApiManager alloc] init];
     self.downloadManager = [[ZYZCMCDownloadFileManager alloc] init];
+    self.downloadArray = [NSMutableArray array];
 }
 
 #pragma mark - getData
-// 获取礼物清单
-- (void)getPayVersion
-{
-    NSDictionary *parameters;
-    WEAKSELF
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:[[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinVersionJson"] andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        if ([[NSString stringWithFormat:@"%@", [VersionTool getPayVersion]] isEqualToString:[NSString stringWithFormat:@"%@", result[@"data"]]]) {
-            NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
-            weakSelf.giftImageArray = [ZYZCMCCacheManager unarchiverCachePath:path];
-        } else {
-            [weakSelf downloadPayImage];
-        }
-        [VersionTool setPayVersion:result[@"data"]];
-    } andFailBlock:^(id failResult) {
-        NSLog(@"failResult");
-    }];
-   
-}
-// 请求打赏图片接口
-- (void)downloadPayImage
-{
-    NSMutableDictionary *parameters;
-    WEAKSELF
-    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"zhibo_lipinJson"];
-    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameters andSuccessGetBlock:^(id result, BOOL isSuccess) {
-        if (isSuccess) {
-            weakSelf.giftImageArray = [ZYDownloadGiftImageModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
-            [weakSelf cacheImagePath];
-        }
-    } andFailBlock:^(id failResult) {
-        
-    }];
-}
-
-- (void)cacheImagePath
-{
-    WEAKSELF
-    dispatch_async(dispatch_get_global_queue(0, 0), ^{
-        for (int i = 0; i < self.giftImageArray.count; i ++)
-        {
-            [self.lock lock];
-            sleep(1); //线程执行挂起1秒
-            // 任务代码i 假定任务 是异步执行block回调
-            __block ZYDownloadGiftImageModel *model = self.giftImageArray[self.giftImageArray.count - 1 - i];
-            [self.downloadManager downloadRecordFile:[NSURL URLWithString:model.downUrl] price:model.price];
-            [self.downloadManager setFractionCompleted:^(double progress) {
-                [VersionTool setPayVersion:@"0"];
-            }];
-            [self.downloadManager setSuccess:^(NSArray *success) {
-                NSArray *imagePaths = [ZYZCMCCacheManager zipArchive:success[0] pathType:success[1]];
-                model.imageArray = imagePaths;
-                [weakSelf archiverCache];
-            }];
-            [self.lock unlock];
-        }
-    });
-}
-
-- (void)archiverCache
-{
-    NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"Library/Caches/kGiftImageDataArray"]];
-    [ZYZCMCCacheManager archiverCacheData:self.giftImageArray path:path];
-
-}
-
 // 观看直播间用户的数组
 - (void)getUserIdString:(NSArray *)userIdArray
 {
@@ -1608,7 +1540,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
-                                @"price":@"0.1",
+                                @"price":@"0.01",
                                 };
     self.payMoney = payMoney;
     [self.wxApiManger payForWeChat:parameters payUrl:[[ZYZCAPIGenerate sharedInstance] API:@"weixinpay_zhiboAppOrder"] payType:2 withSuccessBolck:^{
@@ -1628,7 +1560,7 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     NSDictionary *parameters= @{
                                 @"spaceName":self.liveModel.spaceName,
                                 @"streamName":self.liveModel.streamName,
-                                @"price":@"0.1",
+                                @"price":@"0.01",
                                 };
     self.payMoney = payMoney;
     if (style == kCommonLiveUserContributionStyle) {

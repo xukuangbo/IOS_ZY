@@ -120,7 +120,7 @@ int pageSize = 10;
     } andFailBlock:^(id failResult) {
         [weakSelf.tableView.mj_header endRefreshing];
         [weakSelf.tableView.mj_footer endRefreshing];
-        [MBProgressHUD showError:ZYLocalizedString(@"no_netwrk")];
+        [MBProgressHUD showError:@"网络出错" toView:weakSelf.view];
     }];
     
 }

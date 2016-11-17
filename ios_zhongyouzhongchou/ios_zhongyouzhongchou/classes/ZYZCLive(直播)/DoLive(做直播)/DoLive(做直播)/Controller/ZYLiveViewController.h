@@ -70,6 +70,8 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
 @property (nonatomic, strong) ZYZCMCDownloadFileManager *downloadManager;
 // 打赏礼物图片
 @property (nonatomic, strong) NSMutableArray *giftImageArray;
+@property (nonatomic, strong) NSMutableArray *downloadArray;
+
 // 看视频的userid
 @property(nonatomic,strong)NSMutableArray *userList;
 // 创建直播model
