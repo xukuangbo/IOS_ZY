@@ -190,7 +190,7 @@
 #pragma mark - 模型赋值
 - (void)setTacticSingleModelFrame:(TacticSingleModelFrame *)tacticSingleModelFrame
 {
-    SDWebImageOptions options = SDWebImageRetryFailed | SDWebImageLowPriority;
+    SDWebImageOptions options = SDWebImageRetryFailed | SDWebImageLowPriority | SDWebImageProgressiveDownload;
     
     _tacticSingleModelFrame = tacticSingleModelFrame;
     TacticSingleModel *tacticSingleModel = tacticSingleModelFrame.tacticSingleModel;
