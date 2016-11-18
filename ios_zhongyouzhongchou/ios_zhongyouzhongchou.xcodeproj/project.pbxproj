@@ -613,9 +613,17 @@
 		3961E6921DDBF89C008A0C54 /* ZYLeftTextAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3961E6911DDBF89C008A0C54 /* ZYLeftTextAlertVC.m */; };
 		3961E6991DDC01DC008A0C54 /* CertificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3961E6971DDC01DC008A0C54 /* CertificationVC.m */; };
 		3961E69A1DDC01DC008A0C54 /* CertificationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3961E6981DDC01DC008A0C54 /* CertificationVC.xib */; };
-		3961E69D1DDC07E6008A0C54 /* CertificationInputVIew.m in Sources */ = {isa = PBXBuildFile; fileRef = 3961E69C1DDC07E6008A0C54 /* CertificationInputVIew.m */; };
 		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
 		39788C4E1D8D3CF5000AC2BB /* LiveMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */; };
+		3979C3D91DDDA49B00D75253 /* RealNameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3979C3D81DDDA49B00D75253 /* RealNameCardView.m */; };
+		3979C3DB1DDDA4B000D75253 /* RealNameCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3DA1DDDA4B000D75253 /* RealNameCardView.xib */; };
+		3979C3E51DDDB17C00D75253 /* MMNumberKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3979C3DE1DDDB17C00D75253 /* MMNumberKeyboard.m */; };
+		3979C3E61DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3DF1DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png */; };
+		3979C3E71DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E01DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png */; };
+		3979C3E81DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E11DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png */; };
+		3979C3E91DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E21DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png */; };
+		3979C3EA1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E31DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png */; };
+		3979C3EB1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E41DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png */; };
 		397DFC221DD5CF93007B282A /* MyUserFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 397DFC211DD5CF93007B282A /* MyUserFollowCell.m */; };
 		397DFC241DD5CFC7007B282A /* MyUserFollowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 397DFC231DD5CFC7007B282A /* MyUserFollowCell.xib */; };
 		39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */; };
@@ -1841,12 +1849,21 @@
 		3961E6961DDC01DC008A0C54 /* CertificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationVC.h; sourceTree = "<group>"; };
 		3961E6971DDC01DC008A0C54 /* CertificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationVC.m; sourceTree = "<group>"; };
 		3961E6981DDC01DC008A0C54 /* CertificationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationVC.xib; sourceTree = "<group>"; };
-		3961E69B1DDC07E6008A0C54 /* CertificationInputVIew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationInputVIew.h; sourceTree = "<group>"; };
-		3961E69C1DDC07E6008A0C54 /* CertificationInputVIew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationInputVIew.m; sourceTree = "<group>"; };
 		3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionView.h; sourceTree = "<group>"; };
 		3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionView.m; sourceTree = "<group>"; };
 		39788C4C1D8D3CF5000AC2BB /* LiveMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveMoneyView.h; sourceTree = "<group>"; };
 		39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveMoneyView.m; sourceTree = "<group>"; };
+		3979C3D71DDDA49B00D75253 /* RealNameCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealNameCardView.h; sourceTree = "<group>"; };
+		3979C3D81DDDA49B00D75253 /* RealNameCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealNameCardView.m; sourceTree = "<group>"; };
+		3979C3DA1DDDA4B000D75253 /* RealNameCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RealNameCardView.xib; sourceTree = "<group>"; };
+		3979C3DD1DDDB17C00D75253 /* MMNumberKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNumberKeyboard.h; sourceTree = "<group>"; };
+		3979C3DE1DDDB17C00D75253 /* MMNumberKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNumberKeyboard.m; sourceTree = "<group>"; };
+		3979C3DF1DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MMNumberKeyboardDeleteKey.png; sourceTree = "<group>"; };
+		3979C3E01DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDeleteKey@2x.png"; sourceTree = "<group>"; };
+		3979C3E11DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDeleteKey@3x.png"; sourceTree = "<group>"; };
+		3979C3E21DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MMNumberKeyboardDismissKey.png; sourceTree = "<group>"; };
+		3979C3E31DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@2x.png"; sourceTree = "<group>"; };
+		3979C3E41DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@3x.png"; sourceTree = "<group>"; };
 		397DFC201DD5CF93007B282A /* MyUserFollowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUserFollowCell.h; sourceTree = "<group>"; };
 		397DFC211DD5CF93007B282A /* MyUserFollowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUserFollowCell.m; sourceTree = "<group>"; };
 		397DFC231DD5CFC7007B282A /* MyUserFollowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyUserFollowCell.xib; sourceTree = "<group>"; };
@@ -2313,6 +2330,7 @@
 		04A99BCE1CBF848C00C6F5F0 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				3979C3DC1DDDB17C00D75253 /* MMKeyBoard */,
 				05977B0A1DB85D28007EC20A /* ZFPlayer */,
 				2C5159821D86419C0048BD20 /* AudioRecordAndPlay */,
 				39AABC8A1D6EC9D400D25B16 /* MZTimerLabel */,
@@ -5261,8 +5279,9 @@
 				3961E6961DDC01DC008A0C54 /* CertificationVC.h */,
 				3961E6971DDC01DC008A0C54 /* CertificationVC.m */,
 				3961E6981DDC01DC008A0C54 /* CertificationVC.xib */,
-				3961E69B1DDC07E6008A0C54 /* CertificationInputVIew.h */,
-				3961E69C1DDC07E6008A0C54 /* CertificationInputVIew.m */,
+				3979C3D71DDDA49B00D75253 /* RealNameCardView.h */,
+				3979C3D81DDDA49B00D75253 /* RealNameCardView.m */,
+				3979C3DA1DDDA4B000D75253 /* RealNameCardView.xib */,
 			);
 			path = MainVC;
 			sourceTree = "<group>";
@@ -5285,6 +5304,21 @@
 				39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */,
 			);
 			path = LiveMoneyView;
+			sourceTree = "<group>";
+		};
+		3979C3DC1DDDB17C00D75253 /* MMKeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				3979C3DD1DDDB17C00D75253 /* MMNumberKeyboard.h */,
+				3979C3DE1DDDB17C00D75253 /* MMNumberKeyboard.m */,
+				3979C3DF1DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png */,
+				3979C3E01DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png */,
+				3979C3E11DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png */,
+				3979C3E21DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png */,
+				3979C3E31DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png */,
+				3979C3E41DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png */,
+			);
+			path = MMKeyBoard;
 			sourceTree = "<group>";
 		};
 		39809CFF1D58762E00CB9EE3 /* advertise(广告) */ = {
@@ -5838,6 +5872,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3979C3E61DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png in Resources */,
+				3979C3E91DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png in Resources */,
 				2C066A691D87937B0048FAE4 /* ReceiverVoiceNodePlaying000@2x.png in Resources */,
 				050969361DCB0CDF00128766 /* ZYTravePayVIew.xib in Resources */,
 				2C901DCB1C89788C004B844B /* LaunchScreen.storyboard in Resources */,
@@ -5849,6 +5885,7 @@
 				2CDE67041DA651070066F49D /* more_ico_previe@2x.png in Resources */,
 				2CE617721D657DD100962163 /* HUImagePickerCell.xib in Resources */,
 				2C066A6D1D87937B0048FAE4 /* SenderVoiceNodePlaying000@2x.png in Resources */,
+				3979C3EA1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png in Resources */,
 				2CDE66801DA64EB70066F49D /* Info.plist in Resources */,
 				2C066A6A1D87937B0048FAE4 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
 				2C8B197A1D0CF7EC0063097B /* Info.plist in Resources */,
@@ -5874,12 +5911,14 @@
 				2CDE67101DA651070066F49D /* QPMVMoreViewCell.xib in Resources */,
 				2C066A6C1D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
 				390D9CF61DD066EE0013F606 /* WalletZCMoneyView.xib in Resources */,
+				3979C3EB1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png in Resources */,
 				2CE617761D657DD100962163 /* pick_checked@2x.png in Resources */,
 				2CDE66201DA64C3E0066F49D /* icon.png in Resources */,
 				0527D88E1DC1E3F00064E354 /* ZhongYouAPIConfig.json in Resources */,
 				2C8B19891D0CF7EC0063097B /* XMNAssetCell.xib in Resources */,
 				397DFC241DD5CFC7007B282A /* MyUserFollowCell.xib in Resources */,
 				39F2AA1F1D40ED3100023CC4 /* MBProgressHUD.bundle in Resources */,
+				3979C3E71DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png in Resources */,
 				2CE6176F1D657DD100962163 /* HUAlbumCell.xib in Resources */,
 				2CDE67081DA651070066F49D /* title_ico_back@2x.png in Resources */,
 				39F7D1A81D45BD60001DEAF4 /* Assets.xcassets in Resources */,
@@ -5898,7 +5937,9 @@
 				2C066A701D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png in Resources */,
 				2C8288311CD87F7A004873B6 /* Localizable.strings in Resources */,
 				3909F4211DC86926005D3AF3 /* WalletProductView.xib in Resources */,
+				3979C3DB1DDDA4B000D75253 /* RealNameCardView.xib in Resources */,
 				2CDE67071DA651070066F49D /* record_ico_close@2x.png in Resources */,
+				3979C3E81DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png in Resources */,
 				05977B241DB85DC5007EC20A /* ZFPlayer.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -6227,7 +6268,6 @@
 				2CDC49FA1CFD3B5900E7893C /* ZYZCRCManager.m in Sources */,
 				39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */,
 				2CDE67491DA652380066F49D /* QPEffectView.m in Sources */,
-				3961E69D1DDC07E6008A0C54 /* CertificationInputVIew.m in Sources */,
 				0490D1591CC9BFB60064844C /* TacticSingleModelFrame.m in Sources */,
 				2CD6B8F91DA9DFEE00B7E60A /* ZCNoneDataView.m in Sources */,
 				399E94331D3C6E8F006E1B68 /* TTTAttributedLabel.m in Sources */,
@@ -6275,6 +6315,7 @@
 				04A99D2A1CC0926400C6F5F0 /* ZYZCAccountTool.m in Sources */,
 				2CE60CB11DBF3C1A005B4D7E /* ChooseThumbController.m in Sources */,
 				0432ADA51D0966F9005D789E /* UIView+ST.m in Sources */,
+				3979C3E51DDDB17C00D75253 /* MMNumberKeyboard.m in Sources */,
 				3941CD6B1D41FCB7009224BC /* ComplainTypeController.m in Sources */,
 				2C46C1A61DC8734E006C613A /* ZCDetailIntroFifthCell.m in Sources */,
 				2CD6B8CD1DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m in Sources */,
@@ -6391,6 +6432,7 @@
 				04B99A6E1CFFBAA600E3C33A /* TacticCityHeadView.m in Sources */,
 				2C1C079A1D1AAB2700203FF4 /* ChoosePartnerViewController.m in Sources */,
 				04C087B21D052AF500203D40 /* MyUserFollowedVC.m in Sources */,
+				3979C3D91DDDA49B00D75253 /* RealNameCardView.m in Sources */,
 				2C1B60FB1D6D3CF900E3C25B /* ZYDescImage.m in Sources */,
 				2C1B60E11D6D3CF900E3C25B /* MoreFZCGoalTableView.m in Sources */,
 				392AB2951D669C26003FEDB7 /* RCDLiveKitUtility.m in Sources */,
