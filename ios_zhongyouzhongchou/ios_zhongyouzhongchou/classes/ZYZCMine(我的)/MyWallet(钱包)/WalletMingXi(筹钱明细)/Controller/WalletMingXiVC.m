@@ -183,7 +183,7 @@ static int pagesize = 10;
         
         WEAKSELF
         [ZYZCHTTPTool GET:url parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
-            
+            DDLog(@"result:%@",result);
             MJRefreshAutoNormalFooter *autoFooter=(MJRefreshAutoNormalFooter *)weakSelf.tableView.mj_footer ;
             NSArray *tempArray = [WalletMingXiModel mj_objectArrayWithKeyValuesArray:result[@"data"]];
             if (tempArray.count > 0) {

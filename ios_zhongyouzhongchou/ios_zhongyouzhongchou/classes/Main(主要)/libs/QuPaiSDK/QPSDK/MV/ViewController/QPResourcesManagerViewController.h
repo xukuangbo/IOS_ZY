@@ -27,6 +27,7 @@ typedef void (^editFontBlock)(BOOL fontEdit);
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintsViewLineHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewTopTop;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *constraintViewTopHeight;
+@property (nonatomic, assign) NSInteger mvType;
 
 @property (weak, nonatomic) id<QPResourcesManagerViewControllerDelegate> delegate;
 

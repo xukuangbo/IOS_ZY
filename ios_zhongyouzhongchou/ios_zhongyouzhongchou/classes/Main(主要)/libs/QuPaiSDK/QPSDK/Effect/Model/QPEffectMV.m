@@ -44,7 +44,7 @@
             folder = @"folder4.3";
             break;
         case QPEffectMVRatio3To4:
-            folder = @"folder1.1";
+            folder = @"folder3.4";
             break;
         default:
             break;

@@ -33,9 +33,16 @@
     
     layout.itemSize = CGSizeMake(ScreenWidth, layout.itemSize.height);
     _constraintsViewLineHeight.constant = 1.0/[[UIScreen mainScreen] scale];
-    [self updateEmptyViewIndex:2];
-    [[QPEffectManager sharedManager] updateMVEffect];
-    _array = [[QPEffectManager sharedManager] getLocalMVEffects];
+    [self updateEmptyViewIndex:1];
+    if (self.mvType==0) {
+        [[QPEffectManager sharedManager] updateMVEffect];
+        _array = [[QPEffectManager sharedManager] getLocalMVEffects];
+    }
+    else if (self.mvType==1)
+    {
+        [[QPEffectManager sharedManager] updateFilterMVEffect];
+        _array = [[QPEffectManager sharedManager] getLocalFilterMVEffects];
+    }
     _labelEmpty.hidden=_array.count>0;
 }
 
@@ -83,7 +90,16 @@
     NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
     QPEffectMV *effectMV = _array[indexPath.row];
     
-    [[QPEffectManager sharedManager] deleteEffectById:effectMV.eid type:QPEffectTypeMV];
+    if (self.mvType == 0) {
+        [[QPEffectManager sharedManager] deleteEffectById:effectMV.eid type:QPEffectTypeMV];
+        _array = [[QPEffectManager sharedManager] getLocalMVEffects];
+    }
+    else if (self.mvType == 1)
+    {
+        [[QPEffectManager sharedManager] deleteEffectById:effectMV.eid type:QPEffectTypeFilter_MV];
+        _array = [[QPEffectManager sharedManager] getLocalFilterMVEffects];
+    }
+    
 //    Paster *p = _array[indexPath.item];
 //    [[NSFileManager defaultManager] removeItemAtPath:p.unzipDir error:nil];
 //    [_array removeObjectAtIndex:indexPath.item];
@@ -106,7 +122,6 @@
 //    }else if(_type == PasterPaster){
 //        
 //    }
-    _array = [[QPEffectManager sharedManager] getLocalMVEffects];
     [self.collectionView reloadData];
     _viewEmpty.hidden = _array.count != 0;
 }

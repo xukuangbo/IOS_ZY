@@ -28,6 +28,10 @@
 // music effect
 - (void)needUpdateMusicData;
 
+// filter_mv effect
+- (void)updateFilterMVEffect;
+- (NSMutableArray *)getLocalFilterMVEffects;
+
 
 
 

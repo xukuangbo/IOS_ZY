@@ -11,12 +11,14 @@
 #import "QPEffectMVManager.h"
 #import "QPEffectFilterManager.h"
 #import "QPEffectDownManager.h"
+#import "ZYEffectFilterMVManager.h"
 
 @interface QPEffectManager () <QPEffectDownManagerDelegate>
 @property (nonatomic, strong) QPEffectMusicManager *musicManager;
 @property (nonatomic, strong) QPEffectMVManager *mvManager;
 @property (nonatomic, strong) QPEffectFilterManager *filterManager;
 @property (nonatomic, strong) QPEffectDownManager *downManager;
+@property (nonatomic, strong) ZYEffectFilterMVManager *filter_mvManager;
 @end
 
 
@@ -25,6 +27,7 @@
     NSMutableArray *_arrayMusic;
     NSMutableArray *_arrayFilter;
     NSMutableArray *_arrayMV;
+    NSMutableArray *_arrayFilterMV;
 }
 
 - (instancetype)init
@@ -34,6 +37,7 @@
         _arrayFilter = [self.filterManager createFilter];
         _arrayMusic  = [self.musicManager createMusic];
         _arrayMV = [self.mvManager loadEffectMVs];
+        _arrayFilterMV = [self.filter_mvManager loadEffectFilterMVs];
         return self;
     }
     return nil;
@@ -55,7 +59,11 @@
         return _arrayFilter;
     }else if(type == QPEffectTypeMV){
         return _arrayMV;
-    }else if(type == QPEffectTypeMusic){
+    }
+    else if(type == QPEffectTypeFilter_MV){
+        return _arrayFilterMV;
+    }
+    else if(type == QPEffectTypeMusic){
         return _arrayMusic;
     }
     return nil;
@@ -105,7 +113,9 @@
         case QPEffectTypeMV:
             [self.mvManager deleteEffectMVByID:eid];
             break;
-            
+        case QPEffectTypeFilter_MV:
+            [self.filter_mvManager deleteEffectFilterMVByID:eid];
+            break;
         default:
             break;
     }
@@ -120,6 +130,16 @@
 
 - (NSMutableArray *)getLocalMVEffects {
     return [self.mvManager localEffectMVs];
+}
+
+#pragma mark - filter_mv
+- (void)updateFilterMVEffect
+{
+    [self.filter_mvManager refresh];
+}
+
+- (NSMutableArray *)getLocalFilterMVEffects {
+    return [self.filter_mvManager localEffectFilterMVs];
 }
 
 #pragma mark - music
@@ -171,6 +191,13 @@
         _downManager.delegate = self;
     }
     return _downManager;
+}
+
+- (ZYEffectFilterMVManager *)filter_mvManager {
+    if (!_filter_mvManager) {
+        _filter_mvManager = [[ZYEffectFilterMVManager alloc] init];
+    }
+    return _filter_mvManager;
 }
 
 @end

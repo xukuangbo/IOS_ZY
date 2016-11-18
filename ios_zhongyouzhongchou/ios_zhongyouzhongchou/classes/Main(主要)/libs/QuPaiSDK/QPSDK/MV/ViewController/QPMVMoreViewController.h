@@ -34,6 +34,7 @@
 - (IBAction)maskViewDownClick:(id)sender;
 
 - (IBAction)buttonCellCloseClick:(id)sender;
+@property (nonatomic, assign) NSInteger mvType;
 @end
 
 @protocol QPMVMoreViewControllerDelegate <NSObject>

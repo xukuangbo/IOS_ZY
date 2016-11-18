@@ -1,59 +1,58 @@
 //
-//  QPEffectMVManager.m
-//  DevQPSDKCore
+//  ZYEffectFilterMVManager.m
+//  ios_zhongyouzhongchou
 //
-//  Created by Worthy on 16/8/29.
-//  Copyright © 2016年 LYZ. All rights reserved.
+//  Created by liuliang on 16/11/18.
+//  Copyright © 2016年 liuliang. All rights reserved.
 //
 
-#import "QPEffectMVManager.h"
+#import "ZYEffectFilterMVManager.h"
 
-@interface QPEffectMVManager ()
-@property (nonatomic, strong) NSMutableArray *customMVs;
-@property (nonatomic, strong) NSMutableArray *bundleMVs;
-@property (nonatomic, strong) NSMutableArray *localMVs;
+@interface ZYEffectFilterMVManager ()
+@property (nonatomic, strong) NSMutableArray *customFilterMVs;
+@property (nonatomic, strong) NSMutableArray *bundleFilterMVs;
+@property (nonatomic, strong) NSMutableArray *localFilterMVs;
 @end
 
-@implementation QPEffectMVManager
+@implementation ZYEffectFilterMVManager
 
 #pragma mark - load
 
-- (NSMutableArray *)loadEffectMVs {
-    _mvs = [NSMutableArray arrayWithCapacity:4];
-    _customMVs = [NSMutableArray arrayWithCapacity:4];
-    _bundleMVs = [NSMutableArray arrayWithCapacity:4];
-    _localMVs = [NSMutableArray arrayWithCapacity:4];
-    
+- (NSMutableArray *)loadEffectFilterMVs {
+    _filter_mvs = [NSMutableArray arrayWithCapacity:4];
+    _customFilterMVs = [NSMutableArray arrayWithCapacity:4];
+    _bundleFilterMVs = [NSMutableArray arrayWithCapacity:4];
+    _localFilterMVs = [NSMutableArray arrayWithCapacity:4];
     {
         QPEffectMV *effect = [[QPEffectMV alloc] init];
         effect.name = @"更多";
         effect.eid = INT_MAX;
         effect.icon = [[QPBundle mainBundle] pathForResource:@"edit_ico_more@2x" ofType:@"png"];
-        [_customMVs addObject:effect];
+        [_customFilterMVs addObject:effect];
     }
     {
         QPEffectMV *effect = [[QPEffectMV alloc] init];
         effect.name = @"原片";
         effect.eid = 0;
         effect.icon = [[QPBundle mainBundle] pathForResource:@"mv_sample_b@2x" ofType:@"png"];
-        [_customMVs addObject:effect];
+        [_customFilterMVs addObject:effect];
         
     }
-    [_mvs addObjectsFromArray:_customMVs];
+    [_filter_mvs addObjectsFromArray:_customFilterMVs];
     
-    [_bundleMVs addObjectsFromArray:[self loadBundleEffectMVs]];
-    if (_bundleMVs.count) {
-        [_mvs addObjectsFromArray:_bundleMVs];
-    }
+//    [_bundleFilterMVs addObjectsFromArray:[self loadBundleEffectFilterMVs]];
+//    if (_bundleFilterMVs.count) {
+//        [_filter_mvs addObjectsFromArray:_bundleFilterMVs];
+//    }
     
-    [_localMVs addObjectsFromArray:[self loadLocalEffectMVs]];
-    if (_localMVs.count) {
-        [_mvs addObjectsFromArray:_localMVs];
+    [_localFilterMVs addObjectsFromArray:[self loadLocalEffectFilterMVs]];
+    if (_localFilterMVs.count) {
+        [_filter_mvs addObjectsFromArray:_localFilterMVs];
     }
-    return _mvs;
+    return _filter_mvs;
 }
 
-- (NSArray *)loadBundleEffectMVs {
+- (NSArray *)loadBundleEffectFilterMVs {
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:16];
     NSString *configPath = [[QPBundle mainBundle] pathForResource:@"mv" ofType:@"json"];
     NSData *configData = [NSData dataWithContentsOfFile:configPath];
@@ -71,7 +70,7 @@
     return array;
 }
 
-- (NSArray *)loadLocalEffectMVs {
+- (NSArray *)loadLocalEffectFilterMVs {
     NSString *basePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
     NSString *mvDir = [QPEffect storageDirectoryWithEffectType:QPEffectTypeMV];
     NSString *mvPath = [basePath stringByAppendingPathComponent:mvDir];
@@ -89,7 +88,7 @@
             effect.tag = components[2];
             effect.icon = [effect resourceLocalIconPath];
             effect.eid = [components[0] integerValue];
-            if ([effect.tag isEqualToString:@"zhongyou_mv"]) {
+            if ([effect.tag isEqualToString:@"zhongyou_filter"]) {
                 [array addObject:effect];
             }
         }
@@ -100,34 +99,34 @@
 
 #pragma mark - getter
 
--(NSMutableArray *)localEffectMVs {
-    return _localMVs;
+-(NSMutableArray *)localEffectFilterMVs {
+    return _localFilterMVs;
 }
 
--(NSMutableArray *)bundleEffectMVs {
-    return _bundleMVs;
+-(NSMutableArray *)bundleEffectFilterMVs {
+    return _bundleFilterMVs;
 }
 
 #pragma mark - manage
 
 - (void)refresh {
-    [_mvs removeAllObjects];
-    [_mvs addObjectsFromArray:_customMVs];
-    [_mvs addObjectsFromArray:_bundleMVs];
-    _localMVs = [NSMutableArray arrayWithArray:[self loadLocalEffectMVs]];
-    [_mvs addObjectsFromArray:_localMVs];
+    [_filter_mvs removeAllObjects];
+    [_filter_mvs addObjectsFromArray:_customFilterMVs];
+    [_filter_mvs addObjectsFromArray:_bundleFilterMVs];
+    _localFilterMVs = [NSMutableArray arrayWithArray:[self loadLocalEffectFilterMVs]];
+    [_filter_mvs addObjectsFromArray:_localFilterMVs];
 }
 
--(void)deleteEffectMVByID:(NSUInteger)eid {
-    for (QPEffectMV *mv in _localMVs) {
+-(void)deleteEffectFilterMVByID:(NSUInteger)eid {
+    for (QPEffectMV *mv in _localFilterMVs) {
         if (mv.eid == eid) {
-            [self deleteEffectMV:mv];
+            [self deleteEffectFilterMV:mv];
             break;
         }
     }
 }
 
-- (void)deleteEffectMV:(QPEffectMV *)mv {
+- (void)deleteEffectFilterMV:(QPEffectMV *)mv {
     NSString *localPath = mv.resourceLocalUrl;
     if([[NSFileManager defaultManager] fileExistsAtPath:localPath]){
         [[NSFileManager defaultManager] removeItemAtPath:localPath error:nil];
@@ -136,5 +135,3 @@
 }
 
 @end
-
-
