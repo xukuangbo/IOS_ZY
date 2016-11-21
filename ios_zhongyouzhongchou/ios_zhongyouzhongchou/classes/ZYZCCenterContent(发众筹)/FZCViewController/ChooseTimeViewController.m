@@ -291,7 +291,7 @@ static NSString *DayCell = @"DayCell";
     //如果有旅行时间，选择截止时间不能超过旅游开始时间
     MoreFZCDataManager   *manager=[MoreFZCDataManager sharedMoreFZCDataManager];
     if (manager.goal_startDate!=manager.goal_backDate) {
-        if ([NSDate compareDate:model.date withDate:[[NSDate dateFromString:manager.goal_startDate] dayInTheFollowingDay:-1]]==-1) {
+        if ([NSDate compareDate:model.date withDate:[[NSDate dateFromString:manager.goal_startDate] dayInTheFollowingDay:-2]]==-1) {
             [MBProgressHUD showShortMessage:@"截止时间不可大于旅行开始时间"];
             return;
 

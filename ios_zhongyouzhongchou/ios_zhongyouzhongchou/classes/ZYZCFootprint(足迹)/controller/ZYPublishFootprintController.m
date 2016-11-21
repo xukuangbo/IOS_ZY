@@ -630,6 +630,9 @@
     if (_imgUrlArr.count) {
         NSString *images=[_imgUrlArr componentsJoinedByString:@","];
         [param setObject:images forKey:@"pics"];
+        UIImage *firstImg=[_images firstObject];
+        CGFloat imgSizeRate=firstImg.size.width/firstImg.size.height;
+        [param setObject:[NSNumber numberWithFloat:imgSizeRate] forKey:@"videoimgsize"];
     }
     //视频
     if (_video) {
