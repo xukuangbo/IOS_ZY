@@ -209,7 +209,7 @@ static NSString *const ShopID = @"ShopCell";
     WEAKSELF
     cell.playBlock = ^(void) {
         if (model.footprintType == 1) {
-            NSArray * imageUrlArray = [model.pics componentsSeparatedByString:@","];
+            NSArray *imageUrlArray = [model.pics componentsSeparatedByString:@","];
              [HUPhotoBrowser showFromImageView:weakSelfCell.imageView withImgURLs:imageUrlArray placeholderImage:[UIImage imageNamed:@"image_placeholder"] atIndex:0 dismiss:nil];
         } else if (model.footprintType == 2) {
             ZYZCPlayViewController *playVC = [[ZYZCPlayViewController alloc] init];
