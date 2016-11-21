@@ -71,7 +71,15 @@
 - (void)setModel:(ZYFootprintListModel *)model
 {
     _model = model;
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.videoimg] placeholderImage:[UIImage imageNamed:@"loading"]];
+    if (model.footprintType == 1) {
+        self.playBtn.hidden = YES;
+        NSArray * imageUrlArray = [model.pics componentsSeparatedByString:@","];
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:imageUrlArray[0]] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
+    } else {
+        self.playBtn.hidden = NO;
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.videoimg] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
+//        self.imageView.image = [UIImage imageNamed:@"image_placeholder"];
+    }
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
     if ([model.realName length] != 0) {
         self.titleLab.text = [NSString stringWithFormat:@"%@",model.realName];

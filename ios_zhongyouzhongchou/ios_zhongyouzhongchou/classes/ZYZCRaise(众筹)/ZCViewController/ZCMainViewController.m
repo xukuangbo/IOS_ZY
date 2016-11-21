@@ -27,6 +27,9 @@
 #import "GuideWindow.h"
 #import "ZYNewGuiView.h"
 #import "ZYGuideManager.h"
+
+#import "ZYWatchLiveViewController.h"
+#import "ZYSystemCommon.h"
 @interface ZCMainViewController ()<WXApiManagerDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate, ShowDoneDelegate>
 
 @property (nonatomic, strong) UISegmentedControl *segmentedView;
@@ -53,6 +56,10 @@
 // 引导页view
 @property (strong, nonatomic) GuideWindow *guideWindow;
 @property (strong, nonatomic) ZYNewGuiView *guideView;
+@property (strong, nonatomic) ZYNewGuiView *notifitionView;
+// 处理直播通知
+@property (nonatomic, strong) ZYSystemCommon *systemCommon;
+@property (strong, nonatomic) ZYLiveListModel *liveModel;
 
 @end
 
@@ -63,6 +70,8 @@
     // Do any additional setup after loading the view.
     self.automaticallyAdjustsScrollViewInsets=NO;
     _listArr=[NSMutableArray array];
+    self.systemCommon = [[ZYSystemCommon alloc] init];
+
     _pageNo=1;
 //    _isFirstEntry=YES;
     _filterItems=@[@"只看女",@"只看男",@"看成功",@"看最新",@"看全部",@"取消"];
@@ -278,9 +287,11 @@
 #pragma mark -customView
 - (GuideWindow *)guideWindow
 {
-    if (!_guideWindow) {
+    if (!_guideWindow && ![ZYGuideManager getGuideStartZhongchou]) {
         CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
         _guideWindow = [[GuideWindow alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    } else {
+        _guideWindow = [[GuideWindow alloc] initWithFrame:CGRectMake(0, KSCREEN_H - 49 - 60, ScreenWidth - 20, 50)];
     }
     return _guideWindow;
 }
@@ -296,16 +307,69 @@
     [self.guideWindow show];
 }
 
+- (void)createNotificationView:(NSString *)content headImage:(NSString *)headImage
+{
+    ZYNewGuiView *notifitionView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 50) NotificationContent:content liveHeadImage:headImage];
+    notifitionView.layer.masksToBounds = YES;
+    notifitionView.layer.cornerRadius = 25;
+    
+    [self.guideWindow addSubview:notifitionView];
+    self.notifitionView = notifitionView;
+    self.notifitionView.rectTypeOriginalY = 283;
+    notifitionView.showDoneDelagate = self;
+    [notifitionView initSubViewWithTeacherGuideType:liveWindowType withContextViewType:rectTangleType];
+    [self.guideWindow bringSubviewToFront:notifitionView];
+    [self.guideWindow show];
+}
+
 #pragma mark - ShowDoneDelegate
 - (void)showDone
 {
-    self.guideView = nil;
-    [self.guideView removeFromSuperview];
+    if (![ZYGuideManager getGuideStartZhongchou]) {
+        self.guideView = nil;
+        [self.guideView removeFromSuperview];
+        [self.guideWindow dismiss];
+        self.guideWindow = nil;
+        
+        [ZYGuideManager guideStartZhongchou:YES];
+    } else {
+        ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:self.liveModel];
+        watchLiveVC.hidesBottomBarWhenPushed = YES;
+        watchLiveVC.conversationType = ConversationType_CHATROOM;
+        [self.navigationController pushViewController:watchLiveVC animated:YES];
+        [self closeNotifitionView];
+    }
+}
+
+- (void)closeNotifitionView
+{
+    self.notifitionView = nil;
+    [self.notifitionView removeFromSuperview];
     [self.guideWindow dismiss];
     self.guideWindow = nil;
-    
-    [ZYGuideManager guideStartZhongchou:YES];
 }
+
+#pragma mark - 收到直播通知
+- (void)receptionLiveNotification:(NSNotification *)notification
+{
+    NSDictionary *notificationObject = (NSDictionary *)notification.object;
+    NSDictionary *apsDict = notificationObject[@"aps"];
+    WEAKSELF
+    NSDictionary *parameters= @{
+                                @"spaceName":notificationObject[@"spaceName"],
+                                @"streamName":notificationObject[@"streamName"]
+                                };
+    self.systemCommon.getLiveDataSuccess = ^(ZYLiveListModel *liveModel) {
+        if (liveModel != nil) {
+            weakSelf.liveModel = liveModel;
+            [weakSelf createNotificationView:apsDict[@"alert"] headImage:notificationObject[@"headImg"]];
+        } else {
+            
+        }
+    };
+    [self.systemCommon getLiveContent:parameters];
+}
+
 
 #pragma mark --- 获取众筹列表
 -(void)getHttpDataByFilterType:(NSInteger )filterType  andSeachKey:(NSString *)searchKey
@@ -559,6 +623,8 @@
     if (self.searchBar.isFirstResponder) {
         [self.searchBar resignFirstResponder];
     }
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RECEPTION_LIVE_NOTIFICATION object:nil];
+
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -571,6 +637,8 @@
     _navRightBtn.hidden = NO  ;
     _navLeftBtn.hidden  = NO  ;
     [_table reloadData];
+    // 收到直播通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receptionLiveNotification:) name:RECEPTION_LIVE_NOTIFICATION  object:nil];
 }
 
 

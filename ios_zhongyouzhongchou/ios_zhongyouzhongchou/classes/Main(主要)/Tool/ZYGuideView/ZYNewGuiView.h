@@ -20,7 +20,7 @@ typedef enum : NSInteger {
 
 - (void)showDone;
 - (void)closeNotifitionView;
-- (void)showNotifitionContent:(NSString *)content;
+//- (void)showNotifitionContent:(NSString *)content;
 
 @end
 @interface ZYNewGuiView : UIView
