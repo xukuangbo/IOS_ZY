@@ -141,25 +141,30 @@
     
 }
 
+#pragma mark --- 获取一起游人数
 -(void)setTogtherNum:(NSInteger)togtherNum
 {
+    _markImageView.hidden=NO;
     _togtherNum=togtherNum;
     if (_togtherNum==0) {
-        _markImageView.hidden=YES;
+        NSString *str = @"点击一起去";
+        CGFloat length=[ZYZCTool calculateStrLengthByText:str andFont:[UIFont systemFontOfSize:15.f] andMaxWidth:self.width].width;
+        _togtherNumLab.width=length;
+        _togtherNumLab.font=[UIFont systemFontOfSize:15.f];
+        _togtherNumLab.text = str;
     }
     else
     {
         NSString *str = [NSString stringWithFormat:@"%ld 人报名一起去",_togtherNum];
         _togtherNumLab.attributedText=[self customStringByString:str andTargetStr:[NSString stringWithFormat:@"%ld",_togtherNum]];
-         _markImageView.hidden=NO;
         
         CGFloat length01=[ZYZCTool calculateStrLengthByText:[NSString stringWithFormat:@"%ld",_togtherNum] andFont:[UIFont boldSystemFontOfSize:18.f] andMaxWidth:self.width].width;
         CGFloat length02=[ZYZCTool calculateStrLengthByText:@" 人报名一起去" andFont:[UIFont systemFontOfSize:13.f] andMaxWidth:self.width].width;
         _togtherNumLab.width=length01+length02;
-        _markImageView.width=10+_togtherNumLab.width+10;
-        _markImageView.left=self.width-_markImageView.width;
-        _togtherNumLab.left=10;
     }
+    _markImageView.width=10+_togtherNumLab.width+10;
+    _markImageView.left=self.width-_markImageView.width;
+    _togtherNumLab.left=10;
 }
 
 
@@ -192,19 +197,20 @@
                 break;
             }
         }
+        
+        //获取一起去人数
+        ReportModel *togtherReport=nil;
+        for (NSInteger i=0; i<detailModel.detailProductModel.report.count; i++) {
+            ReportModel *report=detailModel.detailProductModel.report[i];
+            if ([report.style isEqual:@4]) {
+                togtherReport = report;
+                break;
+            }
+        }
+        self.togtherNum=togtherReport.users.count;
+
     }
     
-    //获取一起去人数
-    ReportModel *togtherReport=nil;
-    for (NSInteger i=0; i<detailModel.detailProductModel.report.count; i++) {
-        ReportModel *report=detailModel.detailProductModel.report[i];
-        if ([report.style isEqual:@4]) {
-            togtherReport = report;
-            break;
-        }
-    }
-    self.togtherNum=togtherReport.users.count;
-
     [self reloadData];
 }
 

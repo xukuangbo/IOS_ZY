@@ -48,7 +48,7 @@ static QupaiSDK *_qupaiSDK = nil;
         _bottomPanelHeight = 100;
         _cameraPosition = QupaiSDKCameraPositionBack;
         _zy_VideoHandleType=ZY_QupaiVideoCancle;
-        _zy_VideoSizeRate=9/16;
+        _zy_VideoSizeRate=9.0/16.0;
         _zy_VideoSceneType=ZY_GetFootprint;
         _qupaiSDK = self;
         return self;

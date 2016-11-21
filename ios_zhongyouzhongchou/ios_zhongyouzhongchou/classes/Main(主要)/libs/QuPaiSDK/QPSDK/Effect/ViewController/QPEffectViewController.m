@@ -23,6 +23,7 @@ typedef enum {
     QPEffectTabFilter,
     QPEffectTabMV,
     QPEffectTabMusic,
+    QPEffectTabFilterMV
 } QPEffectTab;
 
 NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
@@ -100,8 +101,8 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         self.selectTab = QPEffectTabMusic;
         [self.qpEffectView.viewTab selectIndex:2 withAnimation:NO];
     }else if ([self.video.lastEffectName isEqual:@"filter"]) {
-        self.selectTab = QPEffectTabFilter;
-        [self.qpEffectView.viewTab selectIndex:0 withAnimation:NO];
+        self.selectTab = QPEffectTabFilterMV;
+        [self.qpEffectView.viewTab selectIndex:1 withAnimation:NO];
     }else{
         self.selectTab = QPEffectTabMV;
         [self.qpEffectView.viewTab selectIndex:1 withAnimation:NO];
@@ -202,7 +203,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"selectTab"]) {
-        if (_selectTab == QPEffectTabFilter ) {
+        if (_selectTab == QPEffectTabFilter ||_selectTab == QPEffectTabFilterMV ) {
             self.qpEffectView.viewMix.hidden = YES;
         }else{
             self.qpEffectView.viewMix.hidden = NO;
@@ -214,7 +215,17 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
             i = [[QPEffectManager sharedManager] effectIndexByID:self.video.filterID type:QPEffectTypeFilter];
         }else if (_selectTab == QPEffectTabMV) {
             i = [[QPEffectManager sharedManager] effectIndexByID:self.video.mvID type:QPEffectTypeMV];
-        }else{
+            if (i==0) {
+                i=1;
+            }
+        }
+        else if (_selectTab == QPEffectTabFilterMV) {
+            i = [[QPEffectManager sharedManager] effectIndexByID:self.video.mvID type:QPEffectTypeFilter_MV];
+            if (i==0) {
+                i=1;
+            }
+        }
+        else{
             i = [[QPEffectManager sharedManager] effectIndexByID:self.video.musicID type:QPEffectTypeMusic];
         }
         [self selectItemAtIndex:i];
@@ -245,7 +256,11 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         return [[QPEffectManager sharedManager] effectCountByType:QPEffectTypeFilter];
     }else if (_selectTab == QPEffectTabMV) {
         return [[QPEffectManager sharedManager] effectCountByType:QPEffectTypeMV];
-    }else {
+    }
+    else if (_selectTab == QPEffectTabFilterMV) {
+        return [[QPEffectManager sharedManager] effectCountByType:QPEffectTypeFilter_MV];
+    }
+    else {
         return [[QPEffectManager sharedManager] effectCountByType:QPEffectTypeMusic];
     }
 }
@@ -256,16 +271,18 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeFilter];
     }else if (_selectTab == QPEffectTabMV){
         effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeMV];
-    }else{
+    }
+    else if (_selectTab == QPEffectTabFilterMV){
+        effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeFilter_MV];
+    }
+    else{
         effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeMusic];
     }
     
     QPEffectViewCell *cell = (QPEffectViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:@"QPEffectViewCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor clearColor];
     cell.nameLabel.text = effect.name;
-    cell.nameLabel.textColor=[UIColor whiteColor];
     cell.iconImageView.image = [QPImage imageNamed:effect.icon];
-    cell.contentView.frame = cell.bounds;
+
     return cell;
 }
 
@@ -292,7 +309,26 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
             self.qpEffectView.viewMix.hidden = NO;
             self.video.mixVolume = 0.5;
         }
-    }else{
+    }
+    else if(_selectTab == QPEffectTabFilterMV){
+        effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeFilter_MV];
+        if ([effect isMore]) {
+            [self presentMVMoreViewController];
+        }else if([effect isEmpty]){
+            self.audioMixType = QPMediaPackAudioMixTypeOrigin;
+            self.video.mvID = effect.eid;
+            self.video.preferFilterOrMV = NO;
+            self.video.mixVolume = 1.0;
+        }else {
+            self.audioMixType = QPMediaPackAudioMixTypeOrigin;
+            self.video.mvID = effect.eid;
+            self.video.preferFilterOrMV = NO;
+            [self checkMVResourceExists];
+            self.qpEffectView.viewMix.hidden = YES;
+            self.video.mixVolume = 1.0;
+        }
+    }
+    else{
         effect = [[QPEffectManager sharedManager] effectAtIndex:indexPath.row type:QPEffectTypeMusic];
         if ([effect isMore]) {
             if ([QupaiSDK.shared.delegte respondsToSelector:@selector(qupaiSDKShowMoreMusicView:viewController:)]) {
@@ -384,7 +420,15 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 
 - (QPMediaPack *)meidaPackByCurrentUserSetting {
     QPEffectFilter *effectFilter = (QPEffectFilter *)[[QPEffectManager sharedManager] effectByID:self.video.filterID type:QPEffectTypeFilter];
-    QPEffectMV *effectMV = (QPEffectMV *)[[QPEffectManager sharedManager] effectByID:self.video.mvID type:QPEffectTypeMV];
+    QPEffectType qpEffectType ;
+    if (_selectTab == QPEffectTabMV) {
+        qpEffectType = QPEffectTypeMV;
+    }
+    else if (_selectTab == QPEffectTabFilterMV)
+    {
+        qpEffectType = QPEffectTypeFilter_MV;
+    }
+    QPEffectMV *effectMV = (QPEffectMV *)[[QPEffectManager sharedManager] effectByID:self.video.mvID type:qpEffectType];
     QPEffectMusic *effectMusic = (QPEffectMusic *)[[QPEffectManager sharedManager] effectByID:self.video.musicID type:QPEffectTypeMusic];
     QPMediaPack *pack = [[QPMediaPack alloc] init];
     pack.videoPathArray = [self.video fullPathsForFilePathArray];
@@ -426,6 +470,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
  
 // 根据当前视频长宽比和是否旋转获取mv长宽比
 - (QPEffectMVRatio)mvRatioWithCurrentVideo {
+
     QPVideoRatio videoAspect = [[QupaiSDK shared] videoRatio];
     QPVideoPoint *point = [self.video pointAtIndex:0];
     BOOL rotate = (point.rotate == 1|| point.rotate == 3);
@@ -440,11 +485,47 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
             return QPEffectMVRatio4To3;
         }
     }
+    else
+    {
+        CGFloat videoRatio=self.video.size.width/self.video.size.height;
+        DDLog(@"+++++%@",NSStringFromCGSize(self.video.size));
+        if (fabs(videoRatio-16.0/9.0)<=0.1) {
+            return QPEffectMVRatio16To9;
+        }
+        else if(fabs(videoRatio-9.0/16.0)<=0.1)
+        {
+            return QPEffectMVRatio9To16;
+        }
+        else if(fabs(videoRatio-4.0/3.0)<=0.1)
+        {
+            return QPEffectMVRatio3To4;
+        }
+        else if(fabs(videoRatio-3.0/4.0)<=0.1)
+        {
+            return QPEffectMVRatio4To3;
+        }
+        else if(videoRatio == 1/1)
+        {
+            return QPEffectMVRatio1To1;
+        }
+    }
     return (QPEffectMVRatio)videoAspect;
 }
 
 - (void)checkMVResourceExists {
-    QPEffectMV *effectMV = (QPEffectMV *)[[QPEffectManager sharedManager] effectByID:self.video.mvID type:QPEffectTypeMV];
+    
+    QPEffectType qpEffectType;
+    
+    if (_selectTab == QPEffectTabMV) {
+        
+        qpEffectType = QPEffectTypeMV;
+    }
+    else if (_selectTab == QPEffectTabFilterMV)
+    {
+        qpEffectType = QPEffectTypeFilter_MV;
+    }
+    
+    QPEffectMV *effectMV = (QPEffectMV *)[[QPEffectManager sharedManager] effectByID:self.video.mvID type:qpEffectType];
     QPEffectMVRatio mvRatio=[self mvRatioWithCurrentVideo];
     NSString *path = [effectMV resourceLocalRatioPathWithRatio:mvRatio];
     BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:path];
@@ -459,7 +540,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
         }
         else
         {
-            alertStr=@"对不起，您所选择的MV不支持本视频";
+            alertStr=@"对不起，您所选择的MV不支持本视频规格";
         }
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:alertStr message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
@@ -678,7 +759,7 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 
 - (void)onClickButtonFilterAction:(UIButton *)sender {
     self.video.lastEffectName = @"filter";
-    self.selectTab = QPEffectTabFilter;
+    self.selectTab = QPEffectTabFilterMV;
 }
 
 - (void)onClickButtonMusicAction:(UIButton *)sender {
@@ -750,6 +831,14 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 - (void)presentMVMoreViewController {
     QPMVMoreViewController *vc = [[QPMVMoreViewController alloc] initWithNibName:@"QPMVMoreViewController" bundle:nil];
     vc.delegate = self;
+    if(_selectTab == QPEffectTabMV)
+    {
+        vc.mvType=0;
+    }
+    else if (_selectTab == QPEffectTabFilterMV)
+    {
+        vc.mvType=1;
+    }
     UINavigationController *naviController = [[UINavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:naviController animated:YES completion:nil];
 }
@@ -757,7 +846,15 @@ NSString *QPMoreMusicUpdateNotification = @"kQPMoreMusicUpdateNotification";
 -(void)mvMoreViewController:(QPMVMoreViewController *)controler useItem:(QPEffectMV *)item {
     [self dismissViewControllerAnimated:YES completion:^{
         [self.qpEffectView.collectionView reloadData];
-        NSInteger index = [[QPEffectManager sharedManager] effectIndexByID:item.eid type:QPEffectTypeMV];
+        QPEffectType qpEffectType ;
+        if (_selectTab == QPEffectTabMV) {
+            qpEffectType = QPEffectTypeMV;
+        }
+        else if (_selectTab == QPEffectTabFilterMV)
+        {
+            qpEffectType = QPEffectTypeFilter_MV;
+        }
+        NSInteger index = [[QPEffectManager sharedManager] effectIndexByID:item.eid type:qpEffectType];
         if (index) {
             [self selectItemAtIndex:index];
         }

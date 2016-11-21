@@ -82,13 +82,16 @@
         if (error) return nil;
         for (NSString *subPath in subPaths) {
             NSArray *components = [subPath componentsSeparatedByString:@"-"];
-            if (components.count != 2) continue;
+            if (components.count != 3) continue;
             QPEffectMV *effect = [[QPEffectMV alloc] init];
             effect.resourceLocalUrl = [mvPath stringByAppendingPathComponent:subPath];
             effect.name = components[1];
+            effect.tag = components[2];
             effect.icon = [effect resourceLocalIconPath];
             effect.eid = [components[0] integerValue];
-            [array addObject:effect];
+            if ([effect.tag isEqualToString:@"zhongyou_mv"]) {
+                [array addObject:effect];
+            }
         }
         return array;
     }

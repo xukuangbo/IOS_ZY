@@ -269,6 +269,7 @@
 		2C6EDE9D1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EDE9C1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m */; };
 		2C79606C1D0A74940026C9F6 /* MyReturnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */; };
 		2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */; };
+		2C7979251DDEE93C00D37514 /* ZYEffectFilterMVManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7979241DDEE93C00D37514 /* ZYEffectFilterMVManager.m */; };
 		2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E3B4A1D06B34D00F51C61 /* MineTableViewCell.m */; };
 		2C7E3B4E1D06C92100F51C61 /* MineOneItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E3B4D1D06C92100F51C61 /* MineOneItemCell.m */; };
 		2C7E3B541D06CC4C00F51C61 /* MineOneItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E3B531D06CC4C00F51C61 /* MineOneItemModel.m */; };
@@ -529,6 +530,8 @@
 		391115ED1DC227BD000C82F1 /* WalletKtxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115EC1DC227BD000C82F1 /* WalletKtxModel.m */; };
 		391115F01DC228A1000C82F1 /* WalletYbjModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115EF1DC228A1000C82F1 /* WalletYbjModel.m */; };
 		391115F31DC6DB72000C82F1 /* WalletYbjBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115F21DC6DB72000C82F1 /* WalletYbjBottomBar.m */; };
+		391356AE1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 391356AC1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png */; };
+		391356AF1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 391356AD1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png */; };
 		391872141DC08CBE00484711 /* WalletKtxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 391872121DC08CBE00484711 /* WalletKtxCell.m */; };
 		391872151DC08CBE00484711 /* WalletKtxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 391872131DC08CBE00484711 /* WalletKtxCell.xib */; };
 		3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 392635051D5D7C29006A90BE /* MineWalletVc.m */; };
@@ -609,8 +612,20 @@
 		395B5A9C1D27AC660084264C /* CustomImagemapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B5A9B1D27AC660084264C /* CustomImagemapView.m */; };
 		395B88DB1D323C40001FF5DB /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 395B88DA1D323C40001FF5DB /* AboutUsVC.m */; };
 		395FAD191D9BCF340075FED5 /* FCIMChatGetImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 395FAD181D9BCF340075FED5 /* FCIMChatGetImage.m */; };
+		3961E6921DDBF89C008A0C54 /* ZYLeftTextAlertVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3961E6911DDBF89C008A0C54 /* ZYLeftTextAlertVC.m */; };
+		3961E6991DDC01DC008A0C54 /* CertificationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3961E6971DDC01DC008A0C54 /* CertificationVC.m */; };
+		3961E69A1DDC01DC008A0C54 /* CertificationVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3961E6981DDC01DC008A0C54 /* CertificationVC.xib */; };
 		3967ADB81D6C2AFD008A7F81 /* LiveFunctionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */; };
 		39788C4E1D8D3CF5000AC2BB /* LiveMoneyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */; };
+		3979C3D91DDDA49B00D75253 /* RealNameCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3979C3D81DDDA49B00D75253 /* RealNameCardView.m */; };
+		3979C3DB1DDDA4B000D75253 /* RealNameCardView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3DA1DDDA4B000D75253 /* RealNameCardView.xib */; };
+		3979C3E51DDDB17C00D75253 /* MMNumberKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 3979C3DE1DDDB17C00D75253 /* MMNumberKeyboard.m */; };
+		3979C3E61DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3DF1DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png */; };
+		3979C3E71DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E01DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png */; };
+		3979C3E81DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E11DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png */; };
+		3979C3E91DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E21DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png */; };
+		3979C3EA1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E31DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png */; };
+		3979C3EB1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3979C3E41DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png */; };
 		397DFC221DD5CF93007B282A /* MyUserFollowCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 397DFC211DD5CF93007B282A /* MyUserFollowCell.m */; };
 		397DFC241DD5CFC7007B282A /* MyUserFollowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 397DFC231DD5CFC7007B282A /* MyUserFollowCell.xib */; };
 		39809D111D58762E00CB9EE3 /* TacticBaseCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 39809D031D58762E00CB9EE3 /* TacticBaseCustomView.m */; };
@@ -1179,6 +1194,8 @@
 		2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyReturnViewController.m; sourceTree = "<group>"; };
 		2C79606D1D0A925B0026C9F6 /* MyReturnTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyReturnTableView.h; sourceTree = "<group>"; };
 		2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyReturnTableView.m; sourceTree = "<group>"; };
+		2C7979231DDEE93C00D37514 /* ZYEffectFilterMVManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYEffectFilterMVManager.h; sourceTree = "<group>"; };
+		2C7979241DDEE93C00D37514 /* ZYEffectFilterMVManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYEffectFilterMVManager.m; sourceTree = "<group>"; };
 		2C7E3B491D06B34D00F51C61 /* MineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewCell.h; sourceTree = "<group>"; };
 		2C7E3B4A1D06B34D00F51C61 /* MineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewCell.m; sourceTree = "<group>"; };
 		2C7E3B4C1D06C92100F51C61 /* MineOneItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineOneItemCell.h; sourceTree = "<group>"; };
@@ -1680,6 +1697,8 @@
 		391115EF1DC228A1000C82F1 /* WalletYbjModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjModel.m; sourceTree = "<group>"; };
 		391115F11DC6DB72000C82F1 /* WalletYbjBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjBottomBar.h; sourceTree = "<group>"; };
 		391115F21DC6DB72000C82F1 /* WalletYbjBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjBottomBar.m; sourceTree = "<group>"; };
+		391356AC1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboard_X@2x.png"; sourceTree = "<group>"; };
+		391356AD1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboard_X@3x.png"; sourceTree = "<group>"; };
 		391872111DC08CBE00484711 /* WalletKtxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletKtxCell.h; sourceTree = "<group>"; };
 		391872121DC08CBE00484711 /* WalletKtxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletKtxCell.m; sourceTree = "<group>"; };
 		391872131DC08CBE00484711 /* WalletKtxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletKtxCell.xib; sourceTree = "<group>"; };
@@ -1829,10 +1848,26 @@
 		395B88DA1D323C40001FF5DB /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
 		395FAD171D9BCF340075FED5 /* FCIMChatGetImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCIMChatGetImage.h; sourceTree = "<group>"; };
 		395FAD181D9BCF340075FED5 /* FCIMChatGetImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCIMChatGetImage.m; sourceTree = "<group>"; };
+		3961E6901DDBF89C008A0C54 /* ZYLeftTextAlertVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYLeftTextAlertVC.h; sourceTree = "<group>"; };
+		3961E6911DDBF89C008A0C54 /* ZYLeftTextAlertVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYLeftTextAlertVC.m; sourceTree = "<group>"; };
+		3961E6961DDC01DC008A0C54 /* CertificationVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationVC.h; sourceTree = "<group>"; };
+		3961E6971DDC01DC008A0C54 /* CertificationVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationVC.m; sourceTree = "<group>"; };
+		3961E6981DDC01DC008A0C54 /* CertificationVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationVC.xib; sourceTree = "<group>"; };
 		3967ADB61D6C2AFD008A7F81 /* LiveFunctionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveFunctionView.h; sourceTree = "<group>"; };
 		3967ADB71D6C2AFD008A7F81 /* LiveFunctionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveFunctionView.m; sourceTree = "<group>"; };
 		39788C4C1D8D3CF5000AC2BB /* LiveMoneyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveMoneyView.h; sourceTree = "<group>"; };
 		39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveMoneyView.m; sourceTree = "<group>"; };
+		3979C3D71DDDA49B00D75253 /* RealNameCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealNameCardView.h; sourceTree = "<group>"; };
+		3979C3D81DDDA49B00D75253 /* RealNameCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealNameCardView.m; sourceTree = "<group>"; };
+		3979C3DA1DDDA4B000D75253 /* RealNameCardView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RealNameCardView.xib; sourceTree = "<group>"; };
+		3979C3DD1DDDB17C00D75253 /* MMNumberKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMNumberKeyboard.h; sourceTree = "<group>"; };
+		3979C3DE1DDDB17C00D75253 /* MMNumberKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMNumberKeyboard.m; sourceTree = "<group>"; };
+		3979C3DF1DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MMNumberKeyboardDeleteKey.png; sourceTree = "<group>"; };
+		3979C3E01DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDeleteKey@2x.png"; sourceTree = "<group>"; };
+		3979C3E11DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDeleteKey@3x.png"; sourceTree = "<group>"; };
+		3979C3E21DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MMNumberKeyboardDismissKey.png; sourceTree = "<group>"; };
+		3979C3E31DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@2x.png"; sourceTree = "<group>"; };
+		3979C3E41DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboardDismissKey@3x.png"; sourceTree = "<group>"; };
 		397DFC201DD5CF93007B282A /* MyUserFollowCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUserFollowCell.h; sourceTree = "<group>"; };
 		397DFC211DD5CF93007B282A /* MyUserFollowCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUserFollowCell.m; sourceTree = "<group>"; };
 		397DFC231DD5CFC7007B282A /* MyUserFollowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyUserFollowCell.xib; sourceTree = "<group>"; };
@@ -2208,6 +2243,7 @@
 		04518B471CE419F0001921D0 /* MineSetUp(个人设置) */ = {
 			isa = PBXGroup;
 			children = (
+				3961E6931DDC0169008A0C54 /* CertificationVC(实名认证) */,
 				04D9A4A51D06B9A500753392 /* saveContact(收货地址) */,
 				04F685311CF57BE500E1A98E /* PersonSetUpVC(个人设置控制器) */,
 				39E4EC571D2FB99A00305F73 /* AboutZhongyou(关于众游) */,
@@ -2298,6 +2334,7 @@
 		04A99BCE1CBF848C00C6F5F0 /* libs */ = {
 			isa = PBXGroup;
 			children = (
+				3979C3DC1DDDB17C00D75253 /* MMKeyBoard */,
 				05977B0A1DB85D28007EC20A /* ZFPlayer */,
 				2C5159821D86419C0048BD20 /* AudioRecordAndPlay */,
 				39AABC8A1D6EC9D400D25B16 /* MZTimerLabel */,
@@ -4300,6 +4337,8 @@
 				2CDE67201DA652380066F49D /* QPEffectMusicManager.m */,
 				2CDE67211DA652380066F49D /* QPEffectMVManager.h */,
 				2CDE67221DA652380066F49D /* QPEffectMVManager.m */,
+				2C7979231DDEE93C00D37514 /* ZYEffectFilterMVManager.h */,
+				2C7979241DDEE93C00D37514 /* ZYEffectFilterMVManager.m */,
 				2CDE67231DA652380066F49D /* QPSSZipArchive.h */,
 				2CDE67241DA652380066F49D /* QPSSZipArchive.m */,
 			);
@@ -4666,6 +4705,27 @@
 				3910CE6F1D35D6F4004D7578 /* TacticMoreJieshaoVC.m */,
 			);
 			path = "MoreJieshao(更多介绍)";
+			sourceTree = "<group>";
+		};
+		391356B01DDEB33500CE45A3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		391356B11DDEB33500CE45A3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		391356B21DDEB33500CE45A3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		392635021D5D7C29006A90BE /* Main */ = {
@@ -5190,6 +5250,8 @@
 				395B5A8A1D24C4440084264C /* VersionModel.m */,
 				395B5A8B1D24C4440084264C /* VersionTool.h */,
 				395B5A8C1D24C4440084264C /* VersionTool.m */,
+				3961E6901DDBF89C008A0C54 /* ZYLeftTextAlertVC.h */,
+				3961E6911DDBF89C008A0C54 /* ZYLeftTextAlertVC.m */,
 			);
 			path = VersionTool;
 			sourceTree = "<group>";
@@ -5220,6 +5282,38 @@
 			path = Upload;
 			sourceTree = "<group>";
 		};
+		3961E6931DDC0169008A0C54 /* CertificationVC(实名认证) */ = {
+			isa = PBXGroup;
+			children = (
+				3961E6941DDC0169008A0C54 /* CertificationUploadVC */,
+				3961E6951DDC0169008A0C54 /* MainVC */,
+			);
+			path = "CertificationVC(实名认证)";
+			sourceTree = "<group>";
+		};
+		3961E6941DDC0169008A0C54 /* CertificationUploadVC */ = {
+			isa = PBXGroup;
+			children = (
+				391356B01DDEB33500CE45A3 /* Controller */,
+				391356B11DDEB33500CE45A3 /* Model */,
+				391356B21DDEB33500CE45A3 /* View */,
+			);
+			path = CertificationUploadVC;
+			sourceTree = "<group>";
+		};
+		3961E6951DDC0169008A0C54 /* MainVC */ = {
+			isa = PBXGroup;
+			children = (
+				3961E6961DDC01DC008A0C54 /* CertificationVC.h */,
+				3961E6971DDC01DC008A0C54 /* CertificationVC.m */,
+				3961E6981DDC01DC008A0C54 /* CertificationVC.xib */,
+				3979C3D71DDDA49B00D75253 /* RealNameCardView.h */,
+				3979C3D81DDDA49B00D75253 /* RealNameCardView.m */,
+				3979C3DA1DDDA4B000D75253 /* RealNameCardView.xib */,
+			);
+			path = MainVC;
+			sourceTree = "<group>";
+		};
 		3967ADB51D6C2AFD008A7F81 /* LiveFunctionView(功能键) */ = {
 			isa = PBXGroup;
 			children = (
@@ -5238,6 +5332,23 @@
 				39788C4D1D8D3CF5000AC2BB /* LiveMoneyView.m */,
 			);
 			path = LiveMoneyView;
+			sourceTree = "<group>";
+		};
+		3979C3DC1DDDB17C00D75253 /* MMKeyBoard */ = {
+			isa = PBXGroup;
+			children = (
+				3979C3DD1DDDB17C00D75253 /* MMNumberKeyboard.h */,
+				3979C3DE1DDDB17C00D75253 /* MMNumberKeyboard.m */,
+				391356AC1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png */,
+				391356AD1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png */,
+				3979C3DF1DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png */,
+				3979C3E01DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png */,
+				3979C3E11DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png */,
+				3979C3E21DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png */,
+				3979C3E31DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png */,
+				3979C3E41DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png */,
+			);
+			path = MMKeyBoard;
 			sourceTree = "<group>";
 		};
 		39809CFF1D58762E00CB9EE3 /* advertise(广告) */ = {
@@ -5791,6 +5902,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3979C3E61DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png in Resources */,
+				3979C3E91DDDB17C00D75253 /* MMNumberKeyboardDismissKey.png in Resources */,
 				2C066A691D87937B0048FAE4 /* ReceiverVoiceNodePlaying000@2x.png in Resources */,
 				050969361DCB0CDF00128766 /* ZYTravePayVIew.xib in Resources */,
 				2C901DCB1C89788C004B844B /* LaunchScreen.storyboard in Resources */,
@@ -5802,6 +5915,7 @@
 				2CDE67041DA651070066F49D /* more_ico_previe@2x.png in Resources */,
 				2CE617721D657DD100962163 /* HUImagePickerCell.xib in Resources */,
 				2C066A6D1D87937B0048FAE4 /* SenderVoiceNodePlaying000@2x.png in Resources */,
+				3979C3EA1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png in Resources */,
 				2CDE66801DA64EB70066F49D /* Info.plist in Resources */,
 				2C066A6A1D87937B0048FAE4 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
 				2C8B197A1D0CF7EC0063097B /* Info.plist in Resources */,
@@ -5827,12 +5941,15 @@
 				2CDE67101DA651070066F49D /* QPMVMoreViewCell.xib in Resources */,
 				2C066A6C1D87937B0048FAE4 /* ReceiverVoiceNodePlaying003@2x.png in Resources */,
 				390D9CF61DD066EE0013F606 /* WalletZCMoneyView.xib in Resources */,
+				3979C3EB1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@3x.png in Resources */,
 				2CE617761D657DD100962163 /* pick_checked@2x.png in Resources */,
 				2CDE66201DA64C3E0066F49D /* icon.png in Resources */,
 				0527D88E1DC1E3F00064E354 /* ZhongYouAPIConfig.json in Resources */,
 				2C8B19891D0CF7EC0063097B /* XMNAssetCell.xib in Resources */,
 				397DFC241DD5CFC7007B282A /* MyUserFollowCell.xib in Resources */,
 				39F2AA1F1D40ED3100023CC4 /* MBProgressHUD.bundle in Resources */,
+				391356AF1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png in Resources */,
+				3979C3E71DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png in Resources */,
 				2CE6176F1D657DD100962163 /* HUAlbumCell.xib in Resources */,
 				2CDE67081DA651070066F49D /* title_ico_back@2x.png in Resources */,
 				39F7D1A81D45BD60001DEAF4 /* Assets.xcassets in Resources */,
@@ -5840,17 +5957,21 @@
 				2C8B19871D0CF7EC0063097B /* XMNAlbumCell.xib in Resources */,
 				04518B4B1CE419F0001921D0 /* MineSetUpVC.storyboard in Resources */,
 				394C2A791DB9C63600821F78 /* WalletSelectToolBar.xib in Resources */,
+				3961E69A1DDC01DC008A0C54 /* CertificationVC.xib in Resources */,
 				2CDE67061DA651070066F49D /* more_preview_ico_close@2x.png in Resources */,
 				2C066A6B1D87937B0048FAE4 /* ReceiverVoiceNodePlaying002@2x.png in Resources */,
 				2C8B198B1D0CF7EC0063097B /* XMNBottomBar.xib in Resources */,
 				394C2A651DB7246100821F78 /* ShopCell.xib in Resources */,
 				0432ADA11D0966F9005D789E /* area.plist in Resources */,
 				2CDE661F1DA64C3E0066F49D /* audio.mp3 in Resources */,
+				391356AE1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png in Resources */,
 				2CD6B8FA1DA9DFEE00B7E60A /* ZCNoneDataView.xib in Resources */,
 				2C066A701D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png in Resources */,
 				2C8288311CD87F7A004873B6 /* Localizable.strings in Resources */,
 				3909F4211DC86926005D3AF3 /* WalletProductView.xib in Resources */,
+				3979C3DB1DDDA4B000D75253 /* RealNameCardView.xib in Resources */,
 				2CDE67071DA651070066F49D /* record_ico_close@2x.png in Resources */,
+				3979C3E81DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png in Resources */,
 				05977B241DB85DC5007EC20A /* ZFPlayer.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -5962,6 +6083,7 @@
 				395FAD191D9BCF340075FED5 /* FCIMChatGetImage.m in Sources */,
 				2CE6176C1D657DD100962163 /* HUPhotoBrowserCell.m in Sources */,
 				395B5A7E1D227B5D0084264C /* AppDelegate.m in Sources */,
+				2C7979251DDEE93C00D37514 /* ZYEffectFilterMVManager.m in Sources */,
 				2CD2091B1D6D3E27005EB62E /* ZCProductDetailTableView.m in Sources */,
 				2CDE66861DA64EB70066F49D /* JSONModel+networking.m in Sources */,
 				2C90F6EF1D532296001ABB44 /* MsgListModel.m in Sources */,
@@ -6225,6 +6347,7 @@
 				04A99D2A1CC0926400C6F5F0 /* ZYZCAccountTool.m in Sources */,
 				2CE60CB11DBF3C1A005B4D7E /* ChooseThumbController.m in Sources */,
 				0432ADA51D0966F9005D789E /* UIView+ST.m in Sources */,
+				3979C3E51DDDB17C00D75253 /* MMNumberKeyboard.m in Sources */,
 				3941CD6B1D41FCB7009224BC /* ComplainTypeController.m in Sources */,
 				2C46C1A61DC8734E006C613A /* ZCDetailIntroFifthCell.m in Sources */,
 				2CD6B8CD1DA9DDB700B7E60A /* ZCDetailReturnFourthCell.m in Sources */,
@@ -6242,6 +6365,7 @@
 				04D9A4A81D06B9FC00753392 /* MineSaveContactInfoVC.m in Sources */,
 				040651251CC62FC7003FD539 /* SDCollectionViewCell.m in Sources */,
 				392AB2881D669C26003FEDB7 /* ZYLiveViewController.m in Sources */,
+				3961E6991DDC01DC008A0C54 /* CertificationVC.m in Sources */,
 				2C8B197D1D0CF7EC0063097B /* UIView+Animations.m in Sources */,
 				2C8E9AC41D8F978200CA35DE /* ZYfootprintListCell.m in Sources */,
 				2C1B60E51D6D3CF900E3C25B /* MoreFZCTravelTableView.m in Sources */,
@@ -6340,6 +6464,7 @@
 				04B99A6E1CFFBAA600E3C33A /* TacticCityHeadView.m in Sources */,
 				2C1C079A1D1AAB2700203FF4 /* ChoosePartnerViewController.m in Sources */,
 				04C087B21D052AF500203D40 /* MyUserFollowedVC.m in Sources */,
+				3979C3D91DDDA49B00D75253 /* RealNameCardView.m in Sources */,
 				2C1B60FB1D6D3CF900E3C25B /* ZYDescImage.m in Sources */,
 				2C1B60E11D6D3CF900E3C25B /* MoreFZCGoalTableView.m in Sources */,
 				392AB2951D669C26003FEDB7 /* RCDLiveKitUtility.m in Sources */,
@@ -6374,6 +6499,7 @@
 				3941CD751D420B29009224BC /* ChatBlackListCell.m in Sources */,
 				2C0101CE1D5DF48E00D6470D /* ZFWeiboButton.m in Sources */,
 				392AB2961D669C26003FEDB7 /* RCDLiveGiftMessage.m in Sources */,
+				3961E6921DDBF89C008A0C54 /* ZYLeftTextAlertVC.m in Sources */,
 				2C4EDD471DD407B6005D68FD /* ZYZCOneProductCell.m in Sources */,
 				2C1C07A11D1AC2C100203FF4 /* PartnerTableView.m in Sources */,
 				04A99C971CBF848D00C6F5F0 /* ZYZCNavigationController.m in Sources */,

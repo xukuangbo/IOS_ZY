@@ -17,8 +17,8 @@
 #import "QupaiSDK.h"
 #import "QPGuideFactory.h"
 #import "QPEventManager.h"
-#import <QPSDKCore/QPCutVideo.h>
 
+#import <QPSDKCore/QPVideoEditor.h>
 
 #import "QPCutView.h"
 
@@ -29,14 +29,22 @@ static NSString *const AVPlayerRateKeyPath = @"_avPlayer.rate";
 
 static const CGFloat UpNeedleAdjust = 0.03;
 
-@interface QPCutViewController ()<QPCutViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource, QPCutVideoDelegate>
+
+typedef NS_ENUM(NSInteger, QPCutPresetQuality) {
+    QPCutPresetQualityLow = 4,
+    QPCutPresetQualityMedium = 6,
+    QPCutPresetQualityHigh = 8
+};
+
+@interface QPCutViewController ()<QPCutViewDelegate,UICollectionViewDelegate, UICollectionViewDataSource>
 {
     AVPlayer *_avPlayer;
     AVPlayerLayer *_playerLayer;
     NSMutableArray *_imagesArray;
     
     NSTimer *_cutTimer;
-    QPCutVideo *_cutVideo;
+//    QPCutVideo *_cutVideo;
+    QPVideoEditor *_videoEditor;
     
     QPCutInfo *_cutInfo;
     QPCutBarView *_cutBarView;
@@ -80,8 +88,7 @@ static const CGFloat UpNeedleAdjust = 0.03;
     self.view = self.qpCutView;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
     [self loadProgressView];
     [self addGesture];
@@ -100,6 +107,7 @@ static const CGFloat UpNeedleAdjust = 0.03;
     [self.qpCutView.viewBottom addSubview:_cutBarView];
     self.qpCutView.activityNext.hidden = YES;
     self.qpCutView.labelCutMiddle.textColor = [QupaiSDK shared].tintColor;
+    self.qpCutView.buttonCut.hidden = YES;
     self.navigationController.navigationBar.hidden = YES;
     _squareVideoSize = YES;
 }
@@ -117,7 +125,6 @@ static const CGFloat UpNeedleAdjust = 0.03;
     [self generateImageByAVAsset:_cutInfo.asset];
     [self refreshViewLayout];
     [self addStausObserver];
-    [self onClickButtonCutAction:_qpCutView.buttonCut];
 }
 
 - (void)stopPlayAndReset
@@ -418,13 +425,13 @@ static const CGFloat UpNeedleAdjust = 0.03;
         _playerLayer.frame = _playerFillFrame;
         //        _playerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
         
-        self.qpCutView.scrollViewPlayer.frame = CGRectMake(0, 0, 240, 240);
+        self.qpCutView.scrollViewPlayer.frame = [self cropViewFitRect];
         self.qpCutView.scrollViewPlayer.center = CGPointMake(ScreenWidth/2.0, ScreenWidth/2.0);
         self.qpCutView.scrollViewPlayer.contentSize = rect.size;
         [self.qpCutView.scrollViewPlayer.layer addSublayer:_playerLayer];
         [self.qpCutView.scrollViewPlayer setContentOffset:rect.origin];
         
-        self.qpCutView.scrollViewPlayer.transform = CGAffineTransformMakeScale(ScreenWidth/240.0, ScreenWidth/240.0);
+        self.qpCutView.scrollViewPlayer.transform = CGAffineTransformMakeScale(ScreenWidth/240.0, ScreenWidth/240);
         
         [self checkGuideView:rect];
         
@@ -444,8 +451,9 @@ static const CGFloat UpNeedleAdjust = 0.03;
         if (rect.size.width != rect.size.height) {
             _guideDragVideo = [QPGuideFactory createDragVideo];
             _guideDragVideo.center = CGPointMake(CGRectGetWidth(self.qpCutView.viewCenter.bounds)/2.0, CGRectGetHeight(self.qpCutView.viewCenter.bounds)/2.0);
-            _guideDragVideo.hidden = YES;
             [self.qpCutView.viewCenter addSubview:_guideDragVideo];
+            _guideDragVideo.hidden = YES;
+
             //            _guideDragTextView = [QPGuideFactory createDragText];
             //            _guideDragTextView.center = CGPointMake(CGRectGetWidth(_viewCenter.bounds)/2.0, CGRectGetHeight(_guideDragTextView.bounds)/2.0);
             //            [_viewCenter addSubview:_guideDragTextView];
@@ -538,30 +546,14 @@ static const CGFloat UpNeedleAdjust = 0.03;
 #pragma mark - Action
 
 -(void)onClickButtonBackAction:(UIButton *)sender {
-    
     [self.navigationController popViewControllerAnimated:YES];
-    
 }
 
 -(void)onClickButtonNextAction:(UIButton *)sender {
-    
-    //    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    //    [library assetForURL:_cutInfo.url resultBlock:^(ALAsset *asset) {
-    //        if (asset) {
-    //            [self finishCutVideo];
-    //        }else{
-    //            [[MBProgressHUD sharedInstance] showtitleNotic:@"文件不存在"];
-    //        }
-    //    } failureBlock:^(NSError *error) {
-    //        [[MBProgressHUD sharedInstance] showtitleNotic:@"文件不存在"];
-    //    }];
-    
     [self finishCutVideo];
-    
 }
 
 - (void)onClickButtonCutAction:(UIButton *)sender {
-    
     if (sender.isSelected) {
         // 当前 1:1
         _playerLayer.frame = self.qpCutView.scrollViewPlayer.bounds;
@@ -597,61 +589,74 @@ static const CGFloat UpNeedleAdjust = 0.03;
     [[NSFileManager defaultManager] removeItemAtURL:toURL error:nil];
     CMTimeRange range = CMTimeRangeMake(CMTimeMakeWithSeconds(startTime, 1000), CMTimeMakeWithSeconds(endTime-startTime, 1000));
     
-    _cutVideo = [QPCutVideo alloc];
+//    _cutVideo = [QPCutVideo alloc];
+    _videoEditor = [[QPVideoEditor alloc] init];
     [UIApplication sharedApplication].idleTimerDisabled = YES;
-    
-    if (![QupaiSDK shared].enableVideoEffect && [QupaiSDK shared].enableWatermark) {//如果不进合成页面而且有水印，剪裁的时候直接加水印
-        [_cutVideo cutVideoAVAsset:_cutInfo.asset range:range waterMark:[QupaiSDK shared].watermarkImage offset:[self offsetVideo] size:[QPSDKConfig videoSize] presetName:AVAssetExportPresetMediumQuality toURL:toURL completeBlock:^(NSURL *filePath) {
-            [UIApplication sharedApplication].idleTimerDisabled = NO;
-            if ([[NSFileManager defaultManager] fileExistsAtPath:filePath.path]) {
-                [_delegate cutViewControllerFinishCut:filePath.path];
-            }else{
-                NSLog(@"导出 失败");
-                [[QPProgressHUD sharedInstance] showtitleNotic:@"导出失败!"];
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }];
-    }else{
-        [_cutVideo cutVideoAVAsset:_cutInfo.asset range:range offset:[self offsetVideo]
-                              size:[self sizeVideo] presetName:AVAssetExportPresetHighestQuality toURL:toURL completeBlock:^(NSURL *filePath) {
-                                  [UIApplication sharedApplication].idleTimerDisabled = NO;
-                                  if ([[NSFileManager defaultManager] fileExistsAtPath:filePath.path]) {
-                                      [_delegate cutViewControllerFinishCut:filePath.path];
-                                  }else{
-                                      NSLog(@"导出 失败");
-                                      [[QPProgressHUD sharedInstance] showtitleNotic:@"导出失败!"];
-                                      [self.navigationController popViewControllerAnimated:YES];
-                                  }
-                              }];
-        
+    // TODO 不进合成页面加水印
+//    if (![QupaiSDK shared].enableVideoEffect && [QupaiSDK shared].enableWatermark) {//如果不进合成页面而且有水印，剪裁的时候直接加水印
+//        [_cutVideo cutVideoAVAsset:_cutInfo.asset range:range waterMark:[QupaiSDK shared].watermarkImage offset:[self offsetVideo] size:[QPSDKConfig videoSize] presetName:AVAssetExportPresetMediumQuality toURL:toURL completeBlock:^(NSURL *filePath) {
+//            [UIApplication sharedApplication].idleTimerDisabled = NO;
+//            if ([[NSFileManager defaultManager] fileExistsAtPath:filePath.path]) {
+//                [_delegate cutViewControllerFinishCut:filePath.path];
+//            }else{
+//                NSLog(@"导出 失败");
+//                [[QPProgressHUD sharedInstance] showtitleNotic:@"导出失败!"];
+//                [self.navigationController popViewControllerAnimated:YES];
+//            }
+//        }];
+//    }else{
+//        [_cutVideo cutVideoAVAsset:_cutInfo.asset range:range offset:[self offsetVideo]
+//                              size:[self sizeVideo] presetName:AVAssetExportPresetHighestQuality toURL:toURL completeBlock:^(NSURL *filePath) {
+//                                  [UIApplication sharedApplication].idleTimerDisabled = NO;
+//                                  if ([[NSFileManager defaultManager] fileExistsAtPath:filePath.path]) {
+//                                      [_delegate cutViewControllerFinishCut:filePath.path];
+//                                  }else{
+//                                      NSLog(@"导出 失败");
+//                                      [[QPProgressHUD sharedInstance] showtitleNotic:@"导出失败!"];
+//                                      [self.navigationController popViewControllerAnimated:YES];
+//                                  }
+//                              }];
+    CGSize outputSize = [self sizeVideo];
+    NSInteger bitRate = outputSize.width * outputSize.height * QPCutPresetQualityMedium;
+    [_videoEditor exportVideoAVAsset:_cutInfo.asset range:range rect:[self cutRect] size:outputSize bitRate:bitRate toURL:toURL percentBlock:^(CGFloat percent) {
+        NSLog(@"cut percent %f", percent);
+    } completeBlock:^(NSURL *filePath) {
+        [UIApplication sharedApplication].idleTimerDisabled = NO;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:filePath.path]) {
+            [_delegate cutViewControllerFinishCut:filePath.path];
+        }else{
+            [[QPProgressHUD sharedInstance] showtitleNotic:@"导出失败!"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }];
 //        _cutVideo.delegate = self;
-//        
+//
 //        [_cutVideo cutVideoAndCompressAVAsset:_cutInfo.asset range:range offset:[self offsetVideo] waterMark:[QupaiSDK shared].watermarkImage size:[self sizeVideo] bitrate:400000 presetName:AVAssetExportPresetHighestQuality toURL:toURL];
-    }
+//    }
     [[QPEventManager shared] event:QPEventImportCutOk];
 }
 
-#pragma mark QPCutVideoDelegate
-
-- (void)cutAndCompressVideoSuccess:(NSURL *)fileURL {
-    
-    NSLog(@"视频路径%@", fileURL.path);
-//    UISaveVideoAtPathToSavedPhotosAlbum(fileURL.path, nil, nil, nil);
-  [_delegate cutViewControllerFinishCut:fileURL.path];
-}
-
-
-- (void)cutAndCompressVideofailure:(NSError *)error {
-    
-    NSLog(@"视频裁剪合成失败%@", error);
-}
-
-
-- (void)currentCompressPlan:(CGFloat)plan {
-    
-    NSLog(@"当前视频合成进度:%f", plan);
-    
-}
+//#pragma mark QPCutVideoDelegate
+//
+//- (void)cutAndCompressVideoSuccess:(NSURL *)fileURL {
+//    
+//    NSLog(@"视频路径%@", fileURL.path);
+////    UISaveVideoAtPathToSavedPhotosAlbum(fileURL.path, nil, nil, nil);
+//  [_delegate cutViewControllerFinishCut:fileURL.path];
+//}
+//
+//
+//- (void)cutAndCompressVideofailure:(NSError *)error {
+//    
+//    NSLog(@"视频裁剪合成失败%@", error);
+//}
+//
+//
+//- (void)currentCompressPlan:(CGFloat)plan {
+//    
+//    NSLog(@"当前视频合成进度:%f", plan);
+//    
+//}
 
 
 - (void)buttonGuideImageViewClick:(id)sender
@@ -664,72 +669,119 @@ static const CGFloat UpNeedleAdjust = 0.03;
     
 }
 
-- (CGRect)videoFitRectByAVAsset:(AVAsset *)asset
-{
+- (CGRect)videoFitRectByAVAsset:(AVAsset *)asset {
     AVAssetTrack *assetTrackVideo;
     if ([[asset tracksWithMediaType:AVMediaTypeVideo] count] != 0) {
         assetTrackVideo = [asset tracksWithMediaType:AVMediaTypeVideo][0];
     }
-    _videoSize = assetTrackVideo.naturalSize;
-    float sw = assetTrackVideo.naturalSize.width, sh = assetTrackVideo.naturalSize.height;
-    float dw = 240, dh = 240, ox = 0, oy = 0, rotate = 0,fw = 0, fh = 0;
-    
-    float rw = dw / sw;
-    float rh = dh / sh;
-    if (rw > rh) {
-        rh = dh / sw;
-    }else{
-        rw = dw / sh;
-    }
-    fw = sw * rw;
-    fh = sh * rh;
-    ox = (fw - dw) * 0.5;
-    oy = (fh - dh) * 0.5;
+
+    // new
+    CGSize naturalSize = assetTrackVideo.naturalSize;
+    _videoSize = naturalSize;
     CGAffineTransform trackTrans = assetTrackVideo.preferredTransform;
-    if (trackTrans.b == 1 && trackTrans.c == -1) {//90 ang
-        rotate = M_PI_2;
-        CGFloat t = ox;
-        ox = oy;
-        oy = t;
-        
-        t = fw;
-        fw = fh;
-        fh = t;
-        _videoSize = CGSizeMake(_videoSize.height, _videoSize.width);
-    }else if (trackTrans.b == -1 && trackTrans.c == 1) {//270 ang
-        rotate = M_PI_2 * 3;
-        CGFloat t = ox;
-        ox = oy;
-        oy = t;
-        
-        t = fw;
-        fw = fh;
-        fh = t;
-        _videoSize = CGSizeMake(_videoSize.height, _videoSize.width);
+    if ((trackTrans.b == 1 && trackTrans.c == -1)||(trackTrans.b == -1 && trackTrans.c == 1)) {//90 ang
+        _videoSize = CGSizeMake(naturalSize.height, naturalSize.width);
     }
-    return CGRectMake(ox, oy, fw, fh);
+    
+    CGRect cropRect = [self cropViewFitRect];
+    CGFloat cropRatio = CGRectGetWidth(cropRect)/CGRectGetHeight(cropRect);
+    CGFloat sizeRatio = _videoSize.width/_videoSize.height;
+    CGFloat destWidth, destHeight, offsetX, offsetY;
+    
+    if (sizeRatio > cropRatio) {            // 视频比裁剪区域宽
+        destHeight = CGRectGetHeight(cropRect);
+        destWidth = _videoSize.width*destHeight/_videoSize.height;
+        offsetY = 0;
+        offsetX = (destWidth - CGRectGetWidth(cropRect))/2;
+    }else {                                 // 视频比裁剪区域长
+        destWidth = CGRectGetWidth(cropRect);
+        destHeight = destWidth / sizeRatio;
+        offsetX = 0;
+        offsetY = (destHeight - CGRectGetHeight(cropRect))/2;
+    }
+    return CGRectMake(offsetX, offsetY, destWidth, destHeight);
+    
+    // old
+//    float sw = assetTrackVideo.naturalSize.width, sh = assetTrackVideo.naturalSize.height;
+//    float dw = 240, dh = 240, ox = 0, oy = 0, rotate = 0,fw = 0, fh = 0;
+//    
+//    float rw = dw / sw;
+//    float rh = dh / sh;
+//    if (rw > rh) {
+//        rh = dh / sw;
+//    }else{
+//        rw = dw / sh;
+//    }
+//    fw = sw * rw;
+//    fh = sh * rh;
+//    ox = (fw - dw) * 0.5;
+//    oy = (fh - dh) * 0.5;
+//    CGAffineTransform trackTrans = assetTrackVideo.preferredTransform;
+//    if (trackTrans.b == 1 && trackTrans.c == -1) {//90 ang
+//        rotate = M_PI_2;
+//        CGFloat t = ox;
+//        ox = oy;
+//        oy = t;
+//        
+//        t = fw;
+//        fw = fh;
+//        fh = t;
+//        _videoSize = CGSizeMake(_videoSize.height, _videoSize.width);
+//    }else if (trackTrans.b == -1 && trackTrans.c == 1) {//270 ang
+//        rotate = M_PI_2 * 3;
+//        CGFloat t = ox;
+//        ox = oy;
+//        oy = t;
+//        
+//        t = fw;
+//        fw = fh;
+//        fh = t;
+//        _videoSize = CGSizeMake(_videoSize.height, _videoSize.width);
+//    }
+//    return CGRectMake(ox, oy, fw, fh);
 }
 
-- (CGPoint)offsetVideo
-{
-    if (_squareVideoSize) {
-        CGSize s = self.qpCutView.scrollViewPlayer.contentSize;
-        CGPoint p = self.qpCutView.scrollViewPlayer.contentOffset;
-        return CGPointMake(p.x/s.width, p.y/s.height);
+- (CGRect)cropViewFitRect {
+//    CGSize videoSize =  [QupaiSDK shared].videoSize;
+    CGFloat ratio = _videoSize.width/_videoSize.height;
+    if (ratio > 1) {
+        return CGRectMake(0, 0, 240, 240/ratio);
     }else {
-        return CGPointMake(0, 0);
+        return CGRectMake(0, 0, 240*ratio, 240);
     }
+}
 
+
+//- (CGPoint)offsetVideo
+//{
+//    if (_squareVideoSize) {
+//        CGSize s = self.qpCutView.scrollViewPlayer.contentSize;
+//        CGPoint p = self.qpCutView.scrollViewPlayer.contentOffset;
+//        return CGPointMake(p.x/s.width, p.y/s.height);
+//    }else {
+//        return CGPointMake(0, 0);
+//    }
+//
+//}
+
+- (CGRect)cutRect{
+//    if (_squareVideoSize) {
+        CGSize sourceSize = self.qpCutView.scrollViewPlayer.contentSize;
+        CGPoint offsetPoint = self.qpCutView.scrollViewPlayer.contentOffset;
+        CGSize cutSize = [self cropViewFitRect].size;
+        return CGRectMake(offsetPoint.x/sourceSize.width, offsetPoint.y/sourceSize.height, cutSize.width/sourceSize.width, cutSize.height/sourceSize.height);
+//    }else {
+//        return CGRectMake(0, 0, 1, 1);
+//    }
 }
 
 - (CGSize)sizeVideo {
-    if (_squareVideoSize) {
-        return [QPSDKConfig videoSize];
-    }else {
+//    if (_squareVideoSize) {
+//        return [QupaiSDK shared].videoSize;
+//    }else {
         return _videoSize;
-    }
+//    }
 }
-
 
 #pragma mark - AVPlayer
 

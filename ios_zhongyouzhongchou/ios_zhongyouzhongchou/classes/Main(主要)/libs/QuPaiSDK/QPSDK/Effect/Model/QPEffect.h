@@ -16,7 +16,8 @@ typedef NS_ENUM(NSInteger, QPEffectType) {
     QPEffectTypeMusic,
     QPEffectTypeFilter,
     QPEffectTypePureMusic,
-    QPEffectTypeMV
+    QPEffectTypeMV,
+    QPEffectTypeFilter_MV
 };
 
 typedef NS_ENUM (NSInteger, QPEffectItemDownStatus){
@@ -33,7 +34,8 @@ typedef NS_ENUM (NSInteger, QPEffectItemDownStatus){
 @interface QPEffect : JSONModel
 //@property (nonatomic, assign) NSInteger id;
 @property (nonatomic, copy) NSString *icon;
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *tag;
 @property (nonatomic, assign) QPEffectType type;
 @property (nonatomic, assign) NSInteger eid;
 @property (nonatomic, copy) NSString *description;

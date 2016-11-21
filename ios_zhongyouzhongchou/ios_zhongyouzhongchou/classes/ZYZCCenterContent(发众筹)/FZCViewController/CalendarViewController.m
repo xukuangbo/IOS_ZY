@@ -378,8 +378,8 @@ static NSString *DayCell = @"DayCell";
     //选择开始时间
     else if (_chooseState==ChooseNone) {
         //截止日期之前不可选
-        if ([NSDate compareDate:model.date withDate:[_selectDate dayInTheFollowingDay:-1]]==1) {
-            [MBProgressHUD showShortMessage:@"出发时间不可小于截止时间"];
+        if ([NSDate compareDate:model.date withDate:[_selectDate dayInTheFollowingDay:0]]==1) {
+            [MBProgressHUD showShortMessage:@"该时刻出发时间不可选"];
             return;
         }
 

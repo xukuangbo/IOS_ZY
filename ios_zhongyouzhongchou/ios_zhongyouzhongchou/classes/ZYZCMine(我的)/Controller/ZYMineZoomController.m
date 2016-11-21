@@ -363,7 +363,6 @@
         _businessTable.bounces=YES;
     }
 
-    
 }
 
 #pragma mark --- 获取个人信息

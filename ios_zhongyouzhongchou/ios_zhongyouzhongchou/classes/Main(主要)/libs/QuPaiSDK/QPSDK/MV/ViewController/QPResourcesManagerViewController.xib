@@ -89,9 +89,8 @@
                         <outlet property="delegate" destination="-1" id="THl-HW-P0t"/>
                     </connections>
                 </collectionView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUh-a2-5od" userLabel="emptyLab">
-                    <rect key="frame" x="0.0" y="44" width="375" height="37"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUh-a2-5od" userLabel="emptyLab">
+                    <rect key="frame" x="0.0" y="44" width="375" height="20.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -104,6 +103,9 @@
                 <constraint firstItem="5xY-vI-cjd" firstAttribute="top" secondItem="4Gz-3h-c0p" secondAttribute="bottom" id="7Ly-nd-GtY"/>
                 <constraint firstItem="5xY-vI-cjd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9ga-ZO-X3t"/>
                 <constraint firstItem="4Gz-3h-c0p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ACE-YN-6aY"/>
+                <constraint firstAttribute="trailing" secondItem="CUh-a2-5od" secondAttribute="trailing" id="dk5-mM-l3p"/>
+                <constraint firstItem="CUh-a2-5od" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nFI-xU-BUb"/>
+                <constraint firstItem="CUh-a2-5od" firstAttribute="top" secondItem="4Gz-3h-c0p" secondAttribute="bottom" id="nIN-MQ-evY"/>
                 <constraint firstAttribute="trailing" secondItem="5xY-vI-cjd" secondAttribute="trailing" id="tVe-On-Fnc"/>
                 <constraint firstItem="4Gz-3h-c0p" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="w1X-4u-9Fs"/>
             </constraints>

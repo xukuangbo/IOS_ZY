@@ -22,14 +22,18 @@
     
     _iconImageView.layer.masksToBounds = YES;
     _iconImageView.layer.cornerRadius = ICON_HALF_WIDTH;
+    
+    self.backgroundColor = [UIColor clearColor];
+    self.nameLabel.textColor=[UIColor whiteColor];
+    self.contentView.frame = self.bounds;
+
 }
 
 - (void)setSelected:(BOOL)selected
 {
     [super setSelected:selected];
-//    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : RGB(159, 159, 159); 
-    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : [UIColor whiteColor];
-    
+//    _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : RGB(159, 159, 159);
+
     if ([_nameLabel.text isEqualToString:@"原片"]) {
         _imageViewFrame.hidden = YES;
         if (selected) {
@@ -40,6 +44,8 @@
     }else{
         _imageViewFrame.hidden = !selected;
     }
+    
+      _nameLabel.textColor = selected ? [QupaiSDK shared].tintColor : [UIColor whiteColor];
 
     
 }
