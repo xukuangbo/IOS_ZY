@@ -23,7 +23,6 @@
 #import "ZYGuideManager.h"
 #import "ZYWatchLiveViewController.h"
 #import "ZYSystemCommon.h"
-#import "ZYZCTabBarController.h"
 @interface ZYMineZoomController () <ShowDoneDelegate>
 
 @property (nonatomic, strong) UILabel        *titleLab;
@@ -140,33 +139,9 @@
     self.guideWindow = nil;
 }
 
--(UIViewController *)currentViewController
-{
-//    UIViewController *vc;
-//    UIResponder* nextResponder = [self.view nextResponder];
-//    if ([nextResponder isKindOfClass:[objc_getClass("UIViewController") class]] ) {
-//        vc=(UIViewController*)nextResponder;
-//        
-//        return vc;
-//    }
-//    return vc;
-    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
-    
-    topController = topController.presentedViewController;
-
-    return topController;
-}
-
 #pragma mark - 收到直播通知
 - (void)receptionLiveNotification:(NSNotification *)notification
 {
-    UIViewController *viewController = [self currentViewController];
-    if ([viewController isKindOfClass:[ZYMineZoomController class]]) {
-        NSLog(@"bbbbbbbbbbb");
-    } else {
-        NSLog(@"ccccccccc");
-    }
-    NSLog(@"viewController%@", viewController);
     NSDictionary *notificationObject = (NSDictionary *)notification.object;
     NSDictionary *apsDict = notificationObject[@"aps"];
     WEAKSELF

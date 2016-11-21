@@ -78,6 +78,7 @@
     } else {
         self.playBtn.hidden = NO;
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.videoimg] placeholderImage:[UIImage imageNamed:@"image_placeholder"]];
+//        self.imageView.image = [UIImage imageNamed:@"image_placeholder"];
     }
     [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
     if ([model.realName length] != 0) {
