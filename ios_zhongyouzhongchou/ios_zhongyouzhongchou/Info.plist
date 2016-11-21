@@ -48,7 +48,7 @@
 	<key>CFBundleVersion</key>
 	<string>1.7.0</string>
 	<key>IS_TEST_MODE</key>
-	<true/>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>weixin</string>

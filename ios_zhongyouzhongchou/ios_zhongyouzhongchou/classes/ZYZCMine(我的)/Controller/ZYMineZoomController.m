@@ -23,6 +23,7 @@
 #import "ZYGuideManager.h"
 #import "ZYWatchLiveViewController.h"
 #import "ZYSystemCommon.h"
+#import "ZYZCTabBarController.h"
 @interface ZYMineZoomController () <ShowDoneDelegate>
 
 @property (nonatomic, strong) UILabel        *titleLab;
@@ -67,8 +68,7 @@
       [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(publishFootprintSuccess:) name:PUBLISH_FOOTPRINT_SUCCESS  object:nil];
     //删除足迹成功
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(deleteFootprintSuccess:) name:DELETE_ONE_FOOTPRINT_SUCCESS  object:nil];
-    // 收到直播通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receptionLiveNotification:) name:RECEPTION_LIVE_NOTIFICATION  object:nil];
+    
 
 //    [self createNotificationView:@"众游红包正在直播\n点击进入直播间"];
 }
@@ -140,9 +140,33 @@
     self.guideWindow = nil;
 }
 
+-(UIViewController *)currentViewController
+{
+//    UIViewController *vc;
+//    UIResponder* nextResponder = [self.view nextResponder];
+//    if ([nextResponder isKindOfClass:[objc_getClass("UIViewController") class]] ) {
+//        vc=(UIViewController*)nextResponder;
+//        
+//        return vc;
+//    }
+//    return vc;
+    UIViewController *topController = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    topController = topController.presentedViewController;
+
+    return topController;
+}
+
 #pragma mark - 收到直播通知
 - (void)receptionLiveNotification:(NSNotification *)notification
 {
+    UIViewController *viewController = [self currentViewController];
+    if ([viewController isKindOfClass:[ZYMineZoomController class]]) {
+        NSLog(@"bbbbbbbbbbb");
+    } else {
+        NSLog(@"ccccccccc");
+    }
+    NSLog(@"viewController%@", viewController);
     NSDictionary *notificationObject = (NSDictionary *)notification.object;
     NSDictionary *apsDict = notificationObject[@"aps"];
     WEAKSELF
@@ -160,6 +184,7 @@
     };
     [self.systemCommon getLiveContent:parameters];
 }
+
 
 #pragma mark --- 设置
 -(void)leftButtonClick
@@ -180,7 +205,6 @@
 }
 
 #pragma mark --- 收到消息的回调
-
 -(void)getUnReadChatMsgCount:(NSNotification *)notify
 {
     RCIMClient *rcIMClient=[RCIMClient sharedRCIMClient];
@@ -427,7 +451,8 @@
     if (!_hasGetUserData) {
         [self getUserInfoData];
     }
-    
+    // 收到直播通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receptionLiveNotification:) name:RECEPTION_LIVE_NOTIFICATION  object:nil];
     //获取未读消息数
     RCIMClient *rcIMClient=[RCIMClient sharedRCIMClient];
     _businessTable.count=[rcIMClient getTotalUnreadCount];
@@ -454,6 +479,9 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RECEPTION_LIVE_NOTIFICATION object:nil];
+
     _titleLab.hidden=YES;
 }
 

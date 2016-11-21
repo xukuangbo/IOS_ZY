@@ -26,16 +26,16 @@
         UIView *tmpView = self.subviews[i];
         if(tmpView.userInteractionEnabled && [tmpView isMemberOfClass:[UIButton class]])
         {
-            ZYDownloadGiftImageModel *model = giftImageArray[i];
+//            ZYDownloadGiftImageModel *model = giftImageArray[i];
             [tmpView.layer setMasksToBounds:YES];
             [tmpView.layer setBorderWidth:1];
             [tmpView.layer setCornerRadius:4];
             [tmpView.layer setBorderColor:[[UIColor colorWithHexString:@"#d6d6d6"] CGColor]];
             
-            UIButton *btn = (UIButton *)tmpView;
-            btn.tag = [model.price integerValue] / 10;
-            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.icon]];
-            [btn setImage:[UIImage imageWithData:imageData] forState:UIControlStateNormal];
+//            UIButton *btn = (UIButton *)tmpView;
+//            btn.tag = [model.price integerValue] / 10;
+//            NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.icon]];
+//            [btn setImage:[UIImage imageWithData:imageData] forState:UIControlStateNormal];
         }
     }
 
