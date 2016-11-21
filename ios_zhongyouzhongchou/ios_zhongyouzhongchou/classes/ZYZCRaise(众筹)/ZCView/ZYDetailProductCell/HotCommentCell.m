@@ -66,7 +66,7 @@
 -(void)setCommentModel:(ZCCommentModel *)commentModel
 {
     _commentModel=commentModel;
-    [_iconBtn sd_setImageWithURL:[NSURL URLWithString:commentModel.user.faceImg] forState:UIControlStateNormal];
+    [_iconBtn sd_setImageWithURL:[NSURL URLWithString:[ZYZCTool getSmailIcon:commentModel.user.faceImg]] forState:UIControlStateNormal];
     _iconBtn.userId=commentModel.user.userId;
     //计算名字的文字长度
      NSString *name=commentModel.user.realName?commentModel.user.realName:commentModel.user.userName;

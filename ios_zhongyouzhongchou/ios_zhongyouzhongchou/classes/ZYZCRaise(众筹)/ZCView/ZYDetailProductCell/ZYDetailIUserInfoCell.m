@@ -108,7 +108,8 @@
     }
     
     //用户图像
-    [_infoView.faceImg sd_setImageWithURL:[NSURL URLWithString:detailProductModel.user.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"] options:options];
+    [_infoView.faceImg sd_setImageWithURL:[NSURL URLWithString:[ZYZCTool getSmailIcon:detailProductModel.user.faceImg]]
+    placeholderImage:[UIImage imageNamed:@"icon_placeholder"] options:options];
     [_infoView.faceImg addTarget:self action:@selector(tapFaceImg)];
     
     //出发地

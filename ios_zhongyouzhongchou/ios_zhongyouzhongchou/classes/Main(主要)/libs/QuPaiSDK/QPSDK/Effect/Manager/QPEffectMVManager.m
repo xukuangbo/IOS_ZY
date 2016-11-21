@@ -66,7 +66,9 @@
         effect.name = item[@"name"];
         effect.icon = [effect resourceLocalIconPath];
         effect.eid = [item[@"id"] integerValue];
-        [array addObject:effect];
+        if ([item[@"tag"] isEqualToString:@"zhongyou_mv"]) {
+            [array addObject:effect];
+        }
     }
     return array;
 }

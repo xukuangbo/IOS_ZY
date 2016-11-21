@@ -254,7 +254,7 @@
             UserModel *user=users[i];
             ZCDetailCustomButton *iconBtn=[[ZCDetailCustomButton alloc]initWithFrame:CGRectMake((btn_width+btn_edg)*(i%6), (btn_width+btn_edg)*(i/6), btn_width, btn_width)];
             iconBtn.userId=user.userId;
-            [iconBtn sd_setImageWithURL:[NSURL URLWithString:user.img?user.img:user.faceImg] forState:UIControlStateNormal];
+            [iconBtn sd_setImageWithURL:[NSURL URLWithString:[ZYZCTool getSmailIcon:user.img?user.img:user.faceImg]] forState:UIControlStateNormal];
             last_btn_bottom=iconBtn.bottom;
             [_supportUsersView addSubview:iconBtn];
         }

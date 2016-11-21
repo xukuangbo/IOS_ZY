@@ -4,27 +4,32 @@
      {
      "id": 122,
      "name": "加州阳光",
-     "resourceUrl": "mv/MV122 flare"
+     "resourceUrl": "mv/MV122 flare",
+     "tag": "zhongyou_mv"
      },
      {
      "id": 124,
      "name": "summer",
-     "resourceUrl": "mv/MV124 summer"
+     "resourceUrl": "mv/MV124 summer",
+     "tag": "zhongyou_mv"
      },
      {
      "id": 121,
      "name": "party",
-     "resourceUrl": "mv/MV121 party"
+     "resourceUrl": "mv/MV121 party",
+     "tag": "zhongyou_mv"
      },
      {
      "id": 123,
      "name": "落叶",
-     "resourceUrl": "mv/MV123 luoye"
+     "resourceUrl": "mv/MV123 luoye",
+     "tag": "zhongyou_filter"
      },
      {
      "id": 120,
      "name": "feather",
-     "resourceUrl": "mv/MV120 feather"
+     "resourceUrl": "mv/MV120 feather",
+     "tag": "zhongyou_filter"
      }
   ]
 }

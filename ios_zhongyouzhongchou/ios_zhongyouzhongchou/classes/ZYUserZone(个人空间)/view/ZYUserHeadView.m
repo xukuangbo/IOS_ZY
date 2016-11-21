@@ -149,8 +149,9 @@
     _userModel=userModel;
     
     NSArray *textArr=nil;
-    [_iconImgView sd_setImageWithURL:[NSURL URLWithString:userModel.faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"] options: SDWebImageRetryFailed | SDWebImageLowPriority];
-     _iconImgView.urlString=userModel.faceImg640?userModel.faceImg640:userModel.faceImg;
+    [_iconImgView sd_setImageWithURL:[NSURL URLWithString:[ZYZCTool getSmailIcon:userModel.faceImg]] placeholderImage:[UIImage imageNamed:@"icon_placeholder"] options: SDWebImageRetryFailed | SDWebImageLowPriority];
+    
+     _iconImgView.urlString=[ZYZCTool getBigIcon:userModel.faceImg640?userModel.faceImg640:userModel.faceImg];
     
     [_iconBgView sd_setImageWithURL:[NSURL URLWithString:userModel.faceImg] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         [self addFXBlurView];

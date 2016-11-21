@@ -99,7 +99,7 @@
     
     DDLog(@"Url:%@",newUrl);
     DDLog(@"Parameters:%@",parameters);
-    [manager GET:newUrl parameters:newParameters progress:^(NSProgress * _Nonnull downloadProgress)
+    [manager GET:newUrl parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress)
      {
      }
          success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject)

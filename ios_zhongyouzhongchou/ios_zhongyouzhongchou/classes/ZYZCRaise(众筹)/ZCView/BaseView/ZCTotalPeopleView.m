@@ -123,7 +123,7 @@
     UICollectionViewCell *cell=[collectionView dequeueReusableCellWithReuseIdentifier:@"userCollection" forIndexPath:indexPath];
     UIImageView *faceImg=[[UIImageView alloc]initWithFrame:cell.contentView.bounds];
     UserModel *user=_users[indexPath.row];
-    [faceImg sd_setImageWithURL:[NSURL URLWithString:user.img?user.img:user.faceImg] placeholderImage:[UIImage imageNamed:@"head_hh"]];
+    [faceImg sd_setImageWithURL:[NSURL URLWithString:[ZYZCTool getSmailIcon:user.img?user.img:user.faceImg]] placeholderImage:[UIImage imageNamed:@"head_hh"]];
     faceImg.contentMode=UIViewContentModeScaleToFill;
     faceImg.layer.cornerRadius=4;
     faceImg.layer.masksToBounds=YES;

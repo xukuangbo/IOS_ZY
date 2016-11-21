@@ -40,10 +40,10 @@
     }
     [_filter_mvs addObjectsFromArray:_customFilterMVs];
     
-//    [_bundleFilterMVs addObjectsFromArray:[self loadBundleEffectFilterMVs]];
-//    if (_bundleFilterMVs.count) {
-//        [_filter_mvs addObjectsFromArray:_bundleFilterMVs];
-//    }
+    [_bundleFilterMVs addObjectsFromArray:[self loadBundleEffectFilterMVs]];
+    if (_bundleFilterMVs.count) {
+        [_filter_mvs addObjectsFromArray:_bundleFilterMVs];
+    }
     
     [_localFilterMVs addObjectsFromArray:[self loadLocalEffectFilterMVs]];
     if (_localFilterMVs.count) {
@@ -65,7 +65,9 @@
         effect.name = item[@"name"];
         effect.icon = [effect resourceLocalIconPath];
         effect.eid = [item[@"id"] integerValue];
-        [array addObject:effect];
+        if ([item[@"tag"] isEqualToString:@"zhongyou_filter"]) {
+            [array addObject:effect];
+        }
     }
     return array;
 }

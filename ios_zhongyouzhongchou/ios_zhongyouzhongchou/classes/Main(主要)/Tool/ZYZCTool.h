@@ -203,4 +203,21 @@
 // 将NSString转换成NSDictionary
 + (NSDictionary *)dictionaryWithJsonString:(NSString *)jsonString;
 
+/**
+ *  加载不同大小的图片
+ *
+ *  @param widthStr 图片指定的大小尺寸
+ *
+ *  @param imageUrl 图片接口
+ *
+ *  @return 日期
+ */
++ (NSString *) getScaleImageByScaleStr:(NSString *)scaleStr  withImageUrl:(NSString *)imageUrl;
+
+//小头像
++ (NSString *) getSmailIcon:(NSString *)imageUrl;
+
+//大头像
++ (NSString *) getBigIcon:(NSString *)imageUrl;
+
 @end

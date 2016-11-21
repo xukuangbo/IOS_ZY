@@ -50,7 +50,7 @@
         }
         else{
             //加载网络图片
-            [self sd_setImageWithURL:[NSURL URLWithString:imgModel.maxUrl]  placeholderImage:[UIImage imageNamed:@"image_placeholder"] options:SDWebImageRetryFailed | SDWebImageLowPriority];
+            [self sd_setImageWithURL:[NSURL URLWithString: [ZYZCTool getScaleImageByScaleStr:ZYLocalizedString(@"zc_cover_size")withImageUrl:imgModel.maxUrl]] placeholderImage:[UIImage imageNamed:@"image_placeholder"] options:SDWebImageRetryFailed | SDWebImageLowPriority];
         }
     }
 }
