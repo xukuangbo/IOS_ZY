@@ -12,7 +12,8 @@
 #import <Masonry.h>
 #import "UIView+ZYLayer.h"
 #import "MMNumberKeyboard.h"
-
+#import "MBProgressHUD+MJ.h"
+#import "RACEXTScope.h"
 @interface CertificationVC ()<UITextFieldDelegate,MMNumberKeyboardDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headBg;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
@@ -84,6 +85,10 @@
     //协议label添加点击区域
 }
 
+- (void)dealloc
+{
+    DDLog(@"%@被移除了",[self class]);
+}
 #pragma mark - 自定义方法
 - (void)setUpYesRealViews{
     _realNameCardView = [[[NSBundle mainBundle] loadNibNamed:@"RealNameCardView" owner:nil options:nil] lastObject];
@@ -111,9 +116,15 @@
     _phoneKeyBoard.delegate = self;
     _phoneTextfield.inputView = _phoneKeyBoard;
     
-    _nameTextfield.returnKeyType = UIReturnKeyDone;
-    _idCardTextfield.returnKeyType = UIReturnKeyDone;
+    //1.2设置名字输入框
+    _phoneTextfield.delegate = self;
     
+    //1.2设置身份证输入框
+    _idCardKeyBoard = [[MMNumberKeyboard alloc] initWithFrame:CGRectZero];
+    [_idCardKeyBoard configureSpecialKeyWithImage:[UIImage imageNamed:@"MMNumberKeyboard_X"] target:self action:@selector(specialKeyPress:)];
+    _idCardKeyBoard.allowsDecimalPoint = NO;
+    _idCardKeyBoard.delegate = self;
+    _idCardTextfield.inputView = _idCardKeyBoard;
     //2.上传图片
     [_upLoadImage addTarget:self action:@selector(upLoadImageAction)];
     
@@ -135,6 +146,7 @@
     //4.确认提交按钮
     _commitButton.layerCornerRadius = 5;
     _commitButton.multipleTouchEnabled = NO;
+    [_commitButton addTarget:self action:@selector(commitButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self changeCommitButtonUIWithStatus:NO];
     
     [pushXieyiView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -176,12 +188,47 @@
 }
 
 //目前需要两种判断,一种是只判断是否变绿,二是判断是否能提交,不能提交要显示那个按钮没填
-- (BOOL)judgeCanCommit{
-    if ([self judgePhone] && [self juedeNameTextfield] && [self judgeIdCard] && [self judgeUploadImage]) {
+- (BOOL)judgeCanChageStatus{
+    if (_phoneTextfield.text.length > 0 && _nameTextfield.text.length > 0 && _idCardTextfield.text.length > 0 && [self judgeSelectXieyi] && [self judgeUploadImage]) {
+        
         return YES;
     }else{
         return NO;
     }
+}
+
+- (BOOL)judgeCanCommit{
+    //1.判断手机
+    if (![self judgePhone]){
+        [MBProgressHUD showError:@"手机格式不正确" toView:self.view];
+        return NO;
+    }
+    
+    //2.判断名字,其实不需要判断
+    if (![self juedeNameTextfield]){
+        [MBProgressHUD showError:@"名字未填写" toView:self.view];
+        return NO;
+    }
+    
+    //3.判断身份证号
+    if (![self judgeIdCard]){
+        [MBProgressHUD showError:@"身份证号格式不正确" toView:self.view];
+        return NO;
+    }
+    
+    //4.判断上传图片
+    if (![self judgeUploadImage]){
+        [MBProgressHUD showError:@"图片未选择" toView:self.view];
+        return NO;
+    }
+    
+    //5.判断协议选择
+    if (![self judgeSelectXieyi]){
+        [MBProgressHUD showError:@"未同意协议" toView:self.view];
+        return NO;
+    }
+    
+    return YES;
 }
 /* 判断手机格式正确与否 */
 - (BOOL)judgePhone{
@@ -206,7 +253,7 @@
         
         return NO;
     }else{
-        NSString *idCardFormat = @"^((1[1-5])|(2[1-3])|(3[1-7])|(4[1-6])|(5[0-4])|(6[1-5])|71|(8[12])|91)\\d{4}((19\\d{2}(0[13-9]|1[012])(0[1-9]|[12]\\d|30))|(19\\d{2}(0[13578]|1[02])31)|(19\\d{2}02(0[1-9]|1\\d|2[0-8]))|(19([13579][26]|[2468][048]|0[48])0229))\\d{3}(\\d|X|x)?$";
+        NSString *idCardFormat = @"^(\\d{15}$|^\\d{18}$|^\\d{17}(\\d|X|x))$";
         NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", idCardFormat];
         BOOL isMatch = [phoneTest evaluateWithObject:_idCardTextfield.text];
         if (isMatch) {
@@ -271,8 +318,6 @@
     DDLog(@"点击了协议");
     _isSelectXieyi = !_isSelectXieyi;
     
-    [self changeCommitButtonUIWithStatus:_isSelectXieyi];
-    
     if (_isSelectXieyi == YES) {//确认选择
         _xieyiImageView.image = [UIImage imageNamed:@"shiming_yes_select"];
     }else{
@@ -284,37 +329,49 @@
     DDLog(@"推送到协议控制器");
 }
 
+- (void)commitButtonAction{
+    //不可以就返回
+//    if (![self judgeCanCommit]) {
+//        return;
+//    }
+    
+    //提交数据
+    NSDictionary *parameter = @{
+                                @"idcard" : @"233",
+                                @"mobile" : @"1233",
+                                @"idcardImg" : @"sdasdasd",
+                                @"realName" : @"我们是中国人"
+                                };
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    @weakify(self);
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"register_applyAuth.action"];
+    [ZYZCHTTPTool postHttpDataWithEncrypt:YES andURL:url andParameters:parameter andSuccessGetBlock:^(id result, BOOL isSuccess) {
+        DDLog(@"%@",result);
+        @strongify(self);
+        if (isSuccess) {
+            
+            [MBProgressHUD hideHUDForView:self.view];
+            
+        }
+        else
+        {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showError:result[@"errorMsg"] toView:self.view];
+            
+        }
+    } andFailBlock:^(id failResult) {
+        
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showError:ZYLocalizedString(@"unkonwn_error") toView:self.view];
+        
+    }];
+
+    
+}
+
 #pragma mark - textfieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    
-    if ([textField isEqual:_phoneTextfield]) {//电话输入
-        if (textField.text.length <= 11) {
-            
-            return YES;
-        }else{
-            return NO;
-        }
-        
-    }else if ([textField isEqual:_nameTextfield]){
-        
-        
-    }else if ([textField isEqual:_idCardTextfield]){
-        
-        if (textField.text.length <= 18) {
-            
-            return YES;
-        }else{
-            return NO;
-        }
-    }
-    
-    //在这里判断是否能让变绿
-    if ([self judgeCanCommit]) {
-        
-        [self changeCommitButtonUIWithStatus:YES];
-    }else{
-        [self changeCommitButtonUIWithStatus:NO];
-    }
     
     return  YES;
 }
@@ -326,6 +383,18 @@
 }
 
 #pragma mark - MMNumberKeyboardDelegate
+- (void)specialKeyPress:(MMNumberKeyboard *)keyBoard{
+    if ([keyBoard.delegate respondsToSelector:@selector(numberKeyboard:shouldInsertText:)]) {
+        BOOL shouldInsert = [keyBoard.delegate numberKeyboard:keyBoard shouldInsertText:@"X"];
+        if (!shouldInsert) {
+            return;
+        }
+    }
+    
+    [keyBoard.keyInput insertText:@"X"];
+    
+}
+
 - (BOOL)numberKeyboard:(MMNumberKeyboard *)numberKeyboard shouldInsertText:(NSString *)text{
     
     
@@ -345,7 +414,17 @@
     return YES;
 }
 
+
+#pragma mark - 输入框改变后
 - (void)textfieldDidChange:(NSNotification *)noti{
-    
+    //每次文字改变时候,更改按钮状态
+    if ([noti.object isKindOfClass:[UITextField class]]) {
+        BOOL isCan = [self judgeCanChageStatus];
+        if (isCan) {
+            [self changeCommitButtonUIWithStatus:YES];
+        }else{
+            [self changeCommitButtonUIWithStatus:NO];
+        }
+    }
 }
 @end

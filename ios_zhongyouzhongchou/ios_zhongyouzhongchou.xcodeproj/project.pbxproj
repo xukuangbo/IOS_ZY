@@ -529,6 +529,8 @@
 		391115ED1DC227BD000C82F1 /* WalletKtxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115EC1DC227BD000C82F1 /* WalletKtxModel.m */; };
 		391115F01DC228A1000C82F1 /* WalletYbjModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115EF1DC228A1000C82F1 /* WalletYbjModel.m */; };
 		391115F31DC6DB72000C82F1 /* WalletYbjBottomBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 391115F21DC6DB72000C82F1 /* WalletYbjBottomBar.m */; };
+		391356AE1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 391356AC1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png */; };
+		391356AF1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 391356AD1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png */; };
 		391872141DC08CBE00484711 /* WalletKtxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 391872121DC08CBE00484711 /* WalletKtxCell.m */; };
 		391872151DC08CBE00484711 /* WalletKtxCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 391872131DC08CBE00484711 /* WalletKtxCell.xib */; };
 		3926350C1D5D7C29006A90BE /* MineWalletVc.m in Sources */ = {isa = PBXBuildFile; fileRef = 392635051D5D7C29006A90BE /* MineWalletVc.m */; };
@@ -1692,6 +1694,8 @@
 		391115EF1DC228A1000C82F1 /* WalletYbjModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjModel.m; sourceTree = "<group>"; };
 		391115F11DC6DB72000C82F1 /* WalletYbjBottomBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletYbjBottomBar.h; sourceTree = "<group>"; };
 		391115F21DC6DB72000C82F1 /* WalletYbjBottomBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletYbjBottomBar.m; sourceTree = "<group>"; };
+		391356AC1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboard_X@2x.png"; sourceTree = "<group>"; };
+		391356AD1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MMNumberKeyboard_X@3x.png"; sourceTree = "<group>"; };
 		391872111DC08CBE00484711 /* WalletKtxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletKtxCell.h; sourceTree = "<group>"; };
 		391872121DC08CBE00484711 /* WalletKtxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletKtxCell.m; sourceTree = "<group>"; };
 		391872131DC08CBE00484711 /* WalletKtxCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletKtxCell.xib; sourceTree = "<group>"; };
@@ -4698,6 +4702,27 @@
 			path = "MoreJieshao(更多介绍)";
 			sourceTree = "<group>";
 		};
+		391356B01DDEB33500CE45A3 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		391356B11DDEB33500CE45A3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		391356B21DDEB33500CE45A3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		392635021D5D7C29006A90BE /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -5264,6 +5289,9 @@
 		3961E6941DDC0169008A0C54 /* CertificationUploadVC */ = {
 			isa = PBXGroup;
 			children = (
+				391356B01DDEB33500CE45A3 /* Controller */,
+				391356B11DDEB33500CE45A3 /* Model */,
+				391356B21DDEB33500CE45A3 /* View */,
 			);
 			path = CertificationUploadVC;
 			sourceTree = "<group>";
@@ -5306,6 +5334,8 @@
 			children = (
 				3979C3DD1DDDB17C00D75253 /* MMNumberKeyboard.h */,
 				3979C3DE1DDDB17C00D75253 /* MMNumberKeyboard.m */,
+				391356AC1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png */,
+				391356AD1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png */,
 				3979C3DF1DDDB17C00D75253 /* MMNumberKeyboardDeleteKey.png */,
 				3979C3E01DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png */,
 				3979C3E11DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@3x.png */,
@@ -5913,6 +5943,7 @@
 				2C8B19891D0CF7EC0063097B /* XMNAssetCell.xib in Resources */,
 				397DFC241DD5CFC7007B282A /* MyUserFollowCell.xib in Resources */,
 				39F2AA1F1D40ED3100023CC4 /* MBProgressHUD.bundle in Resources */,
+				391356AF1DDEA63800CE45A3 /* MMNumberKeyboard_X@3x.png in Resources */,
 				3979C3E71DDDB17C00D75253 /* MMNumberKeyboardDeleteKey@2x.png in Resources */,
 				2CE6176F1D657DD100962163 /* HUAlbumCell.xib in Resources */,
 				2CDE67081DA651070066F49D /* title_ico_back@2x.png in Resources */,
@@ -5928,6 +5959,7 @@
 				394C2A651DB7246100821F78 /* ShopCell.xib in Resources */,
 				0432ADA11D0966F9005D789E /* area.plist in Resources */,
 				2CDE661F1DA64C3E0066F49D /* audio.mp3 in Resources */,
+				391356AE1DDEA63800CE45A3 /* MMNumberKeyboard_X@2x.png in Resources */,
 				2CD6B8FA1DA9DFEE00B7E60A /* ZCNoneDataView.xib in Resources */,
 				2C066A701D87937B0048FAE4 /* SenderVoiceNodePlaying003@2x.png in Resources */,
 				2C8288311CD87F7A004873B6 /* Localizable.strings in Resources */,
