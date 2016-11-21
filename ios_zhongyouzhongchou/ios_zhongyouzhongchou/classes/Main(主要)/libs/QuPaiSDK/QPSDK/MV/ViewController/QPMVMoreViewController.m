@@ -55,8 +55,23 @@
     QPMVMoreGroup *group = [[QPMVMoreGroup alloc] init];
     group.gid = 1;
     [self.mvManager fetchMVResourcesWithSuccess:^(NSArray *mvs) {
-        [self updateMVStatus:mvs];
-        group.mvs = mvs;
+        NSString *tag = nil;
+        if (_mvType== 0) {
+            tag =@"zhongyou_mv";
+        }
+        else if (_mvType==1)
+        {
+            tag =@"zhongyou_filter";
+        }
+        
+        NSMutableArray *newMVs=[NSMutableArray array];
+        for (QPEffectMV *mv in mvs) {
+            if ([mv.tag isEqualToString:tag]) {
+                [newMVs addObject:mv];
+            }
+        }
+        [self updateMVStatus:newMVs];
+        group.mvs = newMVs;
         self.moreGroupCell.group = group;
     } failure:^(NSError *error) {
         
@@ -66,8 +81,17 @@
 
 - (void)updateMVStatus:(NSArray *)mvs {
     for (QPEffectMV *mv in mvs) {
-        mv.type = QPEffectTypeMV;
-        NSInteger index = [[QPEffectManager sharedManager] effectIndexByID:mv.eid type:QPEffectTypeMV];
+        QPEffectType qpEffectType ;
+        if (self.mvType == 0 ) {
+            mv.type = QPEffectTypeMV;
+            qpEffectType = QPEffectTypeMV;
+        }
+        else if (self.mvType ==1 )
+        {
+            mv.type = QPEffectTypeMV;
+            qpEffectType = QPEffectTypeFilter_MV;
+        }
+        NSInteger index = [[QPEffectManager sharedManager] effectIndexByID:mv.eid type:qpEffectType];
         if (index) {
             mv.downStatus = QPEffectItemDownStatusFinish;
         }else {
@@ -98,13 +122,20 @@
 
 - (IBAction)buttonCloseClick:(id)sender {
 //    [self saveCache];
-    [[QPEffectManager sharedManager] updateMVEffect];
+    if (self.mvType==0) {
+         [[QPEffectManager sharedManager] updateMVEffect];
+    }
+    else if (self.mvType==1)
+    {
+         [[QPEffectManager sharedManager] updateFilterMVEffect];
+    }
     [_delegate mvMoreViewControllerClose:self downID:_downItemID isNew:NO];
 }
 
 - (IBAction)buttonManagerClick:(id)sender {
     QPResourcesManagerViewController *manager = [[QPResourcesManagerViewController alloc] initWithNibName:@"QPResourcesManagerViewController" bundle:nil];
     manager.delegate = self;
+    manager.mvType = self.mvType ;
     [self.navigationController pushViewController:manager animated:YES];
 }
 //
@@ -133,7 +164,13 @@
 }
 
 - (void)mvMoreViewCellClose:(QPMVMoreViewCell *)cell {
-    [[QPEffectManager sharedManager] updateMVEffect];
+    if (self.mvType==0) {
+        [[QPEffectManager sharedManager] updateMVEffect];
+    }
+    else if (self.mvType==1)
+    {
+        [[QPEffectManager sharedManager] updateFilterMVEffect];
+    }
 }
 
 - (void)mvMoreViewCellDown:(QPMVMoreViewCell *)cell {
@@ -142,7 +179,13 @@
 }
 
 - (void)mvMoreViewCellUse:(QPMVMoreViewCell *)cell {
-    [[QPEffectManager sharedManager] updateMVEffect];
+    if (self.mvType==0) {
+        [[QPEffectManager sharedManager] updateMVEffect];
+    }
+    else if (self.mvType==1)
+    {
+        [[QPEffectManager sharedManager] updateFilterMVEffect];
+    }
     [_delegate mvMoreViewController:self useItem:cell.effectMV];
 }
 
@@ -174,7 +217,13 @@
 }
 
 - (void)mvMoreDownViewUse:(QPEffectMV *)effectMV {
-    [[QPEffectManager sharedManager] updateMVEffect];
+    if (self.mvType==0) {
+        [[QPEffectManager sharedManager] updateMVEffect];
+    }
+    else if (self.mvType==1)
+    {
+        [[QPEffectManager sharedManager] updateFilterMVEffect];
+    }
     [_delegate mvMoreViewController:self useItem:effectMV];
 }
 

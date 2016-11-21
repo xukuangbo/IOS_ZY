@@ -269,6 +269,7 @@
 		2C6EDE9D1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C6EDE9C1DC71DE4002BA1A4 /* ZCDetailIntroFourthCell.m */; };
 		2C79606C1D0A74940026C9F6 /* MyReturnViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */; };
 		2C79606F1D0A925B0026C9F6 /* MyReturnTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */; };
+		2C7979251DDEE93C00D37514 /* ZYEffectFilterMVManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7979241DDEE93C00D37514 /* ZYEffectFilterMVManager.m */; };
 		2C7E3B4B1D06B34D00F51C61 /* MineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E3B4A1D06B34D00F51C61 /* MineTableViewCell.m */; };
 		2C7E3B4E1D06C92100F51C61 /* MineOneItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E3B4D1D06C92100F51C61 /* MineOneItemCell.m */; };
 		2C7E3B541D06CC4C00F51C61 /* MineOneItemModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C7E3B531D06CC4C00F51C61 /* MineOneItemModel.m */; };
@@ -1193,6 +1194,8 @@
 		2C79606B1D0A74940026C9F6 /* MyReturnViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyReturnViewController.m; sourceTree = "<group>"; };
 		2C79606D1D0A925B0026C9F6 /* MyReturnTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyReturnTableView.h; sourceTree = "<group>"; };
 		2C79606E1D0A925B0026C9F6 /* MyReturnTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyReturnTableView.m; sourceTree = "<group>"; };
+		2C7979231DDEE93C00D37514 /* ZYEffectFilterMVManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYEffectFilterMVManager.h; sourceTree = "<group>"; };
+		2C7979241DDEE93C00D37514 /* ZYEffectFilterMVManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZYEffectFilterMVManager.m; sourceTree = "<group>"; };
 		2C7E3B491D06B34D00F51C61 /* MineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewCell.h; sourceTree = "<group>"; };
 		2C7E3B4A1D06B34D00F51C61 /* MineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewCell.m; sourceTree = "<group>"; };
 		2C7E3B4C1D06C92100F51C61 /* MineOneItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineOneItemCell.h; sourceTree = "<group>"; };
@@ -4334,6 +4337,8 @@
 				2CDE67201DA652380066F49D /* QPEffectMusicManager.m */,
 				2CDE67211DA652380066F49D /* QPEffectMVManager.h */,
 				2CDE67221DA652380066F49D /* QPEffectMVManager.m */,
+				2C7979231DDEE93C00D37514 /* ZYEffectFilterMVManager.h */,
+				2C7979241DDEE93C00D37514 /* ZYEffectFilterMVManager.m */,
 				2CDE67231DA652380066F49D /* QPSSZipArchive.h */,
 				2CDE67241DA652380066F49D /* QPSSZipArchive.m */,
 			);
@@ -6078,6 +6083,7 @@
 				395FAD191D9BCF340075FED5 /* FCIMChatGetImage.m in Sources */,
 				2CE6176C1D657DD100962163 /* HUPhotoBrowserCell.m in Sources */,
 				395B5A7E1D227B5D0084264C /* AppDelegate.m in Sources */,
+				2C7979251DDEE93C00D37514 /* ZYEffectFilterMVManager.m in Sources */,
 				2CD2091B1D6D3E27005EB62E /* ZCProductDetailTableView.m in Sources */,
 				2CDE66861DA64EB70066F49D /* JSONModel+networking.m in Sources */,
 				2C90F6EF1D532296001ABB44 /* MsgListModel.m in Sources */,

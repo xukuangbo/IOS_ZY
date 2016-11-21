@@ -144,7 +144,7 @@ typedef NS_ENUM(NSInteger,QPDownPathType){
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *dir = paths.count > 0 ? paths[0] : nil;
-    NSString *effectPath = [NSString stringWithFormat:@"%@/%zd-%@",pathEffectType,effect.eid,effect.name];
+    NSString *effectPath = [NSString stringWithFormat:@"%@/%zd-%@-%@",pathEffectType,effect.eid,effect.name,effect.tag];
     if (pathType == QPDownPathTypeDown) {
         NSString * path =[NSString stringWithFormat:@"%@/temp%zd",pathEffectType,effect.eid];
         dir = [dir stringByAppendingPathComponent:path];
