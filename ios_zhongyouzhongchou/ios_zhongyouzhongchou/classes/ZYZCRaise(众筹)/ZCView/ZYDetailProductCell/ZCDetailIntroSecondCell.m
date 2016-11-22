@@ -220,7 +220,7 @@
 #pragma mark --- 刷新数据
 -(void)reloadData
 {
-    [_oneGoalImg sd_setImageWithURL:[NSURL URLWithString:KWebImage(_tacticSingleModel.viewImg)] placeholderImage:[UIImage imageNamed:@"image_placeholder"] options: SDWebImageRetryFailed | SDWebImageLowPriority];
+    [_oneGoalImg sd_setImageWithURL:[NSURL URLWithString:[ZYZCTool getScaleImageByScaleStr:ZYLocalizedString(@"zc_cover_size") withImageUrl:KWebImage(_tacticSingleModel.viewImg)]] placeholderImage:[UIImage imageNamed:@"image_placeholder"] options: SDWebImageRetryFailed | SDWebImageLowPriority];
     _generalLab.text=_tacticSingleModel.viewText ;
     _destLab.text=_tacticSingleModel.name;
     if (_destLab.text.length) {

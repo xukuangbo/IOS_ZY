@@ -15,6 +15,7 @@
 #import "ZYCommentFootprintController.h"
 #import "ZYZCPlayViewController.h"
 #import "ZYStartFootprintBtn.h"
+#import "HUPhotoBrowser.h"
 @interface ZYSceneViewController () <UICollectionViewDelegate, UICollectionViewDataSource,WaterFlowLayoutDelegate>
 @property (nonatomic, strong) UICollectionView *collectionView;
 @property (nonatomic, strong) NSMutableArray *scenes;
@@ -202,12 +203,19 @@ static NSString *const ShopID = @"ShopCell";
     cell.layer.cornerRadius = 6;
     
     cell.model = self.scenes[indexPath.row];
-    
+    __block ZYFootprintListModel *model = self.scenes[indexPath.row];
+    __weak ShopCell *weakSelfCell = cell;
+
     WEAKSELF
     cell.playBlock = ^(void) {
-        ZYZCPlayViewController *playVC = [[ZYZCPlayViewController alloc] init];
-        playVC.urlString = [weakSelf.scenes[indexPath.row] video];
-        [weakSelf presentViewController:playVC animated:YES completion:nil];
+        if (model.footprintType == 1) {
+            NSArray *imageUrlArray = [model.pics componentsSeparatedByString:@","];
+             [HUPhotoBrowser showFromImageView:weakSelfCell.imageView withImgURLs:imageUrlArray placeholderImage:[UIImage imageNamed:@"image_placeholder"] atIndex:0 dismiss:nil];
+        } else if (model.footprintType == 2) {
+            ZYZCPlayViewController *playVC = [[ZYZCPlayViewController alloc] init];
+            playVC.urlString = [weakSelf.scenes[indexPath.row] video];
+            [weakSelf presentViewController:playVC animated:YES completion:nil];
+        }
     };
     cell.commentBlock = ^(void) {
         ZYFootprintListModel *footprintModel = weakSelf.scenes[indexPath.item];
@@ -218,13 +226,13 @@ static NSString *const ShopID = @"ShopCell";
         [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
     };
     cell.praiseBlock = ^(UIButton *praiseButton) {
-        ZYFootprintListModel *footprintModel = weakSelf.scenes[indexPath.item];
+//        ZYFootprintListModel *footprintModel = weakSelf.scenes[indexPath.item];
 //        ZYCommentFootprintController *commentFootprintVC = [[ZYCommentFootprintController alloc] init];
 //        commentFootprintVC.hidesBottomBarWhenPushed = YES;
 //        commentFootprintVC.footprintModel = footprintModel;
 //        commentFootprintVC.showWithKeyboard = YES;
 //        [weakSelf.navigationController pushViewController:commentFootprintVC animated:YES];
-        [weakSelf clickPraiseButtonAction:praiseButton model:footprintModel indexPath:indexPath];
+        [weakSelf clickPraiseButtonAction:praiseButton model:model indexPath:indexPath];
     };
     return cell;
 }

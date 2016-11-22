@@ -583,6 +583,7 @@
     DDLog(@"dealloc:%@",[self class]);
     [ZYNSNotificationCenter  removeObserver:self];
     [MediaUtils deleteFileByPath:_localVideoImgPath];
+    [MediaUtils deleteFileByPath:_videoPath];
 }
 
 

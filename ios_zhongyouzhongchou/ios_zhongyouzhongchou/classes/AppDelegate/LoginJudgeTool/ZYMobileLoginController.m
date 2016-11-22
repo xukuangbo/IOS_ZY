@@ -217,7 +217,7 @@
 {
     _codeBtn.enabled=NO;
     
-    [self.view endEditing:YES];
+    [_codeText becomeFirstResponder];
     
     //验证手机号是否正确
     BOOL phoneMatch=[self validateInput:_textField];

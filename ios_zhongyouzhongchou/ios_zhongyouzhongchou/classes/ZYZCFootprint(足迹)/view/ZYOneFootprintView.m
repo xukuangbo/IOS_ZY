@@ -408,7 +408,7 @@
 -(UIImageView *)createUrlImageWithFrame:(CGRect)frame andUrl:(NSString *)imageUrl
 {
     UIImageView *pic=[[UIImageView alloc]initWithFrame:frame];
-    [ pic sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:[UIImage imageNamed:@"image_placeholder"] options:SDWebImageRetryFailed | SDWebImageLowPriority ];
+    [ pic sd_setImageWithURL:[NSURL URLWithString:[ZYZCTool getScaleImageByScaleStr:ZYLocalizedString(@"zj_image_size") withImageUrl:imageUrl]] placeholderImage:[UIImage imageNamed:@"image_placeholder"] options:SDWebImageRetryFailed | SDWebImageLowPriority ];
     pic.contentMode=UIViewContentModeScaleAspectFill;
     pic.layer.masksToBounds=YES;
     [pic addTarget:self action:@selector(skimPics:)];

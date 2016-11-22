@@ -13,11 +13,12 @@
 #import "ZYZCMessageListViewController.h"
 #import "UIView+WZLBadge.h"
 #import "ZYLocationManager.h"
-//#import "UploadVoucherVC.h"
-
-
-
-@interface TacticMainViewController ()<CLLocationManagerDelegate,UISearchBarDelegate>
+#import "GuideWindow.h"
+#import "ZYNewGuiView.h"
+#import "ZYGuideManager.h"
+#import "ZYWatchLiveViewController.h"
+#import "ZYSystemCommon.h"
+@interface TacticMainViewController ()<CLLocationManagerDelegate,UISearchBarDelegate, ShowDoneDelegate>
 /**
  *  消息按钮
  */
@@ -40,13 +41,21 @@
 
 @property (nonatomic, strong) UISearchBar *searchBar;
 
+// 通知view
+@property (strong, nonatomic) ZYNewGuiView *notifitionView;
+@property (strong, nonatomic) GuideWindow *guideWindow;
+// 处理直播通知
+@property (nonatomic, strong) ZYSystemCommon *systemCommon;
+@property (strong, nonatomic) ZYLiveListModel *liveModel;
+
 @end
 
 @implementation TacticMainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.systemCommon = [[ZYSystemCommon alloc] init];
+
     self.automaticallyAdjustsScrollViewInsets = NO;
     /**
      *  创建tableView
@@ -110,6 +119,70 @@
     [self.navigationController.navigationBar addSubview:searchBar];
     _searchBar = searchBar;
 }
+#pragma mark - Notifition
+// 接收通知提醒
+- (void)createNotificationView:(NSString *)content headImage:(NSString *)headImage
+{
+    ZYNewGuiView *notifitionView = [[ZYNewGuiView alloc] initWithFrame:CGRectMake(10, 0, ScreenWidth - 20, 50) NotificationContent:content liveHeadImage:headImage];
+    notifitionView.layer.masksToBounds = YES;
+    notifitionView.layer.cornerRadius = 25;
+    
+    [self.guideWindow addSubview:notifitionView];
+    self.notifitionView = notifitionView;
+    self.notifitionView.rectTypeOriginalY = 283;
+    notifitionView.showDoneDelagate = self;
+    [notifitionView initSubViewWithTeacherGuideType:liveWindowType withContextViewType:rectTangleType];
+    [self.guideWindow bringSubviewToFront:notifitionView];
+    [self.guideWindow show];
+}
+
+- (GuideWindow *)guideWindow
+{
+    if (!_guideWindow) {
+        _guideWindow = [[GuideWindow alloc] initWithFrame:CGRectMake(0, KSCREEN_H - 49 - 60, ScreenWidth - 20, 50)];
+    }
+    return _guideWindow;
+}
+
+#pragma mark - ShowDoneDelegate
+- (void)showDone
+{
+    ZYWatchLiveViewController *watchLiveVC = [[ZYWatchLiveViewController alloc] initWatchLiveModel:self.liveModel];
+    watchLiveVC.hidesBottomBarWhenPushed = YES;
+    watchLiveVC.conversationType = ConversationType_CHATROOM;
+    [self.navigationController pushViewController:watchLiveVC animated:YES];
+    [self closeNotifitionView];
+}
+
+- (void)closeNotifitionView
+{
+    self.notifitionView = nil;
+    [self.notifitionView removeFromSuperview];
+    [self.guideWindow dismiss];
+    self.guideWindow = nil;
+}
+
+#pragma mark - 收到直播通知
+- (void)receptionLiveNotification:(NSNotification *)notification
+{
+    NSDictionary *notificationObject = (NSDictionary *)notification.object;
+    NSDictionary *apsDict = notificationObject[@"aps"];
+    WEAKSELF
+    NSDictionary *parameters= @{
+                                @"spaceName":notificationObject[@"spaceName"],
+                                @"streamName":notificationObject[@"streamName"]
+                                };
+    self.systemCommon.getLiveDataSuccess = ^(ZYLiveListModel *liveModel) {
+        if (liveModel != nil) {
+            weakSelf.liveModel = liveModel;
+            [weakSelf createNotificationView:apsDict[@"alert"] headImage:notificationObject[@"headImg"]];
+        } else {
+            
+        }
+    };
+    [self.systemCommon getLiveContent:parameters];
+}
+
 #pragma mark - 创建tableView
 - (void)createTableView
 {
@@ -189,7 +262,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:RECEPTION_LIVE_NOTIFICATION object:nil];
+
     [self.locationManager stopUpdatingLocation];
     _searchBar.hidden=YES;
     _cityChoseButton.hidden=YES;
@@ -199,6 +273,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    // 收到直播通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receptionLiveNotification:) name:RECEPTION_LIVE_NOTIFICATION  object:nil];
     //设置导航栏的颜色为透明
     [self.navigationController.navigationBar lt_setBackgroundColor:home_navi_bgcolor(0)];
     self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];

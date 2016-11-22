@@ -123,7 +123,7 @@
 
 -(void)setFaceImg:(NSString *)faceImg
 {
-    [_iconImg sd_setImageWithURL:[NSURL URLWithString:faceImg] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
+    [_iconImg sd_setImageWithURL:[NSURL URLWithString:[ZYZCTool getSmailIcon:faceImg]] placeholderImage:[UIImage imageNamed:@"icon_placeholder"]];
 }
 
 -(void)setVoiceLen:(float)voiceLen
