@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ios_zhongyouzhongchou/classes/ZYZCMine(&#x6211;&#x7684;)/MineSetUp(&#x4e2a;&#x4eba;&#x8bbe;&#x7f6e;)/CertificationVC(&#x5b9e;&#x540d;&#x8ba4;&#x8bc1;)/MainVC/CertificationVC.m"
-            timestampString = "501132770.141411"
+            timestampString = "501402748.598161"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "347"
-            endingLineNumber = "347"
+            startingLineNumber = "384"
+            endingLineNumber = "384"
             landmarkName = "-commitButtonAction"
             landmarkType = "7">
          </BreakpointContent>

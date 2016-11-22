@@ -642,6 +642,10 @@
 		3985EC3A1D5C1C86007C43D1 /* WalletMingXiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC341D5C1C86007C43D1 /* WalletMingXiModel.m */; };
 		3985EC411D5C53E6007C43D1 /* MineWalletMingxiCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3985EC401D5C53E6007C43D1 /* MineWalletMingxiCell.m */; };
 		3987D55F1D46FE5300556E41 /* TacticGoXXTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3987D55E1D46FE5300556E41 /* TacticGoXXTravelCell.m */; };
+		398B5C851DE2867E0025A173 /* CertificationUploadVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 398B5C831DE2867E0025A173 /* CertificationUploadVC.m */; };
+		398B5C861DE2867E0025A173 /* CertificationUploadVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 398B5C841DE2867E0025A173 /* CertificationUploadVC.xib */; };
+		398B5C891DE288460025A173 /* CertificationUploadMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 398B5C881DE288460025A173 /* CertificationUploadMapView.m */; };
+		398B5C8B1DE288570025A173 /* CertificationUploadMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 398B5C8A1DE288570025A173 /* CertificationUploadMapView.xib */; };
 		39911AB01D5038B2007DF44B /* TacticSingleFoodVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39911AAF1D5038B2007DF44B /* TacticSingleFoodVC.m */; };
 		39911ABD1D5038E2007DF44B /* TacticGeneralModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 39911ABA1D5038E2007DF44B /* TacticGeneralModel.m */; };
 		39911ABE1D5038E2007DF44B /* TacticGeneralVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 39911ABC1D5038E2007DF44B /* TacticGeneralVC.m */; };
@@ -1899,6 +1903,12 @@
 		3985EC401D5C53E6007C43D1 /* MineWalletMingxiCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineWalletMingxiCell.m; sourceTree = "<group>"; };
 		3987D55D1D46FE5300556E41 /* TacticGoXXTravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticGoXXTravelCell.h; sourceTree = "<group>"; };
 		3987D55E1D46FE5300556E41 /* TacticGoXXTravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticGoXXTravelCell.m; sourceTree = "<group>"; };
+		398B5C821DE2867E0025A173 /* CertificationUploadVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationUploadVC.h; sourceTree = "<group>"; };
+		398B5C831DE2867E0025A173 /* CertificationUploadVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationUploadVC.m; sourceTree = "<group>"; };
+		398B5C841DE2867E0025A173 /* CertificationUploadVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationUploadVC.xib; sourceTree = "<group>"; };
+		398B5C871DE288460025A173 /* CertificationUploadMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CertificationUploadMapView.h; sourceTree = "<group>"; };
+		398B5C881DE288460025A173 /* CertificationUploadMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CertificationUploadMapView.m; sourceTree = "<group>"; };
+		398B5C8A1DE288570025A173 /* CertificationUploadMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CertificationUploadMapView.xib; sourceTree = "<group>"; };
 		39911AAE1D5038B2007DF44B /* TacticSingleFoodVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticSingleFoodVC.h; sourceTree = "<group>"; };
 		39911AAF1D5038B2007DF44B /* TacticSingleFoodVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TacticSingleFoodVC.m; sourceTree = "<group>"; };
 		39911AB91D5038E2007DF44B /* TacticGeneralModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TacticGeneralModel.h; sourceTree = "<group>"; };
@@ -4710,6 +4720,9 @@
 		391356B01DDEB33500CE45A3 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				398B5C821DE2867E0025A173 /* CertificationUploadVC.h */,
+				398B5C831DE2867E0025A173 /* CertificationUploadVC.m */,
+				398B5C841DE2867E0025A173 /* CertificationUploadVC.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4724,6 +4737,9 @@
 		391356B21DDEB33500CE45A3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				398B5C871DE288460025A173 /* CertificationUploadMapView.h */,
+				398B5C881DE288460025A173 /* CertificationUploadMapView.m */,
+				398B5C8A1DE288570025A173 /* CertificationUploadMapView.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5914,10 +5930,12 @@
 				2C8B196E1D0CF7EC0063097B /* JGProgressHUD Resources.bundle in Resources */,
 				2CDE67041DA651070066F49D /* more_ico_previe@2x.png in Resources */,
 				2CE617721D657DD100962163 /* HUImagePickerCell.xib in Resources */,
+				398B5C861DE2867E0025A173 /* CertificationUploadVC.xib in Resources */,
 				2C066A6D1D87937B0048FAE4 /* SenderVoiceNodePlaying000@2x.png in Resources */,
 				3979C3EA1DDDB17C00D75253 /* MMNumberKeyboardDismissKey@2x.png in Resources */,
 				2CDE66801DA64EB70066F49D /* Info.plist in Resources */,
 				2C066A6A1D87937B0048FAE4 /* ReceiverVoiceNodePlaying001@2x.png in Resources */,
+				398B5C8B1DE288570025A173 /* CertificationUploadMapView.xib in Resources */,
 				2C8B197A1D0CF7EC0063097B /* Info.plist in Resources */,
 				3931CBD31D88F0D500115F0D /* ZYWatchEndLiveVC.xib in Resources */,
 				2C1A7CBD1DB769C4004C3440 /* QPResourcesManagerViewController.xib in Resources */,
@@ -6172,6 +6190,7 @@
 				39911ACB1D504174007DF44B /* UIView+ViewController.m in Sources */,
 				392AB28B1D669C26003FEDB7 /* RCDLiveEmojiPageControl.m in Sources */,
 				3909F41F1DC84534005D3AF3 /* WalletUserYbjModel.m in Sources */,
+				398B5C891DE288460025A173 /* CertificationUploadMapView.m in Sources */,
 				2CDE66DC1DA650A80066F49D /* QPRecordTipGuideView.m in Sources */,
 				2C1B60CD1D6D3CF900E3C25B /* ChooseSiteImgController.m in Sources */,
 				2CC78A831D9948E800CC04E2 /* ZYUserZoneController.m in Sources */,
@@ -6199,6 +6218,7 @@
 				2CAD97B01D1D3CF4000E4ED8 /* CommentUserViewController.m in Sources */,
 				3985EC3A1D5C1C86007C43D1 /* WalletMingXiModel.m in Sources */,
 				2C1B60E81D6D3CF900E3C25B /* MoreFZCRaiseMoneySecondCell.m in Sources */,
+				398B5C851DE2867E0025A173 /* CertificationUploadVC.m in Sources */,
 				04F6854B1CF57C9F00E1A98E /* MinePersonSetUpHeadView.m in Sources */,
 				392AB2901D669C26003FEDB7 /* RCDLiveContentView.m in Sources */,
 				39E52FE51D50845600D0ED83 /* TacticMainViewModel.m in Sources */,

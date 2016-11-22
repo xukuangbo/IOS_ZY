@@ -45,6 +45,10 @@ typedef NS_ENUM(NSInteger, MyPartnerType)
 @property (nonatomic, strong) NSNumber *height;
 @property (nonatomic, copy  ) NSString *img;//支持人头像
 @property (nonatomic, copy  ) NSString *mobilePhone;//手机号
+/**
+ *  实名认证:1 认证失败 ， 0 未认证 2 正在认证 1 认证成功
+ **/
+@property (nonatomic, copy) NSString *authStatus;
 
 //旅伴？回报？
 @property (nonatomic, assign) MyPartnerType mypartnerType;

@@ -14,6 +14,8 @@
 #import "MMNumberKeyboard.h"
 #import "MBProgressHUD+MJ.h"
 #import "RACEXTScope.h"
+#import "CertificationUploadVC.h"
+#import "UserModel.h"
 @interface CertificationVC ()<UITextFieldDelegate,MMNumberKeyboardDelegate>
 @property (weak, nonatomic) IBOutlet UIView *headBg;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
@@ -286,31 +288,67 @@
 
 #pragma mark - netWork
 - (void)requestHaveShiming{
-    BOOL isHave = NO;
     
     //1.背景图
     _headBg.backgroundColor = [UIColor ZYZC_MainColor];
     _headBgImage.image = [UIImage imageNamed:@"real_background"];
-    if (isHave == YES) {
+    
+    //提交数据
+    
+    NSMutableDictionary *parameter = [NSMutableDictionary dictionary];
+    NSString *userId = [ZYZCAccountTool getUserId];
+    NSString *url = [[ZYZCAPIGenerate sharedInstance] API:@"u_getUserDetail"];
+    [parameter setValue:userId forKey:@"selfUserId"];
+    [parameter setValue:userId forKey:@"userId"];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    @weakify(self);
+    [ZYZCHTTPTool GET:url parameters:parameter  withSuccessGetBlock:^(id result, BOOL isSuccess){
+        DDLog(@"%@",result);
+        @strongify(self);
+        if (isSuccess) {
+            [MBProgressHUD hideHUDForView:self.view];
+            
+            UserModel *userModel=[[UserModel alloc]mj_setKeyValues:result[@"data"][@"user"]];
+            if (!userModel.authStatus) {
+                [self setUpNoRealViews];
+            }else{
+                //-1 认证失败 ， 0 未认证 2 正在认证 1 认证成功
+                if ([userModel.authStatus isEqualToString:@"-1"]) {//认证失败
+                    
+                    _bodyView.hidden = NO;
+                    _descLabel.text = @"你填写的资料将被严格保密";
+                    
+                }else if ([userModel.authStatus isEqualToString:@"0"]){//未认证
+                    
+                }else if ([userModel.authStatus isEqualToString:@"2"]){//正在认证
+                    
+                }else if ([userModel.authStatus isEqualToString:@"1"]){//认证成功
+                    
+                }
+            }
+            
+        }
+        else
+        {
+            [MBProgressHUD hideHUDForView:self.view];
+            [MBProgressHUD showError:result[@"errorMsg"] toView:self.view];
+            
+        }
+    } andFailBlock:^(id failResult) {
         
-        [self setUpYesRealViews];
+        @strongify(self);
+        [MBProgressHUD hideHUDForView:self.view];
+        [MBProgressHUD showError:ZYLocalizedString(@"unkonwn_error") toView:self.view];
         
-        _bodyView.hidden = YES;
-        _descLabel.text = @"你已通过实名认证";
-
-        //拿到头像和真实姓名展示
-    }else{
-        
-        [self setUpNoRealViews];
-        _bodyView.hidden = NO;
-        _descLabel.text = @"你填写的资料将被严格保密";
-    }
+    }];
 }
 
 
 #pragma mark - 点击动作
 - (void)upLoadImageAction{
     DDLog(@"上传到图片");
+    
+    [self.navigationController pushViewController:[[CertificationUploadVC alloc] init] animated:YES];
     
 }
 
@@ -331,9 +369,9 @@
 
 - (void)commitButtonAction{
     //不可以就返回
-//    if (![self judgeCanCommit]) {
-//        return;
-//    }
+    if (![self judgeCanCommit]) {
+        return;
+    }
     
     //提交数据
     NSDictionary *parameter = @{
