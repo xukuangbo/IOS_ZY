@@ -6,12 +6,14 @@
 //  Copyright © 2016年 liuliang. All rights reserved.
 //
 
-#define PLACEHOLDER_TEXT  @"分享此刻的心情"
-#define LOCATION_TEXT     @"显示当前位置"
+#define PLACEHOLDER_TEXT      @"分享此刻的心情"
+#define LOCATION_TEXT         @"显示当前位置"
+#define videoPublish_xcText   @"同时发布到现场  所有人可见"
+
 #define Max_Limit_Num     100
 
 #define PIC_HEIGHT     (KSCREEN_W-60)/3.0
-#define BGIMAGE_HEIGHT PIC_HEIGHT*2+80
+#define BGIMAGE_HEIGHT PIC_HEIGHT*2+80+20
 
 #import "ZYPublishFootprintController.h"
 #import <objc/runtime.h>
@@ -37,6 +39,11 @@
 @property (nonatomic, strong) XMNPhotoPickerController *picker;
 @property (nonatomic, strong) UIImageView  *locationIcon;
 @property (nonatomic, strong) UILabel      *locationLab;
+@property (nonatomic, strong) UISwitch     *switchBtn;
+@property (nonatomic, strong) UILabel      *xcLab;
+@property (nonatomic, strong) UISwitch     *xcSwitch;
+
+
 @property (nonatomic, assign) BOOL         showLocation;
 @property (nonatomic, copy  ) NSString     *currentAddress;
 @property (nonatomic, copy  ) NSString     *coordinateStr;
@@ -46,7 +53,7 @@
 @property (nonatomic, strong) NSMutableArray *imgUrlArr;
 @property (nonatomic, copy  ) NSString       *video;
 @property (nonatomic, copy  ) NSString       *videoImg;
-@property (nonatomic, assign) BOOL         uploadSuccess;
+@property (nonatomic, assign) BOOL           uploadSuccess;
 
 @end
 
@@ -60,8 +67,9 @@
     [self configNavUI];
     [self configBodyUI];
     [self reloadDataByType:self.footprintType];
+    [self switchAction:_switchBtn];
     //监听文本改变
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(textChange:) name:UITextViewTextDidChangeNotification object:nil];
+    [ZYNSNotificationCenter addObserver:self selector:@selector(textChange:) name:UITextViewTextDidChangeNotification object:nil];
 }
 
 -(void)configNavUI
@@ -138,7 +146,7 @@
     [_contentView addSubview:_addBtn];
     
     //显示位置
-    _locationView = [[UIView alloc]initWithFrame:CGRectMake(0, _contentView.bottom+KEDGE_DISTANCE,_bgImageView.width , 40)];
+    _locationView = [[UIView alloc]initWithFrame:CGRectMake(0, _contentView.bottom+KEDGE_DISTANCE,_bgImageView.width , 60)];
     [_bgImageView addSubview:_locationView];
     
     [_locationView addSubview:[UIView lineViewWithFrame:CGRectMake(0, 0, _locationView.width, 0.5) andColor:[UIColor lightGrayColor]]];
@@ -157,11 +165,26 @@
     _locationLab=locationLab;
     
     UISwitch *locationSwitch=[[UISwitch alloc]initWithFrame:CGRectMake(_locationView.width-60, (_locationView.height-30)/2, 50, 30)];
-    locationSwitch.on=NO;
+    locationSwitch.on=YES;
     [locationSwitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
     [_locationView addSubview:locationSwitch];
+    _switchBtn=locationSwitch;
     
     _showLocation=locationSwitch.on;
+    
+    [_locationView addSubview:[UIView lineViewWithFrame:CGRectMake(10, _switchBtn.bottom+5, _locationView.width-20, 0.5) andColor:[UIColor lightGrayColor]]];
+    
+    //展示现场
+    _xcSwitch=[[UISwitch alloc]initWithFrame:CGRectMake(_bgImageView.width-60, _switchBtn.bottom+10, 0, 0)];
+    _xcSwitch.on=YES;
+    [_xcSwitch addTarget:self action:@selector(xcSwitchAction:) forControlEvents:UIControlEventValueChanged];
+    [_locationView addSubview:_xcSwitch];
+    
+    _xcLab=[ZYZCTool createLabWithFrame:CGRectMake(locationIcon.left, _xcSwitch.bottom-20, _xcSwitch.left-locationIcon.right-20, 20) andFont:[UIFont systemFontOfSize:15.f] andTitleColor:[UIColor ZYZC_MainColor]];
+    _xcLab.text=videoPublish_xcText;
+    [_locationView addSubview:_xcLab];
+    _locationView.height=_xcSwitch.bottom;
+    _bgImageView.height =_locationView.bottom+10;
 }
 
 #pragma mark --- 文字改变
@@ -241,6 +264,17 @@
     DDLog(@"showLocation:%d",_showLocation);
 }
 
+#pragma mark --- 是否展示现场
+-(void)xcSwitchAction:(id)sender
+{
+    UISwitch *switchButton = (UISwitch*)sender;
+    BOOL isButtonOn = [switchButton isOn];
+    if (isButtonOn) {
+        self.xcLab.textColor=[UIColor ZYZC_MainColor];
+    }else{
+        self.xcLab.textColor=[UIColor ZYZC_TextGrayColor01];
+    }
+}
 
 #pragma mark --- 加载图片
 -(void)reloadDataByType:(FootprintType)footprintType
@@ -626,6 +660,10 @@
         NSString *jsonStr=[ZYZCTool turnJson:param01];
         [param setObject:jsonStr forKey:@"gpsData"];
     }
+    
+    //是否展示到现场
+    [param setObject:[NSString stringWithFormat:@"%d",_xcSwitch.on] forKey:@"xzshow"];
+    
     //图片
     if (_imgUrlArr.count) {
         NSString *images=[_imgUrlArr componentsJoinedByString:@","];
@@ -681,7 +719,7 @@
 -(void)dealloc
 {
     DDLog(@"dealloc:%@",[self class]);
-    
+    [ZYNSNotificationCenter removeObserver:self];
     for (NSInteger i=0; i<_fileTmpPathArr.count; i++) {
         [ZYZCTool removeExistfile:_fileTmpPathArr[i]];
     }

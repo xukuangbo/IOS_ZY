@@ -177,11 +177,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger index = _footprintListType==MyFootprintList?indexPath.row-2:indexPath.row-1;
-    ZYCommentFootprintController *commentFootprintController=[[ZYCommentFootprintController alloc]init];
-    commentFootprintController.footprintModel=self.dataArr[index];
-    commentFootprintController.hidesBottomBarWhenPushed=YES;
-    commentFootprintController.showWithKeyboard = NO;
-    [self.viewController.navigationController pushViewController:commentFootprintController animated:YES];
+    if (index>=0) {
+        ZYCommentFootprintController *commentFootprintController=[[ZYCommentFootprintController alloc]init];
+        commentFootprintController.footprintModel=self.dataArr[index];
+        commentFootprintController.hidesBottomBarWhenPushed=YES;
+        commentFootprintController.showWithKeyboard = NO;
+        [self.viewController.navigationController pushViewController:commentFootprintController animated:YES];
+    }
 }
 
 #pragma mark --- 置顶按钮状态变化

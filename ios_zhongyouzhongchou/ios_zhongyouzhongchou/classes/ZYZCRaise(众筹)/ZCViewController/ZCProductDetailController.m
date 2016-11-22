@@ -325,7 +325,7 @@
         else
         {
             [_table.topImgView sd_setImageWithURL:
-             [NSURL URLWithString:[ZYZCTool getScaleImageByScaleStr:ZYLocalizedString(@"zc_cover_size")withImageUrl:imgUrl]]
+             [NSURL URLWithString:[ZYZCTool getScaleImageByScaleStr:ZYLocalizedString(@"zc_cover_size") withImageUrl:imgUrl]]
               placeholderImage:[UIImage imageNamed:@"image_placeholder"] options: SDWebImageRetryFailed | SDWebImageLowPriority];
         }
     }

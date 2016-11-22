@@ -96,7 +96,6 @@
         
         //选择视频后的回调
         [_picker setDidFinishPickingVideoBlock:^(UIImage * _Nullable image, XMNAssetModel * _Nullable asset) {
-            weakSelf.videoImage=[ZYZCTool imageByScalingAndCroppingWithSourceImage:image];
             [weakSelf compressVideo:asset.asset];
         }];
         
@@ -252,23 +251,15 @@
                     if (copySuccess) {
                         //删除源视频
                         [MediaUtils deleteFileByPath:[compressedOutputURL path]];
-                        //将图片数据转换成png格式文件并存储
-                        weakSelf.thumbnailPath=[NSTemporaryDirectory() stringByAppendingPathComponent:@"footprint%@.png"];
-                        [MediaUtils deleteFileByPath:weakSelf.thumbnailPath];
-                        if (weakSelf.videoImage){
-                            [UIImagePNGRepresentation(weakSelf.videoImage) writeToFile:weakSelf.thumbnailPath atomically:YES];
-                        }
+                        
                         CGFloat sizeRate=weakSelf.videoImage.size.width/weakSelf.videoImage.size.height;
-                        CGFloat videoLength=[VideoService getVideoDuration:[NSURL URLWithString:weakSelf.videoPath]];
+
                         [weakSelf.picker dismissViewControllerAnimated:YES completion:^{
-                            ZYPublishFootprintController *publishFootprintController=[[ZYPublishFootprintController alloc]init];
-                            publishFootprintController.footprintType=Footprint_VideoType;
-                            publishFootprintController.videoPath=weakSelf.videoPath;
-                            publishFootprintController.thumbnailPath=weakSelf.thumbnailPath;
-                            publishFootprintController.videoimgsize=sizeRate;
-                            publishFootprintController.
-                            videoLength=videoLength;
-                            [weakSelf.viewController presentViewController:publishFootprintController animated:YES completion:nil];
+                            
+                            ZYShortVideoPublish *shortVideoPublish=[ZYShortVideoPublish new];
+                            shortVideoPublish.videoPath=weakSelf.videoPath;
+                            shortVideoPublish.img_rate=sizeRate;
+                            [weakSelf.viewController presentViewController:shortVideoPublish animated:YES completion:nil];
                         }];
                     }
                 }
