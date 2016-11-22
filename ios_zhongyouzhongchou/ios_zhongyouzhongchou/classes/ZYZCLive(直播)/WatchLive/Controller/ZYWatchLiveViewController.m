@@ -539,13 +539,15 @@ static NSString *const RCDLiveGiftMessageCellIndentifier = @"RCDLiveGiftMessageC
     
     WEAKSELF
     [ZYZCHTTPTool GET:getUserInfoURL parameters:parameter withSuccessGetBlock:^(id result, BOOL isSuccess) {
-        NSDictionary *dic = (NSDictionary *)result;
-        NSDictionary *data = dic[@"data"];
-        if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]) {
-            [weakSelf updateLivePersonNumberViewFrame];
-            weakSelf.livePersonNumberView.hidden = NO;
-        } else{
-            weakSelf.livePersonNumberView.hidden = NO;
+        if (isSuccess) {
+            NSDictionary *dic = (NSDictionary *)result;
+            NSDictionary *data = dic[@"data"];
+            if ([[NSString stringWithFormat:@"%@", data[@"friend"]] isEqualToString:@"1"]) {
+                [weakSelf updateLivePersonNumberViewFrame];
+                weakSelf.livePersonNumberView.hidden = NO;
+            } else{
+                weakSelf.livePersonNumberView.hidden = NO;
+            }
         }
     } andFailBlock:^(id failResult) {
         weakSelf.livePersonNumberView.hidden = NO;
