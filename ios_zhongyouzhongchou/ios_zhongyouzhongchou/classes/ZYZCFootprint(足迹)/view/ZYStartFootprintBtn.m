@@ -96,6 +96,7 @@
         
         //选择视频后的回调
         [_picker setDidFinishPickingVideoBlock:^(UIImage * _Nullable image, XMNAssetModel * _Nullable asset) {
+            weakSelf.videoImage=[ZYZCTool imageByScalingAndCroppingWithSourceImage:image];
             [weakSelf compressVideo:asset.asset];
         }];
         
@@ -251,11 +252,9 @@
                     if (copySuccess) {
                         //删除源视频
                         [MediaUtils deleteFileByPath:[compressedOutputURL path]];
-                        
                         CGFloat sizeRate=weakSelf.videoImage.size.width/weakSelf.videoImage.size.height;
-
+                
                         [weakSelf.picker dismissViewControllerAnimated:YES completion:^{
-                            
                             ZYShortVideoPublish *shortVideoPublish=[ZYShortVideoPublish new];
                             shortVideoPublish.videoPath=weakSelf.videoPath;
                             shortVideoPublish.img_rate=sizeRate;
