@@ -825,4 +825,73 @@ BOOL isFuguozhi = false;
     return dic;
 }
 
+#pragma mark --- 加载不同大小的图片
++ (NSString *) getScaleImageByScaleStr:(NSString *)scaleStr  withImageUrl:(NSString *)imageUrl
+{
+    NSString *newImageUrl = imageUrl;
+    //判断url是否是oss上的
+    NSRange range=[imageUrl rangeOfString:@"oss-cn-hangzhou"];
+    if (range.length) {
+       newImageUrl = [imageUrl stringByReplacingCharactersInRange:range withString:@"img-cn-hangzhou"];
+        newImageUrl = [newImageUrl stringByAppendingString:[NSString stringWithFormat:@"!%@",scaleStr]];
+    }
+//    DDLog(@"+++++:%@",newImageUrl);
+    return newImageUrl;
+}
+
+#pragma mark --- 获取小头像（微信或平台）
++ (NSString *) getSmailIcon:(NSString *)imageUrl
+{
+    NSString *newImageUrl = imageUrl;
+    //判断url是否是wx上的
+    NSRange range=[imageUrl rangeOfString:@"wx.qlogo.cn"];
+    if (range.length) {
+        if ([imageUrl hasSuffix:@"/132"]) {
+            return newImageUrl;
+        }
+        else if ([imageUrl hasSuffix:@"/64"])
+        {
+            newImageUrl = [imageUrl stringByReplacingCharactersInRange:NSMakeRange(imageUrl.length-2, 2) withString:@"132"];
+        }
+        else if ([imageUrl hasSuffix:@"/640"])
+        {
+            newImageUrl = [imageUrl stringByReplacingCharactersInRange:NSMakeRange(imageUrl.length-3, 3) withString:@"132"];
+        }
+        else if ([imageUrl hasSuffix:@"/0"])
+        {
+            newImageUrl = [imageUrl stringByReplacingCharactersInRange:NSMakeRange(imageUrl.length-1, 1) withString:@"132"];
+        }
+    }
+    else
+    {
+        newImageUrl = [[self class] getScaleImageByScaleStr:@"s132" withImageUrl:imageUrl];
+    }
+    DDLog(@"++++++++smail:%@",newImageUrl);
+    return newImageUrl;
+}
+
++ (NSString *) getBigIcon:(NSString *)imageUrl
+{
+    NSString *newImageUrl = imageUrl;
+    //判断url是否是wx上的
+    NSRange range=[imageUrl rangeOfString:@"wx.qlogo.cn"];
+    if (range.length) {
+        if ([imageUrl hasSuffix:@"/640"]) {
+            return newImageUrl;
+        }
+        else if ([imageUrl hasSuffix:@"/64"])
+        {
+            newImageUrl = [imageUrl stringByReplacingCharactersInRange:NSMakeRange(imageUrl.length-2, 2) withString:@"0"];
+        }
+        else if ([imageUrl hasSuffix:@"/132"])
+        {
+            newImageUrl = [imageUrl stringByReplacingCharactersInRange:NSMakeRange(imageUrl.length-3, 3) withString:@"0"];
+        }
+    }
+    DDLog(@"++++++++big:%@",newImageUrl);
+    return newImageUrl;
+}
+
+
+
 @end

@@ -79,7 +79,7 @@
             _movieView.image=[UIImage imageWithContentsOfFile:videoImgUrl];
         }
         else{
-            [_movieView sd_setImageWithURL:[NSURL URLWithString:videoImgUrl] placeholderImage:nil options: SDWebImageRetryFailed | SDWebImageLowPriority];
+            [_movieView sd_setImageWithURL:[NSURL URLWithString: [ZYZCTool getScaleImageByScaleStr:ZYLocalizedString(@"zc_cover_size")withImageUrl:videoImgUrl]] placeholderImage:nil options: SDWebImageRetryFailed | SDWebImageLowPriority];
         }
         _movieView.height=self.width/8*5;
         _movieView.playUrl=playUrl;

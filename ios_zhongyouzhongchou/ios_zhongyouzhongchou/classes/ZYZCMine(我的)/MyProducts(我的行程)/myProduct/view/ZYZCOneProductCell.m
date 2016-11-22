@@ -227,7 +227,7 @@
     //风景图
     if (!_headImage.hidden) {
         if (oneModel.product.headImage.length) {
-            [_headImage sd_setImageWithURL:[NSURL URLWithString:oneModel.product.headImage]  placeholderImage:[UIImage imageNamed:@"image_placeholder"] options:options];
+        [_headImage sd_setImageWithURL:[NSURL URLWithString: [ZYZCTool getScaleImageByScaleStr:ZYLocalizedString(@"zc_cover_size")withImageUrl:oneModel.product.headImage]] placeholderImage:[UIImage imageNamed:@"image_placeholder"] options:options];
         }
     }
     NSString *startDest=nil;//出发地
@@ -276,7 +276,7 @@
         _destLayerImg.width=placeBgWidth+40;
     }
     //用户图像
-    [_iconImage sd_setBackgroundImageWithURL:[NSURL URLWithString:oneModel.user.faceImg] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"icon_placeholder"] options:options];
+    [_iconImage sd_setBackgroundImageWithURL:[NSURL URLWithString:[ZYZCTool getSmailIcon:oneModel.user.faceImg]] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"icon_placeholder"] options:options];
     _iconImage.userId=oneModel.user.userId;
     
     //出发地
