@@ -287,10 +287,12 @@
     //获取消息推送
     NSDictionary *remoteNotificationUserInfo = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
         if (remoteNotificationUserInfo[@"_j_msgid"]) {
-             ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
-            ZYZCMessageListViewController *msgController=[[ZYZCMessageListViewController alloc]init];
-            msgController.hidesBottomBarWhenPushed=YES;
-            [mainTab.selectedViewController pushViewController:msgController animated:YES];
+            if ([remoteNotificationUserInfo[@"pushType"] integerValue] != 10) {
+                ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
+                ZYZCMessageListViewController *msgController=[[ZYZCMessageListViewController alloc]init];
+                msgController.hidesBottomBarWhenPushed=YES;
+                [mainTab.selectedViewController pushViewController:msgController animated:YES];
+            }
 //            UIAlertView *alert=[[UIAlertView alloc]initWithTitle:@"收到极光消息1" message:nil delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 //            [alert show];
         }
@@ -490,6 +492,13 @@ fetchCompletionHandler:
     if ([userInfo[@"pushType"] integerValue] == 10) {
         [[NSNotificationCenter defaultCenter] postNotificationName:RECEPTION_LIVE_NOTIFICATION object:userInfo];
     }
+    else
+    {
+        ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
+        ZYZCMessageListViewController *msgController=[[ZYZCMessageListViewController alloc]init];
+        msgController.hidesBottomBarWhenPushed=YES;
+        [mainTab.selectedViewController pushViewController:msgController animated:YES];
+    }
     // 取得 APNs 标准信息内容
     NSDictionary *aps = [userInfo valueForKey:@"aps"];
 //    NSString *content = [aps valueForKey:@"alert"]; //推送显示的内容
@@ -502,12 +511,6 @@ fetchCompletionHandler:
     
     completionHandler(UIBackgroundFetchResultNewData);
     
-//if (userInfo[@"_j_msgid"]) {
-//        ZYZCTabBarController *mainTab=(ZYZCTabBarController *)self.window.rootViewController;
-//        ZYZCMessageListViewController *msgController=[[ZYZCMessageListViewController alloc]init];
-//        msgController.hidesBottomBarWhenPushed=YES;
-//        [mainTab.selectedViewController pushViewController:msgController animated:YES];
-//    }
 }
 
 #pragma mark ---这个是本地通知的接收
