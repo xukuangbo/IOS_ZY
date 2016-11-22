@@ -44,7 +44,6 @@
 // 通知view
 @property (strong, nonatomic) ZYNewGuiView *notifitionView;
 @property (strong, nonatomic) GuideWindow *guideWindow;
-
 // 处理直播通知
 @property (nonatomic, strong) ZYSystemCommon *systemCommon;
 @property (strong, nonatomic) ZYLiveListModel *liveModel;
