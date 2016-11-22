@@ -70,6 +70,7 @@
      *  获取当地位置
      */
     [self getLocation];
+
     
 }
 /**

@@ -39,7 +39,6 @@
     [self customNavigationView];
     [self setupData];
     [self setupView];
-    
     // Do any additional setup after loading the view.
 }
 

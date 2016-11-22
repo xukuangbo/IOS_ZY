@@ -290,7 +290,9 @@
     if (!_guideWindow && ![ZYGuideManager getGuideStartZhongchou]) {
         CGSize size = CGSizeMake([UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
         _guideWindow = [[GuideWindow alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
-    } else {
+    } else if ([ZYGuideManager getGuideStartZhongchou] && _guideWindow) {
+        _guideWindow.frame = CGRectMake(0, KSCREEN_H - 49 - 60, ScreenWidth - 20, 50);
+    } else if ([ZYGuideManager getGuideStartZhongchou] && !_guideWindow) {
         _guideWindow = [[GuideWindow alloc] initWithFrame:CGRectMake(0, KSCREEN_H - 49 - 60, ScreenWidth - 20, 50)];
     }
     return _guideWindow;
